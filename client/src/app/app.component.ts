@@ -1,4 +1,9 @@
-import { Component } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule, Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { HeaderComponent } from './components/header.component';
+import { routing, appRoutingProviders } from './app.routing';
 
 @Component({
   selector: 'app-root',
@@ -8,3 +13,19 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'app';
 }
+
+@NgModule({
+    declarations: [
+        AppComponent,
+        HeaderComponent
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpModule,
+        routing
+    ],
+    providers: [appRoutingProviders],
+    bootstrap: [AppComponent]
+})
+export class AppModule { }
