@@ -1,0 +1,30 @@
+.barra-fondo {
+  background-color: rgba(209,209,209,0.3);
+  margin-top: 15px;
+  padding: 10px 0px;
+}
+
+.top-nav {
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.top-nav li {
+  display: inline-block;
+}
+
+.top-nav li a {
+  display: block;
+  padding: 0px 10px;
+  color: #5B5B5B;
+}
+
+.top-nav li a:hover {
+  text-decoration: none;
+  color: #1b1a1a;
+}
+
+.border-left {
+  border-left: 1px solid;
+}

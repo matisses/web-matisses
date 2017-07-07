@@ -4,7 +4,7 @@
     "license": "MIT",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve",
+        "start": "ng serve --host=192.168.5.189",
         "build": "ng build",
         "test": "ng test",
         "lint": "ng lint",
@@ -27,6 +27,7 @@
         "connect-multiparty": "^2.0.0",
         "core-js": "^2.4.1",
         "express": "^4.15.3",
+        "jquery": "^3.2.1",
         "jwt-simple": "^0.5.1",
         "moment": "^2.18.1",
         "rxjs": "^5.1.0",

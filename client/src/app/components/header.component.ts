@@ -3,7 +3,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
     selector: 'matisses-header',
-    templateUrl: '../views/header.html'
+    templateUrl: '../views/header.html',
+    styleUrls: ['../../assets/css/header.component.css']
 })
 
 export class HeaderComponent implements OnInit {
