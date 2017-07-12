@@ -1,12 +1,52 @@
-{{title}}
-<ul>
-  <li>
-    recomendado 1
-  </li>
-  <li>
-    recomendado 2
-  </li>
-  <li>
-    recomendado 3
-  </li>
-</ul>
+<div class="container-fluid padding-0">
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <h3 class="bold grey">Recomendados</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <!-- Indicators
+        <ol class="carousel-indicators">
+          <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+          <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+          <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+        </ol>-->
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+
+          <div class="item active">
+            <div class="row text-center">
+              <div class="col-xs-3">1</div>
+              <div class="col-xs-3">2</div>
+              <div class="col-xs-3">3</div>
+              <div class="col-xs-3">4</div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="row text-center">
+              <div class="col-xs-3">5</div>
+              <div class="col-xs-3">6</div>
+              <div class="col-xs-3">7</div>
+              <div class="col-xs-3">8</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+          <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+          <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

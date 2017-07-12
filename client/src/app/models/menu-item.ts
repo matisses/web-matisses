@@ -1,4 +1,5 @@
 export class MenuItem {
+  public codigo: string;
   public nombre: string;
   public children:Array<MenuItem>;
 
@@ -6,14 +7,16 @@ export class MenuItem {
 
   }
 
-  public newMenuItem(nombre){
+  public newMenuItem(codigo, nombre){
     let menuItem = new MenuItem();
+    menuItem.codigo = codigo;
     menuItem.nombre = nombre;
     return menuItem;
   }
 
-  public newMenuItemWithChildren(nombre:string, children:Array<MenuItem>){
+  public newMenuItemWithChildren(codigo:string, nombre:string, children:Array<MenuItem>){
     let menuItem = new MenuItem();
+    menuItem.codigo = codigo;
     menuItem.nombre = nombre;
     menuItem.children = children;
     return menuItem;

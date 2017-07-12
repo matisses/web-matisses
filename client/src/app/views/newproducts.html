@@ -1,19 +1,30 @@
-{{title}}
-<ul>
-  <li *ngFor="let item of items">
-    {{item.nombre}}
-    {{item.precio | number:0}}
-    {{item.referencia}}
-  </li>
-</ul>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste sit veniam, commodi laborum porro voluptates deserunt facere, nobis explicabo temporibus velit quasi magnam. Optio aliquid tempora delectus, sint voluptate quas?</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste sit veniam, commodi laborum porro voluptates deserunt facere, nobis explicabo temporibus velit quasi magnam. Optio aliquid tempora delectus, sint voluptate quas?</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste sit veniam, commodi laborum porro voluptates deserunt facere, nobis explicabo temporibus velit quasi magnam. Optio aliquid tempora delectus, sint voluptate quas?</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste sit veniam, commodi laborum porro voluptates deserunt facere, nobis explicabo temporibus velit quasi magnam. Optio aliquid tempora delectus, sint voluptate quas?</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste sit veniam, commodi laborum porro voluptates deserunt facere, nobis explicabo temporibus velit quasi magnam. Optio aliquid tempora delectus, sint voluptate quas?</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste sit veniam, commodi laborum porro voluptates deserunt facere, nobis explicabo temporibus velit quasi magnam. Optio aliquid tempora delectus, sint voluptate quas?</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste sit veniam, commodi laborum porro voluptates deserunt facere, nobis explicabo temporibus velit quasi magnam. Optio aliquid tempora delectus, sint voluptate quas?</p>
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste sit veniam, commodi laborum porro voluptates deserunt facere, nobis explicabo temporibus velit quasi magnam. Optio aliquid tempora delectus, sint voluptate quas?</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste sit veniam, commodi laborum porro voluptates deserunt facere, nobis explicabo temporibus velit quasi magnam. Optio aliquid tempora delectus, sint voluptate quas?</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste sit veniam, commodi laborum porro voluptates deserunt facere, nobis explicabo temporibus velit quasi magnam. Optio aliquid tempora delectus, sint voluptate quas?</p>
+
+<div class="container-fluid padding-0">
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <h3 class="bold grey">Productos Nuevos</h3>
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col-xs-4" *ngFor="let item of items">
+      <div class="row">
+        <div class="col-xs-12">
+          <img src="assets/images/nuevos/{{item.codigo}}.jpg" class="img-responsive" alt="">
+        </div>
+      </div>
+      <br/>
+      <div class="row">
+        <div class="col-xs-10">
+          <p class="medium">{{item.nombre}}</p>
+          <h4>$ {{item.precio | number:0}}</h4>
+          <p class="medium cursor-pointer"><span class="icon-shopping-cart carrito"> </span> <em>AGREGAR AL CARRITO</em></p>
+          <p class="medium cursor-pointer"><u>Descubre más</u></p>
+        </div>
+        <div class="col-xs-2">
+          <span class="glyphicon glyphicon-heart-empty wish-list"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

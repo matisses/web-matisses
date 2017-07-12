@@ -3,6 +3,12 @@
   font-family: 'Quicksand', sans-serif;
 }
 
+/*estilo para el contenedor-fluid*/
+.padding-0 {
+  padding: 0;
+}
+/*estilo para el contenedor-fluid*/
+
 .light {
   font-weight: 300;
 }
@@ -15,4 +21,13 @@
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.grey {
+  color: #5b5b5b;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: none;
 }

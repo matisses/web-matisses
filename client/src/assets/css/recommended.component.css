@@ -1,0 +1,13 @@
+h3::before {
+  content: '- ';
+  position: absolute;
+  top: 50px;
+  height: 5px;
+  width: 25px;
+  color: transparent;
+  background-color: #5B5B5B;
+}
+
+.carousel-control.right, .carousel-control.left {
+  background-image: none ;
+}

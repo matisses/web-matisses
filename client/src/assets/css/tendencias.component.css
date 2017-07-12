@@ -1,3 +1,13 @@
+h3::before {
+  content: '- ';
+  position: absolute;
+  top: 50px;
+  height: 5px;
+  width: 25px;
+  color: transparent;
+  background-color: #5B5B5B;
+}
+
 .compra-ya {
   border: 1px solid #5B5B5B;
   cursor: pointer;

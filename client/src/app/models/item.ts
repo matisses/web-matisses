@@ -1,4 +1,5 @@
 export class Item {
+  public codigo: string;
   public name: string;
   public referencia: string;
   public refCorta: string;
@@ -21,13 +22,12 @@ export class Item {
 
   }
 
-  public newItem(nombre, referencia, precio){
+  public newItem(codigo, nombre, precio){
 
     let item = new Item();
     item.nombre = nombre;
-    item.referencia = referencia;
+    item.codigo = codigo;
     item.precio = precio;
     return item;
   }
-
 }

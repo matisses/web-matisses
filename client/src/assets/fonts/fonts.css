@@ -61,7 +61,6 @@
 }
 .icon-shopping-cart:before {
   content: "\e908";  
-  font-size: 25px;
 }
 .icon-truck:before {
   content: "\e909";
