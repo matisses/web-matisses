@@ -12,11 +12,18 @@ h3::before {
   border: 1px solid #5B5B5B;
   cursor: pointer;
   color: #5B5B5B;
-  padding: 5px;
+  padding: 5px 10px;
   font-weight: 700;
   font-style: italic;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+  background-color: transparent;
+  margin-bottom: 20px;
+}
+
+.compra-ya:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.compra-ya:hover {
+  background-color: #ECECEC;
 }

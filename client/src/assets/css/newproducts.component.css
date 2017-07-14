@@ -42,33 +42,76 @@ h4 {
   text-align: center;
 }
 
+
 /* Estilos carousel */
 
-section {
+.right, .left {
+  position: absolute;
+  margin-top: 20%;
+  padding: 10px;
+  background-color: #ECECEC;
+  color: #5B5B5B;
+  cursor: pointer;
+  display: none;
+  z-index: 1;
+}
+
+.left {
+  left: 0;
+  border-radius: 0% 30% 30% 0%;
+}
+
+.right {
+  right: 0;
+  border-radius: 30% 0% 0% 30%;
+}
+
+.section ul {
+  list-style: none;
+  padding-left: 0px;
+  width: 100%;
+  position: relative;
+  left: 0px;
+}
+
+.section ul li {
+  display: inline-block;
+  /*width: 290px;*/
+  width: 33%;
+  text-align: center;
+  padding: 0px 5px;
+}
+
+.section {
   overflow-y: hidden;
   position: relative;
-  text-align: center;
   white-space: nowrap;
-  width: 100%;
+  /*width: 100%;*/
 }
 
 ::-webkit-scrollbar, ::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-button, ::-webkit-scrollbar-corner {
-  opacity: 1;
-}
-
-.article {
-  display: inline-block;
-  max-width: 33%;
+  display: none;
 }
 
 @media screen and (max-width: 900px) {
   .article {
     max-width: 50%;
   }
+  .right, .left {
+    display: block;
+  }
 }
 
 @media screen and (max-width: 630px) {
+  .section {
+    text-align: right;
+  }
   .article {
     max-width: 100%;
+    padding: 0px 5px;
+  }
+  .right, .left {
+    display: block;
+    margin-top: 30%;
   }
 }

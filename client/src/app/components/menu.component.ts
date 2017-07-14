@@ -12,14 +12,12 @@ import { MenuItem } from '../models/menu-item';
   animations: [
     trigger('menuAnimation', [
       state('shown', style({
-        display: 'block',
-        opacity: '1'
+        display: 'block'
       })),
       state('hidden', style({
-        display: 'none',
-        opacity: '0'
+        display: 'none'
       })),
-      transition('shown => hidden', animate('300ms ease-out')),
+      transition('shown => hidden', animate('100ms ease-out')),
       transition('hidden => shown', animate('300ms ease-out')),
     ]),
     trigger('overlayAnimation', [
@@ -29,8 +27,8 @@ import { MenuItem } from '../models/menu-item';
       state('hidden', style({
         display: 'none',
       })),
-      transition('shown => hidden', animate('050ms ease-out')),
-      transition('hidden => shown', animate('050ms ease-out')),
+      transition('shown => hidden', animate('100ms ease-out')),
+      transition('hidden => shown', animate('300ms ease-out')),
     ])
   ]
 })

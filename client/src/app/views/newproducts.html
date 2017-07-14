@@ -5,86 +5,33 @@
     </div>
   </div>
   <br/>
-  <section>
-    <div class="article">
-      <div class="row">
-        <div class="col-xs-10 col-xs-offset-1">
-          <img src="assets/images/nuevos/22600000000000000041.jpg" class="img-responsive" alt="">
+  <a class="left" href="javascript:void(0);" onclick="scroll(294, 3)">
+    <span class="glyphicon glyphicon-menu-left"></span>
+  </a>
+  <a class="right" href="javascript:void(0);" onclick="scroll(-294, 3)">
+    <span class="glyphicon glyphicon-menu-right"></span>
+  </a>
+  <div class="section" >
+    <ul id="scrollbar">
+      <li *ngFor="let item of items">
+        <div class="row">
+          <div class="col-xs-10 col-xs-offset-1">
+            <img src="assets/images/nuevos/{{item.referencia}}.jpg" class="img-responsive" alt="">
+          </div>
         </div>
-      </div>
-      <br/>
-      <div class="row">
-        <div class="col-xs-10 text-left">
-          <p class="medium nombre-producto">Plato de carga</p>
-          <h4>$ 1.000.000</h4>
-          <p class="medium agregar"><span class="icon-shopping-cart carrito"> </span> <em>AGREGAR AL CARRITO</em></p>
-          <p class="medium agregar"><u>Descubre más</u></p>
+        <br/>
+        <div class="row">
+          <div class="col-xs-10 text-left">
+            <p class="medium nombre-producto">{{item.nombre}}</p>
+            <h4>$ {{item.precio | number:0}}</h4>
+            <p class="medium agregar"><span class="icon-shopping-cart carrito"> </span> <em>AGREGAR AL CARRITO</em></p>
+            <p class="medium agregar"><u>Descubre más</u></p>
+          </div>
+          <div class="col-xs-2">
+            <span class="glyphicon glyphicon-heart-empty wish-list"></span>
+          </div>
         </div>
-        <div class="col-xs-2">
-          <span class="glyphicon glyphicon-heart-empty wish-list"></span>
-        </div>
-      </div>
-    </div>
-    <div class="article">
-      <div class="row">
-        <div class="col-xs-10 col-xs-offset-1">
-          <img src="assets/images/nuevos/22600000000000000041.jpg" class="img-responsive" alt="">
-        </div>
-      </div>
-      <br/>
-      <div class="row">
-        <div class="col-xs-10 text-left">
-          <p class="medium nombre-producto">Plato de carga</p>
-          <h4>$ 1.000.000</h4>
-          <p class="medium agregar"><span class="icon-shopping-cart carrito"> </span> <em>AGREGAR AL CARRITO</em></p>
-          <p class="medium agregar"><u>Descubre más</u></p>
-        </div>
-        <div class="col-xs-2">
-          <span class="glyphicon glyphicon-heart-empty wish-list"></span>
-        </div>
-      </div>
-    </div>
-    <div class="article">
-      <div class="row">
-        <div class="col-xs-10 col-xs-offset-1">
-          <img src="assets/images/nuevos/22600000000000000041.jpg" class="img-responsive" alt="">
-        </div>
-      </div>
-      <br/>
-      <div class="row">
-        <div class="col-xs-10 text-left">
-          <p class="medium nombre-producto">Plato de carga</p>
-          <h4>$ 1.000.000</h4>
-          <p class="medium agregar"><span class="icon-shopping-cart carrito"> </span> <em>AGREGAR AL CARRITO</em></p>
-          <p class="medium agregar"><u>Descubre más</u></p>
-        </div>
-        <div class="col-xs-2">
-          <span class="glyphicon glyphicon-heart-empty wish-list"></span>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!--
-  <div class="row">
-    <div class="col-xs-10 col-xs-offset-1 col-md-4 col-md-offset-0" *ngFor="let item of items">
-      <div class="row">
-        <div class="col-xs-12">
-          <img src="assets/images/nuevos/{{item.referencia}}.jpg" class="img-responsive" alt="">
-        </div>
-      </div>
-      <br/>
-      <div class="row">
-        <div class="col-xs-10">
-          <p class="medium nombre-producto">{{item.nombre}}</p>
-          <h4>$ {{item.precio | number:0}}</h4>
-          <p class="medium agregar"><span class="icon-shopping-cart carrito"> </span> <em>AGREGAR AL CARRITO</em></p>
-          <p class="medium agregar"><u>Descubre más</u></p>
-        </div>
-        <div class="col-xs-2">
-          <span class="glyphicon glyphicon-heart-empty wish-list"></span>
-        </div>
-      </div>
-    </div>
+      </li>
+    </ul>
   </div>
- -->
 </div>

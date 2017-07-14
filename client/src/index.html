@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Client</title>
@@ -13,7 +14,26 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
 </head>
+
 <body>
   <app-root></app-root>
+  <script>
+    function scroll(size, maxPositions) {
+      var actualPosStr = document.getElementById('scrollbar').style.left;
+      if (actualPosStr.length === 0) {
+        actualPosStr = '0px';
+      }
+      var actualPos = parseInt(actualPosStr.substring(0, actualPosStr.length - 1));
+      var newPos = actualPos + size;
+      if (newPos > 0) {
+        newPos = -(maxPositions - 1) * size;
+      } else if (Math.abs(newPos) > Math.abs((maxPositions - 1) * size)) {
+        newPos = 0;
+      }
+      console.log(newPos);
+      document.getElementById('scrollbar').style.left = newPos + "px";
+    }
+  </script>
 </body>
+
 </html>
