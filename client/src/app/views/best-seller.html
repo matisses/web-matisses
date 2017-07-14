@@ -1,6 +1,27 @@
-<div>
-  <h3>{{title}}</h3>
-  <p>
-    no hay items en promocion
-  </p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <h3 class="bold grey">Mas vendidos</h3>
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col-xs-3" *ngFor="let item of items">
+      <div class="row">
+        <div class="col-xs-12">
+          <img src="assets/images/mas-vendidos/{{item.referencia}}.jpg" class="img-responsive" alt="">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 text-center">
+          <div class="info">
+            <p class="nombre-producto">{{item.nombre}}</p>
+            <h4>$ {{item.precio | number:0}}</h4>
+            <p class="agregar-carrito light"><span class="icon-shopping-cart carrito"> </span> <em>AGREGAR AL CARRITO</em></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br/>
 </div>

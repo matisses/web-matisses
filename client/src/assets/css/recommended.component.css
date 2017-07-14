@@ -8,6 +8,38 @@ h3::before {
   background-color: #5B5B5B;
 }
 
+.nombre-producto {
+  height: 40px;
+}
+
+.carrito {
+  font-size: 16px !important;
+  color: #750229;
+}
+
+.agregar:hover {
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .carousel-control.right, .carousel-control.left {
-  background-image: none ;
+  background-image: none;
+  color: #000;
+  top: 45%;
+  text-shadow: none;
+  width: auto;
+}
+
+.carousel-control.right {
+  text-align: right;
+}
+
+.carousel-control.left {
+  text-align: left;
+}
+
+h4 {
+  margin-top: 0;
+  margin-bottom: 5px;
 }

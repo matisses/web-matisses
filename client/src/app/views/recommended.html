@@ -1,12 +1,14 @@
-<div class="container-fluid padding-0">
+<div class="container-fluid">
+
   <div class="row">
     <div class="col-xs-12 text-center">
       <h3 class="bold grey">Recomendados</h3>
     </div>
   </div>
+
   <div class="row">
     <div class="col-xs-12">
-      <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+      <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
         <!-- Indicators
         <ol class="carousel-indicators">
           <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
@@ -17,32 +19,34 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
 
-          <div class="item active">
+          <div class="item" [class.active]="activePage === i" *ngFor="let pag of items; let i=index">
             <div class="row text-center">
-              <div class="col-xs-3">1</div>
-              <div class="col-xs-3">2</div>
-              <div class="col-xs-3">3</div>
-              <div class="col-xs-3">4</div>
-            </div>
-          </div>
-
-          <div class="item">
-            <div class="row text-center">
-              <div class="col-xs-3">5</div>
-              <div class="col-xs-3">6</div>
-              <div class="col-xs-3">7</div>
-              <div class="col-xs-3">8</div>
+              <div class="col-xs-3" *ngFor="let item of pag">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <img src="assets/images/recommended/{{item.referencia}}.jpg" class="img-responsive" alt="">
+                  </div>
+                </div>
+                <br/>
+                <div class="row">
+                  <div class="col-xs-12 text-center">
+                    <p class="nombre-producto medium">{{item.nombre}}</p>
+                    <h4 class="bold">$ {{item.precio | number:0}}</h4>
+                    <p class="agregar medium"><span class="icon-shopping-cart carrito"> </span> <em>AGREGAR AL CARRITO</em></p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
         </div>
 
         <!-- Controls -->
-        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev" (click)="cambiarPagina(activePage-1)">
           <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
           <span class="sr-only">Previous</span>
         </a>
-        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next" (click)="cambiarPagina(activePage+1)">
           <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
           <span class="sr-only">Next</span>
         </a>

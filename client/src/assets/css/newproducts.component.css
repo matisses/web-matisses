@@ -8,6 +8,16 @@ h3::before {
   background-color: #5B5B5B;
 }
 
+.nombre-producto {
+  height: 40px;
+}
+
+.agregar:hover {
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .carrito {
   font-size: 16px !important;
   color: #750229;
@@ -30,4 +40,35 @@ h4 {
 .wish-list {
   font-size: 25px;
   text-align: center;
+}
+
+/* Estilos carousel */
+
+section {
+  overflow-y: hidden;
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  width: 100%;
+}
+
+::-webkit-scrollbar, ::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-button, ::-webkit-scrollbar-corner {
+  opacity: 1;
+}
+
+.article {
+  display: inline-block;
+  max-width: 33%;
+}
+
+@media screen and (max-width: 900px) {
+  .article {
+    max-width: 50%;
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .article {
+    max-width: 100%;
+  }
 }

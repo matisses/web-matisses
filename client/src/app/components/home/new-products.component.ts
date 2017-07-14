@@ -14,7 +14,7 @@ export class NewProductsComponent implements OnInit {
     public items:Array<Item>;
 
     constructor(private _route: ActivatedRoute, private _router: Router) {
-        this.title = 'Nuevos productos';
+
     }
 
     ngOnInit() {
@@ -25,8 +25,8 @@ export class NewProductsComponent implements OnInit {
     private inicializarItems(){
 
       this.items = new Array<Item>();
-      this.items.push(new Item().newItem('01', 'Plato principal el cual esta es una prueba', 89000));
-      this.items.push(new Item().newItem('02', 'Plato de carga', 400000));
-      this.items.push(new Item().newItem('03', 'Plato de postre', 56000));
+      this.items.push(new Item().newItem('22600000000000000041', 'Plato principal el cual esta es una prueba', 89000));
+      this.items.push(new Item().newItem('22600000000000000043', 'Plato de carga', 400000));
+      this.items.push(new Item().newItem('22600000000000000044', 'Plato de postre', 56000));
     }
 }
