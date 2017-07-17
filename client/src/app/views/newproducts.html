@@ -1,37 +1,59 @@
-<div class="container-fluid padding-0">
+<div class="container-fluid">
   <div class="row">
     <div class="col-xs-12 text-center">
       <h3 class="bold grey">Productos Nuevos</h3>
     </div>
   </div>
   <br/>
-  <a class="left" href="javascript:void(0);" onclick="scroll(294, 3)">
+  <a class="left" (click)="botonLeft()">
     <span class="glyphicon glyphicon-menu-left"></span>
   </a>
-  <a class="right" href="javascript:void(0);" onclick="scroll(-294, 3)">
+  <a class="right" (click)="botonRight()">
     <span class="glyphicon glyphicon-menu-right"></span>
   </a>
-  <div class="section" >
-    <ul id="scrollbar">
-      <li *ngFor="let item of items">
-        <div class="row">
-          <div class="col-xs-10 col-xs-offset-1">
-            <img src="assets/images/nuevos/{{item.referencia}}.jpg" class="img-responsive" alt="">
+    <div class="section">
+        <div class="article" *ngFor="let item of items">
+          <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+              <img src="assets/images/nuevos/{{item.referencia}}.jpg" class="img-responsive" alt="">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-10 text-left">
+              <p class="medium nombre-producto">{{item.nombre}}</p>
+              <h4>$ {{item.precio | number:0}}</h4>
+              <p class="medium agregar"><span class="icon-shopping-cart carrito"> </span> <em>AGREGAR AL CARRITO</em></p>
+              <p class="medium agregar"><u>Descubre más</u></p>
+            </div>
+            <div class="col-xs-2">
+              <span class="glyphicon glyphicon-heart-empty wish-list"></span>
+            </div>
           </div>
         </div>
-        <br/>
-        <div class="row">
-          <div class="col-xs-10 text-left">
-            <p class="medium nombre-producto">{{item.nombre}}</p>
-            <h4>$ {{item.precio | number:0}}</h4>
-            <p class="medium agregar"><span class="icon-shopping-cart carrito"> </span> <em>AGREGAR AL CARRITO</em></p>
-            <p class="medium agregar"><u>Descubre más</u></p>
-          </div>
-          <div class="col-xs-2">
-            <span class="glyphicon glyphicon-heart-empty wish-list"></span>
-          </div>
-        </div>
-      </li>
-    </ul>
   </div>
 </div>
+
+
+<!-- <div class="section" >
+  <ul id="scrollbar">
+    <li *ngFor="let item of items">
+      <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+          <img src="assets/images/nuevos/{{item.referencia}}.jpg" class="img-responsive" alt="">
+        </div>
+      </div>
+      <br/>
+      <div class="row">
+        <div class="col-xs-10 text-left">
+          <p class="medium nombre-producto">{{item.nombre}}</p>
+          <h4>$ {{item.precio | number:0}}</h4>
+          <p class="medium agregar"><span class="icon-shopping-cart carrito"> </span> <em>AGREGAR AL CARRITO</em></p>
+          <p class="medium agregar"><u>Descubre más</u></p>
+        </div>
+        <div class="col-xs-2">
+          <span class="glyphicon glyphicon-heart-empty wish-list"></span>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div> -->

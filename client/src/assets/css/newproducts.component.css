@@ -10,6 +10,7 @@ h3::before {
 
 .nombre-producto {
   height: 40px;
+  white-space: normal;
 }
 
 .agregar:hover {
@@ -40,10 +41,24 @@ h4 {
 .wish-list {
   font-size: 25px;
   text-align: center;
+  cursor: pointer;
 }
 
 
 /* Estilos carousel */
+
+.section {
+  overflow-y: hidden;
+  position: relative;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.article {
+  display: inline-block;
+  width: 33%;
+  padding: 0px 10px;
+}
 
 .right, .left {
   position: absolute;
@@ -66,52 +81,24 @@ h4 {
   border-radius: 30% 0% 0% 30%;
 }
 
-.section ul {
-  list-style: none;
-  padding-left: 0px;
-  width: 100%;
-  position: relative;
-  left: 0px;
-}
-
-.section ul li {
-  display: inline-block;
-  /*width: 290px;*/
-  width: 33%;
-  text-align: center;
-  padding: 0px 5px;
-}
-
-.section {
-  overflow-y: hidden;
-  position: relative;
-  white-space: nowrap;
-  /*width: 100%;*/
-}
-
 ::-webkit-scrollbar, ::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-button, ::-webkit-scrollbar-corner {
   display: none;
 }
 
 @media screen and (max-width: 900px) {
-  .article {
-    max-width: 50%;
-  }
   .right, .left {
     display: block;
+  }
+  .article {
+    width: 50%;
   }
 }
 
 @media screen and (max-width: 630px) {
-  .section {
-    text-align: right;
-  }
   .article {
-    max-width: 100%;
-    padding: 0px 5px;
+    width: 100%;
   }
   .right, .left {
-    display: block;
     margin-top: 30%;
   }
 }

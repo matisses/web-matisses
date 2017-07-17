@@ -18,7 +18,7 @@ import { MenuItem } from '../models/menu-item';
         display: 'none'
       })),
       transition('shown => hidden', animate('100ms ease-out')),
-      transition('hidden => shown', animate('300ms ease-out')),
+      transition('hidden => shown', animate('300ms ease-in')),
     ]),
     trigger('overlayAnimation', [
       state('shown', style({
@@ -28,7 +28,7 @@ import { MenuItem } from '../models/menu-item';
         display: 'none',
       })),
       transition('shown => hidden', animate('100ms ease-out')),
-      transition('hidden => shown', animate('300ms ease-out')),
+      transition('hidden => shown', animate('300ms ease-in')),
     ])
   ]
 })

@@ -1,0 +1,41 @@
+div.scrollmenu {
+    background-color: #333;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+div.scrollmenu a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+}
+
+div.scrollmenu a:hover {
+    background-color: #777;
+}
+
+.boton-left {
+  position: fixed;
+  z-index: 1;
+  padding: 10px;
+  background-color: rgb(16, 60, 252);
+  color: #FFF;
+  border-radius: 5%;
+  cursor: pointer;
+  margin-left: 10px;
+  left: 0;
+}
+
+.boton-right {
+  position: fixed;
+  z-index: 1;
+  padding: 10px;
+  background-color: rgb(16, 60, 252);
+  color: #FFF;
+  border-radius: 5%;
+  cursor: pointer;
+  margin-left: 10px;
+  right: 0;
+}
