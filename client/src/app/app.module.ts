@@ -17,7 +17,9 @@ import { NewProductsComponent } from './components/home/new-products.component';
 import { BestSellerComponent } from './components/home/best-seller.component';
 import { HomePrincipalComponent } from './components/home/principal.component';
 import { TendenciasComponent } from './components/home/tendencias.component';
-import { JqueryComponent } from './components/prueba-jquery/jquery.component';
+
+//Componentes del footer
+import { FooterComponent } from './components/footer.component';
 
 //Directivas
 import { StickyMenuDirective } from './directives/sticky.directive';
@@ -46,7 +48,7 @@ import { AppComponent } from './app.component';
     StickyBgMenuDirective,
     StickySubMenuDirective,
     TendenciasComponent,
-    JqueryComponent
+    FooterComponent
   ],
   imports: [
     BrowserModule,
