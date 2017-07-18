@@ -2,33 +2,37 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { StickyMenuDirective } from '../directives/sticky.directive';
-import { MenuItem } from '../models/menu-item';
+import { StickyMenuDirective } from '../../../directives/sticky.directive';
+import { MenuItem } from '../../../models/menu-item';
 
 @Component({
   selector: 'matisses-menu',
-  templateUrl: '../views/menu.html',
-  styleUrls: ['../../assets/css/menu.component.css'],
+  templateUrl: 'menu.html',
+  styleUrls: ['menu.component.css'],
   animations: [
     trigger('menuAnimation', [
       state('shown', style({
-        display: 'block'
+        display: 'block',
+        opacity: '1',
       })),
       state('hidden', style({
-        display: 'none'
+        display: 'none',
+        opacity: '0',
       })),
-      transition('shown => hidden', animate('100ms ease-out')),
-      transition('hidden => shown', animate('300ms ease-in')),
+      transition('shown => hidden', animate('400ms ease-out')),
+      transition('hidden => shown', animate('300ms ease-out')),
     ]),
     trigger('overlayAnimation', [
       state('shown', style({
         display: 'block',
+        opacity: '0.5'
       })),
       state('hidden', style({
         display: 'none',
+        opacity: '0'
       })),
-      transition('shown => hidden', animate('100ms ease-out')),
-      transition('hidden => shown', animate('300ms ease-in')),
+      transition('shown => hidden', animate('200ms ease-out')),
+      transition('hidden => shown', animate('800ms ease-in')),
     ])
   ]
 })

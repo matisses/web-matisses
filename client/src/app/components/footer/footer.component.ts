@@ -3,8 +3,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
     selector: 'matisses-footer',
-    templateUrl: '../views/footer.html',
-    styleUrls: ['../../assets/css/footer.component.css']
+    templateUrl: 'footer.html',
+    styleUrls: ['footer.component.css']
 })
 
 export class FooterComponent implements OnInit {

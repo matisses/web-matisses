@@ -5,8 +5,8 @@ import { Item } from '../../models/item';
 
 @Component({
     selector: 'best-seller',
-    templateUrl: '../../views/best-seller.html',
-    styleUrls: ['../../../assets/css/best-seller.component.css']
+    templateUrl: 'best-seller.html',
+    styleUrls: ['best-seller.component.css']
 })
 
 export class BestSellerComponent implements OnInit {

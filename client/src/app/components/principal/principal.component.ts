@@ -4,8 +4,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
     selector: 'principal',
-    templateUrl: '../../views/home-principal.html',
-    styleUrls: ['../../../assets/css/principal.component.css']
+    templateUrl: 'home-principal.html',
+    styleUrls: ['principal.component.css']
 })
 
 export class HomePrincipalComponent implements OnInit {

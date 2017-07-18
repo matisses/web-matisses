@@ -3,8 +3,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
     selector: 'top-banner',
-    templateUrl: '../views/top-banner.html',
-    styleUrls: ['../../assets/css/top-banner.component.css']
+    templateUrl: 'top-banner.html',
+    styleUrls: ['top-banner.component.css']
 })
 
 export class TopBannerComponent implements OnInit {

@@ -3,8 +3,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
     selector: 'matisses-home',
-    templateUrl: '../../views/home.html',
-    styleUrls: ['../../../assets/css/home.component.css']
+    templateUrl: 'home.html',
+    styleUrls: ['home.component.css']
 })
 
 export class HomeComponent implements OnInit {

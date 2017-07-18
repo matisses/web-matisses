@@ -8,8 +8,8 @@ declare var $: any;
 
 @Component({
   selector: 'recommended',
-  templateUrl: '../../views/recommended.html',
-  styleUrls: ['../../../assets/css/recommended.component.css']
+  templateUrl: 'recommended.html',
+  styleUrls: ['recommended.component.css']
 })
 
 export class RecommendedComponent implements OnInit {

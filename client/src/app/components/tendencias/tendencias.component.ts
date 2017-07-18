@@ -3,8 +3,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
     selector: 'tendencias',
-    templateUrl: '../../views/tendencias.html',
-    styleUrls: ['../../../assets/css/tendencias.component.css']
+    templateUrl: 'tendencias.html',
+    styleUrls: ['tendencias.component.css']
 })
 
 export class TendenciasComponent implements OnInit {

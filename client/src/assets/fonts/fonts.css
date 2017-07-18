@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?c8hpc0');
-  src:  url('fonts/icomoon.eot?c8hpc0#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?c8hpc0') format('truetype'),
-    url('fonts/icomoon.woff?c8hpc0') format('woff'),
-    url('fonts/icomoon.svg?c8hpc0#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?rzf5b5');
+  src:  url('fonts/icomoon.eot?rzf5b5#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?rzf5b5') format('truetype'),
+    url('fonts/icomoon.woff?rzf5b5') format('woff'),
+    url('fonts/icomoon.svg?rzf5b5#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,61 +24,58 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-360:before {
+  content: "\e901";
+  color: #4c4c4c;
+}
+.icon-box:before {
+  content: "\e902";
+}
+.icon-clock:before {
+  content: "\e903";
+  color: #4c4c4c;
+}
+.icon-eye:before {
+  content: "\e904";
+  color: #4c4c4c;
+}
+.icon-mail:before {
+  content: "\e905";
+  color: #4c4c4c;
+}
+.icon-mapa:before {
+  content: "\e906";
+}
+.icon-medal:before {
+  content: "\e90a";
+}
+.icon-print:before {
+  content: "\e90b";
+  color: #4c4c4c;
+}
+.icon-zoom:before {
+  content: "\e90c";
+}
+.icon-houzz:before {
+  content: "\e90d";
+}
 .icon-gift-box:before {
   content: "\e900";
-}
-.icon-houzz .path1:before {
-  content: "\e901";
-  color: rgb(64, 64, 65);
-}
-.icon-houzz .path2:before {
-  content: "\e902";
-  margin-left: -1em;
-  color: rgb(64, 64, 65);
-}
-.icon-houzz .path3:before {
-  content: "\e903";
-  margin-left: -1em;
-  color: rgb(88, 88, 91);
-}
-.icon-houzz .path4:before {
-  content: "\e904";
-  margin-left: -1em;
-  color: rgb(64, 64, 65);
-}
-.icon-houzz .path5:before {
-  content: "\e905";
-  margin-left: -1em;
-  color: rgb(64, 64, 65);
-}
-.icon-houzz .path6:before {
-  content: "\e906";
-  margin-left: -1em;
-  color: rgb(255, 255, 255);
 }
 .icon-matisses:before {
   content: "\e907";
 }
 .icon-shopping-cart:before {
-  content: "\e908";  
+  content: "\e908";
 }
 .icon-truck:before {
   content: "\e909";
-  font-size: 16px;
-  position: relative;
-  top: 2px;
+}
+.icon-film:before {
+  content: "\e913";
 }
 .icon-credit-card:before {
   content: "\e93f";
-}
-.icon-bubble:before {
-  content: "\e96b";
-}
-.icon-bubbles:before {
-  content: "\e96c";
-}
-.icon-bubbles2:before {
-  content: "\e96d";
 }
 .icon-user:before {
   content: "\e971";
