@@ -216,3 +216,27 @@
     margin-top: 15px;
   }
 }
+
+
+
+
+/* Estilos menú responsive */
+
+.bg-mobile {
+  padding: 10px 0px;
+  background-color: rgba(245, 245, 245, 1);
+  position: fixed;
+  z-index: 5;
+  width: 100%;
+  color: #5B5B5B;
+  border-bottom: 1px solid #5B5B5B;
+}
+
+.logo span {
+  font-size: 25px;
+}
+
+.menu-mobile {
+    font-size: 20px;
+    margin-left: 10px;
+}
