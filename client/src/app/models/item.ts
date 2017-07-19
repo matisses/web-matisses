@@ -1,32 +1,31 @@
 export class Item {
-  public name: string;
-  public referencia: string;
-  public refCorta: string;
-  public refProveedor: string;
-  public nombre: string;
-  public descripcion: string;
-  public modelo: string;
-  public fechaNuevo: Date;
-  public activo: boolean;
-  public dimensiones: {
-      alto: number,
-      ancho: number,
-      profundo: number
+  //public name: string;
+  public itemcode: string;
+  public shortitemcode: string;
+  //public refProveedor: string;
+  public itemname: string;
+  public description: string;
+  public model: string;
+  public newFrom: Date;
+  public active: boolean;
+  public dimensions: {
+    depth: number,
+    height: number,
+    width: number
   };
-  public peso: number;
-  public precio: number;
-  public subgrupo: string;
+  public weight: number;
+  public price: number;
+  public subgroupcode: string;
 
-  constructor(){
+  constructor() {
 
   }
 
-  public newItem(referencia, nombre, precio){
-
+  public newItem(itemcode, itemname, price) {
     let item = new Item();
-    item.nombre = nombre;
-    item.referencia = referencia;
-    item.precio = precio;
+    item.itemname = itemname;
+    item.itemcode = itemcode;
+    item.price = price;
     return item;
   }
 }
