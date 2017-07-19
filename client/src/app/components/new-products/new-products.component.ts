@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Item } from '../../models/item';
-
+import { ItemService } from '../../services/item.service';
 //declare var jquery: any;
 declare var $: any;
 
 @Component({
   selector: 'new-products',
   templateUrl: 'newproducts.html',
+  providers: [ItemService],
   styleUrls: ['newproducts.component.css']
 })
 
@@ -17,7 +18,7 @@ export class NewProductsComponent implements OnInit {
   public items: Array<Item>;
   public articuloActivo: number = 1;
 
-  constructor(private _route: ActivatedRoute, private _router: Router) {
+  constructor(private _itemService: ItemService, private _route: ActivatedRoute, private _router: Router) {
 
   }
 
@@ -27,11 +28,32 @@ export class NewProductsComponent implements OnInit {
   }
 
   private inicializarItems() {
-
     this.items = new Array<Item>();
-    this.items.push(new Item().newItem('22600000000000000041', 'Plato principal el cual esta es una prueba esta es una prueba', 89000));
-    this.items.push(new Item().newItem('22600000000000000043', 'Plato de carga', 400000));
-    this.items.push(new Item().newItem('22600000000000000044', 'Plato de postre', 56000));
+    this._itemService.listNewItems().subscribe(
+      response => {
+        if (response.result.length > 3) {
+          let pos1 = (Math.random() * response.result.length) | 0;
+          let pos2 = (Math.random() * response.result.length) | 0;
+          let pos3 = (Math.random() * response.result.length) | 0;
+
+          while (pos1 === pos2) {
+            pos2 = (Math.random() * response.result.length) | 0;
+          }
+          while (pos1 === pos3 || pos2 == pos3) {
+            pos3 = (Math.random() * response.result.length) | 0;
+          }
+
+          this.items.push(response.result[pos1]);
+          this.items.push(response.result[pos2]);
+          this.items.push(response.result[pos3]);
+        } else {
+          this.items = response.result;
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   mostrarArticulo(articulo) {
@@ -40,13 +62,13 @@ export class NewProductsComponent implements OnInit {
 
   public botonRight() {
     console.log('has dado click al botón right');
-    $('.section').animate({scrollLeft : '+=300'}, 500);
+    $('.section').animate({ scrollLeft: '+=300' }, 500);
     return false;
   }
 
   public botonLeft() {
     console.log('has dado click al botón right');
-    $('.section').animate({scrollLeft : '-=300'}, 500);
+    $('.section').animate({ scrollLeft: '-=300' }, 500);
     return false;
   }
 
