@@ -1,83 +1,91 @@
-.top-footer {
-  list-style: none;
-  border-bottom: 1px solid #5B5B5B;
-  margin-bottom: 15px;
-}
-
-.top-footer ul {
-  padding-left: 0;
-}
-
-.top-footer li {
+.info-uno p {
   display: inline-block;
-}
-
-.top-footer li a {
-  display: block;
+  font-weight: 500;
   padding: 0px 10px;
   color: #5B5B5B;
+  cursor: pointer;
 }
 
-.top-footer li a:hover {
+.info-uno, .info-dos {
+  margin-top: 30px;
+}
+
+.info-dos ul, .info-dos li {
+  list-style: none;
+  text-align: right;
   text-decoration: none;
-  color: #1b1a1a;
+  display: inline-block;
+  cursor: pointer;
+  padding: 0px 10px;
 }
 
 .border-left {
   border-left: 1px solid;
 }
 
+hr {
+  border-color: #5C5C5C;
+  margin: 0px;
+}
+
 .footer-main {
-  min-height: 50px;
+  margin: 10px 0px;
+  color: #5B5B5B;
 }
 
 .footer-main p {
-  margin-bottom: 0;
+  margin-top: 20px;
+  text-align: center;
 }
 
-.newsletter-group {
-  border: 1px solid #EAEAEA;
-  margin-top: 15px;
+.footer-main img {
+  margin: 0 auto;
 }
 
-.input-mail {
-  width: 100%;
-  height: 34px;
-  padding-left: 10px;
-  border: none;
-}
-
-.icon-chevron {
-  background-color: transparent;
-  color: #5B5B5B;
-}
-
-.footer-main ul {
-  padding-left: 0;
-  margin-top: 25px;
-}
-
-.footer-main ul li {
+.footer-main ul, .footer-main li {
+  list-style: none;
+  text-align: right;
   text-decoration: none;
   display: inline-block;
-  padding: 0 6px;
-}
-
-.footer-main ul li a {
-  color: #5B5B5B;
+  cursor: pointer;
+  padding: 0px 6px;
   font-size: 30px;
-  text-decoration: none;
+  margin-top: 6px;
 }
 
-hr {
-  margin-bottom: 10px;
-  border: 1px solid #A9A9A9;
-}
-
-.inline-block {
-  display: inline-block;
+.end-footer {
+  margin: 20px 0px 10px 0px;
 }
 
 .end-footer p {
-  padding: 0 10px;
+  display: inline-block;
+  padding: 0px 9px;
+}
+
+@media screen and (max-width: 991px) {
+  footer {
+    background-color: rgba(209,209,209,0.3);
+  }
+  .info-dos ul, .info-dos li {
+    display: list-item;
+    text-align: center;
+  }
+  .info-dos li {
+    padding: 10px;
+  }
+  .bordering {
+    border-top: 1px solid #FFF;
+    border-bottom: 1px solid #FFF;
+  }
+  hr {
+    border-color: #FFF;
+  }
+  .end-footer p {
+    display: list-item;
+    list-style: none;
+    text-align: center;
+  }
+  .border-left {
+    border: none;
+  }
 }
