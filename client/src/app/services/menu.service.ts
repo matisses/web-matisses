@@ -1,0 +1,28 @@
+import { Injectable } from '@angular/core';
+import { Http, Response, Headers } from '@angular/http';
+import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
+import { GLOBAL } from './global';
+
+@Injectable()
+export class MenuItemService {
+  public url: string;
+
+  constructor(private _http: Http) {
+    this.url = GLOBAL.url;
+  }
+
+  list(parentId) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    if (parentId != null) {
+      return this._http.get(this.url + 'menuitem/list/' + parentId, { headers: headers })
+        .map(res => res.json());
+    } else {
+      return this._http.get(this.url + 'menuitem/list/', { headers: headers })
+        .map(res => res.json());
+    }
+  }
+
+}
