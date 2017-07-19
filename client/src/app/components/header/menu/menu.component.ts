@@ -5,10 +5,13 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { StickyMenuDirective } from '../../../directives/sticky.directive';
 import { MenuItem } from '../../../models/menu-item';
 
+import { MenuItemService } from '../../../services/menu.service';
+
 @Component({
   selector: 'matisses-menu',
   templateUrl: 'menu.html',
   styleUrls: ['menu.component.css'],
+  providers: [MenuItemService],
   animations: [
     trigger('menuAnimation', [
       state('shown', style({
@@ -43,7 +46,7 @@ export class MenuComponent implements OnInit {
   public state: string = 'hidden';
   public stateOverlay: string = 'hidden';
 
-  constructor(private _route: ActivatedRoute, private _router: Router) {
+  constructor(private _menuService: MenuItemService, private _route: ActivatedRoute, private _router: Router) {
     this.padreSeleccionado = new MenuItem();
   }
 
@@ -57,11 +60,42 @@ export class MenuComponent implements OnInit {
       //this.padreSeleccionado = new MenuItem();
     } else {
       this.padreSeleccionado = padreSeleccionado;
-      if (this.state === 'hidden') {
+      if (typeof this.padreSeleccionado.children == 'undefined' || this.padreSeleccionado.children.length === 0) {
+        //cargar hijos de base de datos
+        this.cargarHijos(this.padreSeleccionado, true);
+      } else if (this.state === 'hidden' && this.padreSeleccionado.children.length > 0) {
         this.toggleState('shown');
         this.toggleStateOverlay('shown');
       }
     }
+  }
+
+  private cargarHijos(menuItem, esPadre) {
+    this._menuService.list(menuItem._id).subscribe(
+      response => {
+        for (let i = 0; i < response.result.length; i++) {
+          menuItem.children.push(new MenuItem().newMenuItemWithRoute(
+            response.result[i]._id,  //id
+            response.result[i].code, //code
+            response.result[i].name, //name
+            response.result[i].route //route
+          ));
+          this.cargarHijos(menuItem.children[menuItem.children.length - 1], false);
+        }
+        if (esPadre) {
+          if (menuItem.children.length > 0) {
+            this.toggleState('shown');
+            this.toggleStateOverlay('shown');
+          } else {
+            this.toggleState('hidden');
+            this.toggleStateOverlay('hidden');
+          }
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   public cerrarOverlay() {
@@ -77,47 +111,21 @@ export class MenuComponent implements OnInit {
   private inicializarMenu() {
     this.menuItems = new Array();
 
-    let grandChildren = new Array();
-    grandChildren.push(new MenuItem().newMenuItem('001','2 puestos'));
-    grandChildren.push(new MenuItem().newMenuItem('002','3 puestos'));
-    grandChildren.push(new MenuItem().newMenuItem('003','esquinero'));
-
-    let children = new Array();
-    children.push(new MenuItem().newMenuItemWithChildren('01','Sofas', grandChildren));
-
-    let grandChildren2 = new Array();
-    grandChildren2.push(new MenuItem().newMenuItem('004','King'));
-    grandChildren2.push(new MenuItem().newMenuItem('005','Queen'));
-    grandChildren2.push(new MenuItem().newMenuItem('006','Cunas'));
-    grandChildren2.push(new MenuItem().newMenuItem('007','Mesas de noche'));
-
-    children.push(new MenuItem().newMenuItemWithChildren('02','Habitación', grandChildren2));
-
-
-    children.push(new MenuItem().newMenuItemWithChildren('03','Bar', grandChildren2));
-    children.push(new MenuItem().newMenuItemWithChildren('04','Comedor', grandChildren2));
-    children.push(new MenuItem().newMenuItemWithChildren('05','Mesas', grandChildren2));
-    children.push(new MenuItem().newMenuItemWithChildren('06','Modulares', grandChildren2));
-    children.push(new MenuItem().newMenuItemWithChildren('07','Sillas', grandChildren2));
-
-    this.menuItems.push(new MenuItem().newMenuItemWithChildren('1','Mobiliario', children));
-
-
-    this.menuItems.push(new MenuItem().newMenuItem('2','Accesorios'));
-    this.menuItems.push(new MenuItem().newMenuItem('3','Bar y mesa'));
-
-
-    let children2 = new Array();
-    children2.push(new MenuItem().newMenuItem('08','Utensilios de especializados'));
-    children2.push(new MenuItem().newMenuItem('09','Cubiertos'));
-    children2.push(new MenuItem().newMenuItem('10','Cuchillos'));
-    this.menuItems.push(new MenuItem().newMenuItemWithChildren('4','Cocina', children2));
-
-    this.menuItems.push(new MenuItem().newMenuItem('5','Fragancias y velas'));
-    this.menuItems.push(new MenuItem().newMenuItem('6','Gadgets'));
-    this.menuItems.push(new MenuItem().newMenuItem('7','Iliminación'));
-    this.menuItems.push(new MenuItem().newMenuItem('8','Libros'));
-    this.menuItems.push(new MenuItem().newMenuItem('9','Regalos'));
+    this._menuService.list(null).subscribe(
+      response => {
+        for (let i = 0; i < response.result.length; i++) {
+          this.menuItems.push(new MenuItem().newMenuItemWithRoute(
+            response.result[i]._id,  //id
+            response.result[i].code, //code
+            response.result[i].name, //name
+            response.result[i].route //route
+          ));
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   public toggleState(state) {
