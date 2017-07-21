@@ -5,7 +5,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 @Component({
   selector: 'matisses-carrito',
   templateUrl: 'carrito.html',
-  styleUrls: ['../menu.component.css']
+  styleUrls: ['carrito.component.css']
 })
 
 export class CarritoComponent implements OnInit {
