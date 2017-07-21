@@ -2,6 +2,7 @@
   background-color: #FFF;
   position: sticky;
   height: 123px;
+  z-index: 1;
 }
 
 .header {

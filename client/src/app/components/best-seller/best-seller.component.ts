@@ -25,7 +25,7 @@ export class BestSellerComponent implements OnInit {
     private inicializarItems(){
 
       this.items = new Array<Item>();
-      this.items.push(new Item().newItem('23100000000000000496', 'Nombre de producto el cual puede tener mas de 30 caracteres', 56000));
+      this.items.push(new Item().newItem('22400000000000000012', 'Nombre de producto el cual puede tener mas de 30 caracteres', 56000));
       this.items.push(new Item().newItem('23100000000000000495', 'Plato de postre', 56000));
       this.items.push(new Item().newItem('23100000000000000494', 'Plato de carga', 400000));
       this.items.push(new Item().newItem('23100000000000000493', 'Plato principal el cual esta es una prueba', 89000));

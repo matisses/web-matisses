@@ -1,4 +1,36 @@
 <div class="carrito">
-  <span class="icon-shopping-cart carrito"> </span>
-  <span class="badge">{{items}}</span>
+  <span class="icon-shopping-cart carrito" (mouseover)="openResumen()"> </span>
+  <span class="badge">{{number}}</span>
+</div>
+<div id="resumen" class="resumen" (mouseover)="openResumen()" (mouseout)="closeResumen()">
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <br/>
+      <p>Tu carrito contiene <b>({{number}})</b> productos</p>
+    </div>
+  </div>
+  <div class="productos">
+    <div class="row border" *ngFor="let item of items">
+      <div class="col-xs-3">
+        <img src="assets/images/recommended/{{item.itemcode}}.jpg" class="img-responsive" alt="">
+      </div>
+      <div class="col-xs-5">
+        <p><b>{{item.itemname}}</b></p>
+        <p>Cantidad <b>{{number}}</b></p>
+
+      </div>
+      <div class="col-xs-4">
+        <span class="glyphicon glyphicon-trash pull-right"></span>
+        <p>$ {{item.price}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 text-center">
+      <p class="boton">ir al carrito</p>
+    </div>
+    <div class="col-xs-6 text-center">
+      <p class="boton">Ir a pagar</p>
+    </div>
+  </div>
 </div>
