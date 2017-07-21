@@ -19,13 +19,13 @@
             <div class="article" *ngFor="let item of items">
               <div class="row">
                 <div class="col-xs-10 col-xs-offset-1">
-                  <img src="assets/images/recommended/{{item.referencia}}.jpg" class="img-responsive" alt="">
+                  <img src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/images/{{item.itemcode}}_01.jpg" class="img-responsive" alt="">
                 </div>
               </div>
               <div class="row">
                 <div class="col-xs-12 text-center">
-                  <p class="medium nombre-producto">{{item.nombre}}</p>
-                  <h4>$ {{item.precio | number:0}}</h4>
+                  <p class="medium nombre-producto">{{item.itemname}}</p>
+                  <h4>$ {{item.price | number:0}}</h4>
                   <p class="medium agregar"><span class="icon-shopping-cart carrito"> </span> <em>AGREGAR AL CARRITO</em></p>
                 </div>
               </div>
