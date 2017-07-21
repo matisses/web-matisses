@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './components/header/header.component';
 import { TopBannerComponent } from './components/header/top-banner/top-banner.component';
 import { MenuComponent } from './components/header/menu/menu.component';
+import { CarritoComponent } from './components/header/menu/carrito/carrito.component';
 
 //Componentes del cuerpo del home
 import { HomeComponent } from './components/home/home.component';
@@ -48,7 +49,8 @@ import { AppComponent } from './app.component';
     StickySubMenuDirective,
     TendenciasComponent,
     FooterComponent,
-    NewsletterComponent
+    NewsletterComponent,
+    CarritoComponent
   ],
   imports: [
     BrowserModule,
