@@ -17,6 +17,12 @@ import { BestSellerComponent } from './components/best-seller/best-seller.compon
 import { HomePrincipalComponent } from './components/principal/principal.component';
 import { TendenciasComponent } from './components/tendencias/tendencias.component';
 
+//Componentes de la seccion de categorias
+import { CategoryComponent } from './components/category/category.component';
+
+//Componentes de las pagians estáticas
+import { QuienesComponent } from './components/quienes-somos/quienes-somos.component';
+
 //Componentes del footer
 import { FooterComponent } from './components/footer/footer.component';
 import { NewsletterComponent } from './components/footer/newsletter/newsletter.component';
@@ -48,7 +54,9 @@ import { AppComponent } from './app.component';
     StickySubMenuDirective,
     TendenciasComponent,
     FooterComponent,
-    NewsletterComponent
+    NewsletterComponent,
+    CategoryComponent,
+    QuienesComponent
   ],
   imports: [
     BrowserModule,

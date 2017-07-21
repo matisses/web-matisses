@@ -258,20 +258,20 @@
 
 /*cccc*/
 
-.overlay {
+.fondo-menu {
     height: 100%;
     width: 0;
     position: fixed;
-    z-index: 1;
+    z-index: 6;
     top: 0;
     left: 0;
     background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0, 1);
+    background-color: rgba(245, 245, 245, 1);
     overflow-x: hidden;
     transition: 0.5s;
 }
 
-.overlay-content {
+.fondo-menu-content {
     position: relative;
     top: 25%;
     width: 100%;
@@ -279,7 +279,7 @@
     margin-top: 30px;
 }
 
-.overlay a {
+.fondo-menu a {
     padding: 8px;
     text-decoration: none;
     font-size: 36px;
@@ -288,11 +288,11 @@
     transition: 0.3s;
 }
 
-.overlay a:hover, .overlay a:focus {
+.fondo-menu a:hover, .overlay a:focus {
     color: #f1f1f1;
 }
 
-.overlay .closebtn {
+.fondo-menu .closebtn {
     position: absolute;
     top: 20px;
     right: 45px;
