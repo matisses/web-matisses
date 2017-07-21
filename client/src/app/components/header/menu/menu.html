@@ -15,7 +15,6 @@
                   <button class="btn icon-search" type="button"><span class="glyphicon glyphicon-search"></span></button>
                 </span>
                 <input type="text" class="buscar" placeholder="Buscar">
-
               </div>
             </div>
           </div>
@@ -34,33 +33,29 @@
                     <p class="lista-regalos text-center"><span class="icon-gift-box"> </span> Lista de Regalos</p>
                   </div>
                   <div class="col-xs-3 text-left">
-                    <div class="carrito">
-                      <span class="icon-shopping-cart carrito"> </span>
-                      <span class="badge">5</span>
-                    </div>
+                    <matisses-carrito></matisses-carrito>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12 top">
-          <div class="nav medium">
-            <ul>
-              <li class="cursor-pointer" [ngClass]="{'selected' : estaSeleccionado(menuItem.codigo)}" *ngFor="let menuItem of menuItems" (click)="alternarSeleccionPadre(menuItem)" (mouseover)="alternarSeleccionPadre(menuItem)">
-                {{menuItem.nombre}}
-              </li>
-            </ul>
+        <div class="row">
+          <div class="col-xs-12 top">
+            <div class="nav medium">
+              <ul>
+                <li class="cursor-pointer" [ngClass]="{'selected' : estaSeleccionado(menuItem.codigo)}" *ngFor="let menuItem of menuItems" (click)="alternarSeleccionPadre(menuItem)" (mouseover)="alternarSeleccionPadre(menuItem)">
+                  {{menuItem.nombre}}
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<div>
+
   <div class="menu hidden-sm hidden-xs" sticky-submenu [@menuAnimation]="state" *ngIf="padreSeleccionado">
     <div class="container">
       <div class="row">
@@ -77,17 +72,16 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-xs-4">
-          <img src="assets/images/menu/{{padreSeleccionado.codigo}}.jpg" class="img-responsive" alt="">
-          <p class="name-producto-menu">Sarten Ceradur Plus</p>
-          <p class="medium link-producto-menu"><i>Comprar ya</i></p>
+          <div class="col-xs-4">
+            <img src="assets/images/menu/{{padreSeleccionado.codigo}}.jpg" class="img-responsive" alt="">
+            <p class="name-producto-menu">Sarten Ceradur Plus</p>
+            <p class="medium link-producto-menu"><i>Comprar ya</i></p>
+          </div>
         </div>
       </div>
     </div>
+    <div class="overlay cursor-pointer" [@overlayAnimation]="stateOverlay" (mouseover)="cerrarOverlay()"></div>
   </div>
-  <div class="overlay cursor-pointer" [@overlayAnimation]="stateOverlay" (mouseover)="cerrarOverlay()"></div>
-</div>
 
 <!-- Menú responsive -->
 <div id="myNav" class="fondo-menu">
@@ -98,35 +92,35 @@
     <a href="#">Clients</a>
     <a href="#">Contact</a>
   </div>
-</div>
 
-<div class="bg-mobile visible-sm visible-xs">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-xs-3 text-left">
-        <span class="icon-shopping-cart"></span>
-        <span class="badge">5</span>
-      </div>
-      <div class="col-xs-6 text-center">
-        <div class="logo">
-          <span class="icon-matisses"></span>
+  <div class="bg-mobile visible-sm visible-xs">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-3 text-left">
+          <span class="icon-shopping-cart"></span>
+          <span class="badge">5</span>
+        </div>
+        <div class="col-xs-6 text-center">
+          <div class="logo">
+            <span class="icon-matisses"></span>
+          </div>
+        </div>
+        <div class="col-xs-3 text-right">
+          <span class="glyphicon glyphicon-search" role="button" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"></span>
+          <span class="glyphicon glyphicon-menu-hamburger menu-mobile" (click)="openNav()"></span>
         </div>
       </div>
-      <div class="col-xs-3 text-right">
-        <span class="glyphicon glyphicon-search" role="button" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"></span>
-        <span class="glyphicon glyphicon-menu-hamburger menu-mobile" (click)="openNav()"></span>
-      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-10 col-xs-offset-1">
-      <div class="collapse" id="collapseSearch">
-        <div class="search-group">
-          <div class="input-group">
-            <span class="input-group-btn">
+    <div class="row">
+      <div class="col-xs-10 col-xs-offset-1">
+        <div class="collapse" id="collapseSearch">
+          <div class="search-group">
+            <div class="input-group">
+              <span class="input-group-btn">
               <button class="btn icon-search" type="button"><span class="glyphicon glyphicon-search"></span></button>
-            </span>
-            <input type="text" class="buscar" placeholder="Buscar">
+              </span>
+              <input type="text" class="buscar" placeholder="Buscar">
+            </div>
           </div>
         </div>
       </div>
