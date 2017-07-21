@@ -2,7 +2,7 @@
   margin-top: 125px;
 }
 
-@media screen and (max-width: 415px) {
+@media screen and (max-width: 991px) {
   .stuck-body {
     margin-top: 0px;
   }

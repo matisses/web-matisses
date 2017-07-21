@@ -77,7 +77,7 @@ export class MenuComponent implements OnInit {
   }
 
   public estaSeleccionado(codigo) {
-    return this.padreSeleccionado != null && this.padreSeleccionado.codigo === codigo;
+    return this.padreSeleccionado != null && this.padreSeleccionado.codigo === codigo
   }
 
   private inicializarMenu() {
@@ -135,5 +135,13 @@ export class MenuComponent implements OnInit {
   public toggleStateOverlay(stateOverlay) {
     this.stateOverlay = stateOverlay;
   }
+
+  public openNav() {
+    document.getElementById("myNav").style.width = "100%";
+}
+
+  public closeNav() {
+    document.getElementById("myNav").style.width = "0%";
+}
 
 }
