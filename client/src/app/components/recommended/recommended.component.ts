@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Item } from '../../models/item';
+import { RecommendedItemService } from '../../services/recommended.service';
 
 //declare var jquery: any;
 declare var $: any;
@@ -9,14 +10,15 @@ declare var $: any;
 @Component({
   selector: 'recommended',
   templateUrl: 'recommended.html',
-  styleUrls: ['recommended.component.css']
+  styleUrls: ['recommended.component.css'],
+  providers: [RecommendedItemService]
 })
 
 export class RecommendedComponent implements OnInit {
   public title: string;
   public items: Array<Item>;
 
-  constructor(private _route: ActivatedRoute, private _router: Router) {
+  constructor(private _recommmendedService: RecommendedItemService, private _route: ActivatedRoute, private _router: Router) {
 
   }
 
@@ -25,33 +27,34 @@ export class RecommendedComponent implements OnInit {
     this.inicializarItems();
   }
 
-    private inicializarItems() {
+  private inicializarItems() {
+    this.items = new Array<Item>();
 
-      this.items = new Array<Item>();
-      this.items.push(new Item().newItem('22400000000000000012', 'Chimenea el cual esta es una prueba', 95000));
-      this.items.push(new Item().newItem('22400000000000000013', 'producto 2', 95000));
-      this.items.push(new Item().newItem('22400000000000000014', 'producto 3', 952000));
-      this.items.push(new Item().newItem('22400000000000000021', 'producto 4', 925000));
-      this.items.push(new Item().newItem('22400000000000000039', 'producto 5', 395000));
-      this.items.push(new Item().newItem('22400000000000000069', 'producto 6', 295000));
-      this.items.push(new Item().newItem('22400000000000000084', 'producto 7', 195000));
-      this.items.push(new Item().newItem('22400000000000000188', 'producto 8', 95000));
-    }
+    this._recommmendedService.list().subscribe(
+      response => {
+        for (let i = 0; i < response.result.length; i++) {
+          this.items.push(response.result[i].itemId);
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    )
+  }
 
-    mostrarArticulo(articulo) {
-      console.log(articulo);
-    }
+  mostrarArticulo(articulo) {
+    console.log(articulo);
+  }
 
-    public botonRight() {
-      console.log('has dado click al botón right');
-      $('.section').animate({scrollLeft : '+=890'}, 500);
-      return false;
-    }
+  public botonRight() {
+    console.log('has dado click al botón right');
+    $('.section').animate({ scrollLeft: '+=890' }, 500);
+    return false;
+  }
 
-    public botonLeft() {
-      console.log('has dado click al botón right');
-      $('.section').animate({scrollLeft : '-=890'}, 500);
-      return false;
-    }
-
+  public botonLeft() {
+    console.log('has dado click al botón right');
+    $('.section').animate({ scrollLeft: '-=890' }, 500);
+    return false;
+  }
 }
