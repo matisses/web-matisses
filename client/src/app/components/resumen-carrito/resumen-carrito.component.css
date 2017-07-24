@@ -74,4 +74,13 @@ hr {
   .info p {
     font-size: 9px;
   }
+  .btn-carrito {
+    font-size: 10px;
+  }
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }

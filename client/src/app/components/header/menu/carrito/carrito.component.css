@@ -39,6 +39,7 @@
   padding: 5px 5px;
   margin: 10px 5px;
   color: #FFF;
+  cursor: pointer;
 }
 
 .glyphicon {
@@ -59,12 +60,4 @@
   .resumen {
     left: -228px;
   }
-}
-
-
-
-input[type=number]::-webkit-outer-spin-button,
-input[type=number]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
 }

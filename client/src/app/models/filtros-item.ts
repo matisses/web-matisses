@@ -2,6 +2,7 @@ export class FiltroItem {
   public _id: string;
   public codigo: string;
   public nombre: string;
+  public hexa: string;
   public route: string;
 
   constructor() {
@@ -27,6 +28,14 @@ export class FiltroItem {
     materialesItem.codigo = codigo;
     materialesItem.nombre = nombre;
     return materialesItem;
+  }
+
+  public newColorItem(codigo, nombre, hexa) {
+    let colorItem = new FiltroItem();
+    colorItem.codigo = codigo;
+    colorItem.nombre = nombre;
+    colorItem.hexa = hexa;
+    return colorItem;
   }
 
 }

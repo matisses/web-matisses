@@ -1,6 +1,6 @@
-<div class="carrito">
-  <span class="icon-shopping-cart carrito" (mouseover)="openResumen()"> </span>
-  <span class="badge">{{number}}</span>
+<div class="carrito" (mouseover)="openResumen()" (click)="openResumen()">
+  <span class="icon-shopping-cart carrito"> </span>
+  <span class="badge" >{{number}}</span>
 </div>
 <div id="resumen" class="resumen" (mouseover)="openResumen()" (mouseout)="closeResumen()">
   <div class="row">

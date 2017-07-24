@@ -1,5 +1,5 @@
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit  } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { StickyMenuDirective } from '../../../directives/sticky.directive';
@@ -40,7 +40,7 @@ import { MenuItemService } from '../../../services/menu.service';
   ]
 })
 
-export class MenuComponent implements OnInit {
+export class MenuComponent implements OnInit, AfterViewInit  {
   public menuItems: Array<MenuItem>;
   public padreSeleccionado: MenuItem;
   public state: string = 'hidden';
@@ -53,6 +53,10 @@ export class MenuComponent implements OnInit {
   ngOnInit() {
     console.log('inicializando componente de menú');
     this.inicializarMenu();
+  }
+
+  ngAfterViewInit() {
+    console.log('finalizo la carga');
   }
 
   public alternarSeleccionPadre(padreSeleccionado) {
@@ -142,6 +146,14 @@ export class MenuComponent implements OnInit {
 
   public closeNav() {
     document.getElementById("myNav").style.width = "0%";
+}
+
+public openResumen() {
+  document.getElementById("resumen").style.height = "380px";
+}
+
+public closeResumen() {
+  document.getElementById("resumen").style.height = "0";
 }
 
 }
