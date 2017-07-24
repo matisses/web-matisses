@@ -1,0 +1,105 @@
+<matisses-header></matisses-header>
+
+<div sticky-body>
+  <div class="container">
+    <!-- Miga de pan -->
+    <div class="row">
+      <div class="col-xs-12">
+        <ol class="breadcrumb">
+          <li><a [routerLink]="['/']">Home</a></li>
+          <li class="active">Carrito de compra</li>
+        </ol>
+      </div>
+    </div>
+    <!-- Miga de pan -->
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="title">
+          <h4>Carrito de compra</h4>
+        </div>
+        <p>Tu carrito contiene <b>({{number}})</b> productos.</p>
+      </div>
+    </div>
+
+    <div class="productos">
+      <div class="row producto" *ngFor="let item of items">
+        <div class="col-md-2 col-sm-5">
+          <img src="assets/images/recommended/{{item.itemcode}}.jpg" class="img-responsive" alt="">
+        </div>
+        <div class="col-md-10 col-sm-7">
+          <div class="row">
+            <div class="col-md-6">
+              <p class="text-center">PRODUCTO</p>
+              <p><b>{{item.itemname}}</b></p>
+            </div>
+            <div class="col-md-6">
+              <div class="info">
+                <div class="row">
+                  <div class="col-xs-3 text-center">
+                    <p>PRECIO</p>
+                    <p><b>$ {{item.price}}</b></p>
+                  </div>
+                  <div class="col-xs-3 text-center">
+                    <p>CANTIDAD</p>
+                    x <input type="number" value="{{number}}">
+                  </div>
+                  <div class="col-xs-3 text-center">
+                    <p>TOTAL</p>
+                    <p><b>$ {{item.price}}</b></p>
+                  </div>
+                  <div class="col-xs-3 text-center">
+                    <p>ELIMINAR</p>
+                    <span class="glyphicon glyphicon-trash"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5 col-md-offset-7 col-sm-6 col-sm-offset-6">
+        <div class="row">
+          <div class="col-xs-6">
+            <h5>Subtotal</h5>
+          </div>
+          <div class="col-xs-6">
+            <h4>$ 4.800.000</h4>
+          </div>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-xs-6">
+            <h5>Descuentos</h5>
+          </div>
+          <div class="col-xs-6">
+            <h4>$ 0</h4>
+          </div>
+        </div>
+        <div class="total">
+          <div class="row">
+            <div class="col-xs-6">
+              <h5>Total</h5>
+            </div>
+            <div class="col-xs-6">
+              <h4>$ 4.800.000</h4>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6">
+            <p class="btn-carrito">Continuar comprando</p>
+          </div>
+          <div class="col-xs-6">
+            <p class="btn-carrito">Proceder al pago</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<matisses-footer></matisses-footer>

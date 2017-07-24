@@ -1,0 +1,41 @@
+h3::before {
+  content: '- ';
+  position: absolute;
+  top: 50px;
+  height: 5px;
+  width: 25px;
+  color: transparent;
+  background-color: #5B5B5B;
+}
+
+p {
+  margin: 0px;
+}
+
+h4 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.info {
+  background-color: #313131;
+  color: #FFF;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.agregar-carrito:hover {
+  text-decoration: underline;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.nombre-producto {
+  height: 40px;
+}
+
+@media screen and (max-width: 400px) {
+  .nombre-producto {
+    height: 65px;
+  }
+}

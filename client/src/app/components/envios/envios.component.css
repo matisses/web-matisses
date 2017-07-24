@@ -1,0 +1,73 @@
+.stuck-body {
+  margin-top: 125px;
+  color: #5B5B5B;
+}
+
+.border-left {
+  border-left: 1px solid #EEE;
+}
+
+span {
+  font-size: 60px;
+}
+
+.breadcrumb {
+  background-color: transparent;
+  margin-top: 0px;
+}
+
+.foto01 {
+  background: url(../../../assets/images/envios.jpg) no-repeat center top;
+  background-attachment: relative;
+  background-position: center top;
+  min-height: 200px;
+  width: 100%;
+  -webkit-background-size: 100%;
+  -moz-background-size: 100%;
+  -o-background-size: 100%;
+  background-size: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.title::before {
+  content: '-';
+  position: absolute;
+  bottom: 3px;
+  color: transparent;
+  background-color: #5B5B5B;
+  width: 25px;
+  height: 5px;
+}
+
+@media screen and (max-width: 991px) {
+  .stuck-body {
+    margin-top: 0px;
+  }
+  .breadcrumb {
+    background-color: transparent;
+    margin-top: 50px;
+  }
+  .border-left {
+    border-left: 1px solid #EEE;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .border-left {
+    border-left: none;
+    border-top: 1px solid #EEE;
+    padding: 10px 0;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .breadcrumb {
+    margin-top: 80px;
+  }
+  .foto01 {
+    min-height: 100px;
+  }
+}

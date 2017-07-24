@@ -1,1 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.light {
+  font-weight: 300;
+}
+.medium {
+  font-weight: 500;
+}
+.bold {
+  font-weight: 700;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.grey {
+  color: #5b5b5b;
+}
+
+input:focus, button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}

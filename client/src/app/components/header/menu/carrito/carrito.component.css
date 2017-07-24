@@ -1,0 +1,70 @@
+.carrito {
+  cursor: pointer;
+  color: #5B5B5B;
+  font-size: 20px
+}
+
+.carrito .badge {
+  position: absolute;
+  top: 4px;
+  background-color: #5B5B5B;
+}
+
+.resumen {
+  position: absolute;
+  left: 0px;
+  background-color: white;
+  width: 320px;
+  z-index: 5;
+  height: 0;
+  overflow: hidden;
+  transition: 0.5s;
+}
+.productos {
+  margin: 10px;
+  max-height: 250px;
+  overflow: scroll;
+  overflow-x: hidden;
+  margin-bottom: 20px;
+  font-size: 10px;
+}
+
+.border {
+  border-bottom: 1px solid #5B5B5B;
+  margin: 10px 0;
+}
+
+.boton {
+  background-color: #5B5B5B;
+  padding: 5px 5px;
+  margin: 10px 5px;
+  color: #FFF;
+}
+
+.glyphicon {
+  color: #000;
+}
+
+.resumen:hover {
+  display: block;
+}
+
+@media screen and (min-width: 991px) {
+  .carrito {
+    margin-top: 13px;
+  }
+  .carrito .badge {
+    top: 17px;
+  }
+  .resumen {
+    left: -228px;
+  }
+}
+
+
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
