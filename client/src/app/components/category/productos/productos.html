@@ -1,0 +1,85 @@
+<div class="row">
+  <div class="col-md-4 text-center">
+    <div class="mostrar">
+      <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            12 x pag <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a href="javascript:void(0);">12 x pag</a></li>
+            <li><a href="javascript:void(0);">24 x pag</a></li>
+            <li><a href="javascript:void(0);">36 x pag</a></li>
+            <li ng-click="cambiarProductosPorPagina(20000)"><a href="javascript:void(0);">Todos</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 text-center">
+    <div class="ordenar">
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Destacados <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="ordenar">
+                <li><a href="javascript:void(0);">Precio: más bajos primero</a></li>
+                <li><a href="javascript:void(0);">Precio: más altos primero</a></li>
+                <li><a href="javascript:void(0);">Nombre: de A a Z</a></li>
+                <li><a href="javascript:void(0);">Nombre: de Z a A</a></li>
+            </ul>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-4 text-center">
+      <ul class="pagination">
+        <li>
+          <a href="javascript:void(0)" aria-label="Previous">
+            <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+        </li>
+        <li><a href="javascript:void(0)">1</a></li>
+        <li><a href="javascript:void(0)">2</a></li>
+        <li><a href="javascript:void(0)">3</a></li>
+        <li><a href="javascript:void(0)">4</a></li>
+        <li><a href="javascript:void(0)">5</a></li>
+        <li>
+          <a href="javascript:void(0)" aria-label="Next">
+            <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+        </li>
+      </ul>
+  </div>
+</div>
+
+<!-- Productos -->
+
+<div class="row">
+  <div class="col-sm-4 col-xs-6" *ngFor="let item of items">
+    <div class="producto">
+      <div class="row">
+        <div class="col-xs-12">
+          <img src="assets/images/nuevos/{{item.itemcode}}.jpg" class="img-responsive" alt="">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 text-center">
+          <p class="medium nombre-producto">{{item.itemname}}</p>
+          <h4>$ {{item.price | number:0}}</h4>
+        </div>
+        <div class="botones">
+          <div class="col-xs-12 text-center">
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-like">
+                <span class="glyphicon glyphicon-heart-empty wish-list"></span>
+              </button>
+              <button type="button" class="btn btn-carrito">
+                <span class="icon-shopping-cart carrito"> </span> <em>AGREGAR AL CARRITO</em>
+              </button>
+            </div>
+            <p class="medium"><u>Descubre más</u></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -5,7 +5,7 @@
       <div class="col-xs-6 hidden-sm hidden-xs">
         <div class="info-uno">
           <p [routerLink]="['/quienes']">Quienes somos</p>
-          <p class="border-left">Trabaja con nosotros</p>
+          <p [routerLink]="['/trabaja-con-nosotros']" class="border-left">Trabaja con nosotros</p>
           <p class="border-left">Contáctanos</p>
         </div>
       </div>
@@ -13,8 +13,8 @@
         <div class="info-dos">
           <ul>
             <li class="bordering"><em>Preguntas frecuentes</em></li>
-            <li class="bordering"><em>Metodos de envío</em></li>
-            <li><em>Garantías</em></li>
+            <li [routerLink]="['/envios']" class="bordering"><em>Metodos de envío</em></li>
+            <li [routerLink]="['/garantias']"><em>Garantías</em></li>
           </ul>
         </div>
       </div>

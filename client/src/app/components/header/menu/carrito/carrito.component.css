@@ -5,7 +5,8 @@
 }
 
 .carrito .badge {
-  margin-top: -10px;
+  position: absolute;
+  top: 4px;
   background-color: #5B5B5B;
 }
 
@@ -51,6 +52,9 @@
 @media screen and (min-width: 991px) {
   .carrito {
     margin-top: 13px;
+  }
+  .carrito .badge {
+    top: 17px;
   }
   .resumen {
     left: -228px;

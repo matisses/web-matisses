@@ -1,9 +1,106 @@
 .stuck-body {
   margin-top: 125px;
+  color: #5B5B5B;
+}
+
+.breadcrumb {
+  background-color: transparent;
+  margin-top: 0px;
+}
+
+.fachada {
+  background: url(../../../assets/images/fachada.jpg) no-repeat center top;
+  background-attachment: relative;
+  background-position: center top;
+  min-height: 560px;
+  width: 100%;
+  -webkit-background-size: 100%;
+  -moz-background-size: 100%;
+  -o-background-size: 100%;
+  background-size: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.title::before {
+  content: '-';
+  position: absolute;
+  bottom: 5px;
+  color: transparent;
+  background-color: #5B5B5B;
+  width: 25px;
+  height: 5px;
+}
+
+.title2::after {
+    content: '-';
+    position: absolute;
+    bottom: 5px;
+    right: 15px;
+    color: transparent;
+    background-color: #5B5B5B;
+    width: 50px;
+    height: 5px;
+}
+
+.foto2 {
+  background: url(../../../assets/images/quienes-01.jpg) no-repeat center top;
+  background-attachment: relative;
+  background-position: center top;
+  min-height: 560px;
+  width: 100%;
+  -webkit-background-size: 100%;
+  -moz-background-size: 100%;
+  -o-background-size: 100%;
+  background-size: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.foto3 {
+  background: url(../../../assets/images/quienes-02.jpg) no-repeat center top;
+  background-attachment: relative;
+  background-position: center top;
+  min-height: 400px;
+  width: 100%;
+  -webkit-background-size: 100%;
+  -moz-background-size: 100%;
+  -o-background-size: 100%;
+  background-size: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 @media screen and (max-width: 991px) {
   .stuck-body {
     margin-top: 0px;
+  }
+  .breadcrumb {
+    background-color: transparent;
+    margin-top: 50px;
+  }
+  .fachada {
+    min-height: 400px;
+  }
+  .foto3 {
+    min-height: 300px;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .breadcrumb {
+    margin-top: 80px;
+  }
+  .fachada {
+    min-height: 200px;
+  }
+  .foto3 {
+    min-height: 200px;
   }
 }

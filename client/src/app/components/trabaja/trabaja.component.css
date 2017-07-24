@@ -1,0 +1,44 @@
+.stuck-body {
+  margin-top: 125px;
+  color: #5B5B5B;
+}
+
+.breadcrumb {
+  background-color: transparent;
+  margin-top: 0px;
+}
+
+.portada {
+  background: url(../../../assets/images/trabaja.jpg) no-repeat center top;
+  background-attachment: relative;
+  background-position: center top;
+  min-height: 200px;
+  width: 100%;
+  -webkit-background-size: 100%;
+  -moz-background-size: 100%;
+  -o-background-size: 100%;
+  background-size: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+@media screen and (max-width: 991px) {
+  .stuck-body {
+    margin-top: 0px;
+  }
+  .breadcrumb {
+    background-color: transparent;
+    margin-top: 50px;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .breadcrumb {
+    margin-top: 60px;
+  }
+  .portada {
+    min-height: 100px;
+  }
+}

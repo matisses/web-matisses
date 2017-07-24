@@ -1,0 +1,37 @@
+.stuck-body {
+  margin-top: 125px;
+}
+
+.bg {
+  background-color: rgb(241, 241, 241);
+  height: 600px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #5B5B5B;
+}
+
+.caption {
+    margin-top:  20%;
+    width: 50%;
+    margin-left: 25%;
+    border: 2px solid #FFF;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.caption span {
+  position: absolute;
+  left: -45px;
+  font-size: -webkit-xxx-large;
+}
+
+hr {
+  border-color: #FFF;
+}
+
+.btn-matisses {
+  background-color: #5B5B5B;
+  color: #FFF;
+  margin-top: 10px;
+}

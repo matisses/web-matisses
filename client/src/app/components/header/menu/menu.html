@@ -63,7 +63,7 @@
         <div class="row">
           <div class="col-xs-3" *ngFor="let subMenuItem of padreSeleccionado.children">
             <ul class="sub-menu">
-              <p class="medium cursor-pointer">{{subMenuItem.nombre}}</p>
+              <p class="medium cursor-pointer" [routerLink]="['/categoria', subMenuItem.route]">{{subMenuItem.nombre}}</p>
               <li *ngFor="let grandChild of subMenuItem.children" [routerLink]="['/categoria', grandChild.route]">
                 {{grandChild.nombre}}
               </li>

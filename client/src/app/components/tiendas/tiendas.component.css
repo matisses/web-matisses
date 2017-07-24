@@ -1,0 +1,90 @@
+.stuck-body {
+  margin-top: 125px;
+  color: #5B5B5B;
+}
+
+.breadcrumb {
+  background-color: transparent;
+  margin-top: 0px;
+}
+
+.medellin {
+  background: url(../../../assets/images/medellin.jpg) no-repeat center top;
+  background-attachment: relative;
+  background-position: center top;
+  min-height: 600px;
+  width: 100%;
+  -webkit-background-size: 100%;
+  -moz-background-size: 100%;
+  -o-background-size: 100%;
+  background-size: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.bogota1, .bogota2 {
+  background-attachment: relative;
+  background-position: center top;
+  min-height: 290px;
+  width: 100%;
+  -webkit-background-size: 100%;
+  -moz-background-size: 100%;
+  -o-background-size: 100%;
+  background-size: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.bogota1 {
+  background: url(../../../assets/images/bogota1.jpg) no-repeat center top;
+}
+
+.bogota2 {
+  background: url(../../../assets/images/bogota2.jpg) no-repeat center top;
+}
+
+.border {
+  border-left: 1px solid #BDBDBD;
+}
+
+h3 {
+  min-height: 52px;
+}
+
+@media screen and (max-width: 991px) {
+  .stuck-body {
+    margin-top: 0px;
+  }
+  .breadcrumb {
+    margin-top: 50px;
+  }
+  .medellin {
+    min-height: 400px;
+  }
+  .bogota1, .bogota2 {
+    min-height: 190px;
+    background-position: center top;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .breadcrumb {
+    margin-top: 80px;
+  }
+  .medellin {
+    min-height: 300px;
+  }
+  .bogota1, .bogota2 {
+    min-height: 200px;
+    background-position: center top;
+  }
+  .border {
+    border-top: 1px solid #BDBDBD;
+    border-left: none;
+    padding-top: 10px;
+  }
+}

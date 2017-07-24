@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="title">
+      <p>Categoria hijo</p>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <ul>
+      <li *ngFor="let menuItem of menuItems, let i = index">
+        <input type="checkbox" id="menu.{{i}}">
+        <label for="menu.{{i}}">{{menuItem.nombre}}</label>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="filter-collapse" data-toggle="collapse" href="#collapseMarca" aria-expanded="false" aria-controls="collapseMarca">
+      <p>Marca <span class="glyphicon glyphicon-plus pull-right"></span></p>
+    </div>
+    <div class="collapse" id="collapseMarca">
+      <ul>
+        <li *ngFor="let marcaItem of marcaItems, let i = index">
+          <input type="checkbox" id="marca.{{i}}">
+          <label for="marca.{{i}}">{{marcaItem.nombre}}</label>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="filter-collapse" data-toggle="collapse" href="#collapsePrecio" aria-expanded="false" aria-controls="collapsePrecio">
+      <p>Precio <span class="glyphicon glyphicon-plus pull-right"></span></p>
+    </div>
+    <div class="collapse" id="collapsePrecio">
+      <div class="well">
+        ...
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="filter-collapse" data-toggle="collapse" href="#collapseColor" aria-expanded="false" aria-controls="collapseColor">
+      <p>Colores <span class="glyphicon glyphicon-plus pull-right"></span></p>
+    </div>
+    <div class="collapse" id="collapseColor">
+      <div class="well">
+        ...
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="filter-collapse" data-toggle="collapse" href="#collapseMateriales" aria-expanded="false" aria-controls="collapseMateriales">
+      <p>Materiales <span class="glyphicon glyphicon-plus pull-right"></span></p>
+    </div>
+    <div class="collapse" id="collapseMateriales">
+      <ul>
+        <li *ngFor="let materialesItem of materialesItems, let i = index">
+          <input type="checkbox" id="material.{{i}}">
+          <label for="material.{{i}}">{{materialesItem.nombre}}</label>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

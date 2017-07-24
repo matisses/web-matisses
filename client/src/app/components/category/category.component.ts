@@ -17,4 +17,13 @@ export class CategoryComponent implements OnInit {
     ngOnInit() {
         console.log('inicializando componente de categoria');
     }
+
+    public openFilter() {
+      document.getElementById("myFilter").style.width = "100%";
+      console.log('haz dado click')
+    }
+
+    public closeFilter() {
+      document.getElementById("myFilter").style.width = "0%";
+    }
 }

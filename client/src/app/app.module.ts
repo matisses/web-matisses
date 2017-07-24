@@ -20,9 +20,21 @@ import { TendenciasComponent } from './components/tendencias/tendencias.componen
 
 //Componentes de la seccion de categorias
 import { CategoryComponent } from './components/category/category.component';
+import { FiltrosComponent } from './components/category/filtros/filtros.component';
+import { ProductosComponent } from './components/category/productos/productos.component';
+
+//Proceso de pago
+import { ResumenCarritoComponent } from './components/resumen-carrito/resumen-carrito.component';
 
 //Componentes de las pagians estáticas
 import { QuienesComponent } from './components/quienes-somos/quienes-somos.component';
+import { TiendasComponent } from './components/tiendas/tiendas.component';
+import { TrabajaComponent } from './components/trabaja/trabaja.component';
+import { GarantiasComponent } from './components/garantias/garantias.component';
+import { EnviosComponent } from './components/envios/envios.component';
+
+//Componenete pagina de error
+import { ErrorComponent } from './components/error/error.component';
 
 //Componentes del footer
 import { FooterComponent } from './components/footer/footer.component';
@@ -58,7 +70,15 @@ import { AppComponent } from './app.component';
     NewsletterComponent,
     CategoryComponent,
     QuienesComponent,
-    CarritoComponent
+    CarritoComponent,
+    TiendasComponent,
+    ErrorComponent,
+    FiltrosComponent,
+    ProductosComponent,
+    TrabajaComponent,
+    GarantiasComponent,
+    EnviosComponent,
+    ResumenCarritoComponent
   ],
   imports: [
     BrowserModule,

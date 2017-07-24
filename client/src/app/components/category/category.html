@@ -1,10 +1,59 @@
 <matisses-header></matisses-header>
 
 <div sticky-body>
-  Este es el contenido
+  <div class="container">
+    <!-- Miga de pan -->
+    <div class="row">
+      <div class="col-xs-12">
+        <ol class="breadcrumb">
+          <li><a [routerLink]="['/']">Home</a></li>
+          <li>Categoria padre</li>
+          <li class="active">Categoria hijo</li>
+        </ol>
+      </div>
+    </div>
+    <!-- Miga de pan -->
+    <!-- Imagen categoria -->
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="img-category">
+          <h2>Categoria hijos</h2>
+        </div>
+      </div>
+    </div>
+    <!-- Imagen categoria -->
+    <br/>
+    <div class="row">
+
+      <div class="col-md-3 hidden-sm hidden-xs">
+        <filtros-matisses></filtros-matisses>
+      </div>
+
+<div class="btn-matisses">
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <button type="button" class="btn btn-default" (click)="openFilter()">ABRIR FILTROS</button>
+      </div>
+    </div>
 </div>
-<!--
-<matisses-home></matisses-home>
--->
+
+      <div class="col-xs-12 visible-sm visible-xs">
+        <div id="myFilter" class="fondo-filtro">
+          <a href="javascript:void(0)" class="closebtn" (click)="closeFilter()">&times;</a>
+          <div class="fondo-filtro-content">
+            <button type="button" class="btn btn-default" (click)="closeFilter()">ABRIR FILTROS</button>
+            <filtros-matisses></filtros-matisses>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-md-9">
+        <productos-matisses></productos-matisses>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <matisses-footer></matisses-footer>

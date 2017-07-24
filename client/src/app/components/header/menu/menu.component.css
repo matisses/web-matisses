@@ -71,19 +71,6 @@
   cursor: pointer;
 }
 
-.carrito {
-  margin-top: 13px;
-  cursor: pointer;
-  color: #5B5B5B;
-  font-size: 20px
-}
-
-.carrito .badge {
-  margin-top: -10px;
-  background-color: #5B5B5B;
-}
-
-
 /*Menú*/
 
 .info-ppl {
@@ -269,7 +256,7 @@
     margin-left: 10px;
 }
 
-/*cccc*/
+/* estilos menu responsive*/
 
 .fondo-menu {
     height: 100%;
