@@ -46,7 +46,7 @@ export class FiltrosComponent implements OnInit, AfterViewInit {
     this.menuItems.push(new FiltroItem().newMenuItem('04', 'Individuales'));
     this.menuItems.push(new FiltroItem().newMenuItem('05', 'Posavasos'));
     this.menuItems.push(new FiltroItem().newMenuItem('06', 'Recipientes'));
-    this.menuItems.push(new FiltroItem().newMenuItem('07', 'Salseros y Dispensadores'));
+    this.menuItems.push(new FiltroItem().newMenuItem('07', 'Salseros'));
     this.menuItems.push(new FiltroItem().newMenuItem('08', 'Servilleteros'));
   }
 

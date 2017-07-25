@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
+declare var $: any;
+
 import { Item } from '../../models/item';
 
 @Component({
@@ -11,6 +13,7 @@ import { Item } from '../../models/item';
 
 export class ResumenCarritoComponent implements OnInit {
   public number: number = 34;
+    public price: number = 4800000;
   public items:Array<Item>;
 
   constructor(private _route: ActivatedRoute, private _router: Router) {
@@ -39,5 +42,8 @@ export class ResumenCarritoComponent implements OnInit {
     this.items.push(new Item().newItem('22400000000000000021', 'Plato principal el cual esta es una prueba', 89000));
   }
 
+  public popOver(){
+    $('[data-toggle="popover"]').popover()
+  }
 
 }
