@@ -21,7 +21,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/api', itemRoutes);
+app.use('/api/item', itemRoutes);
 app.use('/api/menuitem', menuItemRoutes);
 app.use('/api/recommendeditem', recommendedItemRoutes);
 

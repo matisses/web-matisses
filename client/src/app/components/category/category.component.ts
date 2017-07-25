@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
-    selector: 'category-matisses',
     templateUrl: 'category.html',
     styleUrls: ['category.component.css']
 })

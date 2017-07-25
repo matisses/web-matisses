@@ -12,9 +12,8 @@ import { ResumenCarritoComponent } from './components/resumen-carrito/resumen-ca
 
 
 const appRoutes: Routes = [
-
     {path: '', component: HomeComponent},
-    {path: 'categoria/:categoryId', component: CategoryComponent},
+    {path: 'categoria', component: CategoryComponent, pathMatch: 'full'},
     {path: 'quienes', component: QuienesComponent},
     {path: 'tiendas', component: TiendasComponent},
     {path: 'trabaja-con-nosotros', component: TrabajaComponent},

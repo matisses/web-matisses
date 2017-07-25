@@ -1,15 +1,15 @@
-<div class="row">
+<div class="row" *ngIf="items.length > 0">
   <div class="col-md-4 text-center">
     <div class="mostrar">
       <div class="btn-group">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            12 x pag <span class="caret"></span>
+            {{itemsXPag}} <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-            <li><a href="javascript:void(0);">12 x pag</a></li>
-            <li><a href="javascript:void(0);">24 x pag</a></li>
-            <li><a href="javascript:void(0);">36 x pag</a></li>
-            <li ng-click="cambiarProductosPorPagina(20000)"><a href="javascript:void(0);">Todos</a></li>
+            <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(12)">12 x pag</a></li>
+            <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(24)">24 x pag</a></li>
+            <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(36)">36 x pag</a></li>
+            <li *ngIf="totalItems < 100"><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
         </ul>
       </div>
     </div>
@@ -18,30 +18,28 @@
     <div class="ordenar">
         <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Destacados <span class="caret"></span>
+                <span [innerHTML]="orderByStr">
+                </span><span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="ordenar">
-                <li><a href="javascript:void(0);">Precio: más bajos primero</a></li>
-                <li><a href="javascript:void(0);">Precio: más altos primero</a></li>
-                <li><a href="javascript:void(0);">Nombre: de A a Z</a></li>
-                <li><a href="javascript:void(0);">Nombre: de Z a A</a></li>
+                <li><a href="javascript:void(0);" (click)="changeOrder('price')">Precio: más bajos primero</a></li>
+                <li><a href="javascript:void(0);" (click)="changeOrder('-price')">Precio: más altos primero</a></li>
+                <li><a href="javascript:void(0);" (click)="changeOrder('itemname')">Nombre: de A a Z</a></li>
+                <li><a href="javascript:void(0);" (click)="changeOrder('-itemname')">Nombre: de Z a A</a></li>
+                <li><a href="javascript:void(0);" (click)="changeOrder('model')">Similares</a></li>
             </ul>
         </div>
     </div>
   </div>
   <div class="col-md-4 text-center">
       <ul class="pagination">
-        <li>
+        <li (click)="irAPagina(activePage - 1)">
           <a href="javascript:void(0)" aria-label="Previous">
             <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
           </a>
         </li>
-        <li><a href="javascript:void(0)">1</a></li>
-        <li><a href="javascript:void(0)">2</a></li>
-        <li><a href="javascript:void(0)">3</a></li>
-        <li><a href="javascript:void(0)">4</a></li>
-        <li><a href="javascript:void(0)">5</a></li>
-        <li>
+        <li><a href="javascript:void(0)" *ngFor="let page of pages" (click)="irAPagina(page)" [class.active]="page == activePage">{{page}}</a></li>
+        <li (click)="irAPagina(activePage + 1)">
           <a href="javascript:void(0)" aria-label="Next">
             <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
           </a>
@@ -52,12 +50,12 @@
 
 <!-- Productos -->
 
-<div class="row">
+<div class="row" *ngIf="items.length > 0">
   <div class="col-sm-4 col-xs-6" *ngFor="let item of items">
     <div class="producto">
       <div class="row">
         <div class="col-xs-12">
-          <img src="assets/images/nuevos/{{item.itemcode}}.jpg" class="img-responsive" alt="">
+          <img src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/images/{{item.itemcode}}_01.jpg" class="img-responsive" alt="">
         </div>
       </div>
       <div class="row">

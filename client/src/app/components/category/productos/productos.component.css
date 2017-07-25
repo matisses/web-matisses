@@ -60,6 +60,10 @@
   border-color: transparent;
 }
 
+.pagination li a.active {
+  background-color: #eee;
+}
+
 /* mostrar por */
 
 .mostrar:before {

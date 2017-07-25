@@ -5,7 +5,8 @@ var ItemController = require('../controllers/item');
 
 var api = express.Router();
 
-api.get('/item/consultar/:referencia?', ItemController.consultar);
-api.get('/item/nuevos/', ItemController.consultarNuevos);
+api.get('/consultar/:referencia?', ItemController.consultar);
+api.get('/nuevos/', ItemController.consultarNuevos);
+api.get('/filtrar/', ItemController.filtrar);
 
 module.exports = api;

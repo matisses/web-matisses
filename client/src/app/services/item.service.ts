@@ -21,4 +21,11 @@ export class ItemService {
       .map(res => res.json());
   }
 
+  filter(queryString) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    return this._http.get(this.url + 'item/filtrar' + queryString, { headers: headers })
+      .map(res => res.json());
+  }
 }

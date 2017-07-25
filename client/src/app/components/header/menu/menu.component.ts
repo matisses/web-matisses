@@ -40,7 +40,7 @@ import { MenuItemService } from '../../../services/menu.service';
   ]
 })
 
-export class MenuComponent implements OnInit, AfterViewInit  {
+export class MenuComponent implements OnInit, AfterViewInit {
   public menuItems: Array<MenuItem>;
   public padreSeleccionado: MenuItem;
   public state: string = 'hidden';
@@ -60,7 +60,7 @@ export class MenuComponent implements OnInit, AfterViewInit  {
   }
 
   public alternarSeleccionPadre(padreSeleccionado) {
-    if (this.padreSeleccionado.nombre != null && this.padreSeleccionado.nombre === padreSeleccionado.nombre) {
+    if (this.padreSeleccionado.name != null && this.padreSeleccionado.name === padreSeleccionado.nombre) {
       //this.padreSeleccionado = new MenuItem();
     } else {
       this.padreSeleccionado = padreSeleccionado;
@@ -81,7 +81,7 @@ export class MenuComponent implements OnInit, AfterViewInit  {
   }
 
   public estaSeleccionado(codigo) {
-    return this.padreSeleccionado != null && this.padreSeleccionado.codigo === codigo
+    return this.padreSeleccionado != null && this.padreSeleccionado.code === codigo
   }
 
   private inicializarMenu() {
@@ -90,12 +90,14 @@ export class MenuComponent implements OnInit, AfterViewInit  {
     this._menuService.list(null).subscribe(
       response => {
         for (let i = 0; i < response.result.length; i++) {
-          this.menuItems.push(new MenuItem().newMenuItemWithRoute(
-            response.result[i]._id,  //id
-            response.result[i].code, //code
-            response.result[i].name, //name
-            response.result[i].route //route
-          ));
+          let menuItem = new MenuItem();
+          menuItem._id = response.result[i]._id;
+          menuItem.code = response.result[i].code;
+          menuItem.name = response.result[i].name;
+          menuItem.department = response.result[i].department;
+          menuItem.group = response.result[i].group;
+          menuItem.subgroup = response.result[i].subgroup;
+          this.menuItems.push(menuItem);
         }
       },
       error => {
@@ -108,12 +110,15 @@ export class MenuComponent implements OnInit, AfterViewInit  {
     this._menuService.list(menuItem._id).subscribe(
       response => {
         for (let i = 0; i < response.result.length; i++) {
-          menuItem.children.push(new MenuItem().newMenuItemWithRoute(
-            response.result[i]._id,  //id
-            response.result[i].code, //code
-            response.result[i].name, //name
-            response.result[i].route //route
-          ));
+          let child = new MenuItem();
+          child._id = response.result[i]._id;
+          child.code = response.result[i].code;
+          child.name = response.result[i].name;
+          child.department = response.result[i].department;
+          child.group = response.result[i].group;
+          child.subgroup = response.result[i].subgroup;
+
+          menuItem.children.push(child);
           this.cargarHijos(menuItem.children[menuItem.children.length - 1], false);
         }
         if (esPadre) {
@@ -142,18 +147,18 @@ export class MenuComponent implements OnInit, AfterViewInit  {
 
   public openNav() {
     document.getElementById("myNav").style.width = "100%";
-}
+  }
 
   public closeNav() {
     document.getElementById("myNav").style.width = "0%";
-}
+  }
 
-public openResumen() {
-  document.getElementById("resumen").style.height = "380px";
-}
+  public openResumen() {
+    document.getElementById("resumen").style.height = "380px";
+  }
 
-public closeResumen() {
-  document.getElementById("resumen").style.height = "0";
-}
+  public closeResumen() {
+    document.getElementById("resumen").style.height = "0";
+  }
 
 }
