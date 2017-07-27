@@ -1,4 +1,4 @@
-<div *ngIf="filtrosDisponibles && queryParams && queryParams.size > 0">
+<div *ngIf="filtrosAplicados && filtrosAplicados.length > 0">
   <div class="row">
     <div class="col-xs-12">
       <div class="title">
@@ -9,11 +9,12 @@
   <div class="row">
     <div class="col-xs-12">
       <ul>
-
-        <li *ngFor="let key of listActiveFilters()">
-          {{key}}
+        <li *ngFor="let filtro of filtrosAplicados">
+          <div class="active-filter" (click)="toggleSelection(filtro[2], null)">
+            {{filtro[0]}}: {{filtro[1]}}
+            <span class="active-filter-delete glyphicon glyphicon-trash"></span>
+          </div>
         </li>
-
       </ul>
     </div>
   </div>

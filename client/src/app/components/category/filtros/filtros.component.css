@@ -53,3 +53,26 @@ ul label {
   width: 20px;
   display: inline-block;
 }
+
+.active-filter {
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #ddd;
+}
+
+.active-filter:hover {
+  cursor: pointer;
+  border: 1px solid #aaa;
+  background-color: #bbb;
+}
+
+.active-filter:hover .active-filter-delete {
+  display: inline;
+}
+
+.active-filter-delete {
+  float: right;
+  display: none;
+}

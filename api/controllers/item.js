@@ -9,6 +9,9 @@ var mongoosePaginate = require('mongoose-pagination');
 
 //Modelo
 var Item = require('../models/item');
+var Brand = require('../models/brand');
+var Color = require('../models/genericcolor');
+var Material = require('../models/material');
 
 function consultarNuevos(req, res) {
   Item.find({}, (err, result) => {
@@ -281,7 +284,9 @@ function consultarFiltros(req, res) {
                       Item.aggregate([{
                           "$match": filterObject
                         },
-                        {"$unwind": "$materials"},
+                        {
+                          "$unwind": "$materials"
+                        },
                         {
                           "$group": {
                             "_id": {
@@ -332,8 +337,117 @@ function consultarFiltros(req, res) {
   });
 }
 
+function consultarGrupo(req, res) {
+  Item.find({
+    "group.code": req.query.fieldValue
+  }, {
+    "group": 1
+  }, (err, result) => {
+    if (err) {
+      res.status(500).send({
+        message: 'ocurrio un error al ejecutar la consulta'
+      });
+    } else if (!result) {
+      res.status(404).send({
+        message: 'no se obtuvo ningún resultado con los filtros especificados'
+      });
+    } else {
+      res.status(200).send({
+        result: result
+      });
+    }
+  }).limit(1);
+}
+
+function consultarSubgrupo(req, res) {
+  Item.find({
+    "subgroup.code": req.query.fieldValue
+  }, {
+    "subgroup": 1
+  }, (err, result) => {
+    if (err) {
+      res.status(500).send({
+        message: 'ocurrio un error al ejecutar la consulta'
+      });
+    } else if (!result) {
+      res.status(404).send({
+        message: 'no se obtuvo ningún resultado con los filtros especificados'
+      });
+    } else {
+      res.status(200).send({
+        result: result
+      });
+    }
+  }).limit(1);
+}
+
+function consultarMarca(req, res) {
+  Brand.find({
+    "code": req.query.fieldValue
+  }, (err, result) => {
+    if (err) {
+      res.status(500).send({
+        message: 'ocurrio un error al ejecutar la consulta'
+      });
+    } else if (!result) {
+      res.status(404).send({
+        message: 'no se obtuvo ningún resultado con los filtros especificados'
+      });
+    } else {
+      res.status(200).send({
+        result: result
+      });
+    }
+  }).limit(1);
+}
+
+function consultarColor(req, res) {
+  Color.find({
+    "code": req.query.fieldValue
+  }, (err, result) => {
+    if (err) {
+      res.status(500).send({
+        message: 'ocurrio un error al ejecutar la consulta'
+      });
+    } else if (!result) {
+      res.status(404).send({
+        message: 'no se obtuvo ningún resultado con los filtros especificados'
+      });
+    } else {
+      res.status(200).send({
+        result: result
+      });
+    }
+  }).limit(1);
+}
+
+function consultarMaterial(req, res) {
+  Material.find({
+    "code": req.query.fieldValue
+  }, (err, result) => {
+    if (err) {
+      res.status(500).send({
+        message: 'ocurrio un error al ejecutar la consulta'
+      });
+    } else if (!result) {
+      res.status(404).send({
+        message: 'no se obtuvo ningún resultado con los filtros especificados'
+      });
+    } else {
+      res.status(200).send({
+        result: result
+      });
+    }
+  }).limit(1);
+}
+
 module.exports = {
   consultarNuevos,
   filtrar,
-  consultarFiltros
+  consultarFiltros,
+  consultarGrupo,
+  consultarSubgrupo,
+  consultarMarca,
+  consultarColor,
+  consultarMaterial
 };

@@ -4,8 +4,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var MaterialSchema = Schema({
-    codigo: String,
-    nombre: String
+  code: String,
+  name: String,
+  cares: String,
+  active: Boolean
 });
 
-module.exports = mongoose.model('Material', MaterialSchema);
+module.exports = mongoose.model('material', MaterialSchema);

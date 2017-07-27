@@ -63,8 +63,8 @@
         <div class="row">
           <div class="col-xs-3" *ngFor="let subMenuItem of padreSeleccionado.children">
             <ul class="sub-menu">
-              <p class="medium cursor-pointer" [routerLink]="['/categoria']" [queryParams]="{group: subMenuItem.group}">{{subMenuItem.name}}</p>
-              <li *ngFor="let grandChild of subMenuItem.children" [routerLink]="['/categoria']" [queryParams]="{subgroup: grandChild.subgroup}">
+              <p class="medium cursor-pointer" [routerLink]="['/categoria']" [queryParams]="{department: subMenuItem.department, group: subMenuItem.group}">{{subMenuItem.name}}</p>
+              <li *ngFor="let grandChild of subMenuItem.children" [routerLink]="['/categoria']" [queryParams]="{department: grandChild.department, group: grandChild.group, subgroup: grandChild.subgroup}">
                 {{grandChild.name}}
               </li>
             </ul>

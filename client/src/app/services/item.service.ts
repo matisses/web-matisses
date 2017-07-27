@@ -36,4 +36,12 @@ export class ItemService {
     return this._http.get(this.url + 'item/consultarfiltros' + queryString, { headers: headers })
       .map(res => res.json());
   }
+
+  findType(type, queryString){
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    return this._http.get(this.url + 'item/consultar' + type + queryString, { headers: headers })
+      .map(res => res.json());
+  }
 }
