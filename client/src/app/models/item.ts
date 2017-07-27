@@ -15,9 +15,18 @@ export class Item {
   };
   public weight: number;
   public price: number;
-  public department: string;
-  public group: string;
-  public subgroup: string;
+  public department: {
+    code: string,
+    name: string
+  };
+  public group: {
+    code: string,
+    name: string
+  };
+  public subgroup: {
+    code: string,
+    name: string
+  };
 
   constructor() {
 

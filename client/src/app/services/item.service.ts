@@ -28,4 +28,12 @@ export class ItemService {
     return this._http.get(this.url + 'item/filtrar' + queryString, { headers: headers })
       .map(res => res.json());
   }
+
+  updateFilters(queryString){
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    return this._http.get(this.url + 'item/consultarfiltros' + queryString, { headers: headers })
+      .map(res => res.json());
+  }
 }

@@ -6,8 +6,11 @@ var Schema = mongoose.Schema;
 var MenuItemSchema = Schema({
   code: String,
   name: String,
-  route: String,
-  parentId: String
+  department: String,
+  group: String,
+  subgroup: String,
+  parentId: String,
+  position: Number
 });
 
 module.exports = mongoose.model('menuitems', MenuItemSchema);

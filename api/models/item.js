@@ -18,9 +18,18 @@ var ItemSchema = Schema({
   },
   weight: Number,
   price: Number,
-  subgroup: String,
-  group: String,
-  department: String
+  subgroup: {
+    code: String,
+    name: String
+  },
+  group: {
+    code: String,
+    name: String
+  },
+  department: {
+    code: String,
+    name: String
+  },
 });
 
-module.exports = mongoose.model('Item', ItemSchema);
+module.exports = mongoose.model('item', ItemSchema);
