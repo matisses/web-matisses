@@ -21,12 +21,23 @@
 }
 
 .producto {
-  border-bottom: 1px solid #5B5B5B;
   padding: 10px 0px;
+  border-bottom: 1px solid #eee;
 }
 
-.productos {
-  border-top: 1px solid #5B5B5B;
+.item-name {
+  margin: 15px 0;
+  font-size: 15px;
+}
+
+.trash {
+  margin-top: 15%;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.trash:hover {
+  color: rgb(128, 12, 12);
 }
 
 input {
@@ -46,15 +57,42 @@ hr {
   margin: 5px 0;
 }
 
-.btn-carrito {
-  background-color: #5B5B5B;
+.btn-seguir-comprando {
+  background-color: #f5f5f5;
+  border: 1px solid #D7D7D7;
   padding: 5px;
-  color: #FFF;
   margin-top: 10px;
   text-align: center;
   cursor: pointer;
 }
 
+.btn-seguir-comprando:hover {
+  font-weight: 700;
+}
+
+.btn-continuar {
+  background-color: #700000;
+  padding: 10px 0px;
+  color: #FFF;
+  text-align: center;
+  cursor: pointer;
+}
+
+.arrow {
+  position: absolute;
+  top: 27%;
+  margin-left: 5px;
+  transition: 0.5s;
+}
+
+.btn-continuar:hover > .arrow {
+  margin-left: 15px;
+}
+
+.btn-continuar:hover {
+  background-color: #500000;
+  font-weight: 700;
+}
 
 @media screen and (max-width: 991px) {
   .stuck-body {
