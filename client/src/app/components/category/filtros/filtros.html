@@ -1,33 +1,95 @@
-<div class="row">
-  <div class="col-xs-12">
-    <div class="title">
-      <p>Categoria hijo</p>
+<div *ngIf="filtrosDisponibles && queryParams && queryParams.size > 0">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="title">
+        <p>Filtros aplicados</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <ul>
+
+        <li *ngFor="let key of listActiveFilters()">
+          {{key}}
+        </li>
+
+      </ul>
     </div>
   </div>
 </div>
 
-<div class="row">
-  <div class="col-xs-12">
-    <ul>
-      <li *ngFor="let menuItem of menuItems, let i = index">
-        <input type="checkbox" id="menu.{{i}}" (change)="toggleSelection('menu',menuItem.codigo)">
-        <label for="menu.{{i}}">{{menuItem.nombre}}</label>
-      </li>
-    </ul>
+<div *ngIf="filtrosDisponibles['departments'] && filtrosDisponibles['departments'].length > 1">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="title">
+        <p>Categoría</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <ul>
+        <li *ngFor="let menuItem of filtrosDisponibles['departments']">
+          <input type="checkbox" id="dept_{{menuItem.code}}" (change)="toggleSelection('department',menuItem.code)">
+          <label for="dept_{{menuItem.code}}">{{menuItem.name}}</label>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="filtrosDisponibles['groups'] && filtrosDisponibles['groups'].length > 1">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="title">
+        <p>Grupo</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <ul>
+        <li *ngFor="let menuItem of filtrosDisponibles['groups']">
+          <input type="checkbox" id="gru_{{menuItem.code}}" (change)="toggleSelection('group',menuItem.code)">
+          <label for="gru_{{menuItem.code}}">{{menuItem.name}}</label>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="filtrosDisponibles['subgroups'] && filtrosDisponibles['subgroups'].length > 1">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="title">
+        <p>Subgrupo</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <ul>
+        <li *ngFor="let menuItem of filtrosDisponibles['subgroups']">
+          <input type="checkbox" id="sub_{{menuItem.code}}" (change)="toggleSelection('subgroup',menuItem.code)">
+          <label for="sub_{{menuItem.code}}">{{menuItem.name}}</label>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
 
 <div class="filtros">
-  <div class="row">
+  <div class="row" *ngIf="filtrosDisponibles['brands'] && filtrosDisponibles['brands'].length > 1">
     <div class="col-xs-12">
       <div class="filter-collapse" (click)="toggleClass('#marca')" data-toggle="collapse" href="#collapseMarca" aria-expanded="false" aria-controls="collapseMarca">
         <p>Marca <span id="marca" class="icon-plus pull-right"></span></p>
       </div>
       <div class="collapse" id="collapseMarca">
         <ul>
-          <li *ngFor="let marcaItem of marcaItems, let i = index">
-            <input type="checkbox" id="marca.{{i}}" (change)="toggleSelection('marca',marcaItem.codigo)">
-            <label for="marca.{{i}}">{{marcaItem.nombre}}</label>
+          <li *ngFor="let marcaItem of filtrosDisponibles['brands'], let i = index">
+            <input type="checkbox" id="marca.{{i}}" (change)="toggleSelection('brand',marcaItem.code)">
+            <label for="marca.{{i}}">{{marcaItem.name}}</label>
           </li>
         </ul>
       </div>
@@ -47,32 +109,35 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row" *ngIf="filtrosDisponibles['colors'] && filtrosDisponibles['colors'].length > 1">
     <div class="col-xs-12">
       <div class="filter-collapse" (click)="toggleClass('#colores')" data-toggle="collapse" href="#collapseColor" aria-expanded="false" aria-controls="collapseColor">
         <p>Colores <span id="colores" class="icon-plus pull-right"></span></p>
       </div>
       <div class="collapse" id="collapseColor">
         <ul>
-          <li class="filtro-color" *ngFor="let colorItem of colorItems, let i = index">
-            <input type="checkbox" [checked]="isSelected('color',colorItem.codigo)" id="color.{{i}}" (change)="toggleSelection('color',colorItem.codigo)">
-            <label for="color.{{i}}" [class.bolder]="isSelected('color',colorItem.codigo)">{{colorItem.nombre}}<div id="preview_{{colorItem.codigo}}" class="color-preview"></div></label>
+          <li class="filtro-color" *ngFor="let colorItem of filtrosDisponibles['colors'], let i = index">
+            <input type="checkbox" [checked]="isSelected('color',colorItem.code)" id="color.{{i}}" (change)="toggleSelection('color',colorItem.code)">
+            <label for="color.{{i}}" [class.bolder]="isSelected('color',colorItem.code)">
+              {{colorItem.name}}
+              <div id="preview_{{colorItem.code}}" class="color-preview"></div>
+            </label>
           </li>
         </ul>
       </div>
     </div>
   </div>
 
-  <div class="row">
+  <div class="row" *ngIf="filtrosDisponibles['materials'] && filtrosDisponibles['materials'].length > 1">
     <div class="col-xs-12">
       <div class="filter-collapse" (click)="toggleClass('#materiales')" data-toggle="collapse" href="#collapseMateriales" aria-expanded="false" aria-controls="collapseMateriales">
         <p>Materiales <span id="materiales" class="icon-plus pull-right"></span></p>
       </div>
       <div class="collapse" id="collapseMateriales">
         <ul>
-          <li *ngFor="let materialesItem of materialesItems, let i = index">
-            <input type="checkbox" id="material.{{i}}" (change)="toggleSelection('material',materialesItem.codigo)">
-            <label for="material.{{i}}">{{materialesItem.nombre}}</label>
+          <li *ngFor="let materialesItem of filtrosDisponibles['materials']">
+            <input type="checkbox" id="material_{{materialesItem.code}}" (change)="toggleSelection('material',materialesItem.code)">
+            <label for="material_{{materialesItem.code}}">{{materialesItem.name}}</label>
           </li>
         </ul>
       </div>

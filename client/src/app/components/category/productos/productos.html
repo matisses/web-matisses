@@ -31,7 +31,7 @@
         </div>
     </div>
   </div>
-  <div class="col-md-4 text-center">
+  <div class="col-md-4 text-center" *ngIf="pages.length > 1">
       <ul class="pagination">
         <li (click)="irAPagina(activePage - 1)">
           <a href="javascript:void(0)" aria-label="Previous">
