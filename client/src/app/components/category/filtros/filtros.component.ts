@@ -26,8 +26,7 @@ export class FiltrosComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    //this.configurarColoresPreview();
-    this.configurarColoresPreview();
+    
   }
 
   public inicializarFiltros(availableFields, queryParams, queryString) {
