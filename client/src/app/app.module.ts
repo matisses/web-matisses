@@ -23,6 +23,9 @@ import { CategoryComponent } from './components/category/category.component';
 import { FiltrosComponent } from './components/category/filtros/filtros.component';
 import { ProductosComponent } from './components/category/productos/productos.component';
 
+//Componente de producto
+import { ProductoComponent } from './components/producto/producto.component';
+
 //Proceso de pago
 import { ResumenCarritoComponent } from './components/resumen-carrito/resumen-carrito.component';
 
@@ -78,7 +81,8 @@ import { AppComponent } from './app.component';
     TrabajaComponent,
     GarantiasComponent,
     EnviosComponent,
-    ResumenCarritoComponent
+    ResumenCarritoComponent,
+    ProductoComponent
   ],
   imports: [
     BrowserModule,

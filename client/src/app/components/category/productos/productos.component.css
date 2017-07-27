@@ -1,5 +1,9 @@
+.producto {
+  margin-bottom: 20px;
+}
+
 .nombre-producto {
-  height: 50px;
+  height: 40px;
   margin-top: 10px;
 }
 
@@ -26,6 +30,7 @@
 .btn-carrito span {
   color: #750229;
 }
+
 
 @media screen and (max-width: 530px) {
   .btn-carrito, .btn-like {

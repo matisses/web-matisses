@@ -33,10 +33,10 @@ export class Item {
   }
 
   public newItem(itemcode, itemname, price) {
-    let item = new Item();
-    item.itemname = itemname;
-    item.itemcode = itemcode;
-    item.price = price;
-    return item;
+    this.itemname = itemname;
+    this.itemcode = itemcode;
+    this.shortitemcode = this.itemcode.substring(0,3)+this.itemcode.substring(16);
+    this.price = price;
+    return this;
   }
 }

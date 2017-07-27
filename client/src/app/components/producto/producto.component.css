@@ -1,0 +1,120 @@
+.stuck-body {
+  margin-top: 125px;
+}
+
+.breadcrumb {
+  background-color: transparent;
+  margin-top: 0px;
+}
+
+.carousel-control.right, .carousel-control.left {
+  background-image: none;
+  color: #5b5b5b;
+}
+
+.extras {
+  text-align: left;
+}
+
+.extras span {
+  font-size: 60px;
+  display: inline-block;
+}
+
+.galeria {
+  border-right: 1px solid #D1D1D1;
+  color: #5B5B5B;
+  padding-right: 10px;
+}
+
+.info {
+  min-height: 100%;
+  color: #5B5B5B;
+}
+
+.cantidad {
+  border: 1px solid #ccc;
+}
+
+.input-cantidad {
+  border-radius: 0;
+  border-color: transparent;
+  text-align: center;
+}
+
+.btn-cantidad {
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 0;
+  background-color: transparent;
+}
+
+.dropdown-menu {
+  min-width: 67px;
+  border-radius: 0;
+}
+
+.dropdown-menu li:hover {
+  background-color: #EEE;
+  cursor: pointer;
+}
+
+.btn-carrito {
+  border-radius: 0;
+  height: 36px;
+  background-color: #5B5B5B;
+  color: #FFF;
+}
+
+.btn-like {
+  border-radius: 0;
+  height: 36px;
+  margin-left: 10px;
+  background-color: #F1F1F1;
+}
+
+.padding-left {
+  padding-left: 0;
+}
+
+.detalles {
+  margin-top: 75px;
+}
+
+.detalles-collapse {
+  text-transform: uppercase;
+  border-top: 1px solid #5B5B5B;
+  padding: 5px 5px 5px 10px;
+  cursor: pointer;
+}
+
+.detalles-collapse span {
+  font-size: 10px;
+  margin: 5px 0;
+  font-weight: bolder;
+}
+
+@media screen and (max-width: 991px) {
+  .stuck-body {
+    margin-top: 0px;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .breadcrumb {
+    font-size: 8px;
+  }
+  .info, .galeria {
+    min-height: 50px;
+    border-right: 0px;
+  }
+  .btn-carrito {
+    font-size: 9px;
+  }
+  .dropdown-menu {
+    min-width: 76px;
+  }
+  .extras {
+    text-align: right;
+  }
+}

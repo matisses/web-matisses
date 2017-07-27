@@ -13,7 +13,7 @@ import { Item } from '../../models/item';
 
 export class ResumenCarritoComponent implements OnInit {
   public number: number = 34;
-    public price: number = 4800000;
+  public price: number = 4800000;
   public items:Array<Item>;
 
   constructor(private _route: ActivatedRoute, private _router: Router) {
@@ -40,10 +40,6 @@ export class ResumenCarritoComponent implements OnInit {
     this.items.push(new Item().newItem('22400000000000000013', 'Plato de postre', 56000));
     this.items.push(new Item().newItem('22400000000000000014', 'Plato de carga', 4000000));
     this.items.push(new Item().newItem('22400000000000000021', 'Plato principal el cual esta es una prueba', 89000));
-  }
-
-  public popOver(){
-    $('[data-toggle="popover"]').popover()
   }
 
 }
