@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
+import { Customer } from '../../models/customer';
 import { Item } from '../../models/item';
 
-
-declare var jquery: any;
 declare var $: any;
 
 @Component({
@@ -14,6 +13,7 @@ declare var $: any;
 
 export class InfoPagoComponent implements OnInit {
   public title: string;
+  public customer: Customer;
   public number: string;
   public items:Array<Item>;
 
@@ -32,5 +32,4 @@ export class InfoPagoComponent implements OnInit {
     this.items = new Array<Item>();
     this.items.push(new Item().newItem('22400000000000000012', 'Nombre de producto el cual puede tener mas de 30 caracteres', 56000));
   }
-
 }
