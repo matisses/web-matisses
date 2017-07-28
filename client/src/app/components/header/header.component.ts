@@ -8,10 +8,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 
 export class HeaderComponent implements OnInit {
-    public title: string;
 
     constructor(private _route: ActivatedRoute, private _router: Router) {
-        this.title = 'Este es el encabezado';
     }
 
     ngOnInit() {

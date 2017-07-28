@@ -1,25 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Item } from '../../../../models/item';
+
+import { CarritoSimpleComponent } from './carrito-simple.component';
 
 @Component({
   selector: 'matisses-carrito',
   templateUrl: 'carrito.html',
   styleUrls: ['carrito.component.css']
 })
-
 export class CarritoComponent implements OnInit {
-  public number: number = 34;
-  public items:Array<Item>;
+  @ViewChild(CarritoSimpleComponent)
+  private carrito: CarritoSimpleComponent;
+
+  public totalItems: number = 0;
+  public items: Array<Item>;
 
   constructor(private _route: ActivatedRoute, private _router: Router) {
-
+    this.items = new Array<Item>();
   }
 
   ngOnInit() {
     console.log('inicializando componente de carrito');
-    this.inicializarItems();
+    this.carrito.cargarCarrito();
+    this.procesarCarrito();
+    this.items = this.carrito.items;
   }
 
   public openResumen() {
@@ -30,14 +36,17 @@ export class CarritoComponent implements OnInit {
     document.getElementById("resumen").style.height = "0";
   }
 
-  private inicializarItems(){
-
-    this.items = new Array<Item>();
-    this.items.push(new Item().newItem('22400000000000000012', 'Nombre de producto el cual puede tener mas de 30 caracteres', 56000));
-    this.items.push(new Item().newItem('22400000000000000013', 'Plato de postre', 56000));
-    this.items.push(new Item().newItem('22400000000000000014', 'Plato de carga', 4000000));
-    this.items.push(new Item().newItem('22400000000000000021', 'Plato principal el cual esta es una prueba', 89000));
+  private procesarCarrito() {
+    this.totalItems = 0;
+    for (let i = 0; i < this.carrito.items.length; i++) {
+      this.totalItems += this.carrito.items[i].selectedQuantity;
+    }
+    console.log('el numero total de items es ' + this.totalItems);
   }
 
-
+  public eliminarItem(item: Item) {
+    item.selectedQuantity = 0;
+    this.carrito.procesarItem(item);
+    this.procesarCarrito();
+  }
 }

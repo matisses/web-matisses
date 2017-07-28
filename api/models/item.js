@@ -29,7 +29,7 @@ var ItemSchema = Schema({
   department: {
     code: String,
     name: String
-  },
+  }
 });
 
 module.exports = mongoose.model('item', ItemSchema);

@@ -8,6 +8,7 @@ export class Item {
   public model: string;
   public newFrom: Date;
   public active: boolean;
+  public selectedQuantity: number;
   public dimensions: {
     depth: number,
     height: number,
@@ -27,6 +28,8 @@ export class Item {
     code: string,
     name: string
   };
+  public stock: Array<any>;
+  public images: Array<string>;
 
   constructor() {
 

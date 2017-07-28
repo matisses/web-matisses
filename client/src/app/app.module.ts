@@ -4,11 +4,14 @@ import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { RedirectComponent } from './components/redirect/redirect.component';
+
 //Componentes del header
 import { HeaderComponent } from './components/header/header.component';
 import { TopBannerComponent } from './components/header/top-banner/top-banner.component';
 import { MenuComponent } from './components/header/menu/menu.component';
 import { CarritoComponent } from './components/header/menu/carrito/carrito.component';
+import { CarritoSimpleComponent } from './components/header/menu/carrito/carrito-simple.component';
 
 //Componentes del cuerpo del home
 import { HomeComponent } from './components/home/home.component';
@@ -57,6 +60,7 @@ import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
+    RedirectComponent,
     AppComponent,
     HeaderComponent,
     HomeComponent,
@@ -85,6 +89,7 @@ import { AppComponent } from './app.component';
     EnviosComponent,
     ResumenCarritoComponent,
     ProductoComponent,
+    CarritoSimpleComponent,
     IngresarComponent,
     InfoPagoComponent
   ],
