@@ -29,7 +29,7 @@ export class ItemService {
       .map(res => res.json());
   }
 
-  updateFilters(queryString){
+  updateFilters(queryString) {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
@@ -37,11 +37,19 @@ export class ItemService {
       .map(res => res.json());
   }
 
-  findType(type, queryString){
+  findType(type, queryString) {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
     return this._http.get(this.url + 'item/consultar' + type + queryString, { headers: headers })
+      .map(res => res.json());
+  }
+
+  find(itemCode: string) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    return this._http.get(this.url + 'item/consultaritem/' + itemCode, { headers: headers })
       .map(res => res.json());
   }
 }

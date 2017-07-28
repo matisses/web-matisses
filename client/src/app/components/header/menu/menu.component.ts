@@ -1,5 +1,5 @@
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
-import { Component, OnInit, AfterViewInit  } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild  } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { StickyMenuDirective } from '../../../directives/sticky.directive';

@@ -10,6 +10,7 @@ import { GarantiasComponent } from './components/garantias/garantias.component';
 import { EnviosComponent } from './components/envios/envios.component';
 import { ResumenCarritoComponent } from './components/resumen-carrito/resumen-carrito.component';
 import { ProductoComponent } from './components/producto/producto.component';
+import { RedirectComponent } from './components/redirect/redirect.component';
 
 
 const appRoutes: Routes = [
@@ -21,7 +22,8 @@ const appRoutes: Routes = [
     {path: 'garantias', component: GarantiasComponent},
     {path: 'envios', component: EnviosComponent},
     {path: 'resumen-carrito', component: ResumenCarritoComponent},
-    {path: 'producto', component: ProductoComponent},
+    {path: 'producto/:item', component: ProductoComponent},
+    {path: 'redirect/:previous', component: RedirectComponent},
     //,{path: 'producto/:productId', component: CategoryComponent},
     {path: '**', component: ErrorComponent} //pagina 404
 ];

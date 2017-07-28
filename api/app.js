@@ -7,6 +7,7 @@ var app = express();
 var itemRoutes = require('./routes/item');
 var menuItemRoutes = require('./routes/menu-item');
 var recommendedItemRoutes = require('./routes/recommended-item');
+var stockRoutes = require('./routes/stock');
 
 app.use(bodyParser.urlencoded({
   extended: false
@@ -24,5 +25,6 @@ app.use((req, res, next) => {
 app.use('/api/item', itemRoutes);
 app.use('/api/menuitem', menuItemRoutes);
 app.use('/api/recommendeditem', recommendedItemRoutes);
+app.use('/api/stock', stockRoutes);
 
 module.exports = app;

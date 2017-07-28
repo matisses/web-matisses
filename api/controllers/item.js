@@ -13,6 +13,25 @@ var Brand = require('../models/brand');
 var Color = require('../models/genericcolor');
 var Material = require('../models/material');
 
+function consultarItem(req, res) {
+  Item.find({"shortitemcode": req.params.itemcode}, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send({
+        message: 'ocurrio un error al consultar el producto'
+      });
+    } else if (!result) {
+      res.status(404).send({
+        message: 'no se encontró ningún producto con el itemcode ' + req.query.itemcode
+      });
+    } else {
+      res.status(200).send({
+        result: result
+      });
+    }
+  });
+}
+
 function consultarNuevos(req, res) {
   Item.find({}, (err, result) => {
     if (err) {
@@ -442,6 +461,7 @@ function consultarMaterial(req, res) {
 }
 
 module.exports = {
+  consultarItem,
   consultarNuevos,
   filtrar,
   consultarFiltros,

@@ -1,41 +1,83 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Item } from '../../models/item';
+import { ItemService } from '../../services/item.service';
+import { StockService } from '../../services/stock.service';
 
-declare var jquery: any;
+import { CarritoSimpleComponent } from '../header/menu/carrito/carrito-simple.component';
+
 declare var $: any;
 
 @Component({
   templateUrl: 'producto.html',
-  styleUrls: ['producto.component.css']
+  styleUrls: ['producto.component.css'],
+  providers: [ItemService, StockService]
 })
+export class ProductoComponent implements OnInit, AfterViewInit {
+  @ViewChild(CarritoSimpleComponent)
+  private carrito: CarritoSimpleComponent;
 
-export class ProductoComponent implements OnInit {
+  public selectedQuantity: number = 1;
+  public quantityOptions: Array<number>;
   public images: Array<string>;
-  public items: Array<Item>;
+  public item: Item;
 
-  constructor(private _route: ActivatedRoute, private _router: Router) {
+  constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _stockService: StockService) {
+    this.quantityOptions = new Array<number>();
     this.images = new Array<string>();
   }
 
   ngOnInit() {
     console.log('inicializando componente de producto');
-    this.inicializarItems();
+    this.cargarInfoItem();
   }
 
-  private inicializarItems() {
-    this.items = new Array<Item>();
-    this.items.push(new Item().newItem('25400000000000000018', 'Nombre de producto el cual puede tener mas de 30 caracteres', 56000));
-    let maxImages = Math.random()*7 |0;
+  ngAfterViewInit() {
+    this.carrito.cargarCarrito();
+  }
 
-    for(let i = 1; i <= maxImages; i++){
-      this.images.push('25400000000000000018_0'+i);
-    }
-    console.log(this.images);
+  private cargarInfoItem() {
+    this.quantityOptions = new Array<number>();
+    this._route.params.forEach((params: Params) => {
+      let itemCode: string = params['item'];
+
+      this._itemService.find(itemCode).subscribe(
+        response => {
+          this.item = response.result[0];
+          console.log(this.item);
+          this._stockService.getStock(itemCode).subscribe(
+            response => {
+              let totalStock = 0;
+              this.item.stock = response.result;
+              for (let i = 0; i < this.item.stock.length; i++) {
+                totalStock += this.item.stock[i].quantity;
+              }
+              for (let i = 0; i < totalStock; i++) {
+                this.quantityOptions.push(i + 1);
+              }
+            }, error => {
+              console.log(error);
+            }
+          );
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    });
+  }
+
+  public agregarCarrito() {
+    this.item.selectedQuantity = this.selectedQuantity;
+    this.carrito.procesarItem(this.item);
   }
 
   public toggleClass(idComponent) {
     $(idComponent).toggleClass("icon-plus icon-minus");
+  }
+
+  public seleccionarCantidad(quantity) {
+    this.selectedQuantity = quantity;
   }
 }
