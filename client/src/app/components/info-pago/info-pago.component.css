@@ -1,3 +1,32 @@
+.container {
+  color: #5B5B5B;
+}
+
+.contenido {
+  min-height: 500px
+}
+
+.border-left {
+  border-left: 1px solid #d1d1d1;;
+}
+
+.titulo {
+  background-color: #f1f1f1;
+  color: #5B5B5B;
+  text-align: center;
+  padding: 5px 0px;
+  margin-bottom: 20px;
+}
+
+.titulo p {
+  margin: 0;
+  font-weight: 700;
+}
+
+label {
+  font-weight: normal;
+}
+
 .btn-continuar {
   background-color: #700000;
   padding: 10px 0px;

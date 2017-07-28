@@ -1,20 +1,101 @@
 <matisses-header></matisses-header>
 
 <div sticky-body>
-<div class="container">
-  <div class="row">
-    <div class="col-sm-4">
-      {{title}}
-      metodos de envio
-    </div>
-    <div class="col-sm-4">
-      info personal
-    </div>
-    <div class="col-sm-4">
-      place2pay
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="contenido">
+          <div class="titulo">
+            <p>Medios de envío</p>
+          </div>
+          <div class="medios-envio">
+            <form>
+              <input type="radio" id="coordinadora" name="envio" value="coordinadora" checked>
+              <label for="coordinadora">Coordinadora</label>
+              <br>
+              <input type="radio" id="matisses" name="envio" value="matisses">
+              <label for="matisses">Matisses. Una semana el mejor precio</label>
+              <br>
+              <input type="radio" id="recoger" name="envio" value="recoger">
+              <label for="recoger">Recoger en tienda. 3 días habiles</label>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 border-left">
+        <div class="contenido">
+          <div class="titulo">
+            <p>Información de envío</p>
+          </div>
+          <div class="info-envio">
+            <div class="row">
+              <div class="col-xs-6">
+                <label for="tipo-D">Tipo de documento*</label>
+                <select name="" id="tipo-D" class="form-control">
+                  <option value="cedula">Cedula</option>
+                  <option value="cedula extrangera">Cedula extrangera</option>
+                  <option value="pasaporte">Pasaporte</option>
+                </select>
+              </div>
+              <div class="col-xs-6">
+                <label for="docu">Documento*</label>
+                <input id="docu" type="text" class="form-control">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <label for="name">Nombres*</label>
+                <input id="name" type="text" class="form-control">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6">
+                <label for="last1">Primer apellido*</label>
+                <input id="last1" type="text" class="form-control">
+              </div>
+              <div class="col-xs-6">
+                <label for="last2">Primer apellido*</label>
+                <input id="last2" type="text" class="form-control">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <label for="mail">Correo*</label>
+                <input id="mail" type="mail" class="form-control">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6">
+                <label for="cel">Telefono movil*</label>
+                <input id="cel" type="text" class="form-control">
+              </div>
+              <div class="col-xs-6">
+                <label for="city">Cidudad*</label>
+                <select name="" id="city" class="form-control">
+                  <option value="cedula">Medellín</option>
+                  <option value="cedula extrangera">Bogotá</option>
+                  <option value="pasaporte">Cali</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <label for="address">Dirección*</label>
+                <input id="address" type="mail" class="form-control">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 border-left">
+        <div class="contenido">
+          <div class="titulo">
+            <p>Ir a pagar</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-</div>
 
-  <matisses-footer></matisses-footer>
+<matisses-footer></matisses-footer>
