@@ -1,0 +1,22 @@
+.btn-continuar {
+  background-color: #700000;
+  padding: 10px 0px;
+  color: #FFF;
+  text-align: center;
+  cursor: pointer;
+}
+
+.arrow {
+  position: absolute;
+  top: 27%;
+  margin-left: 5px;
+  transition: 0.5s;
+}
+
+.btn-continuar:hover > .arrow {
+  margin-left: 15px;
+}
+
+.btn-continuar:hover {
+  background-color: #500000;
+}
