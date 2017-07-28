@@ -8,14 +8,12 @@
   </div>
   <div class="row">
     <div class="col-xs-12">
-      <ul>
-        <li *ngFor="let filtro of filtrosAplicados">
-          <div class="active-filter" (click)="toggleSelection(filtro[2], null)">
-            {{filtro[0]}}: {{filtro[1]}}
-            <span class="active-filter-delete glyphicon glyphicon-trash"></span>
-          </div>
-        </li>
-      </ul>
+      <div class="tags-filtros">
+        <span class="active-filter" *ngFor="let filtro of filtrosAplicados" (click)="toggleSelection(filtro[2], null)">
+          {{filtro[1]}}
+          <span class="active-filter-delete glyphicon glyphicon-trash"></span>
+        </span>
+      </div>
     </div>
   </div>
 </div>

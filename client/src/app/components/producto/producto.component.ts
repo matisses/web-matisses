@@ -12,6 +12,7 @@ declare var $: any;
 })
 
 export class ProductoComponent implements OnInit {
+  public number: number = 3;
   public images: Array<string>;
   public items: Array<Item>;
 
@@ -26,7 +27,7 @@ export class ProductoComponent implements OnInit {
 
   private inicializarItems() {
     this.items = new Array<Item>();
-    this.items.push(new Item().newItem('25400000000000000018', 'Nombre de producto el cual puede tener mas de 30 caracteres', 56000));
+    this.items.push(new Item().newItem('25400000000000000018', 'Nombre de producto el cual puede tener mas de 30 caracteres', 560000));
     let maxImages = Math.random()*7 |0;
 
     for(let i = 1; i <= maxImages; i++){
@@ -38,4 +39,5 @@ export class ProductoComponent implements OnInit {
   public toggleClass(idComponent) {
     $(idComponent).toggleClass("icon-plus icon-minus");
   }
+
 }

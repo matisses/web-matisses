@@ -31,7 +31,6 @@
   color: #750229;
 }
 
-
 @media screen and (max-width: 530px) {
   .btn-carrito, .btn-like {
     font-size: 10px;
@@ -53,6 +52,7 @@
   }
 }
 
+
 /* paginador */
 
 .pagination {
@@ -61,13 +61,14 @@
 
 .pagination li a {
   color: #5B5B5B;
-  padding: 6px 10px;
+  padding: 6px 8px;
   border-color: transparent;
 }
 
 .pagination li a.active {
   background-color: #eee;
 }
+
 
 /* mostrar por */
 
@@ -79,6 +80,7 @@
   padding: 0 10px;
 }
 
+
 /* Order por */
 
 .ordenar:before {
@@ -87,6 +89,13 @@
   display: inline-block;
   border-right: 1px solid #626262;
   padding: 0 10px;
+}
+
+@media screen and (max-width: 1200px) {
+  .pagination li a {
+    padding: 10px 7px;
+    font-size: 11px;
+  }
 }
 
 @media screen and (max-width: 991px) {
