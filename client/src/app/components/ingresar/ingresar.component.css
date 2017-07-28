@@ -1,3 +1,7 @@
+.stuck-body {
+  margin-top: 130px;
+}
+
 .btn-continuar {
   background-color: #700000;
   padding: 10px 0px;
@@ -19,4 +23,10 @@
 
 .btn-continuar:hover {
   background-color: #500000;
+}
+
+@media screen and (max-width: 991px) {
+  .stuck-body {
+    margin-top: 0px;
+  }
 }

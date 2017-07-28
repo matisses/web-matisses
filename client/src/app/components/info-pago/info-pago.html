@@ -19,17 +19,18 @@
               <input type="radio" id="recoger" name="envio" value="recoger">
               <label for="recoger">Recoger en tienda. 3 días habiles</label>
             </form>
+            <br/>
           </div>
         </div>
       </div>
-      <div class="col-sm-4 border-left">
+      <div class="col-sm-4 border-both">
         <div class="contenido">
           <div class="titulo">
             <p>Información de envío</p>
           </div>
           <div class="info-envio">
             <div class="row">
-              <div class="col-xs-6">
+              <div class="col-md-6">
                 <label for="tipo-D">Tipo de documento*</label>
                 <select name="" id="tipo-D" class="form-control">
                   <option value="cedula">Cedula</option>
@@ -37,40 +38,40 @@
                   <option value="pasaporte">Pasaporte</option>
                 </select>
               </div>
-              <div class="col-xs-6">
+              <div class="col-md-6">
                 <label for="docu">Documento*</label>
                 <input id="docu" type="text" class="form-control">
               </div>
             </div>
             <div class="row">
-              <div class="col-xs-12">
+              <div class="col-md-12">
                 <label for="name">Nombres*</label>
                 <input id="name" type="text" class="form-control">
               </div>
             </div>
             <div class="row">
-              <div class="col-xs-6">
+              <div class="col-md-6">
                 <label for="last1">Primer apellido*</label>
                 <input id="last1" type="text" class="form-control">
               </div>
-              <div class="col-xs-6">
-                <label for="last2">Primer apellido*</label>
+              <div class="col-md-6">
+                <label for="last2">Segundo apellido*</label>
                 <input id="last2" type="text" class="form-control">
               </div>
             </div>
             <div class="row">
-              <div class="col-xs-12">
+              <div class="col-md-12">
                 <label for="mail">Correo*</label>
                 <input id="mail" type="mail" class="form-control">
               </div>
             </div>
             <div class="row">
-              <div class="col-xs-6">
+              <div class="col-md-6">
                 <label for="cel">Telefono movil*</label>
                 <input id="cel" type="text" class="form-control">
               </div>
-              <div class="col-xs-6">
-                <label for="city">Cidudad*</label>
+              <div class="col-md-6">
+                <label for="city">Ciudad*</label>
                 <select name="" id="city" class="form-control">
                   <option value="cedula">Medellín</option>
                   <option value="cedula extrangera">Bogotá</option>
@@ -79,18 +80,56 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-xs-12">
+              <div class="col-md-12">
                 <label for="address">Dirección*</label>
                 <input id="address" type="mail" class="form-control">
               </div>
             </div>
+            <br/>
           </div>
         </div>
       </div>
-      <div class="col-sm-4 border-left">
+      <div class="col-sm-4">
         <div class="contenido">
           <div class="titulo">
             <p>Ir a pagar</p>
+          </div>
+          <div class="resumen-pago" style="border-bottom: 1px dotted #D1D1D1;">
+            <div class="row">
+              <div class="col-xs-12" *ngFor="let item of items">
+                <div class="row">
+                  <div class="col-sm-10 col-sm-offset-1 border-bottom">
+                    <h4><b>{{number}}</b> PRODUCTOS</h4>
+                    <p>Total de los productos: <span class="pull-right"><b>$ {{item.price | number}}</b></span></p>
+                    <p>Envío estándar: <span class="pull-right"><b>$ 0</b></span></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-10 col-sm-offset-1">
+                    <p>Total: <span class="pull-right"><b>$ {{item.price | number}}</b></span></p>
+                    <!--<div class="col-xs-5 text-right">
+                    <div class="row">
+                      <div class="col-xs-7">
+                        <p style="margin-top: 5px;">Financiación<br>con mercadopago: </p>
+                      </div>
+                        <p style="font-size:10px; margin-top:10px"><b>Hasta 12 cuotas de<br>$ 46,667</b></p>
+                    </div>
+                  </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br/>
+          <div class="place2pay">
+            <div class="row">
+              <div class="col-sm-10 col-sm-offset-1 text-center">
+                <p class="text-left">El proceso de pago se le redireccionará a un sitio seguro.</p>
+                <img src="assets/images/logo-p2p.png" class="text-center" alt="">
+                <p class="btn-continuar" [routerLink]="['/info-pago']">Continuar</p>
+                <img src="assets/images/gif-cargando.gif" alt="">
+              </div>
+            </div>
           </div>
         </div>
       </div>
