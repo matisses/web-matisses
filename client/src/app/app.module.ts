@@ -30,7 +30,9 @@ import { ProductosComponent } from './components/category/productos/productos.co
 import { ProductoComponent } from './components/producto/producto.component';
 
 //Proceso de pago
+import { IngresarComponent } from './components/ingresar/ingresar.component';
 import { ResumenCarritoComponent } from './components/resumen-carrito/resumen-carrito.component';
+import { InfoPagoComponent} from './components/info-pago/info-pago.component';
 
 //Componentes de las pagians estáticas
 import { QuienesComponent } from './components/quienes-somos/quienes-somos.component';
@@ -87,7 +89,9 @@ import { AppComponent } from './app.component';
     EnviosComponent,
     ResumenCarritoComponent,
     ProductoComponent,
-    CarritoSimpleComponent
+    CarritoSimpleComponent,
+    IngresarComponent,
+    InfoPagoComponent
   ],
   imports: [
     BrowserModule,

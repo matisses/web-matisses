@@ -40,7 +40,7 @@
 .suscribete {
   background-color: #777;
   color: #ECECEC;
-  z-index: 0;
+  z-index: 0 !important;
 }
 
 .suscribete:hover {
