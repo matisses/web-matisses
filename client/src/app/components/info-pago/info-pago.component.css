@@ -27,6 +27,10 @@ label {
   font-weight: normal;
 }
 
+.img-responsive {
+  margin-left: 30%;
+}
+
 .btn-continuar {
   background-color: #700000;
   padding: 10px 0px;

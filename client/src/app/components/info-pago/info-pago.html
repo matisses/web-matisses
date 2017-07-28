@@ -70,7 +70,7 @@
                 <input id="cel" type="text" class="form-control">
               </div>
               <div class="col-xs-6">
-                <label for="city">Cidudad*</label>
+                <label for="city">Ciudad*</label>
                 <select name="" id="city" class="form-control">
                   <option value="cedula">Medellín</option>
                   <option value="cedula extrangera">Bogotá</option>
@@ -91,6 +91,42 @@
         <div class="contenido">
           <div class="titulo">
             <p>Ir a pagar</p>
+          </div>
+          <div class="resumen-pago" style="border-bottom: 1px dotted #D1D1D1;">
+            <div class="row">
+              <div class="col-xs-12" *ngFor="let item of items">
+                <div class="row">
+                  <div class="col-xs-10 col-xs-offset-1" style="border-bottom: 1px dotted #D1D1D1;">
+                    <h4 style="margin: 0;"><b>{{number}}</b> PRODUCTOS</h4>
+                    <p style="margin-top: 15px;">Costo total de los productos: <span class="pull-right"><b>$ {{item.price | number}}</b></span></p>
+                    <p>Envío estándar: <span class="pull-right"><b>$ 0</b></span></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-10 col-xs-offset-1">
+                    <p style="margin-top: 15px;">Total: <span class="pull-right"><b>$ {{item.price | number}}</b></span></p>
+                    <div class="row">
+                      <div class="col-xs-7">
+                        <p style="margin-top: 5px;">Financiación<br>con mercadopago: </p>
+                      </div>
+                      <div class="col-xs-5 text-right">
+                        <p style="font-size:10px; margin-top:10px"><b>Hasta 12 cuotas de<br>$ 46,667</b></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br/>
+          <div class="place2pay">
+            <div class="row">
+              <div class="col-xs-10 col-xs-offset-1">
+                <p>El proceso de pago se le redireccionará a un sitio seguro.</p>
+                <img src="assets/images/logo-p2p.png" class="img-responsive" alt="">
+                <p class="btn-continuar" [routerLink]="['/info-pago']">Continuar</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
