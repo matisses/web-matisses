@@ -70,7 +70,7 @@
               <button type="button" class="btn btn-like">
                 <span class="glyphicon glyphicon-heart-empty wish-list"></span>
               </button>
-              <button type="button" class="btn btn-carrito">
+              <button type="button" class="btn btn-carrito" (click)="agregarCarrito(item)">
                 <span class="icon-shopping-cart carrito"> </span> AGREGAR AL CARRITO
               </button>
             </div>
@@ -82,3 +82,4 @@
 
   </div>
 </div>
+<matisses-carrito-simple #carritoSimple></matisses-carrito-simple>

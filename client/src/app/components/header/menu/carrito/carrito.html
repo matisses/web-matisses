@@ -1,16 +1,17 @@
-<div class="carrito" (mouseover)="openResumen()" (click)="openResumen()">
+<div class="carrito" (click)="openResumen()" >
   <span class="icon-shopping-cart carrito"> </span>
-  <span class="badge" >{{totalItems}}</span>
+  <span class="badge" id="totalItemsCarritoBadge">{{carrito.totalItems}}</span>
 </div>
-<div id="resumen" class="resumen" (mouseover)="openResumen()" (mouseout)="closeResumen()">
+<div id="resumen" class="resumen">
   <div class="row">
     <div class="col-xs-12 text-center">
       <br/>
-      <p>Tu carrito contiene <b>({{totalItems}})</b> productos</p>
+      <span class="icon-close" (click)="closeResumen()"></span>
+      <p>Tu carrito contiene <b id="totalItemsCarrito">({{carrito.totalItems}})</b> productos</p>
     </div>
   </div>
   <div class="productos">
-    <div class="row border" *ngFor="let item of items">
+    <div class="row border" *ngFor="let item of carrito.items">
       <div class="col-xs-3">
         <!--<img src="assets/images/recommended/{{item.itemcode}}.jpg" class="img-responsive" alt="">-->
         <img class="img-responsive" src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/mini/{{item.itemcode}}_01.jpg" alt="...">
@@ -34,4 +35,4 @@
     </div>
   </div>
 </div>
-<matisses-carrito-simple></matisses-carrito-simple>
+<matisses-carrito-simple #carritoSimple></matisses-carrito-simple>
