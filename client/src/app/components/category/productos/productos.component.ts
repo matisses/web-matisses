@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { ItemService } from '../../../services/item.service';
 import { Item } from '../../../models/item';
+
+import { CarritoSimpleComponent } from '../../header/menu/carrito/carrito-simple.component';
 
 @Component({
   selector: 'productos-matisses',
@@ -12,6 +14,8 @@ import { Item } from '../../../models/item';
 })
 
 export class ProductosComponent {
+  @ViewChild(CarritoSimpleComponent)
+  private carrito: CarritoSimpleComponent;
   public totalItems: number;
   public activePage: number;
   public itemsXPag: string;
@@ -117,5 +121,10 @@ export class ProductosComponent {
   public changeOrder(orderkey) {
     this.queryParams.set('orderBy', orderkey);
     this.navigate();
+  }
+
+  public agregarCarrito(item: Item) {
+    item.selectedQuantity = 1;
+    this.carrito.procesarItem(item);
   }
 }

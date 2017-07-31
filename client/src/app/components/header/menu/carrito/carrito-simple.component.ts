@@ -10,6 +10,7 @@ import { Item } from '../../../../models/item';
 
 export class CarritoSimpleComponent {
   public items: Array<Item>;
+  public totalItems: number = 0;
 
   constructor(private _route: ActivatedRoute, private _router: Router) {
     this.items = new Array<Item>();
@@ -20,11 +21,14 @@ export class CarritoSimpleComponent {
     //consultar localstorage
     this.items = JSON.parse(localStorage.getItem('matisses.carrito'));
     console.log(this.items);
+    this.procesarCarrito();
   }
 
   public procesarItem(item: Item) {
     console.log('procesando item')
     console.log(item);
+    //0. Cargar contenido de localStorage
+    this.cargarCarrito();
     //1. validar contenido
     let encontrado = false;
     for (let i = 0; i < this.items.length; i++) {
@@ -47,7 +51,22 @@ export class CarritoSimpleComponent {
     //3. guardar
     localStorage.setItem('matisses.carrito', JSON.stringify(this.items));
     //4. navegar
-    console.log(new Date().getTime());
-    this._router.navigate(['/redirect',this._router.url]);
+    //console.log(new Date().getTime());
+    //this._router.navigate(['/redirect',this._router.url]);
+    //5. Actualizar contenido HTML
+    this.procesarCarrito();
+    let cantidadCarrito = <HTMLElement>document.querySelector("#totalItemsCarrito");
+    let cantidadCarritoBadge = <HTMLElement>document.querySelector("#totalItemsCarritoBadge");
+
+    cantidadCarrito.innerHTML = this.totalItems.toString();
+    cantidadCarritoBadge.innerHTML = this.totalItems.toString();
+  }
+
+  private procesarCarrito() {
+    this.totalItems = 0;
+    for (let i = 0; i < this.items.length; i++) {
+      this.totalItems += this.items[i].selectedQuantity;
+    }
+    console.log('el numero total de items es ' + this.totalItems);
   }
 }

@@ -14,39 +14,25 @@ export class CarritoComponent implements OnInit {
   @ViewChild(CarritoSimpleComponent)
   private carrito: CarritoSimpleComponent;
 
-  public totalItems: number = 0;
-  public items: Array<Item>;
-
   constructor(private _route: ActivatedRoute, private _router: Router) {
-    this.items = new Array<Item>();
   }
 
   ngOnInit() {
     console.log('inicializando componente de carrito');
     this.carrito.cargarCarrito();
-    this.procesarCarrito();
-    this.items = this.carrito.items;
   }
 
   public openResumen() {
     document.getElementById("resumen").style.height = "380px";
+    this.carrito.cargarCarrito();
   }
 
   public closeResumen() {
     document.getElementById("resumen").style.height = "0";
   }
 
-  private procesarCarrito() {
-    this.totalItems = 0;
-    for (let i = 0; i < this.carrito.items.length; i++) {
-      this.totalItems += this.carrito.items[i].selectedQuantity;
-    }
-    console.log('el numero total de items es ' + this.totalItems);
-  }
-
   public eliminarItem(item: Item) {
     item.selectedQuantity = 0;
     this.carrito.procesarItem(item);
-    this.procesarCarrito();
   }
 }
