@@ -8,6 +8,7 @@ var itemRoutes = require('./routes/item');
 var menuItemRoutes = require('./routes/menu-item');
 var recommendedItemRoutes = require('./routes/recommended-item');
 var stockRoutes = require('./routes/stock');
+var cityRoutes = require('./routes/city');
 
 app.use(bodyParser.urlencoded({
   extended: false
@@ -26,5 +27,6 @@ app.use('/api/item', itemRoutes);
 app.use('/api/menuitem', menuItemRoutes);
 app.use('/api/recommendeditem', recommendedItemRoutes);
 app.use('/api/stock', stockRoutes);
+app.use('/api/city', cityRoutes);
 
 module.exports = app;

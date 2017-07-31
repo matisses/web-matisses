@@ -2,7 +2,7 @@
 
 <div sticky-body>
   <div class="container">
-    <div class="row">
+    <div class="row" *ngIf="totalItems != null && totalItems > 0">
       <div class="col-sm-4">
         <div class="contenido">
           <div class="titulo">
@@ -33,10 +33,11 @@
               <div class="row">
                 <div class="col-md-6">
                   <label for="tipo-D">Tipo de documento*</label>
-                  <select name="" id="tipo-D" class="form-control">
-                    <option value="cedula">Cedula</option>
-                    <option value="cedula extrangera">Cedula extrangera</option>
-                    <option value="pasaporte">Pasaporte</option>
+                  <select name="typeDoc" id="tipo-D" class="form-control" [(ngModel)]="customer.fiscalIdType">
+                    <option style="display:none" disabled selected value>Seleccione uno</option>
+                    <option [selected]="customer.fiscalIdType == CEDULA_CIUDADANIA" value="CEDULA_CIUDADANIA">Cedula</option>
+                    <option [selected]="customer.fiscalIdType == CEDULA_EXTRANJERIA" value="CEDULA_EXTRANJERIA">Cedula extranjería</option>
+                    <option [selected]="customer.fiscalIdType == PASAPORTE" value="PASAPORTE">Pasaporte</option>
                   </select>
                 </div>
                 <div class="col-md-6">
@@ -73,11 +74,12 @@
                 </div>
                 <div class="col-md-6">
                   <label for="city">Ciudad*</label>
-                  <select name="" id="city" class="form-control">
-                    <option value="cedula">Medellín</option>
-                    <hr/>
-                    <option value="cedula extrangera">Bogotá</option>
-                    <option value="pasaporte">Cali</option>
+                  <select name="city" id="city" class="form-control" *ngIf="ciudadesPrincipales">
+                    <option style="display:none" disabled selected value>Seleccione una</option>
+                    <option disabled>─ Ciudades capitales</option>
+                    <option [selected]="customer.addresses[0].cityCode == principal.code" *ngFor="let principal of ciudadesPrincipales" value="principal.code">{{principal.name}}</option>
+                    <option disabled>─ Otras ciudades</option>
+                    <option [selected]="customer.addresses[0].cityCode == otra.code" *ngFor="let otra of otrasCiudades" value="otra.code">{{otra.name}}</option>
                   </select>
                 </div>
               </div>
@@ -135,6 +137,11 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 center" *ngIf="totalItems == null || totalItems == 0">
+        <p>No hay ítems en el carrito</p>
       </div>
     </div>
   </div>

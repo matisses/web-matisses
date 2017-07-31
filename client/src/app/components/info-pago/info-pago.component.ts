@@ -3,8 +3,10 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Customer } from '../../models/customer';
 import { Item } from '../../models/item';
+import { City } from '../../models/city';
 
 import { CustomerService } from '../../services/customer.service';
+import { CityService } from '../../services/city.service';
 
 import { CarritoSimpleComponent } from '../header/menu/carrito/carrito-simple.component';
 
@@ -13,7 +15,7 @@ declare var $: any;
 @Component({
   templateUrl: 'info-pago.html',
   styleUrls: ['info-pago.component.css'],
-  providers: [CustomerService]
+  providers: [CustomerService, CityService]
 })
 
 export class InfoPagoComponent implements OnInit {
@@ -24,11 +26,15 @@ export class InfoPagoComponent implements OnInit {
   public totalCarrito: number = 0;
   public totalEnvio: number = 0;
   public title: string;
-  public customer: Customer;
   public number: string;
+  public customer: Customer;
+  public ciudadesPrincipales: Array<City>;
+  public otrasCiudades: Array<City>;
   public items: Array<Item>;
 
-  constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService) {
+  constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService, private _cityService: CityService) {
+    this.ciudadesPrincipales = new Array<City>();
+    this.otrasCiudades = new Array<City>();
     this.customer = new Customer().newCustomer('', '', null, '', '', '', '', '', '', '', '', null, '', '', '', '', '', '', [{
       stateCode: null,
       stateName: null,
@@ -51,6 +57,7 @@ export class InfoPagoComponent implements OnInit {
     console.log('inicializando componente de información de pago');
     this.carrito.cargarCarrito();
     this.procesarCarrito();
+    this.obtenerCiudades();
   }
 
   private procesarCarrito() {
@@ -60,6 +67,27 @@ export class InfoPagoComponent implements OnInit {
       this.totalItems += this.carrito.items[i].selectedQuantity;
       this.totalCarrito += (this.carrito.items[i].price * this.carrito.items[i].selectedQuantity);
     }
+  }
+
+  public obtenerCiudades() {
+    this.ciudadesPrincipales = new Array<City>();
+    this.otrasCiudades = new Array<City>();
+    this._cityService.findPrincipalCities().subscribe(
+      response => {
+        this.ciudadesPrincipales = response.cities;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+    this._cityService.findOtherCities().subscribe(
+      response => {
+        this.otrasCiudades = response.cities;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   public buscarCliente() {
