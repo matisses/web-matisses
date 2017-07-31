@@ -35,7 +35,8 @@ import { ProductoComponent } from './components/producto/producto.component';
 //Proceso de pago
 import { IngresarComponent } from './components/ingresar/ingresar.component';
 import { ResumenCarritoComponent } from './components/resumen-carrito/resumen-carrito.component';
-import { InfoPagoComponent} from './components/info-pago/info-pago.component';
+import { InfoPagoComponent } from './components/info-pago/info-pago.component';
+import { ResultadoTransacciComponent } from './components/resultado-transaccion/resultado-transaccion.component';
 
 //Componentes de las pagians estáticas
 import { QuienesComponent } from './components/quienes-somos/quienes-somos.component';
@@ -95,7 +96,8 @@ import { AppComponent } from './app.component';
     CarritoSimpleComponent,
     IngresarComponent,
     InfoPagoComponent,
-    MigaDePanComponent
+    MigaDePanComponent,
+    ResultadoTransacciComponent
   ],
   imports: [
     BrowserModule,
