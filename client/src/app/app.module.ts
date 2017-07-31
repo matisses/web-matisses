@@ -13,6 +13,9 @@ import { MenuComponent } from './components/header/menu/menu.component';
 import { CarritoComponent } from './components/header/menu/carrito/carrito.component';
 import { CarritoSimpleComponent } from './components/header/menu/carrito/carrito-simple.component';
 
+//Componente miga de padding
+import { MigaDePanComponent } from './components/miga-de-pan/miga-de-pan.component';
+
 //Componentes del cuerpo del home
 import { HomeComponent } from './components/home/home.component';
 import { RecommendedComponent } from './components/recommended/recommended.component';
@@ -32,7 +35,8 @@ import { ProductoComponent } from './components/producto/producto.component';
 //Proceso de pago
 import { IngresarComponent } from './components/ingresar/ingresar.component';
 import { ResumenCarritoComponent } from './components/resumen-carrito/resumen-carrito.component';
-import { InfoPagoComponent} from './components/info-pago/info-pago.component';
+import { InfoPagoComponent } from './components/info-pago/info-pago.component';
+import { ResultadoTransacciComponent } from './components/resultado-transaccion/resultado-transaccion.component';
 
 //Componentes de las pagians estáticas
 import { QuienesComponent } from './components/quienes-somos/quienes-somos.component';
@@ -91,7 +95,9 @@ import { AppComponent } from './app.component';
     ProductoComponent,
     CarritoSimpleComponent,
     IngresarComponent,
-    InfoPagoComponent
+    InfoPagoComponent,
+    MigaDePanComponent,
+    ResultadoTransacciComponent
   ],
   imports: [
     BrowserModule,

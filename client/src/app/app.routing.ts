@@ -12,7 +12,8 @@ import { ResumenCarritoComponent } from './components/resumen-carrito/resumen-ca
 import { ProductoComponent } from './components/producto/producto.component';
 import { RedirectComponent } from './components/redirect/redirect.component';
 import { IngresarComponent } from './components/ingresar/ingresar.component';
-import { InfoPagoComponent} from './components/info-pago/info-pago.component';
+import { InfoPagoComponent } from './components/info-pago/info-pago.component';
+import { ResultadoTransacciComponent } from './components/resultado-transaccion/resultado-transaccion.component';
 
 const appRoutes: Routes = [
     {path: '', component: HomeComponent},
@@ -27,6 +28,7 @@ const appRoutes: Routes = [
     {path: 'redirect/:previous', component: RedirectComponent},
     {path: 'ingresar', component: IngresarComponent},
     {path: 'info-pago', component: InfoPagoComponent},
+    {path: 'resultado-transaccion', component: ResultadoTransacciComponent},
     //,{path: 'producto/:productId', component: CategoryComponent},
     {path: '**', component: ErrorComponent} //pagina 404
 ];
