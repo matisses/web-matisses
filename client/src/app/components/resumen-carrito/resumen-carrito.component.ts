@@ -52,11 +52,15 @@ export class ResumenCarritoComponent implements OnInit {
   }
 
   public procesarItem(item: Item) {
-    console.log('Este es el nuevo valor de la cantidad seleccionada para el item ' + item.selectedQuantity);
-    this.carrito.procesarItem(item);
+    if (item.selectedQuantity > item.availablestock) {
+      console.log('Se está agregando una cantidad del ítem ' + item.itemcode + ' superior a la disponible');
+      item.selectedQuantity = item.availablestock;
+    } else {
+      this.carrito.procesarItem(item);
+    }
   }
 
-  public eliminarItem(item: Item){
+  public eliminarItem(item: Item) {
     item.selectedQuantity = 0;
     this.carrito.procesarItem(item);
     this.procesarCarrito();
