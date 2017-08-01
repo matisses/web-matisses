@@ -11,6 +11,7 @@ import { Item } from '../../../../models/item';
 export class CarritoSimpleComponent {
   public items: Array<Item>;
   public totalItems: number = 0;
+  public totalCarrito: number = 0;
 
   constructor(private _route: ActivatedRoute, private _router: Router) {
     this.items = new Array<Item>();
@@ -64,8 +65,10 @@ export class CarritoSimpleComponent {
 
   private procesarCarrito() {
     this.totalItems = 0;
+    this.totalCarrito = 0;
     for (let i = 0; i < this.items.length; i++) {
       this.totalItems += this.items[i].selectedQuantity;
+      this.totalCarrito += (this.items[i].price * this.items[i].selectedQuantity);
     }
     console.log('el numero total de items es ' + this.totalItems);
   }

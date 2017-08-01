@@ -13,8 +13,10 @@ import { CarritoSimpleComponent } from './carrito-simple.component';
 export class CarritoComponent implements OnInit {
   @ViewChild(CarritoSimpleComponent)
   private carrito: CarritoSimpleComponent;
+  public url: string;
 
   constructor(private _route: ActivatedRoute, private _router: Router) {
+    this.url = this._router.url;
   }
 
   ngOnInit() {
@@ -34,5 +36,9 @@ export class CarritoComponent implements OnInit {
   public eliminarItem(item: Item) {
     item.selectedQuantity = 0;
     this.carrito.procesarItem(item);
+  }
+
+  public mostrarBotonEliminar(){
+    return this.url && !this.url.includes('pago') && !this.url.includes('carrito');
   }
 }

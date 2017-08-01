@@ -21,7 +21,7 @@
         <p>Cantidad <b>{{item.selectedQuantity}}</b></p>
       </div>
       <div class="col-xs-4">
-        <span class="glyphicon glyphicon-trash pull-right" (click)="eliminarItem(item)"></span>
+        <span *ngIf="mostrarBotonEliminar()" class="glyphicon glyphicon-trash pull-right" (click)="eliminarItem(item)"></span>
         <p>$ {{item.price | number}}</p>
       </div>
     </div>

@@ -23,12 +23,19 @@
         <div class="row">
           <div class="col-xs-12">
             <div class="title">
-              <h4>Tu carrito de compra <small>contiene <b>({{totalItems}})</b> productos.</small></h4>
+              <h4>Tu carrito de compra <small>contiene <b>({{carrito.totalItems}})</b> productos.</small></h4>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="messajeError">
+          <div class="col-xs-12">
+            <div class="alert alert-danger" role="alert">
+              <p>{{messajeError}}</p>
             </div>
           </div>
         </div>
         <div class="productos">
-          <div class="row producto" *ngFor="let item of items">
+          <div class="row producto" *ngFor="let item of carrito.items">
             <div class="col-md-3 col-sm-4">
               <img class="img-responsive" src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/mini/{{item.itemcode}}_01.jpg" alt="...">
             </div>
@@ -66,8 +73,8 @@
         </div>
         <br/>
         <div class="row hidden-xs">
-          <div class="col-xs-5">
-            <p class="btn-continuar" [routerLink]="['/ingresar']">Proceder al pago <span class="arrow glyphicon glyphicon-circle-arrow-right"></span></p>
+          <div class="col-xs-5" *ngIf="carrito.items != null && carrito.items.length > 0">
+            <p class="btn-continuar" (click)="procederPago()">Proceder al pago <span class="arrow glyphicon glyphicon-circle-arrow-right"></span></p>
           </div>
         </div>
       </div>
@@ -76,14 +83,14 @@
         <div class="row">
           <div class="col-md-11 col-md-offset-1">
             <div class="row">
-              <div class="col-xs-12">
-                <p class="btn-continuar" [routerLink]="['/ingresar']">Proceder al pago <span class="arrow glyphicon glyphicon-circle-arrow-right"></span></p>
+              <div class="col-xs-12" *ngIf="carrito.items != null && carrito.items.length > 0">
+                <p class="btn-continuar" (click)="procederPago()">Proceder al pago <span class="arrow glyphicon glyphicon-circle-arrow-right"></span></p>
               </div>
             </div>
             <div class="row">
               <div class="col-xs-12">
                 <h4>Resumen del pedido:</h4>
-                <h5><b>{{totalItems}}</b> productos.</h5>
+                <h5><b>{{carrito.totalItems}}</b> productos.</h5>
               </div>
             </div>
             <hr/>
@@ -92,7 +99,7 @@
                 <h4>Subtotal</h4>
               </div>
               <div class="col-xs-6">
-                <h4><b>${{totalCarrito | number}}</b></h4>
+                <h4><b>${{carrito.totalCarrito | number}}</b></h4>
               </div>
             </div>
             <hr/>
@@ -110,7 +117,7 @@
                   <h5>Total</h5>
                 </div>
                 <div class="col-xs-6">
-                  <h4>${{totalCarrito | number}}</h4>
+                  <h4>${{carrito.totalCarrito | number}}</h4>
                 </div>
               </div>
             </div>
@@ -128,4 +135,4 @@
 </div>
 
 <matisses-footer></matisses-footer>
-<matisses-carrito-simple></matisses-carrito-simple>
+<matisses-carrito-simple #carritoSimple></matisses-carrito-simple>

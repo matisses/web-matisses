@@ -22,15 +22,11 @@ export class InfoPagoComponent implements OnInit {
   @ViewChild(CarritoSimpleComponent)
   private carrito: CarritoSimpleComponent;
 
-  public totalItems: number = 0;
-  public totalCarrito: number = 0;
   public totalEnvio: number = 0;
-  public title: string;
-  public number: string;
   public customer: Customer;
   public ciudadesPrincipales: Array<City>;
   public otrasCiudades: Array<City>;
-  public items: Array<Item>;
+  public procesandoP2P: boolean = false;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService, private _cityService: CityService) {
     this.ciudadesPrincipales = new Array<City>();
@@ -49,24 +45,11 @@ export class InfoPagoComponent implements OnInit {
       country: null,
       taxCode: null
     }]);
-    this.title = 'Este es el cuerpo de informacion de pago';
-    this.number = '3';
   }
 
   ngOnInit() {
     console.log('inicializando componente de información de pago');
     this.carrito.cargarCarrito();
-    this.procesarCarrito();
-    this.obtenerCiudades();
-  }
-
-  private procesarCarrito() {
-    this.totalItems = 0;
-    this.totalCarrito = 0;
-    for (let i = 0; i < this.carrito.items.length; i++) {
-      this.totalItems += this.carrito.items[i].selectedQuantity;
-      this.totalCarrito += (this.carrito.items[i].price * this.carrito.items[i].selectedQuantity);
-    }
   }
 
   public obtenerCiudades() {
@@ -111,5 +94,6 @@ export class InfoPagoComponent implements OnInit {
       return;
     }
     console.log('El usuario sera redireccionado a PlacetoPay');
+    this.procesandoP2P = true;
   }
 }
