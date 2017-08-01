@@ -5,6 +5,7 @@ export class Item {
   //public refProveedor: string;
   public itemname: string;
   public description: string;
+  public availablestock: number;
   public model: string;
   public newFrom: Date;
   public active: boolean;

@@ -17,19 +17,14 @@ export class ResumenCarritoComponent implements OnInit {
   @ViewChild(CarritoSimpleComponent)
   private carrito: CarritoSimpleComponent;
 
-  public totalItems: number = 0;
-  public totalCarrito: number = 0;
-  public items: Array<Item>;
+  public messajeError: String = '';
 
   constructor(private _route: ActivatedRoute, private _router: Router) {
-    this.items = new Array<Item>();
   }
 
   ngOnInit() {
     console.log('inicializando componente de resumen carrito');
     this.carrito.cargarCarrito();
-    this.procesarCarrito();
-    this.items = this.carrito.items;
   }
 
   public openResumen() {
@@ -40,25 +35,36 @@ export class ResumenCarritoComponent implements OnInit {
     document.getElementById("resumen").style.height = "0";
   }
 
-  private procesarCarrito() {
-    this.totalItems = 0;
-    this.totalCarrito = 0;
-    for (let i = 0; i < this.carrito.items.length; i++) {
-      this.totalItems += this.carrito.items[i].selectedQuantity;
-      this.totalCarrito += (this.carrito.items[i].price * this.carrito.items[i].selectedQuantity);
-    }
-    console.log('el numero total de items es ' + this.totalItems);
-    console.log('el valor total de items es ' + this.totalCarrito);
-  }
-
   public procesarItem(item: Item) {
-    console.log('Este es el nuevo valor de la cantidad seleccionada para el item ' + item.selectedQuantity);
+    this.messajeError = '';
+    if (item.selectedQuantity > item.availablestock) {
+      console.log('Se está agregando una cantidad del ítem ' + item.itemcode + ' superior a la disponible');
+      this.messajeError = 'La cantidad solicitada no está disponible para el ítem ' + item.itemname;
+      return;
+    }
+    item.selectedQuantity = item.availablestock;
     this.carrito.procesarItem(item);
+    //this.carrito.cargarCarrito();
   }
 
-  public eliminarItem(item: Item){
+  public eliminarItem(item: Item) {
     item.selectedQuantity = 0;
     this.carrito.procesarItem(item);
-    this.procesarCarrito();
+    //this.carrito.cargarCarrito();
+  }
+
+  public procederPago() {
+    this.messajeError = '';
+    if (this.carrito.items != null && this.carrito.items.length > 0) {
+      for (let i = 0; i < this.carrito.items.length; i++) {
+        if (this.carrito.items[i].selectedQuantity > this.carrito.items[i].availablestock) {
+          this.messajeError = 'La cantidad solicitada no está disponible para el ítem ' + this.carrito.items[i].itemname;
+          return;
+        }
+      }
+      this._router.navigate(['/ingresar']);
+    } else {
+      this.messajeError = 'No se encntraron ítems para continuar';
+    }
   }
 }
