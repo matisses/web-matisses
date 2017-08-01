@@ -7,6 +7,8 @@ import { MenuItem } from '../../../models/menu-item';
 
 import { MenuItemService } from '../../../services/menu.service';
 
+declare var $: any;
+
 @Component({
   selector: 'matisses-menu',
   templateUrl: 'menu.html',
@@ -48,11 +50,13 @@ export class MenuComponent implements OnInit, AfterViewInit {
 
   constructor(private _menuService: MenuItemService, private _route: ActivatedRoute, private _router: Router) {
     this.padreSeleccionado = new MenuItem();
+
   }
 
   ngOnInit() {
     console.log('inicializando componente de menú');
     this.inicializarMenu();
+    document.getElementById("myNav").style.width = "0%";
   }
 
   ngAfterViewInit() {
@@ -60,8 +64,8 @@ export class MenuComponent implements OnInit, AfterViewInit {
   }
 
   public alternarSeleccionPadre(padreSeleccionado) {
-    if (this.padreSeleccionado.name != null && this.padreSeleccionado.name === padreSeleccionado.nombre) {
-      //this.padreSeleccionado = new MenuItem();
+    if (this.padreSeleccionado.code != null && this.padreSeleccionado.code === padreSeleccionado.code) {
+      this.padreSeleccionado = new MenuItem();
     } else {
       this.padreSeleccionado = padreSeleccionado;
       if (typeof this.padreSeleccionado.children == 'undefined' || this.padreSeleccionado.children.length === 0) {
@@ -130,6 +134,8 @@ export class MenuComponent implements OnInit, AfterViewInit {
             this.toggleStateOverlay('hidden');
           }
         }
+
+
       },
       error => {
         console.log(error);
@@ -145,20 +151,22 @@ export class MenuComponent implements OnInit, AfterViewInit {
     this.stateOverlay = stateOverlay;
   }
 
-  public openNav() {
-    document.getElementById("myNav").style.width = "100%";
+
+  public toggleNav() {
+    if (document.getElementById("myNav").style.width === '0%') {
+      document.getElementById("myNav").style.width = "100%";
+    } else {
+      document.getElementById("myNav").style.width = "0%";
+    }
   }
 
-  public closeNav() {
-    document.getElementById("myNav").style.width = "0%";
+  public toggleClass(idComponent, class1, class2) {
+    console.log('toggle idComponent: ' + idComponent + ', class1: ' + class1 + ', class2: ' + class2);
+    $(idComponent).toggleClass(class1 + " " + class2);
   }
 
-  public openResumen() {
-    document.getElementById("resumen").style.height = "380px";
-  }
-
-  public closeResumen() {
-    document.getElementById("resumen").style.height = "0";
+  public openAccordion(idComponent) {
+    document.getElementById("idComponent").style.display = "block";
   }
 
 }

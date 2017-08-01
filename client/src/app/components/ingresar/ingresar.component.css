@@ -17,7 +17,7 @@
   transition: 0.5s;
 }
 
-.btn-continuar:hover > .arrow {
+.btn-continuar:hover>.arrow {
   margin-left: 15px;
 }
 
@@ -29,4 +29,21 @@
   .stuck-body {
     margin-top: 0px;
   }
+}
+
+.content-area {
+  position: relative;
+  width: 960px;
+  margin: 0 auto;
+}
+
+.carousel-indicators li {
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+}
+
+.carousel-indicators .active {
+  height: 20px;
+  width: 20px;
 }

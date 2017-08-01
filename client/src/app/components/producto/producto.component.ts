@@ -22,6 +22,7 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   public quantityOptions: Array<number>;
   public images: Array<string>;
   public item: Item;
+  public totalStock: number = 0;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _stockService: StockService) {
     this.quantityOptions = new Array<number>();
@@ -48,14 +49,14 @@ export class ProductoComponent implements OnInit, AfterViewInit {
           console.log(this.item);
           this._stockService.getStock(itemCode).subscribe(
             response => {
-              let totalStock = 0;
+              this.totalStock = 0;
               this.item.stock = response.result;
               for (let i = 0; i < this.item.stock.length; i++) {
-                totalStock += this.item.stock[i].quantity;
+                this.totalStock += this.item.stock[i].quantity;
               }
-              for (let i = 0; i < totalStock; i++) {
-                this.quantityOptions.push(i + 1);
-              }
+              //for (let i = 0; i < totalStock; i++) {
+              //  this.quantityOptions.push(i + 1);
+              //}
             }, error => {
               console.log(error);
             }
@@ -67,6 +68,20 @@ export class ProductoComponent implements OnInit, AfterViewInit {
       );
     });
   }
+
+  public botonDown() {
+    console.log('has dado click al botón Down');
+    $('.section').animate({ scrollTop: '+=300' }, 500);
+    return false;
+  }
+
+  public botonUp() {
+    console.log('has dado click al botón Up');
+    $('.section').animate({ scrollTop: '-=300' }, 600);
+    return false;
+  }
+
+
 
   public agregarCarrito() {
     this.item.selectedQuantity = this.selectedQuantity;
