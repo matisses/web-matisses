@@ -21,6 +21,9 @@ export class CarritoSimpleComponent {
     console.log('cargando carrito de localstorage');
     //consultar localstorage
     this.items = JSON.parse(localStorage.getItem('matisses.carrito'));
+    if (this.items === null) {
+      this.items = new Array<Item>();
+    }
     console.log(this.items);
     this.procesarCarrito();
   }
