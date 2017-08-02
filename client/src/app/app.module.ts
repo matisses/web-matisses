@@ -52,6 +52,9 @@ import { ErrorComponent } from './components/error/error.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NewsletterComponent } from './components/footer/newsletter/newsletter.component';
 
+// Componenete modal prueba
+import { ModalComponent } from './components/modal/modal.component';
+
 //Directivas
 import { StickyMenuDirective } from './directives/sticky.directive';
 import { StickyBodyDirective } from './directives/sticky-body.directive';
@@ -97,7 +100,8 @@ import { AppComponent } from './app.component';
     IngresarComponent,
     InfoPagoComponent,
     MigaDePanComponent,
-    ResultadoTransacciComponent
+    ResultadoTransacciComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

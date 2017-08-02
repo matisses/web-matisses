@@ -4,7 +4,7 @@
       <div class="info-ppl" (mouseover)="cerrarOverlay()">
         <div class="row">
           <div class="col-md-4">
-            <div class="logo-matisses">
+            <div class="logo-matisses cursor-pointer">
               <span class="icon-matisses" [routerLink]="['/']"></span>
             </div>
           </div>
@@ -22,9 +22,9 @@
             <div class="row">
               <div class="col-md-12 col-sm-6">
                 <ul class="ingreso text-right medium">
-                  <li><a href="#"><span class="icon-user"> </span> INGRESA</a></li>
+                  <li><a href="#"><span class="glyphicon glyphicon-heart"> </span> LISTA DE DESEOS</a></li>
                   <li class="border-left"><a href="#">REGÍSTRATE</a></li>
-                  <li class="border-left"><a href="#"><span class="glyphicon glyphicon-heart"> </span> LISTA DE DESEOS</a></li>
+                  <li class="border-left"><a href="#"><span class="icon-user"> </span> INGRESA</a></li>
                 </ul>
               </div>
               <div class="col-md-12 col-sm-6 text-right">
@@ -44,8 +44,21 @@
       <div class="row">
         <div class="col-xs-12 top">
           <div class="nav medium">
+            <!-- botones para el administrador -->
+            <div class="agregar">
+              <span class="icon-plus"></span>
+            </div>
+            <!-- botones para el administrador -->
             <ul>
-              <li class="cursor-pointer" [ngClass]="{'selected' : estaSeleccionado(menuItem.code)}" *ngFor="let menuItem of menuItems" (click)="alternarSeleccionPadre(menuItem)" (mouseover)="alternarSeleccionPadre(menuItem)">
+              <li class="item-menu cursor-pointer" [ngClass]="{'selected' : estaSeleccionado(menuItem.code)}" *ngFor="let menuItem of menuItems" (click)="alternarSeleccionPadre(menuItem)" (mouseover)="alternarSeleccionPadre(menuItem)">
+                <!-- botones para el administrador -->
+                <div class="hover-edicion">
+                  <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                  <span class="glyphicon glyphicon-pencil"></span>
+                  <span class="glyphicon glyphicon-trash"></span>
+                  <span class="glyphicon glyphicon-circle-arrow-right"></span>
+                </div>
+                <!-- botones para el administrador -->
                 {{menuItem.name}}
               </li>
             </ul>
@@ -63,9 +76,25 @@
         <div class="row">
           <div class="col-xs-3" *ngFor="let subMenuItem of padreSeleccionado.children">
             <ul class="sub-menu">
-              <p class="medium cursor-pointer" [routerLink]="['/categoria']" [queryParams]="{department: subMenuItem.department, group: subMenuItem.group}">{{subMenuItem.name}}</p>
-              <li *ngFor="let grandChild of subMenuItem.children" [routerLink]="['/categoria']" [queryParams]="{department: grandChild.department, group: grandChild.group, subgroup: grandChild.subgroup}">
+              <p class="child medium cursor-pointer" [routerLink]="['/categoria']" [queryParams]="{department: subMenuItem.department, group: subMenuItem.group}">
+                {{subMenuItem.name}}
+                <br/>
+                <!-- botones para el administrador -->
+                <a href="#" class="btn-admin"><span class="glyphicon glyphicon-circle-arrow-left"></span></a>
+                <a href="#" class="btn-admin"><span class="glyphicon glyphicon-trash"></span></a>
+                <a href="#" class="btn-admin"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a href="#" class="btn-admin"><span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+                <!-- botones para el administrador -->
+              </p>
+              <li class="grandchild" *ngFor="let grandChild of subMenuItem.children" [routerLink]="['/categoria']" [queryParams]="{department: grandChild.department, group: grandChild.group, subgroup: grandChild.subgroup}">
                 {{grandChild.name}}
+                <!-- botones para el administrador -->
+                <div class="hover-grandchild">
+                  <span class="pull-right glyphicon glyphicon-pencil"></span>
+                  <span class="pull-right glyphicon glyphicon-circle-arrow-up"></span>
+                  <span class="pull-right glyphicon glyphicon-circle-arrow-down"></span>
+                </div>
+                <!-- botones para el administrador -->
               </li>
             </ul>
           </div>
@@ -79,16 +108,38 @@
     </div>
   </div>
 </div>
-<div class="overlay cursor-pointer" [@overlayAnimation]="stateOverlay" (mouseover)="cerrarOverlay()"></div>
+<div class="overlay cursor-pointer hidden-sm hidden-xs" [@overlayAnimation]="stateOverlay" (mouseover)="cerrarOverlay()"></div>
 
 <!-- Menú responsive -->
 <div id="myNav" class="fondo-menu">
-  <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
-  <div class="fondo-menu-content">
-    <a href="#">About</a>
-    <a href="#">Services</a>
-    <a href="#">Clients</a>
-    <a href="#">Contact</a>
+  <!-- <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>-->
+  <div class="menu-content">
+
+    <div *ngFor="let menuItem of menuItems">
+      <button class="accordion" (click)="alternarSeleccionPadre(menuItem)" (click)="toggleClass('#menuPhone-' + menuItem.code, 'icon-plus', 'icon-minus')">{{menuItem.name}}<span id="menuPhone-{{menuItem.code}}" class="icon-plus pull-right"></span></button>
+      <div *ngIf="padreSeleccionado.code === menuItem.code">
+        <div *ngFor="let subMenuItem of padreSeleccionado.children">
+          <button class="child-accordion" (click)="toggleClass('#grandchild-' + subMenuItem.code,'visible','hidden')" (click)="toggleClass('#subMenu-' + subMenuItem.code, 'glyphicon-chevron-down', 'glyphicon-chevron-up')">{{subMenuItem.name}}<span id="subMenu-{{subMenuItem.code}}" class="glyphicon glyphicon-chevron-down pull-right"></span></button>
+          <div class="grandchild hidden" id="grandchild-{{subMenuItem.code}}">
+            <div *ngFor="let grandChild of subMenuItem.children" [routerLink]="['/categoria']" [queryParams]="{department: grandChild.department, group: grandChild.group, subgroup: grandChild.subgroup}" >
+              <p class="grandchild-accordion">{{grandChild.name}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-4">
+        <div class="title-menu">
+          <p><b>Información</b></p>
+        </div>
+      </div>
+      <div class="col-xs-8">
+        <div class="border-menu"></div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -99,13 +150,13 @@
         <matisses-carrito #carrito></matisses-carrito>
       </div>
       <div class="col-xs-6 text-center">
-        <div class="logo">
+        <div class="logo" [routerLink]="['/']">
           <span class="icon-matisses"></span>
         </div>
       </div>
       <div class="col-xs-3 text-right">
         <span class="glyphicon glyphicon-search" role="button" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"></span>
-        <span class="glyphicon glyphicon-menu-hamburger menu-mobile" (click)="openNav()"></span>
+        <span class="glyphicon glyphicon-menu-hamburger menu-mobile" id="hamburger" (click)="toggleClass('#hamburger', 'glyphicon-menu-hamburger', 'glyphicon-remove')" (click)="toggleNav()"></span>
       </div>
     </div>
   </div>

@@ -2,9 +2,9 @@
   margin-top: 125px;
 }
 
-.breadcrumb {
-  background-color: transparent;
-  margin-top: 0px;
+.border-left {
+  border-left: 1px solid #a7a7a7;
+  padding-left: 5px;
 }
 
 .carousel-control.right, .carousel-control.left {
@@ -21,6 +21,46 @@
   font-size: 60px;
   display: inline-block;
   cursor: pointer;
+}
+
+
+/*estilos minis galeria*/
+
+.section {
+  height: 300px;
+  overflow-x: hidden;
+  position: relative;
+  white-space: nowrap;
+  text-align: center;
+  margin: 15px 0px;
+}
+
+.mini {
+  margin: 5px 0px;
+}
+
+.mini:hover {
+  border: 1px solid #eee;
+}
+
+.up, .down {
+  position: absolute;
+  margin-left: 30%;
+  color: #5B5B5B;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.down {
+  bottom: -10px;
+}
+
+.up {
+  top: 0px;
+}
+
+::-webkit-scrollbar, ::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-button, ::-webkit-scrollbar-corner {
+  display: none;
 }
 
 .galeria {
@@ -51,6 +91,7 @@
   border-color: transparent;
   text-align: center;
   z-index: 0;
+  padding: 0;
 }
 
 .btn-cantidad {
@@ -91,7 +132,7 @@
 }
 
 .detalles {
-  margin-top: 75px;
+  margin: 75px 0px;
   border-bottom: 1px solid #5B5B5B;
 }
 
@@ -141,39 +182,26 @@
   top: 2px;
 }
 
-@media screen and (max-width: 991px) {
-  .stuck-body {
-    margin-top: 0px;
-  }
+.disponibilidad p {
+  margin: 0;
+  color: #5B5B5B;
 }
 
-@media screen and (max-width: 414px) {
-  .breadcrumb {
-    font-size: 8px;
-  }
-  .info, .galeria {
-    min-height: 50px;
-    border-right: 0px;
-  }
-  .btn-carrito {
-    font-size: 9px;
-  }
-  .dropdown-menu {
-    min-width: 76px;
-  }
-  .extras {
-    text-align: center;
-  }
-  .extras span {
-    font-size: 35px;
-    margin: 0 5px;
-    display: inline-block;
-  }
-  .zoom {
-    float: none;
-  }
+.disponibilidad span {
+  font-size: 30px;
+  color: #5B5B5B;
 }
 
+.compartir {
+  text-align: right;
+  margin-top: 25px
+}
+
+.compartir span {
+  font-size: 20px;
+  color: #5B5B5B;
+  padding: 0 2px;
+}
 
 /* 360 */
 
@@ -195,11 +223,75 @@
   overflow-y: hidden;
 }
 
+@media screen and (max-width: 1200px) {
+  .detalles {
+    margin: 40px 0px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .galeria {
+    border-right: 0;
+  }
+}
+
+
 @media screen and (max-width: 991px) {
+  .stuck-body {
+    margin-top: 0px;
+  }
+  .btn-carrito {
+    font-size: 9px;
+  }
+  .detalles {
+    margin: 25px 0px;
+  }
+  .disponibilidad {
+    text-align: center;
+  }
+  .disponibilidad p {
+    display: inline-block;
+    position: relative;
+    top: -8px;
+  }
+  .disponibilidad span {
+    display: inline-block;
+  }
+  .compartir {
+    text-align: center;
+    margin-top: 10px;
+  }
+  .compartir span {
+    padding: 0 10px;
+  }
   .animacion {
     margin-left: 50px;
   }
   .modal-3 {
     width: 800px;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .info, .galeria {
+    min-height: 50px;
+    border-right: 0px;
+  }
+  .btn-carrito {
+    font-size: 9px;
+  }
+  .dropdown-menu {
+    min-width: 76px;
+  }
+  .extras {
+    text-align: center;
+  }
+  .extras span {
+    font-size: 35px;
+    margin: 0 5px;
+    display: inline-block;
+  }
+  .zoom {
+    float: none;
   }
 }
