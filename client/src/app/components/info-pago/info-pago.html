@@ -2,15 +2,22 @@
 
 <div sticky-body>
   <div class="container">
-    <div class="row" *ngIf="carrito.totalItems != null && carrito.totalItems > 0">
-      <div class="col-sm-4">
-        <div class="contenido">
-          <div class="titulo">
-            <p>Medios de envío</p>
-          </div>
-          <div class="medios-envio">
-            <form>
-              <input type="radio" id="coordinadora" name="envio" value="coordinadora" checked>
+    <div class="row" *ngIf="messageError != null && messageError.length > 0">
+      <div class="col-xs-12">
+        <div class="alert alert-danger" role="alert">
+          <p>{{messageError}}</p>
+        </div>
+      </div>
+    </div>
+    <form (submit)="pagar()" #infoPago="ngForm">
+      <div class="row" *ngIf="carrito.totalItems != null && carrito.totalItems > 0">
+        <div class="col-sm-4">
+          <div class="contenido">
+            <div class="titulo">
+              <p>Medios de envío</p>
+            </div>
+            <div class="medios-envio">
+              <input type="radio" id="coordinadora" name="envio" value="coordinadora">
               <label for="coordinadora">Coordinadora</label>
               <br>
               <input type="radio" id="matisses" name="envio" value="matisses">
@@ -18,14 +25,12 @@
               <br>
               <input type="radio" id="recoger" name="envio" value="recoger">
               <label for="recoger">Recoger en tienda. 3 días habiles</label>
-            </form>
-            <br/>
+              <br/>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-sm-4 border-both">
-        <div class="contenido">
-          <form>
+        <div class="col-sm-4 border-both">
+          <div class="contenido">
             <div class="titulo">
               <p>Información de envío</p>
             </div>
@@ -33,86 +38,85 @@
               <div class="row">
                 <div class="col-md-6">
                   <label for="tipo-D">Tipo de documento*</label>
-                  <select name="typeDoc" id="tipo-D" class="form-control" [(ngModel)]="customer.fiscalIdType">
+                  <select name="typeDoc" id="tipo-D" class="form-control" [class.ng-reflect-model]="!31" [class.required-field]="!valid"  [(ngModel)]="customer.fiscalIdType" required>
                     <option style="display:none" disabled selected value>Seleccione uno</option>
-                    <option [selected]="customer.fiscalIdType == CEDULA_CIUDADANIA" value="CEDULA_CIUDADANIA">Cedula</option>
-                    <option [selected]="customer.fiscalIdType == CEDULA_EXTRANJERIA" value="CEDULA_EXTRANJERIA">Cedula extranjería</option>
-                    <option [selected]="customer.fiscalIdType == PASAPORTE" value="PASAPORTE">Pasaporte</option>
+                    <option [selected]="customer.fiscalIdType == 13" value="13">Cedula</option>
+                    <option [selected]="customer.fiscalIdType == 22" value="22">Cedula extranjería</option>
+                    <option [selected]="customer.fiscalIdType == 41" value="41">Pasaporte</option>
                   </select>
                 </div>
                 <div class="col-md-6">
                   <label for="docu">Documento*</label>
-                  <input id="docu" type="text" class="form-control" name="fiscalID" [(ngModel)]="customer.fiscalID" (change)="buscarCliente()">
+                  <input id="docu" type="text" class="form-control" [class.required-field]="!valid" name="fiscalID" [(ngModel)]="customer.fiscalID" (change)="buscarCliente()" required>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
                   <label for="name">Nombres*</label>
-                  <input id="name" type="text" class="form-control" name="name" [(ngModel)]="customer.firstName">
+                  <input id="name" type="text" class="form-control" [class.required-field]="!valid" name="name" [(ngModel)]="customer.firstName" required>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
                   <label for="last1">Primer apellido*</label>
-                  <input id="last1" type="text" class="form-control" name="lastname1" [(ngModel)]="customer.lastName1">
+                  <input id="last1" type="text" class="form-control" [class.required-field]="!valid" name="lastname1" [(ngModel)]="customer.lastName1" required>
                 </div>
                 <div class="col-md-6">
-                  <label for="last2">Segundo apellido*</label>
+                  <label for="last2">Segundo apellido</label>
                   <input id="last2" type="text" class="form-control" name="lastname2" [(ngModel)]="customer.lastName2">
                 </div>
               </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <label for="mail">Correo*</label>
-                  <input id="mail" type="email" class="form-control" name="email" [(ngModel)]="customer.addresses[0].email">
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <label for="cel">Telefono movil*</label>
-                  <input id="cel" type="text" class="form-control" name="phone" [(ngModel)]="customer.addresses[0].cellphone">
-                </div>
-                <div class="col-md-6">
-                  <label for="city">Ciudad*</label>
-                  <select name="city" id="city" class="form-control" *ngIf="ciudadesPrincipales">
-                    <option style="display:none" disabled selected value>Seleccione una</option>
-                    <option disabled>─ Ciudades capitales</option>
-                    <option [selected]="customer.addresses[0].cityCode == principal.code" *ngFor="let principal of ciudadesPrincipales" value="principal.code">{{principal.name}}</option>
-                    <option disabled>─ Otras ciudades</option>
-                    <option [selected]="customer.addresses[0].cityCode == otra.code" *ngFor="let otra of otrasCiudades" value="otra.code">{{otra.name}}</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <label for="address">Dirección*</label>
-                  <input id="address" type="mail" class="form-control" name="address" [(ngModel)]="customer.addresses[0].address">
-                </div>
-              </div>
-              <br/>
             </div>
-          </form>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="contenido">
-          <div class="titulo">
-            <p>Ir a pagar</p>
-          </div>
-          <div class="resumen-pago" style="border-bottom: 1px dotted #D1D1D1;">
             <div class="row">
-              <div class="col-xs-12">
-                <div class="row">
-                  <div class="col-sm-10 col-sm-offset-1 border-bottom">
-                    <h4><b>{{carrito.totalItems}}</b> PRODUCTOS</h4>
-                    <p>Total de los productos: <span class="pull-right"><b>$ {{carrito.totalCarrito | number}}</b></span></p>
-                    <p>Envío estándar: <span class="pull-right"><b>$ {{totalEnvio}}</b></span></p>
+              <div class="col-md-12">
+                <label for="mail">Correo*</label>
+                <input id="mail" type="email" class="form-control" [class.required-field]="!valid" name="email" [email]="true" [(ngModel)]="customer.addresses[0].email" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label for="cel">Teléfono móvil*</label>
+                <input id="cel" type="text" class="form-control" [class.required-field]="!valid" name="phone" [(ngModel)]="customer.addresses[0].cellphone" required>
+              </div>
+              <div class="col-md-6">
+                <label for="city">Ciudad*</label><!---->
+                  <option style="display:none" disabled selected value>Seleccione una</option>
+                  <select id="city" name="city" class="form-control" [class.required-field]="!valid" [(ngModel)]="customer.addresses[0].cityCode" *ngIf="ciudadesPrincipales" required>
+                  <option disabled>─ Ciudades capitales</option>
+                  <option [selected]="customer.addresses[0].cityCode == principal.code" *ngFor="let principal of ciudadesPrincipales" [ngValue]="principal.code">{{principal.name}}</option>
+                  <option disabled>─ Otras ciudades</option>
+                  <option [selected]="customer.addresses[0].cityCode == otra.code" *ngFor="let otra of otrasCiudades" [ngValue]="otra.code">{{otra.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <label for="address">Dirección*</label>
+                <input id="address" type="mail" class="form-control" [class.required-field]="!valid" name="address" [(ngModel)]="customer.addresses[0].address" required>
+              </div>
+            </div>
+            <br/>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="contenido">
+            <div class="titulo">
+              <p>Ir a pagar</p>
+            </div>
+            <div class="resumen-pago" style="border-bottom: 1px dotted #D1D1D1;">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1 border-bottom">
+                      <h4><b>{{carrito.totalItems}}</b> PRODUCTOS</h4>
+                      <p>Total de los productos: <span class="pull-right"><b>$ {{carrito.totalCarrito | number}}</b></span></p>
+                      <p>Envío estándar: <span class="pull-right"><b>$ {{totalEnvio}}</b></span></p>
+                    </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-10 col-sm-offset-1">
-                    <p>Total: <span class="pull-right"><b>$ {{(carrito.totalCarrito + totalEnvio) | number}}</b></span></p>
-                    <!--<div class="col-xs-5 text-right">
+                  <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1">
+                      <p>Total: <span class="pull-right"><b>$ {{(carrito.totalCarrito + totalEnvio) | number}}</b></span></p>
+                      <!--<div class="col-xs-5 text-right">
                     <div class="row">
                       <div class="col-xs-7">
                         <p style="margin-top: 5px;">Financiación<br>con mercadopago: </p>
@@ -120,27 +124,30 @@
                         <p style="font-size:10px; margin-top:10px"><b>Hasta 12 cuotas de<br>$ 46,667</b></p>
                     </div>
                   </div> -->
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <br/>
-          <div class="place2pay">
-            <div class="row">
-              <div class="col-sm-10 col-sm-offset-1 text-center">
-                <p class="text-left">El proceso de pago se le redireccionará a un sitio seguro.</p>
-                <img src="assets/images/logo-p2p.png" class="text-center" alt="">
-                <p *ngIf="!procesandoP2P" class="btn-continuar" (click)="pagar()">Continuar</p>
-                <img *ngIf="procesandoP2P" src="assets/images/gif-cargando.gif" alt="">
+            <br/>
+            <div class="place2pay">
+              <div class="row">
+                <div class="col-sm-10 col-sm-offset-1 text-center">
+                  <p class="text-left">El proceso de pago se le redireccionará a un sitio seguro.</p>
+                  <img src="assets/images/logo-p2p.png" class="text-center" alt="">
+                  <p><button *ngIf="!procesandoP2P" type="submit" class="btn-continuar" name="submit">Continuar</button></p>
+
+                  <!--<p  *ngIf="!procesandoP2P" class="btn-continuar"   (click)="pagar()">Continuar</p>-->
+                  <img *ngIf="procesandoP2P" src="assets/images/gif-cargando.gif" alt="">
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-12 center" *ngIf="carrito.totalItems == null || carrito.totalItems == 0">
+    </form>
+    <div class="row" *ngIf="carrito.totalItems == null || carrito.totalItems == 0">
+      <div class="col-xs-12 center">
         <p>No hay ítems en el carrito</p>
       </div>
     </div>
