@@ -14,7 +14,9 @@ var Color = require('../models/genericcolor');
 var Material = require('../models/material');
 
 function consultarItem(req, res) {
-  Item.find({"shortitemcode": req.params.itemcode}, (err, result) => {
+  Item.find({
+    "shortitemcode": req.params.itemcode
+  }, (err, result) => {
     if (err) {
       console.log(err);
       res.status(500).send({
@@ -97,6 +99,10 @@ function filtrar(req, res) {
   }
   if (typeof orderBy == 'undefined' || orderBy == null) {
     orderBy = 'model';
+  } else if (orderBy === 'price') {
+    orderBy = 'priceaftervat';
+  } else if (orderBy === '-price') {
+    orderBy = '-priceaftervat';
   }
 
   var filterObject = armarFilterObject(req);
