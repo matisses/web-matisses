@@ -99,9 +99,31 @@ export class InfoPagoComponent implements OnInit {
   }
 
   public buscarCliente() {
+    this.customer.fiscalID = this.customer.fiscalID.trim();
+    this.messageError = '';
     if (this.customer.fiscalID != null && this.customer.fiscalID.length > 0) {
       this._customerService.getCustomerData(this.customer.fiscalID).subscribe(
         response => {
+          if (response.fiscalIdType == '31') {
+            console.log('El documento no es válido para facturar por este medio: ' + response.fiscalID + ' Tipo Doc: ' + response.fiscalIdType + '-Nit');
+            this.messageError = 'Este documento no es válido para facturar por este sitio, esta registrado actualmente como NIT.';
+            this.customer = this.customer = new Customer().newCustomer('', '', null, '', '', '', '', '', '', '', '', null, '', '', '', '', '', '', [{
+              stateCode: null,
+              stateName: null,
+              cityCode: null,
+              cityName: null,
+              addressName: null,
+              addressType: null,
+              address: null,
+              landLine: null,
+              cellphone: null,
+              email: null,
+              country: null,
+              taxCode: null
+            }]);
+            this.valid = false;
+            return;
+          }
           this.customer = response;
         },
         error => {
@@ -112,11 +134,13 @@ export class InfoPagoComponent implements OnInit {
   }
 
   public pagar() {
-    /*console.log(this.carrito.shoppingCart);
-    if (this.customer.fiscalID == null || this.customer.fiscalID.length <= 0 || this.customer.firstName == null || this.customer.firstName.length <= 0
+    this.valid = true;
+    this.messageError = '';
+    if (this.customer.fiscalID == null || this.customer.cardCode.length <= 0 || this.customer.firstName == null || this.customer.firstName.length <= 0
       || this.customer.lastName1 == null || this.customer.lastName1.length <= 0) {
       console.log('Se deben llenar todos los campos obligatorios para poder proceder con el pago');
-      console.log(this.customer);
+      this.messageError = 'Se deben llenar todos los campos obligatorios para poder proceder con el pago.';
+      this.valid = false;
       return;
     }
     this.procesandoP2P = true;
@@ -137,7 +161,7 @@ export class InfoPagoComponent implements OnInit {
       error => {
         console.log(error);
       }
-    );*/
+    );
     this.validarCliente();
   }
 

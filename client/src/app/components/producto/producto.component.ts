@@ -27,6 +27,7 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   public item: Item;
   public quantityOptions: Array<number>;
   public images: Array<string>;
+  public totalStock: number = 0;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _stockService: StockService, private _http: Http) {
     this.quantityOptions = new Array<number>();
@@ -61,6 +62,20 @@ export class ProductoComponent implements OnInit, AfterViewInit {
       );
     });
   }
+
+  public botonDown() {
+    console.log('has dado click al botón Down');
+    $('.section').animate({ scrollTop: '+=300' }, 500);
+    return false;
+  }
+
+  public botonUp() {
+    console.log('has dado click al botón Up');
+    $('.section').animate({ scrollTop: '-=300' }, 600);
+    return false;
+  }
+
+
 
   public agregarCarrito() {
     this.item.selectedQuantity = this.selectedQuantity;

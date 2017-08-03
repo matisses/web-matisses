@@ -75,15 +75,15 @@
 </div>
 <!-- Modal carrito -->
 
-<div class="carrito" (click)="openResumen()">
-  <span class="icon-shopping-cart carrito"> </span>
+<div class="carrito" (click)="toggleResumen()">
+  <span [ngClass]="{'icon-shopping-cart': (!resumenMobileVisible && !resumenDesktopVisible), 'glyphicon glyphicon-remove': (resumenMobileVisible || resumenDesktopVisible)}"> </span>
   <span class="badge" id="totalItemsCarritoBadge">{{carrito.totalItems}}</span>
 </div>
-<div id="resumen" class="resumen">
+<div id="resumen" class="resumen resumenmobile">
+  <span class="icon-close" (click)="closeResumen()"></span>
   <div class="row">
     <div class="col-xs-12 text-center">
       <br/>
-      <span class="icon-close" (click)="closeResumen()"></span>
       <p>Tu carrito contiene <b id="totalItemsCarrito">({{carrito.totalItems}})</b> productos</p>
     </div>
   </div>
