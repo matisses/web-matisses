@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { StickyMenuDirective } from '../../../directives/sticky.directive';
 import { MenuItem } from '../../../models/menu-item';
+import { CarritoComponent } from './carrito/carrito.component';
 
 import { MenuItemService } from '../../../services/menu.service';
 
@@ -43,14 +44,16 @@ declare var $: any;
 })
 
 export class MenuComponent implements OnInit, AfterViewInit {
+  @ViewChild(CarritoComponent)
+  private carrito: CarritoComponent;
   public menuItems: Array<MenuItem>;
   public padreSeleccionado: MenuItem;
   public state: string = 'hidden';
   public stateOverlay: string = 'hidden';
+  private viewportWidth: number = 0;
 
   constructor(private _menuService: MenuItemService, private _route: ActivatedRoute, private _router: Router) {
     this.padreSeleccionado = new MenuItem();
-
   }
 
   ngOnInit() {
@@ -61,6 +64,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     console.log('finalizo la carga');
+    this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
   }
 
   public alternarSeleccionPadre(padreSeleccionado) {
@@ -151,13 +155,16 @@ export class MenuComponent implements OnInit, AfterViewInit {
     this.stateOverlay = stateOverlay;
   }
 
-
   public toggleNav() {
     if (document.getElementById("myNav").style.width === '0%') {
       document.getElementById("myNav").style.width = "100%";
     } else {
       document.getElementById("myNav").style.width = "0%";
     }
+  }
+
+  public cerrarNav(){
+    document.getElementById("myNav").style.width = "0%";
   }
 
   public toggleClass(idComponent, class1, class2) {
