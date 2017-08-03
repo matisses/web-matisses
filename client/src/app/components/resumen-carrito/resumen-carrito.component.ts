@@ -40,9 +40,9 @@ export class ResumenCarritoComponent implements OnInit {
     if (item.selectedQuantity > item.availablestock) {
       console.log('Se está agregando una cantidad del ítem ' + item.itemcode + ' superior a la disponible');
       this.messajeError = 'La cantidad solicitada no está disponible para el ítem ' + item.itemname;
+      //item.selectedQuantity = item.availablestock;
       return;
     }
-    item.selectedQuantity = item.availablestock;
     this.carrito.procesarItem(item);
     //this.carrito.cargarCarrito();
   }
@@ -55,10 +55,10 @@ export class ResumenCarritoComponent implements OnInit {
 
   public procederPago() {
     this.messajeError = '';
-    if (this.carrito.items != null && this.carrito.items.length > 0) {
-      for (let i = 0; i < this.carrito.items.length; i++) {
-        if (this.carrito.items[i].selectedQuantity > this.carrito.items[i].availablestock) {
-          this.messajeError = 'La cantidad solicitada no está disponible para el ítem ' + this.carrito.items[i].itemname;
+    if (this.carrito.shoppingCart.items != null && this.carrito.shoppingCart.items.length > 0) {
+      for (let i = 0; i < this.carrito.shoppingCart.items.length; i++) {
+        if (this.carrito.shoppingCart.items[i].selectedQuantity > this.carrito.shoppingCart.items[i].availablestock) {
+          this.messajeError = 'La cantidad solicitada no está disponible para el ítem ' + this.carrito.shoppingCart.items[i].itemname;
           return;
         }
       }

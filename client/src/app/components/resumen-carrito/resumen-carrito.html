@@ -35,7 +35,7 @@
           </div>
         </div>
         <div class="productos">
-          <div class="row producto" *ngFor="let item of carrito.items">
+          <div class="row producto" *ngFor="let item of carrito.shoppingCart.items">
             <div class="col-md-3 col-sm-4">
               <img class="img-responsive" src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/mini/{{item.itemcode}}_01.jpg" alt="...">
             </div>
@@ -73,7 +73,7 @@
         </div>
         <br/>
         <div class="row hidden-xs">
-          <div class="col-xs-5" *ngIf="carrito.items != null && carrito.items.length > 0">
+          <div class="col-xs-5" *ngIf="carrito.shoppingCart.items != null && carrito.shoppingCart.items.length > 0">
             <p class="btn-continuar" (click)="procederPago()">Proceder al pago <span class="arrow glyphicon glyphicon-circle-arrow-right"></span></p>
           </div>
         </div>
@@ -83,7 +83,7 @@
         <div class="row">
           <div class="col-md-11 col-md-offset-1">
             <div class="row">
-              <div class="col-xs-12" *ngIf="carrito.items != null && carrito.items.length > 0">
+              <div class="col-xs-12" *ngIf="carrito.shoppingCart.items != null && carrito.shoppingCart.items.length > 0">
                 <p class="btn-continuar" (click)="procederPago()">Proceder al pago <span class="arrow glyphicon glyphicon-circle-arrow-right"></span></p>
               </div>
             </div>

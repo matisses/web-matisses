@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { GLOBAL } from './global';
 
 @Injectable()
-export class CustomerService {
+export class ShippingMethodService {
   public url: string;
   public urlBCS: string;
 
@@ -14,21 +14,12 @@ export class CustomerService {
     this.urlBCS = GLOBAL.urlBCS;
   }
 
-  getCustomerData(cardCode) {
+  listShippingMethods() {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
 
-    return this._http.get(this.urlBCS + 'businesspartner/' + cardCode, { headers: headers })
-      .map(res => res.json());
-  }
-
-  createCustomer(customer){
-    const headers = new Headers({
-      'Content-Type': 'application/json'
-    });
-
-    return this._http.post(this.urlBCS + 'businesspartner/create/', { headers: headers })
+    return this._http.get(this.urlBCS + 'shippingmethods/', { headers: headers })
       .map(res => res.json());
   }
 }
