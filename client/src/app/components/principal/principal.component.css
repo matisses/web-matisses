@@ -34,7 +34,7 @@
   margin-top: 0px;
   padding-top: 10px;
   background-attachment: relative;
-  background-position: right bottom;
+  background-position: center center;
   min-height: 450px;
   width: 100%;
   -webkit-background-size: 100%;
@@ -46,6 +46,25 @@
   -o-background-size: cover;
   background-size: cover;
   color: #747c79;
+}
+
+.text-01 {
+  color: #FFF;
+  position: relative;
+  bottom: -270px;
+  left: -10px;
+}
+.text-01 p {
+  font-size: 20px;
+}
+
+.text-01 h2 {
+  font-size: 50px;
+}
+
+.text-01 .btn-banner01 {
+  padding: 5px 10px;
+  background-color: #9C8D7A;
 }
 
 .principal-03 {
@@ -151,7 +170,8 @@
 
 @media screen and (max-width: 414px) {
   .principal-01 {
-    min-height: 415px;
+    min-height: 250px;
+    background-position: center 50px;
   }
   .padding-0 {
     padding-left: 0;
@@ -176,7 +196,7 @@
 
 @media screen and (max-width: 375px) {
   .principal-01 {
-    min-height: 370px;
+    min-height: 270px;
   }
 }
 

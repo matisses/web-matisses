@@ -6,6 +6,8 @@ import { Item } from '../../../models/item';
 
 import { CarritoSimpleComponent } from '../../header/menu/carrito/carrito-simple.component';
 
+declare var $: any;
+
 @Component({
   selector: 'productos-matisses',
   templateUrl: 'productos.html',
@@ -31,6 +33,11 @@ export class ProductosComponent {
     this.orderByStr = 'Similares';
     this.pages = new Array<number>();
     this.items = new Array<Item>();
+  }
+
+  ngAfterViewInit() {
+    console.log('termino de cargar el componente');
+    this._itemService.inicializarWishlist();
   }
 
   public cargarItems(availableFields, items, queryParams, records) {
@@ -126,5 +133,17 @@ export class ProductosComponent {
   public agregarCarrito(item: Item) {
     item.selectedQuantity = 1;
     this.carrito.procesarItem(item);
+  }
+
+  public toggleWishList(item: Item) {
+    this._itemService.toggleWishList(item);
+  }
+
+  public isInWishlist(item: Item) {
+    return this._itemService.isInWishlist(item);
+  }
+
+  public getCSSClassName(item: Item) {
+    return this._itemService.getCSSClassName(item);
   }
 }
