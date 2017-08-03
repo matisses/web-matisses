@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Item } from '../../models/item';
@@ -19,12 +19,16 @@ export class NewProductsComponent implements OnInit {
   public articuloActivo: number = 1;
 
   constructor(private _itemService: ItemService, private _route: ActivatedRoute, private _router: Router) {
-
   }
 
   ngOnInit() {
     console.log('inicializando componente de nuevos productos');
     this.inicializarItems();
+    this._itemService.inicializarWishlist();
+  }
+
+  ngAfterViewInit() {
+    console.log('termino de cargar el componente');
   }
 
   private inicializarItems() {
@@ -70,6 +74,18 @@ export class NewProductsComponent implements OnInit {
     console.log('has dado click al botón right');
     $('.section').animate({ scrollLeft: '-=300' }, 500);
     return false;
+  }
+
+  public toggleWishList(item: Item) {
+    this._itemService.toggleWishList(item);
+  }
+
+  public isInWishlist(item: Item) {
+    return this._itemService.isInWishlist(item);
+  }
+
+  public getCSSClassName(item: Item) {
+    return this._itemService.getCSSClassName(item);
   }
 
 }

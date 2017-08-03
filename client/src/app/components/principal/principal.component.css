@@ -11,29 +11,22 @@
   display: none;
 }
 
+.sub-banner p {
+  margin-top: 15px;
+}
+
 .compra-ya {
   border: 1px solid #5B5B5B;
   cursor: pointer;
-  color: #5B5B5B;
+  color: #65092d;
   padding: 5px 10px;
   font-weight: 700;
-  font-style: italic;
   background-color: transparent;
   margin-bottom: 20px;
 }
 
-.compra-ya:focus {
-  outline: none;
-  box-shadow: none;
-}
-
 .compra-ya:hover {
-  background-color: #ECECEC;
-}
-
-.padding-0 {
-  padding: 0;
-  max-width: 1920px;
+  background-color: #EDEDED;
 }
 
 .principal-01 {
@@ -56,7 +49,7 @@
 }
 
 .principal-03 {
-  background: url(../../../assets/images/banner/cocinar.png) no-repeat center top, url(../../../assets/images/banner/banner-044.jpg) no-repeat center top;
+  background: url(../../../assets/images/banner/banner-044.jpg) no-repeat center top;
   margin-top: 0px;
   background-attachment: relative;
   background-position: right center;
@@ -79,6 +72,7 @@
   margin-top: 15%;
   background-color: rgba(24, 24, 24, 0.5);
   width: 40%;
+  padding: 50px;
 }
 
 .titulo {
@@ -91,9 +85,25 @@
   position: absolute;
   bottom: 50px;
   height: 8px;
-  width: 60px;
+  width: 65px;
   color: transparent;
   background-color: #FFF;
+}
+
+@media screen and (max-width: 1200px) {
+  .text-03 {
+    font-size: 25px;
+    padding: 30px;
+  }
+  .titulo {
+    font-size: 40px;
+    line-height: 40px;
+  }
+  .titulo::before {
+    height: 5px;
+    bottom: 35px;
+    width: 55px;
+  }
 }
 
 @media screen and (max-width: 991px) {
@@ -141,7 +151,23 @@
 
 @media screen and (max-width: 414px) {
   .principal-01 {
-    min-height: 736px;
+    min-height: 415px;
+  }
+  .padding-0 {
+    padding-left: 0;
+    padding-right: 0;
+    overflow: hidden;
+  }
+  .sub-banner {
+    border: 1px solid #EDEDED;
+    margin-bottom: 10px;
+  }
+  .sub-banner p {
+    margin-bottom: 0;
+    margin-top: 10px;
+  }
+  .sub-banner button {
+    margin-bottom: 15px;
   }
   .down {
     display: block;
@@ -150,12 +176,12 @@
 
 @media screen and (max-width: 375px) {
   .principal-01 {
-    min-height: 667px;
+    min-height: 370px;
   }
 }
 
 @media screen and (max-width: 320px) {
   .principal-01 {
-    min-height: 568px;
+    min-height: 240px;
   }
 }

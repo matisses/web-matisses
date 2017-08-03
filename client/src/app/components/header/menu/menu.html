@@ -21,7 +21,7 @@
           <div class="col-lg-4 col-md-5">
             <div class="row">
               <div class="col-md-12 col-sm-6">
-                <ul class="ingreso text-right medium">
+                <ul class="ingreso text-right medium" (mouseover)="carrito.closeResumen()">
                   <li><a href="#"><span class="glyphicon glyphicon-heart"> </span> LISTA DE DESEOS</a></li>
                   <li class="border-left"><a href="#">REGÍSTRATE</a></li>
                   <li class="border-left"><a href="#"><span class="icon-user"> </span> INGRESA</a></li>
@@ -30,10 +30,10 @@
               <div class="col-md-12 col-sm-6 text-right">
                 <div class="row">
                   <div class="col-xs-8 col-xs-offset-1">
-                    <p class="lista-regalos text-center"><span class="icon-gift-box"> </span> Lista de Regalos</p>
+                    <a href="http://listaregalos.matisses.co/" target="_blank"><p (mouseover)="carrito.closeResumen()" class="lista-regalos text-center"><span class="icon-gift-box"> </span> Lista de Regalos</p></a>
                   </div>
                   <div class="col-xs-3 text-left">
-                    <matisses-carrito #carrito></matisses-carrito>
+                    <matisses-carrito #carrito id="carrito2"></matisses-carrito>
                   </div>
                 </div>
               </div>
@@ -50,7 +50,7 @@
             </div>
             <!-- botones para el administrador -->
             <ul>
-              <li class="item-menu cursor-pointer" [ngClass]="{'selected' : estaSeleccionado(menuItem.code)}" *ngFor="let menuItem of menuItems" (click)="alternarSeleccionPadre(menuItem)" (mouseover)="alternarSeleccionPadre(menuItem)">
+              <li (mouseover)="carrito.closeResumen()" class="item-menu cursor-pointer" [ngClass]="{'selected' : estaSeleccionado(menuItem.code)}" *ngFor="let menuItem of menuItems" (click)="alternarSeleccionPadre(menuItem)" (mouseover)="alternarSeleccionPadre(menuItem)">
                 <!-- botones para el administrador -->
                 <div class="hover-edicion">
                   <span class="glyphicon glyphicon-circle-arrow-left"></span>
@@ -111,7 +111,7 @@
 <div class="overlay cursor-pointer hidden-sm hidden-xs" [@overlayAnimation]="stateOverlay" (mouseover)="cerrarOverlay()"></div>
 
 <!-- Menú responsive -->
-<div id="myNav" class="fondo-menu">
+<div id="myNav" class="fondo-menu hidden-md hidden-lg">
   <!-- <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>-->
   <div class="menu-content">
 
@@ -147,7 +147,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-xs-3 text-left">
-        <matisses-carrito #carrito></matisses-carrito>
+        <matisses-carrito #carritoMobile id="carrito1" (click)="cerrarNav()"></matisses-carrito>
       </div>
       <div class="col-xs-6 text-center">
         <div class="logo" [routerLink]="['/']">
@@ -156,7 +156,7 @@
       </div>
       <div class="col-xs-3 text-right">
         <span class="glyphicon glyphicon-search" role="button" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"></span>
-        <span class="glyphicon glyphicon-menu-hamburger menu-mobile" id="hamburger" (click)="toggleClass('#hamburger', 'glyphicon-menu-hamburger', 'glyphicon-remove')" (click)="toggleNav()"></span>
+        <span class="glyphicon glyphicon-menu-hamburger menu-mobile" id="hamburger" (click)="carritoMobile.closeResumen()" (click)="toggleClass('#hamburger', 'glyphicon-menu-hamburger', 'glyphicon-remove')" (click)="toggleNav()"></span>
       </div>
     </div>
   </div>

@@ -2,6 +2,10 @@
   margin-top: 125px;
 }
 
+#target {
+  display: none;
+}
+
 
 @media screen and (max-width: 991px) {
   .stuck-body {
