@@ -17,14 +17,10 @@
               <p>Medios de envío</p>
             </div>
             <div class="medios-envio">
-              <input type="radio" id="coordinadora" name="envio" value="coordinadora">
-              <label for="coordinadora">Coordinadora</label>
-              <br>
-              <input type="radio" id="matisses" name="envio" value="matisses">
-              <label for="matisses">Matisses. Una semana el mejor precio</label>
-              <br>
-              <input type="radio" id="recoger" name="envio" value="recoger">
-              <label for="recoger">Recoger en tienda. 3 días habiles</label>
+              <div *ngFor="let metodo of metodosEnvio">
+                <input id="metodo_{{metodo.code}}" type="radio" name="envio" (click)="seleccionarMetodoEnvio(metodo)" [checked]="metodoEnvioSeleccionado && metodoEnvioSeleccionado.code === metodo.code">
+                <label for="metodo_{{metodo.code}}">{{metodo.name}} {{metodo.description}}</label>
+              </div>
               <br/>
             </div>
           </div>
@@ -38,7 +34,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <label for="tipo-D">Tipo de documento*</label>
-                  <select name="typeDoc" id="tipo-D" class="form-control" [class.ng-reflect-model]="!31" [class.required-field]="!valid"  [(ngModel)]="customer.fiscalIdType" required>
+                  <select name="typeDoc" id="tipo-D" class="form-control" [class.ng-reflect-model]="!31" [class.required-field]="!valid" [(ngModel)]="customer.fiscalIdType" required>
                     <option style="display:none" disabled selected value>Seleccione uno</option>
                     <option [selected]="customer.fiscalIdType == 13" value="13">Cedula</option>
                     <option [selected]="customer.fiscalIdType == 22" value="22">Cedula extranjería</option>
@@ -79,9 +75,9 @@
                 <input id="cel" type="text" class="form-control" [class.required-field]="!valid" name="phone" [(ngModel)]="customer.addresses[0].cellphone" required>
               </div>
               <div class="col-md-6">
-                <label for="city">Ciudad*</label><!---->
+                <label for="city">Ciudad*</label>
+                <select id="city" name="city" class="form-control" [class.required-field]="!valid" [(ngModel)]="customer.addresses[0].cityCode" *ngIf="ciudadesPrincipales" required>
                   <option style="display:none" disabled selected value>Seleccione una</option>
-                  <select id="city" name="city" class="form-control" [class.required-field]="!valid" [(ngModel)]="customer.addresses[0].cityCode" *ngIf="ciudadesPrincipales" required>
                   <option disabled>─ Ciudades capitales</option>
                   <option [selected]="customer.addresses[0].cityCode == principal.code" *ngFor="let principal of ciudadesPrincipales" [ngValue]="principal.code">{{principal.name}}</option>
                   <option disabled>─ Otras ciudades</option>

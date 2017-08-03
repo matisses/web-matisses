@@ -1,38 +1,18 @@
 <matisses-header></matisses-header>
 
 <!-- Modal Zoom -->
-<div class="modal fade modal" id="zoomModal" tabindex="-1" role="dialog" aria-labelledby="zoomLabel">
+<div class="modal fade modal" id="zoomModal" tabindex="-1" role="dialog" aria-labelledby="zoomLabel" *ngIf="item">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content modal-2">
-      <div class="modal-header">
-        <span data-dismiss="modal" aria-label="Close" class="icon-close pull-right"></span>
-      </div>
       <div class="modal-body">
         <div id="carousel-modal" class="carousel slide" data-ride="carousel">
           <!-- Wrapper for slides -->
           <div class="carousel-inner" role="listbox">
-            <div class="item active">
-              <img class="img-responsive" src="https://www.matisses.co/modules/matisses/files/25400000000000000018/images/25400000000000000018_01.jpg" alt="...">
-            </div>
-            <div class="item">
-              <img class="img-responsive" src="https://www.matisses.co/modules/matisses/files/25400000000000000018/images/25400000000000000018_02.jpg" alt="...">
-            </div>
-            <div class="item">
-              <img class="img-responsive" src="https://www.matisses.co/modules/matisses/files/25400000000000000018/images/25400000000000000018_03.jpg" alt="...">
-            </div>
-            <div class="item">
-              <img class="img-responsive" src="https://www.matisses.co/modules/matisses/files/25400000000000000018/images/25400000000000000018_04.jpg" alt="...">
-            </div>
-            <div class="item">
-              <img class="img-responsive" src="https://www.matisses.co/modules/matisses/files/25400000000000000018/images/25400000000000000018_05.jpg" alt="...">
-            </div>
-            <div class="item">
-              <img class="img-responsive" src="https://www.matisses.co/modules/matisses/files/25400000000000000018/images/25400000000000000018_06.jpg" alt="...">
-            </div>
-            <div class="item">
-              <img class="img-responsive" src="https://www.matisses.co/modules/matisses/files/25400000000000000018/images/25400000000000000018_07.jpg" alt="...">
+            <div class="item" [class.active]="i === 0" *ngFor="let image of item.images; let i = index">
+              <img src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/images/{{image}}" alt="...">
             </div>
           </div>
+
           <!-- Wrapper for slides -->
           <!-- Controls -->
           <a class="left carousel-control" href="#carousel-modal" role="button" data-slide="prev">
@@ -55,12 +35,8 @@
 <div class="modal fade modal" id="plantillaModal" tabindex="-1" role="dialog" aria-labelledby="plantillaLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content modal-2">
-      <div class="modal-header">
-        <span data-dismiss="modal" aria-label="Close" class="icon-close pull-right"></span>
-        <h4 class="modal-title text-center">Medidas</h4>
-      </div>
       <div class="modal-body">
-        <img width="100%" src="https://www.matisses.co/modules/matisses/files/25400000000000000018/plantilla/25400000000000000018.jpg" alt="">
+        <img id="plantilla" width="100%" alt="">
       </div>
     </div>
   </div>
@@ -71,13 +47,9 @@
 <div class="modal fade modal hidden-xs" id="360Modal" tabindex="-1" role="dialog" aria-labelledby="360Label">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content modal-2">
-      <div class="modal-header">
-        <span data-dismiss="modal" aria-label="Close" class="icon-close pull-right"></span>
-        <h4 class="modal-title text-center">360</h4>
-      </div>
       <div class="modal-body">
         <div class="animacion">
-          <iframe class="animacion-iframe" frameborder="0" vspace="0" hspace="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" scrolling="no" src="https://www.matisses.co/modules/matisses/files/10500000000000001348/360/105.1348.html"></iframe>
+          <iframe id="frame360" class="animacion-iframe" frameborder="0" vspace="0" hspace="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" scrolling="no"></iframe>
         </div>
       </div>
     </div>
@@ -89,96 +61,15 @@
 <div class="modal fade modal hidden-xs" id="wowModal" tabindex="-1" role="dialog" aria-labelledby="wowLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content modal-2">
-      <div class="modal-header">
-        <span data-dismiss="modal" aria-label="Close" class="icon-close pull-right"></span>
-        <h4 class="modal-title text-center">wow</h4>
-      </div>
       <div class="modal-body">
         <div class="animacion">
-          <iframe class="animacion-iframe" frameborder="0" vspace="0" hspace="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" scrolling="no" src="https://www.matisses.co/modules/matisses/files/24400000000000000025/animacion/jpeg.html"></iframe>
+          <iframe id="frameWow" class="animacion-iframe" frameborder="0" vspace="0" hspace="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" scrolling="no"></iframe>
         </div>
       </div>
     </div>
   </div>
 </div>
 <!-- Modal wow -->
-
-<!-- Modal carrito -->
-<div class="modal fade modal" id="carritoModal" tabindex="-1" role="dialog" aria-labelledby="carritoLabel">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content modal-2">
-      <div class="modal-header">
-        <span data-dismiss="modal" aria-label="Close" class="icon-close pull-right"></span>
-        <h4 class="modal-title">Has añadido el artículo al carrito</h4>
-      </div>
-      <div class="modal-body">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-7">
-              <div class="row">
-                <div class="col-sm-6">
-                  <img src="https://www.matisses.co/modules/matisses/files/25400000000000000018/images/25400000000000000018_01.jpg" class="img-responsive" alt="...">
-                </div>
-                <div class="col-sm-6" *ngFor="let item of items">
-                  <div class="row">
-                    <div class="col-xs-12">
-                      <p style="margin-bottom: 0px;"><b>{{item.itemname}}</b></p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-xs-12">
-                      <h4 style="margin-top: 15px;">$ {{item.price | number}}</h4>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-xs-12">
-                      <div class="color" style="margin:10px 0 0 0;"></div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-xs-12">
-                      <p style="margin-top: 15px;">Cantidad: <span>{{number}}</span></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-5" style="border-left: 1px solid #D1D1D1;" *ngFor="let item of items">
-              <div class="row">
-                <div class="col-xs-10 col-xs-offset-1" style="border-bottom: 1px dotted #D1D1D1;">
-                  <h4 style="margin: 0;"><b>{{number}}</b> ARTÍCULOS</h4>
-                  <p style="margin-top: 15px;">Costo total de los productos: <span class="pull-right"><b>$ {{item.price | number}}</b></span></p>
-                  <p>Envío estándar: <span class="pull-right"><b>$ 0</b></span></p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-xs-10 col-xs-offset-1">
-                  <p style="margin-top: 15px;">Total: <span class="pull-right"><b>$ {{item.price | number}}</b></span></p>
-                  <div class="row">
-                    <div class="col-xs-7">
-                      <p style="margin-top: 5px;">Financiación<br>con mercadopago: </p>
-                    </div>
-                    <div class="col-xs-5 text-right">
-                      <p style="font-size:10px; margin-top:10px"><b>Hasta 12 cuotas de<br>$ 46,667</b></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-xs-10 col-xs-offset-1">
-                  <button type="button" class="btn btn-carrito" style="width:100%; margin-top:20px;">
-                      <span class="icon-shopping-bag carrito"> </span> VER CARRITO
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Modal carrito -->
 
 <div sticky-body>
   <div class="container">
@@ -211,7 +102,7 @@
               </div>
               <div class="col-md-10 col-sm-12">
                 <!-- Wrapper for slides -->
-                <div class="carousel-inner" role="listbox">
+                <div id="carousel" class="carousel-inner" role="listbox">
                   <div class="item" [class.active]="i === 0" *ngFor="let image of item.images; let i = index">
                     <img src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/images/{{image}}" alt="...">
                   </div>
@@ -233,9 +124,9 @@
           <div class="row">
             <div class="extras">
               <div class="col-xs-12">
-                <span class="icon-360 hidden-sm hidden-xs" data-toggle="modal" data-target="#360Modal"></span>
-                <span class="icon-producto hidden-sm hidden-xs" data-toggle="modal" data-target="#wowModal"></span>
-                <span class="icon-size" data-toggle="modal" data-target="#plantillaModal"></span>
+                <span *ngIf="existe360" class="icon-360 hidden-sm hidden-xs" data-toggle="modal" data-target="#360Modal"></span>
+                <span *ngIf="existeWow" class="icon-producto hidden-sm hidden-xs" data-toggle="modal" data-target="#wowModal"></span>
+                <span *ngIf="existePlantilla" class="icon-size" data-toggle="modal" data-target="#plantillaModal"></span>
                 <span class="zoom icon-zoom-04" data-toggle="modal" data-target="#zoomModal"></span>
               </div>
             </div>
