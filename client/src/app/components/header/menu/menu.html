@@ -76,7 +76,7 @@
         <div class="row">
           <div class="col-xs-3" *ngFor="let subMenuItem of padreSeleccionado.children">
             <ul class="sub-menu">
-              <p class="child medium cursor-pointer" [routerLink]="['/categoria']" [queryParams]="{department: subMenuItem.department, group: subMenuItem.group}">
+              <p class="child medium cursor-pointer" [routerLink]="['/categoria']" [queryParams]="{group: subMenuItem.group}">
                 {{subMenuItem.name}}
                 <br/>
                 <!-- botones para el administrador -->
@@ -121,7 +121,7 @@
         <div *ngFor="let subMenuItem of padreSeleccionado.children">
           <button class="child-accordion" (click)="toggleClass('#grandchild-' + subMenuItem.code,'visible','hidden')" (click)="toggleClass('#subMenu-' + subMenuItem.code, 'glyphicon-chevron-down', 'glyphicon-chevron-up')">{{subMenuItem.name}}<span id="subMenu-{{subMenuItem.code}}" class="glyphicon glyphicon-chevron-down pull-right"></span></button>
           <div class="grandchild hidden" id="grandchild-{{subMenuItem.code}}">
-            <div *ngFor="let grandChild of subMenuItem.children" [routerLink]="['/categoria']" [queryParams]="{department: grandChild.department, group: grandChild.group, subgroup: grandChild.subgroup}" >
+            <div *ngFor="let grandChild of subMenuItem.children" [routerLink]="['/categoria']" [queryParams]="{group: grandChild.group, subgroup: grandChild.subgroup}" >
               <p class="grandchild-accordion">{{grandChild.name}}</p>
             </div>
           </div>

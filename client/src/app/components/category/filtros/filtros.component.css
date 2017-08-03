@@ -79,3 +79,12 @@ ul label {
 .active-filter-delete {
   visibility: hidden;
 }
+
+li.filter-option {
+  /*pendiente*/
+}
+
+li.filter-option:hover {
+  cursor: pointer;
+  font-size: 22px;
+}
