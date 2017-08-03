@@ -28,7 +28,7 @@ export class CustomerService {
       'Content-Type': 'application/json'
     });
 
-    return this._http.post(this.urlBCS + 'businesspartner/create/', { headers: headers })
+    return this._http.post(this.urlBCS + 'businesspartner/create/web', { headers: headers })
       .map(res => res.json());
   }
 }

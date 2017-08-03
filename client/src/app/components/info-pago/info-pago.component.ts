@@ -28,7 +28,9 @@ export class InfoPagoComponent implements OnInit {
   private carrito: CarritoSimpleComponent;
 
   public totalEnvio: number = 0;
+  public messageError: string;
   public procesandoP2P: boolean = false;
+  public valid: boolean = true;
   public customer: Customer;
   public metodoEnvioSeleccionado: ShippingMethod = null;
   public datosPago: DatosPagoPlaceToPay = null;
@@ -38,6 +40,7 @@ export class InfoPagoComponent implements OnInit {
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService, private _cityService: CityService,
     private _shippingMethodService: ShippingMethodService, private _placetopayService: PlacetoPayService, private _shoppingCartService: ShoppingCartService) {
+      this.messageError = '';
     this.customer = new Customer().newCustomer('', '', null, '', '', '', '', '', '', '', '', null, '', '', '', '', '', '', [{
       stateCode: null,
       stateName: null,
@@ -162,16 +165,16 @@ export class InfoPagoComponent implements OnInit {
         console.log(error);
       }
     );
-    this.validarCliente();
+    //this.validarCliente();
   }
 
   private validarCliente(){
     console.log('Mandando datos del cliente');
-    //this._customerService.getCustomerData(this.customer.fiscalID).subscribe(
-      //response => {
+    this._customerService.getCustomerData(this.customer.fiscalID).subscribe(
+      response => {
         //Mandar directo a placetopay
-      //},
-      //error => {
+      },
+      error => {
         //Se debe mandar a crear el cliente en SAP
         let apellidos = '';
         let nacionalidad = '';
@@ -188,12 +191,12 @@ export class InfoPagoComponent implements OnInit {
         let businesspartner = {
           birthDate: '1900-01-01',
           cardCode: this.customer.fiscalID + 'CL',
-          cardName: this.customer.firstName + ' ' + apellidos,
+          cardName: this.customer.firstName.toUpperCase() + ' ' + apellidos.toUpperCase(),
           defaultBillingAddress: 'FACTURACIÓN',
           defaultShippingAddress: 'FACTURACIÓN',
-          firstName: this.customer.firstName,
-          lastName1: this.customer.lastName1,
-          lastName2: this.customer.lastName2,
+          firstName: this.customer.firstName.toUpperCase(),
+          lastName1: this.customer.lastName1.toUpperCase(),
+          lastName2: this.customer.lastName2.toUpperCase(),
           fiscalID: this.customer.fiscalID,
           selfRetainer: 'N',
           CardType: {
@@ -215,7 +218,7 @@ export class InfoPagoComponent implements OnInit {
           TaxRegime: {
             regime: 'RS'
           },
-          addresses: [{}]
+          addresses: []
         }
 
         let billAddress = {
@@ -254,10 +257,17 @@ export class InfoPagoComponent implements OnInit {
 
         businesspartner.addresses.push(billAddress);
         businesspartner.addresses.push(shipAddress);
-      //}
 
-      console.log(businesspartner);
-    //);
+        this._customerService.createCustomer(businesspartner).subscribe(
+          response => {
+            console.log('Se creo el cliente correctamente');
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      }
+    );
 
 
 
