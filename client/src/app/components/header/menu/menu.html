@@ -50,15 +50,7 @@
             </div>
             <!-- botones para el administrador -->
             <ul>
-              <li (mouseover)="carrito.closeResumen()" class="item-menu cursor-pointer" [ngClass]="{'selected' : estaSeleccionado(menuItem.code)}" *ngFor="let menuItem of menuItems" (click)="alternarSeleccionPadre(menuItem)" (mouseover)="alternarSeleccionPadre(menuItem)">
-                <!-- botones para el administrador -->
-                <div class="hover-edicion">
-                  <span class="glyphicon glyphicon-circle-arrow-left"></span>
-                  <span class="glyphicon glyphicon-pencil"></span>
-                  <span class="glyphicon glyphicon-trash"></span>
-                  <span class="glyphicon glyphicon-circle-arrow-right"></span>
-                </div>
-                <!-- botones para el administrador -->
+              <li class="item-menu cursor-pointer" [ngClass]="{'selected' : estaSeleccionado(menuItem.code)}" *ngFor="let menuItem of menuItems" (click)="alternarSeleccionPadre(menuItem) + carrito.closeResumen() " (mouseenter)="carrito.closeResumen()">
                 {{menuItem.name}}
               </li>
             </ul>

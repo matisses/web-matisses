@@ -1,7 +1,30 @@
 <matisses-header></matisses-header>
 
-<div sticky-body *ngIf="transaccion">
-  <div class="container">
+<div sticky-body>
+
+<!-- esperando validacion de transacción -->
+
+<div class="bg" *ngIf="!transaccion">
+    <div class="container">
+      <div class="caption">
+      <div class="row">
+        <div class="col-sm-12 text-center">
+          <img src="assets/images/gif-cargando.gif" alt="">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 text-center">
+          <hr/>
+          <p><b>Estamos validando tu transacción</b></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- resultado de transacción -->
+  <div class="container" *ngIf="transaccion">
     <div class="fondo-gris">
       <div class="fondo-blanco">
         <div class="row">
