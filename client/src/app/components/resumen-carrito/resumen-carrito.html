@@ -49,7 +49,7 @@
                     <div class="row">
                       <div class="col-xs-3">
                         <p>Precio</p>
-                        <p><b>$ {{item.price | number}}</b></p>
+                        <p><b>$ {{item.priceaftervat | number}}</b></p>
                       </div>
                       <div class="col-xs-3">
                         <form>
@@ -59,7 +59,7 @@
                       </div>
                       <div class="col-xs-3">
                         <p>Total</p>
-                        <p><b>$ {{(item.price * item.selectedQuantity) | number}}</b></p>
+                        <p><b>$ {{(item.priceaftervat * item.selectedQuantity) | number}}</b></p>
                       </div>
                       <div class="col-xs-3 text-center">
                         <span class="trash glyphicon glyphicon-trash" (click)="eliminarItem(item)"></span>
@@ -102,13 +102,21 @@
                 <h4><b>${{carrito.totalCarrito | number}}</b></h4>
               </div>
             </div>
+            <div class="row">
+              <div class="col-xs-6">
+                <h5>Impuestos</h5>
+              </div>
+              <div class="col-xs-6">
+                <h4>${{carrito.totalImpuestos | number}}</h4>
+              </div>
+            </div>
             <hr/>
             <div class="row">
               <div class="col-xs-6">
                 <h5>Descuentos</h5>
               </div>
               <div class="col-xs-6">
-                <h4>$ 0</h4>
+                <h4>$0</h4>
               </div>
             </div>
             <div class="total">

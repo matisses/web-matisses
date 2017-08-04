@@ -99,7 +99,7 @@
       </div>
       <div class="col-xs-4">
         <span *ngIf="mostrarBotonEliminar()" class="glyphicon glyphicon-trash pull-right" (click)="eliminarItem(item)"></span>
-        <p>$ {{item.price | number}}</p>
+        <p>$ {{item.priceaftervat | number}}</p>
       </div>
     </div>
   </div>

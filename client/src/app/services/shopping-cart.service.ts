@@ -22,4 +22,13 @@ export class ShoppingCartService {
     return this._http.post(this.url + 'shoppingcart/guardar', JSON.stringify(shoppingCart), { headers: headers })
       .map(res => res.json());
   }
+
+  findShoppingCart(idCarrito) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.url + 'shoppingcart/buscar/' + idCarrito, { headers: headers })
+      .map(res => res.json());
+  }
 }

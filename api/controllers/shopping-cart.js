@@ -30,6 +30,31 @@ function saveShoppingCart(req, res) {
   });
 }
 
+function findShoppingCart(req, res) {
+  console.log(req.params.id);
+  ShoppingCart.find({
+    "_id": req.params.id
+  }, (err, shoppingCart) => {
+    if(err){
+      console.log(error);
+      res.status(500).send({
+        message: 'ocurrio un error al consultar el carrito'
+      });
+    } else if(!shoppingCart){
+      console.log(shoppingCart);
+      res.status(404).send({
+        message: 'no se encontró el carrito con id ' + req.query.id
+      });
+    } else {
+      console.log(shoppingCart);
+      res.status(200).send({
+        shoppingCart: shoppingCart
+      });
+    }
+  })
+}
+
 module.exports = {
-  saveShoppingCart
+  saveShoppingCart,
+  findShoppingCart
 };

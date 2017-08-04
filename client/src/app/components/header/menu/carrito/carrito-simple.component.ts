@@ -15,6 +15,7 @@ export class CarritoSimpleComponent {
   //  public items: Array<Item>;
   public totalItems: number = 0;
   public totalCarrito: number = 0;
+  public totalImpuestos: number = 0;
   public shoppingCart: any;
 
   constructor(private _route: ActivatedRoute, private _router: Router) {
@@ -24,11 +25,9 @@ export class CarritoSimpleComponent {
   private inicializarShoppingCart() {
     this.shoppingCart = {
       _id: null,
-      fechacreacion: null,
-      items: null
+      fechacreacion: new Date(),
+      items: new Array<Item>()
     };
-    this.shoppingCart.fechacreacion = new Date();
-    this.shoppingCart.items = new Array<Item>();
   }
 
   public cargarCarrito() {
@@ -92,10 +91,18 @@ export class CarritoSimpleComponent {
   private procesarCarrito() {
     this.totalItems = 0;
     this.totalCarrito = 0;
+    this.totalImpuestos = 0;
+    let totalSinIVA = 0;
     for (let i = 0; i < this.shoppingCart.items.length; i++) {
-      this.totalItems += this.shoppingCart.items[i].selectedQuantity;
-      this.totalCarrito += (this.shoppingCart.items[i].price * this.shoppingCart.items[i].selectedQuantity);
+      let selectedQuantity = this.shoppingCart.items[i].selectedQuantity ? this.shoppingCart.items[i].selectedQuantity : 0;
+      let price = this.shoppingCart.items[i].priceaftervat ? this.shoppingCart.items[i].priceaftervat : 0;
+      totalSinIVA += (this.shoppingCart.items[i].pricebeforevat ? this.shoppingCart.items[i].pricebeforevat : 0) * selectedQuantity;
+      this.totalItems += selectedQuantity;
+      this.totalCarrito += (price * selectedQuantity);
     }
+    this.totalImpuestos = (this.totalCarrito - totalSinIVA) | 0;
+    console.log('total sin iva: ' + totalSinIVA);
+    console.log('total impuestos: ' + this.totalImpuestos);
     console.log('el numero total de items es ' + this.totalItems);
   }
 }
