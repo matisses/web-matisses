@@ -40,7 +40,7 @@ export class InfoPagoComponent implements OnInit {
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService, private _cityService: CityService,
     private _shippingMethodService: ShippingMethodService, private _placetopayService: PlacetoPayService, private _shoppingCartService: ShoppingCartService) {
-      this.messageError = '';
+    this.messageError = '';
     this.customer = new Customer().newCustomer('', '', null, '', '', '', '', '', '', '', '', null, '', '', '', '', '', '', [{
       stateCode: null,
       stateName: null,
@@ -139,8 +139,14 @@ export class InfoPagoComponent implements OnInit {
   public pagar() {
     this.valid = true;
     this.messageError = '';
-    if (this.customer.fiscalID == null || this.customer.cardCode.length <= 0 || this.customer.firstName == null || this.customer.firstName.length <= 0
-      || this.customer.lastName1 == null || this.customer.lastName1.length <= 0) {
+    if (this.customer.fiscalID == null || this.customer.fiscalID.length <= 0
+      || this.customer.firstName == null || this.customer.firstName.length <= 0
+      || this.customer.lastName1 == null || this.customer.lastName1.length <= 0
+      || this.customer.fiscalIdType == null || this.customer.fiscalIdType.length <= 0
+      || this.customer.addresses[0].address == null || this.customer.addresses[0].address.length <= 0
+      || this.customer.addresses[0].cellphone == null || this.customer.addresses[0].cellphone.length <= 0
+      || this.customer.addresses[0].cityCode == null || this.customer.addresses[0].cityCode == 0
+      || this.customer.addresses[0].email == null || this.customer.addresses[0].email.length <= 0) {
       console.log('Se deben llenar todos los campos obligatorios para poder proceder con el pago');
       this.messageError = 'Se deben llenar todos los campos obligatorios para poder proceder con el pago.';
       this.valid = false;
@@ -158,21 +164,22 @@ export class InfoPagoComponent implements OnInit {
     this._shoppingCartService.saveShoppingCart(shoppingCart).subscribe(
       response => {
         //Se guarda en el localStorage el carrito
-        localStorage.setItem('matisses.carrito', JSON.stringify(response.shoppingCart));
-        this.enviarPlaceToPay(response.shoppingCart._id);
+        this.carrito.shoppingCart = response.shoppingCart;
+        localStorage.setItem('matisses.shoppingCart', JSON.stringify(response.shoppingCart));
+        this.validarCliente(response.shoppingCart._id);
       },
       error => {
         console.log(error);
       }
     );
-    //this.validarCliente();
   }
 
-  private validarCliente(){
+  private validarCliente(_idCarrito) {
     console.log('Mandando datos del cliente');
     this._customerService.getCustomerData(this.customer.fiscalID).subscribe(
       response => {
         //Mandar directo a placetopay
+        this.enviarPlaceToPay(_idCarrito);
       },
       error => {
         //Se debe mandar a crear el cliente en SAP
@@ -182,10 +189,10 @@ export class InfoPagoComponent implements OnInit {
         if (this.customer.lastName2 != null && this.customer.lastName2.length > 0) {
           apellidos += ' ' + this.customer.lastName2;
         }
-        if(this.customer.nationality === 'NATIONAL'){
-          nacionalidad = '01';
+        if (this.customer.nationality === 'NATIONAL') {
+          nacionalidad = 'NATIONAL';
         } else {
-          nacionalidad = '02';
+          nacionalidad = 'FOREIGN';
         }
 
         let businesspartner = {
@@ -199,25 +206,14 @@ export class InfoPagoComponent implements OnInit {
           lastName2: this.customer.lastName2.toUpperCase(),
           fiscalID: this.customer.fiscalID,
           selfRetainer: 'N',
-          CardType: {
-            type: 'C'
-          },
+          salesPersonCode: '98',
+          cardType: 'CUSTOMER',
           fiscalIdType: this.customer.fiscalIdType,
-          ForeignType: {
-            type: 'CON_CLAVE'
-          },
-          Gender: {
-            gender: 3
-          },
-          Nationality: {
-            type: nacionalidad
-          },
-          PersonType: {
-            type: '01'
-          },
-          TaxRegime: {
-            regime: 'RS'
-          },
+          foreignType: 'CON_CLAVE',
+          gender: 'NINGUNO',
+          nationality: nacionalidad,
+          personType: 'NATURAL',
+          taxRegime: 'REGIMEN_SIMPLIFICADO',
           addresses: []
         }
 
@@ -227,9 +223,7 @@ export class InfoPagoComponent implements OnInit {
           cityCode: this.customer.addresses[0].cityCode,
           cityName: '',
           addressName: 'FACTURACIÓN',
-          addressType: {
-            type: 'B'
-          },
+          addressType: 'BILLING',
           address: this.customer.addresses[0].address,
           landLine: this.customer.addresses[0].cellphone,
           cellphone: this.customer.addresses[0].cellphone,
@@ -244,9 +238,7 @@ export class InfoPagoComponent implements OnInit {
           cityCode: this.customer.addresses[0].cityCode,
           cityName: '',
           addressName: 'FACTURACIÓN',
-          addressType: {
-            type: 'S'
-          },
+          addressType: 'SHIPPING',
           address: this.customer.addresses[0].address,
           landLine: this.customer.addresses[0].cellphone,
           cellphone: this.customer.addresses[0].cellphone,
@@ -260,7 +252,11 @@ export class InfoPagoComponent implements OnInit {
 
         this._customerService.createCustomer(businesspartner).subscribe(
           response => {
-            console.log('Se creo el cliente correctamente');
+            if (response.estado == 0) {
+              this.enviarPlaceToPay(_idCarrito);
+            } else {
+              //error
+            }
           },
           error => {
             console.log(error);
@@ -268,15 +264,10 @@ export class InfoPagoComponent implements OnInit {
         );
       }
     );
-
-
-
-
-
-
   }
 
   private enviarPlaceToPay(_id) {
+    console.log(this.customer);
     //Se mapean los datos que se le enviaran a PlacetoPay
     let apellidos = '';
     apellidos += this.customer.lastName1;

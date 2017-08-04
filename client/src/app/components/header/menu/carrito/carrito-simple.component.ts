@@ -23,6 +23,7 @@ export class CarritoSimpleComponent {
 
   private inicializarShoppingCart() {
     this.shoppingCart = {
+      _id: null,
       fechacreacion: null,
       items: null
     };
