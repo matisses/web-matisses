@@ -14,12 +14,21 @@ export class PlacetoPayService {
     this.urlBCS = GLOBAL.urlBCS;
   }
 
-  redirect(datosPago){
+  redirect(datosPago) {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
 
     return this._http.post(this.urlBCS + 'placetopay/redirect', JSON.stringify(datosPago), { headers: headers })
+      .map(res => res.json());
+  }
+
+  consultar(_idCarrito, items) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'placetopay/consultar/' + _idCarrito, JSON.stringify(items), { headers: headers })
       .map(res => res.json());
   }
 }
