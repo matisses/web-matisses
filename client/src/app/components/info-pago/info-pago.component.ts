@@ -164,9 +164,9 @@ export class InfoPagoComponent implements OnInit {
     this._shoppingCartService.saveShoppingCart(shoppingCart).subscribe(
       response => {
         //Se guarda en el localStorage el carrito
-        this.carrito.shoppingCart = response.shoppingCart;
-        localStorage.setItem('matisses.shoppingCart', JSON.stringify(response.shoppingCart));
-        this.validarCliente(response.shoppingCart._id);
+        this.carrito.shoppingCart._id = response.shoppingCart._id;
+        localStorage.setItem('matisses.shoppingCart', JSON.stringify(this.carrito.shoppingCart));
+        this.validarCliente(this.carrito.shoppingCart._id);
       },
       error => {
         console.log(error);
@@ -176,6 +176,8 @@ export class InfoPagoComponent implements OnInit {
 
   private validarCliente(_idCarrito) {
     console.log('Mandando datos del cliente');
+    this.obtenerNombreCiudad();
+
     this._customerService.getCustomerData(this.customer.fiscalID).subscribe(
       response => {
         //Mandar directo a placetopay
@@ -221,7 +223,7 @@ export class InfoPagoComponent implements OnInit {
           stateCode: this.customer.addresses[0].cityCode.toString().substring(0, 2),
           stateName: '',
           cityCode: this.customer.addresses[0].cityCode,
-          cityName: '',
+          cityName: this.customer.addresses[0].cityName,
           addressName: 'FACTURACIÓN',
           addressType: 'BILLING',
           address: this.customer.addresses[0].address,
@@ -297,7 +299,7 @@ export class InfoPagoComponent implements OnInit {
         total: this.carrito.totalCarrito,
         taxes: {
           kind: 'valueAddedTax',
-          amount: 0
+          amount: this.carrito.totalImpuestos
         }
       }
     }
@@ -312,6 +314,7 @@ export class InfoPagoComponent implements OnInit {
           this.procesandoP2P = false;
           return;
         }
+        localStorage.removeItem('matisses.shoppingCart');
         window.location.href = response.respuestaPlaceToPay.processUrl;
       },
       error => {
@@ -323,5 +326,24 @@ export class InfoPagoComponent implements OnInit {
   public seleccionarMetodoEnvio(metodo) {
     console.log(metodo);
     this.metodoEnvioSeleccionado = metodo;
+  }
+
+  private obtenerNombreCiudad() {
+    if (this.customer.addresses[0].cityName == null || this.customer.addresses[0].cityName.length <= 0) {
+      for (let i = 0; i < this.ciudadesPrincipales.length; i++) {
+        if (this.ciudadesPrincipales[i].code === this.customer.addresses[0].cityCode.toString()) {
+          this.customer.addresses[0].cityName = this.ciudadesPrincipales[i].name;
+          break;
+        }
+      }
+      if (this.customer.addresses[0].cityName == null || this.customer.addresses[0].cityName.length <= 0) {
+        for (let i = 0; i < this.otrasCiudades.length; i++) {
+          if (this.otrasCiudades[i].code === this.customer.addresses[0].cityCode.toString()) {
+            this.customer.addresses[0].cityName = this.otrasCiudades[i].name;
+            break;
+          }
+        }
+      }
+    }
   }
 }

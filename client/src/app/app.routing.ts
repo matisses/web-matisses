@@ -29,7 +29,7 @@ const appRoutes: Routes = [
     {path: 'redirect/:previous', component: RedirectComponent},
     {path: 'ingresar', component: IngresarComponent},
     {path: 'info-pago', component: InfoPagoComponent},
-    {path: 'resultado-transaccion', component: ResultadoTransacciComponent},
+    {path: 'resultado-transaccion/:idCarrito', component: ResultadoTransacciComponent},
     {path: 'modal', component: ModalComponent},
     //,{path: 'producto/:productId', component: CategoryComponent},
     {path: '**', component: ErrorComponent} //pagina 404

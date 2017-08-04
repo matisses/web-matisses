@@ -4,7 +4,7 @@
 
 <!-- esperando validacion de transacción -->
 
-<div class="bg">
+<div class="bg" *ngIf="!transaccion">
     <div class="container">
       <div class="caption">
       <div class="row">
@@ -23,17 +23,16 @@
 </div>
 
 
-<!-- resultaqdo de transacción -->
-
-  <div class="container">
+<!-- resultado de transacción -->
+  <div class="container" *ngIf="transaccion">
     <div class="fondo-gris">
       <div class="fondo-blanco">
         <div class="row">
           <div class="col-xs-12 text-center">
-            <h1><b>{{descripcion}}</b></h1>
+            <h1><b>Transacción {{transaccion.status.reason}}</b></h1>
           </div>
           <div class="col-xs-12 text-center">
-            <h2>{{mensaje}}</h2>
+            <h2>{{transaccion.status.message}}</h2>
           </div>
         </div>
       </div>
@@ -58,84 +57,76 @@
                   Distribuciones Bar&uacute; S.A.
                 </td>
               </tr>
-              <tr>
+              <tr *ngIf="transaccion.factura">
                 <th>
-                  Orden No.
+                  Factura No.
                 </th>
                 <td>
-
+                  {{transaccion.factura}}
                 </td>
               </tr>
-              <tr>
+              <tr *ngIf="transaccion.referenciaPago">
                 <th>
                   Referencia
                 </th>
                 <td>
-
+                  {{transaccion.referenciaPago}}
                 </td>
               </tr>
-              <tr>
+              <tr *ngIf="transaccion.descripcionPago">
                 <th>
                   Descripción Del Pago
                 </th>
                 <td>
-
+                  {{transaccion.descripcionPago}}
                 </td>
               </tr>
-              <tr>
+              <tr *ngIf="transaccion.nombrePagador">
                 <th>
                   Nombre Del Pagador
                 </th>
                 <td>
-
+                  {{transaccion.nombrePagador}}
                 </td>
               </tr>
-              <tr>
+              <tr *ngIf="transaccion.email">
                 <th>
                   E-Mail Del Pagador
                 </th>
                 <td>
-
+                  {{transaccion.email}}
                 </td>
               </tr>
-              <tr>
+              <tr *ngIf="transaccion.ip">
                 <th>
                   Dirección IP
                 </th>
                 <td>
-
+                  {{transaccion.ip}}
                 </td>
               </tr>
-              <tr>
+              <tr *ngIf="transaccion.fecha">
                 <th>
                   Fecha Transacción
                 </th>
                 <td>
-
+                  {{transaccion.fecha}}
                 </td>
               </tr>
-              <tr>
-                <th>
-                  Estado
-                </th>
-                <td>
-
-                </td>
-              </tr>
-              <tr>
+              <tr *ngIf="transaccion.valorTotal">
                 <th>
                   Valor Total
                 </th>
                 <td>
-
+                  {{transaccion.valorTotal | number}}
                 </td>
               </tr>
-              <tr>
+              <tr *ngIf="transaccion.impuestos">
                 <th>
                   IVA
                 </th>
                 <td>
-
+                  {{transaccion.impuestos | number}}
                 </td>
               </tr>
             </table>
