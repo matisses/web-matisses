@@ -29,13 +29,9 @@
               <button type="button" class="btn btn-like" (click)="toggleWishList(item)">
                 <span class="glyphicon  wish-list" [ngClass]="getCSSClassName(item)"></span>
               </button>
-              <!--<button type="button" class="btn btn-like">
-                <span class="glyphicon glyphicon-heart wish-list"></span>
-              </button>-->
               <button type="button" class="btn btn-carrito" (click)="agregarCarrito(item)">
                       <span class="icon-shopping-cart carrito"> </span> AGREGAR AL CARRITO
                 </button>
-              <!--   <p class="medium cursor-pointer" [routerLink]="['/producto', item.shortitemcode]"><u>Descubre más</u></p> -->
             </div>
           </div>
         </div>
@@ -43,27 +39,3 @@
     </div>
   </div>
 </div>
-
-<!-- <div class="section" >
-  <ul id="scrollbar">
-    <li *ngFor="let item of items">
-      <div class="row">
-        <div class="col-xs-10 col-xs-offset-1">
-          <img src="assets/images/nuevos/{{item.referencia}}.jpg" class="img-responsive" alt="">
-        </div>
-      </div>
-      <br/>
-      <div class="row">
-        <div class="col-xs-10 text-left">
-          <p class="medium nombre-producto">{{item.nombre}}</p>
-          <h4>$ {{item.precio | number:0}}</h4>
-          <p class="medium agregar"><span class="icon-shopping-cart carrito"> </span> <em>AGREGAR AL CARRITO</em></p>
-          <p class="medium agregar"><u>Descubre más</u></p>
-        </div>
-        <div class="col-xs-2">
-          <span class="glyphicon glyphicon-heart-empty wish-list"></span>
-        </div>
-      </div>
-    </li>
-  </ul>
-</div> -->

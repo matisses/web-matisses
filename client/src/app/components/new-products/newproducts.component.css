@@ -15,6 +15,7 @@ h3::before {
   margin-bottom: 20px;
   cursor: pointer;
   padding: 10px;
+  border: 1px solid #FFF;
 }
 
 .producto:hover {
@@ -37,12 +38,7 @@ h3::before {
 
 .btn-like {
   background-color: #EDEDED;
-  color: #5B5B5B;
-}
-
-#full {
   color: #65092D;
-  display: none;
 }
 
 .btn-carrito {
