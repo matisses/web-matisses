@@ -1,0 +1,80 @@
+.stuck-body {
+  margin-top: 130px;
+}
+
+.container {
+  color: #5B5B5B;
+  margin-bottom: 35px;
+}
+
+.border-left {
+  border-left: 1px solid #EDEDED;
+}
+
+.iconchat {
+  color: #6D9791;
+  font-size: 30px;
+  background-color: #EDEDED;
+  padding: 15px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.title {
+  margin-left: 10px;
+  margin-top: 10px;
+  text-align: left;
+  display: inline-block;
+}
+
+.info {
+  margin-top: 30%;
+}
+
+.info span {
+  color: #6D9791;
+}
+
+.info hr {
+  border-color: #EDEDED;
+}
+
+form label {
+  font-weight: normal;
+}
+
+.input-matisses {
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid #7C7C7C;
+}
+
+textarea {
+  max-width: 452px;
+}
+
+.btn-enviar {
+  width: 100%;
+  background-color: #5B5B5B;
+  color: #FFF;
+  border: none;
+  font-weight: bold;
+  padding: 5px 0;
+}
+
+@media screen and (max-width: 991px) {
+  .stuck-body {
+    margin-top: 0px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .border-left {
+    border-top: 1px solid #EDEDED;
+    border-left: 0px;
+    padding-top: 20px;
+    margin-top: 20px;
+  }
+}
