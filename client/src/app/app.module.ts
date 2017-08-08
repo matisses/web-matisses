@@ -44,6 +44,7 @@ import { TiendasComponent } from './components/tiendas/tiendas.component';
 import { TrabajaComponent } from './components/trabaja/trabaja.component';
 import { GarantiasComponent } from './components/garantias/garantias.component';
 import { EnviosComponent } from './components/envios/envios.component';
+import { ContactanosComponent } from './components/contactanos/contactanos.component';
 
 //Componenete pagina de error
 import { ErrorComponent } from './components/error/error.component';
@@ -105,7 +106,8 @@ import { AppComponent } from './app.component';
     MigaDePanComponent,
     ResultadoTransacciComponent,
     ModalComponent,
-    WishListComponent
+    WishListComponent,
+    ContactanosComponent
   ],
   imports: [
     BrowserModule,

@@ -21,7 +21,7 @@
   color: #5b5b5b;
 }
 
-input:focus, button:focus, span:focus, p:focus, li:focus, div:focus {
+input:focus, button:focus, span:focus, p:focus, li:focus, div:focus, textarea:focus {
   outline: none !important;
   box-shadow: none !important;
 }
