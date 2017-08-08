@@ -77,7 +77,7 @@
 
 <div class="carrito" (click)="toggleResumen()">
   <span [ngClass]="{'icon-shopping-cart': (!resumenMobileVisible && !resumenDesktopVisible), 'icon-cerrar': (resumenMobileVisible || resumenDesktopVisible)}"> </span>
-  <span class="badge" id="totalItemsCarritoBadge">{{carrito.totalItems}}</span>
+  <span class="badge total-items-carrito-badge" >{{carrito.totalItems}}</span>
 </div>
 <div id="resumen" class="resumen resumenmobile">
   <div class="row">
@@ -114,7 +114,7 @@
   <div class="row">
     <div class="col-xs-12 text-right">
       <hr/>
-      <p class="subtotal">Subtotal <b id="totalItemsCarrito">$ {{carrito.totalCarrito}}</b></p>
+      <p class="subtotal">Subtotal <b>$ {{carrito.totalCarrito | number}}</b></p>
     </div>
   </div>
   <div class="row">
