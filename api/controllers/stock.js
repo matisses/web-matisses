@@ -7,10 +7,17 @@ var mongoosePaginate = require('mongoose-pagination');
 var Stock = require('../models/stock');
 
 function consultarStockItem(req, res) {
-  var itemcode = req.params.itemcode.substring(0, 3) + '0000000000000' + req.params.itemcode.substring(3);
+  var itemcode = '';
+  if (req.params.itemcode.length < 20) {
+    itemcode = req.params.itemcode.substring(0, 3) + '0000000000000' + req.params.itemcode.substring(3);
+  } else {
+    itemcode = req.params.itemcode;
+  }
+  console.log(itemcode);
 
   Stock.find({
-    "itemCode": itemcode
+    "itemCode": itemcode,
+    "quantity": {$gt: 0}
   }, (err, result) => {
     if (err) {
       console.log(err);
