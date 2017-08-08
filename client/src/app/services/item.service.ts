@@ -96,4 +96,13 @@ export class ItemService {
     }
     return 'glyphicon-heart-empty';
   }
+
+  public findRelatedItems(model: string) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.url + 'item/obtenerrelacionados/' + model, { headers: headers })
+      .map(res => res.json());
+  }
 }

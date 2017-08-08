@@ -33,6 +33,7 @@ export class Item {
   };
   public stock: Array<any>;
   public images: Array<string>;
+  public color: Array<any>;
 
   constructor() {
 
@@ -41,8 +42,17 @@ export class Item {
   public newItem(itemcode, itemname, price) {
     this.itemname = itemname;
     this.itemcode = itemcode;
-    this.shortitemcode = this.itemcode.substring(0,3)+this.itemcode.substring(16);
+    this.shortitemcode = this.itemcode.substring(0, 3) + this.itemcode.substring(16);
     this.priceAfterVAT = price;
+    return this;
+  }
+
+  public newItemCarrito(itemcode, itemname, price, quantity) {
+    this.itemname = itemname;
+    this.itemcode = itemcode;
+    this.shortitemcode = this.itemcode.substring(0, 3) + this.itemcode.substring(16);
+    this.priceAfterVAT = price;
+    this.selectedQuantity = quantity;
     return this;
   }
 }

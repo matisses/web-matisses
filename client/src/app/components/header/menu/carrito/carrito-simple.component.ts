@@ -11,15 +11,17 @@ declare var $: any;
 })
 
 export class CarritoSimpleComponent {
+  public id: number = Math.random() * 1000 | 0;
   private idCarrito: string;
-  //  public items: Array<Item>;
   public totalItems: number = 0;
   public totalCarrito: number = 0;
   public totalImpuestos: number = 0;
   public shoppingCart: any;
+  public item: Item;
 
   constructor(private _route: ActivatedRoute, private _router: Router) {
     this.inicializarShoppingCart();
+    console.warn('inicializando carrito-simple id=' + this.id);
   }
 
   private inicializarShoppingCart() {
@@ -90,6 +92,13 @@ export class CarritoSimpleComponent {
 
     //cantidadCarrito.innerHTML = this.totalItems.toString();
     //cantidadCarritoBadge.innerHTML = this.totalItems.toString();
+    this.mostrarModal(item);
+
+  }
+
+  private mostrarModal(item: Item) {
+    console.log('mostrando carrito');
+    this.item = item;
   }
 
   private procesarCarrito() {
