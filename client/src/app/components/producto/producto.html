@@ -196,8 +196,9 @@
                 <p>Colores <span id="colores" class="icon-plus pull-right"></span></p>
               </div>
               <div class="collapse" id="collapseColores">
-                <div class="color color-selected"></div>
-                <div class="color"></div>
+                <div class="color" *ngFor="let relacionado of itemsRelacionados" [style.background-color]="relacionado.color.hexa"></div>
+                <!--<div class="color color-selected"></div>
+                <div class="color"></div>-->
               </div>
             </div>
           </div>
@@ -220,9 +221,9 @@
             <div class="col-md-6">
               <div class="disponibilidad">
                 <p><b>Disponible en:</b></p>
-                <span class="icon-web"></span>
-                <span class="icon-med border-left"></span>
-                <span class="icon-bog border-left"></span>
+                <span class="icon-web" *ngIf="totalStock > 0"></span>
+                <span class="icon-med border-left" *ngIf="existenciaMedellin"></span>
+                <span class="icon-bog border-left" *ngIf="existenciaBogota"></span>
               </div>
             </div>
             <div class="col-md-6">
