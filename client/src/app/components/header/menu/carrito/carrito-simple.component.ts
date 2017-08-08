@@ -77,15 +77,19 @@ export class CarritoSimpleComponent {
     //3. guardar
     localStorage.setItem('matisses.shoppingCart', JSON.stringify(this.shoppingCart));
     //4. navegar
-    //console.log(new Date().getTime());
     //this._router.navigate(['/redirect',this._router.url]);
     //5. Actualizar contenido HTML
     this.procesarCarrito();
-    let cantidadCarrito = <HTMLElement>document.querySelector("#totalItemsCarrito");
-    let cantidadCarritoBadge = <HTMLElement>document.querySelector("#totalItemsCarritoBadge");
 
-    cantidadCarrito.innerHTML = this.totalItems.toString();
-    cantidadCarritoBadge.innerHTML = this.totalItems.toString();
+    let components = document.getElementsByClassName("total-items-carrito-badge");
+    for (let i = 0; i < components.length; i++) {
+      components[i].innerHTML = this.totalItems.toString();
+    }
+    //let cantidadCarrito = <HTMLElement>document.querySelector("#totalItemsCarrito");
+    //let cantidadCarritoBadge = <HTMLElement>document.querySelector("#totalItemsCarritoBadge");
+
+    //cantidadCarrito.innerHTML = this.totalItems.toString();
+    //cantidadCarritoBadge.innerHTML = this.totalItems.toString();
   }
 
   private procesarCarrito() {

@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { ItemService } from '../../../services/item.service';
@@ -160,10 +160,12 @@ export class FiltrosComponent implements AfterViewInit {
 
   private navigate() {
     let queryParamsObj = {};
+    console.log(this.availableFields);
     for (let i = 0; i < this.availableFields.length; i++) {
       let key = this.availableFields[i];
       queryParamsObj[key] = this.queryParams.get(key);
     }
+    queryParamsObj['page'] = '1';
     console.log(queryParamsObj);
     this._router.navigate(['/categoria'], { queryParams: queryParamsObj });
   }

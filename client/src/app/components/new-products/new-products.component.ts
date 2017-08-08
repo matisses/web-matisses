@@ -1,9 +1,11 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Item } from '../../models/item';
 import { ItemService } from '../../services/item.service';
-//declare var jquery: any;
+
+import { CarritoSimpleComponent } from '../header/menu/carrito/carrito-simple.component';
+
 declare var $: any;
 
 @Component({
@@ -14,6 +16,9 @@ declare var $: any;
 })
 
 export class NewProductsComponent implements OnInit {
+  @ViewChild(CarritoSimpleComponent)
+  private carrito: CarritoSimpleComponent;
+
   public title: string;
   public items: Array<Item>;
   public articuloActivo: number = 1;
@@ -88,4 +93,8 @@ export class NewProductsComponent implements OnInit {
     return this._itemService.getCSSClassName(item);
   }
 
+  public agregarCarrito(item: Item) {
+    item.selectedQuantity = 1;
+    this.carrito.procesarItem(item);
+  }
 }

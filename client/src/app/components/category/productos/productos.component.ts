@@ -103,14 +103,6 @@ export class ProductosComponent {
       queryParamsObj[key] = this.queryParams.get(key);
     }
     console.log(queryParamsObj);
-    /*let queryParamsObj = {
-      page: this.queryParams.get('page'),
-      pageSize: this.queryParams.get('pageSize'),
-      department: this.queryParams.get('department'),
-      group: this.queryParams.get('group'),
-      subgroup: this.queryParams.get('subgroup'),
-      orderBy: this.queryParams.get('orderBy')
-    };*/
     this._router.navigate(['/categoria'], { queryParams: queryParamsObj });
   }
 
@@ -127,6 +119,7 @@ export class ProductosComponent {
 
   public changeOrder(orderkey) {
     this.queryParams.set('orderBy', orderkey);
+    this.queryParams.set('page', '1');
     this.navigate();
   }
 

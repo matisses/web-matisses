@@ -15,22 +15,32 @@
       <a class="right" (click)="botonRight()">
         <span class="glyphicon glyphicon-menu-right"></span>
       </a>
-        <div class="section">
-            <div class="article" *ngFor="let item of items">
-              <div class="row" *ngIf="item != null">
-                <div class="col-xs-10 col-xs-offset-1">
-                  <img src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/images/{{item.itemcode}}_01.jpg" class="img-responsive" alt="">
-                </div>
-              </div>
-              <div class="row" *ngIf="item != null">
-                <div class="col-xs-12 text-center">
-                  <p class="medium nombre-producto">{{item.itemname}}</p>
-                  <h4>$ {{item.price | number:0}}</h4>
-                  <p class="medium agregar"><span class="icon-shopping-cart carrito"> </span> <em>AGREGAR AL CARRITO</em></p>
-                </div>
+      <div class="section">
+        <div class="article" *ngFor="let item of items">
+          <div class="row" *ngIf="item != null">
+            <div class="col-xs-10 col-xs-offset-1">
+              <img src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/images/{{item.itemcode}}_01.jpg" class="img-responsive" alt="">
+            </div>
+          </div>
+          <div class="row" *ngIf="item != null">
+            <div class="col-xs-12 text-center">
+              <p class="medium nombre-producto">{{item.itemname}}</p>
+              <h4>$ {{item.priceaftervat | number:0}}</h4>
+            </div>
+            <div class="botones">
+              <div class="col-xs-12 text-center">
+                <button type="button" class="btn btn-like" (click)="toggleWishList(item)">
+                  <span class="glyphicon  wish-list" [ngClass]="getCSSClassName(item)"></span>
+                </button>
+                <button type="button" class="btn btn-carrito" (click)="agregarCarrito(item)">
+                  <span class="icon-shopping-cart carrito"> </span> AGREGAR AL CARRITO
+                </button>
               </div>
             </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+<matisses-carrito-simple #carritoSimple></matisses-carrito-simple>

@@ -19,7 +19,7 @@
             <img src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/images/{{item.itemcode}}_01.jpg" class="img-responsive" alt="">
           </div>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="item != null">
           <div class="col-xs-12 text-center">
             <p class="medium nombre-producto">{{item.itemname}}</p>
             <h4>$ {{item.priceaftervat | number:0}}</h4>
@@ -30,8 +30,8 @@
                 <span class="glyphicon  wish-list" [ngClass]="getCSSClassName(item)"></span>
               </button>
               <button type="button" class="btn btn-carrito" (click)="agregarCarrito(item)">
-                      <span class="icon-shopping-cart carrito"> </span> AGREGAR AL CARRITO
-                </button>
+                <span class="icon-shopping-cart carrito"> </span> AGREGAR AL CARRITO
+              </button>
             </div>
           </div>
         </div>
@@ -39,3 +39,4 @@
     </div>
   </div>
 </div>
+<matisses-carrito-simple #carritoSimple></matisses-carrito-simple>
