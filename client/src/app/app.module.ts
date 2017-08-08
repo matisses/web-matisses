@@ -52,6 +52,9 @@ import { ErrorComponent } from './components/error/error.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NewsletterComponent } from './components/footer/newsletter/newsletter.component';
 
+// Componenetes de mi cuenta
+import { WishListComponent } from './components/wish-list/wish-list.component';
+
 // Componenete modal prueba
 import { ModalComponent } from './components/modal/modal.component';
 
@@ -101,7 +104,8 @@ import { AppComponent } from './app.component';
     InfoPagoComponent,
     MigaDePanComponent,
     ResultadoTransacciComponent,
-    ModalComponent
+    ModalComponent,
+    WishListComponent
   ],
   imports: [
     BrowserModule,
