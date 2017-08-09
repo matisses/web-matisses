@@ -173,9 +173,9 @@ export class ProductoComponent implements OnInit, AfterViewInit {
         this.item.stock = response.result;
         for (let i = 0; i < this.item.stock.length; i++) {
           this.totalStock += this.item.stock[i].quantity;
-          if (!this.existenciaMedellin && this.item.stock[i].whsCode.substring(0, 2) === '02') {
+          if (!this.existenciaMedellin && (this.item.stock[i].whsCode.substring(0, 2) === '02' || this.item.stock[i].whsCode === '0101' || this.item.stock[i].whsCode === '0103')) {
             this.existenciaMedellin = true;
-          } else if (!this.existenciaBogota && this.item.stock[i].whsCode.substring(0, 2) === '03') {
+          } else if (!this.existenciaBogota && (this.item.stock[i].whsCode.substring(0, 2) === '03' || this.item.stock[i].whsCode === '0104')) {
             this.existenciaBogota = true;
           }
         }

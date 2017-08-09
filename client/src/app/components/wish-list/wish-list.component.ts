@@ -14,6 +14,7 @@ declare var $: any;
 export class WishListComponent implements OnInit {
   public number: string;
   public items:Array<Item>;
+  public orderByStr: string;
 
   constructor(private _route: ActivatedRoute, private _router: Router) {
     this.number = '4';
@@ -42,6 +43,10 @@ export class WishListComponent implements OnInit {
     this.items.push(new Item().newItem('23100000000000000495', 'Plato de postre', 56000));
     this.items.push(new Item().newItem('22400000000000000012', 'Nombre de producto el cual puede tener mas de 30 caracteres', 56000));
     this.items.push(new Item().newItem('23100000000000000495', 'Plato de postre', 56000));
+  }
+
+  public changeOrder(order){
+
   }
 
 }

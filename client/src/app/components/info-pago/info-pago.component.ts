@@ -25,7 +25,7 @@ declare var $: any;
 
 export class InfoPagoComponent implements OnInit {
   @ViewChild(CarritoSimpleComponent)
-  private carrito: CarritoSimpleComponent;
+  public carrito: CarritoSimpleComponent;
 
   public totalEnvio: number = 0;
   public messageError: string;

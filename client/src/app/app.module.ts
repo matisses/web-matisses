@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { RedirectComponent } from './components/redirect/redirect.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 //Componentes del header
 import { HeaderComponent } from './components/header/header.component';
@@ -106,6 +107,7 @@ import { AppComponent } from './app.component';
     MigaDePanComponent,
     ResultadoTransacciComponent,
     ModalComponent,
+    AdminComponent,
     WishListComponent,
     ContactanosComponent
   ],
