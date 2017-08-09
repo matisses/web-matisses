@@ -100,7 +100,7 @@ export class ProductoComponent implements OnInit, AfterViewInit {
     $(idComponent).toggleClass("icon-plus icon-minus");
   }
 
-  public seleccionarCantidad(quantity) {
+  public seleccionarCantidad(quantity: number) {
     this.selectedQuantity = quantity;
   }
 

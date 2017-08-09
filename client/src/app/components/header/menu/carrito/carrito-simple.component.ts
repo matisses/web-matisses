@@ -55,11 +55,13 @@ export class CarritoSimpleComponent {
 
   public procesarItem(item: Item) {
     console.log('procesando item')
+    item.selectedQuantity = parseInt(item.selectedQuantity.toString());
     console.log(item);
     //0. Cargar contenido de localStorage
     this.cargarCarrito();
     //1. validar contenido
     let encontrado = false;
+
     for (let i = 0; i < this.shoppingCart.items.length; i++) {
       if (this.shoppingCart.items[i].itemcode === item.itemcode) {
         encontrado = true;

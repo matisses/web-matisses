@@ -29,7 +29,7 @@
         </div>
         <div class="productos">
           <div class="row producto" *ngFor="let item of carrito.shoppingCart.items">
-            <div class="saldo-insuficiente">
+            <div class="saldo-insuficiente" *ngIf="item.sinSaldo">
               <p>El saldo es insuficiente</p>
             </div>
             <div class="col-md-3 col-sm-4">

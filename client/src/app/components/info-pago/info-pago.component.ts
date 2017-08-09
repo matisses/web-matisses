@@ -184,9 +184,12 @@ export class InfoPagoComponent implements OnInit {
           }
         }
 
+        console.log(items);
+
         if (itemsSinSaldo) {
           //Devolver a la vista de carrito para notificarle al usuario que los items no tienen saldo
           localStorage.setItem('matisses.shoppingCart', JSON.stringify(this.carrito.shoppingCart));
+          this._router.navigate(['/resumen-carrito']);
         } else {
           //Se mapean los datos para guardar el carrito en mongo DB
 
