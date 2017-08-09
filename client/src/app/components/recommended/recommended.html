@@ -18,7 +18,7 @@
       <div class="section">
         <div class="article" *ngFor="let item of items">
           <div class="row" *ngIf="item != null">
-            <div class="col-xs-10 col-xs-offset-1">
+            <div class="col-xs-10 col-xs-offset-1" [routerLink]="['/producto', item.shortitemcode]">
               <img src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/images/{{item.itemcode}}_01.jpg" class="img-responsive" alt="">
             </div>
           </div>

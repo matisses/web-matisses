@@ -26,6 +26,12 @@ export class ResumenCarritoComponent implements OnInit {
     this.carrito.cargarCarrito();
   }
 
+  ngAfterViewInit() {
+    $(document).ready(function() {
+      $("html, body").animate({ scrollTop: 0 }, 1000);
+    });
+  }
+
   public openResumen() {
     document.getElementById("resumen").style.height = "380px";
   }
