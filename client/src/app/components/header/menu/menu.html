@@ -30,7 +30,9 @@
               <div class="col-md-12 col-sm-6 text-right">
                 <div class="row">
                   <div class="col-xs-8 col-xs-offset-1">
-                    <a href="http://listaregalos.matisses.co/" target="_blank"><p (mouseover)="carrito.closeResumen()" class="lista-regalos text-center"><span class="icon-gift-box"> </span> Lista de Regalos</p></a>
+                    <a href="http://listaregalos.matisses.co/" target="_blank">
+                      <p (mouseover)="carrito.closeResumen()" class="lista-regalos text-center"><span class="icon-gift-box"> </span> Lista de Regalos</p>
+                    </a>
                   </div>
                   <div class="col-xs-3 text-left">
                     <matisses-carrito #carrito id="carrito2"></matisses-carrito>
@@ -111,9 +113,9 @@
       <button class="accordion" (click)="alternarSeleccionPadre(menuItem)" (click)="toggleClass('#menuPhone-' + menuItem.code, 'icon-plus', 'icon-minus')">{{menuItem.name}}<span id="menuPhone-{{menuItem.code}}" class="icon-plus pull-right"></span></button>
       <div *ngIf="padreSeleccionado.code === menuItem.code">
         <div *ngFor="let subMenuItem of padreSeleccionado.children">
-          <button class="child-accordion" (click)="toggleClass('#grandchild-' + subMenuItem.code,'visible','hidden')" (click)="toggleClass('#subMenu-' + subMenuItem.code, 'glyphicon-chevron-down', 'glyphicon-chevron-up')">{{subMenuItem.name}}<span id="subMenu-{{subMenuItem.code}}" class="glyphicon glyphicon-chevron-down pull-right"></span></button>
+          <button class="child-accordion" (click)="toggleClass('#grandchild-' + subMenuItem.code,'visible','hidden')" (click)="toggleClass('#subMenu-' + subMenuItem.code, 'glyphicon-menu-down', 'glyphicon-menu-up')">{{subMenuItem.name}}<span id="subMenu-{{subMenuItem.code}}" class="glyphicon glyphicon-menu-down pull-right"></span></button>
           <div class="grandchild hidden" id="grandchild-{{subMenuItem.code}}">
-            <div *ngFor="let grandChild of subMenuItem.children" [routerLink]="['/categoria']" [queryParams]="{group: grandChild.group, subgroup: grandChild.subgroup}" >
+            <div *ngFor="let grandChild of subMenuItem.children" [routerLink]="['/categoria']" [queryParams]="{group: grandChild.group, subgroup: grandChild.subgroup}" (click)="cerrarNav()">
               <p class="grandchild-accordion">{{grandChild.name}}</p>
             </div>
           </div>
@@ -122,16 +124,41 @@
     </div>
 
     <div class="row">
-      <div class="col-xs-4">
+      <div class="col-xs-12">
         <div class="title-menu">
           <p><b>Información</b></p>
         </div>
       </div>
-      <div class="col-xs-8">
-        <div class="border-menu"></div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="menu-element">
+          <p [routerLink]="['/quienes']">Quiénes somos</p>
+          <p [routerLink]="['/tiendas']">Tiendas</p>
+          <p [routerLink]="['/garantias']">Garantías</p>
+          <p [routerLink]="['/envios']">Métodos de envío</p>
+        </div>
       </div>
     </div>
-
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="title-menu">
+          <p><b>Mi cuenta</b></p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="menu-element">
+          <p [routerLink]="['/lista-de-deseos']" class="wish-list"><span class="icon-user"> </span> Ingresar</p>
+          <p [routerLink]="['/lista-de-deseos']" class="wish-list"><span class="glyphicon glyphicon-log-in"> </span> Regístrate</p>
+          <hr/>
+          <p [routerLink]="['/lista-de-deseos']" class="wish-list"><span class="glyphicon glyphicon-heart"> </span> Lista de deseos</p>
+          <hr/>
+          <a href="http://listaregalos.matisses.co/" target="_blank"><p class="wish-list"><span class="icon-gift-box"> </span> Lista de Regalos</p></a>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -147,7 +174,7 @@
         </div>
       </div>
       <div class="col-xs-3 text-right">
-        <span class="glyphicon glyphicon-search" role="button" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"></span>
+        <!-- <span class="glyphicon glyphicon-search" role="button" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"></span> -->
         <span class="glyphicon glyphicon-menu-hamburger menu-mobile" id="hamburger" (click)="carritoMobile.closeResumen()" (click)="toggleClass('#hamburger', 'glyphicon-menu-hamburger', 'glyphicon-remove')" (click)="toggleNav()"></span>
       </div>
     </div>

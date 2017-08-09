@@ -8,10 +8,17 @@
   border-color: #FFF;
 }
 
-.panel-default>.panel-heading {
+.panel-heading {
   color: #5B5B5B;
   background-color: #FFF;
-  border-color: #FFF;
+  width: 50%;
+  margin-left: 25%;
+  border: 1px solid #EDEDED;
+  margin-bottom: 10px;
+}
+
+.panel-heading a {
+  text-decoration: none;
 }
 
 .panel-group .panel-heading+.panel-collapse>.list-group, .panel-group .panel-heading+.panel-collapse>.panel-body {

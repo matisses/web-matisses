@@ -24,6 +24,13 @@ export class WishListComponent implements OnInit {
     this.inicializarItems();
   }
 
+  ngAfterViewInit() {
+    console.log('Termino de cargar deberia subir el body')
+    $(document).ready(function() {
+      $("html, body").animate({scrollTop: 0}, 1000);
+    });
+  }
+
   private inicializarItems(){
 
     this.items = new Array<Item>();

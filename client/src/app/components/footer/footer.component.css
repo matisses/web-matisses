@@ -62,6 +62,11 @@ hr {
   padding: 0px 9px;
 }
 
+.footer-main a {
+  color: #5B5B5B;
+  text-decoration: none;
+}
+
 @media screen and (max-width: 991px) {
   footer {
     background-color: rgba(209,209,209,0.3);
