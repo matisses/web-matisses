@@ -48,6 +48,14 @@ export class ProductoComponent implements OnInit, AfterViewInit {
     this.carrito.cargarCarrito();
   }
 
+  public getCSSClassName(item: Item) {
+    return this._itemService.getCSSClassName(item);
+  }
+
+  public toggleWishList(item: Item) {
+    this._itemService.toggleWishList(item);
+  }
+
   private cargarInfoItem() {
     this.quantityOptions = new Array<number>();
     this._route.params.forEach((params: Params) => {
