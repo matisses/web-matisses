@@ -22,7 +22,7 @@ export class ResumenCarritoComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('inicializando componente de resumen carrito');
+    //console.log('inicializando componente de resumen carrito');
     this.carrito.cargarCarrito();
   }
 

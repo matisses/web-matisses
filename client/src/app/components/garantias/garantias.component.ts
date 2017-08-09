@@ -14,6 +14,6 @@ export class GarantiasComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('inicializando componente de garantias');
+        //console.log('inicializando componente de garantias');
     }
 }

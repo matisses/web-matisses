@@ -21,7 +21,7 @@ export class WishListComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('inicializando componente de lista de deseos');
+    //console.log('inicializando componente de lista de deseos');
     this.inicializarItems();
   }
 

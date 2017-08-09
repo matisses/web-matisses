@@ -14,6 +14,6 @@ export class QuienesComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('inicializando componente de quienes somos');
+        //console.log('inicializando componente de quienes somos');
     }
 }

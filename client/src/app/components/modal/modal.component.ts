@@ -19,7 +19,7 @@ export class ModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('inicializando componente de modal');
+    //console.log('inicializando componente de modal');
     //  $('#modal').click();
   }
 

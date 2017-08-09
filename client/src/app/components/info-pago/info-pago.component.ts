@@ -61,7 +61,7 @@ export class InfoPagoComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('inicializando componente de información de pago');
+    //console.log('inicializando componente de información de pago');
     this.carrito.cargarCarrito();
     this.obtenerMetodosEnvio();
     this.obtenerCiudades();

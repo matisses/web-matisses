@@ -37,7 +37,7 @@ export class ResultadoTransacciComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('inicializando componente de resultado transaccion');
+    //console.log('inicializando componente de resultado transaccion');
     this.carrito.cargarCarrito();
     this.consultarEstadoPlaceToPay();
   }

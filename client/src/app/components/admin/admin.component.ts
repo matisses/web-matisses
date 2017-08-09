@@ -14,7 +14,7 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('inicializando componente de administracion del sitio');
+    //console.log('inicializando componente de administracion del sitio');
     this.cargarToken();
   }
 

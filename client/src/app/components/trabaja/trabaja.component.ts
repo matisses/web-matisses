@@ -14,6 +14,6 @@ export class TrabajaComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('inicializando componente de trabaja con nosotros');
+        //console.log('inicializando componente de trabaja con nosotros');
     }
 }

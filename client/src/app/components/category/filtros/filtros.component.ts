@@ -33,7 +33,7 @@ export class FiltrosComponent implements AfterViewInit {
   }
 
   public inicializarFiltros(availableFields, queryParams, queryString) {
-    console.log('inicializando componente de filtros');
+    //console.log('inicializando componente de filtros');
     this.availableFields = availableFields;
     this.queryParams = queryParams;
     this.queryString = queryString;

@@ -15,6 +15,6 @@ export class FooterComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('inicializando componente del footer');
+        //console.log('inicializando componente del footer');
     }
 }
