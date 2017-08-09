@@ -12,9 +12,9 @@
     <span class="glyphicon glyphicon-menu-right"></span>
   </a>
   <div class="section">
-    <div class="article" *ngFor="let item of items">
       <div class="producto">
         <div class="row">
+          <div class="article" *ngFor="let item of items">
           <div class="col-xs-12" [routerLink]="['/producto', item.shortitemcode]">
             <img src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/images/{{item.itemcode}}_01.jpg" class="img-responsive" alt="">
           </div>
@@ -27,10 +27,10 @@
           <div class="botones">
             <div class="col-xs-12 text-center">
               <button type="button" class="btn btn-like" (click)="toggleWishList(item)">
-                <span class="glyphicon  wish-list" [ngClass]="getCSSClassName(item)"></span>
+                <span class="glyphicon wish-list" [ngClass]="getCSSClassName(item)"></span>
               </button>
               <button type="button" class="btn btn-carrito" (click)="agregarCarrito(item)">
-                <span class="icon-shopping-cart carrito"> </span> AGREGAR AL CARRITO
+                <span class="icon-shopping-cart carrito"></span> AGREGAR AL CARRITO
               </button>
             </div>
           </div>

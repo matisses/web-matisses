@@ -15,8 +15,7 @@ import { CarritoSimpleComponent } from '../header/menu/carrito/carrito-simple.co
 
 export class ResumenCarritoComponent implements OnInit {
   @ViewChild(CarritoSimpleComponent)
-  private carrito: CarritoSimpleComponent;
-
+  public carrito: CarritoSimpleComponent;
   public messajeError: String = '';
 
   constructor(private _route: ActivatedRoute, private _router: Router) {
@@ -25,6 +24,12 @@ export class ResumenCarritoComponent implements OnInit {
   ngOnInit() {
     console.log('inicializando componente de resumen carrito');
     this.carrito.cargarCarrito();
+  }
+
+  ngAfterViewInit() {
+    $(document).ready(function() {
+      $("html, body").animate({ scrollTop: 0 }, 1000);
+    });
   }
 
   public openResumen() {

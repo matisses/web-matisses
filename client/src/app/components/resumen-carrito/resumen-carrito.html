@@ -3,14 +3,7 @@
 <div sticky-body>
   <div class="container">
     <!-- Miga de pan -->
-    <div class="row">
-      <div class="col-xs-12">
-        <ol class="breadcrumb">
-          <li><a [routerLink]="['/']">Home</a></li>
-          <li class="active">Carrito de compra</li>
-        </ol>
-      </div>
-    </div>
+    <miga-de-pan></miga-de-pan>
     <!-- Miga de pan -->
     <div class="row visible-xs">
       <div class="col-xs-12">
@@ -36,6 +29,9 @@
         </div>
         <div class="productos">
           <div class="row producto" *ngFor="let item of carrito.shoppingCart.items">
+            <div class="saldo-insuficiente">
+              <p>El saldo es insuficiente</p>
+            </div>
             <div class="col-md-3 col-sm-4">
               <img class="img-responsive" src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/mini/{{item.itemcode}}_01.jpg" alt="...">
             </div>
@@ -129,11 +125,11 @@
                 </div>
               </div>
             </div>
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-xs-12">
                 <p class="btn-seguir-comprando">Continuar comprando</p>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>

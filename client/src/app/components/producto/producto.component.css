@@ -116,8 +116,14 @@
 .btn-carrito {
   border-radius: 0;
   height: 36px;
-  background-color: #5B5B5B;
+  background-color: #6D9197;
   color: #FFF;
+  padding: 0 50px;
+  transition: 0.5s;
+}
+
+.btn-carrito:hover {
+  background-color: #425E63;
 }
 
 .btn-like {
@@ -125,6 +131,7 @@
   height: 36px;
   margin-left: 10px;
   background-color: #F1F1F1;
+  color: #65092D;
 }
 
 .padding-left {
@@ -166,6 +173,7 @@
 
 .zoom {
   float: right;
+  color: #6D9197;
 }
 
 .modal-title {
@@ -241,7 +249,8 @@
     margin-top: 0px;
   }
   .btn-carrito {
-    font-size: 9px;
+    font-size:12px;
+    padding: 0 25px;
   }
   .detalles {
     margin: 25px 0px;
@@ -278,7 +287,8 @@
     border-right: 0px;
   }
   .btn-carrito {
-    font-size: 9px;
+    font-size: 11px;
+    padding: 0 15px;
   }
   .dropdown-menu {
     min-width: 76px;

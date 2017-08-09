@@ -5,6 +5,8 @@ export class MenuItem {
   public department: string;
   public group: string;
   public subgroup: string;
+  public parentId: string;
+  public position: number;
   public children: Array<MenuItem>;
 
   constructor() {

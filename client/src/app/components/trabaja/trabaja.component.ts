@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
+declare var $: any;
+
 @Component({
     templateUrl: 'trabaja.html',
     styleUrls: ['trabaja.component.css']
@@ -16,4 +18,12 @@ export class TrabajaComponent implements OnInit {
     ngOnInit() {
         console.log('inicializando componente de trabaja con nosotros');
     }
+
+    ngAfterViewInit() {
+      console.log('Termino de cargar deberia subir el body')
+      $(document).ready(function() {
+        $("html, body").animate({scrollTop: 0}, 1000);
+      });
+    }
+
 }

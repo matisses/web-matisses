@@ -14,7 +14,7 @@ declare var $: any;
 })
 export class CarritoComponent implements OnInit, AfterViewInit {
   @ViewChild(CarritoSimpleComponent)
-  private carrito: CarritoSimpleComponent;
+  public carrito: CarritoSimpleComponent;
   private viewportWidth: number = 0;
   public url: string;
   public resumenMobileVisible: boolean = false;
