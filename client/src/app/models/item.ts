@@ -34,6 +34,7 @@ export class Item {
   public stock: Array<any>;
   public images: Array<string>;
   public color: Array<any>;
+  public sinSaldo: number;
 
   constructor() {
 

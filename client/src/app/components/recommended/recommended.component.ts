@@ -30,6 +30,7 @@ export class RecommendedComponent implements OnInit {
   ngOnInit() {
     //console.log('inicializando componente de recomendados');
     this.inicializarItems();
+    this._itemService.inicializarWishlist();
   }
 
   private inicializarItems() {
