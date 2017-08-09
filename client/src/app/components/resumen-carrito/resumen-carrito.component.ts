@@ -15,8 +15,7 @@ import { CarritoSimpleComponent } from '../header/menu/carrito/carrito-simple.co
 
 export class ResumenCarritoComponent implements OnInit {
   @ViewChild(CarritoSimpleComponent)
-  private carrito: CarritoSimpleComponent;
-
+  public carrito: CarritoSimpleComponent;
   public messajeError: String = '';
 
   constructor(private _route: ActivatedRoute, private _router: Router) {

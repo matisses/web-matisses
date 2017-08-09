@@ -46,13 +46,13 @@ declare var $: any;
 
 export class MenuComponent implements OnInit, AfterViewInit {
   @ViewChild(CarritoComponent)
-  private carrito: CarritoComponent;
+  public carrito: CarritoComponent;
   public menuItems: Array<MenuItem>;
   public padreSeleccionado: MenuItem;
   public state: string = 'hidden';
   public stateOverlay: string = 'hidden';
   private viewportWidth: number = 0;
-  private adminToken: string;
+  public adminToken: string;
 
   constructor(private _jwt: JWTService, private _menuService: MenuItemService, private _route: ActivatedRoute, private _router: Router) {
     this.padreSeleccionado = new MenuItem();
