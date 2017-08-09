@@ -22,7 +22,7 @@
             <div class="row">
               <div class="col-md-12 col-sm-6">
                 <ul class="ingreso text-right medium" (mouseover)="carrito.closeResumen()">
-                  <li><a href="#"><span class="glyphicon glyphicon-heart"> </span> LISTA DE DESEOS</a></li>
+                  <li><a href="javascript:void(0)" [routerLink]="['/lista-de-deseos']"><span class="glyphicon glyphicon-heart"> </span> LISTA DE DESEOS</a></li>
                   <li class="border-left"><a href="#">REGÍSTRATE</a></li>
                   <li class="border-left"><a href="#"><span class="icon-user"> </span> INGRESA</a></li>
                 </ul>
@@ -52,7 +52,10 @@
             </div>
             <!-- botones para el administrador -->
             <ul>
+              <!--
               <li (mouseover)="carrito.closeResumen()" class="item-menu cursor-pointer" [ngClass]="{'selected' : estaSeleccionado(menuItem.code)}" *ngFor="let menuItem of menuItems" (click)="alternarSeleccionPadre(menuItem)" (mouseover)="alternarSeleccionPadre(menuItem)">
+              -->
+              <li class="item-menu cursor-pointer" [ngClass]="{'selected' : estaSeleccionado(menuItem.code)}" *ngFor="let menuItem of menuItems" (click)="alternarSeleccionPadre(menuItem) + carrito.closeResumen() " (mouseenter)="carrito.closeResumen()">
                 {{menuItem.name}}
               </li>
             </ul>
@@ -83,12 +86,12 @@
       <div class="col-xs-4">
         <img src="assets/images/menu/{{padreSeleccionado.code}}.jpg" class="img-responsive" alt="">
         <p class="name-producto-menu">Sarten Ceradur Plus</p>
-        <p class="medium link-producto-menu"><i>Comprar ya</i></p>
+        <p class="medium link-producto-menu" [routerLink]="['/producto', '2090006']"><i>Comprar ya</i></p>
       </div>
     </div>
   </div>
 </div>
-<div class="overlay cursor-pointer hidden-sm hidden-xs" [@overlayAnimation]="stateOverlay" (mouseover)="cerrarOverlay()"></div>
+<div class="overlay cursor-pointer hidden-sm hidden-xs" [@overlayAnimation]="stateOverlay" (click)="cerrarOverlay()"></div>
 
 <!-- Menú responsive -->
 <div id="myNav" class="fondo-menu hidden-md hidden-lg">

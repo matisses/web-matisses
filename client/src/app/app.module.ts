@@ -45,6 +45,7 @@ import { TiendasComponent } from './components/tiendas/tiendas.component';
 import { TrabajaComponent } from './components/trabaja/trabaja.component';
 import { GarantiasComponent } from './components/garantias/garantias.component';
 import { EnviosComponent } from './components/envios/envios.component';
+import { ContactanosComponent } from './components/contactanos/contactanos.component';
 
 //Componenete pagina de error
 import { ErrorComponent } from './components/error/error.component';
@@ -52,6 +53,9 @@ import { ErrorComponent } from './components/error/error.component';
 //Componentes del footer
 import { FooterComponent } from './components/footer/footer.component';
 import { NewsletterComponent } from './components/footer/newsletter/newsletter.component';
+
+// Componenetes de mi cuenta
+import { WishListComponent } from './components/wish-list/wish-list.component';
 
 // Componenete modal prueba
 import { ModalComponent } from './components/modal/modal.component';
@@ -103,7 +107,9 @@ import { AppComponent } from './app.component';
     MigaDePanComponent,
     ResultadoTransacciComponent,
     ModalComponent,
-    AdminComponent
+    AdminComponent,
+    WishListComponent,
+    ContactanosComponent
   ],
   imports: [
     BrowserModule,

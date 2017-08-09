@@ -1,16 +1,3 @@
-.down {
-  position: absolute;
-  top: 70%;
-  padding: 10px 30px;
-  background-color: #ECECEC;
-  color: #5B5B5B;
-  cursor: pointer;
-  z-index: 2;
-  border-radius: 15px;
-  left: 40%;
-  display: none;
-}
-
 .sub-banner p {
   margin-top: 15px;
 }
@@ -30,11 +17,11 @@
 }
 
 .principal-01 {
-  background: url(../../../assets/images/banner/banner-movil.jpg) no-repeat center top;
+  background: url(../../../assets/images/banner/banner-01.jpg) no-repeat center top;
   margin-top: 0px;
   padding-top: 10px;
   background-attachment: relative;
-  background-position: right bottom;
+  background-position: center center;
   min-height: 450px;
   width: 100%;
   -webkit-background-size: 100%;
@@ -48,8 +35,46 @@
   color: #747c79;
 }
 
+.text-01 {
+  color: #FFF;
+  position: relative;
+  bottom: -270px;
+  left: -10px;
+}
+
+.text-01 p {
+  font-size: 20px;
+  margin: 0;
+  margin-bottom: 5px
+}
+
+.text-01 p::before {
+  content: '';
+  width: 45px;
+  height: 3px;
+  background-color: #FFF;
+  position: absolute;
+  top: 30px;
+  left: 48%;
+}
+
+.text-01 h2 {
+  font-size: 50px;
+  margin: 0;
+}
+
+.text-01 .btn-banner01 {
+  padding: 5px 10px;
+  font-size: 15px;
+  background-color: #9C8D7A;
+  margin: 0;
+  width: 12%;
+  margin-left: 44%;
+  cursor: pointer;
+}
+
 .principal-03 {
-  background: url(../../../assets/images/banner/banner-044.jpg) no-repeat center top;
+  background: url(../../../assets/images/banner/banner-04.jpg) no-repeat center top;
   margin-top: 0px;
   background-attachment: relative;
   background-position: right center;
@@ -104,6 +129,23 @@
     bottom: 35px;
     width: 55px;
   }
+  .text-01 {
+    bottom: -270px;
+    left: -10px;
+  }
+
+  .text-01 p {
+    font-size: 20px;
+  }
+
+  .text-01 h2 {
+    font-size: 50px;
+  }
+
+  .text-01 .btn-banner01 {
+    width: 14%;
+    margin-left: 43%;
+  }
 }
 
 @media screen and (max-width: 991px) {
@@ -115,6 +157,15 @@
   }
   .text-03 {
     width: 50%;
+  }
+  .text-01 {
+    bottom: -140px;
+    left: 0px;
+  }
+  .text-01 .btn-banner01 {
+    width: 18%;
+    margin-left: 41%;
+    font-size: 10px
   }
 }
 
@@ -151,8 +202,33 @@
 
 @media screen and (max-width: 414px) {
   .principal-01 {
-    min-height: 415px;
+    min-height: 250px;
+    background-position: center 50px;
   }
+  .text-01 {
+    bottom: -50px;
+    left: 0px;
+  }
+
+  .text-01 p {
+    font-size: 10px;
+  }
+
+  .text-01 p::before {
+    width: 20px;
+    top: 15px;
+  }
+
+  .text-01 h2 {
+    font-size: 30px;
+  }
+
+  .text-01 .btn-banner01 {
+    width: 25%;
+    margin-left: 37%;
+    margin-top: 105px;
+  }
+
   .padding-0 {
     padding-left: 0;
     padding-right: 0;
@@ -169,19 +245,25 @@
   .sub-banner button {
     margin-bottom: 15px;
   }
-  .down {
-    display: block;
-  }
 }
 
 @media screen and (max-width: 375px) {
   .principal-01 {
-    min-height: 370px;
+    min-height: 270px;
+  }
+  .text-01 .btn-banner01 {
+    width: 28%;
+    margin-top: 124px;
   }
 }
 
 @media screen and (max-width: 320px) {
   .principal-01 {
     min-height: 240px;
+  }
+  .text-01 .btn-banner01 {
+    width: 40%;
+    margin-left: 90px;
+    margin-top: 100px;
   }
 }

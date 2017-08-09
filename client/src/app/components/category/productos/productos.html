@@ -54,8 +54,8 @@
   <div class="col-sm-4 col-xs-6" *ngFor="let item of items">
     <div class="producto">
       <div class="row">
-        <div class="col-xs-12">
-          <img src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/images/{{item.itemcode}}_01.jpg" class="img-responsive" alt="">
+        <div class="col-xs-12 cursor-pointer" [routerLink]="['/producto', item.shortitemcode]">
+          <img src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/parrilla/{{item.itemcode}}_01.jpg" class="img-responsive" alt="">
         </div>
       </div>
       <div class="row">
@@ -66,14 +66,13 @@
         <div class="botones">
           <div class="col-xs-12 text-center">
             <div class="btn-group" role="group">
-              <button type="button" class="btn btn-like">
-                <span class="glyphicon glyphicon-heart-empty wish-list"></span>
+              <button type="button" class="btn btn-like" (click)="toggleWishList(item)">
+                <span class="glyphicon wish-list" [ngClass]="getCSSClassName(item)"></span>
               </button>
               <button type="button" class="btn btn-carrito" (click)="agregarCarrito(item)">
                 <span class="icon-shopping-cart carrito"> </span> AGREGAR AL CARRITO
               </button>
             </div>
-            <p class="medium cursor-pointer" [routerLink]="['/producto', item.shortitemcode]"><u>Descubre más</u></p>
           </div>
         </div>
       </div>

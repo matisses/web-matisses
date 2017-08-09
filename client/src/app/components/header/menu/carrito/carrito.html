@@ -1,6 +1,5 @@
-<!-- Modal carrito -->
-<div class="modal fade modal" id="carritoModal" tabindex="-1" role="dialog" aria-labelledby="carritoLabel">
-  <div class="modal-dialog modal-lg" role="document">
+<div class="modal fade" id="carritoModal_{{carrito.id}}" tabindex="-1" role="dialog" aria-labelledby="carritoLabel">
+  <div class="modal-dialog modal-lg" role="document" *ngIf="carrito.item">
     <div class="modal-content modal-2">
       <div class="modal-header">
         <span data-dismiss="modal" aria-label="Close" class="icon-close pull-right"></span>
@@ -12,7 +11,7 @@
             <div class="col-md-7">
               <div class="row">
                 <div class="col-sm-6">
-                  <img src="https://www.matisses.co/modules/matisses/files/25400000000000000018/images/25400000000000000018_01.jpg" class="img-responsive" alt="...">
+                  <img src="https://www.matisses.co/modules/matisses/files/{{carrito.item.itemcode}}/images/{{carrito.item.itemcode}}_01.jpg" class="img-responsive" alt="...">
                 </div>
                 <div class="col-sm-6" *ngFor="let item of items">
                   <div class="row">
@@ -22,7 +21,7 @@
                   </div>
                   <div class="row">
                     <div class="col-xs-12">
-                      <h4 style="margin-top: 15px;">$ {{item.price | number}}</h4>
+                      <h4 style="margin-top: 15px;">$ {{item.priceaftervat | number}}</h4>
                     </div>
                   </div>
                   <div class="row">
@@ -73,14 +72,12 @@
     </div>
   </div>
 </div>
-<!-- Modal carrito -->
 
 <div class="carrito" (click)="toggleResumen()">
-  <span [ngClass]="{'icon-shopping-cart': (!resumenMobileVisible && !resumenDesktopVisible), 'glyphicon glyphicon-remove': (resumenMobileVisible || resumenDesktopVisible)}"> </span>
-  <span class="badge" id="totalItemsCarritoBadge">{{carrito.totalItems}}</span>
+  <span [ngClass]="{'icon-shopping-cart': (!resumenMobileVisible && !resumenDesktopVisible), 'icon-cerrar': (resumenMobileVisible || resumenDesktopVisible)}"> </span>
+  <span class="badge total-items-carrito-badge">{{carrito.totalItems}}</span>
 </div>
 <div id="resumen" class="resumen resumenmobile">
-  <span class="icon-close" (click)="closeResumen()"></span>
   <div class="row">
     <div class="col-xs-12 text-center">
       <br/>
@@ -89,18 +86,34 @@
   </div>
   <div class="productos">
     <div class="row border" *ngFor="let item of carrito.shoppingCart.items">
-      <div class="col-xs-3">
-        <!--<img src="assets/images/recommended/{{item.itemcode}}.jpg" class="img-responsive" alt="">-->
-        <img class="img-responsive" src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/mini/{{item.itemcode}}_01.jpg" alt="...">
+      <div class="col-xs-3 text-center">
+        <img class="img-responsive imagen" src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/mini/{{item.itemcode}}.jpg" alt="...">
       </div>
-      <div class="col-xs-5">
-        <p><b>{{item.itemname}}</b></p>
-        <p>Cantidad <b>{{item.selectedQuantity}}</b></p>
+      <div class="col-xs-9">
+        <div class="row">
+          <div class="col-xs-7">
+            <p class="nombre"><b>{{item.itemname}}</b></p>
+          </div>
+          <div class="col-xs-5 text-right precio">
+            <p>$ {{item.priceaftervat | number}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6">
+            <p class="cantidad"><b>Cantidad</b></p>
+            <p class="numero">{{item.selectedQuantity}}</p>
+          </div>
+          <div class="col-xs-6 text-right">
+            <span *ngIf="mostrarBotonEliminar()" class="glyphicon glyphicon-trash trash" (click)="eliminarItem(item)"></span>
+          </div>
+        </div>
       </div>
-      <div class="col-xs-4">
-        <span *ngIf="mostrarBotonEliminar()" class="glyphicon glyphicon-trash pull-right" (click)="eliminarItem(item)"></span>
-        <p>$ {{item.price | number}}</p>
-      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 text-right">
+      <hr/>
+      <p class="subtotal">Subtotal <b>$ {{carrito.totalCarrito | number}}</b></p>
     </div>
   </div>
   <div class="row">
@@ -112,4 +125,4 @@
     </div>
   </div>
 </div>
-<matisses-carrito-simple #carritoSimple></matisses-carrito-simple>
+<matisses-carrito-simple #carritoSimple2></matisses-carrito-simple>

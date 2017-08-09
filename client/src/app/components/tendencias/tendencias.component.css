@@ -8,27 +8,8 @@ h3::before {
   background-color: #5B5B5B;
 }
 
-h2::before {
-  content: '- ';
-  position: absolute;
-  top: 100px;
-  height: 8px;
-  width: 52px;
-  color: transparent;
-  background-color: #747c79;
-}
 
-.text h2, .text p {
-  margin: 0;
-  font-size: 40px;
-  padding-left: 70px;
-}
-
-.estilo {
-  background-color: #747c79;
-  padding: 0px 10px;
-  color: #FFF;
-}
+/* banner principal */
 
 .tendencia-01 {
   background: url(../../../assets/images/tendencias/tendencias-011.jpg) no-repeat center top;
@@ -49,53 +30,154 @@ h2::before {
   color: #747c79;
 }
 
+
+/* Texto banner principal */
+
+.text {
+  font-size: 40px;
+  color: #5B5B5B;
+  padding-left: 15px;
+  line-height: 1;
+  padding-top: 10px;
+}
+
+.p-principal {
+  margin-bottom: 0;
+}
+
+.estilo {
+  background-color: #5B5B5B;
+  padding: 0px 10px;
+  color: #FFF;
+}
+
+.p-secundario {
+  margin-bottom: 0;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.btn-comprar {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.btn-comprar::before {
+  content: '- ';
+  position: absolute;
+  bottom: 4px;
+  height: 5px;
+  width: 40px;
+  color: transparent;
+  background-color: #5B5B5B;
+}
+
+
+/* Estilos de los sub-banner */
+
+.sub-banner p {
+  margin-top: 15px;
+}
+
 .compra-ya {
   border: 1px solid #5B5B5B;
   cursor: pointer;
-  color: #5B5B5B;
+  color: #65092d;
   padding: 5px 10px;
   font-weight: 700;
-  font-style: italic;
   background-color: transparent;
   margin-bottom: 20px;
 }
 
-.compra-ya:focus {
-  outline: none;
-  box-shadow: none;
+.compra-ya:hover {
+  background-color: #EDEDED;
 }
 
-.compra-ya:hover {
-  background-color: #ECECEC;
+@media screen and (max-width: 1200px) {
+  .p-principal {
+    font-size: 35px;
+  }
 }
 
 @media screen and (max-width: 991px) {
   .tendencia-01 {
     min-height: 300px;
   }
-  .text h2, .text p {
-    font-size: 23px;
+  .text {
+    font-size: 30px;
   }
-  h2::before {
-    top: 57px;
-    height: 4px;
-    width: 35px;
+  .p-principal {
+    font-size: 25px
   }
 }
 
-@media screen and (max-width: 660px) {
+@media screen and (max-width: 767px) {
   .tendencia-01 {
     background-position: center;
   }
-  .text h2, .text p {
-    padding: 0;
+  .text {
+    background-color: rgba(237, 237, 237, 0.5);
+    width: 60%;
+    padding-bottom: 3px;
+  }
+  .btn-comprar::before {
+    bottom: 2px;
+    margin-bottom: 5px;
+  }
+  .sub-banner {
+    border: 1px solid #EDEDED;
+    margin-bottom: 10px;
+  }
+  .sub-banner p {
+    margin-bottom: 0;
+    margin-top: 10px;
+  }
+  .sub-banner button {
+    margin-bottom: 15px;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .tendencia-01 {
+    min-height: 250px;
+  }
+  .text {
+    font-size: 15px;
+    width: 100%;
+    text-align: center;
+  }
+  .p-principal {
     font-size: 20px;
-    color: #FFF;
+    text-align: left;
   }
-  .estilo {
-    padding: 0px 5px;
+  .btn-comprar {
+    font-size: 10px;
   }
-  h2::before {
-    top: 50px;
+  .btn-comprar::before {
+    bottom: 4px;
+    height: 3px;
+    width: 20px;
+    right: 137px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .tendencia-01 {
+    min-height: 200px;
+  }
+  .p-principal {
+    font-size: 17px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .p-principal {
+    font-size: 15px;
+  }
+  .btn-comprar::before {
+    bottom: 4px;
+    height: 3px;
+    width: 20px;
+    right: 115px;
   }
 }

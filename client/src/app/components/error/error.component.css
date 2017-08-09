@@ -35,3 +35,17 @@ hr {
   color: #FFF;
   margin-top: 10px;
 }
+
+@media screen and (max-width: 991px) {
+  .stuck-body {
+    margin-top: 0;
+  }
+}
+
+@media screen and (max-width: 765px) {
+  .caption {
+    margin-left: 10%;
+    margin-top: 25%;
+    width: 80%;
+  }
+}

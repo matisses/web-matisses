@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { ItemService } from '../../../services/item.service';
@@ -16,20 +16,20 @@ declare var $: any;
 })
 
 export class FiltrosComponent implements AfterViewInit {
-  public filtrosDisponibles: any;
+  public filtrosDisponibles: Map<String, Array<any>>;
   public filtrosAplicados: Array<string[]>;
   public queryParams: Map<string, string>;
   private queryString: string;
   private availableFields: string[];
 
   constructor(private _itemService: ItemService, private _route: ActivatedRoute, private _router: Router) {
-    this.filtrosDisponibles = new Map<String, Array<String>>();
+    this.filtrosDisponibles = new Map<String, Array<any>>();
     this.filtrosAplicados = new Array<string[]>();
     this.availableFields = [];
   }
 
   ngAfterViewInit() {
-
+    //this.configurarAlturaInicialFiltros();
   }
 
   public inicializarFiltros(availableFields, queryParams, queryString) {
@@ -45,6 +45,30 @@ export class FiltrosComponent implements AfterViewInit {
         console.error(error);
       }
     );
+  }
+
+  private configurarAlturaInicialFiltros() {
+    console.log('configurando altura por filtro');
+    console.log(this.filtrosDisponibles['groups']);
+    if (this.filtrosDisponibles['groups'] && this.filtrosDisponibles['groups'].length < 11) {
+      //configura altura  dependiendo de # de opciones
+      //document.getElementById(idBloque).style.height = (17*this.filtrosDisponibles[i].length) + "px";
+    } else {
+      //configura altura minima de 200px
+      //document.getElementById("groups").style.height = "200px";
+    }
+    /*
+        for (let i = 0; i < this.filtrosDisponibles.keys.length; i++) {
+          console.log(this.filtrosDisponibles[i]);
+          if(this.filtrosDisponibles[i].length < 11){
+            //configura altura  dependiendo de # de opciones
+            //document.getElementById(idBloque).style.height = (17*this.filtrosDisponibles[i].length) + "px";
+          }else{
+            //configura altura minima de 200px
+            //document.getElementById(idBloque).style.height = "200px";
+          }
+        }
+        */
   }
 
   private configurarFiltrosActivos() {
@@ -136,10 +160,12 @@ export class FiltrosComponent implements AfterViewInit {
 
   private navigate() {
     let queryParamsObj = {};
+    console.log(this.availableFields);
     for (let i = 0; i < this.availableFields.length; i++) {
       let key = this.availableFields[i];
       queryParamsObj[key] = this.queryParams.get(key);
     }
+    queryParamsObj['page'] = '1';
     console.log(queryParamsObj);
     this._router.navigate(['/categoria'], { queryParams: queryParamsObj });
   }
@@ -157,4 +183,38 @@ export class FiltrosComponent implements AfterViewInit {
     }
     return keys;
   }
+
+  public toggleFiltros(idBloque) {
+    let maxHeight = this.filtrosDisponibles[idBloque].length * 17;
+    let actualHeightStr = document.getElementById(idBloque).style.height;
+    let actualHeight = actualHeightStr ? parseInt(actualHeightStr.substring(0, actualHeightStr.length - 2)) : 0;
+    console.log(actualHeight);
+    /*if (actualHeight === null || typeof actualHeight === 'undefined'){
+      actualHeight = 0;
+    }*/
+    if (actualHeight < maxHeight) {
+      console.log('expandir');
+      document.getElementById(idBloque).style.height = maxHeight + "px";
+    } else {
+      console.log('contraer');
+      document.getElementById(idBloque).style.height = "200px";
+    }
+
+    /*if (document.getElementById(idBloque).style.height === '0%') {
+      document.getElementById("myNav").style.width = "100%";
+    } else {
+      document.getElementById("myNav").style.width = "0%";
+    }*/
+  }
+
+  /*public toggleFiltros(idComponent, class1, class2) {
+    console.log('toggle idComponent: ' + idComponent + ', class1: ' + class1 + ', class2: ' + class2);
+    $(idComponent).toggleClass(class1 + " " + class2);
+  }*/
+
+  /*public mostrarMas(){
+    console.log('has dado click en más');
+    $(".filtros-content").css('height', '400px');
+  }*/
+
 }

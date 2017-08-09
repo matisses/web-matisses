@@ -21,17 +21,21 @@ export class ProductoComponent implements OnInit, AfterViewInit {
 
   public selectedQuantity: number = 1;
   public itemPosition: number = 0;
+  public totalStock: number = 0;
   public existe360: boolean = false;
   public existeWow: boolean = false;
   public existePlantilla: boolean = false;
+  public existenciaMedellin: boolean = false;
+  public existenciaBogota: boolean = false;
   public item: Item;
   public quantityOptions: Array<number>;
   public images: Array<string>;
-  public totalStock: number = 0;
+  public itemsRelacionados: Array<any>;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _stockService: StockService, private _http: Http) {
     this.quantityOptions = new Array<number>();
     this.images = new Array<string>();
+    this.itemsRelacionados = new Array<any>();
   }
 
   ngOnInit() {
@@ -55,6 +59,7 @@ export class ProductoComponent implements OnInit, AfterViewInit {
           this.validarWow();
           this.validarPlantilla();
           this.cargarInventario();
+          this.obtenerRelacionados();
         },
         error => {
           console.log(error);
@@ -75,11 +80,11 @@ export class ProductoComponent implements OnInit, AfterViewInit {
     return false;
   }
 
-
-
   public agregarCarrito() {
+    console.log('a');
     this.item.selectedQuantity = this.selectedQuantity;
     this.carrito.procesarItem(this.item);
+    $('#carritoModal_' + this.carrito.id).modal('show');
   }
 
   public toggleClass(idComponent) {
@@ -92,7 +97,6 @@ export class ProductoComponent implements OnInit, AfterViewInit {
 
   private validar360() {
     console.log('validando si existe el 360 para ref ' + this.item.itemcode);
-
     try {
       this._http.get('https://www.matisses.co/modules/matisses/files/' + this.item.itemcode + '/360/' + this.item.itemcode + '.html')
         .subscribe(
@@ -135,7 +139,7 @@ export class ProductoComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private validarPlantilla(){
+  private validarPlantilla() {
     console.log('validando si existe el plantilla para ref ' + this.item.itemcode);
 
     try {
@@ -160,17 +164,43 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   }
 
   private cargarInventario() {
+    this.existenciaMedellin = false;
+    this.existenciaBogota = false;
+    this.totalStock = 0;
     this._stockService.getStock(this.item.itemcode).subscribe(
       response => {
-        let totalStock = 0;
         this.item.stock = response.result;
         for (let i = 0; i < this.item.stock.length; i++) {
-          totalStock += this.item.stock[i].quantity;
+          this.totalStock += this.item.stock[i].quantity;
+          if (!this.existenciaMedellin && (this.item.stock[i].whsCode.substring(0, 2) === '02' || this.item.stock[i].whsCode === '0101' || this.item.stock[i].whsCode === '0103')) {
+            this.existenciaMedellin = true;
+          } else if (!this.existenciaBogota && (this.item.stock[i].whsCode.substring(0, 2) === '03' || this.item.stock[i].whsCode === '0104')) {
+            this.existenciaBogota = true;
+          }
         }
-        for (let i = 0; i < totalStock; i++) {
+        for (let i = 0; i < this.totalStock; i++) {
           this.quantityOptions.push(i + 1);
         }
       }, error => {
+        console.log(error);
+      }
+    );
+  }
+
+  private obtenerRelacionados() {
+    this.itemsRelacionados = new Array<any>();
+    this._itemService.findRelatedItems(this.item.model).subscribe(
+      response => {
+        console.log(response.items);
+        this.itemsRelacionados = response.items;
+        console.log(this.itemsRelacionados);
+
+        for (let i = 0; i < this.itemsRelacionados.length; i++) {
+          this.itemsRelacionados[i].color.hexa = '#' + this.itemsRelacionados[i].color.hexa;
+          console.log(this.itemsRelacionados[i].color.hexa);
+        }
+      },
+      error => {
         console.log(error);
       }
     );

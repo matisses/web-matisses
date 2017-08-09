@@ -466,6 +466,31 @@ function consultarMaterial(req, res) {
   }).limit(1);
 }
 
+function obtenerRelacionados(req, res) {
+  var modelo = req.params.model;
+
+  Item.find({
+    "model": modelo
+  }, {
+    "color": 1,
+    "shortitemcode": 1
+  }, (err, items) => {
+    if (err) {
+      res.status(500).send({
+        message: 'ocurrio un error al consultar los productos'
+      });
+    } else if (!items) {
+      res.status(404).send({
+        message: 'no se encontró ningún producto con los filtros especificados'
+      });
+    } else {
+      res.status(200).send({
+        items: items
+      });
+    }
+  });
+}
+
 module.exports = {
   consultarItem,
   consultarNuevos,
@@ -475,5 +500,6 @@ module.exports = {
   consultarSubgrupo,
   consultarMarca,
   consultarColor,
-  consultarMaterial
+  consultarMaterial,
+  obtenerRelacionados
 };

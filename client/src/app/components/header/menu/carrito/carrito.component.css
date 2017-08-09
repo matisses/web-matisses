@@ -17,6 +17,7 @@
 .resumen {
   position: absolute;
   left: 0px;
+  top: 40px;
   background-color: white;
   width: 320px;
   z-index: 5;
@@ -35,15 +36,47 @@
   overflow-x: hidden;
   margin-bottom: 20px;
   font-size: 10px;
+  color: #5B5B5B;
+  padding: 0 10px;
 }
 
 .border {
-  border-bottom: 1px solid #5B5B5B;
-  margin: 10px 0;
+  border-bottom: 1px solid #EDEDED;
+  padding: 15px 0;
+}
+
+.productos .imagen {
+  background-size: cover;
+}
+
+.productos .nombre {
+  font-size: 13px;
+}
+
+.productos .precio {
+  font-size: 12px;
+  padding-left: 0;
+  font-weight: bold;
+}
+
+.productos .cantidad, .productos .numero  {
+  display: inline-block;
+  margin-bottom: 0;
+}
+
+.productos .numero {
+  margin-left: 5px;
+  font-weight: bold;
+  padding: 2px 10px;
+  border: 1px solid #EDEDED;
+}
+
+.productos .trash {
+  font-size: 15px;
 }
 
 .boton {
-  background-color: green;
+  background-color: #5B5B5B;
   padding: 5px 5px;
   margin: 10px 5px;
   color: #FFF;
@@ -54,6 +87,19 @@
   display: block;
 }
 
+hr {
+  margin: 0;
+}
+
+.subtotal {
+  margin-right: 10px;
+  color: #5B5B5B;
+  font-weight: bold;
+}
+
+.total-items-carrito-badge {
+  
+}
 
 /* Estilos para desktop */
 
@@ -67,9 +113,6 @@
   .resumen {
     left: -228px;
   }
-  .boton {
-    background-color: red;
-  }
 }
 
 @media screen and (max-width: 1199px) and (min-width: 992px) {
@@ -81,8 +124,5 @@
   }
   .resumen {
     left: -238px;
-  }
-  .boton {
-    background-color: blue;
   }
 }

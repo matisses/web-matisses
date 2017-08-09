@@ -8,7 +8,7 @@ var ShoppingCartSchema = Schema({
   items: [{
     _id: String,
     itemcode: String,
-    quantity: Number
+    selectedQuantity: Number
   }]
 });
 

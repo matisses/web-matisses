@@ -40,7 +40,7 @@ export class InfoPagoComponent implements OnInit {
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService, private _cityService: CityService,
     private _shippingMethodService: ShippingMethodService, private _placetopayService: PlacetoPayService, private _shoppingCartService: ShoppingCartService) {
-      this.messageError = '';
+    this.messageError = '';
     this.customer = new Customer().newCustomer('', '', null, '', '', '', '', '', '', '', '', null, '', '', '', '', '', '', [{
       stateCode: null,
       stateName: null,
@@ -139,8 +139,14 @@ export class InfoPagoComponent implements OnInit {
   public pagar() {
     this.valid = true;
     this.messageError = '';
-    if (this.customer.fiscalID == null || this.customer.cardCode.length <= 0 || this.customer.firstName == null || this.customer.firstName.length <= 0
-      || this.customer.lastName1 == null || this.customer.lastName1.length <= 0) {
+    if (this.customer.fiscalID == null || this.customer.fiscalID.length <= 0
+      || this.customer.firstName == null || this.customer.firstName.length <= 0
+      || this.customer.lastName1 == null || this.customer.lastName1.length <= 0
+      || this.customer.fiscalIdType == null || this.customer.fiscalIdType.length <= 0
+      || this.customer.addresses[0].address == null || this.customer.addresses[0].address.length <= 0
+      || this.customer.addresses[0].cellphone == null || this.customer.addresses[0].cellphone.length <= 0
+      || this.customer.addresses[0].cityCode == null || this.customer.addresses[0].cityCode == 0
+      || this.customer.addresses[0].email == null || this.customer.addresses[0].email.length <= 0) {
       console.log('Se deben llenar todos los campos obligatorios para poder proceder con el pago');
       this.messageError = 'Se deben llenar todos los campos obligatorios para poder proceder con el pago.';
       this.valid = false;
@@ -158,21 +164,24 @@ export class InfoPagoComponent implements OnInit {
     this._shoppingCartService.saveShoppingCart(shoppingCart).subscribe(
       response => {
         //Se guarda en el localStorage el carrito
-        localStorage.setItem('matisses.carrito', JSON.stringify(response.shoppingCart));
-        this.enviarPlaceToPay(response.shoppingCart._id);
+        this.carrito.shoppingCart._id = response.shoppingCart._id;
+        localStorage.setItem('matisses.shoppingCart', JSON.stringify(this.carrito.shoppingCart));
+        this.validarCliente(this.carrito.shoppingCart._id);
       },
       error => {
         console.log(error);
       }
     );
-    //this.validarCliente();
   }
 
-  private validarCliente(){
+  private validarCliente(_idCarrito) {
     console.log('Mandando datos del cliente');
+    this.obtenerNombreCiudad();
+
     this._customerService.getCustomerData(this.customer.fiscalID).subscribe(
       response => {
         //Mandar directo a placetopay
+        this.enviarPlaceToPay(_idCarrito);
       },
       error => {
         //Se debe mandar a crear el cliente en SAP
@@ -182,10 +191,10 @@ export class InfoPagoComponent implements OnInit {
         if (this.customer.lastName2 != null && this.customer.lastName2.length > 0) {
           apellidos += ' ' + this.customer.lastName2;
         }
-        if(this.customer.nationality === 'NATIONAL'){
-          nacionalidad = '01';
+        if (this.customer.nationality === 'NATIONAL') {
+          nacionalidad = 'NATIONAL';
         } else {
-          nacionalidad = '02';
+          nacionalidad = 'FOREIGN';
         }
 
         let businesspartner = {
@@ -199,25 +208,14 @@ export class InfoPagoComponent implements OnInit {
           lastName2: this.customer.lastName2.toUpperCase(),
           fiscalID: this.customer.fiscalID,
           selfRetainer: 'N',
-          CardType: {
-            type: 'C'
-          },
+          salesPersonCode: '98',
+          cardType: 'CUSTOMER',
           fiscalIdType: this.customer.fiscalIdType,
-          ForeignType: {
-            type: 'CON_CLAVE'
-          },
-          Gender: {
-            gender: 3
-          },
-          Nationality: {
-            type: nacionalidad
-          },
-          PersonType: {
-            type: '01'
-          },
-          TaxRegime: {
-            regime: 'RS'
-          },
+          foreignType: 'CON_CLAVE',
+          gender: 'NINGUNO',
+          nationality: nacionalidad,
+          personType: 'NATURAL',
+          taxRegime: 'REGIMEN_SIMPLIFICADO',
           addresses: []
         }
 
@@ -225,11 +223,9 @@ export class InfoPagoComponent implements OnInit {
           stateCode: this.customer.addresses[0].cityCode.toString().substring(0, 2),
           stateName: '',
           cityCode: this.customer.addresses[0].cityCode,
-          cityName: '',
+          cityName: this.customer.addresses[0].cityName,
           addressName: 'FACTURACIÓN',
-          addressType: {
-            type: 'B'
-          },
+          addressType: 'BILLING',
           address: this.customer.addresses[0].address,
           landLine: this.customer.addresses[0].cellphone,
           cellphone: this.customer.addresses[0].cellphone,
@@ -244,9 +240,7 @@ export class InfoPagoComponent implements OnInit {
           cityCode: this.customer.addresses[0].cityCode,
           cityName: '',
           addressName: 'FACTURACIÓN',
-          addressType: {
-            type: 'S'
-          },
+          addressType: 'SHIPPING',
           address: this.customer.addresses[0].address,
           landLine: this.customer.addresses[0].cellphone,
           cellphone: this.customer.addresses[0].cellphone,
@@ -260,7 +254,11 @@ export class InfoPagoComponent implements OnInit {
 
         this._customerService.createCustomer(businesspartner).subscribe(
           response => {
-            console.log('Se creo el cliente correctamente');
+            if (response.estado == 0) {
+              this.enviarPlaceToPay(_idCarrito);
+            } else {
+              //error
+            }
           },
           error => {
             console.log(error);
@@ -268,15 +266,10 @@ export class InfoPagoComponent implements OnInit {
         );
       }
     );
-
-
-
-
-
-
   }
 
   private enviarPlaceToPay(_id) {
+    console.log(this.customer);
     //Se mapean los datos que se le enviaran a PlacetoPay
     let apellidos = '';
     apellidos += this.customer.lastName1;
@@ -306,7 +299,7 @@ export class InfoPagoComponent implements OnInit {
         total: this.carrito.totalCarrito,
         taxes: {
           kind: 'valueAddedTax',
-          amount: 0
+          amount: this.carrito.totalImpuestos
         }
       }
     }
@@ -321,6 +314,7 @@ export class InfoPagoComponent implements OnInit {
           this.procesandoP2P = false;
           return;
         }
+        localStorage.removeItem('matisses.shoppingCart');
         window.location.href = response.respuestaPlaceToPay.processUrl;
       },
       error => {
@@ -332,5 +326,24 @@ export class InfoPagoComponent implements OnInit {
   public seleccionarMetodoEnvio(metodo) {
     console.log(metodo);
     this.metodoEnvioSeleccionado = metodo;
+  }
+
+  private obtenerNombreCiudad() {
+    if (this.customer.addresses[0].cityName == null || this.customer.addresses[0].cityName.length <= 0) {
+      for (let i = 0; i < this.ciudadesPrincipales.length; i++) {
+        if (this.ciudadesPrincipales[i].code === this.customer.addresses[0].cityCode.toString()) {
+          this.customer.addresses[0].cityName = this.ciudadesPrincipales[i].name;
+          break;
+        }
+      }
+      if (this.customer.addresses[0].cityName == null || this.customer.addresses[0].cityName.length <= 0) {
+        for (let i = 0; i < this.otrasCiudades.length; i++) {
+          if (this.otrasCiudades[i].code === this.customer.addresses[0].cityCode.toString()) {
+            this.customer.addresses[0].cityName = this.otrasCiudades[i].name;
+            break;
+          }
+        }
+      }
+    }
   }
 }

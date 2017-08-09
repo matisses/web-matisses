@@ -187,6 +187,7 @@ a {
 
 .link-producto-menu {
   margin-bottom: 0;
+  cursor: pointer;
 }
 
 .link-producto-menu::before {
@@ -197,6 +198,10 @@ a {
   width: 25px;
   color: transparent;
   background-color: #5B5B5B;
+}
+
+.link-producto-menu:hover {
+  font-weight: bold;
 }
 
 .margin-left {
