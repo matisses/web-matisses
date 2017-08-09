@@ -3,13 +3,13 @@
   <div class="panel panel-default">
 
     <!-- boton abrir filtros -->
-    <div class="panel-heading visible-sm visible-xs" role="tab" id="headingOne">
-      <h4 class="panel-title text-center">
-        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+      <div class="panel-heading visible-sm visible-xs" role="tab" id="headingOne">
+        <h4 class="panel-title text-center">
           Abrir filtros
-        </a>
-      </h4>
-    </div>
+        </h4>
+      </div>
+    </a>
     <!-- boton abrir filtros -->
 
     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
@@ -75,7 +75,7 @@
                 </ul>
               </div>
               <div class="row">
-                <div class="col-xs-8 col-xs-offset-2" (click)="toggleFiltros('groups')" >
+                <div class="col-xs-8 col-xs-offset-2" (click)="toggleFiltros('groups')">
                   <p class="btn-mostrar-filtros">Mostrar más</p>
                 </div>
               </div>
@@ -103,7 +103,7 @@
                 </ul>
               </div>
               <div class="row">
-                <div class="col-xs-8 col-xs-offset-2" (click)="toggleFiltros('subgroups')" >
+                <div class="col-xs-8 col-xs-offset-2" (click)="toggleFiltros('subgroups')">
                   <p class="btn-mostrar-filtros">Mostrar más</p>
                 </div>
               </div>
@@ -152,8 +152,8 @@
                   <li class="filter-option filtro-color" *ngFor="let colorItem of filtrosDisponibles['colors'], let i = index">
                     <!--<input type="checkbox" [checked]="isSelected('color',colorItem.code)" id="color.{{i}}" (change)="toggleSelection('color',colorItem.code)">-->
                     <!--<label for="color.{{i}}" [class.bolder]="isSelected('color',colorItem.code)">-->
-                      <!--{{colorItem.name}}-->
-                      <!--<div id="preview_{{colorItem.code}}" class="color-preview"></div>-->
+                    <!--{{colorItem.name}}-->
+                    <!--<div id="preview_{{colorItem.code}}" class="color-preview"></div>-->
                     <!--</label>-->
                     <span>{{colorItem.name}}</span>
                   </li>

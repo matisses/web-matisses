@@ -8,10 +8,10 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 
 export class MigaDePanComponent implements OnInit {
-    public title: string;
+    public nombreGrupo: string;
+    public nombreSubgrupo: string;
 
     constructor(private _route: ActivatedRoute, private _router: Router) {
-        this.title = 'Este es el cuerpo de miga de pan';
     }
 
     ngOnInit() {

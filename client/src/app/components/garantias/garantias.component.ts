@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
+declare var $: any;
+
 @Component({
     templateUrl: 'garantias.html',
     styleUrls: ['garantias.component.css']
@@ -16,4 +18,12 @@ export class GarantiasComponent implements OnInit {
     ngOnInit() {
         console.log('inicializando componente de garantias');
     }
+
+    ngAfterViewInit() {
+      console.log('Termino de cargar deberia subir el body')
+      $(document).ready(function() {
+        $("html, body").animate({scrollTop: 0}, 1000);
+      });
+    }
+
 }

@@ -1,22 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
+
+// declare var jquery: any;
 declare var $: any;
 
 @Component({
-  templateUrl: 'quienes-somos.html',
-  styleUrls: ['quienes-somos.component.css']
+  templateUrl: 'contactanos.html',
+  styleUrls: ['contactanos.component.css']
 })
 
-export class QuienesComponent implements OnInit {
+export class ContactanosComponent implements OnInit {
   public title: string;
 
   constructor(private _route: ActivatedRoute, private _router: Router) {
-    this.title = 'Este es el cuerpo de quienes somos';
+    this.title = 'Este es el titulo';
   }
 
   ngOnInit() {
-    console.log('inicializando componente de quienes somos');
+    console.log('inicializando componente de lista de deseos');
   }
 
   ngAfterViewInit() {
@@ -25,4 +27,5 @@ export class QuienesComponent implements OnInit {
       $("html, body").animate({scrollTop: 0}, 1000);
     });
   }
+
 }
