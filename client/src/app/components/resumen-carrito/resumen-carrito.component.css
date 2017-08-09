@@ -110,6 +110,11 @@ hr {
   font-weight: bold;
 }
 
+.saldo-insuficiente .glyphicon {
+  margin-right: 55px;
+  margin-top: 20px;
+}
+
 @media screen and (max-width: 991px) {
   .stuck-body {
     margin-top: 0px;

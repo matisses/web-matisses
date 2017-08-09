@@ -30,7 +30,7 @@
         <div class="productos">
           <div class="row producto" *ngFor="let item of carrito.shoppingCart.items">
             <div class="saldo-insuficiente">
-              <p>El saldo es insuficiente</p>
+              <p>El saldo es insuficiente <span class="glyphicon glyphicon-trash pull-right" (click)="eliminarItem(item)"></span></p>
             </div>
             <div class="col-md-3 col-sm-4">
               <img class="img-responsive" src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/mini/{{item.itemcode}}_01.jpg" alt="...">
