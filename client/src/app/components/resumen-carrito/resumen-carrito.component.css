@@ -12,7 +12,7 @@
 }
 
 .title {
-  background-color: rgb(241, 241, 241);
+  background-color: #EDEDED;
   padding: 10px;
 }
 
@@ -22,7 +22,7 @@
 
 .producto {
   padding: 10px 0px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #EDEDED;
 }
 
 .item-name {
@@ -37,7 +37,7 @@
 }
 
 .trash:hover {
-  color: rgb(128, 12, 12);
+  color: #EDEDED;
 }
 
 input {
@@ -46,7 +46,7 @@ input {
 }
 
 .total {
-  background-color: rgb(241, 241, 241)
+  background-color: #EDEDED;
 }
 
 h5, h4 {
@@ -58,8 +58,7 @@ hr {
 }
 
 .btn-seguir-comprando {
-  background-color: #f5f5f5;
-  border: 1px solid #D7D7D7;
+  background-color: #EDEDED;
   padding: 5px;
   margin-top: 10px;
   text-align: center;
@@ -71,7 +70,7 @@ hr {
 }
 
 .btn-continuar {
-  background-color: #700000;
+  background-color: #6D9197;
   padding: 10px 0px;
   color: #FFF;
   text-align: center;
@@ -90,8 +89,7 @@ hr {
 }
 
 .btn-continuar:hover {
-  background-color: #500000;
-  font-weight: 700;
+  background-color: #7C7C7C;
 }
 
 @media screen and (max-width: 991px) {

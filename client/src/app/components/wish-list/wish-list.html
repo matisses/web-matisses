@@ -1,5 +1,4 @@
 <matisses-header></matisses-header>
-
 <div sticky-body>
   <div class="container">
 
@@ -8,13 +7,12 @@
 
     <div class="content">
       <div class="col-md-8 col-md-offset-2">
-
         <div class="row">
           <div class="col-md-2 col-xs-4 text-right">
             <span class="wish-list glyphicon glyphicon-heart"></span>
           </div>
           <div class="col-md-4 col-xs-8">
-            <p class="title"><b>Mi lista de deseos</b> ({{number}} productos)</p>
+            <p class="title"><b>Mi lista de deseos</b> ({{qty}} productos)</p>
           </div>
           <div class="col-md-6 col-xs-12">
             <div class="compartir">
@@ -27,7 +25,6 @@
             </div>
           </div>
         </div>
-
         <div class="row">
           <div class="col-xs-12 text-right">
             <div class="ordenar">
@@ -45,13 +42,12 @@
             </div>
           </div>
         </div>
-
-        <div class="row">
+        <div class="row" *ngIf="items && items.length > 0">
           <div class="col-sm-6" *ngFor="let item of items">
-            <div class="ficha-producto">
+            <div class="ficha-producto" *ngIf="item != null">
               <div class="row">
                 <div class="col-xs-12">
-                  <span class="icon-close pull-right"></span>
+                  <span class="icon-close pull-right" (click)="eliminarItems(item)"></span>
                 </div>
               </div>
               <div class="row">
@@ -60,18 +56,18 @@
                 </div>
                 <div class="col-xs-8">
                   <p class="name">{{item.itemname}}</p>
-                  <p><b>$ {{item.priceAfterVAT | number:0}}</b></p>
+                  <p><b>$ {{item.priceaftervat | number:0}}</b></p>
                 </div>
               </div>
-              <div class="row">
+              <div class="row" *ngIf="item != null">
                 <div class="col-xs-12">
                   <div class="botones">
                     <div class="btn-group" role="group">
-                      <button type="button" class="btn btn-detalles">
+                      <button type="button" class="btn btn-detalles" [routerLink]="['/producto', item.shortitemcode]">
                         Ver detalles
                       </button>
                       <button type="button" class="btn btn-carrito" (click)="agregarCarrito(item)">
-                        <span class="icon-shopping-cart carrito"> </span> AGREGAR AL CARRITO
+                        <span class="icon-shopping-cart carrito"></span> AGREGAR AL CARRITO
                       </button>
                     </div>
                   </div>
@@ -80,11 +76,12 @@
             </div>
           </div>
         </div>
+        <div *ngIf="qty==0">
+          <p>No se encontraron ítems</p>
+        </div>
       </div>
     </div>
-
-
   </div>
 </div>
-
 <matisses-footer></matisses-footer>
+<matisses-carrito-simple #carritoSimple></matisses-carrito-simple>

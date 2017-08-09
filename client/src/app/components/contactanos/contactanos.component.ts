@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 
-declare var jquery: any;
+// declare var jquery: any;
 declare var $: any;
 
 @Component({
@@ -19,6 +19,13 @@ export class ContactanosComponent implements OnInit {
 
   ngOnInit() {
     //console.log('inicializando componente de lista de deseos');
+  }
+
+  ngAfterViewInit() {
+    console.log('Termino de cargar deberia subir el body')
+    $(document).ready(function() {
+      $("html, body").animate({scrollTop: 0}, 1000);
+    });
   }
 
 }

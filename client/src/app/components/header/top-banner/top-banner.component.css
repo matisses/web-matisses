@@ -1,5 +1,5 @@
 .barra-fondo {
-  background-color: rgba(209,209,209,0.3);
+  background-color: #EDEDED;
   margin-top: 15px;
   padding: 10px 0px;
 }
@@ -22,7 +22,7 @@
 
 .top-nav li a:hover {
   text-decoration: none;
-  color: #1b1a1a;
+  color: #3C3C3C;
 }
 
 .border-left {

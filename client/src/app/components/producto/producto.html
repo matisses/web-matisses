@@ -151,30 +151,19 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-2 col-xs-4">
+            <div class="col-md-2 col-xs-3">
               <div class="cantidad">
                 <form>
-                  <div class="input-group">
                     <input class="input-cantidad form-control" type="tel" name="selectedQuantity" min="1" max="{{totalStock}}" [(ngModel)]="selectedQuantity" />
-                    <!--<div class="input-group-btn">
-                      <button type="button" class="btn btn-cantidad dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="caret"></span>
-                        <span class="sr-only">Toggle Dropdown</span>
-                      </button>
-                      <ul class="dropdown-menu dropdown-menu-right">
-                        <li *ngFor="let i of quantityOptions" (click)="seleccionarCantidad(i)">{{i}}</li>
-                      </ul>
-                    </div>-->
-                  </div>
                 </form>
               </div>
             </div>
-            <div class="col-md-10 col-xs-8 padding-left">
+            <div class="col-md-10 col-xs-9 padding-left">
               <button type="button" class="btn btn-carrito" (click)="agregarCarrito()">
-                <span class="icon-shopping-bag carrito"></span> AGREGAR AL CARRITO
+                Agregar al carrito
               </button>
-              <button type="button" class="btn btn-like">
-                <span class="glyphicon glyphicon-heart-empty wish-list"></span>
+              <button type="button" class="btn btn-like" (click)="toggleWishList(item)">
+                <span class="glyphicon wish-list" [ngClass]="getCSSClassName(item)"></span>
               </button>
             </div>
           </div>

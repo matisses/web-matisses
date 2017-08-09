@@ -41,10 +41,19 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     //console.log('inicializando componente de producto');
     this.cargarInfoItem();
+    this._itemService.inicializarWishlist();
   }
 
   ngAfterViewInit() {
     this.carrito.cargarCarrito();
+  }
+
+  public getCSSClassName(item: Item) {
+    return this._itemService.getCSSClassName(item);
+  }
+
+  public toggleWishList(item: Item) {
+    this._itemService.toggleWishList(item);
   }
 
   private cargarInfoItem() {
@@ -205,4 +214,17 @@ export class ProductoComponent implements OnInit, AfterViewInit {
       }
     );
   }
+
+  public toggleWishList(item: Item) {
+    this._itemService.toggleWishList(item);
+  }
+
+  public isInWishlist(item: Item) {
+    return this._itemService.isInWishlist(item);
+  }
+
+  public getCSSClassName(item: Item) {
+    return this._itemService.getCSSClassName(item);
+  }
+
 }
