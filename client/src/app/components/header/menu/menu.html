@@ -30,7 +30,9 @@
               <div class="col-md-12 col-sm-6 text-right">
                 <div class="row">
                   <div class="col-xs-8 col-xs-offset-1">
-                    <a href="http://listaregalos.matisses.co/" target="_blank"><p (mouseover)="carrito.closeResumen()" class="lista-regalos text-center"><span class="icon-gift-box"> </span> Lista de Regalos</p></a>
+                    <a href="http://listaregalos.matisses.co/" target="_blank">
+                      <p (mouseover)="carrito.closeResumen()" class="lista-regalos text-center"><span class="icon-gift-box"> </span> Lista de Regalos</p>
+                    </a>
                   </div>
                   <div class="col-xs-3 text-left">
                     <matisses-carrito #carrito id="carrito2"></matisses-carrito>
@@ -45,20 +47,12 @@
         <div class="col-xs-12 top">
           <div class="nav medium">
             <!-- botones para el administrador -->
-            <div class="agregar">
-              <span class="icon-plus"></span>
+            <div class="agregar" *ngIf="adminToken">
+              <span class="glyphicon glyphicon-pencil"></span>
             </div>
             <!-- botones para el administrador -->
             <ul>
               <li (mouseover)="carrito.closeResumen()" class="item-menu cursor-pointer" [ngClass]="{'selected' : estaSeleccionado(menuItem.code)}" *ngFor="let menuItem of menuItems" (click)="alternarSeleccionPadre(menuItem)" (mouseover)="alternarSeleccionPadre(menuItem)">
-                <!-- botones para el administrador -->
-                <div class="hover-edicion">
-                  <span class="glyphicon glyphicon-circle-arrow-left"></span>
-                  <span class="glyphicon glyphicon-pencil"></span>
-                  <span class="glyphicon glyphicon-trash"></span>
-                  <span class="glyphicon glyphicon-circle-arrow-right"></span>
-                </div>
-                <!-- botones para el administrador -->
                 {{menuItem.name}}
               </li>
             </ul>
@@ -76,25 +70,11 @@
         <div class="row">
           <div class="col-xs-3" *ngFor="let subMenuItem of padreSeleccionado.children">
             <ul class="sub-menu">
-              <p class="child medium cursor-pointer" [routerLink]="['/categoria']" [queryParams]="{group: subMenuItem.group}">
-                {{subMenuItem.name}}
-                <br/>
-                <!-- botones para el administrador -->
-                <a href="#" class="btn-admin"><span class="glyphicon glyphicon-circle-arrow-left"></span></a>
-                <a href="#" class="btn-admin"><span class="glyphicon glyphicon-trash"></span></a>
-                <a href="#" class="btn-admin"><span class="glyphicon glyphicon-pencil"></span></a>
-                <a href="#" class="btn-admin"><span class="glyphicon glyphicon-circle-arrow-right"></span></a>
-                <!-- botones para el administrador -->
+              <p class="child medium cursor-pointer">
+                <span [routerLink]="['/categoria']" [queryParams]="{group: subMenuItem.group}">{{subMenuItem.name}}</span>
               </p>
-              <li class="grandchild" *ngFor="let grandChild of subMenuItem.children" [routerLink]="['/categoria']" [queryParams]="{department: grandChild.department, group: grandChild.group, subgroup: grandChild.subgroup}">
+              <li class="grandchild" *ngFor="let grandChild of subMenuItem.children" [routerLink]="['/categoria']" [queryParams]="{group: grandChild.group, subgroup: grandChild.subgroup}">
                 {{grandChild.name}}
-                <!-- botones para el administrador -->
-                <div class="hover-grandchild">
-                  <span class="pull-right glyphicon glyphicon-pencil"></span>
-                  <span class="pull-right glyphicon glyphicon-circle-arrow-up"></span>
-                  <span class="pull-right glyphicon glyphicon-circle-arrow-down"></span>
-                </div>
-                <!-- botones para el administrador -->
               </li>
             </ul>
           </div>
@@ -121,7 +101,7 @@
         <div *ngFor="let subMenuItem of padreSeleccionado.children">
           <button class="child-accordion" (click)="toggleClass('#grandchild-' + subMenuItem.code,'visible','hidden')" (click)="toggleClass('#subMenu-' + subMenuItem.code, 'glyphicon-chevron-down', 'glyphicon-chevron-up')">{{subMenuItem.name}}<span id="subMenu-{{subMenuItem.code}}" class="glyphicon glyphicon-chevron-down pull-right"></span></button>
           <div class="grandchild hidden" id="grandchild-{{subMenuItem.code}}">
-            <div *ngFor="let grandChild of subMenuItem.children" [routerLink]="['/categoria']" [queryParams]="{group: grandChild.group, subgroup: grandChild.subgroup}" >
+            <div *ngFor="let grandChild of subMenuItem.children" [routerLink]="['/categoria']" [queryParams]="{group: grandChild.group, subgroup: grandChild.subgroup}">
               <p class="grandchild-accordion">{{grandChild.name}}</p>
             </div>
           </div>

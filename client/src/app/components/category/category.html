@@ -6,10 +6,10 @@
     <miga-de-pan></miga-de-pan>
     <!-- Miga de pan -->
     <!-- Imagen categoria -->
-    <div class="row">
+    <div class="row" *ngIf="queryParams.has('group')">
       <div class="col-xs-12">
         <div class="img-category">
-          <h2>Categoria hijos</h2>
+          <h2>{{nombreGrupo}}</h2>
         </div>
       </div>
     </div>

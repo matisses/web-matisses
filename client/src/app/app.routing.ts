@@ -15,6 +15,7 @@ import { IngresarComponent } from './components/ingresar/ingresar.component';
 import { InfoPagoComponent } from './components/info-pago/info-pago.component';
 import { ResultadoTransacciComponent } from './components/resultado-transaccion/resultado-transaccion.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 const appRoutes: Routes = [
     {path: '', component: HomeComponent},
@@ -31,6 +32,7 @@ const appRoutes: Routes = [
     {path: 'info-pago', component: InfoPagoComponent},
     {path: 'resultado-transaccion', component: ResultadoTransacciComponent},
     {path: 'modal', component: ModalComponent},
+    {path: 'admin/:token', component: AdminComponent},
     //,{path: 'producto/:productId', component: CategoryComponent},
     {path: '**', component: ErrorComponent} //pagina 404
 ];

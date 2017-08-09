@@ -7,6 +7,7 @@ import { MenuItem } from '../../../models/menu-item';
 import { CarritoComponent } from './carrito/carrito.component';
 
 import { MenuItemService } from '../../../services/menu.service';
+import { JWTService } from '../../../services/jwt.service';
 
 declare var $: any;
 
@@ -14,7 +15,7 @@ declare var $: any;
   selector: 'matisses-menu',
   templateUrl: 'menu.html',
   styleUrls: ['menu.component.css'],
-  providers: [MenuItemService],
+  providers: [MenuItemService, JWTService],
   animations: [
     trigger('menuAnimation', [
       state('shown', style({
@@ -51,8 +52,9 @@ export class MenuComponent implements OnInit, AfterViewInit {
   public state: string = 'hidden';
   public stateOverlay: string = 'hidden';
   private viewportWidth: number = 0;
+  private adminToken: string;
 
-  constructor(private _menuService: MenuItemService, private _route: ActivatedRoute, private _router: Router) {
+  constructor(private _jwt: JWTService, private _menuService: MenuItemService, private _route: ActivatedRoute, private _router: Router) {
     this.padreSeleccionado = new MenuItem();
   }
 
@@ -92,9 +94,28 @@ export class MenuComponent implements OnInit, AfterViewInit {
     return this.padreSeleccionado != null && this.padreSeleccionado.code === codigo
   }
 
+  private cargarValidarTokenAdmin() {
+    this.adminToken = localStorage.getItem('matisses.admin-token');
+    if (this.adminToken) {
+      this._jwt.validateToken(this.adminToken).subscribe(
+        response => {
+          if (response.estado != 0) {
+            console.error('El token del localStorage no es valido. ' + response.mensaje);
+            this.adminToken = null;
+            localStorage.removeItem('matisses.admin-token');
+          }
+        }, error => {
+          console.error(error);
+          this.adminToken = null;
+          localStorage.removeItem('matisses.admin-token');
+        }
+      );
+    }
+  }
+
   private inicializarMenu() {
     this.menuItems = new Array();
-
+    this.cargarValidarTokenAdmin();
     this._menuService.list(null).subscribe(
       response => {
         for (let i = 0; i < response.result.length; i++) {
@@ -105,6 +126,8 @@ export class MenuComponent implements OnInit, AfterViewInit {
           menuItem.department = response.result[i].department;
           menuItem.group = response.result[i].group;
           menuItem.subgroup = response.result[i].subgroup;
+          menuItem.parentId = response.result[i].parentId;
+          menuItem.position = response.result[i].position;
           this.menuItems.push(menuItem);
         }
       },
@@ -125,6 +148,8 @@ export class MenuComponent implements OnInit, AfterViewInit {
           child.department = response.result[i].department;
           child.group = response.result[i].group;
           child.subgroup = response.result[i].subgroup;
+          child.parentId = response.result[i].parentId;
+          child.position = response.result[i].position;
 
           menuItem.children.push(child);
           this.cargarHijos(menuItem.children[menuItem.children.length - 1], false);
@@ -138,12 +163,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
             this.toggleStateOverlay('hidden');
           }
         }
-
-
-      },
-      error => {
-        console.log(error);
-      }
+      }, error => { console.log(error); }
     );
   }
 
@@ -163,7 +183,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public cerrarNav(){
+  public cerrarNav() {
     document.getElementById("myNav").style.width = "0%";
   }
 
@@ -176,4 +196,40 @@ export class MenuComponent implements OnInit, AfterViewInit {
     document.getElementById("idComponent").style.display = "block";
   }
 
+  public updateMenuItem(menuItem: MenuItem, inicializar: boolean = false) {
+    this._menuService.edit(menuItem).subscribe(
+      response => {
+        console.log(response);
+        if (inicializar) {
+          this.inicializarMenu();
+        }
+      }, error => {
+        console.error(error);
+      }
+    );
+  }
+
+  public crearMenuItem() {
+    this._menuService.save(null).subscribe(
+      response => {
+        console.log(response);
+        this.inicializarMenu();
+        //this.nuevoMenuItem = new MenuItem();
+        $("#agregarMenuItem").modal({
+          backdrop: false,
+          show: false
+        });
+      }, error => { console.error(error); }
+    );
+  }
+
+  public eliminarMenuItem() {
+    this._menuService.remove(null).subscribe(
+      response => {
+        console.log(response);
+        //this.menuEditar = new MenuItem();
+        this.inicializarMenu();
+      }, error => { console.error(error); }
+    );
+  }
 }
