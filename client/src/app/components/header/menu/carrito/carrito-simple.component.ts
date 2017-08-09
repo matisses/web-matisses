@@ -27,6 +27,7 @@ export class CarritoSimpleComponent {
   private inicializarShoppingCart() {
     this.shoppingCart = {
       _id: null,
+      metodoEnvio: null,
       fechacreacion: new Date(),
       items: new Array<Item>()
     };
