@@ -16,7 +16,7 @@ export class TiendasComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('inicializando componente de tiendas');
+        //console.log('inicializando componente de tiendas');
     }
 
     ngAfterViewInit() {

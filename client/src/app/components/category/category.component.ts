@@ -30,7 +30,7 @@ export class CategoryComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('inicializando componente de categoria');
+    //console.log('inicializando componente de categoria');
     this.cargarItems();
   }
 

@@ -13,6 +13,6 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('inicializando componente de encabezado');
+        //console.log('inicializando componente de encabezado');
     }
 }

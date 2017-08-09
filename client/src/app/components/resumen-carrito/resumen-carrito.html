@@ -12,7 +12,7 @@
     </div>
 
     <div class="row">
-      <div class="col-sm-8">
+      <div class="col-md-8 col-sm-7">
         <div class="row">
           <div class="col-xs-12">
             <div class="title">
@@ -29,13 +29,13 @@
         </div>
         <div class="productos">
           <div class="row producto" *ngFor="let item of carrito.shoppingCart.items">
-            <div class="saldo-insuficiente" *ngIf="item.sinSaldo">
-              <p>El saldo es insuficiente</p>
+            <!-- <div class="saldo-insuficiente">
+              <p>El saldo es insuficiente <span class="glyphicon glyphicon-trash pull-right" (click)="eliminarItem(item)"></span></p>
+            </div> -->
+            <div class="col-md-3 col-sm-12 text-center">
+              <img src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/mini/{{item.itemcode}}_01.jpg" alt="...">
             </div>
-            <div class="col-md-3 col-sm-4">
-              <img class="img-responsive" src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/mini/{{item.itemcode}}_01.jpg" alt="...">
-            </div>
-            <div class="col-md-8 col-md-offset-1 col-sm-8 col-sm-offset-0">
+            <div class="col-md-9 col-sm-12">
               <div class="row">
                 <div class="col-md-12">
                   <p class="item-name"><b>{{item.itemname}}</b></p>
@@ -43,17 +43,17 @@
                 <div class="col-md-12">
                   <div class="info">
                     <div class="row">
-                      <div class="col-xs-3">
+                      <div class="col-xs-3 padding-right-0">
                         <p>Precio</p>
                         <p><b>$ {{item.priceaftervat | number}}</b></p>
                       </div>
                       <div class="col-xs-3">
                         <form>
                           <p>Cantidad</p>
-                          x <input type="number" name="quantity" [(ngModel)]="item.selectedQuantity" (change)="procesarItem(item)">
+                          x <input type="tel" name="quantity" [(ngModel)]="item.selectedQuantity" (change)="procesarItem(item)">
                         </form>
                       </div>
-                      <div class="col-xs-3">
+                      <div class="col-xs-3 padding-right-0">
                         <p>Total</p>
                         <p><b>$ {{(item.priceaftervat * item.selectedQuantity) | number}}</b></p>
                       </div>
@@ -75,7 +75,7 @@
         </div>
       </div>
 
-      <div class="col-sm-4">
+      <div class="col-md-4 col-sm-5">
         <div class="row">
           <div class="col-md-11 col-md-offset-1">
             <div class="row">

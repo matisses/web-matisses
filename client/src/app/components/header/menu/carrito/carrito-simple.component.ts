@@ -21,7 +21,7 @@ export class CarritoSimpleComponent {
 
   constructor(private _route: ActivatedRoute, private _router: Router) {
     this.inicializarShoppingCart();
-    console.warn('inicializando carrito-simple id=' + this.id);
+    //console.warn('inicializando carrito-simple id=' + this.id);
   }
 
   private inicializarShoppingCart() {

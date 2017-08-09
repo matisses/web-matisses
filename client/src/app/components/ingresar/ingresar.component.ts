@@ -18,7 +18,7 @@ export class IngresarComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('inicializando componente de ingresar');
+    //console.log('inicializando componente de ingresar');
   }
 
 }

@@ -39,7 +39,7 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    console.log('inicializando componente de producto');
+    //console.log('inicializando componente de producto');
     this.cargarInfoItem();
     this._itemService.inicializarWishlist();
   }
