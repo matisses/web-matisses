@@ -173,8 +173,8 @@
               <button type="button" class="btn btn-carrito" (click)="agregarCarrito()">
                 <span class="icon-shopping-bag carrito"></span> AGREGAR AL CARRITO
               </button>
-              <button type="button" class="btn btn-like">
-                <span class="glyphicon glyphicon-heart-empty wish-list"></span>
+              <button type="button" class="btn btn-like" (click)="toggleWishList(item)">
+                <span class="glyphicon wish-list" [ngClass]="getCSSClassName(item)"></span>
               </button>
             </div>
           </div>
