@@ -1,6 +1,7 @@
 'use strict'
 
 var MenuItem = require('../models/menu-item');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 function listMenuItems(req, res) {
   var find = MenuItem.find({
@@ -53,7 +54,6 @@ function save(req, res) {
   menuItem.group = req.body.group;
   menuItem.subgroup = req.body.subgroup;
   menuItem.position = req.body.position;
-  menuItem.code = req.body.code;
 
   menuItem.save((err, saved) => {
     if (err) {
@@ -92,9 +92,68 @@ function remove(req, res) {
   });
 }
 
+function listMenuCategory(req, res) {
+  MenuItem.find({
+    parentId: null
+  }, (err, result) => {
+    if (err) {
+      res.status(500).send({
+        message: 'ocurrio un error al consultar las categorias del menú'
+      });
+    } else if (!result) {
+      res.status(404).send({
+        message: 'no se encontró ninguna categoria para el menú'
+      });
+    } else {
+      res.status(200).send({
+        result: result
+      });
+    }
+  }).sort('position');
+}
+
+function loadMenuRecursively(req, res) {
+  var menuItems = [];
+  executeRecursion(null, menuItems, res);
+}
+
+function executeRecursion(parentId, itemsArray, res) {
+  MenuItem.find({
+    $and: [{
+      menuItemBefore: parentId
+    }, {
+      menuItemBefore: {
+        $exists: true
+      }
+    }]
+  }, (err, resp) => {
+    if (err) {
+      console.error(err);
+      res.status(200).send({
+        result: itemsArray
+      });
+    } else if (resp && resp.length > 0) {
+      itemsArray.push(resp[0]);
+      if (resp[0].menuItemAfter && resp[0].menuItemAfter != null) {
+        executeRecursion(resp[0]._id, itemsArray, res);
+      } else {
+        res.status(200).send({
+          result: itemsArray
+        });
+      }
+    } else {
+      res.status(200).send({
+        result: itemsArray
+      });
+    }
+  });
+}
+
 module.exports = {
   listMenuItems,
   edit,
   save,
-  remove
+  remove,
+  listMenuCategory,
+  loadMenuRecursively
 };
