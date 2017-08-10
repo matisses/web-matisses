@@ -1,6 +1,5 @@
 export class MenuItem {
   public _id: string;
-  public code: string;
   public name: string;
   public department: string;
   public group: string;
@@ -13,16 +12,16 @@ export class MenuItem {
     this.children = new Array<MenuItem>();
   }
 
-  public newMenuItem(code: string, name: string) {
-    //let menuItem = new MenuItem();
-    this.code = code;
+  public newMenuItem(group: string, subgroup: string, name: string) {
+    this.group = group;
+    this.subgroup = subgroup;
     this.name = name;
     return this;
   }
 
-  public newMenuItemWithChildren(code: string, name: string, children: Array<MenuItem>) {
-    //let menuItem = new MenuItem();
-    this.code = code;
+  public newMenuItemWithChildren(group: string, subgroup: string, name: string, children: Array<MenuItem>) {
+    this.group = group;
+    this.subgroup = subgroup;
     this.name = name;
     this.children = children;
     return this;

@@ -48,4 +48,13 @@ export class MenuItemService {
     return this._http.delete(this.url + 'menuitem/remove/' + idMenuItem, { headers: headers })
       .map(res => res.json());
   }
+
+  listCategories() {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.url + 'menuitem/listMenuCategory', { headers: headers })
+      .map(res => res.json());
+  }
 }

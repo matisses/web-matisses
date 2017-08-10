@@ -154,7 +154,7 @@
             <div class="col-md-2 col-xs-3">
               <div class="cantidad">
                 <form>
-                    <input class="input-cantidad form-control" type="tel" name="selectedQuantity" min="1" max="{{totalStock}}" [(ngModel)]="selectedQuantity"/>
+                  <input class="input-cantidad form-control" type="tel" name="selectedQuantity" min="1" max="{{totalStock}}" [(ngModel)]="selectedQuantity" />
                 </form>
               </div>
             </div>
@@ -235,16 +235,28 @@
       <div class="col-xs-12">
         <div class="politicas">
           <div class="col-xs-3">
-            <p><span class="icon-medal"> </span> garantias</p>
+            <div class="content">
+              <span class="icon-medal icon-garantia"> </span>
+              <p class="garantia">1 año de <br/>garantia</p>
+            </div>
           </div>
           <div class="col-xs-3 border-left">
-            <p>almacenamiento</p>
+            <div class="content">
+              <span class="icon-box icon-garantia"> </span>
+              <p class="garantia">Alamcenamos<br>tu producto por 1 año</p>
+            </div>
           </div>
           <div class="col-xs-3 border-left">
-            <p>envios</p>
+            <div class="content">
+              <span class="icon-mapa icon-garantia"> </span>
+              <p class="garantia">Envíos solo dentro<br/>del territorio colombiano<br/>(Excepto San Andrés y Providencia)</p>
+            </div>
           </div>
           <div class="col-xs-3 border-left">
-            <p>tiempo</p>
+            <div class="content">
+              <span class="icon-clock icon-garantia"> </span>
+              <p class="garantia">Tiempo de enterga y<br/>envío 8 días hábiles</p>
+            </div>
           </div>
         </div>
       </div>
