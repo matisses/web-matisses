@@ -2,8 +2,7 @@
   <div class="modal-dialog modal-lg" role="document" *ngIf="lastAddedItem">
     <div class="modal-content modal-2">
       <div class="modal-header">
-        <span data-dismiss="modal" aria-label="Close" class="icon-close pull-right"></span>
-        <h4 class="modal-title">Has añadido el artículo al carrito</h4>
+        <h4 class="modal-title text-center">Has añadido el artículo al carrito</h4>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
@@ -11,58 +10,56 @@
             <div class="col-md-7">
               <div class="row">
                 <div class="col-sm-6">
-                  <img src="https://www.matisses.co/modules/matisses/files/{{lastAddedItem.itemcode}}/images/{{lastAddedItem.itemcode}}_01.jpg" class="img-responsive" alt="...">
+                  <img src="https://www.matisses.co/modules/matisses/files/{{lastAddedItem.itemcode}}/images/{{lastAddedItem.itemcode}}_01.jpg" class="img-responsive" alt="{{lastAddedItem.itemname}}">
                 </div>
                 <div class="col-sm-6">
                   <div class="row">
                     <div class="col-xs-12">
-                      <p style="margin-bottom: 0px;"><b>{{lastAddedItem.itemname}}</b></p>
+                      <p class="nombre-producto"><b>{{lastAddedItem.itemname}}</b></p>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-xs-12">
-                      <h4 style="margin-top: 15px;">$ {{lastAddedItem.priceaftervat | number}}</h4>
+                      <h4 class="precio-producto">$ {{lastAddedItem.priceaftervat | number}}</h4>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-xs-12">
-                      <div class="color" style="margin:10px 0 0 0;"></div>
+                      <div class="color">{{lastAddedItem.color.name}}</div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-xs-12">
-                      <p style="margin-top: 15px;">Cantidad: <span>{{lastAddedItem.quantity | number}}</span></p>
+                      <p class="cantidad-agregada">Cantidad: <span>{{lastAddedItem.selectedQuantity | number}}</span></p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-5" style="border-left: 1px solid #D1D1D1;" *ngFor="let item of items">
+            <div class="col-md-5 border-left">
               <div class="row">
-                <div class="col-xs-10 col-xs-offset-1" style="border-bottom: 1px dotted #D1D1D1;">
-                  <h4 style="margin: 0;"><b>{{number}}</b> ARTÍCULOS</h4>
-                  <p style="margin-top: 15px;">Costo total de los productos: <span class="pull-right"><b>$ {{lastAddedItem.priceaftervat | number}}</b></span></p>
-                  <p>Envío estándar: <span class="pull-right"><b>$ 0</b></span></p>
+                <div class="col-sm-10 col-sm-offset-1 col-xs-12 col-xs-offset-0 resumen-carrito">
+                  <h4 class="total-items"><b>{{carrito.totalItems}}</b> ARTÍCULOS</h4>
+                  <p class="total-precio">Costo total de los productos: <span class="pull-right"><b>$ {{carrito.totalCarrito | number}}</b></span></p>
+                  <p class="total-precio">Total impuestos: <span class="pull-right"><b>$ {{carrito.totalImpuestos | number}}</b></span></p>
+                  <hr/>
+                  <p class="total-precio">Total: <span class="pull-right"><b>$ {{carrito.totalCarrito | number}}</b></span></p>
                 </div>
               </div>
               <div class="row">
-                <div class="col-xs-10 col-xs-offset-1">
-                  <p style="margin-top: 15px;">Total: <span class="pull-right"><b>$ {{lastAddedItem.priceaftervat | number}}</b></span></p>
+                <div class="col-xs-12">
                   <div class="row">
-                    <div class="col-xs-7">
-                      <p style="margin-top: 5px;">Financiación<br>con mercadopago: </p>
+                    <div class="col-sm-6">
+                      <button type="button" class="btn btn-seguir" data-dismiss="modal" aria-label="Close">
+                        Seguir comprando
+                      </button>
                     </div>
-                    <div class="col-xs-5 text-right">
-                      <p style="font-size:10px; margin-top:10px"><b>Hasta 12 cuotas de<br>$ 46,667</b></p>
+                    <div class="col-sm-6">
+                      <button type="button" class="btn btn-carrito">
+                        Ir a pagar
+                      </button>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-xs-10 col-xs-offset-1">
-                  <button type="button" class="btn btn-carrito" style="width:100%; margin-top:20px;">
-                      <span class="icon-shopping-cart carrito"> </span> VER CARRITO
-                  </button>
                 </div>
               </div>
             </div>
@@ -75,3 +72,4 @@
 
 <top-banner></top-banner>
 <matisses-menu></matisses-menu>
+<matisses-carrito-simple #carritoSimple></matisses-carrito-simple>

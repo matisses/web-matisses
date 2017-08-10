@@ -32,6 +32,7 @@ import { ProductosComponent } from './components/category/productos/productos.co
 
 //Componente de producto
 import { ProductoComponent } from './components/producto/producto.component';
+import { ProductoRelacionadosComponent } from './components/producto/productos-relacionados/producto-relacionados.component';
 
 //Proceso de pago
 import { IngresarComponent } from './components/ingresar/ingresar.component';
@@ -109,7 +110,8 @@ import { AppComponent } from './app.component';
     ModalComponent,
     AdminComponent,
     WishListComponent,
-    ContactanosComponent
+    ContactanosComponent,
+    ProductoRelacionadosComponent
   ],
   imports: [
     BrowserModule,

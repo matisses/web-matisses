@@ -3,8 +3,8 @@
 }
 
 .border-left {
-  border-left: 1px solid #a7a7a7;
-  padding-left: 5px;
+  border-left: 1px solid #D1D1D1;
+  padding: 0px 5px;
 }
 
 .carousel-control.right, .carousel-control.left {
@@ -40,7 +40,7 @@
 }
 
 .mini:hover {
-  border: 1px solid #eee;
+  border: 1px solid #D1D1D1;
 }
 
 .up, .down {
@@ -83,7 +83,7 @@
 }
 
 .cantidad {
-  border: 1px solid #ccc;
+  border: 1px solid #D1D1D1;
 }
 
 .input-cantidad {
@@ -140,12 +140,12 @@
 
 .detalles {
   margin: 75px 0px;
-  border-bottom: 1px solid #5B5B5B;
+  border-bottom: 1px solid #D1D1D1;
 }
 
 .detalles-collapse {
   text-transform: uppercase;
-  border-top: 1px solid #5B5B5B;
+  border-top: 1px solid #D1D1D1;
   padding: 10px 10px 0px 10px;
   cursor: pointer;
 }
@@ -229,6 +229,12 @@
   overflow: hidden;
   overflow-x: hidden;
   overflow-y: hidden;
+}
+
+.politicas {
+  background-color: #EDEDED;
+  width: 100%;
+  height: 100px;
 }
 
 @media screen and (max-width: 1200px) {
