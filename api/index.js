@@ -9,7 +9,7 @@ var options = {
 };
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://192.168.5.78:27017/matisses?authSource=matisses', options, (err, res) => {
+mongoose.connect('mongodb://192.168.5.23:27017/matisses', (err, res) => {
     if (err) {
         throw err;
     } else {

@@ -53,7 +53,6 @@ function save(req, res) {
   menuItem.group = req.body.group;
   menuItem.subgroup = req.body.subgroup;
   menuItem.position = req.body.position;
-  menuItem.code = req.body.code;
 
   menuItem.save((err, saved) => {
     if (err) {
@@ -92,9 +91,30 @@ function remove(req, res) {
   });
 }
 
+function listMenuCategory(req, res) {
+  MenuItem.find({
+    parentId: null
+  }, (err, result) => {
+    if (err) {
+      res.status(500).send({
+        message: 'ocurrio un error al consultar las categorias del menú'
+      });
+    } else if (!result) {
+      res.status(404).send({
+        message: 'no se encontró ninguna categoria para el menú'
+      });
+    } else {
+      res.status(200).send({
+        result: result
+      });
+    }
+  }).sort('position');
+}
+
 module.exports = {
   listMenuItems,
   edit,
   save,
-  remove
+  remove,
+  listMenuCategory
 };
