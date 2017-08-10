@@ -1,6 +1,7 @@
 'use strict'
 
 var MenuItem = require('../models/menu-item');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 function listMenuItems(req, res) {
   var find = MenuItem.find({
@@ -111,10 +112,48 @@ function listMenuCategory(req, res) {
   }).sort('position');
 }
 
+function loadMenuRecursively(req, res) {
+  var menuItems = [];
+  executeRecursion(null, menuItems, res);
+}
+
+function executeRecursion(parentId, itemsArray, res) {
+  MenuItem.find({
+    $and: [{
+      menuItemBefore: parentId
+    }, {
+      menuItemBefore: {
+        $exists: true
+      }
+    }]
+  }, (err, resp) => {
+    if (err) {
+      console.error(err);
+      res.status(200).send({
+        result: itemsArray
+      });
+    } else if (resp && resp.length > 0) {
+      itemsArray.push(resp[0]);
+      if (resp[0].menuItemAfter && resp[0].menuItemAfter != null) {
+        executeRecursion(resp[0]._id, itemsArray, res);
+      } else {
+        res.status(200).send({
+          result: itemsArray
+        });
+      }
+    } else {
+      res.status(200).send({
+        result: itemsArray
+      });
+    }
+  });
+}
+
 module.exports = {
   listMenuItems,
   edit,
   save,
   remove,
-  listMenuCategory
+  listMenuCategory,
+  loadMenuRecursively
 };

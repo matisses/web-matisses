@@ -9,7 +9,9 @@ var MenuItemSchema = Schema({
   group: String,
   subgroup: String,
   parentId: String,
-  position: Number
+  position: Number,
+  menuItemAfter: String,
+  menuItemBefore: String
 });
 
 module.exports = mongoose.model('menuitems', MenuItemSchema);

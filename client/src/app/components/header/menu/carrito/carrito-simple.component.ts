@@ -61,7 +61,6 @@ export class CarritoSimpleComponent {
     this.cargarCarrito();
     //1. validar contenido
     let encontrado = false;
-
     for (let i = 0; i < this.shoppingCart.items.length; i++) {
       if (this.shoppingCart.items[i].itemcode === item.itemcode) {
         encontrado = true;
@@ -95,13 +94,10 @@ export class CarritoSimpleComponent {
 
     //cantidadCarrito.innerHTML = this.totalItems.toString();
     //cantidadCarritoBadge.innerHTML = this.totalItems.toString();
-    this.mostrarModal(item);
-
-  }
-
-  private mostrarModal(item: Item) {
-    console.log('mostrando carrito');
-    this.item = item;
+    if (!encontrado) {
+      localStorage.setItem('matisses.lastAddedItem', JSON.stringify(item));
+      $('#carritoModal').modal('show');
+    }
   }
 
   private procesarCarrito() {

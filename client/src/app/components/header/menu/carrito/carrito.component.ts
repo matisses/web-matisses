@@ -25,7 +25,6 @@ export class CarritoComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    //console.log('inicializando componente de carrito');
     this.carrito.cargarCarrito();
   }
 
