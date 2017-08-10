@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+
+declare var $: any;
 
 import { Item } from '../../models/item';
 
-declare var $: any;
+import { CarritoSimpleComponent } from '../header/menu/carrito/carrito-simple.component';
 
 @Component({
   selector: 'matisses-header',
@@ -12,12 +14,16 @@ declare var $: any;
 })
 
 export class HeaderComponent implements OnInit {
+  @ViewChild(CarritoSimpleComponent)
+  public carrito: CarritoSimpleComponent;
   public lastAddedItem: Item;
+
   constructor(private _route: ActivatedRoute, private _router: Router) {
   }
 
   ngOnInit() {
     console.log('configurando accion antes de mostrar modal');
+    this.carrito.cargarCarrito();
     $('#carritoModal').on('show.bs.modal', () => {
       this.cargarInfoModal();
     });
