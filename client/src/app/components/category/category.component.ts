@@ -45,11 +45,11 @@ export class CategoryComponent implements OnInit {
           if(this.items && this.items.length > 0){
             if (this.queryParams.has('subgroup')) {
               //Inicializa el nombre del grupo y del subgrupo
-              this.nombreSubgrupo = this.items[0].subgroup.name;
-              this.nombreGrupo = this.items[0].group.name;
+              //this.nombreSubgrupo = this.items[0].subgroup.name;
+              //this.nombreGrupo = this.items[0].group.name;
             } else if (this.queryParams.has('group')) {
               //Inicializa el nombre del grupo
-              this.nombreGrupo = this.items[0].group.name;
+              //this.nombreGrupo = this.items[0].group.name;
             }
             this.productosComponent.cargarItems(this.availableFields, this.items, this.queryParams, response.records);
             this.filtrosComponent.inicializarFiltros(this.availableFields, this.queryParams, this.queryString);
