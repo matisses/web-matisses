@@ -15,6 +15,6 @@ export class NewsletterComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('inicializando componente del newsletter');
+        //console.log('inicializando componente del newsletter');
     }
 }

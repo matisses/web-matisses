@@ -6,7 +6,6 @@ import { ItemService } from '../../services/item.service';
 
 import { CarritoSimpleComponent } from '../header/menu/carrito/carrito-simple.component';
 
-declare var jquery: any;
 declare var $: any;
 
 @Component({
@@ -26,7 +25,7 @@ export class WishListComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('inicializando componente de lista de deseos');
+    //console.log('inicializando componente de lista de deseos');
     this.obtenerItems();
   }
 

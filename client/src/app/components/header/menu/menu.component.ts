@@ -59,7 +59,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    console.log('inicializando componente de menú');
+    //console.log('inicializando componente de menú');
     this.inicializarMenu();
     document.getElementById("myNav").style.width = "0%";
   }

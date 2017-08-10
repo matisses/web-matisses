@@ -15,6 +15,6 @@ export class TopBannerComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('inicializando componente de banner superior');
+        //console.log('inicializando componente de banner superior');
     }
 }

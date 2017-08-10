@@ -21,7 +21,7 @@ export class CarritoSimpleComponent {
 
   constructor(private _route: ActivatedRoute, private _router: Router) {
     this.inicializarShoppingCart();
-    console.warn('inicializando carrito-simple id=' + this.id);
+    //console.warn('inicializando carrito-simple id=' + this.id);
   }
 
   private inicializarShoppingCart() {
@@ -55,6 +55,7 @@ export class CarritoSimpleComponent {
 
   public procesarItem(item: Item) {
     console.log('procesando item')
+    item.selectedQuantity = parseInt(item.selectedQuantity.toString());
     console.log(item);
     //0. Cargar contenido de localStorage
     this.cargarCarrito();
@@ -93,13 +94,10 @@ export class CarritoSimpleComponent {
 
     //cantidadCarrito.innerHTML = this.totalItems.toString();
     //cantidadCarritoBadge.innerHTML = this.totalItems.toString();
-    this.mostrarModal(item);
-
-  }
-
-  private mostrarModal(item: Item) {
-    console.log('mostrando carrito');
-    this.item = item;
+    if (!encontrado) {
+      localStorage.setItem('matisses.lastAddedItem', JSON.stringify(item));
+      $('#carritoModal').modal('show');
+    }
   }
 
   private procesarCarrito() {

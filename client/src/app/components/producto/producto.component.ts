@@ -39,7 +39,7 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    console.log('inicializando componente de producto');
+    //console.log('inicializando componente de producto');
     this.cargarInfoItem();
     this._itemService.inicializarWishlist();
   }
@@ -90,17 +90,15 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   }
 
   public agregarCarrito() {
-    console.log('a');
     this.item.selectedQuantity = this.selectedQuantity;
     this.carrito.procesarItem(this.item);
-    $('#carritoModal_' + this.carrito.id).modal('show');
   }
 
   public toggleClass(idComponent) {
     $(idComponent).toggleClass("icon-plus icon-minus");
   }
 
-  public seleccionarCantidad(quantity) {
+  public seleccionarCantidad(quantity: number) {
     this.selectedQuantity = quantity;
   }
 
@@ -200,13 +198,13 @@ export class ProductoComponent implements OnInit, AfterViewInit {
     this.itemsRelacionados = new Array<any>();
     this._itemService.findRelatedItems(this.item.model).subscribe(
       response => {
-        console.log(response.items);
+        //console.log(response.items);
         this.itemsRelacionados = response.items;
-        console.log(this.itemsRelacionados);
+        //console.log(this.itemsRelacionados);
 
         for (let i = 0; i < this.itemsRelacionados.length; i++) {
           this.itemsRelacionados[i].color.hexa = '#' + this.itemsRelacionados[i].color.hexa;
-          console.log(this.itemsRelacionados[i].color.hexa);
+          //console.log(this.itemsRelacionados[i].color.hexa);
         }
       },
       error => {

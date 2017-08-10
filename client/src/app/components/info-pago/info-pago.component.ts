@@ -64,7 +64,7 @@ export class InfoPagoComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('inicializando componente de información de pago');
+    //console.log('inicializando componente de información de pago');
     this.carrito.cargarCarrito();
     this.obtenerMetodosEnvio();
     this.obtenerCiudades();
@@ -184,9 +184,12 @@ export class InfoPagoComponent implements OnInit {
           }
         }
 
+        console.log(items);
+
         if (itemsSinSaldo) {
           //Devolver a la vista de carrito para notificarle al usuario que los items no tienen saldo
           localStorage.setItem('matisses.shoppingCart', JSON.stringify(this.carrito.shoppingCart));
+          this._router.navigate(['/resumen-carrito']);
         } else {
           //Se mapean los datos para guardar el carrito en mongo DB
 
