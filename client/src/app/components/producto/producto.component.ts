@@ -78,13 +78,11 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   }
 
   public botonDown() {
-    console.log('has dado click al botón Down');
     $('.section').animate({ scrollTop: '+=300' }, 500);
     return false;
   }
 
   public botonUp() {
-    console.log('has dado click al botón Up');
     $('.section').animate({ scrollTop: '-=300' }, 600);
     return false;
   }
