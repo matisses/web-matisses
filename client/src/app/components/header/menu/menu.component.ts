@@ -294,6 +294,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   public alternarSeleccionPadre(padreSeleccionado) {
     if (this.padreSeleccionado._id != null && this.padreSeleccionado._id === padreSeleccionado._id) {
       this.padreSeleccionado = new MenuItem();
+      this.cerrarOverlay();
     } else {
       this.padreSeleccionado = padreSeleccionado;
       if (typeof this.padreSeleccionado.children == 'undefined' || this.padreSeleccionado.children.length === 0) {
