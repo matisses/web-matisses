@@ -236,25 +236,27 @@
   width: 100%;
   height: 100px;
   padding: 5px 0;
+  margin-top: 15px;
 }
 
 .politicas .content {
   text-align: center;
   margin-top: 10px;
+  height: 80px;
 }
 
-.politicas .icon-garantia {
+.icon-content {
   font-size: 50px;
-  display: inline-block;
-  position: relative;
+  position: absolute;
   top: 10px;
+  left: 30px;
 }
 
-.politicas .garantia {
+.text-content {
   font-weight: bold;
-  display: inline-block;
   text-align: left;
   margin-left: 10px;
+  font-size: 10px;
 }
 
 @media screen and (max-width: 1200px) {

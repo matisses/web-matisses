@@ -303,7 +303,7 @@ button.accordion {
   transition: 0.4s;
 }
 
-button.child-accordion {
+.child-accordion {
   background-color: #F2F2F2;
   color: #444;
   cursor: pointer;
@@ -313,6 +313,8 @@ button.child-accordion {
   border: none;
   outline: none;
   transition: 0.4s;
+  padding-left: 30px;
+  margin-bottom: 0px;
 }
 
 .grandchild-accordion {
@@ -326,6 +328,7 @@ button.child-accordion {
   outline: none;
   transition: 0.4s;
   margin: 0;
+  padding-left: 50px;
 }
 
 .title-menu {

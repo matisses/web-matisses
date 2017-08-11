@@ -186,9 +186,9 @@
           <div class="col-xs-3" *ngFor="let subMenuItem of padreSeleccionado.children">
             <ul class="sub-menu">
               <p class="child medium cursor-pointer">
-                <span [routerLink]="['/categoria']" [queryParams]="{group: subMenuItem.group}">{{subMenuItem.name}}</span>
+                <span [routerLink]="['/categoria']" [queryParams]="{group: subMenuItem.group}" (click)="cerrarOverlay()">{{subMenuItem.name}}</span>
               </p>
-              <li class="grandchild" *ngFor="let grandChild of subMenuItem.children" [routerLink]="['/categoria']" [queryParams]="{group: grandChild.group, subgroup: grandChild.subgroup}">
+              <li class="grandchild" *ngFor="let grandChild of subMenuItem.children" [routerLink]="['/categoria']" [queryParams]="{group: grandChild.group, subgroup: grandChild.subgroup}" (click)="cerrarOverlay()">
                 {{grandChild.name}}
               </li>
             </ul>
@@ -217,10 +217,12 @@
           <button class="child-accordion" (click)="toggleClass('#grandchild-' + subMenuItem._id,'visible','hidden')" (click)="toggleClass('#subMenu-' + subMenuItem._id, 'glyphicon-menu-down', 'glyphicon-menu-up')">{{subMenuItem.name}}<span id="subMenu-{{subMenuItem._id}}" class="glyphicon glyphicon-menu-down pull-right"></span></button>
           <div class="grandchild hidden" id="grandchild-{{subMenuItem._id}}">
             <div *ngFor="let grandChild of subMenuItem.children" [routerLink]="['/categoria']" [queryParams]="{group: grandChild.group, subgroup: grandChild.subgroup}" (click)="cerrarNav()">
-              <p class="grandchild-accordion">{{grandChild.name}}</p>
+              <p class="grandchild-accordion" (click)="cerrarNav()" (click)="toggleClass('#hamburger', 'glyphicon-menu-hamburger', 'glyphicon-remove')">{{grandChild.name}}</p>
             </div>
+            <p class="grandchild-accordion" (click)="cerrarNav()" (click)="toggleClass('#hamburger', 'glyphicon-menu-hamburger', 'glyphicon-remove')"><b>Ver todos</b></p>
           </div>
         </div>
+        <p class="child-accordion" (click)="cerrarNav()" (click)="toggleClass('#hamburger', 'glyphicon-menu-hamburger', 'glyphicon-remove')"><b>Ver todos</b></p>
       </div>
     </div>
 

@@ -51,6 +51,16 @@ form label {
   border: 1px solid #7C7C7C;
 }
 
+.ng-valid[required], .ng-valid.required {
+  border-left: 5px solid #6D9197;
+  /* green */
+}
+
+.ng-touched.ng-invalid[required], .ng-untouched.ng-pristine.ng-invalid[required].required-field {
+  border-left: 5px solid #65092D;
+  /* red */
+}
+
 textarea {
   max-width: 452px;
 }
