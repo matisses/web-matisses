@@ -78,7 +78,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   }
 
   private cargarDatosMenu() {
-    this._menuService.listCategories().subscribe(
+    this._menuService.listMenuRecursively(null).subscribe(
       response => {
         this.categorias = response.result;
         if (!this.categoriaSeleccionada) {
@@ -194,14 +194,50 @@ export class MenuComponent implements OnInit, AfterViewInit {
   }
 
   public subirPosicionCategoria() {
+    console.log('-----------------------------------');
     for (let i = 0; i < this.categorias.length; i++) {
       if (this.categorias[i]._id === this.categoriaSeleccionada._id) {
-        if (this.categorias[i].position > 1) {
-          this.categorias[i].position = (this.categorias[i].position - 1);
-          this.updateMenuItem(this.categorias[i], false);
+        if (i > 0) {
+          if (i == 1) {
+            this.categorias[i].menuItemBefore = null;
+            this.categorias[i].menuItemAfter = this.categorias[i - 1]._id;
+            this.updateMenuItem(this.categorias[i], false);
 
-          this.categorias[i - 1].position = (this.categorias[i - 1].position + 1);
-          this.updateMenuItem(this.categorias[i - 1], true);
+            this.categorias[i - 1].menuItemBefore = this.categorias[i]._id;
+            if (this.categorias.length > 2) {
+              this.categorias[i - 1].menuItemAfter = this.categorias[i + 1]._id;
+              this.updateMenuItem(this.categorias[i - 1], false);
+            } else {
+              this.categorias[i - 1].menuItemAfter = null;
+              this.updateMenuItem(this.categorias[i - 1], true);
+            }
+
+            if (this.categorias.length > 2) {
+              this.categorias[i + 1].menuItemBefore = this.categorias[i - 1]._id;
+              this.updateMenuItem(this.categorias[i + 1], true);
+            }
+          } else {
+            this.categorias[i].menuItemBefore = this.categorias[i - 2]._id;
+            this.categorias[i].menuItemAfter = this.categorias[i - 1]._id;
+            this.updateMenuItem(this.categorias[i], false);
+
+            this.categorias[i - 2].menuItemAfter = this.categorias[i]._id;
+            this.updateMenuItem(this.categorias[i - 2], false);
+
+            this.categorias[i - 1].menuItemBefore = this.categorias[i]._id;
+            if ((this.categorias.length - 1) > i) {
+              this.categorias[i - 1].menuItemAfter = this.categorias[i + 1]._id;
+              this.updateMenuItem(this.categorias[i - 1], false);
+            } else {
+              this.categorias[i - 1].menuItemAfter = null;
+              this.updateMenuItem(this.categorias[i - 1], true);
+            }
+
+            if ((this.categorias.length - 1) > i) {
+              this.categorias[i + 1].menuItemBefore = this.categorias[i - 1]._id;
+              this.updateMenuItem(this.categorias[i + 1], true);
+            }
+          }
         }
         break;
       }

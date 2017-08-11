@@ -20,13 +20,10 @@
         </div>
         <div class="row">
           <div class="col-xs-4" *ngIf="categoriaSeleccionada">
-            <div class="row">
+            <div class="row" style="margin-bottom: 45px">
               <div class="col-xs-12">
-                <input type="text" class="form-control" placeholder="Categoria" name="categoria" [(ngModel)]="categoriaSeleccionada.name">
-              </div>
-              <div class="col-xs-12 input-item-menu">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Código" name="codigoCategoria" [(ngModel)]="categoriaSeleccionada.code">
+                  <input type="text" class="form-control" placeholder="Categoria" name="categoria" [(ngModel)]="categoriaSeleccionada.name">
                   <span class="input-group-btn">
                     <button class="btn btn-default" type="button" (click)="guardarCategoria()"><span class="glyphicon glyphicon-floppy-disk"></span></button>
                   </span>
@@ -54,7 +51,7 @@
                       {{categoria.name}}
                     </td>
                   </tr>
-                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : categoriaSeleccionada == null || categoriaSeleccionada.code.length <= 0}" (click)="seleccionarCategoria(categoria)">
+                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : categoriaSeleccionada == null || categoriaSeleccionada._id == null || categoriaSeleccionada._id.length <= 0}" (click)="seleccionarCategoria(categoria)">
                     <td>
                       Nueva
                     </td>
@@ -98,7 +95,7 @@
                       {{grupo.name}}
                     </td>
                   </tr>
-                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : grupoSeleccionado == null || grupoSeleccionado.code.length <= 0}" (click)="seleccionarGrupo(grupo)">
+                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : grupoSeleccionado == null || grupoSeleccionado._id == null || grupoSeleccionado._id.length <= 0}" (click)="seleccionarGrupo(grupo)">
                     <td>
                       Nuevo
                     </td>

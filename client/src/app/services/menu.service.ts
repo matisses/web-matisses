@@ -49,12 +49,12 @@ export class MenuItemService {
       .map(res => res.json());
   }
 
-  listCategories() {
+  listMenuRecursively(id) {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
 
-    return this._http.get(this.url + 'menuitem/listMenuCategory', { headers: headers })
+    return this._http.get(this.url + 'menuitem/recursive/' + id, { headers: headers })
       .map(res => res.json());
   }
 }
