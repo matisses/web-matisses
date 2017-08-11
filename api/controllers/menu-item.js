@@ -54,6 +54,8 @@ function save(req, res) {
   menuItem.group = req.body.group;
   menuItem.subgroup = req.body.subgroup;
   menuItem.position = req.body.position;
+  menuItem.menuItemAfter = req.body.menuItemAfter;
+  menuItem.menuItemBefore = req.body.menuItemBefore;
 
   menuItem.save((err, saved) => {
     if (err) {
