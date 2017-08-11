@@ -20,7 +20,7 @@
           <div class="row">
             <div class="col-xs-12">
               <div class="title">
-                <p>Filtros aplicados</p>
+                <p>Filtros seleccionados</p>
               </div>
             </div>
           </div>
@@ -29,7 +29,7 @@
               <div class="tags-filtros">
                 <span class="active-filter" *ngFor="let filtro of filtrosAplicados" (click)="toggleSelection(filtro[2], filtro[3])">
                   {{filtro[1]}}
-                  <span class="active-filter-delete glyphicon glyphicon-trash"></span>
+                  <span class="active-filter-delete icon-close"></span>
                 </span>
               </div>
             </div>
@@ -40,7 +40,7 @@
           <div class="row">
             <div class="col-xs-12">
               <div class="title">
-                <p>Grupo</p>
+                <p>categorías</p>
               </div>
             </div>
           </div>
@@ -49,14 +49,14 @@
               <div id="groups" class="filtros-cerrados">
                 <ul>
                   <div *ngFor="let menuItem of filtrosDisponibles['groups']">
-                    <li *ngIf="queryParams.get('group').split(',').indexOf(menuItem.code) == -1"  class="filter-option" (click)="toggleSelection('group',menuItem.code)">
+                    <li *ngIf="queryParams.get('group').split(',').indexOf(menuItem.code) == -1" class="filter-option" (click)="toggleSelection('group',menuItem.code)">
                       <span>{{menuItem.name}}</span>
                     </li>
                   </div>
                 </ul>
               </div>
               <div class="row">
-                <div class="col-xs-8 col-xs-offset-2" (click)="toggleFiltros('groups')">
+                <div class="col-xs-6 col-xs-offset-3" (click)="toggleFiltros('groups')">
                   <p class="btn-mostrar-filtros">Mostrar más</p>
                 </div>
               </div>
@@ -68,7 +68,7 @@
           <div class="row">
             <div class="col-xs-12">
               <div class="title">
-                <p>Subgrupo</p>
+                <p>subcategorías</p>
               </div>
             </div>
           </div>
@@ -84,7 +84,7 @@
                 </ul>
               </div>
               <div class="row">
-                <div class="col-xs-8 col-xs-offset-2" (click)="toggleFiltros('subgroups')">
+                <div class="col-xs-6 col-xs-offset-3" (click)="toggleFiltros('subgroups')">
                   <p class="btn-mostrar-filtros">Mostrar más</p>
                 </div>
               </div>
@@ -116,8 +116,17 @@
                 <p>Precio <span id="precio" class="icon-plus pull-right"></span></p>
               </div>
               <div class="collapse" id="collapsePrecio">
-                <div class="well">
-                  ...
+                <div class="filtro-precio">
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <p>Desde</p>
+                      <input type="tel" class="desde" name="" value="">
+                    </div>
+                    <div class="col-xs-6">
+                      <p>Hasta</p>
+                      <input type="tel" class="hasta" name="" value="">
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -162,7 +171,7 @@
         </div>
 
         <!-- contenido de los filtros -->
-        <div class="panel-heading visible-sm visible-xs" role="tab" id="headingOne">
+        <div class="panel-heading cerrar-filtros visible-sm visible-xs" role="tab" id="headingOne">
           <h4 class="panel-title text-center">
             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
               cerrar filtros
@@ -170,6 +179,7 @@
           </h4>
         </div>
       </div>
+      <hr/>
     </div>
   </div>
 

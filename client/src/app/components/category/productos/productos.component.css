@@ -1,5 +1,11 @@
 .producto {
   margin-bottom: 20px;
+  border: 1px solid #FFF;
+  padding-bottom: 10px;
+}
+
+.producto:hover {
+  border: 1px solid #EDEDED;
 }
 
 .nombre-producto {
