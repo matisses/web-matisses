@@ -18,7 +18,10 @@ export class WishListComponent implements OnInit {
   @ViewChild(CarritoSimpleComponent)
   private carrito: CarritoSimpleComponent;
   public qty: number;
+  public priceLow: number;
+  public priceHight: number;
   public items: Array<Item>;
+  public orderByStr: string = 'Precio: más bajos primero';
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService) {
     this.qty = 0;
@@ -34,6 +37,7 @@ export class WishListComponent implements OnInit {
     this.items = JSON.parse(localStorage.getItem('matisses.wishlist'));
     if (this.items) {
       this.qty = this.items.length;
+      this.orderByPrice(1);
     } else {
       this.qty = 0;
     }
@@ -50,5 +54,20 @@ export class WishListComponent implements OnInit {
   public eliminarItems(item: Item) {
     this._itemService.toggleWishList(item);
     this.obtenerItems();
+  }
+
+  private compareItems(a, b) {
+    console.log('ejecutando sort [' + a.priceaftervat + '] - [' + b.priceaftervat + ']');
+    return a.priceaftervat - b.priceaftervat;
+  }
+
+  public orderByPrice(order) {
+    this.items = this.items.sort((a, b) => this.compareItems(a, b));
+    if (order < 0) {
+      this.items = this.items.reverse();
+      this.orderByStr = 'Precio: más altos primero';
+    } else {
+      this.orderByStr = 'Precio: más bajos primero';
+    }
   }
 }
