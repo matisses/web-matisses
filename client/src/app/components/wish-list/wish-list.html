@@ -34,9 +34,8 @@
                         <span class="caret"></span>
                     </button>
                 <ul class="dropdown-menu" aria-labelledby="ordenar">
-                  <li><a href="javascript:void(0);" (click)="changeOrder('price')">Precio: más bajos primero</a></li>
-                  <li><a href="javascript:void(0);" (click)="changeOrder('-price')">Precio: más altos primero</a></li>
-                  <li><a href="javascript:void(0);" (click)="changeOrder('model')">Similares</a></li>
+                  <li><a (click)="orderByPrice(1)">Precio: más bajos primero</a></li>
+                  <li><a (click)="orderByPrice(-1)">Precio: más altos primero</a></li>
                 </ul>
               </div>
             </div>
@@ -56,7 +55,7 @@
                 </div>
                 <div class="col-xs-8">
                   <p class="name">{{item.itemname}}</p>
-                  <p><b>$ {{item.priceaftervat | number:0}}</b></p>
+                  <p id="price"><b>$ {{item.priceaftervat | number:0}}</b></p>
                 </div>
               </div>
               <div class="row" *ngIf="item != null">

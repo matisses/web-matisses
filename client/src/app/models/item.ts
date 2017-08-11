@@ -17,7 +17,7 @@ export class Item {
     width: number
   };
   public weight: number;
-  public priceAfterVAT: number;
+  public priceaftervat: number;
   public priceBeforeVAT: number;
   public department: {
     code: string,
@@ -44,7 +44,7 @@ export class Item {
     this.itemname = itemname;
     this.itemcode = itemcode;
     this.shortitemcode = this.itemcode.substring(0, 3) + this.itemcode.substring(16);
-    this.priceAfterVAT = price;
+    this.priceaftervat = price;
     return this;
   }
 
@@ -52,7 +52,7 @@ export class Item {
     this.itemname = itemname;
     this.itemcode = itemcode;
     this.shortitemcode = this.itemcode.substring(0, 3) + this.itemcode.substring(16);
-    this.priceAfterVAT = price;
+    this.priceaftervat = price;
     this.selectedQuantity = quantity;
     return this;
   }
