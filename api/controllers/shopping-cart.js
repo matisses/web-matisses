@@ -8,6 +8,8 @@ function saveShoppingCart(req, res) {
 
   console.log(params);
 
+  shoppingCart.metodoEnvio = params.metodoEnvio;
+  shoppingCart.tiendaRecoge = params.tiendaRecoge;
   shoppingCart.fechacreacion = new Date();
   shoppingCart.items = params.items;
 
@@ -35,12 +37,12 @@ function findShoppingCart(req, res) {
   ShoppingCart.find({
     "_id": req.params.id
   }, (err, shoppingCart) => {
-    if(err){
+    if (err) {
       console.log(error);
       res.status(500).send({
         message: 'ocurrio un error al consultar el carrito'
       });
-    } else if(!shoppingCart){
+    } else if (!shoppingCart) {
       console.log(shoppingCart);
       res.status(404).send({
         message: 'no se encontró el carrito con id ' + req.query.id

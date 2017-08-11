@@ -27,13 +27,13 @@ export class NewProductsComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('inicializando componente de nuevos productos');
+    //console.log('inicializando componente de nuevos productos');
     this.inicializarItems();
     this._itemService.inicializarWishlist();
   }
 
   ngAfterViewInit() {
-    console.log('termino de cargar el componente');
+    //console.log('termino de cargar el componente');
   }
 
   private inicializarItems() {

@@ -362,6 +362,21 @@ button.child-accordion {
   margin-bottom: 10px;
 }
 
+.input-item-menu {
+  margin-top: 10px;
+}
+
+.item-menu-editar:hover {
+  background-color: #DDDDDD;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.item-menu-editar-seleccionado {
+  background-color: #DDDDDD;
+  font-weight: bold;
+}
+
 @media screen and (max-width: 1199px) {
   .stuck {
     max-width: 940px;

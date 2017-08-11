@@ -12,6 +12,7 @@ import { CityService } from '../../services/city.service';
 import { ShippingMethodService } from '../../services/shipping-method.service';
 import { PlacetoPayService } from '../../services/placetopay.service';
 import { ShoppingCartService } from '../../services/shopping-cart.service';
+import { ItemService } from '../../services/item.service';
 
 import { CarritoSimpleComponent } from '../header/menu/carrito/carrito-simple.component';
 
@@ -20,7 +21,7 @@ declare var $: any;
 @Component({
   templateUrl: 'info-pago.html',
   styleUrls: ['info-pago.component.css'],
-  providers: [CustomerService, CityService, ShippingMethodService, PlacetoPayService, ShoppingCartService]
+  providers: [CustomerService, CityService, ShippingMethodService, PlacetoPayService, ShoppingCartService, ItemService]
 })
 
 export class InfoPagoComponent implements OnInit {
@@ -29,6 +30,7 @@ export class InfoPagoComponent implements OnInit {
 
   public totalEnvio: number = 0;
   public messageError: string;
+  public tiendaSeleccionada: string = 'Medellín';
   public procesandoP2P: boolean = false;
   public valid: boolean = true;
   public customer: Customer;
@@ -39,7 +41,8 @@ export class InfoPagoComponent implements OnInit {
   public metodosEnvio: Array<ShippingMethod>;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService, private _cityService: CityService,
-    private _shippingMethodService: ShippingMethodService, private _placetopayService: PlacetoPayService, private _shoppingCartService: ShoppingCartService) {
+    private _shippingMethodService: ShippingMethodService, private _placetopayService: PlacetoPayService, private _shoppingCartService: ShoppingCartService,
+    private _itemService: ItemService) {
     this.messageError = '';
     this.customer = new Customer().newCustomer('', '', null, '', '', '', '', '', '', '', '', null, '', '', '', '', '', '', [{
       stateCode: null,
@@ -61,7 +64,7 @@ export class InfoPagoComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('inicializando componente de información de pago');
+    //console.log('inicializando componente de información de pago');
     this.carrito.cargarCarrito();
     this.obtenerMetodosEnvio();
     this.obtenerCiudades();
@@ -139,6 +142,18 @@ export class InfoPagoComponent implements OnInit {
   public pagar() {
     this.valid = true;
     this.messageError = '';
+    if (this.metodoEnvioSeleccionado == null || this.metodoEnvioSeleccionado.code == 0) {
+      console.log('Se debe seleccionar un método de envió');
+      this.messageError = 'Se debe seleccionar un método de envió.';
+      return;
+    }
+    if (this.metodoEnvioSeleccionado.code == 2 && (this.tiendaSeleccionada == null || this.tiendaSeleccionada.length <= 0)) {
+      console.log('Debe seleccionar en cual tienda desea recoger los artículos');
+      this.messageError = 'Debe seleccionar en cual tienda desea recoger los artículos.';
+      return;
+    } else if (this.metodoEnvioSeleccionado.code != 2) {
+      this.tiendaSeleccionada = null;
+    }
     if (this.customer.fiscalID == null || this.customer.fiscalID.length <= 0
       || this.customer.firstName == null || this.customer.firstName.length <= 0
       || this.customer.lastName1 == null || this.customer.lastName1.length <= 0
@@ -154,22 +169,53 @@ export class InfoPagoComponent implements OnInit {
     }
     this.procesandoP2P = true;
 
-    //Se mapean los datos para guardar el carrito en mongo DB
-
-    let shoppingCart = {
-      fechacreacion: null,
-      items: this.carrito.shoppingCart.items
-    }
-
-    this._shoppingCartService.saveShoppingCart(shoppingCart).subscribe(
+    this._itemService.validarItems(this.carrito.shoppingCart.items).subscribe(
       response => {
-        //Se guarda en el localStorage el carrito
-        this.carrito.shoppingCart._id = response.shoppingCart._id;
-        localStorage.setItem('matisses.shoppingCart', JSON.stringify(this.carrito.shoppingCart));
-        this.validarCliente(this.carrito.shoppingCart._id);
+        let itemsSinSaldo = false;
+        let items: Array<Item> = response;
+
+        for (let i = 0; i < items.length; i++) {
+          for (let j = 0; j < this.carrito.shoppingCart.items.length; j++) {
+            if (items[i].itemcode === this.carrito.shoppingCart.items[j].itemcode && items[i].sinSaldo) {
+              this.carrito.shoppingCart.items[j].sinSaldo = true;
+              itemsSinSaldo = true;
+              break;
+            }
+          }
+        }
+
+        console.log(items);
+
+        if (itemsSinSaldo) {
+          //Devolver a la vista de carrito para notificarle al usuario que los items no tienen saldo
+          localStorage.setItem('matisses.shoppingCart', JSON.stringify(this.carrito.shoppingCart));
+          this._router.navigate(['/resumen-carrito']);
+        } else {
+          //Se mapean los datos para guardar el carrito en mongo DB
+
+          let shoppingCart = {
+            metodoEnvio: this.metodoEnvioSeleccionado.code,
+            tiendaRecoge: this.tiendaSeleccionada,
+            fechacreacion: null,
+            items: this.carrito.shoppingCart.items
+          }
+
+          this._shoppingCartService.saveShoppingCart(shoppingCart).subscribe(
+            response => {
+              //Se guarda en el localStorage el carrito
+              this.carrito.shoppingCart._id = response.shoppingCart._id;
+              localStorage.setItem('matisses.shoppingCart', JSON.stringify(this.carrito.shoppingCart));
+              this.validarCliente(this.carrito.shoppingCart._id);
+            },
+            error => {
+              console.log(error);
+            }
+          );
+        }
       },
       error => {
         console.log(error);
+        this.procesandoP2P = false;
       }
     );
   }

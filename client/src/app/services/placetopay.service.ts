@@ -23,12 +23,12 @@ export class PlacetoPayService {
       .map(res => res.json());
   }
 
-  consultar(_idCarrito, items) {
+  consultar(datosCompraWeb) {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
 
-    return this._http.post(this.urlBCS + 'placetopay/consultar/' + _idCarrito, JSON.stringify(items), { headers: headers })
+    return this._http.post(this.urlBCS + 'placetopay/consultar', JSON.stringify(datosCompraWeb), { headers: headers })
       .map(res => res.json());
   }
 }

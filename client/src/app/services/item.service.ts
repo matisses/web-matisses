@@ -8,10 +8,12 @@ import { Item } from '../models/item';
 @Injectable()
 export class ItemService {
   public url: string;
+  public urlBCS: string;
   private wishlist: Array<Item>;
 
   constructor(private _http: Http) {
     this.url = GLOBAL.url;
+    this.urlBCS = GLOBAL.urlBCS;
     this.wishlist = new Array<Item>();
   }
 
@@ -103,6 +105,15 @@ export class ItemService {
     });
 
     return this._http.get(this.url + 'item/obtenerrelacionados/' + model, { headers: headers })
+      .map(res => res.json());
+  }
+
+  validarItems(items){
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'validarinventario/validar', JSON.stringify(items), { headers: headers })
       .map(res => res.json());
   }
 }

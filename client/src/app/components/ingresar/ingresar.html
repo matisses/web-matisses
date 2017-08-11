@@ -26,15 +26,19 @@
             <div class="restablecer-contraseña">
               <p>¿Olvidó su contraseña?</p>
             </div>
-            <p class="registrarme">Regístrarme</p>
-            <button type="button" class="iniciar-sesion" name="button">Ingresar</button>
+            <button type="button" class="registrarme" name="button-resgistro">Regístrarme</button>
+            <button type="button" class="iniciar-sesion" name="button-ingresar">Ingresar</button>
           </div>
         </div>
       </div>
       <div class="col-sm-6">
         <h1 class="title">Ingresar como invitado</h1>
-        <p>Procesa con el pago como invitado, solo brindando la información de envío y facturación</p>
-        <p class="btn-continuar" [routerLink]="['/info-pago']">Continuar</p>
+        <div class="row">
+          <div class="col-xs-8 col-xs-offset-2 text-center">
+            <p>Procesa con el pago como invitado, solo brindando la información de envío y facturación</p>
+            <p class="btn-continuar" [routerLink]="['/info-pago']">Continuar</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>

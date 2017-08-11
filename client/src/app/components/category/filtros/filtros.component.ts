@@ -33,7 +33,7 @@ export class FiltrosComponent implements AfterViewInit {
   }
 
   public inicializarFiltros(availableFields, queryParams, queryString) {
-    console.log('inicializando componente de filtros');
+    //console.log('inicializando componente de filtros');
     this.availableFields = availableFields;
     this.queryParams = queryParams;
     this.queryString = queryString;
@@ -72,20 +72,24 @@ export class FiltrosComponent implements AfterViewInit {
   }
 
   private configurarFiltrosActivos() {
+    console.log('configurando filtros aplicados');
     this.filtrosAplicados = new Array<string[]>();
     for (let i = 0; i < this.availableFields.length; i++) {
       if (this.queryParams.has(this.availableFields[i])) {
         switch (this.availableFields[i]) {
           case 'group':
-            this._itemService.findType('grupo', '?fieldValue=' + this.queryParams.get(this.availableFields[i])).subscribe(
-              response => {
-                if (response.result && response.result[0][this.availableFields[i]].code) {
-                  this.filtrosAplicados.push(['Grupo', response.result[0][this.availableFields[i]].name, 'group']);
+            let list = this.queryParams.get(this.availableFields[i]).split(',');
+            for(let j = 0; j < list.length; j++){
+              this._itemService.findType('grupo', '?fieldValue=' + list[j]).subscribe(
+                response => {
+                  if (response.result && response.result[0][this.availableFields[i]].code) {
+                    this.filtrosAplicados.push(['Grupo', response.result[0][this.availableFields[i]].name, 'group', response.result[0][this.availableFields[i]].code]);
+                  }
+                }, error => {
+                  console.error(error);
                 }
-              }, error => {
-                console.error(error);
-              }
-            );
+              );
+            }
             break;
           case 'subgroup':
             this._itemService.findType('subgrupo', '?fieldValue=' + this.queryParams.get(this.availableFields[i])).subscribe(
@@ -151,7 +155,20 @@ export class FiltrosComponent implements AfterViewInit {
 
   public toggleSelection(tipoFiltro, codigo) {
     if (this.queryParams.has(tipoFiltro)) {
-      this.queryParams.delete(tipoFiltro);
+      let listStr: string = this.queryParams.get(tipoFiltro);
+      let list: Array<string> = listStr.split(',');
+      let pos = list.indexOf(codigo);
+      if (pos >= 0) {
+        list.splice(pos, 1);
+        if (list.length > 0) {
+          this.queryParams.set(tipoFiltro, list.join());
+        } else {
+          this.queryParams.delete(tipoFiltro);
+        }
+      } else {
+        listStr = listStr.concat(',').concat(codigo);
+        this.queryParams.set(tipoFiltro, listStr);
+      }
     } else {
       this.queryParams.set(tipoFiltro, codigo);
     }

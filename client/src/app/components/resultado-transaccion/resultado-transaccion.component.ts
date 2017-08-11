@@ -37,7 +37,7 @@ export class ResultadoTransacciComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('inicializando componente de resultado transaccion');
+    //console.log('inicializando componente de resultado transaccion');
     this.carrito.cargarCarrito();
     this.consultarEstadoPlaceToPay();
   }
@@ -48,15 +48,22 @@ export class ResultadoTransacciComponent implements OnInit {
 
       this._shoppingCartService.findShoppingCart(idCarrito).subscribe(
         response => {
-          let items: [{}] = response.shoppingCart[0].items;
+          let datosCompraWeb = {
+            metodoEnvio: response.shoppingCart[0].metodoEnvio,
+            tiendaRecoge: response.shoppingCart[0].tiendaRecoge,
+            idCarrito: idCarrito,
+            items: response.shoppingCart[0].items
+          }
 
-          if (items) {
-            this._placetopayService.consultar(idCarrito, items).subscribe(
+          if (datosCompraWeb.items) {
+            this._placetopayService.consultar(datosCompraWeb).subscribe(
               response => {
                 this.transaccion = response;
 
                 if (this.transaccion.status.status === 'REJECTED') {
                   this.transaccion.status.reason = 'rechazada';
+                } else if (this.transaccion.status.status === 'PENDING') {
+                  this.transaccion.status.reason = 'pendiente';
                 } else {
                   this.transaccion.status.reason = 'aprobada';
                 }

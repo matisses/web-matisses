@@ -1,2 +1,75 @@
+<div class="modal fade" id="carritoModal" tabindex="-1" role="dialog" aria-labelledby="carritoLabel">
+  <div class="modal-dialog modal-lg" role="document" *ngIf="lastAddedItem">
+    <div class="modal-content modal-2">
+      <div class="modal-header">
+        <h4 class="modal-title text-center">Has añadido el artículo al carrito</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-7">
+              <div class="row">
+                <div class="col-sm-6">
+                  <img src="https://www.matisses.co/modules/matisses/files/{{lastAddedItem.itemcode}}/images/{{lastAddedItem.itemcode}}_01.jpg" class="img-responsive" alt="{{lastAddedItem.itemname}}">
+                </div>
+                <div class="col-sm-6">
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <p class="nombre-producto"><b>{{lastAddedItem.itemname}}</b></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <h4 class="precio-producto">$ {{lastAddedItem.priceaftervat | number}}</h4>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div class="color">{{lastAddedItem.color.name}}</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <p class="cantidad-agregada">Cantidad: <span>{{lastAddedItem.selectedQuantity | number}}</span></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-5 border-left">
+              <div class="row">
+                <div class="col-sm-10 col-sm-offset-1 col-xs-12 col-xs-offset-0 resumen-carrito">
+                  <h4 class="total-items"><b>{{carrito.totalItems}}</b> ARTÍCULOS</h4>
+                  <p class="total-precio">Costo total de los productos: <span class="pull-right"><b>$ {{carrito.totalCarrito | number}}</b></span></p>
+                  <p class="total-precio">Total impuestos: <span class="pull-right"><b>$ {{carrito.totalImpuestos | number}}</b></span></p>
+                  <hr/>
+                  <p class="total-precio">Total: <span class="pull-right"><b>$ {{carrito.totalCarrito | number}}</b></span></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <button type="button" class="btn btn-seguir" data-dismiss="modal" aria-label="Close">
+                        Seguir comprando
+                      </button>
+                    </div>
+                    <div class="col-sm-6">
+                      <button type="button" class="btn btn-carrito">
+                        Ir a pagar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <top-banner></top-banner>
 <matisses-menu></matisses-menu>
+<matisses-carrito-simple #carritoSimple></matisses-carrito-simple>

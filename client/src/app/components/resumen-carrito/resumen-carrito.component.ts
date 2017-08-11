@@ -22,8 +22,20 @@ export class ResumenCarritoComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('inicializando componente de resumen carrito');
+    //console.log('inicializando componente de resumen carrito');
     this.carrito.cargarCarrito();
+    for (let i = 0; i < this.carrito.shoppingCart.items.length; i++) {
+      if (this.carrito.shoppingCart.items[i].sinSaldo) {
+        this.messajeError = 'No se pudo continuar con el proceso de compra, debido a que uno o varios ítems ya no tienen saldo disponible';
+        break;
+      }
+    }
+  }
+
+  ngAfterViewInit() {
+    $(document).ready(function() {
+      $("html, body").animate({ scrollTop: 0 }, 1000);
+    });
   }
 
   public openResumen() {

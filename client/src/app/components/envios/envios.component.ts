@@ -16,7 +16,7 @@ export class EnviosComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('inicializando componente de envios');
+        //console.log('inicializando componente de envios');
     }
 
     ngAfterViewInit() {

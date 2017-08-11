@@ -48,4 +48,13 @@ export class MenuItemService {
     return this._http.delete(this.url + 'menuitem/remove/' + idMenuItem, { headers: headers })
       .map(res => res.json());
   }
+
+  listMenuRecursively(id) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.url + 'menuitem/recursive/' + id, { headers: headers })
+      .map(res => res.json());
+  }
 }
