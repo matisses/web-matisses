@@ -20,7 +20,7 @@
           <div class="row">
             <div class="col-xs-12">
               <div class="title">
-                <p>Filtros aplicados</p>
+                <p>Filtros seleccionados</p>
               </div>
             </div>
           </div>
@@ -29,7 +29,7 @@
               <div class="tags-filtros">
                 <span class="active-filter" *ngFor="let filtro of filtrosAplicados" (click)="toggleSelection(filtro[2], filtro[3])">
                   {{filtro[1]}}
-                  <span class="active-filter-delete glyphicon glyphicon-trash"></span>
+                  <span class="active-filter-delete icon-close"></span>
                 </span>
               </div>
             </div>
@@ -40,7 +40,7 @@
           <div class="row">
             <div class="col-xs-12">
               <div class="title">
-                <p>Grupo</p>
+                <p>categorías</p>
               </div>
             </div>
           </div>
@@ -49,14 +49,14 @@
               <div id="groups" class="filtros-cerrados">
                 <ul>
                   <div *ngFor="let menuItem of filtrosDisponibles['groups']">
-                    <li *ngIf="queryParams.get('group').split(',').indexOf(menuItem.code) == -1"  class="filter-option" (click)="toggleSelection('group',menuItem.code)">
+                    <li *ngIf="showCategoryOption(menuItem)" class="filter-option" (click)="toggleSelection('group',menuItem.code)">
                       <span>{{menuItem.name}}</span>
                     </li>
                   </div>
                 </ul>
               </div>
               <div class="row">
-                <div class="col-xs-8 col-xs-offset-2" (click)="toggleFiltros('groups')">
+                <div class="col-xs-6 col-xs-offset-3" (click)="toggleFiltros('groups')">
                   <p class="btn-mostrar-filtros">Mostrar más</p>
                 </div>
               </div>
@@ -64,11 +64,11 @@
           </div>
         </div>
 
-        <div *ngIf="queryParams.has('group') || queryParams.has('subgroup')">
+        <div *ngIf="viewHasLoaded && (queryParams.has('group') || queryParams.has('subgroup'))">
           <div class="row">
             <div class="col-xs-12">
               <div class="title">
-                <p>Subgrupo</p>
+                <p>subcategorías</p>
               </div>
             </div>
           </div>
@@ -77,14 +77,12 @@
               <div id="subgroups" class="filtros-cerrados">
                 <ul>
                   <li class="filter-option" *ngFor="let menuItem of filtrosDisponibles['subgroups']" (click)="toggleSelection('subgroup',menuItem.code)">
-                    <!--<input type="checkbox" id="sub_{{menuItem.code}}" (change)="toggleSelection('subgroup',menuItem.code)">-->
-                    <!--<label for="sub_{{menuItem.code}}">{{menuItem.name}}</label>-->
                     <span>{{menuItem.name}}</span>
                   </li>
                 </ul>
               </div>
               <div class="row">
-                <div class="col-xs-8 col-xs-offset-2" (click)="toggleFiltros('subgroups')">
+                <div class="col-xs-6 col-xs-offset-3" (click)="toggleFiltros('subgroups')">
                   <p class="btn-mostrar-filtros">Mostrar más</p>
                 </div>
               </div>
@@ -101,8 +99,6 @@
               <div class="collapse" id="collapseMarca">
                 <ul>
                   <li class="filter-option" *ngFor="let marcaItem of filtrosDisponibles['brands'], let i = index" (click)="toggleSelection('brand',marcaItem.code)">
-                    <!--<input type="checkbox" id="marca.{{i}}" (change)="toggleSelection('brand',marcaItem.code)">-->
-                    <!--<label for="marca.{{i}}">{{marcaItem.name}}</label>-->
                     <span>{{marcaItem.name}}</span>
                   </li>
                 </ul>
@@ -116,8 +112,19 @@
                 <p>Precio <span id="precio" class="icon-plus pull-right"></span></p>
               </div>
               <div class="collapse" id="collapsePrecio">
-                <div class="well">
-                  ...
+                <div class="filtro-precio">
+                  <div class="row">
+                    <form *ngIf="filtrosDisponibless && filtrosDisponibless['prices']">
+                      <div class="col-xs-6">
+                        <p>Desde</p>
+                        <input type="tel" class="desde" [placeholder]="filtrosDisponibles['prices']['minPrice']" name="minPrice" (blur)="toggleSelection('minPrice', minPrice)" (keyup.enter)="toggleSelection('minPrice', minPrice)" [(ngModel)]="minPrice">
+                      </div>
+                      <div class="col-xs-6">
+                        <p>Hasta</p>
+                        <input type="tel" class="hasta" [placeholder]="filtrosDisponibles['prices']['maxPrice']" name="maxPrice" (blur)="toggleSelection('maxPrice', maxPrice)" (keyup.enter)="toggleSelection('maxPrice', maxPrice)" [(ngModel)]="maxPrice">
+                      </div>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>
@@ -130,12 +137,7 @@
               </div>
               <div class="collapse" id="collapseColor">
                 <ul>
-                  <li class="filter-option filtro-color" *ngFor="let colorItem of filtrosDisponibles['colors'], let i = index">
-                    <!--<input type="checkbox" [checked]="isSelected('color',colorItem.code)" id="color.{{i}}" (change)="toggleSelection('color',colorItem.code)">-->
-                    <!--<label for="color.{{i}}" [class.bolder]="isSelected('color',colorItem.code)">-->
-                    <!--{{colorItem.name}}-->
-                    <!--<div id="preview_{{colorItem.code}}" class="color-preview"></div>-->
-                    <!--</label>-->
+                  <li class="filter-option filtro-color" *ngFor="let colorItem of filtrosDisponibles['colors'], let i = index" (click)="toggleSelection('color',colorItem.code)">
                     <span>{{colorItem.name}}</span>
                   </li>
                 </ul>
@@ -150,9 +152,7 @@
               </div>
               <div class="collapse" id="collapseMateriales">
                 <ul>
-                  <li class="filter-option" *ngFor="let materialesItem of filtrosDisponibles['materials']">
-                    <!--<input type="checkbox" id="material_{{materialesItem.code}}" (change)="toggleSelection('material',materialesItem.code)">-->
-                    <!--<label for="material_{{materialesItem.code}}">{{materialesItem.name}}</label>-->
+                  <li class="filter-option" *ngFor="let materialesItem of filtrosDisponibles['materials']" (click)="toggleSelection('material',materialesItem.code)">
                     <span>{{materialesItem.name}}</span>
                   </li>
                 </ul>
@@ -162,7 +162,7 @@
         </div>
 
         <!-- contenido de los filtros -->
-        <div class="panel-heading visible-sm visible-xs" role="tab" id="headingOne">
+        <div class="panel-heading cerrar-filtros visible-sm visible-xs" role="tab" id="headingOne">
           <h4 class="panel-title text-center">
             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
               cerrar filtros
@@ -170,6 +170,7 @@
           </h4>
         </div>
       </div>
+      <hr/>
     </div>
   </div>
 

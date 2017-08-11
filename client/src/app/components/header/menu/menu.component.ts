@@ -72,14 +72,12 @@ export class MenuComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    //console.log('inicializando componente de menú');
     this.inicializarMenu();
     document.getElementById("myNav").style.width = "0%";
     this.cargarDatosMenu();
   }
 
   ngAfterViewInit() {
-    console.log('finalizo la carga');
     this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
   }
 
@@ -95,7 +93,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
         this.seleccionarCategoria(this.categoriaSeleccionada, true);
       },
       error => {
-        console.log(error);
+        console.error(error);
       }
     );
   }
@@ -297,7 +295,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
           this.seleccionarGrupo(this.grupoSeleccionado, true);
         },
         error => {
-          console.log(error);
+          console.error(error);
         }
       );
     }
@@ -488,7 +486,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
           this.removeGrupo = false;
         },
         error => {
-          console.log(error);
+          console.error(error);
         }
       );
     }
@@ -580,7 +578,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
         }
       },
       error => {
-        console.log(error);
+        console.error(error);
       }
     );
   }
@@ -610,7 +608,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
             this.toggleStateOverlay('hidden');
           }
         }
-      }, error => { console.log(error); }
+      }, error => { console.error(error); }
     );
   }
 
@@ -635,7 +633,6 @@ export class MenuComponent implements OnInit, AfterViewInit {
   }
 
   public toggleClass(idComponent, class1, class2) {
-    console.log('toggle idComponent: ' + idComponent + ', class1: ' + class1 + ', class2: ' + class2);
     $(idComponent).toggleClass(class1 + " " + class2);
   }
 
@@ -663,7 +660,6 @@ export class MenuComponent implements OnInit, AfterViewInit {
   /*public updateMenuItem(menuItem: MenuItem, inicializar: boolean = false) {
     this._menuService.edit(menuItem).subscribe(
       response => {
-        console.log(response);
         if (inicializar) {
           this.inicializarMenu();
           this.cargarDatosMenu();
@@ -677,7 +673,6 @@ export class MenuComponent implements OnInit, AfterViewInit {
   public crearMenuItem() {
     this._menuService.save(null).subscribe(
       response => {
-        console.log(response);
         this.inicializarMenu();
         //this.nuevoMenuItem = new MenuItem();
         $("#agregarMenuItem").modal({
@@ -691,7 +686,6 @@ export class MenuComponent implements OnInit, AfterViewInit {
   public eliminarMenuItem() {
     this._menuService.remove(null).subscribe(
       response => {
-        console.log(response);
         //this.menuEditar = new MenuItem();
         this.inicializarMenu();
       }, error => { console.error(error); }

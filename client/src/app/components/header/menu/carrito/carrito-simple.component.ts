@@ -34,7 +34,6 @@ export class CarritoSimpleComponent {
   }
 
   public cargarCarrito() {
-    console.log('cargando carrito de localstorage');
     //consultar localstorage
     let localSC = JSON.parse(localStorage.getItem('matisses.shoppingCart'));
     if (!localSC) {
@@ -49,14 +48,11 @@ export class CarritoSimpleComponent {
       this.shoppingCart.items = new Array<Item>();
       //this.items = new Array<Item>();
     }
-    console.log(this.shoppingCart);
     this.procesarCarrito();
   }
 
   public procesarItem(item: Item) {
-    console.log('procesando item')
     item.selectedQuantity = parseInt(item.selectedQuantity.toString());
-    console.log(item);
     //0. Cargar contenido de localStorage
     this.cargarCarrito();
     //1. validar contenido
@@ -113,8 +109,5 @@ export class CarritoSimpleComponent {
       this.totalCarrito += (price * selectedQuantity);
     }
     this.totalImpuestos = (this.totalCarrito - totalSinIVA) | 0;
-    console.log('total sin iva: ' + totalSinIVA);
-    console.log('total impuestos: ' + this.totalImpuestos);
-    console.log('el numero total de items es ' + this.totalItems);
   }
 }

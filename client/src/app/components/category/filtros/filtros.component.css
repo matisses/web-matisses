@@ -15,6 +15,11 @@
   margin-left: 25%;
   border: 1px solid #EDEDED;
   margin-bottom: 10px;
+  padding: 5px 0;
+}
+
+.cerrar-filtros {
+  background-color: #EDEDED;
 }
 
 .panel-heading a {
@@ -29,12 +34,16 @@
   padding: 0px;
 }
 
+.panel-collapse hr {
+  border-top: 1px dotted #EDEDED;
+}
+
 
 /*  Estilos de los filtros */
 
 .title {
   text-transform: uppercase;
-  border-bottom: 1px solid #5B5B5B;
+  border-bottom: 1px solid #7C7C7C;
   padding-left: 10px;
 }
 
@@ -52,10 +61,6 @@ ul {
   margin-top: 5px;
 }
 
-ul li {
-  margin: -4px 5px;
-}
-
 ul label {
   font-weight: normal;
   margin-left: 10px;
@@ -68,7 +73,7 @@ ul label {
 
 .btn-mostrar-filtros {
   border: 1px solid #7C7C7C;
-  padding: 5px 10px;
+  padding: 5px 0px;
   text-align: center;
   cursor: pointer;
   margin-top: 10px;
@@ -92,7 +97,7 @@ ul label {
 
 .filter-collapse {
   text-transform: uppercase;
-  border-top: 1px solid #5B5B5B;
+  border-top: 1px solid #7C7C7C;
   padding: 5px 5px 5px 10px;
   cursor: pointer;
 }
@@ -117,17 +122,15 @@ ul label {
 
 .active-filter {
   margin: 0px 5px 5px 0px;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #ddd;
+  padding: 2px 5px;
+  border: 1px solid #D1D1D1;
   display: inline-block;
+  font-size: 12px;
 }
 
 .active-filter:hover {
   cursor: pointer;
-  border: 1px solid #aaa;
-  background-color: #bbb;
+  background-color: #EDEDED;
 }
 
 .active-filter:hover .active-filter-delete {
@@ -139,11 +142,31 @@ ul label {
 }
 
 li.filter-option {
-  /*pendiente*/
+  margin-top: 5px;
+  margin-left: 5px;
 }
 
 li.filter-option:hover {
   cursor: pointer;
-  font-size: 22px;
-  position: relative;
+  font-weight: bold;
+}
+
+#collapseColor {
+  text-transform: lowercase;
+}
+
+.filtro-precio {
+  margin-top: 10px;
+  margin-bottom: 15px;
+  padding: 0 10px;
+}
+
+.filtro-precio p {
+  margin-bottom: 0;
+}
+
+.desde, .hasta {
+  width: 100%;
+  padding: 5px 15px;
+  margin-top: 5px;
 }

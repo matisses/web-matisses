@@ -1,5 +1,11 @@
 .producto {
   margin-bottom: 20px;
+  border: 1px solid #FFF;
+  padding-bottom: 10px;
+}
+
+.producto:hover {
+  border: 1px solid #EDEDED;
 }
 
 .nombre-producto {
@@ -69,6 +75,13 @@
 
 .pagination li a.active {
   background-color: #eee;
+}
+
+.btn-matisses {
+  color: #5B5B5B;
+  background-color: #FFF;
+  border-color: #EDEDED;
+  border-radius: 0;
 }
 
 

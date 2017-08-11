@@ -2,9 +2,20 @@
 
 <div sticky-body>
   <div class="container">
-    <!-- miga de pan -->
-    <miga-de-pan></miga-de-pan>
-
+    <div class="row" *ngIf="messageError != null && messageError.length > 0">
+      <div class="col-xs-12">
+        <div class="alert alert-danger" role="alert">
+          <p>{{messageError}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="messageExit != null && messageExit.length > 0">
+      <div class="col-xs-12">
+        <div class="alert alert-success" role="alert">
+          <p>{{messageExit}}</p>
+        </div>
+      </div>
+    </div>
     <div class="row">
       <div class="col-sm-10 col-sm-offset-1">
         <div class="row">
@@ -42,44 +53,49 @@
               <div class="col-xs-10 col-xs-offset-1">
                 <p>Escribenos.</p>
                 <br/>
-                <form action="">
+                <form (submit)="enviar()">
                   <div class="row">
                     <div class="col-xs-12">
                       <label for="name">Nombre*</label>
-                      <input type="text" id="name" class="input-matisses">
+                      <input id="name" type="text" class="input-matisses" [class.required-field]="!valid" name="firstName" [(ngModel)]="firstName" required>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-xs-12">
                       <label for="mail">E-mail*</label>
-                      <input type="mail" id="mail" class="input-matisses">
+                      <input id="mail" type="mail" class="input-matisses" [class.required-field]="!valid" name="mail" [email]="true" [(ngModel)]="mail" required>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-xs-6">
                       <label for="cel">Celular</label>
-                      <input type="tel" id="cel" class="input-matisses">
+                      <input id="cel" type="tel" class="input-matisses" name="cellular" [(ngModel)]="cellular">
                     </div>
                     <div class="col-xs-6">
-                      <label for="tel">Telefono</label>
-                      <input type="tel" id="tel" class="input-matisses">
+                      <label for="tel">Teléfono</label>
+                      <input id="tel" type="tel" class="input-matisses" name="phone" [(ngModel)]="phone">
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-xs-12">
                       <label for="asunto">Asunto*</label>
-                      <input type="text" id="asunto" class="input-matisses">
+                      <input id="asunto" type="text" class="input-matisses" [class.required-field]="!valid" name="subject" [(ngModel)]="subject" required>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-xs-12">
                       <label for="mensaje">Mensaje*</label>
-                      <textarea name="mensaje" rows="5" cols="1" id="mensaje" class="input-matisses"></textarea>
+                      <textarea id="mensaje" rows="5" cols="1" class="input-matisses" [class.required-field]="!valid" name="message" [(ngModel)]="message" required></textarea>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-xs-12">
-                      <button class="btn-enviar" type="submit" name="enviar" >
+                      <ng2-google-recaptcha [siteKey]="recaptchaSiteKey" (onCaptchaComplete)="onCaptchaComplete($event)" required></ng2-google-recaptcha>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <button class="btn-enviar" type="submit" name="enviar">
                         Enviar
                       </button>
                     </div>
@@ -91,7 +107,21 @@
         </div>
       </div>
     </div>
-
+    <br/>
+    <div class="row" *ngIf="messageError != null && messageError.length > 0">
+      <div class="col-xs-12">
+        <div class="alert alert-danger" role="alert">
+          <p>{{messageError}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="messageExit != null && messageExit.length > 0">
+      <div class="col-xs-12">
+        <div class="alert alert-success" role="alert">
+          <p>{{messageExit}}</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
