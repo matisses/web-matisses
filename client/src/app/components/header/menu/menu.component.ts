@@ -78,7 +78,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   }
 
   private cargarDatosMenu() {
-    this._menuService.listCategories().subscribe(
+    this._menuService.listMenuRecursively(null).subscribe(
       response => {
         this.categorias = response.result;
         if (!this.categoriaSeleccionada) {
@@ -155,13 +155,17 @@ export class MenuComponent implements OnInit, AfterViewInit {
       name: this.categoriaSeleccionada.name,
       route: '',
       parentId: null,
-      position: this.categorias.length + 1
+      menuItemBefore: this.categorias[this.categorias.length - 1]._id,
+      menuItemAfter: null
     }
 
     this._menuService.save(itemMenu).subscribe(
       response => {
         this.categoriaSeleccionada = new MenuItem().newMenuItem('', '', '');
-        this.cargarDatosMenu();
+
+        //Se debe a mandar a actualizar el ultimo item del menu, para que tome como siguiente item el nuevo
+        this.categorias[this.categorias.length - 1].menuItemAfter = response.menuItem._id;
+        this.updateMenuItem(this.categorias[this.categorias.length - 1], true);
       },
       error => {
         console.log(error);
@@ -194,14 +198,54 @@ export class MenuComponent implements OnInit, AfterViewInit {
   }
 
   public subirPosicionCategoria() {
-    for (let i = 0; i < this.categorias.length; i++) {
-      if (this.categorias[i]._id === this.categoriaSeleccionada._id) {
-        if (this.categorias[i].position > 1) {
-          this.categorias[i].position = (this.categorias[i].position - 1);
-          this.updateMenuItem(this.categorias[i], false);
+    this.moverPosicionUp(this.categoriaSeleccionada, this.categorias);
+  }
 
-          this.categorias[i - 1].position = (this.categorias[i - 1].position + 1);
-          this.updateMenuItem(this.categorias[i - 1], true);
+  private moverPosicionUp(item: MenuItem, menuItem: Array<MenuItem>) {
+    console.log('-----------------------------------');
+    for (let i = 0; i < menuItem.length; i++) {
+      if (menuItem[i]._id === item._id) {
+        if (i > 0) {
+          if (i == 1) {
+            menuItem[i].menuItemBefore = null;
+            menuItem[i].menuItemAfter = menuItem[i - 1]._id;
+            this.updateMenuItem(menuItem[i], false);
+
+            menuItem[i - 1].menuItemBefore = menuItem[i]._id;
+            if (menuItem.length > 2) {
+              menuItem[i - 1].menuItemAfter = menuItem[i + 1]._id;
+              this.updateMenuItem(menuItem[i - 1], false);
+            } else {
+              menuItem[i - 1].menuItemAfter = null;
+              this.updateMenuItem(menuItem[i - 1], true);
+            }
+
+            if (menuItem.length > 2) {
+              menuItem[i + 1].menuItemBefore = menuItem[i - 1]._id;
+              this.updateMenuItem(menuItem[i + 1], true);
+            }
+          } else {
+            menuItem[i].menuItemBefore = menuItem[i - 2]._id;
+            menuItem[i].menuItemAfter = menuItem[i - 1]._id;
+            this.updateMenuItem(menuItem[i], false);
+
+            menuItem[i - 2].menuItemAfter = menuItem[i]._id;
+            this.updateMenuItem(menuItem[i - 2], false);
+
+            menuItem[i - 1].menuItemBefore = menuItem[i]._id;
+            if ((menuItem.length - 1) > i) {
+              menuItem[i - 1].menuItemAfter = menuItem[i + 1]._id;
+              this.updateMenuItem(menuItem[i - 1], false);
+            } else {
+              menuItem[i - 1].menuItemAfter = null;
+              this.updateMenuItem(menuItem[i - 1], true);
+            }
+
+            if ((menuItem.length - 1) > i) {
+              menuItem[i + 1].menuItemBefore = menuItem[i - 1]._id;
+              this.updateMenuItem(menuItem[i + 1], true);
+            }
+          }
         }
         break;
       }

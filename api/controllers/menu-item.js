@@ -54,6 +54,8 @@ function save(req, res) {
   menuItem.group = req.body.group;
   menuItem.subgroup = req.body.subgroup;
   menuItem.position = req.body.position;
+  menuItem.menuItemAfter = req.body.menuItemAfter;
+  menuItem.menuItemBefore = req.body.menuItemBefore;
 
   menuItem.save((err, saved) => {
     if (err) {
@@ -92,29 +94,9 @@ function remove(req, res) {
   });
 }
 
-function listMenuCategory(req, res) {
-  MenuItem.find({
-    parentId: null
-  }, (err, result) => {
-    if (err) {
-      res.status(500).send({
-        message: 'ocurrio un error al consultar las categorias del menú'
-      });
-    } else if (!result) {
-      res.status(404).send({
-        message: 'no se encontró ninguna categoria para el menú'
-      });
-    } else {
-      res.status(200).send({
-        result: result
-      });
-    }
-  }).sort('position');
-}
-
 function loadMenuRecursively(req, res) {
   var menuItems = [];
-  executeRecursion(null, menuItems, res);
+  executeRecursion(req.params.parentId, menuItems, res);
 }
 
 function executeRecursion(parentId, itemsArray, res) {
@@ -154,6 +136,5 @@ module.exports = {
   edit,
   save,
   remove,
-  listMenuCategory,
   loadMenuRecursively
 };
