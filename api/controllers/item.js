@@ -84,6 +84,8 @@ function armarFilterObject2(req) {
   var brand = req.query.brand;
   var color = req.query.color;
   var material = req.query.material;
+  var minPrice = req.query.minPrice;
+  var maxPrice = req.query.maxPrice;
 
   var filterObject = {};
   if (typeof group != 'undefined' && group != null) {
@@ -105,7 +107,30 @@ function armarFilterObject2(req) {
   if (typeof material != 'undefined' && material != null) {
     filterObject['materials.code'] = material;
   }
-  console.log(filterObject);
+  if (typeof minPrice != 'undefined' && minPrice != null) {
+    filterObject['$and'] = [{
+      priceaftervat: {
+        $gte: parseInt(minPrice)
+      }
+    }];
+  }
+  if (typeof maxPrice != 'undefined' && maxPrice != null) {
+    if (typeof minPrice != 'undefined' && minPrice != null) {
+      filterObject['$and'].push({
+        priceaftervat: {
+          $lte: parseInt(maxPrice)
+        }
+      });
+    } else {
+      filterObject['$and'] = [{
+        priceaftervat: {
+          $lte: parseInt(maxPrice)
+        }
+      }];
+    }
+  }
+  //console.log(filterObject);
+  //console.log(filterObject['$and']);
   return filterObject;
 }
 
@@ -362,7 +387,7 @@ function consultarFiltros1(req, res) {
                             message: 'no se obtuvieron resultados con los filtros especificados'
                           });
                         } else {
-                          //Obtuvo resultados para color
+                          //Obtuvo resultados para material
                           resultados['materials'] = [];
                           for (var i = 0; i < result5.length; i++) {
                             if (result5[i]._id.material != null && result5[i]._id.material.name != null) {
@@ -567,8 +592,37 @@ function consultarFiltros(req, res) {
                           });
                         }
                       }
-                      res.status(200).send({
-                        result: resultados
+                      Item.aggregate([{
+                          "$match": filterObject
+                        },
+                        {
+                          "$group": {
+                            "_id": null,
+                            minPrice: {
+                              $min: "$priceaftervat"
+                            },
+                            maxPrice: {
+                              $max: "$priceaftervat"
+                            }
+                          }
+                        }
+                      ], (err6, result6) => {
+                        if (err6) {
+                          console.error(err6);
+                          res.status(500).send({
+                            message: 'ocurrio un error al consultar los filtros (material)'
+                          });
+                        } else if (!result6) {
+                          res.status(404).send({
+                            message: 'no se obtuvieron resultados con los filtros especificados'
+                          });
+                        } else {
+                          //Obtuvo resultados para precioMinimo
+                          resultados['minPrice'] = result6;
+                          res.status(200).send({
+                            result: resultados
+                          });
+                        }
                       });
                     }
                   });
