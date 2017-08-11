@@ -14,8 +14,8 @@ import { MenuComponent } from './components/header/menu/menu.component';
 import { CarritoComponent } from './components/header/menu/carrito/carrito.component';
 import { CarritoSimpleComponent } from './components/header/menu/carrito/carrito-simple.component';
 
-//Componente miga de padding
-import { MigaDePanComponent } from './components/miga-de-pan/miga-de-pan.component';
+//Componente miga de pan
+//import { MigaDePanComponent } from './components/miga-de-pan/miga-de-pan.component';
 
 //Componentes del cuerpo del home
 import { HomeComponent } from './components/home/home.component';
@@ -105,7 +105,7 @@ import { AppComponent } from './app.component';
     CarritoSimpleComponent,
     IngresarComponent,
     InfoPagoComponent,
-    MigaDePanComponent,
+    //MigaDePanComponent,
     ResultadoTransacciComponent,
     ModalComponent,
     AdminComponent,

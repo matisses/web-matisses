@@ -29,7 +29,6 @@ export class CarritoComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log('vista inicializada');
     this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
   }
 

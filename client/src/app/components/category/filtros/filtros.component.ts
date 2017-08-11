@@ -21,6 +21,9 @@ export class FiltrosComponent implements AfterViewInit {
   public queryParams: Map<string, string>;
   private queryString: string;
   private availableFields: string[];
+  public viewHasLoaded: boolean = false;
+  public minPrice: number;
+  public maxPrice: number;
 
   constructor(private _itemService: ItemService, private _route: ActivatedRoute, private _router: Router) {
     this.filtrosDisponibles = new Map<String, Array<any>>();
@@ -34,13 +37,22 @@ export class FiltrosComponent implements AfterViewInit {
 
   public inicializarFiltros(availableFields, queryParams, queryString) {
     //console.log('inicializando componente de filtros');
+    //console.log(queryParams);
     this.availableFields = availableFields;
     this.queryParams = queryParams;
+    if (this.queryParams.has('minPrice')) {
+      this.minPrice = parseInt(this.queryParams.get('minPrice'));
+    }
+    if (this.queryParams.has('maxPrice')) {
+      this.maxPrice = parseInt(this.queryParams.get('maxPrice'));
+    }
     this.queryString = queryString;
     this._itemService.updateFilters(queryString).subscribe(
       response => {
         this.filtrosDisponibles = response.result;
+        console.log(this.filtrosDisponibles);
         this.configurarFiltrosActivos();
+        this.viewHasLoaded = true;
       }, error => {
         console.error(error);
       }
@@ -48,8 +60,8 @@ export class FiltrosComponent implements AfterViewInit {
   }
 
   private configurarAlturaInicialFiltros() {
-    console.log('configurando altura por filtro');
-    console.log(this.filtrosDisponibles['groups']);
+    //console.log('configurando altura por filtro');
+    //console.log(this.filtrosDisponibles['groups']);
     if (this.filtrosDisponibles['groups'] && this.filtrosDisponibles['groups'].length < 11) {
       //configura altura  dependiendo de # de opciones
       //document.getElementById(idBloque).style.height = (17*this.filtrosDisponibles[i].length) + "px";
@@ -72,14 +84,14 @@ export class FiltrosComponent implements AfterViewInit {
   }
 
   private configurarFiltrosActivos() {
-    console.log('configurando filtros aplicados');
+    //console.log('configurando filtros aplicados');
     this.filtrosAplicados = new Array<string[]>();
     for (let i = 0; i < this.availableFields.length; i++) {
       if (this.queryParams.has(this.availableFields[i])) {
         switch (this.availableFields[i]) {
           case 'group':
             let list = this.queryParams.get(this.availableFields[i]).split(',');
-            for(let j = 0; j < list.length; j++){
+            for (let j = 0; j < list.length; j++) {
               this._itemService.findType('grupo', '?fieldValue=' + list[j]).subscribe(
                 response => {
                   if (response.result && response.result[0][this.availableFields[i]].code) {
@@ -117,7 +129,7 @@ export class FiltrosComponent implements AfterViewInit {
             this._itemService.findType('color', '?fieldValue=' + this.queryParams.get(this.availableFields[i])).subscribe(
               response => {
                 if (response.result && response.result[0].code) {
-                  this.filtrosAplicados.push(['Color', response.result[0].name, 'color']);
+                  this.filtrosAplicados.push(['Color', response.result[0].name, 'color', response.result[0].code]);
                 }
               }, error => {
                 console.error(error);
@@ -128,12 +140,18 @@ export class FiltrosComponent implements AfterViewInit {
             this._itemService.findType('material', '?fieldValue=' + this.queryParams.get(this.availableFields[i])).subscribe(
               response => {
                 if (response.result && response.result[0].code) {
-                  this.filtrosAplicados.push(['Material', response.result[0].name, 'material']);
+                  this.filtrosAplicados.push(['Material', response.result[0].name, 'material', response.result[0].code]);
                 }
               }, error => {
                 console.error(error);
               }
             );
+            break;
+          case 'minPrice':
+            this.filtrosAplicados.push(['Precio mínimo', '$ desde ' + this.queryParams.get('minPrice'), 'minPrice']);
+            break;
+          case 'maxPrice':
+            this.filtrosAplicados.push(['Precio máximo', '$ hasta ' + this.queryParams.get('maxPrice'), 'maxPrice']);
             break;
           default:
           //y sino?
@@ -153,8 +171,16 @@ export class FiltrosComponent implements AfterViewInit {
     $(idComponent).toggleClass("icon-plus icon-minus");
   }
 
-  public toggleSelection(tipoFiltro, codigo) {
-    if (this.queryParams.has(tipoFiltro)) {
+  public toggleSelection(tipoFiltro: string, codigo: string) {
+    if (tipoFiltro.endsWith('Price')) {
+      if (!codigo || codigo == null || codigo.length === 0) {
+        if (this.queryParams.has(tipoFiltro)) {
+          this.queryParams.delete(tipoFiltro);
+        }
+      } else {
+        this.queryParams.set(tipoFiltro, codigo);
+      }
+    } else if (this.queryParams.has(tipoFiltro)) {
       let listStr: string = this.queryParams.get(tipoFiltro);
       let list: Array<string> = listStr.split(',');
       let pos = list.indexOf(codigo);
@@ -177,13 +203,13 @@ export class FiltrosComponent implements AfterViewInit {
 
   private navigate() {
     let queryParamsObj = {};
-    console.log(this.availableFields);
+    //console.log(this.availableFields);
     for (let i = 0; i < this.availableFields.length; i++) {
       let key = this.availableFields[i];
       queryParamsObj[key] = this.queryParams.get(key);
     }
     queryParamsObj['page'] = '1';
-    console.log(queryParamsObj);
+    //console.log(queryParamsObj);
     this._router.navigate(['/categoria'], { queryParams: queryParamsObj });
   }
 
@@ -205,33 +231,20 @@ export class FiltrosComponent implements AfterViewInit {
     let maxHeight = this.filtrosDisponibles[idBloque].length * 17;
     let actualHeightStr = document.getElementById(idBloque).style.height;
     let actualHeight = actualHeightStr ? parseInt(actualHeightStr.substring(0, actualHeightStr.length - 2)) : 0;
-    console.log(actualHeight);
+    //console.log(actualHeight);
     /*if (actualHeight === null || typeof actualHeight === 'undefined'){
       actualHeight = 0;
     }*/
     if (actualHeight < maxHeight) {
-      console.log('expandir');
+      //console.log('expandir');
       document.getElementById(idBloque).style.height = maxHeight + "px";
     } else {
-      console.log('contraer');
+      //console.log('contraer');
       document.getElementById(idBloque).style.height = "200px";
     }
-
-    /*if (document.getElementById(idBloque).style.height === '0%') {
-      document.getElementById("myNav").style.width = "100%";
-    } else {
-      document.getElementById("myNav").style.width = "0%";
-    }*/
   }
 
-  /*public toggleFiltros(idComponent, class1, class2) {
-    console.log('toggle idComponent: ' + idComponent + ', class1: ' + class1 + ', class2: ' + class2);
-    $(idComponent).toggleClass(class1 + " " + class2);
-  }*/
-
-  /*public mostrarMas(){
-    console.log('has dado click en más');
-    $(".filtros-content").css('height', '400px');
-  }*/
-
+  public showCategoryOption(menuItem) {
+    return !this.queryParams.has('group') || this.queryParams.get('group').split(',').indexOf(menuItem.code) == -1;
+  }
 }

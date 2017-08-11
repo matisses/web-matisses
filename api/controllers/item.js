@@ -618,7 +618,7 @@ function consultarFiltros(req, res) {
                           });
                         } else {
                           //Obtuvo resultados para precioMinimo
-                          resultados['minPrice'] = result6;
+                          resultados['prices'] = result6[0];
                           res.status(200).send({
                             result: resultados
                           });

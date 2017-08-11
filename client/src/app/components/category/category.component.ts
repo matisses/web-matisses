@@ -40,7 +40,7 @@ export class CategoryComponent implements OnInit {
       this.inicializarMapa(params);
       this._itemService.filter(this.queryString).subscribe(
         response => {
-          console.log(response);
+          //console.log(response);
           this.items = response.result;
           if(this.items && this.items.length > 0){
             if (this.queryParams.has('subgroup')) {
@@ -75,14 +75,14 @@ export class CategoryComponent implements OnInit {
         this.queryString += key + '=' + this.queryParams.get(key);
       }
     }
-    console.log('termino de procesar los parametros del request');
-    console.log(this.queryParams);
-    console.log('queryString = ' + this.queryString);
+    //console.log('termino de procesar los parametros del request');
+    //console.log(this.queryParams);
+    //console.log('queryString = ' + this.queryString);
   }
 
   public openFilter() {
     document.getElementById("myFilter").style.width = "100%";
-    console.log('haz dado click')
+    //console.log('haz dado click')
   }
 
   public closeFilter() {
