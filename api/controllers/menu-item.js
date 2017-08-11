@@ -53,12 +53,12 @@ function save(req, res) {
   menuItem.parentId = req.body.parentId;
   menuItem.group = req.body.group;
   menuItem.subgroup = req.body.subgroup;
-  menuItem.position = req.body.position;
   menuItem.menuItemAfter = req.body.menuItemAfter;
   menuItem.menuItemBefore = req.body.menuItemBefore;
 
   menuItem.save((err, saved) => {
     if (err) {
+      console.error(err);
       res.status(500).send({
         message: 'error al crear el menú'
       });
@@ -96,13 +96,15 @@ function remove(req, res) {
 
 function loadMenuRecursively(req, res) {
   var menuItems = [];
-  executeRecursion(req.params.parentId, menuItems, res);
+  console.log(req.params.id);
+  executeRecursion(req.params.id, null, menuItems, res);
 }
 
-function executeRecursion(parentId, itemsArray, res) {
+function executeRecursion(parentId, idBefore, itemsArray, res) {
   MenuItem.find({
     $and: [{
-      menuItemBefore: parentId
+      parentId: parentId,
+      menuItemBefore: idBefore
     }, {
       menuItemBefore: {
         $exists: true
@@ -117,7 +119,7 @@ function executeRecursion(parentId, itemsArray, res) {
     } else if (resp && resp.length > 0) {
       itemsArray.push(resp[0]);
       if (resp[0].menuItemAfter && resp[0].menuItemAfter != null) {
-        executeRecursion(resp[0]._id, itemsArray, res);
+        executeRecursion(parentId, resp[0]._id, itemsArray, res);
       } else {
         res.status(200).send({
           result: itemsArray

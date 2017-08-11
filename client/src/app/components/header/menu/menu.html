@@ -5,22 +5,34 @@
         <div class="row" *ngIf="confirmacion">
           <div class="col-xs-12">
             <div class="alert alert-danger" role="alert">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-              <p>Desea eliminar el ítem del menú</p>
+              <p>{{mensajeConfirmacion}}</p>
               <div class="row">
                 <div class="col-xs-12 text-right">
                   <button type="button" class="btn btn-default" data-dismiss="alert">No</button>
-                  <button type="button" class="btn btn-danger" data-dismiss="alert" (click)="eliminarItemMenu(idEliminar, true)">Sí</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="alert" (click)="eliminarCategoria(true)" *ngIf="removeCategoria">Sí</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="alert" (click)="eliminarGrupo(true)" *ngIf="removeGrupo">Sí</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <div class="row" *ngIf="errorMessage">
+          <div class="col-xs-12">
+            <div class="alert alert-danger" role="alert">
+              <p>{{errorMessage}}</p>
+            </div>
+          </div>
+        </div>
         <div class="row">
-          <div class="col-xs-4" *ngIf="categoriaSeleccionada">
-            <div class="row" style="margin-bottom: 45px">
+          <div class="col-xs-4" *ngIf="categorias && categoriaSeleccionada">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="titulo">
+                  <p>Categorias</p>
+                </div>
+              </div>
+            </div>
+            <div class="row" style="margin-bottom: 44px">
               <div class="col-xs-12">
                 <div class="input-group">
                   <input type="text" class="form-control" placeholder="Categoria" name="categoria" [(ngModel)]="categoriaSeleccionada.name">
@@ -46,12 +58,12 @@
             <div class="row">
               <div class="col-xs-12">
                 <table class="table">
-                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : categoria._id == categoriaSeleccionada._id}" *ngFor="let categoria of categorias" (click)="seleccionarCategoria(categoria)">
+                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : categoria._id == categoriaSeleccionada._id}" *ngFor="let categoria of categorias" (click)="seleccionarCategoria(categoria, true)">
                     <td>
                       {{categoria.name}}
                     </td>
                   </tr>
-                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : categoriaSeleccionada == null || categoriaSeleccionada._id == null || categoriaSeleccionada._id.length <= 0}" (click)="seleccionarCategoria(categoria)">
+                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : categoriaSeleccionada == null || categoriaSeleccionada._id == null || categoriaSeleccionada._id.length <= 0}" (click)="seleccionarCategoria(categoria, true)">
                     <td>
                       Nueva
                     </td>
@@ -60,14 +72,21 @@
               </div>
             </div>
           </div>
-          <div class="col-xs-4" *ngIf="grupoSeleccionado">
+          <div class="col-xs-4" *ngIf="grupos && grupoSeleccionado">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="titulo">
+                  <p>Grupos</p>
+                </div>
+              </div>
+            </div>
             <div class="row">
               <div class="col-xs-12">
                 <input type="text" class="form-control" placeholder="Grupo" name="grupo" [(ngModel)]="grupoSeleccionado.name">
               </div>
               <div class="col-xs-12 input-item-menu">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Código" name="codigoGrupo" [(ngModel)]="grupoSeleccionado.code">
+                  <input type="text" class="form-control" placeholder="Código" name="codigoGrupo" [(ngModel)]="grupoSeleccionado.group">
                   <span class="input-group-btn">
                     <button class="btn btn-default" type="button" (click)="guardarGrupo()"><span class="glyphicon glyphicon-floppy-disk"></span></button>
                   </span>
@@ -77,10 +96,10 @@
             <br/>
             <div class="row" *ngIf="categoriaSeleccionada && categoriaSeleccionada._id != null && categoriaSeleccionada._id.length > 0">
               <div class="col-xs-4 text-center">
-                <button type="button" class="btn btn-default" (click)="subirPosicionCategoria()"><span class="glyphicon glyphicon-chevron-up"></span></button>
+                <button type="button" class="btn btn-default" (click)="subirPosicionGrupo()"><span class="glyphicon glyphicon-chevron-up"></span></button>
               </div>
               <div class="col-xs-4 text-center">
-                <button type="button" class="btn btn-default" (click)="bajarPosicionCategoria()"><span class="glyphicon glyphicon-chevron-down"></span></button>
+                <button type="button" class="btn btn-default" (click)="bajarPosicionGrupo()"><span class="glyphicon glyphicon-chevron-down"></span></button>
               </div>
               <div class="col-xs-4 text-center">
                 <button type="button" class="btn btn-default" (click)="eliminarGrupo(false)"><span class="glyphicon glyphicon-trash"></span></button>
@@ -90,12 +109,63 @@
             <div class="row">
               <div class="col-xs-12">
                 <table class="table">
-                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : grupo._id == grupoSeleccionado._id}" *ngFor="let grupo of grupos" (click)="seleccionarGrupo(grupo)">
+                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : grupo._id == grupoSeleccionado._id}" *ngFor="let grupo of grupos" (click)="seleccionarGrupo(grupo, true)">
                     <td>
                       {{grupo.name}}
                     </td>
                   </tr>
-                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : grupoSeleccionado == null || grupoSeleccionado._id == null || grupoSeleccionado._id.length <= 0}" (click)="seleccionarGrupo(grupo)">
+                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : grupoSeleccionado == null || grupoSeleccionado._id == null || grupoSeleccionado._id.length <= 0}" (click)="seleccionarGrupo(grupo, true)">
+                    <td>
+                      Nuevo
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-4" *ngIf="subgrupos && categoriaSeleccionada">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="titulo">
+                  <p>Subgrupos</p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <input type="text" class="form-control" placeholder="Subrupo" name="subgrupo" [(ngModel)]="subgrupoSeleccionado.name">
+              </div>
+              <div class="col-xs-12 input-item-menu">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Código" name="codigoSubgrupo" [(ngModel)]="subgrupoSeleccionado.subgroup">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" (click)="guardarSubgrupo()"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <br/>
+            <div class="row" *ngIf="subgrupoSeleccionado && subgrupoSeleccionado._id != null && subgrupoSeleccionado._id.length > 0">
+              <div class="col-xs-4 text-center">
+                <button type="button" class="btn btn-default" (click)="subirPosicionSubgrupo()"><span class="glyphicon glyphicon-chevron-up"></span></button>
+              </div>
+              <div class="col-xs-4 text-center">
+                <button type="button" class="btn btn-default" (click)="bajarPosicionSubgrupo()"><span class="glyphicon glyphicon-chevron-down"></span></button>
+              </div>
+              <div class="col-xs-4 text-center">
+                <button type="button" class="btn btn-default" (click)="eliminarCategoria(false)"><span class="glyphicon glyphicon-trash"></span></button>
+              </div>
+            </div>
+            <br/>
+            <div class="row">
+              <div class="col-xs-12">
+                <table class="table">
+                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : subgrupo._id == subgrupoSeleccionado._id}" *ngFor="let subgrupo of subgrupos" (click)="seleccionarSubgrupo(subgrupo)">
+                    <td>
+                      {{subgrupo.name}}
+                    </td>
+                  </tr>
+                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : subgrupoSeleccionado == null || subgrupoSeleccionado._id == null || subgrupoSeleccionado._id.length <= 0}" (click)="seleccionarSubgrupo(subgrupo)">
                     <td>
                       Nuevo
                     </td>

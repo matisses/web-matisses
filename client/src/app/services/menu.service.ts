@@ -54,7 +54,12 @@ export class MenuItemService {
       'Content-Type': 'application/json'
     });
 
-    return this._http.get(this.url + 'menuitem/recursive/' + id, { headers: headers })
-      .map(res => res.json());
+    if(id == null){
+      return this._http.get(this.url + 'menuitem/recursive', { headers: headers })
+        .map(res => res.json());
+    } else {
+      return this._http.get(this.url + 'menuitem/recursive/' + id, { headers: headers })
+        .map(res => res.json());
+    }
   }
 }

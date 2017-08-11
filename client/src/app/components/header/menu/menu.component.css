@@ -377,6 +377,19 @@ button.child-accordion {
   font-weight: bold;
 }
 
+.titulo {
+  background-color: #EDEDED;
+  color: #5B5B5B;
+  text-align: center;
+  padding: 5px 0px;
+  margin-bottom: 5px;
+}
+
+.titulo p {
+  margin: 0;
+  font-weight: 700;
+}
+
 @media screen and (max-width: 1199px) {
   .stuck {
     max-width: 940px;

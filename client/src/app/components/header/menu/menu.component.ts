@@ -53,13 +53,19 @@ export class MenuComponent implements OnInit, AfterViewInit {
   public stateOverlay: string = 'hidden';
   private viewportWidth: number = 0;
   public adminToken: string;
+  public errorMessage: string = '';
 
-  public idEliminar: string;
+  public mensajeConfirmacion: string = '';
+  public metodoEliminar: string = '';
   public confirmacion: boolean = false;
+  public removeCategoria: boolean = false;
+  public removeGrupo: boolean = false;
   public categoriaSeleccionada: MenuItem;
   public grupoSeleccionado: MenuItem;
+  public subgrupoSeleccionado: MenuItem;
   public categorias: Array<MenuItem>;
   public grupos: Array<MenuItem>;
+  public subgrupos: Array<MenuItem>;
 
   constructor(private _jwt: JWTService, private _menuService: MenuItemService, private _route: ActivatedRoute, private _router: Router) {
     this.padreSeleccionado = new MenuItem();
@@ -85,7 +91,8 @@ export class MenuComponent implements OnInit, AfterViewInit {
           this.categoriaSeleccionada = this.categorias[0];
         }
 
-        this.seleccionarCategoria(this.categoriaSeleccionada);
+        this.grupoSeleccionado = null;
+        this.seleccionarCategoria(this.categoriaSeleccionada, true);
       },
       error => {
         console.log(error);
@@ -93,102 +100,201 @@ export class MenuComponent implements OnInit, AfterViewInit {
     );
   }
 
-  public seleccionarCategoria(categoria) {
+  public seleccionarCategoria(categoria, actualizarGrupo: boolean) {
     this.categoriaSeleccionada = categoria;
-    console.log(this.categoriaSeleccionada);
 
     if (this.categoriaSeleccionada == null) {
       this.categoriaSeleccionada = new MenuItem().newMenuItem('', '', '');
+      this.grupos = null;
     } else {
-      this._menuService.list(this.categoriaSeleccionada._id).subscribe(
-        response => {
-          this.grupos = response.result;
+      if (this.categoriaSeleccionada != null && this.categoriaSeleccionada._id != null && this.categoriaSeleccionada._id.length > 0) {
+        this._menuService.listMenuRecursively(this.categoriaSeleccionada._id).subscribe(
+          response => {
+            this.grupos = response.result;
 
-          if (this.grupos == null || this.grupos.length <= 0) {
-            this.seleccionarGrupo(null);
+            if (this.grupos == null || this.grupos.length <= 0) {
+              this.seleccionarGrupo(null, true);
+            } else {
+              if (!this.grupoSeleccionado || actualizarGrupo) {
+                this.grupoSeleccionado = this.grupos[0];
+                this.seleccionarGrupo(this.grupoSeleccionado, true);
+              }
+            }
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      }
+    }
+  }
+
+  public seleccionarGrupo(grupo, actualizarSubgrupo: boolean) {
+    console.log('---------------------------------');
+    this.grupoSeleccionado = grupo;
+    this.subgrupos = null;
+    this.subgrupoSeleccionado = null;
+
+    if (!this.grupoSeleccionado || this.grupos == null || this.grupos.length <= 0) {
+      this.grupoSeleccionado = new MenuItem().newMenuItem('', '', '');
+    } else {
+      if (this.grupoSeleccionado != null && this.grupoSeleccionado._id != null && this.grupoSeleccionado._id.length > 0) {
+        this._menuService.listMenuRecursively(this.grupoSeleccionado._id).subscribe(
+          response => {
+            this.subgrupos = response.result;
+
+            if (this.subgrupos == null || this.subgrupos.length <= 0) {
+              this.seleccionarSubgrupo(null);
+            } else {
+              if (!this.subgrupoSeleccionado || actualizarSubgrupo) {
+                this.subgrupoSeleccionado = this.subgrupos[0];
+                this.seleccionarSubgrupo(this.subgrupoSeleccionado);
+              }
+            }
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      }
+    }
+  }
+
+  public seleccionarSubgrupo(subgrupo) {
+    this.subgrupoSeleccionado = subgrupo;
+
+    if (!this.subgrupoSeleccionado || this.subgrupos == null || this.subgrupos.length <= 0) {
+      this.subgrupoSeleccionado = new MenuItem().newMenuItem('', '', '');
+    } else {
+      //this.seleccionarGrupo(this.grupoSeleccionado, true);
+    }
+  }
+
+  public guardarCategoria() {
+    this.errorMessage = '';
+    if (this.categoriaSeleccionada.name == null || this.categoriaSeleccionada.name.length <= 0) {
+      this.errorMessage = 'Debe llenar todos los datos para guardar la categoria';
+      return;
+    }
+    if (this.categoriaSeleccionada && this.categoriaSeleccionada._id && this.categoriaSeleccionada._id.length > 0) {
+      this.actualizarMenuItem(true, false, false, this.categoriaSeleccionada);
+    } else {
+      let menuItemBefore;
+      if (this.categorias.length >= 1) {
+        menuItemBefore = this.categorias[this.categorias.length - 1]._id;
+      } else {
+        menuItemBefore = null;
+      }
+
+      let itemMenu = {
+        name: this.categoriaSeleccionada.name,
+        route: '',
+        parentId: null,
+        menuItemBefore: menuItemBefore,
+        menuItemAfter: null
+      }
+
+      this._menuService.save(itemMenu).subscribe(
+        response => {
+          this.categoriaSeleccionada = new MenuItem().newMenuItem('', '', '');
+
+          if (this.categorias.length > 0) {
+            //Se debe a mandar a actualizar el ultimo item del menu, para que tome como siguiente item el nuevo
+            this.categorias[this.categorias.length - 1].menuItemAfter = response.menuItem._id;
+            this.actualizarMenuItem(true, false, false, this.categorias[this.categorias.length - 1]);
           } else {
-            this.grupoSeleccionado = this.grupos[0];
-            this.seleccionarGrupo(this.grupoSeleccionado);
+            this.inicializarMenu();
+            this.cargarDatosMenu();
           }
         },
         error => {
-          this.seleccionarGrupo(null);
           console.log(error);
         }
       );
     }
   }
 
-  public seleccionarGrupo(grupo) {
-    this.grupoSeleccionado = grupo;
-
-    if (!this.grupoSeleccionado || this.grupos == null || this.grupos.length <= 0) {
-      this.grupoSeleccionado = new MenuItem().newMenuItem('', '', '');
-    } else {
-      /*for (let i = 0; i < this.grupos.length; i++) {
-        if (this.grupos[i]._id === this.grupoSeleccionado._id) {
-          this.grupo = this.grupos[i].name;
-          this.codigoGrupo = this.grupos[i].code;
-
-          /*this._menuService.list(this.categoriaSeleccionada).subscribe(
-            response => {
-              this.grupos = response.result;
-
-              if (!this.grupoSeleccionado) {
-                this.grupoSeleccionado = this.grupos[0]._id;
-              }
-
-              this.seleccionarGrupo();
-            },
-            error => {
-              console.log(error);
-            }
-          );
-          break;
-        }
-      }*/
-    }
-  }
-
-  public guardarCategoria() {
-    let itemMenu = {
-      name: this.categoriaSeleccionada.name,
-      route: '',
-      parentId: null,
-      menuItemBefore: this.categorias[this.categorias.length - 1]._id,
-      menuItemAfter: null
-    }
-
-    this._menuService.save(itemMenu).subscribe(
-      response => {
-        this.categoriaSeleccionada = new MenuItem().newMenuItem('', '', '');
-
-        //Se debe a mandar a actualizar el ultimo item del menu, para que tome como siguiente item el nuevo
-        this.categorias[this.categorias.length - 1].menuItemAfter = response.menuItem._id;
-        this.updateMenuItem(this.categorias[this.categorias.length - 1], true);
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
-
   public guardarGrupo() {
-    if (!this.grupoSeleccionado) {
-
+    this.errorMessage = '';
+    if (this.grupoSeleccionado.group == null || this.grupoSeleccionado.group.length <= 0 || this.grupoSeleccionado.name == null || this.grupoSeleccionado.name.length <= 0) {
+      this.errorMessage = 'Debe llenar todos los datos para guardar el grupo';
+      return;
+    }
+    if (this.grupoSeleccionado && this.grupoSeleccionado._id && this.grupoSeleccionado._id.length > 0) {
+      this.actualizarMenuItem(false, true, false, this.grupoSeleccionado);
     } else {
+      let menuItemBefore;
+      if (this.grupos.length >= 1) {
+        menuItemBefore = this.grupos[this.grupos.length - 1]._id;
+      } else {
+        menuItemBefore = null;
+      }
+
       let itemMenu = {
         group: this.grupoSeleccionado.group,
         name: this.grupoSeleccionado.name,
         route: '',
-        parentId: this.categoriaSeleccionada,
-        position: this.grupos.length + 1
+        parentId: this.categoriaSeleccionada._id,
+        menuItemBefore: menuItemBefore,
+        menuItemAfter: null
       }
+
+      console.log(itemMenu);
 
       this._menuService.save(itemMenu).subscribe(
         response => {
           this.grupoSeleccionado = new MenuItem().newMenuItem('', '', '');
-          this.seleccionarCategoria(this.categoriaSeleccionada);
+
+          if (this.grupos.length > 0) {
+            this.grupos[this.grupos.length - 1].menuItemAfter = response.menuItem._id;
+            this.actualizarMenuItem(false, true, false, this.grupos[this.grupos.length - 1]);
+          }
+          this.seleccionarCategoria(this.categoriaSeleccionada, true);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
+  }
+
+  public guardarSubgrupo() {
+    this.errorMessage = '';
+    if (this.subgrupoSeleccionado.subgroup == null || this.subgrupoSeleccionado.subgroup.length <= 0 || this.subgrupoSeleccionado.name == null || this.subgrupoSeleccionado.name.length <= 0) {
+      this.errorMessage = 'Debe llenar todos los datos para guardar el subgrupo';
+      return;
+    }
+    if (this.subgrupoSeleccionado && this.subgrupoSeleccionado._id && this.subgrupoSeleccionado._id.length > 0) {
+      this.actualizarMenuItem(false, false, true, this.subgrupoSeleccionado);
+    } else {
+      let menuItemBefore;
+      if (this.subgrupos.length >= 1) {
+        menuItemBefore = this.subgrupos[this.subgrupos.length - 1]._id;
+      } else {
+        menuItemBefore = null;
+      }
+
+      let itemMenu = {
+        subgroup: this.subgrupoSeleccionado.subgroup,
+        group: this.grupoSeleccionado.group,
+        name: this.subgrupoSeleccionado.name,
+        route: '',
+        parentId: this.grupoSeleccionado._id,
+        menuItemBefore: menuItemBefore,
+        menuItemAfter: null
+      }
+
+      console.log(itemMenu);
+
+      this._menuService.save(itemMenu).subscribe(
+        response => {
+          this.subgrupoSeleccionado = new MenuItem().newMenuItem('', '', '');
+
+          if (this.subgrupos.length > 0) {
+            this.subgrupos[this.subgrupos.length - 1].menuItemAfter = response.menuItem._id;
+            this.actualizarMenuItem(false, false, true, this.subgrupos[this.subgrupos.length - 1]);
+          }
+          this.seleccionarGrupo(this.grupoSeleccionado, true);
         },
         error => {
           console.log(error);
@@ -198,52 +304,79 @@ export class MenuComponent implements OnInit, AfterViewInit {
   }
 
   public subirPosicionCategoria() {
-    this.moverPosicionUp(this.categoriaSeleccionada, this.categorias);
+    this.moverPosicionUp(true, false, false, this.categoriaSeleccionada, this.categorias);
   }
 
-  private moverPosicionUp(item: MenuItem, menuItem: Array<MenuItem>) {
-    console.log('-----------------------------------');
+  public bajarPosicionCategoria() {
+    this.moverPosicionDown(true, false, false, this.categoriaSeleccionada, this.categorias);
+  }
+
+  public subirPosicionGrupo() {
+    this.moverPosicionUp(false, true, false, this.grupoSeleccionado, this.grupos);
+  }
+
+  public bajarPosicionGrupo() {
+    this.moverPosicionDown(false, true, false, this.grupoSeleccionado, this.grupos);
+  }
+
+  public subirPosicionSubgrupo() {
+    this.moverPosicionUp(false, false, true, this.subgrupoSeleccionado, this.subgrupos);
+  }
+
+  public bajarPosicionSubgrupo() {
+    this.moverPosicionDown(false, false, true, this.subgrupoSeleccionado, this.subgrupos);
+  }
+
+  private moverPosicionUp(actualizarCategorias: boolean, actualizarGrupos, actualizarSubgrupos: boolean, item: MenuItem, menuItem: Array<MenuItem>) {
     for (let i = 0; i < menuItem.length; i++) {
       if (menuItem[i]._id === item._id) {
         if (i > 0) {
           if (i == 1) {
             menuItem[i].menuItemBefore = null;
             menuItem[i].menuItemAfter = menuItem[i - 1]._id;
-            this.updateMenuItem(menuItem[i], false);
+            this.actualizarMenuItem(actualizarCategorias, actualizarGrupos, actualizarSubgrupos, menuItem[i]);
 
             menuItem[i - 1].menuItemBefore = menuItem[i]._id;
             if (menuItem.length > 2) {
               menuItem[i - 1].menuItemAfter = menuItem[i + 1]._id;
-              this.updateMenuItem(menuItem[i - 1], false);
+              this.actualizarMenuItem(actualizarCategorias, actualizarGrupos, actualizarSubgrupos, menuItem[i - 1]);
             } else {
               menuItem[i - 1].menuItemAfter = null;
-              this.updateMenuItem(menuItem[i - 1], true);
+              this.actualizarMenuItem(actualizarCategorias, actualizarGrupos, actualizarSubgrupos, menuItem[i - 1]);
             }
 
             if (menuItem.length > 2) {
               menuItem[i + 1].menuItemBefore = menuItem[i - 1]._id;
-              this.updateMenuItem(menuItem[i + 1], true);
+              this.actualizarMenuItem(actualizarCategorias, actualizarGrupos, actualizarSubgrupos, menuItem[i + 1]);
             }
+          } else if (menuItem.length == 2) {
+            menuItem[i].menuItemBefore = null;
+            menuItem[i].menuItemAfter = menuItem[i - 1]._id;
+            this.actualizarMenuItem(actualizarCategorias, actualizarGrupos, actualizarSubgrupos, menuItem[i]);
+
+            menuItem[i - 1].menuItemBefore = menuItem[i]._id;
+            menuItem[i - 1].menuItemAfter = null;
+            this.actualizarMenuItem(actualizarCategorias, actualizarGrupos, actualizarSubgrupos, menuItem[i - 1]);
           } else {
             menuItem[i].menuItemBefore = menuItem[i - 2]._id;
             menuItem[i].menuItemAfter = menuItem[i - 1]._id;
-            this.updateMenuItem(menuItem[i], false);
+            this.actualizarMenuItem(actualizarCategorias, actualizarGrupos, actualizarSubgrupos, menuItem[i]);
 
             menuItem[i - 2].menuItemAfter = menuItem[i]._id;
-            this.updateMenuItem(menuItem[i - 2], false);
+            this.actualizarMenuItem(actualizarCategorias, actualizarGrupos, actualizarSubgrupos, menuItem[i - 2]);
 
             menuItem[i - 1].menuItemBefore = menuItem[i]._id;
             if ((menuItem.length - 1) > i) {
               menuItem[i - 1].menuItemAfter = menuItem[i + 1]._id;
-              this.updateMenuItem(menuItem[i - 1], false);
+              this.actualizarMenuItem(actualizarCategorias, actualizarGrupos, actualizarSubgrupos, menuItem[i - 1]);
             } else {
               menuItem[i - 1].menuItemAfter = null;
-              this.updateMenuItem(menuItem[i - 1], true);
+              this.actualizarMenuItem(actualizarCategorias, actualizarGrupos, actualizarSubgrupos, menuItem[i - 1]);
             }
 
             if ((menuItem.length - 1) > i) {
               menuItem[i + 1].menuItemBefore = menuItem[i - 1]._id;
-              this.updateMenuItem(menuItem[i + 1], true);
+              this.actualizarMenuItem(actualizarCategorias, actualizarGrupos, actualizarSubgrupos, menuItem[i + 1]);
             }
           }
         }
@@ -252,46 +385,136 @@ export class MenuComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public bajarPosicionCategoria() {
-    for (let i = 0; i < this.categorias.length; i++) {
-      if (this.categorias[i]._id === this.categoriaSeleccionada._id) {
-        if (this.categorias[i].position < this.categorias.length) {
-          this.categorias[i].position = (this.categorias[i].position + 1);
-          this.updateMenuItem(this.categorias[i], false);
+  public moverPosicionDown(actualizarCategorias: boolean, actualizarGrupos, actualizarSubgrupos: boolean, item: MenuItem, menuItem: Array<MenuItem>) {
+    for (let i = 0; i < menuItem.length; i++) {
+      if (menuItem[i]._id === item._id) {
+        if (i < (menuItem.length - 1)) {
+          if (i == (menuItem.length - 2)) {
+            menuItem[i].menuItemBefore = menuItem[i + 1]._id;
+            menuItem[i].menuItemAfter = null;
+            this.actualizarMenuItem(false, false, false, menuItem[i]);
 
-          this.categorias[i + 1].position = (this.categorias[i + 1].position - 1);
-          this.updateMenuItem(this.categorias[i + 1], true);
+            menuItem[i + 1].menuItemAfter = menuItem[i]._id;
+            if (menuItem.length > 2) {
+              menuItem[i + 1].menuItemBefore = menuItem[i - 1]._id;
+              this.actualizarMenuItem(false, false, false, menuItem[i + 1]);
+
+              menuItem[i - 1].menuItemAfter = menuItem[i + 1]._id;
+              this.actualizarMenuItem(actualizarCategorias, actualizarGrupos, actualizarSubgrupos, menuItem[i - 1]);
+            } else {
+              this.actualizarMenuItem(actualizarCategorias, actualizarGrupos, actualizarSubgrupos, menuItem[i + 1]);
+            }
+          } else if (menuItem.length == 2) {
+            menuItem[i].menuItemBefore = menuItem[i + 1]._id;
+            menuItem[i].menuItemAfter = null;
+            this.actualizarMenuItem(false, false, false, menuItem[i]);
+
+            menuItem[i + 1].menuItemAfter = menuItem[i]._id;
+            menuItem[i + 1].menuItemBefore = null;
+            this.actualizarMenuItem(actualizarCategorias, actualizarGrupos, actualizarSubgrupos, menuItem[i + 1]);
+          } else {
+            menuItem[i].menuItemBefore = menuItem[i + 1]._id;
+            menuItem[i].menuItemAfter = menuItem[i + 2]._id;
+            this.actualizarMenuItem(false, false, false, menuItem[i]);
+
+            menuItem[i + 1].menuItemAfter = menuItem[i]._id;
+            if (i == 0) {
+              menuItem[i + 1].menuItemBefore = null;
+            } else {
+              menuItem[i + 1].menuItemBefore = menuItem[i - 1]._id;
+            }
+
+            if (menuItem.length > 2) {
+              menuItem[i + 2].menuItemBefore = menuItem[i]._id;
+              this.actualizarMenuItem(false, false, false, menuItem[i + 2]);
+
+              menuItem[i - 1].menuItemAfter = menuItem[i + 1]._id;
+              this.actualizarMenuItem(actualizarCategorias, actualizarGrupos, actualizarSubgrupos, menuItem[i - 1]);
+            } else {
+              this.actualizarMenuItem(actualizarCategorias, actualizarGrupos, actualizarSubgrupos, menuItem[i + 1]);
+            }
+          }
         }
+        break;
       }
     }
   }
 
   public eliminarCategoria(confirmacion: boolean) {
-    if (this.idEliminar == null || this.idEliminar.length <= 0) {
-      this.idEliminar = this.categoriaSeleccionada._id;
+    this.errorMessage = '';
+    this.grupos = null;
+    this.grupoSeleccionado = null;
+    this.subgrupos = null;
+    this.subgrupoSeleccionado = null;
+    if (this.grupos != null && this.grupos.length > 0) {
+      this.errorMessage = 'La categoria ' + this.categoriaSeleccionada.name + ' tiene grupos asociados y por lo tanto no se puede eliminar.';
+      return
     }
-    this.eliminarItemMenu(this.idEliminar, confirmacion);
-  }
-
-  public eliminarGrupo(confirmacion: boolean) {
-    if (this.idEliminar == null || this.idEliminar.length <= 0) {
-      this.idEliminar = this.grupoSeleccionado._id;
-    }
-    this.eliminarItemMenu(this.idEliminar, confirmacion);
-  }
-
-  private eliminarItemMenu(_id: string, confirmacion: boolean) {
     if (!confirmacion) {
+      this.removeCategoria = true;
+      this.mensajeConfirmacion = '¿Esta seguro que desea eliminar la categoria ' + this.categoriaSeleccionada.name + '?.';
       this.confirmacion = true;
     } else {
-      this._menuService.remove(_id).subscribe(
+      this._menuService.remove(this.categoriaSeleccionada._id).subscribe(
         response => {
-          this.cargarDatosMenu();
+          this.eliminarItemMenu(true, false, false, this.categoriaSeleccionada, this.categorias);
+          this.categoriaSeleccionada = null;
+          this.confirmacion = false;
+          this.removeCategoria = false;
         },
         error => {
           console.log(error);
         }
       );
+    }
+  }
+
+  public eliminarGrupo(confirmacion: boolean) {
+    this.errorMessage = '';
+    /*if (this.grupos != null && this.grupos.length > 0) {
+      this.errorMessage = 'La categoria ' + this.categoriaSeleccionada.name + ' tiene grupos asociados y por lo tanto no se puede eliminar.';
+      return
+    }*/
+    if (!confirmacion) {
+      this.removeGrupo = true;
+      this.mensajeConfirmacion = '¿Esta seguro que desea eliminar el grupo ' + this.grupoSeleccionado.name + '?.';
+      this.confirmacion = true;
+    } else {
+      this._menuService.remove(this.grupoSeleccionado._id).subscribe(
+        response => {
+          this.eliminarItemMenu(false, true, false, this.grupoSeleccionado, this.grupos);
+          this.grupoSeleccionado = null;
+          this.confirmacion = false;
+          this.removeGrupo = false;
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
+  }
+
+  private eliminarItemMenu(actualizarCategorias: boolean, actualizarGrupos, actualizarSubgrupos: boolean, item: MenuItem, menuItem: Array<MenuItem>) {
+    for (let i = 0; i < menuItem.length; i++) {
+      if (menuItem[i]._id === item._id) {
+        if (i < (menuItem.length - 1)) {
+          if (i != 0) {
+            menuItem[i - 1].menuItemAfter = menuItem[i + 1]._id;
+            this.actualizarMenuItem(actualizarCategorias, actualizarGrupos, actualizarSubgrupos, menuItem[i - 1]);
+
+            menuItem[i + 1].menuItemBefore = menuItem[i - 1]._id;
+            this.actualizarMenuItem(actualizarCategorias, actualizarGrupos, actualizarSubgrupos, menuItem[i + 1]);
+          } else {
+            menuItem[i + 1].menuItemBefore = null;
+            this.actualizarMenuItem(actualizarCategorias, actualizarGrupos, actualizarSubgrupos, menuItem[i + 1]);
+          }
+        } else {
+          if (i != 0) {
+            menuItem[i - 1].menuItemAfter = null;
+            this.actualizarMenuItem(actualizarCategorias, actualizarGrupos, actualizarSubgrupos, menuItem[i - 1]);
+          }
+        }
+      }
     }
   }
 
@@ -342,7 +565,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   private inicializarMenu() {
     this.menuItems = new Array();
     this.cargarValidarTokenAdmin();
-    this._menuService.list(null).subscribe(
+    this._menuService.listMenuRecursively(null).subscribe(
       response => {
         for (let i = 0; i < response.result.length; i++) {
           let menuItem = new MenuItem();
@@ -363,7 +586,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   }
 
   private cargarHijos(menuItem, esPadre) {
-    this._menuService.list(menuItem._id).subscribe(
+    this._menuService.listMenuRecursively(menuItem._id).subscribe(
       response => {
         for (let i = 0; i < response.result.length; i++) {
           let child = new MenuItem();
@@ -420,7 +643,24 @@ export class MenuComponent implements OnInit, AfterViewInit {
     document.getElementById("idComponent").style.display = "block";
   }
 
-  public updateMenuItem(menuItem: MenuItem, inicializar: boolean = false) {
+  private actualizarMenuItem(actualizarCategorias: boolean, actualizarGrupos, actualizarSubgrupos: boolean, menuItem: MenuItem) {
+    this._menuService.edit(menuItem).subscribe(
+      response => {
+        this.inicializarMenu();
+        if (actualizarCategorias) {
+          this.cargarDatosMenu();
+        } else if (actualizarGrupos) {
+          this.seleccionarCategoria(this.categoriaSeleccionada, false);
+        } else if (actualizarSubgrupos) {
+          this.seleccionarGrupo(this.grupoSeleccionado, false);
+        }
+      }, error => {
+        console.error(error);
+      }
+    );
+  }
+
+  /*public updateMenuItem(menuItem: MenuItem, inicializar: boolean = false) {
     this._menuService.edit(menuItem).subscribe(
       response => {
         console.log(response);
@@ -432,7 +672,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
         console.error(error);
       }
     );
-  }
+  }*/
 
   public crearMenuItem() {
     this._menuService.save(null).subscribe(
