@@ -18,10 +18,8 @@ export class WishListComponent implements OnInit {
   @ViewChild(CarritoSimpleComponent)
   private carrito: CarritoSimpleComponent;
   public qty: number;
-  public priceLow: number;
-  public priceHight: number;
-  public items: Array<Item>;
   public orderByStr: string = 'Precio: más bajos primero';
+  public items: Array<Item>;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService) {
     this.qty = 0;
