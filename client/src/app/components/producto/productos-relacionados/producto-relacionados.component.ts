@@ -55,6 +55,11 @@ export class ProductoRelacionadosComponent implements OnInit {
     return false;
   }
 
+  public scrollTop() {
+    $("html, body").animate({ scrollTop: 0 }, 1000);
+    return false;
+  }
+
   public toggleWishList(item: Item) {
     this._itemService.toggleWishList(item);
   }
