@@ -13,7 +13,7 @@ import { routing, appRoutingProviders } from './app.routing';
 export class AppComponent {
   title = 'app';
 }
-
+/*
 @NgModule({
     declarations: [
         AppComponent,
@@ -29,3 +29,4 @@ export class AppComponent {
     bootstrap: [AppComponent]
 })
 export class AppModule { }
+*/

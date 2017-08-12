@@ -1,10 +1,192 @@
+<div id="modalMenu" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row" *ngIf="confirmacion">
+          <div class="col-xs-12">
+            <div class="alert alert-danger" role="alert">
+              <p>{{mensajeConfirmacion}}</p>
+              <div class="row">
+                <div class="col-xs-12 text-right">
+                  <button type="button" class="btn btn-default" data-dismiss="alert">No</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="alert" (click)="eliminarCategoria(true)" *ngIf="removeCategoria">Sí</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="alert" (click)="eliminarGrupo(true)" *ngIf="removeGrupo">Sí</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="errorMessage">
+          <div class="col-xs-12">
+            <div class="alert alert-danger" role="alert">
+              <p>{{errorMessage}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-4" *ngIf="categorias && categoriaSeleccionada">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="titulo">
+                  <p>Categorias</p>
+                </div>
+              </div>
+            </div>
+            <div class="row" style="margin-bottom: 44px">
+              <div class="col-xs-12">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Categoria" name="categoria" [(ngModel)]="categoriaSeleccionada.name">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" (click)="guardarCategoria()"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <br/>
+            <div class="row" *ngIf="categoriaSeleccionada && categoriaSeleccionada._id != null && categoriaSeleccionada._id.length > 0">
+              <div class="col-xs-4 text-center">
+                <button type="button" class="btn btn-default" (click)="subirPosicionCategoria()"><span class="glyphicon glyphicon-chevron-up"></span></button>
+              </div>
+              <div class="col-xs-4 text-center">
+                <button type="button" class="btn btn-default" (click)="bajarPosicionCategoria()"><span class="glyphicon glyphicon-chevron-down"></span></button>
+              </div>
+              <div class="col-xs-4 text-center">
+                <button type="button" class="btn btn-default" (click)="eliminarCategoria(false)"><span class="glyphicon glyphicon-trash"></span></button>
+              </div>
+            </div>
+            <br/>
+            <div class="row">
+              <div class="col-xs-12">
+                <table class="table">
+                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : categoria._id == categoriaSeleccionada._id}" *ngFor="let categoria of categorias" (click)="seleccionarCategoria(categoria, true)">
+                    <td>
+                      {{categoria.name}}
+                    </td>
+                  </tr>
+                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : categoriaSeleccionada == null || categoriaSeleccionada._id == null || categoriaSeleccionada._id.length <= 0}" (click)="seleccionarCategoria(categoria, true)">
+                    <td>
+                      Nueva
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-4" *ngIf="grupos && grupoSeleccionado">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="titulo">
+                  <p>Grupos</p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <input type="text" class="form-control" placeholder="Grupo" name="grupo" [(ngModel)]="grupoSeleccionado.name">
+              </div>
+              <div class="col-xs-12 input-item-menu">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Código" name="codigoGrupo" [(ngModel)]="grupoSeleccionado.group">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" (click)="guardarGrupo()"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <br/>
+            <div class="row" *ngIf="categoriaSeleccionada && categoriaSeleccionada._id != null && categoriaSeleccionada._id.length > 0">
+              <div class="col-xs-4 text-center">
+                <button type="button" class="btn btn-default" (click)="subirPosicionGrupo()"><span class="glyphicon glyphicon-chevron-up"></span></button>
+              </div>
+              <div class="col-xs-4 text-center">
+                <button type="button" class="btn btn-default" (click)="bajarPosicionGrupo()"><span class="glyphicon glyphicon-chevron-down"></span></button>
+              </div>
+              <div class="col-xs-4 text-center">
+                <button type="button" class="btn btn-default" (click)="eliminarGrupo(false)"><span class="glyphicon glyphicon-trash"></span></button>
+              </div>
+            </div>
+            <br/>
+            <div class="row">
+              <div class="col-xs-12">
+                <table class="table">
+                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : grupo._id == grupoSeleccionado._id}" *ngFor="let grupo of grupos" (click)="seleccionarGrupo(grupo, true)">
+                    <td>
+                      {{grupo.name}}
+                    </td>
+                  </tr>
+                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : grupoSeleccionado == null || grupoSeleccionado._id == null || grupoSeleccionado._id.length <= 0}" (click)="seleccionarGrupo(grupo, true)">
+                    <td>
+                      Nuevo
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-4" *ngIf="subgrupos && categoriaSeleccionada">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="titulo">
+                  <p>Subgrupos</p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <input type="text" class="form-control" placeholder="Subrupo" name="subgrupo" [(ngModel)]="subgrupoSeleccionado.name">
+              </div>
+              <div class="col-xs-12 input-item-menu">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Código" name="codigoSubgrupo" [(ngModel)]="subgrupoSeleccionado.subgroup">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" (click)="guardarSubgrupo()"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <br/>
+            <div class="row" *ngIf="subgrupoSeleccionado && subgrupoSeleccionado._id != null && subgrupoSeleccionado._id.length > 0">
+              <div class="col-xs-4 text-center">
+                <button type="button" class="btn btn-default" (click)="subirPosicionSubgrupo()"><span class="glyphicon glyphicon-chevron-up"></span></button>
+              </div>
+              <div class="col-xs-4 text-center">
+                <button type="button" class="btn btn-default" (click)="bajarPosicionSubgrupo()"><span class="glyphicon glyphicon-chevron-down"></span></button>
+              </div>
+              <div class="col-xs-4 text-center">
+                <button type="button" class="btn btn-default" (click)="eliminarCategoria(false)"><span class="glyphicon glyphicon-trash"></span></button>
+              </div>
+            </div>
+            <br/>
+            <div class="row">
+              <div class="col-xs-12">
+                <table class="table">
+                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : subgrupo._id == subgrupoSeleccionado._id}" *ngFor="let subgrupo of subgrupos" (click)="seleccionarSubgrupo(subgrupo)">
+                    <td>
+                      {{subgrupo.name}}
+                    </td>
+                  </tr>
+                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : subgrupoSeleccionado == null || subgrupoSeleccionado._id == null || subgrupoSeleccionado._id.length <= 0}" (click)="seleccionarSubgrupo(subgrupo)">
+                    <td>
+                      Nuevo
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="bg-white hidden-sm hidden-xs" sticky-bg-menu>
   <div class="container hidden-sm hidden-xs header">
     <div sticky-menu>
       <div class="info-ppl" (mouseover)="cerrarOverlay()">
         <div class="row">
           <div class="col-md-4">
-            <div class="logo-matisses">
+            <div class="logo-matisses cursor-pointer">
               <span class="icon-matisses" [routerLink]="['/']"></span>
             </div>
           </div>
@@ -21,19 +203,21 @@
           <div class="col-lg-4 col-md-5">
             <div class="row">
               <div class="col-md-12 col-sm-6">
-                <ul class="ingreso text-right medium">
-                  <li><a href="#"><span class="icon-user"> </span> INGRESA</a></li>
+                <ul class="ingreso text-right medium" (mouseover)="carrito.closeResumen()">
+                  <li><a href="javascript:void(0)" [routerLink]="['/lista-de-deseos']"><span class="glyphicon glyphicon-heart"> </span> LISTA DE DESEOS</a></li>
                   <li class="border-left"><a href="#">REGÍSTRATE</a></li>
-                  <li class="border-left"><a href="#"><span class="glyphicon glyphicon-heart"> </span> LISTA DE DESEOS</a></li>
+                  <li class="border-left"><a href="#"><span class="icon-user"> </span> INGRESA</a></li>
                 </ul>
               </div>
               <div class="col-md-12 col-sm-6 text-right">
                 <div class="row">
                   <div class="col-xs-8 col-xs-offset-1">
-                    <p class="lista-regalos text-center"><span class="icon-gift-box"> </span> Lista de Regalos</p>
+                    <a href="http://listaregalos.matisses.co/" target="_blank">
+                      <p (mouseover)="carrito.closeResumen()" class="lista-regalos text-center"><span class="icon-gift-box"> </span> Lista de Regalos</p>
+                    </a>
                   </div>
                   <div class="col-xs-3 text-left">
-                    <matisses-carrito></matisses-carrito>
+                    <matisses-carrito #carrito id="carrito2"></matisses-carrito>
                   </div>
                 </div>
               </div>
@@ -44,9 +228,17 @@
       <div class="row">
         <div class="col-xs-12 top">
           <div class="nav medium">
+            <!-- botones para el administrador -->
+            <div class="agregar" *ngIf="adminToken" data-toggle="modal" data-target="#modalMenu">
+              <span class="glyphicon glyphicon-pencil"></span>
+            </div>
+            <!-- botones para el administrador -->
             <ul>
-              <li class="cursor-pointer" [ngClass]="{'selected' : estaSeleccionado(menuItem.codigo)}" *ngFor="let menuItem of menuItems" (click)="alternarSeleccionPadre(menuItem)" (mouseover)="alternarSeleccionPadre(menuItem)">
-                {{menuItem.nombre}}
+              <!--
+              <li (mouseover)="carrito.closeResumen()" class="item-menu cursor-pointer" [ngClass]="{'selected' : estaSeleccionado(menuItem.code)}" *ngFor="let menuItem of menuItems" (click)="alternarSeleccionPadre(menuItem)" (mouseover)="alternarSeleccionPadre(menuItem)">
+              -->
+              <li class="item-menu cursor-pointer" [ngClass]="{'selected' : estaSeleccionado(menuItem._id)}" *ngFor="let menuItem of menuItems" (click)="alternarSeleccionPadre(menuItem) + carrito.closeResumen() " (mouseenter)="carrito.closeResumen()">
+                {{menuItem.name}}
               </li>
             </ul>
           </div>
@@ -63,32 +255,85 @@
         <div class="row">
           <div class="col-xs-3" *ngFor="let subMenuItem of padreSeleccionado.children">
             <ul class="sub-menu">
-              <p class="medium cursor-pointer" [routerLink]="['/categoria', subMenuItem.route]">{{subMenuItem.nombre}}</p>
-              <li *ngFor="let grandChild of subMenuItem.children" [routerLink]="['/categoria', grandChild.route]">
-                {{grandChild.nombre}}
+              <p class="child medium cursor-pointer">
+                <span [routerLink]="['/categoria']" [queryParams]="{group: subMenuItem.group}" (click)="cerrarOverlay()">{{subMenuItem.name}}</span>
+              </p>
+              <li class="grandchild" *ngFor="let grandChild of subMenuItem.children" [routerLink]="['/categoria']" [queryParams]="{group: grandChild.group, subgroup: grandChild.subgroup}" (click)="cerrarOverlay()">
+                {{grandChild.name}}
               </li>
             </ul>
           </div>
         </div>
       </div>
       <div class="col-xs-4">
-        <img src="assets/images/menu/{{padreSeleccionado.codigo}}.jpg" class="img-responsive" alt="">
+        <img src="assets/images/menu/{{padreSeleccionado._id}}.jpg" class="img-responsive" alt="">
         <p class="name-producto-menu">Sarten Ceradur Plus</p>
-        <p class="medium link-producto-menu"><i>Comprar ya</i></p>
+        <p class="medium link-producto-menu" [routerLink]="['/producto', '2090006']"><i>Comprar ya</i></p>
       </div>
     </div>
   </div>
 </div>
-<div class="overlay cursor-pointer" [@overlayAnimation]="stateOverlay" (mouseover)="cerrarOverlay()"></div>
+<div class="overlay cursor-pointer hidden-sm hidden-xs" [@overlayAnimation]="stateOverlay" (click)="cerrarOverlay()"></div>
 
 <!-- Menú responsive -->
-<div id="myNav" class="fondo-menu">
-  <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
-  <div class="fondo-menu-content">
-    <a href="#">About</a>
-    <a href="#">Services</a>
-    <a href="#">Clients</a>
-    <a href="#">Contact</a>
+<div id="myNav" class="fondo-menu hidden-md hidden-lg">
+  <!-- <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>-->
+  <div class="menu-content">
+
+    <div *ngFor="let menuItem of menuItems">
+      <button class="accordion" (click)="alternarSeleccionPadre(menuItem)" (click)="toggleClass('#menuPhone-' + menuItem._id, 'icon-plus', 'icon-minus')">{{menuItem.name}}<span id="menuPhone-{{menuItem._id}}" class="icon-plus pull-right"></span></button>
+      <div *ngIf="padreSeleccionado._id === menuItem._id">
+        <div *ngFor="let subMenuItem of padreSeleccionado.children">
+          <button class="child-accordion" (click)="toggleClass('#grandchild-' + subMenuItem._id,'visible','hidden')" (click)="toggleClass('#subMenu-' + subMenuItem._id, 'glyphicon-menu-down', 'glyphicon-menu-up')">{{subMenuItem.name}}<span id="subMenu-{{subMenuItem._id}}" class="glyphicon glyphicon-menu-down pull-right"></span></button>
+          <div class="grandchild hidden" id="grandchild-{{subMenuItem._id}}">
+            <div *ngFor="let grandChild of subMenuItem.children" [routerLink]="['/categoria']" [queryParams]="{group: grandChild.group, subgroup: grandChild.subgroup}" (click)="cerrarNav()">
+              <p class="grandchild-accordion" (click)="cerrarNav()" (click)="toggleClass('#hamburger', 'glyphicon-menu-hamburger', 'glyphicon-remove')">{{grandChild.name}}</p>
+            </div>
+            <p class="grandchild-accordion" (click)="cerrarNav()" (click)="toggleClass('#hamburger', 'glyphicon-menu-hamburger', 'glyphicon-remove')"><b>Ver todos</b></p>
+          </div>
+        </div>
+        <p class="child-accordion" (click)="cerrarNav()" (click)="toggleClass('#hamburger', 'glyphicon-menu-hamburger', 'glyphicon-remove')"><b>Ver todos</b></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="title-menu">
+          <p><b>Información</b></p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="menu-element">
+          <p [routerLink]="['/quienes']">Quiénes somos</p>
+          <p [routerLink]="['/tiendas']">Tiendas</p>
+          <p [routerLink]="['/garantias']">Garantías</p>
+          <p [routerLink]="['/envios']">Métodos de envío</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="title-menu">
+          <p><b>Mi cuenta</b></p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="menu-element">
+          <p [routerLink]="['/lista-de-deseos']" class="wish-list"><span class="icon-user"> </span> Ingresar</p>
+          <p [routerLink]="['/lista-de-deseos']" class="wish-list"><span class="glyphicon glyphicon-log-in"> </span> Regístrate</p>
+          <hr/>
+          <p [routerLink]="['/lista-de-deseos']" class="wish-list"><span class="glyphicon glyphicon-heart"> </span> Lista de deseos</p>
+          <hr/>
+          <a href="http://listaregalos.matisses.co/" target="_blank">
+            <p class="wish-list"><span class="icon-gift-box"> </span> Lista de Regalos</p>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -96,16 +341,16 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-xs-3 text-left">
-        <matisses-carrito></matisses-carrito>
+        <matisses-carrito #carritoMobile id="carrito1" (click)="cerrarNav()"></matisses-carrito>
       </div>
       <div class="col-xs-6 text-center">
-        <div class="logo">
+        <div class="logo" [routerLink]="['/']">
           <span class="icon-matisses"></span>
         </div>
       </div>
       <div class="col-xs-3 text-right">
-        <span class="glyphicon glyphicon-search" role="button" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"></span>
-        <span class="glyphicon glyphicon-menu-hamburger menu-mobile" (click)="openNav()"></span>
+        <!-- <span class="glyphicon glyphicon-search" role="button" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"></span> -->
+        <span class="glyphicon glyphicon-menu-hamburger menu-mobile" id="hamburger" (click)="carritoMobile.closeResumen()" (click)="toggleClass('#hamburger', 'glyphicon-menu-hamburger', 'glyphicon-remove')" (click)="toggleNav()"></span>
       </div>
     </div>
   </div>

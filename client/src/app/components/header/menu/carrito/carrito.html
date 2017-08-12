@@ -1,28 +1,44 @@
-<div class="carrito">
-  <span class="icon-shopping-cart carrito" (mouseover)="openResumen()"> </span>
-  <span class="badge">{{number}}</span>
+<div class="carrito" (click)="toggleResumen()">
+  <span [ngClass]="{'icon-shopping-cart': (!resumenMobileVisible && !resumenDesktopVisible), 'icon-cerrar': (resumenMobileVisible || resumenDesktopVisible)}"> </span>
+  <span class="badge total-items-carrito-badge">{{carrito.totalItems}}</span>
 </div>
-<div id="resumen" class="resumen" (mouseover)="openResumen()" (mouseout)="closeResumen()">
+<div id="resumen" class="resumen resumenmobile">
   <div class="row">
     <div class="col-xs-12 text-center">
       <br/>
-      <p>Tu carrito contiene <b>({{number}})</b> productos</p>
+      <p>Tu carrito contiene <b id="totalItemsCarrito">({{carrito.totalItems}})</b> productos</p>
     </div>
   </div>
   <div class="productos">
-    <div class="row border" *ngFor="let item of items">
-      <div class="col-xs-3">
-        <img src="assets/images/recommended/{{item.itemcode}}.jpg" class="img-responsive" alt="">
+    <div class="row border" *ngFor="let item of carrito.shoppingCart.items">
+      <div class="col-xs-3 text-center">
+        <img class="img-responsive imagen" src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/mini/{{item.itemcode}}_01.jpg" alt="...">
       </div>
-      <div class="col-xs-5">
-        <p><b>{{item.itemname}}</b></p>
-        <p>Cantidad <b>{{number}}</b></p>
-
+      <div class="col-xs-9">
+        <div class="row">
+          <div class="col-xs-7">
+            <p class="nombre"><b>{{item.itemname}}</b></p>
+          </div>
+          <div class="col-xs-5 text-right precio">
+            <p>$ {{item.priceaftervat | number}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6">
+            <p class="cantidad"><b>Cantidad</b></p>
+            <p class="numero">{{item.selectedQuantity}}</p>
+          </div>
+          <div class="col-xs-6 text-right">
+            <span *ngIf="mostrarBotonEliminar()" class="glyphicon glyphicon-trash trash" (click)="eliminarItem(item)"></span>
+          </div>
+        </div>
       </div>
-      <div class="col-xs-4">
-        <span class="glyphicon glyphicon-trash pull-right"></span>
-        <p>$ {{item.price}}</p>
-      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 text-right">
+      <hr/>
+      <p class="subtotal">Subtotal <b>$ {{carrito.totalCarrito | number}}</b></p>
     </div>
   </div>
   <div class="row">
@@ -30,7 +46,8 @@
       <p class="boton" [routerLink]="['/resumen-carrito']">ir al carrito</p>
     </div>
     <div class="col-xs-6 text-center">
-      <p class="boton">Ir a pagar</p>
+      <p class="boton" [routerLink]="['/info-pago']">Ir a pagar</p>
     </div>
   </div>
 </div>
+<matisses-carrito-simple #carritoSimple2></matisses-carrito-simple>

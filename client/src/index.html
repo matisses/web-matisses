@@ -2,21 +2,24 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title>Client</title>
   <base href="/">
-
+  <meta charset="utf-8">
+  <title>Matisses</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-  <script type="application/javascript" src="assets/js/jquery.min.js"></script>
-  <script type="application/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="assets/fonts/fonts.css">
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+  <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 </head>
 
 <body>
   <app-root></app-root>
+  <script type="application/javascript" src="assets/js/jquery.min.js"></script>
+  <script type="application/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="node_modules/systemjs/dist/system.src.js"></script>
+  <script src="systemjs.config.js"></script>
+  <!--<script src="https://www.google.com/recaptcha/api.js"></script>-->
 </body>
 
 </html>

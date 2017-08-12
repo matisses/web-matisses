@@ -18,7 +18,7 @@ export class BestSellerComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('inicializando componente de best seller ');
+        //console.log('inicializando componente de best seller ');
         this.inicializarItems();
     }
 

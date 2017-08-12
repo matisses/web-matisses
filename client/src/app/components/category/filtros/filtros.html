@@ -1,76 +1,177 @@
-<div class="row">
-  <div class="col-xs-12">
-    <div class="title">
-      <p>Categoria hijo</p>
-    </div>
-  </div>
-</div>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-<div class="row">
-  <div class="col-xs-12">
-    <ul>
-      <li *ngFor="let menuItem of menuItems, let i = index">
-        <input type="checkbox" id="menu.{{i}}">
-        <label for="menu.{{i}}">{{menuItem.nombre}}</label>
-      </li>
-    </ul>
-  </div>
-</div>
+  <div class="panel panel-default">
 
-<div class="row">
-  <div class="col-xs-12">
-    <div class="filter-collapse" data-toggle="collapse" href="#collapseMarca" aria-expanded="false" aria-controls="collapseMarca">
-      <p>Marca <span class="glyphicon glyphicon-plus pull-right"></span></p>
-    </div>
-    <div class="collapse" id="collapseMarca">
-      <ul>
-        <li *ngFor="let marcaItem of marcaItems, let i = index">
-          <input type="checkbox" id="marca.{{i}}">
-          <label for="marca.{{i}}">{{marcaItem.nombre}}</label>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-xs-12">
-    <div class="filter-collapse" data-toggle="collapse" href="#collapsePrecio" aria-expanded="false" aria-controls="collapsePrecio">
-      <p>Precio <span class="glyphicon glyphicon-plus pull-right"></span></p>
-    </div>
-    <div class="collapse" id="collapsePrecio">
-      <div class="well">
-        ...
+    <!-- boton abrir filtros -->
+    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+      <div class="panel-heading visible-sm visible-xs" role="tab" id="headingOne">
+        <h4 class="panel-title text-center">
+          Abrir filtros
+        </h4>
       </div>
-    </div>
-  </div>
-</div>
+    </a>
+    <!-- boton abrir filtros -->
 
-<div class="row">
-  <div class="col-xs-12">
-    <div class="filter-collapse" data-toggle="collapse" href="#collapseColor" aria-expanded="false" aria-controls="collapseColor">
-      <p>Colores <span class="glyphicon glyphicon-plus pull-right"></span></p>
-    </div>
-    <div class="collapse" id="collapseColor">
-      <div class="well">
-        ...
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <!-- contenido de los filtros -->
+
+        <div *ngIf="filtrosAplicados && filtrosAplicados.length > 0">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="title">
+                <p>Filtros seleccionados</p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="tags-filtros">
+                <span class="active-filter" *ngFor="let filtro of filtrosAplicados" (click)="toggleSelection(filtro[2], filtro[3])">
+                  {{filtro[1]}}
+                  <span class="active-filter-delete icon-close"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="filtrosDisponibles['groups'] && filtrosDisponibles['groups'].length > 1">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="title">
+                <p>categorías</p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div id="groups" class="filtros-cerrados">
+                <ul>
+                  <div *ngFor="let menuItem of filtrosDisponibles['groups']">
+                    <li *ngIf="showCategoryOption(menuItem)" class="filter-option" (click)="toggleSelection('group',menuItem.code)">
+                      <span>{{menuItem.name}}</span>
+                    </li>
+                  </div>
+                </ul>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-xs-offset-3" (click)="toggleFiltros('groups')">
+                  <p class="btn-mostrar-filtros">Mostrar más</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="viewHasLoaded && (queryParams.has('group') || queryParams.has('subgroup'))">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="title">
+                <p>subcategorías</p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div id="subgroups" class="filtros-cerrados">
+                <ul>
+                  <li class="filter-option" *ngFor="let menuItem of filtrosDisponibles['subgroups']" (click)="toggleSelection('subgroup',menuItem.code)">
+                    <span>{{menuItem.name}}</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-xs-offset-3" (click)="toggleFiltros('subgroups')">
+                  <p class="btn-mostrar-filtros">Mostrar más</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="filtros">
+          <div class="row" *ngIf="filtrosDisponibles['brands'] && filtrosDisponibles['brands'].length > 1">
+            <div class="col-xs-12">
+              <div class="filter-collapse" (click)="toggleClass('#marca')" data-toggle="collapse" href="#collapseMarca" aria-expanded="false" aria-controls="collapseMarca">
+                <p>Marca <span id="marca" class="icon-plus pull-right"></span></p>
+              </div>
+              <div class="collapse" id="collapseMarca">
+                <ul>
+                  <li class="filter-option" *ngFor="let marcaItem of filtrosDisponibles['brands'], let i = index" (click)="toggleSelection('brand',marcaItem.code)">
+                    <span>{{marcaItem.name}}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="filter-collapse" (click)="toggleClass('#precio')" data-toggle="collapse" href="#collapsePrecio" aria-expanded="false" aria-controls="collapsePrecio">
+                <p>Precio <span id="precio" class="icon-plus pull-right"></span></p>
+              </div>
+              <div class="collapse" id="collapsePrecio">
+                <div class="filtro-precio">
+                  <div class="row">
+                    <form *ngIf="filtrosDisponibless && filtrosDisponibless['prices']">
+                      <div class="col-xs-6">
+                        <p>Desde</p>
+                        <input type="tel" class="desde" [placeholder]="filtrosDisponibles['prices']['minPrice']" name="minPrice" (blur)="toggleSelection('minPrice', minPrice)" (keyup.enter)="toggleSelection('minPrice', minPrice)" [(ngModel)]="minPrice">
+                      </div>
+                      <div class="col-xs-6">
+                        <p>Hasta</p>
+                        <input type="tel" class="hasta" [placeholder]="filtrosDisponibles['prices']['maxPrice']" name="maxPrice" (blur)="toggleSelection('maxPrice', maxPrice)" (keyup.enter)="toggleSelection('maxPrice', maxPrice)" [(ngModel)]="maxPrice">
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="filtrosDisponibles['colors'] && filtrosDisponibles['colors'].length > 1">
+            <div class="col-xs-12">
+              <div class="filter-collapse" (click)="toggleClass('#colores')" data-toggle="collapse" href="#collapseColor" aria-expanded="false" aria-controls="collapseColor">
+                <p>Colores <span id="colores" class="icon-plus pull-right"></span></p>
+              </div>
+              <div class="collapse" id="collapseColor">
+                <ul>
+                  <li class="filter-option filtro-color" *ngFor="let colorItem of filtrosDisponibles['colors'], let i = index" (click)="toggleSelection('color',colorItem.code)">
+                    <span>{{colorItem.name}}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="queryParams && !queryParams.has('material')">
+            <div class="col-xs-12">
+              <div class="filter-collapse" (click)="toggleClass('#materiales')" data-toggle="collapse" href="#collapseMateriales" aria-expanded="false" aria-controls="collapseMateriales">
+                <p>Materiales <span id="materiales" class="icon-plus pull-right"></span></p>
+              </div>
+              <div class="collapse" id="collapseMateriales">
+                <ul>
+                  <li class="filter-option" *ngFor="let materialesItem of filtrosDisponibles['materials']" (click)="toggleSelection('material',materialesItem.code)">
+                    <span>{{materialesItem.name}}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- contenido de los filtros -->
+        <div class="panel-heading cerrar-filtros visible-sm visible-xs" role="tab" id="headingOne">
+          <h4 class="panel-title text-center">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              cerrar filtros
+            </a>
+          </h4>
+        </div>
       </div>
+      <hr/>
     </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col-xs-12">
-    <div class="filter-collapse" data-toggle="collapse" href="#collapseMateriales" aria-expanded="false" aria-controls="collapseMateriales">
-      <p>Materiales <span class="glyphicon glyphicon-plus pull-right"></span></p>
-    </div>
-    <div class="collapse" id="collapseMateriales">
-      <ul>
-        <li *ngFor="let materialesItem of materialesItems, let i = index">
-          <input type="checkbox" id="material.{{i}}">
-          <label for="material.{{i}}">{{materialesItem.nombre}}</label>
-        </li>
-      </ul>
-    </div>
-  </div>
 </div>

@@ -1,20 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
+declare var $: any;
+
 @Component({
-    selector: 'matisses-home',
-    templateUrl: 'home.html',
-    styleUrls: ['home.component.css']
+  selector: 'matisses-home',
+  templateUrl: 'home.html',
+  styleUrls: ['home.component.css']
 })
 
 export class HomeComponent implements OnInit {
-    public title: string;
+  public title: string;
 
-    constructor(private _route: ActivatedRoute, private _router: Router) {
-        this.title = 'Este es el cuerpo';
-    }
+  constructor(private _route: ActivatedRoute, private _router: Router) {
+    this.title = 'Este es el cuerpo';
+  }
 
-    ngOnInit() {
-        console.log('inicializando componente de cuerpo');
-    }
+  ngOnInit() {
+    //console.log('inicializando componente de cuerpo');
+  }
 }

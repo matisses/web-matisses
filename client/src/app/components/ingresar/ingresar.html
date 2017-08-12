@@ -1,0 +1,47 @@
+<matisses-header></matisses-header>
+
+<div sticky-body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <h1 class="title">Información del cliente</h1>
+        <div class="row">
+          <div class="col-xs-10 col-xs-offset-1">
+            <div class="input-group">
+              <span class="input-group-addon input-email" id="basic-addon1">E-mail</span>
+              <input type="mail" class="input-ingresar form-control" placeholder="" aria-describedby="basic-addon1">
+            </div>
+            <br/>
+            <div class="input-group">
+              <span class="input-group-addon input-contraseña" id="basic-addon2">Contraseña</span>
+              <input type="password" class="input-ingresar form-control" placeholder="" aria-describedby="basic-addon2">
+            </div>
+            <br/>
+            <div class="input-group mantener-sesion">
+              <span class="input-group-addon check-box">
+                    <input type="checkbox" aria-label="...">
+                  </span>
+              <span class="text">No cerrar sesión</span>
+            </div>
+            <div class="restablecer-contraseña">
+              <p>¿Olvidó su contraseña?</p>
+            </div>
+            <button type="button" class="registrarme" name="button-resgistro">Regístrarme</button>
+            <button type="button" class="iniciar-sesion" name="button-ingresar">Ingresar</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <h1 class="title">Ingresar como invitado</h1>
+        <div class="row">
+          <div class="col-xs-8 col-xs-offset-2 text-center">
+            <p>Procesa con el pago como invitado, solo brindando la información de envío y facturación</p>
+            <p class="btn-continuar" [routerLink]="['/info-pago']">Continuar</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<matisses-footer></matisses-footer>

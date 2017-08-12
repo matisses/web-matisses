@@ -1,47 +1,11 @@
-.down {
-  position: absolute;
-  top: 70%;
-  padding: 10px 30px;
-  background-color: #ECECEC;
-  color: #5B5B5B;
-  cursor: pointer;
-  z-index: 2;
-  border-radius: 15px;
-  left: 40%;
-  display: none;
-}
-
-.compra-ya {
-  border: 1px solid #5B5B5B;
-  cursor: pointer;
-  color: #5B5B5B;
-  padding: 5px 10px;
-  font-weight: 700;
-  font-style: italic;
-  background-color: transparent;
-  margin-bottom: 20px;
-}
-
-.compra-ya:focus {
-  outline: none;
-  box-shadow: none;
-}
-
-.compra-ya:hover {
-  background-color: #ECECEC;
-}
-
-.padding-0 {
-  padding: 0;
-  max-width: 1920px;
-}
+/* Estilos banner 01 */
 
 .principal-01 {
-  background: url(../../../assets/images/banner/banner-movil.jpg) no-repeat center top;
+  background: url(../../../assets/images/banner/banner-01.jpg) no-repeat center top;
   margin-top: 0px;
   padding-top: 10px;
   background-attachment: relative;
-  background-position: right bottom;
+  background-position: center center;
   min-height: 450px;
   width: 100%;
   -webkit-background-size: 100%;
@@ -52,11 +16,78 @@
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  color: #747c79;
+  color: #747C79;
+}
+
+.text-01 {
+  color: #FFF;
+  position: relative;
+  padding-top: 15px;
+  bottom: -270px;
+  left: 36%;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 280px;
+}
+
+.text-01 p {
+  font-size: 20px;
+  margin: 0;
+  margin-bottom: 5px
+}
+
+.text-01 p::before {
+  content: '';
+  width: 45px;
+  height: 3px;
+  background-color: #9C8D7A;
+  position: absolute;
+  top: 45px;
+  left: 43%;
+  cursor: auto;
+}
+
+.text-01 h2 {
+  font-size: 50px;
+  margin: 0;
+}
+
+.text-01 .btn-banner01 {
+  padding: 5px 10px;
+  font-size: 15px;
+  background-color: #9C8D7A;
+  margin: 0;
+  width: 46%;
+  margin-left: 27%;
+  cursor: pointer;
+}
+
+.text-01 .precio {
+  font-size: 12px;
+}
+
+
+/* Estilos banner 02 */
+
+.sub-banner p {
+  margin-top: 15px;
+}
+
+.compra-ya {
+  border: 1px solid #5B5B5B;
+  cursor: pointer;
+  color: #65092d;
+  padding: 5px 10px;
+  font-weight: 700;
+  background-color: transparent;
+  margin-bottom: 20px;
+}
+
+.compra-ya:hover {
+  background-color: #EDEDED;
 }
 
 .principal-03 {
-  background: url(../../../assets/images/banner/cocinar.png) no-repeat center top, url(../../../assets/images/banner/banner-044.jpg) no-repeat center top;
+  background: url(../../../assets/images/banner/banner-04.jpg) no-repeat center top;
   margin-top: 0px;
   background-attachment: relative;
   background-position: right center;
@@ -79,7 +110,11 @@
   margin-top: 15%;
   background-color: rgba(24, 24, 24, 0.5);
   width: 40%;
+  padding: 50px;
 }
+
+
+/* Estilos banner 03 */
 
 .titulo {
   font-size: 50px;
@@ -91,30 +126,64 @@
   position: absolute;
   bottom: 50px;
   height: 8px;
-  width: 60px;
+  width: 65px;
   color: transparent;
   background-color: #FFF;
 }
 
-@media screen and (max-width: 991px) {
-  .principal-03 {
-    min-height: 400px;
+@media screen and (max-width: 1200px) {
+  .text-01 {
+    left: 33%;
   }
+  .text-03 {
+    font-size: 25px;
+    padding: 30px;
+  }
+  /* banner 03 */
+  .titulo {
+    font-size: 40px;
+    line-height: 40px;
+  }
+  .titulo::before {
+    height: 5px;
+    bottom: 35px;
+    width: 55px;
+  }
+}
+
+@media screen and (max-width: 991px) {
   .principal-01 {
     min-height: 300px;
+  }
+  .text-01 {
+    left: 28%;
+    bottom: -100px;
+  }
+  .text-01 .btn-banner01 {
+    font-size: 10px;
+  }
+  .principal-03 {
+    min-height: 400px;
   }
   .text-03 {
     width: 50%;
   }
 }
 
-@media screen and (max-width: 707px) {
+@media screen and (max-width: 767px) {
+  .principal-01 {
+    min-height: 300px;
+  }
+  .text-01 {
+    width: 216px;
+    left: 33%;
+  }
+  .text-01 .btn-banner01 {
+    font-size: 10px;
+  }
   .principal-03 {
     background-position: right;
     min-height: 280px;
-  }
-  .principal-01 {
-    min-height: 300px;
   }
   .text-03 {
     font-size: 20px;
@@ -133,29 +202,58 @@
   }
 }
 
-@media screen and (max-width: 500px) {
-  .principal-01 {
-    min-height: 200px;
-  }
-}
-
 @media screen and (max-width: 414px) {
   .principal-01 {
-    min-height: 736px;
+    min-height: 250px;
+    background-position: center 50px;
   }
-  .down {
-    display: block;
+  .text-01 {
+    left: 21%;
+    bottom: -80px;
+    width: 200px;
+  }
+  .text-01 p {
+    font-size: 15px;
+  }
+  .text-01 h2 {
+    font-size: 40px;
+  }
+  .text-01 .precio {
+    font-size: 10px;
+  }
+  .text-01 p::before {
+    top: 40px;
+    left: 40%;
+}
+  .padding-0 {
+    padding-left: 0;
+    padding-right: 0;
+    overflow: hidden;
+  }
+  .sub-banner {
+    border: 1px solid #EDEDED;
+    margin-bottom: 10px;
+  }
+  .sub-banner p {
+    margin-bottom: 0;
+    margin-top: 10px;
+  }
+  .sub-banner button {
+    margin-bottom: 15px;
   }
 }
 
 @media screen and (max-width: 375px) {
   .principal-01 {
-    min-height: 667px;
+    min-height: 270px;
   }
 }
 
 @media screen and (max-width: 320px) {
   .principal-01 {
-    min-height: 568px;
+    min-height: 240px;
+  }
+  .text-01 {
+    left: 15%;
   }
 }

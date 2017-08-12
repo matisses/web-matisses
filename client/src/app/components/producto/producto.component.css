@@ -1,0 +1,335 @@
+.stuck-body {
+  margin-top: 125px;
+}
+
+.border-left {
+  border-left: 1px solid #D1D1D1;
+  padding: 0px 5px;
+}
+
+.carousel-control.right, .carousel-control.left {
+  background-image: none;
+  color: #5b5b5b;
+  font-weight: bold;
+}
+
+.extras {
+  text-align: left;
+}
+
+.extras span {
+  font-size: 60px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+
+/*estilos minis galeria*/
+
+.section {
+  height: 300px;
+  overflow-x: hidden;
+  position: relative;
+  white-space: nowrap;
+  text-align: center;
+  margin: 15px 0px;
+}
+
+.mini {
+  margin: 5px 0px;
+}
+
+.mini:hover {
+  border: 1px solid #D1D1D1;
+}
+
+.up, .down {
+  position: absolute;
+  margin-left: 30%;
+  color: #5B5B5B;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.down {
+  bottom: -10px;
+}
+
+.up {
+  top: 0px;
+}
+
+::-webkit-scrollbar, ::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-button, ::-webkit-scrollbar-corner {
+  display: none;
+}
+
+.galeria {
+  border-right: 1px solid #D1D1D1;
+  color: #5B5B5B;
+  padding-right: 10px;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+  display: inline-block;
+  margin-top: -10px;
+}
+
+.info {
+  min-height: 100%;
+  color: #5B5B5B;
+}
+
+.cantidad {
+  border: 1px solid #D1D1D1;
+}
+
+.input-cantidad {
+  border-radius: 0;
+  border-color: transparent;
+  text-align: center;
+  z-index: 0;
+  padding: 0;
+}
+
+.btn-cantidad {
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 0;
+  background-color: transparent;
+  z-index: 0 !important;
+}
+
+.dropdown-menu {
+  min-width: 50px;
+  border-radius: 0;
+  text-align: center;
+}
+
+.dropdown-menu li:hover {
+  background-color: #EEE;
+  cursor: pointer;
+}
+
+.btn-carrito {
+  border-radius: 0;
+  height: 36px;
+  background-color: #6D9197;
+  color: #FFF;
+  padding: 0 50px;
+  transition: 0.5s;
+}
+
+.btn-carrito:hover {
+  background-color: #425E63;
+}
+
+.btn-like {
+  border-radius: 0;
+  height: 36px;
+  margin-left: 10px;
+  background-color: #F1F1F1;
+  color: #65092D;
+}
+
+.padding-left {
+  padding-left: 0;
+}
+
+.detalles {
+  margin: 75px 0px;
+  border-bottom: 1px solid #D1D1D1;
+}
+
+.detalles-collapse {
+  text-transform: uppercase;
+  border-top: 1px solid #D1D1D1;
+  padding: 10px 10px 0px 10px;
+  cursor: pointer;
+}
+
+.detalles-collapse span {
+  font-size: 10px;
+  margin: 5px 0;
+  font-weight: bolder;
+}
+
+.color {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  /*background-color: #8ea3e2;*/
+  cursor: pointer;
+  display: inline-block;
+}
+
+.color-selected {
+  border: 2px solid #5b5b5b;
+}
+
+.zoom {
+  float: right;
+  color: #6D9197;
+}
+
+.modal-title {
+  color: #5b5b5b;
+}
+
+.modal-2 {
+  border-radius: 0;
+  color: #5b5b5b;
+}
+
+.modal-2 .icon-close {
+  position: relative;
+  top: 2px;
+}
+
+.disponibilidad p {
+  margin: 0;
+  color: #5B5B5B;
+}
+
+.disponibilidad span {
+  font-size: 30px;
+  color: #5B5B5B;
+}
+
+.compartir {
+  text-align: right;
+  margin-top: 25px
+}
+
+.compartir span {
+  font-size: 20px;
+  color: #5B5B5B;
+  padding: 0 2px;
+}
+
+/* 360 */
+
+.animacion {
+  overflow: hidden;
+  width: 600px;
+  height: 458px;
+  text-align: center;
+  margin-left: 109px;
+}
+
+.animacion-iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.politicas {
+  background-color: #EDEDED;
+  width: 100%;
+  height: 100px;
+  padding: 5px 0;
+  margin-top: 15px;
+}
+
+.politicas .content {
+  text-align: center;
+  margin-top: 10px;
+  height: 80px;
+}
+
+.icon-content {
+  font-size: 50px;
+  position: absolute;
+  top: 10px;
+  left: 30px;
+}
+
+.text-content {
+  font-weight: bold;
+  text-align: left;
+  margin-left: 10px;
+  font-size: 10px;
+}
+
+@media screen and (max-width: 1200px) {
+  .detalles {
+    margin: 40px 0px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .galeria {
+    border-right: 0;
+  }
+}
+
+
+@media screen and (max-width: 991px) {
+  .stuck-body {
+    margin-top: 0px;
+  }
+  .btn-carrito {
+    font-size:12px;
+    padding: 0 25px;
+  }
+  .detalles {
+    margin: 25px 0px;
+  }
+  .disponibilidad {
+    text-align: center;
+  }
+  .disponibilidad p {
+    display: inline-block;
+    position: relative;
+    top: -8px;
+  }
+  .disponibilidad span {
+    display: inline-block;
+  }
+  .compartir {
+    text-align: center;
+    margin-top: 10px;
+  }
+  .compartir span {
+    padding: 0 10px;
+  }
+  .animacion {
+    margin-left: 50px;
+  }
+  .modal-3 {
+    width: 800px;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .info, .galeria {
+    min-height: 50px;
+    border-right: 0px;
+  }
+  .btn-carrito {
+    font-size: 11px;
+    padding: 0 15px;
+  }
+  .dropdown-menu {
+    min-width: 76px;
+  }
+  .extras {
+    text-align: center;
+  }
+  .extras span {
+    font-size: 35px;
+    margin: 0 5px;
+    display: inline-block;
+  }
+  .zoom {
+    float: none;
+  }
+}

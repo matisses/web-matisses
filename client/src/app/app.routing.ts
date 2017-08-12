@@ -9,18 +9,34 @@ import { TrabajaComponent } from './components/trabaja/trabaja.component';
 import { GarantiasComponent } from './components/garantias/garantias.component';
 import { EnviosComponent } from './components/envios/envios.component';
 import { ResumenCarritoComponent } from './components/resumen-carrito/resumen-carrito.component';
-
+import { ProductoComponent } from './components/producto/producto.component';
+import { RedirectComponent } from './components/redirect/redirect.component';
+import { IngresarComponent } from './components/ingresar/ingresar.component';
+import { InfoPagoComponent } from './components/info-pago/info-pago.component';
+import { ResultadoTransacciComponent } from './components/resultado-transaccion/resultado-transaccion.component';
+import { ModalComponent } from './components/modal/modal.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { WishListComponent } from './components/wish-list/wish-list.component';
+import { ContactanosComponent } from './components/contactanos/contactanos.component';
 
 const appRoutes: Routes = [
-
     {path: '', component: HomeComponent},
-    {path: 'categoria/:categoryId', component: CategoryComponent},
+    {path: 'categoria', component: CategoryComponent, pathMatch: 'full'},
     {path: 'quienes', component: QuienesComponent},
     {path: 'tiendas', component: TiendasComponent},
     {path: 'trabaja-con-nosotros', component: TrabajaComponent},
     {path: 'garantias', component: GarantiasComponent},
     {path: 'envios', component: EnviosComponent},
     {path: 'resumen-carrito', component: ResumenCarritoComponent},
+    {path: 'producto/:item', component: ProductoComponent},
+    {path: 'redirect/:previous', component: RedirectComponent},
+    {path: 'ingresar', component: IngresarComponent},
+    {path: 'info-pago', component: InfoPagoComponent},
+    {path: 'resultado-transaccion/:idCarrito', component: ResultadoTransacciComponent},
+    {path: 'modal', component: ModalComponent},
+    {path: 'admin/:token', component: AdminComponent},
+    {path: 'lista-de-deseos', component: WishListComponent},
+    {path: 'contactanos', component: ContactanosComponent},
     //,{path: 'producto/:productId', component: CategoryComponent},
     {path: '**', component: ErrorComponent} //pagina 404
 ];

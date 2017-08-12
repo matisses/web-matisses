@@ -1,0 +1,286 @@
+<matisses-header></matisses-header>
+
+<!-- Modal Zoom -->
+<div class="modal fade modal" id="zoomModal" tabindex="-1" role="dialog" aria-labelledby="zoomLabel" *ngIf="item">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content modal-2">
+      <div class="modal-body">
+        <div id="carousel-modal" class="carousel slide" data-ride="carousel">
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner" role="listbox">
+            <div class="item" [class.active]="i === 0" *ngFor="let image of item.images; let i = index">
+              <img src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/images/{{image}}" alt="...">
+            </div>
+          </div>
+
+          <!-- Wrapper for slides -->
+          <!-- Controls -->
+          <a class="left carousel-control" href="#carousel-modal" role="button" data-slide="prev">
+                <span class="icon icon-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+          <a class="right carousel-control" href="#carousel-modal" role="button" data-slide="next">
+                <span class="icon icon-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+          <!-- Controls -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Zoom -->
+
+<!-- Modal plantilla -->
+<div class="modal fade modal" id="plantillaModal" tabindex="-1" role="dialog" aria-labelledby="plantillaLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content modal-2">
+      <div class="modal-body">
+        <img id="plantilla" width="100%" alt="">
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal plantilla -->
+
+<!-- Modal 360 -->
+<div class="modal fade modal hidden-xs" id="360Modal" tabindex="-1" role="dialog" aria-labelledby="360Label">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content modal-2">
+      <div class="modal-body">
+        <div class="animacion">
+          <iframe id="frame360" class="animacion-iframe" frameborder="0" vspace="0" hspace="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" scrolling="no"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal 360 -->
+
+<!-- Modal wow -->
+<div class="modal fade modal hidden-xs" id="wowModal" tabindex="-1" role="dialog" aria-labelledby="wowLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content modal-2">
+      <div class="modal-body">
+        <div class="animacion">
+          <iframe id="frameWow" class="animacion-iframe" frameborder="0" vspace="0" hspace="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" scrolling="no"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal wow -->
+
+<div sticky-body>
+  <div class="container">
+<!--
+    <miga-de-pan></miga-de-pan>
+-->
+    <div class="row">
+      <div class="col-sm-7">
+        <div class="galeria" *ngIf="item && item.images && item.images.length > 0">
+          <div id="galeria-producto" class="carousel slide" data-ride="carousel">
+            <div class="row">
+              <div class="col-md-2 hidden-sm hidden-xs">
+                <a class="up" (click)="botonUp()" *ngIf="item.images.length > 3">
+                  <span class="glyphicon glyphicon-menu-up"></span>
+                </a>
+                <a class="down" (click)="botonDown()" *ngIf="item.images.length > 3">
+                  <span class="glyphicon glyphicon-menu-down"></span>
+                </a>
+                <!-- Indicators -->
+                <div class="section">
+                  <div class="row">
+                    <div class="col-xs-12 cursor-pointer" data-target="#galeria-producto" [attr.data-slide-to]="i" *ngFor="let image of item.images; let i = index">
+                      <div class="mini">
+                        <img class="img-responsive" src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/mini/{{image}}" alt="...">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End Indicators -->
+              </div>
+              <div class="col-md-10 col-sm-12">
+                <!-- Wrapper for slides -->
+                <div id="carousel" class="carousel-inner" role="listbox">
+                  <div class="item" [class.active]="i === 0" *ngFor="let image of item.images; let i = index">
+                    <img src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/images/{{image}}" alt="...">
+                  </div>
+                </div>
+                <!-- Wrapper for slides -->
+                <!-- Controls -->
+                <a class="left carousel-control" href="#galeria-producto" role="button" data-slide="prev" *ngIf="item.images.length > 1">
+                  <span class="icon icon-left" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#galeria-producto" role="button" data-slide="next" *ngIf="item.images.length > 1">
+                  <span class="icon icon-right" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+                <!-- Controls -->
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="extras">
+              <div class="col-xs-12">
+                <span *ngIf="existe360" class="icon-360 hidden-sm hidden-xs" data-toggle="modal" data-target="#360Modal"></span>
+                <span *ngIf="existeWow" class="icon-producto hidden-sm hidden-xs" data-toggle="modal" data-target="#wowModal"></span>
+                <span *ngIf="existePlantilla" class="icon-size" data-toggle="modal" data-target="#plantillaModal"></span>
+                <span class="zoom icon-zoom-04" data-toggle="modal" data-target="#zoomModal"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <div class="info" *ngIf="item">
+          <div class="row">
+            <div class="col-xs-12">
+              <h4>{{item.itemname}}</h4>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <p>Ref: {{item.shortitemcode}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <h3>$ {{item.priceaftervat | number}} <small>Iva incluido</small></h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2 col-xs-3">
+              <div class="cantidad">
+                <form>
+                  <input class="input-cantidad form-control" type="tel" name="selectedQuantity" min="1" max="{{totalStock}}" [(ngModel)]="selectedQuantity" />
+                </form>
+              </div>
+            </div>
+            <div class="col-md-10 col-xs-9 padding-left">
+              <button type="button" class="btn btn-carrito" (click)="agregarCarrito()">
+                Agregar al carrito
+              </button>
+              <button type="button" class="btn btn-like" (click)="toggleWishList(item)">
+                <span class="glyphicon wish-list" [ngClass]="getCSSClassName(item)"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="detalles" *ngIf="item">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="detalles-collapse" (click)="toggleClass('#descripcion')" data-toggle="collapse" href="#collapseDescripcion" aria-expanded="false" aria-controls="collapseDescripcion">
+                <p>Descripción <span id="descripcion" class="icon-plus pull-right"></span></p>
+              </div>
+              <div class="collapse" id="collapseDescripcion">
+                <p style="padding: 0 10px;">{{item.description}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="detalles-collapse" (click)="toggleClass('#colores')" data-toggle="collapse" href="#collapseColores" aria-expanded="false" aria-controls="collapseColores">
+                <p>Colores <span id="colores" class="icon-plus pull-right"></span></p>
+              </div>
+              <div class="collapse" id="collapseColores">
+                <div class="color" [ngClass]="{'color-selected' : (item.shortitemcode === relacionado.shortitemcode)}" *ngFor="let relacionado of itemsRelacionados" [style.background-color]="relacionado.color.hexa" [routerLink]="['/producto', relacionado.shortitemcode]"
+                  data-toggle="tooltip" title="{{relacionado.color.name}}"></div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="detalles-collapse" (click)="toggleClass('#materiales')" data-toggle="collapse" href="#collapseMateriales" aria-expanded="false" aria-controls="collapseMateriales">
+                <p>Materiales y cuidados <span id="materiales" class="icon-plus pull-right"></span></p>
+              </div>
+              <div class="collapse" id="collapseMateriales">
+                <div *ngFor="let material of item.materials">
+                  <h3 style="padding: 0 10px; margin-top:0;">{{material.name}}</h3>
+                  <p style="padding: 0 10px;">{{material.cares}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pull-bottom">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="disponibilidad">
+                <p><b>Disponible en:</b></p>
+                <span class="icon-web" *ngIf="totalStock > 0"></span>
+                <span class="icon-med border-left" *ngIf="existenciaMedellin"></span>
+                <span class="icon-bog border-left" *ngIf="existenciaBogota"></span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="compartir">
+                <span class="icon-mail"></span>
+                <span class="icon-print"></span>
+                <span class="icon-facebook border-left"></span>
+                <span class="icon-instagram"></span>
+                <span class="icon-pinterest2"></span>
+                <span class="icon-houzz"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <relacionados></relacionados>
+  <div class="container">
+    <div class="row">
+      <div class="politicas">
+        <div class="col-xs-12">
+          <div class="row">
+            <div class="col-md-3 col-sm-6">
+              <div class="content">
+                <div class="row">
+                  <span class="icon-mapa icon-content"> </span>
+                  <div class="col-xs-9 col-xs-offset-3">
+                    <p class="text-content">Envíos solo dentro<br/>del territorio colombiano<br/>(Excepto San Andrés y Providencia)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6 border-left">
+              <div class="content">
+                <div class="row">
+                  <span class="icon-mapa icon-content"> </span>
+                  <div class="col-xs-9 col-xs-offset-3">
+                    <p class="text-content">Envíos solo dentro<br/>del territorio colombiano<br/>(Excepto San Andrés y Providencia)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6 border-left">
+              <div class="content">
+                <div class="row">
+                  <span class="icon-mapa icon-content"> </span>
+                  <div class="col-xs-9 col-xs-offset-3">
+                    <p class="text-content">Envíos solo dentro<br/>del territorio colombiano<br/>(Excepto San Andrés y Providencia)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6 border-left">
+              <div class="content">
+                <div class="row">
+                  <span class="icon-mapa icon-content"> </span>
+                  <div class="col-xs-9 col-xs-offset-3">
+                    <p class="text-content">Envíos solo dentro<br/>del territorio colombiano<br/>(Excepto San Andrés y Providencia)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<matisses-footer *ngIf="item"></matisses-footer>
+<matisses-carrito-simple #carritoSimple></matisses-carrito-simple>

@@ -1,0 +1,86 @@
+<matisses-header></matisses-header>
+<div sticky-body>
+  <div class="container">
+
+    <!-- miga de pan 
+    <miga-de-pan></miga-de-pan> -->
+
+    <div class="content">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="row">
+          <div class="col-md-2 col-xs-4 text-right">
+            <span class="wish-list glyphicon glyphicon-heart"></span>
+          </div>
+          <div class="col-md-4 col-xs-8">
+            <p class="title"><b>Mi lista de deseos</b> ({{qty}} productos)</p>
+          </div>
+          <div class="col-md-6 col-xs-12">
+            <div class="compartir">
+              <span class="icon-mail"></span>
+              <span class="icon-print"></span>
+              <span class="icon-facebook border-left"></span>
+              <span class="icon-instagram"></span>
+              <span class="icon-pinterest2"></span>
+              <span class="icon-houzz"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 text-right">
+            <div class="ordenar">
+              <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span [innerHTML]="orderByStr"></span>
+                        <span class="caret"></span>
+                    </button>
+                <ul class="dropdown-menu" aria-labelledby="ordenar">
+                  <li><a (click)="orderByPrice(1)">Precio: más bajos primero</a></li>
+                  <li><a (click)="orderByPrice(-1)">Precio: más altos primero</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="items && items.length > 0">
+          <div class="col-sm-6" *ngFor="let item of items">
+            <div class="ficha-producto" *ngIf="item != null">
+              <div class="row">
+                <div class="col-xs-12">
+                  <span class="icon-close pull-right" (click)="eliminarItems(item)"></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-4">
+                  <img class="img-responsive" src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/mini/{{item.itemcode}}.jpg" alt="{{item.itemname}}">
+                </div>
+                <div class="col-xs-8">
+                  <p class="name">{{item.itemname}}</p>
+                  <p id="price"><b>$ {{item.priceaftervat | number:0}}</b></p>
+                </div>
+              </div>
+              <div class="row" *ngIf="item != null">
+                <div class="col-xs-12">
+                  <div class="botones">
+                    <div class="btn-group" role="group">
+                      <button type="button" class="btn btn-detalles" [routerLink]="['/producto', item.shortitemcode]">
+                        Ver detalles
+                      </button>
+                      <button type="button" class="btn btn-carrito" (click)="agregarCarrito(item)">
+                        <span class="icon-shopping-cart carrito"></span> AGREGAR AL CARRITO
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="qty==0">
+          <p>No se encontraron ítems</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<matisses-footer></matisses-footer>
+<matisses-carrito-simple #carritoSimple></matisses-carrito-simple>

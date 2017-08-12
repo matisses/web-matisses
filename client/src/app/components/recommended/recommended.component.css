@@ -10,6 +10,7 @@ h3::before {
 
 .nombre-producto {
   height: 40px;
+  white-space: normal;
 }
 
 .carrito {
@@ -51,12 +52,20 @@ h4 {
   position: relative;
   white-space: nowrap;
   text-align: center;
+  margin-top: 10px;
 }
 
 .article {
   display: inline-block;
   width: 25%;
   padding: 0px 10px;
+  border: 1px solid #FFF;
+  padding-bottom: 10px;
+  cursor: pointer;
+}
+
+.article:hover {
+  border: 1px solid #EDEDED;
 }
 
 .right, .left {
@@ -94,17 +103,54 @@ h4 {
   display: none;
 }
 
-@media screen and (max-width: 900px) {
+.btn-carrito, .btn-like {
+  font-size: 12px;
+  padding: 10px;
+  border-radius: 0;
+  font-weight: 500 ;
+}
+
+.btn-like {
+  background-color: #EDEDED;
+  color: #65092D;
+}
+
+.btn-carrito {
+  border: 1px solid #EDEDED;
+  background-color: transparent;
+  margin-left: 5px !important;
+}
+
+.btn-carrito:hover {
+  background-color: #EDEDED;
+  color: #65092D;
+}
+
+.btn-carrito span {
+  color: #750229;
+}
+
+
+@media screen and (max-width: 991px) {
   .article {
-    width: 50%;
+    width: 33.3%;
   }
 }
 
-@media screen and (max-width: 630px) {
+@media screen and (max-width: 767px) {
+  .article {
+    width: 50%;
+  }
+  .right, .left {
+    margin-top: 25%;
+  }
+}
+
+@media screen and (max-width: 414px) {
   .article {
     width: 100%;
   }
   .right, .left {
-    margin-top: 30%;
+    margin-top: 40%;
   }
 }

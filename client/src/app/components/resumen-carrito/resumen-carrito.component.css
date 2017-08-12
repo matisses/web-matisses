@@ -9,10 +9,11 @@
 
 .container {
   color: #5B5B5B;
+  min-height: 430px;
 }
 
 .title {
-  background-color: rgb(241, 241, 241);
+  background-color: #EDEDED;
   padding: 10px;
 }
 
@@ -21,12 +22,27 @@
 }
 
 .producto {
-  border-bottom: 1px solid #5B5B5B;
   padding: 10px 0px;
+  border-bottom: 1px solid #EDEDED;
 }
 
-.productos {
-  border-top: 1px solid #5B5B5B;
+.item-name {
+  margin: 15px 0;
+  font-size: 15px;
+}
+
+.padding-right-0 {
+  padding-right: 0;
+}
+
+.trash {
+  margin-top: 15%;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.trash:hover {
+  color: #EDEDED;
 }
 
 input {
@@ -35,7 +51,7 @@ input {
 }
 
 .total {
-  background-color: rgb(241, 241, 241)
+  background-color: #EDEDED;
 }
 
 h5, h4 {
@@ -46,15 +62,62 @@ hr {
   margin: 5px 0;
 }
 
-.btn-carrito {
-  background-color: #5B5B5B;
+.btn-seguir-comprando {
+  background-color: #EDEDED;
   padding: 5px;
-  color: #FFF;
   margin-top: 10px;
   text-align: center;
   cursor: pointer;
 }
 
+.btn-seguir-comprando:hover {
+  font-weight: 700;
+}
+
+.btn-continuar {
+  background-color: #6D9197;
+  padding: 10px 0px;
+  color: #FFF;
+  text-align: center;
+  cursor: pointer;
+}
+
+.arrow {
+  position: absolute;
+  top: 27%;
+  margin-left: 5px;
+  transition: 0.5s;
+}
+
+.btn-continuar:hover > .arrow {
+  margin-left: 15px;
+}
+
+.btn-continuar:hover {
+  background-color: #7C7C7C;
+}
+
+.saldo-insuficiente {
+  position: absolute;
+  display: block;
+  background-color: rgba(59, 59, 59, 0.91);
+  z-index: 5;
+  width: 100%;
+  height: 132px;
+  text-align: center;
+  color: #FFF;
+}
+
+.saldo-insuficiente p {
+  margin-top: 50px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.saldo-insuficiente .glyphicon {
+  margin-right: 55px;
+  margin-top: 20px;
+}
 
 @media screen and (max-width: 991px) {
   .stuck-body {
@@ -68,10 +131,19 @@ hr {
 
 @media screen and (max-width: 450px) {
   input {
-    width: 70%;
+    width: 60%;
     font-size: 10px
   }
   .info p {
-    font-size: 9px;
+    font-size: 10px;
   }
+  .btn-carrito {
+    font-size: 10px;
+  }
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }

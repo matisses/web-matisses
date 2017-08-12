@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Item } from '../../models/item';
 import { ItemService } from '../../services/item.service';
-//declare var jquery: any;
+
+import { CarritoSimpleComponent } from '../header/menu/carrito/carrito-simple.component';
+
 declare var $: any;
 
 @Component({
@@ -14,17 +16,24 @@ declare var $: any;
 })
 
 export class NewProductsComponent implements OnInit {
+  @ViewChild(CarritoSimpleComponent)
+  private carrito: CarritoSimpleComponent;
+
   public title: string;
   public items: Array<Item>;
   public articuloActivo: number = 1;
 
   constructor(private _itemService: ItemService, private _route: ActivatedRoute, private _router: Router) {
-
   }
 
   ngOnInit() {
-    console.log('inicializando componente de nuevos productos');
+    //console.log('inicializando componente de nuevos productos');
     this.inicializarItems();
+    this._itemService.inicializarWishlist();
+  }
+
+  ngAfterViewInit() {
+    //console.log('termino de cargar el componente');
   }
 
   private inicializarItems() {
@@ -72,4 +81,20 @@ export class NewProductsComponent implements OnInit {
     return false;
   }
 
+  public toggleWishList(item: Item) {
+    this._itemService.toggleWishList(item);
+  }
+
+  public isInWishlist(item: Item) {
+    return this._itemService.isInWishlist(item);
+  }
+
+  public getCSSClassName(item: Item) {
+    return this._itemService.getCSSClassName(item);
+  }
+
+  public agregarCarrito(item: Item) {
+    item.selectedQuantity = 1;
+    this.carrito.procesarItem(item);
+  }
 }

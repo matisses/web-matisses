@@ -1,0 +1,121 @@
+.stuck-body {
+  margin-top: 130px;
+}
+
+.container {
+  min-height: 430px;
+}
+
+.title {
+  background-color: #7C7C7C;
+  color: #FFF;
+  padding: 10px;
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+/* Estilos informacion del cliente */
+.input-email, .input-contraseña, .check-box {
+  color: #5B5B5B;
+  text-align: left;
+  background-color: #FFF;
+  border: 1px solid #FFF;
+  border-radius: 0;
+}
+
+.input-email {
+  padding-right: 45px;
+}
+
+.check-box {
+  padding-right: 10px;
+  padding-top: 4px;
+}
+
+.input-ingresar {
+  border-radius: 0;
+}
+
+input:focus {
+  border-color: #5B5B5B;
+}
+
+.mantener-sesion {
+  margin-left: 88px;
+}
+
+.restablecer-contraseña {
+  margin-left: 122px;
+}
+
+.registrarme, .iniciar-sesion {
+  display: inline-block;
+  padding: 5px 75px;
+  font-weight: bold;
+  border: none;
+}
+
+.registrarme {
+  background-color: #EDEDED;
+  color: #5B5B5B;
+  margin-right: 10px;
+}
+
+.iniciar-sesion {
+  background-color: #5B5B5B;
+  color: #FFF;
+}
+
+.btn-continuar {
+  background-color: #7C7C7C;
+  padding: 5px;
+  color: #FFF;
+  width: 50%;
+  margin-left: 25%;
+  cursor: pointer;
+}
+
+/* Estilos ingresar como invitiado */
+
+@media screen and (max-width: 1200px) {
+  .registrarme, .iniciar-sesion {
+    padding: 5px 54px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .stuck-body {
+    margin-top: 0px;
+  }
+  .container {
+    padding-top: 40px;
+  }
+  .registrarme, .iniciar-sesion {
+    padding: 5px 32px;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .registrarme, .iniciar-sesion {
+    padding: 5px 39px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .registrarme, .iniciar-sesion {
+    padding: 5px 32px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .registrarme, .iniciar-sesion {
+    padding: 5px 28px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .registrarme, .iniciar-sesion {
+    padding: 5px 20px;
+  }
+}

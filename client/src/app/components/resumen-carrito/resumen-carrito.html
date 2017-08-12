@@ -2,98 +2,134 @@
 
 <div sticky-body>
   <div class="container">
+    <!-- Miga de pan
+    <miga-de-pan></miga-de-pan> -->
     <!-- Miga de pan -->
-    <div class="row">
+    <div class="row visible-xs">
       <div class="col-xs-12">
-        <ol class="breadcrumb">
-          <li><a [routerLink]="['/']">Home</a></li>
-          <li class="active">Carrito de compra</li>
-        </ol>
-      </div>
-    </div>
-    <!-- Miga de pan -->
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="title">
-          <h4>Carrito de compra</h4>
-        </div>
-        <p>Tu carrito contiene <b>({{number}})</b> productos.</p>
+        <p class="btn-continuar">Proceder al pago <span class="arrow glyphicon glyphicon-circle-arrow-right"></span></p>
       </div>
     </div>
 
-    <div class="productos">
-      <div class="row producto" *ngFor="let item of items">
-        <div class="col-md-2 col-sm-5">
-          <img src="assets/images/recommended/{{item.itemcode}}.jpg" class="img-responsive" alt="">
-        </div>
-        <div class="col-md-10 col-sm-7">
-          <div class="row">
-            <div class="col-md-6">
-              <p class="text-center">PRODUCTO</p>
-              <p><b>{{item.itemname}}</b></p>
+    <div class="row">
+      <div class="col-md-8 col-sm-7">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="title">
+              <h4>Tu carrito de compra <small>contiene <b>({{carrito.totalItems}})</b> productos.</small></h4>
             </div>
-            <div class="col-md-6">
-              <div class="info">
-                <div class="row">
-                  <div class="col-xs-3 text-center">
-                    <p>PRECIO</p>
-                    <p><b>$ {{item.price}}</b></p>
-                  </div>
-                  <div class="col-xs-3 text-center">
-                    <p>CANTIDAD</p>
-                    x <input type="number" value="{{number}}">
-                  </div>
-                  <div class="col-xs-3 text-center">
-                    <p>TOTAL</p>
-                    <p><b>$ {{item.price}}</b></p>
-                  </div>
-                  <div class="col-xs-3 text-center">
-                    <p>ELIMINAR</p>
-                    <span class="glyphicon glyphicon-trash"></span>
+          </div>
+        </div>
+        <div class="row" *ngIf="messajeError">
+          <div class="col-xs-12">
+            <div class="alert alert-danger" role="alert">
+              <p>{{messajeError}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="productos">
+          <div class="row producto" *ngFor="let item of carrito.shoppingCart.items">
+            <!-- <div class="saldo-insuficiente">
+              <p>El saldo es insuficiente <span class="glyphicon glyphicon-trash pull-right" (click)="eliminarItem(item)"></span></p>
+            </div> -->
+            <div class="col-md-3 col-sm-12 text-center cursor-pointer" [routerLink]="['/producto', item.shortitemcode]">
+              <img src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/mini/{{item.itemcode}}_01.jpg" alt="...">
+            </div>
+            <div class="col-md-9 col-sm-12">
+              <div class="row">
+                <div class="col-md-12">
+                  <p class="item-name cursor-pointer" [routerLink]="['/producto', item.shortitemcode]"><b>{{item.itemname}}</b></p>
+                </div>
+                <div class="col-md-12">
+                  <div class="info">
+                    <div class="row">
+                      <div class="col-xs-3 padding-right-0">
+                        <p>Precio</p>
+                        <p><b>$ {{item.priceaftervat | number}}</b></p>
+                      </div>
+                      <div class="col-xs-3">
+                        <form>
+                          <p>Cantidad</p>
+                          x <input type="tel" name="quantity" [(ngModel)]="item.selectedQuantity" (change)="procesarItem(item)">
+                        </form>
+                      </div>
+                      <div class="col-xs-3 padding-right-0">
+                        <p>Total</p>
+                        <p><b>$ {{(item.priceaftervat * item.selectedQuantity) | number}}</b></p>
+                      </div>
+                      <div class="col-xs-3 text-center">
+                        <span class="trash glyphicon glyphicon-trash" (click)="eliminarItem(item)"></span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <br/>
+        <div class="row hidden-xs">
+          <div class="col-xs-5" *ngIf="carrito.shoppingCart.items != null && carrito.shoppingCart.items.length > 0">
+            <p class="btn-continuar" (click)="procederPago()">Proceder al pago <span class="arrow glyphicon glyphicon-circle-arrow-right"></span></p>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col-md-5 col-md-offset-7 col-sm-6 col-sm-offset-6">
+      <div class="col-md-4 col-sm-5">
         <div class="row">
-          <div class="col-xs-6">
-            <h5>Subtotal</h5>
-          </div>
-          <div class="col-xs-6">
-            <h4>$ 4.800.000</h4>
-          </div>
-        </div>
-        <hr/>
-        <div class="row">
-          <div class="col-xs-6">
-            <h5>Descuentos</h5>
-          </div>
-          <div class="col-xs-6">
-            <h4>$ 0</h4>
-          </div>
-        </div>
-        <div class="total">
-          <div class="row">
-            <div class="col-xs-6">
-              <h5>Total</h5>
+          <div class="col-md-11 col-md-offset-1">
+            <div class="row">
+              <div class="col-xs-12" *ngIf="carrito.shoppingCart.items != null && carrito.shoppingCart.items.length > 0">
+                <p class="btn-continuar" (click)="procederPago()">Proceder al pago <span class="arrow glyphicon glyphicon-circle-arrow-right"></span></p>
+              </div>
             </div>
-            <div class="col-xs-6">
-              <h4>$ 4.800.000</h4>
+            <div class="row">
+              <div class="col-xs-12">
+                <h4>Resumen del pedido:</h4>
+                <h5><b>{{carrito.totalItems}}</b> productos.</h5>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-6">
-            <p class="btn-carrito">Continuar comprando</p>
-          </div>
-          <div class="col-xs-6">
-            <p class="btn-carrito">Proceder al pago</p>
+            <hr/>
+            <div class="row">
+              <div class="col-xs-6">
+                <h4>Subtotal</h4>
+              </div>
+              <div class="col-xs-6">
+                <h4><b>${{carrito.totalCarrito | number}}</b></h4>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6">
+                <h5>Impuestos</h5>
+              </div>
+              <div class="col-xs-6">
+                <h4>${{carrito.totalImpuestos | number}}</h4>
+              </div>
+            </div>
+            <hr/>
+            <div class="row">
+              <div class="col-xs-6">
+                <h5>Descuentos</h5>
+              </div>
+              <div class="col-xs-6">
+                <h4>$0</h4>
+              </div>
+            </div>
+            <div class="total">
+              <div class="row">
+                <div class="col-xs-6">
+                  <h5>Total</h5>
+                </div>
+                <div class="col-xs-6">
+                  <h4>${{carrito.totalCarrito | number}}</h4>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="row">
+              <div class="col-xs-12">
+                <p class="btn-seguir-comprando">Continuar comprando</p>
+              </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -103,3 +139,4 @@
 </div>
 
 <matisses-footer></matisses-footer>
+<matisses-carrito-simple #carritoSimple></matisses-carrito-simple>

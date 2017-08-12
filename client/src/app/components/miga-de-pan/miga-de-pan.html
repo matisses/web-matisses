@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-xs-12">
+    <ol class="breadcrumb">
+      <li><a [routerLink]="['/']">Home</a></li>
+      <li *ngIf="nombreGrupo">
+        <a [routerLink]="['/categoria']" [queryParams]="{group: queryParams.get('group')}">{{nombreGrupo}}</a>
+      </li>
+      <li *ngIf="nombreSubgrupo" class="active">
+        <a [routerLink]="['/categoria']" [queryParams]="{subgroup: queryParams.get('subgroup')}">{{nombreSubgrupo}}</a>
+      </li>
+    </ol>
+  </div>
+</div>

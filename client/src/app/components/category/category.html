@@ -2,22 +2,14 @@
 
 <div sticky-body>
   <div class="container">
-    <!-- Miga de pan -->
-    <div class="row">
-      <div class="col-xs-12">
-        <ol class="breadcrumb">
-          <li><a [routerLink]="['/']">Home</a></li>
-          <li>Categoria padre</li>
-          <li class="active">Categoria hijo</li>
-        </ol>
-      </div>
-    </div>
+    <!-- Miga de pan
+    <miga-de-pan></miga-de-pan> -->
     <!-- Miga de pan -->
     <!-- Imagen categoria -->
-    <div class="row">
+    <div class="row" *ngIf="queryParams.has('group')">
       <div class="col-xs-12">
         <div class="img-category">
-          <h2>Categoria hijos</h2>
+          <h2>{{nombreGrupo}}</h2>
         </div>
       </div>
     </div>
@@ -25,28 +17,27 @@
     <br/>
     <div class="row">
 
-      <div class="col-md-3 hidden-sm hidden-xs">
-        <filtros-matisses></filtros-matisses>
+      <div class="col-md-3">
+        <filtros-matisses #filtros></filtros-matisses>
       </div>
 
-<div class="btn-matisses">
-    <div class="row">
-      <div class="col-xs-12 text-center">
-        <button type="button" class="btn btn-default" (click)="openFilter()">ABRIR FILTROS</button>
+      <!-- <div class="btn-matisses">
+        <div class="row">
+          <div class="col-xs-12 text-center">
+            <button type="button" class="btn btn-default" (click)="openFilter()">ABRIR FILTROS</button>
+          </div>
+        </div>
       </div>
-    </div>
-</div>
 
       <div class="col-xs-12 visible-sm visible-xs">
         <div id="myFilter" class="fondo-filtro">
           <a href="javascript:void(0)" class="closebtn" (click)="closeFilter()">&times;</a>
           <div class="fondo-filtro-content">
             <button type="button" class="btn btn-default" (click)="closeFilter()">ABRIR FILTROS</button>
-            <filtros-matisses></filtros-matisses>
+            <filtros-matisses #filtros></filtros-matisses>
           </div>
         </div>
-      </div>
-
+      </div> -->
 
       <div class="col-md-9">
         <productos-matisses></productos-matisses>
