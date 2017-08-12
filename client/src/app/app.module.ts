@@ -15,7 +15,7 @@ import { CarritoComponent } from './components/header/menu/carrito/carrito.compo
 import { CarritoSimpleComponent } from './components/header/menu/carrito/carrito-simple.component';
 
 //Componente miga de pan
-//import { MigaDePanComponent } from './components/miga-de-pan/miga-de-pan.component';
+import { MigaDePanComponent } from './components/miga-de-pan/miga-de-pan.component';
 
 //Componentes del cuerpo del home
 import { HomeComponent } from './components/home/home.component';
@@ -105,7 +105,7 @@ import { Ng2GoogleRecaptchaModule } from 'ng2-google-recaptcha';
     CarritoSimpleComponent,
     IngresarComponent,
     InfoPagoComponent,
-    //MigaDePanComponent,
+    MigaDePanComponent,
     ResultadoTransacciComponent,
     ModalComponent,
     AdminComponent,
