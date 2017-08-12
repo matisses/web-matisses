@@ -22,7 +22,6 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('configurando accion antes de mostrar modal');
     $('#carritoModal').on('show.bs.modal', () => {
       this.cargarInfoModal();
     });
@@ -30,9 +29,7 @@ export class HeaderComponent implements OnInit {
 
   public cargarInfoModal() {
     this.carrito.cargarCarrito();
-    console.log('cargando info modal carrito');
     this.lastAddedItem = JSON.parse(localStorage.getItem('matisses.lastAddedItem'));
-    console.log(this.lastAddedItem);
     localStorage.removeItem('matisses.lastAddedItem');
   }
 }

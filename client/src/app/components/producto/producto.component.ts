@@ -39,7 +39,6 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    //console.log('inicializando componente de producto');
     this.cargarInfoItem();
     this._itemService.inicializarWishlist();
   }
@@ -63,7 +62,6 @@ export class ProductoComponent implements OnInit, AfterViewInit {
       this._itemService.find(itemCode).subscribe(
         response => {
           this.item = response.result[0];
-          console.log(this.item);
           this.validar360();
           this.validarWow();
           this.validarPlantilla();
@@ -71,7 +69,7 @@ export class ProductoComponent implements OnInit, AfterViewInit {
           this.obtenerRelacionados();
         },
         error => {
-          console.log(error);
+          console.error(error);
         }
       );
     });
@@ -101,7 +99,6 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   }
 
   private validar360() {
-    console.log('validando si existe el 360 para ref ' + this.item.itemcode);
     try {
       this._http.get('https://www.matisses.co/modules/matisses/files/' + this.item.itemcode + '/360/' + this.item.itemcode + '.html')
         .subscribe(
@@ -114,16 +111,14 @@ export class ProductoComponent implements OnInit, AfterViewInit {
           }
         },
         error => {
-          console.log('finalizo la validacion del 360 CON ERROR');
           this.existe360 = false;
         });
     } catch (e) {
-      console.log('ocurrio un error al acceder a la ruta de la imagen');
+      console.error('ocurrio un error al acceder a la ruta de la imagen');
     }
   }
 
   private validarWow() {
-    console.log('validando si existe el wow para ref ' + this.item.itemcode);
     try {
       this._http.get('https://www.matisses.co/modules/matisses/files/' + this.item.itemcode + '/animacion/' + this.item.itemcode + '.html').subscribe(
         response => {
@@ -135,18 +130,15 @@ export class ProductoComponent implements OnInit, AfterViewInit {
           }
         },
         error => {
-          console.log('finalizo la validacion del WOW CON ERROR');
           this.existeWow = false;
         }
       );
     } catch (e) {
-      console.log('ocurrio un error al acceder a la ruta de la imagen');
+      console.error('ocurrio un error al acceder a la ruta de la imagen');
     }
   }
 
   private validarPlantilla() {
-    console.log('validando si existe el plantilla para ref ' + this.item.itemcode);
-
     try {
       this._http.get('https://www.matisses.co/modules/matisses/files/' + this.item.itemcode + '/plantilla/' + this.item.itemcode + '.jpg').subscribe(
         response => {
@@ -158,13 +150,11 @@ export class ProductoComponent implements OnInit, AfterViewInit {
           }
         },
         error => {
-          console.log('finalizo la validacion del plantilla CON ERROR');
           this.existePlantilla = false;
         }
       );
     } catch (e) {
-      console.log('ocurrio un error al acceder a la ruta de la imagen');
-      console.error(e);
+      console.error('ocurrio un error al acceder a la ruta de la imagen', e);
     }
   }
 
@@ -187,7 +177,7 @@ export class ProductoComponent implements OnInit, AfterViewInit {
           this.quantityOptions.push(i + 1);
         }
       }, error => {
-        console.log(error);
+        console.error(error);
       }
     );
   }
@@ -196,17 +186,13 @@ export class ProductoComponent implements OnInit, AfterViewInit {
     this.itemsRelacionados = new Array<any>();
     this._itemService.findRelatedItems(this.item.model).subscribe(
       response => {
-        //console.log(response.items);
         this.itemsRelacionados = response.items;
-        //console.log(this.itemsRelacionados);
-
         for (let i = 0; i < this.itemsRelacionados.length; i++) {
           this.itemsRelacionados[i].color.hexa = '#' + this.itemsRelacionados[i].color.hexa;
-          //console.log(this.itemsRelacionados[i].color.hexa);
         }
       },
       error => {
-        console.log(error);
+        console.error(error);
       }
     );
   }
