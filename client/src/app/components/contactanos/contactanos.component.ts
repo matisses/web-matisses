@@ -42,7 +42,7 @@ export class ContactanosComponent implements OnInit {
     });
   }
 
-  private onCaptchaComplete(response: any) {
+  public onCaptchaComplete(response: any) {
     this.reCaptcha = response.token;
   }
 

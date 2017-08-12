@@ -114,7 +114,7 @@
               <div class="collapse" id="collapsePrecio">
                 <div class="filtro-precio">
                   <div class="row">
-                    <form *ngIf="filtrosDisponibless && filtrosDisponibless['prices']">
+                    <form *ngIf="filtrosDisponibles && filtrosDisponibles['prices']">
                       <div class="col-xs-6">
                         <p>Desde</p>
                         <input type="tel" class="desde" [placeholder]="filtrosDisponibles['prices']['minPrice']" name="minPrice" (blur)="toggleSelection('minPrice', minPrice)" (keyup.enter)="toggleSelection('minPrice', minPrice)" [(ngModel)]="minPrice">
