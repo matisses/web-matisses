@@ -55,7 +55,7 @@
 
 .ingreso li a:hover {
   text-decoration: none;
-  color: #1b1a1a;
+  color: #6D9197;
 }
 
 .border-left {
@@ -63,7 +63,7 @@
 }
 
 .lista-regalos {
-  background-color: #454545;
+  background-color: #6D9791;
   color: #FFF;
   padding: 5px 0;
   margin-top: 10px;
@@ -71,16 +71,8 @@
   cursor: pointer;
 }
 
-.lista-regalos span {
-  color: #6D9791;
-}
-
 .lista-regalos:hover {
-  background-color: #7C7C7C;
-}
-
-.lista-regalos:hover span {
-  color: #FFF;
+  background-color: #E07D7D;
 }
 
 a {

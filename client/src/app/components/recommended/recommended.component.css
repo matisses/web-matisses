@@ -112,7 +112,9 @@ h4 {
 
 .btn-like {
   background-color: #EDEDED;
-  color: #65092D;
+  color: #E07D7D;
+  font-size: 20px;
+  padding: 4px 5px;
 }
 
 .btn-carrito {
@@ -122,8 +124,8 @@ h4 {
 }
 
 .btn-carrito:hover {
-  background-color: #EDEDED;
-  color: #65092D;
+  background-color: #6D9791;
+  color: #FFF;
 }
 
 .btn-carrito span {

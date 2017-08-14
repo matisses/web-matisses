@@ -30,22 +30,25 @@
 
 .icon-mail {
   background-color: #FFF;
-  color: #5B5B5B;
   border-right: 1px solid #5B5B5B;
   padding: 0px 20px;
   font-size: 20px;
   cursor: default;
 }
 
+.icon-mail::before {
+  color: #6D9791;
+}
+
 .suscribete {
-  background-color: #777;
+  background-color: #6D9791;
   color: #ECECEC;
   z-index: 0 !important;
   border-radius: 0;
 }
 
 .suscribete:hover {
-  background-color: #5C5C5C !important;
+  background-color: #425E63 !important;
 }
 
 @media screen and (max-width: 1000px) {
