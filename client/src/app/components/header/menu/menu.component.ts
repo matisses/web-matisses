@@ -60,6 +60,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   public confirmacion: boolean = false;
   public removeCategoria: boolean = false;
   public removeGrupo: boolean = false;
+  public removeSubgrupo: boolean = false;
   public categoriaSeleccionada: MenuItem;
   public grupoSeleccionado: MenuItem;
   public subgrupoSeleccionado: MenuItem;
@@ -443,12 +444,12 @@ export class MenuComponent implements OnInit, AfterViewInit {
     this.subgrupos = null;
     this.subgrupoSeleccionado = null;
     if (this.grupos != null && this.grupos.length > 0) {
-      this.errorMessage = 'La categoria ' + this.categoriaSeleccionada.name + ' tiene grupos asociados y por lo tanto no se puede eliminar.';
+      this.errorMessage = 'el nivel ' + this.categoriaSeleccionada.name + ' tiene datos en el nivel 2 asociados y por lo tanto no se puede eliminar.';
       return
     }
     if (!confirmacion) {
       this.removeCategoria = true;
-      this.mensajeConfirmacion = '¿Esta seguro que desea eliminar la categoria ' + this.categoriaSeleccionada.name + '?.';
+      this.mensajeConfirmacion = '¿Esta seguro que desea eliminar el nivel ' + this.categoriaSeleccionada.name + '?.';
       this.confirmacion = true;
     } else {
       this._menuService.remove(this.categoriaSeleccionada._id).subscribe(
@@ -467,13 +468,13 @@ export class MenuComponent implements OnInit, AfterViewInit {
 
   public eliminarGrupo(confirmacion: boolean) {
     this.errorMessage = '';
-    /*if (this.grupos != null && this.grupos.length > 0) {
-      this.errorMessage = 'La categoria ' + this.categoriaSeleccionada.name + ' tiene grupos asociados y por lo tanto no se puede eliminar.';
+    if (this.subgrupos != null && this.subgrupos.length > 0) {
+      this.errorMessage = 'el nivel ' + this.grupoSeleccionado.name + ' tiene datos en el nivel 3 asociados y por lo tanto no se puede eliminar.';
       return
-    }*/
+    }
     if (!confirmacion) {
       this.removeGrupo = true;
-      this.mensajeConfirmacion = '¿Esta seguro que desea eliminar el grupo ' + this.grupoSeleccionado.name + '?.';
+      this.mensajeConfirmacion = '¿Esta seguro que desea eliminar el nivel ' + this.grupoSeleccionado.name + '?.';
       this.confirmacion = true;
     } else {
       this._menuService.remove(this.grupoSeleccionado._id).subscribe(
@@ -482,6 +483,27 @@ export class MenuComponent implements OnInit, AfterViewInit {
           this.grupoSeleccionado = null;
           this.confirmacion = false;
           this.removeGrupo = false;
+        },
+        error => {
+          console.error(error);
+        }
+      );
+    }
+  }
+
+  public eliminarSubgrupo(confirmacion: boolean){
+    this.errorMessage = '';
+    if (!confirmacion) {
+      this.removeSubgrupo = true;
+      this.mensajeConfirmacion = '¿Esta seguro que desea eliminar el nivel ' + this.subgrupoSeleccionado.name + '?.';
+      this.confirmacion = true;
+    } else {
+      this._menuService.remove(this.subgrupoSeleccionado._id).subscribe(
+        response => {
+          this.eliminarItemMenu(false, false, true, this.subgrupoSeleccionado, this.subgrupos);
+          this.subgrupoSeleccionado = null;
+          this.confirmacion = false;
+          this.removeSubgrupo = false;
         },
         error => {
           console.error(error);

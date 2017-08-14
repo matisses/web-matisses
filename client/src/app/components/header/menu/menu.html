@@ -11,6 +11,7 @@
                   <button type="button" class="btn btn-default" data-dismiss="alert">No</button>
                   <button type="button" class="btn btn-danger" data-dismiss="alert" (click)="eliminarCategoria(true)" *ngIf="removeCategoria">Sí</button>
                   <button type="button" class="btn btn-danger" data-dismiss="alert" (click)="eliminarGrupo(true)" *ngIf="removeGrupo">Sí</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="alert" (click)="eliminarGrupo(true)" *ngIf="removeSubgrupo">Sí</button>
                 </div>
               </div>
             </div>
@@ -159,7 +160,7 @@
                 <button type="button" class="btn btn-default" (click)="bajarPosicionSubgrupo()"><span class="glyphicon glyphicon-chevron-down"></span></button>
               </div>
               <div class="col-xs-4 text-center">
-                <button type="button" class="btn btn-default" (click)="eliminarCategoria(false)"><span class="glyphicon glyphicon-trash"></span></button>
+                <button type="button" class="btn btn-default" (click)="eliminarSubgrupo(false)"><span class="glyphicon glyphicon-trash"></span></button>
               </div>
             </div>
             <br/>
