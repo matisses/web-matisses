@@ -106,8 +106,8 @@ export class FiltrosComponent implements AfterViewInit {
           case 'subgroup':
             this._itemService.findType('subgrupo', '?fieldValue=' + this.queryParams.get(this.availableFields[i])).subscribe(
               response => {
-                if(response.result && response.result.length > 0){
-                  for(let k = 0; k < response.result.length; k++){
+                if (response.result && response.result.length > 0) {
+                  for (let k = 0; k < response.result.length; k++) {
                     if (response.result[k].code) {
                       this.filtrosAplicados.push(['Subgrupo', response.result[k].name, 'subgroup', response.result[k].code]);
                     }
@@ -156,6 +156,9 @@ export class FiltrosComponent implements AfterViewInit {
             break;
           case 'maxPrice':
             this.filtrosAplicados.push(['Precio máximo', '$ hasta ' + this.queryParams.get('maxPrice'), 'maxPrice']);
+            break;
+          case 'collection':
+            this.filtrosAplicados.push(['Colección', this.queryParams.get('collection'), 'collection', this.queryParams.get('collection')]);
             break;
           default:
           //y sino?
