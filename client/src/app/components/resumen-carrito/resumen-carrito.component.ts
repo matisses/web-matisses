@@ -73,7 +73,9 @@ export class ResumenCarritoComponent implements OnInit {
           return;
         }
       }
-      this._router.navigate(['/ingresar']);
+      //TODO: se debe modificar la ruta cuando se habilite el inicio de sesion a usuarios
+      //this._router.navigate(['/ingresar']);
+      this._router.navigate(['/info-pago']);
     } else {
       this.messajeError = 'No se encntraron ítems para continuar';
     }

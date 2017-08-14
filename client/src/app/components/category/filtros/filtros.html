@@ -145,7 +145,7 @@
             </div>
           </div>
 
-          <div class="row" *ngIf="filtrosDisponibles['materials'] && filtrosDisponibles['materials'].length > 1">
+          <div class="row" *ngIf="queryParams && !queryParams.has('material')">
             <div class="col-xs-12">
               <div class="filter-collapse" (click)="toggleClass('#materiales')" data-toggle="collapse" href="#collapseMateriales" aria-expanded="false" aria-controls="collapseMateriales">
                 <p>Materiales <span id="materiales" class="icon-plus pull-right"></span></p>

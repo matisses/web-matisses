@@ -2,7 +2,7 @@
 
 <div sticky-body>
   <div class="container">
-    <!-- Miga de pan 
+    <!-- Miga de pan
     <miga-de-pan></miga-de-pan> -->
     <!-- Miga de pan -->
     <div class="row visible-xs">
@@ -32,13 +32,13 @@
             <!-- <div class="saldo-insuficiente">
               <p>El saldo es insuficiente <span class="glyphicon glyphicon-trash pull-right" (click)="eliminarItem(item)"></span></p>
             </div> -->
-            <div class="col-md-3 col-sm-12 text-center">
+            <div class="col-md-3 col-sm-12 text-center cursor-pointer" [routerLink]="['/producto', item.shortitemcode]">
               <img src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/mini/{{item.itemcode}}_01.jpg" alt="...">
             </div>
             <div class="col-md-9 col-sm-12">
               <div class="row">
                 <div class="col-md-12">
-                  <p class="item-name"><b>{{item.itemname}}</b></p>
+                  <p class="item-name cursor-pointer" [routerLink]="['/producto', item.shortitemcode]"><b>{{item.itemname}}</b></p>
                 </div>
                 <div class="col-md-12">
                   <div class="info">
