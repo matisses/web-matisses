@@ -84,6 +84,7 @@ function armarFilterObject2(req) {
   var brand = req.query.brand;
   var color = req.query.color;
   var material = req.query.material;
+  var collection = req.query.collection;
   var minPrice = req.query.minPrice;
   var maxPrice = req.query.maxPrice;
 
@@ -107,6 +108,9 @@ function armarFilterObject2(req) {
   if (typeof material != 'undefined' && material != null) {
     filterObject['materials.code'] = material;
   }
+  if (typeof collection != 'undefined' && collection != null) {
+    filterObject['collection'] = collection;
+  }
   if (typeof minPrice != 'undefined' && minPrice != null) {
     filterObject['$and'] = [{
       priceaftervat: {
@@ -129,8 +133,6 @@ function armarFilterObject2(req) {
       }];
     }
   }
-  //console.log(filterObject);
-  //console.log(filterObject['$and']);
   return filterObject;
 }
 
@@ -138,6 +140,8 @@ function filtrar(req, res) {
   var page = req.query.page;
   var pageSize = req.query.pageSize;
   var orderBy = req.query.orderBy;
+
+  console.log(req.query);
 
   if (typeof page == 'undefined' || page == null) {
     page = 1;
@@ -619,8 +623,45 @@ function consultarFiltros(req, res) {
                         } else {
                           //Obtuvo resultados para precioMinimo
                           resultados['prices'] = result6[0];
-                          res.status(200).send({
-                            result: resultados
+
+                          Item.aggregate([{
+                              "$match": filterObject
+                            },
+                            {
+                              "$group": {
+                                "_id": {
+                                  "collection": "$collection"
+                                }
+                              }
+                            },
+                            {
+                              "$sort": {
+                                "_id.collection": 1
+                              }
+                            }
+                          ], (err7, result7) => {
+                            if (err7) {
+                              console.error(err7);
+                              res.status(500).send({
+                                message: 'ocurrio un error al consultar los filtros (coleccion)'
+                              });
+                            } else if (!result7) {
+                              res.status(404).send({
+                                message: 'no se obtuvieron resultados con los filtros especificados'
+                              });
+                            } else {
+                              resultados['collection'] = [];
+                              for (var i = 0; i < result7.length; i++) {
+                                if (result7[i]._id.collection != null && result7[i]._id.collection != 0) {
+                                  resultados['collection'].push(result7[i]._id.collection);
+                                }
+                              }
+
+                              //Obtuvo resultados para coleccion
+                              res.status(200).send({
+                                result: resultados
+                              });
+                            }
                           });
                         }
                       });
@@ -659,11 +700,19 @@ function consultarGrupo(req, res) {
 }
 
 function consultarSubgrupo(req, res) {
-  Item.find({
-    "subgroup.code": req.query.fieldValue
-  }, {
-    "subgroup": 1
-  }, (err, result) => {
+  var queryObject = {};
+  if (req.query.fieldValue.indexOf(',') >= 0) {
+    queryObject = {
+      "subgroup.code": {
+        $in: req.query.fieldValue.split(',')
+      }
+    };
+  } else {
+    queryObject = {
+      "subgroup.code": req.query.fieldValue
+    };
+  }
+  Item.distinct("subgroup", queryObject, (err, result) => {
     if (err) {
       res.status(500).send({
         message: 'ocurrio un error al ejecutar la consulta'
@@ -677,7 +726,7 @@ function consultarSubgrupo(req, res) {
         result: result
       });
     }
-  }).limit(1);
+  });
 }
 
 function consultarMarca(req, res) {

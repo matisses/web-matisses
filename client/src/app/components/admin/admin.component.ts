@@ -14,7 +14,6 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit() {
-    //console.log('inicializando componente de administracion del sitio');
     this.cargarToken();
   }
 
@@ -23,7 +22,6 @@ export class AdminComponent implements OnInit {
       let token: string = params['token'];
       this._jwt.validateToken(token).subscribe(
         response => {
-          console.log(response);
           localStorage.setItem('matisses.admin-token', token);
           this._router.navigate(['/']);
         }, error => {

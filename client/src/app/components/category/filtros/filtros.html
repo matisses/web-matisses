@@ -36,7 +36,7 @@
           </div>
         </div>
 
-        <div *ngIf="filtrosDisponibles['groups'] && filtrosDisponibles['groups'].length > 1">
+        <div *ngIf="filtrosDisponibles['groups'] && filtrosDisponibles['groups'].length > 1 && queryParams && !(queryParams.has('group') || queryParams.has('subgroup'))">
           <div class="row">
             <div class="col-xs-12">
               <div class="title">
@@ -154,6 +154,21 @@
                 <ul>
                   <li class="filter-option" *ngFor="let materialesItem of filtrosDisponibles['materials']" (click)="toggleSelection('material',materialesItem.code)">
                     <span>{{materialesItem.name}}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="queryParams && !queryParams.has('collection')">
+            <div class="col-xs-12">
+              <div class="filter-collapse" (click)="toggleClass('#colecciones')" data-toggle="collapse" href="#collapseColecciones" aria-expanded="false" aria-controls="collapseColecciones">
+                <p>Colecciones <span id="colecciones" class="icon-plus pull-right"></span></p>
+              </div>
+              <div class="collapse" id="collapseColecciones">
+                <ul>
+                  <li class="filter-option" *ngFor="let coleccion of filtrosDisponibles['collection']" (click)="toggleSelection('collection',coleccion)">
+                    <span>{{coleccion}}</span>
                   </li>
                 </ul>
               </div>
