@@ -657,11 +657,19 @@ function consultarGrupo(req, res) {
 }
 
 function consultarSubgrupo(req, res) {
-  Item.find({
-    "subgroup.code": req.query.fieldValue
-  }, {
-    "subgroup": 1
-  }, (err, result) => {
+  var queryObject = {};
+  if (req.query.fieldValue.indexOf(',') >= 0) {
+    queryObject = {
+      "subgroup.code": {
+        $in: req.query.fieldValue.split(',')
+      }
+    };
+  } else {
+    queryObject = {
+      "subgroup.code": req.query.fieldValue
+    };
+  }
+  Item.distinct("subgroup", queryObject, (err, result) => {
     if (err) {
       res.status(500).send({
         message: 'ocurrio un error al ejecutar la consulta'
@@ -675,7 +683,7 @@ function consultarSubgrupo(req, res) {
         result: result
       });
     }
-  }).limit(1);
+  });
 }
 
 function consultarMarca(req, res) {

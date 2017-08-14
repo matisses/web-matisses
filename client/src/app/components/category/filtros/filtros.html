@@ -36,7 +36,7 @@
           </div>
         </div>
 
-        <div *ngIf="filtrosDisponibles['groups'] && filtrosDisponibles['groups'].length > 1">
+        <div *ngIf="filtrosDisponibles['groups'] && filtrosDisponibles['groups'].length > 1 && queryParams && !(queryParams.has('group') || queryParams.has('subgroup'))">
           <div class="row">
             <div class="col-xs-12">
               <div class="title">
