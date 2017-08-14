@@ -9,7 +9,7 @@ function listPrincipalCities(req, res) {
     code: /001$/
   }, (err, result) => {
     if (err) {
-      console.log(err);
+      console.error(err);
       res.status(500).send({
         message: 'ocurrio un error al consultar las ciudades principales'
       });

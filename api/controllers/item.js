@@ -129,8 +129,6 @@ function armarFilterObject2(req) {
       }];
     }
   }
-  //console.log(filterObject);
-  //console.log(filterObject['$and']);
   return filterObject;
 }
 

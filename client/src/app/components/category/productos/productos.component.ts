@@ -36,12 +36,10 @@ export class ProductosComponent {
   }
 
   ngAfterViewInit() {
-    console.log('termino de cargar el componente');
     this._itemService.inicializarWishlist();
   }
 
   public cargarItems(availableFields, items, queryParams, records) {
-    console.log('configurando datos en componente de productos');
     this.items = items;
     this.availableFields = availableFields;
     this.queryParams = queryParams;
@@ -102,7 +100,6 @@ export class ProductosComponent {
       let key = this.availableFields[i];
       queryParamsObj[key] = this.queryParams.get(key);
     }
-    console.log(queryParamsObj);
     this._router.navigate(['/categoria'], { queryParams: queryParamsObj });
   }
 
