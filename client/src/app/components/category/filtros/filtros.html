@@ -13,7 +13,7 @@
     <!-- boton abrir filtros -->
 
     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-      <div class="panel-body">
+      <div class="panel-body" *ngIf="totalItems > 0">
         <!-- contenido de los filtros -->
 
         <div *ngIf="filtrosAplicados && filtrosAplicados.length > 0">

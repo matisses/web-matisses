@@ -54,6 +54,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   private viewportWidth: number = 0;
   public adminToken: string;
   public errorMessage: string = '';
+  public keywords: string = '';
 
   public mensajeConfirmacion: string = '';
   public metodoEliminar: string = '';
@@ -76,6 +77,9 @@ export class MenuComponent implements OnInit, AfterViewInit {
     this.inicializarMenu();
     document.getElementById("myNav").style.width = "0%";
     this.cargarDatosMenu();
+    $('#collapseSearch').on('shown.bs.collapse', function() {
+      $('#searchField').focus();
+    });
   }
 
   ngAfterViewInit() {
@@ -491,7 +495,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public eliminarSubgrupo(confirmacion: boolean){
+  public eliminarSubgrupo(confirmacion: boolean) {
     this.errorMessage = '';
     if (!confirmacion) {
       this.removeSubgrupo = true;
@@ -709,5 +713,12 @@ export class MenuComponent implements OnInit, AfterViewInit {
       queryParams['subgroup'] = menuItem.subgroup;
     }
     return queryParams;
+  }
+
+  public search() {
+    if (this.keywords && this.keywords.length > 0) {
+      let queryParamsObj = { keywords: this.keywords.replace(" ", ",") };
+      this._router.navigate(['/categoria'], { queryParams: queryParamsObj });
+    }
   }
 }

@@ -40,6 +40,7 @@ export class ProductosComponent {
   }
 
   public cargarItems(availableFields, items, queryParams, records) {
+    console.log(items);
     this.items = items;
     this.availableFields = availableFields;
     this.queryParams = queryParams;
