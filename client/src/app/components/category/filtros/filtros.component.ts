@@ -24,6 +24,7 @@ export class FiltrosComponent implements AfterViewInit {
   public viewHasLoaded: boolean = false;
   public minPrice: number;
   public maxPrice: number;
+  public totalItems: number = 0;
 
   constructor(private _itemService: ItemService, private _route: ActivatedRoute, private _router: Router) {
     this.filtrosDisponibles = new Map<String, Array<any>>();
@@ -35,9 +36,8 @@ export class FiltrosComponent implements AfterViewInit {
     //this.configurarAlturaInicialFiltros();
   }
 
-  public inicializarFiltros(availableFields, queryParams, queryString) {
-    //console.log('inicializando componente de filtros');
-    //console.log(queryParams);
+  public inicializarFiltros(availableFields, queryParams, queryString, totalItems) {
+    this.totalItems = totalItems;
     this.availableFields = availableFields;
     this.queryParams = queryParams;
     if (this.queryParams.has('minPrice')) {

@@ -6,50 +6,57 @@
             {{itemsXPag}} <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-            <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(12)">12 x pag</a></li>
-            <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(24)">24 x pag</a></li>
-            <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(36)">36 x pag</a></li>
-            <li *ngIf="totalItems < 100"><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
+          <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(12)">12 x pag</a></li>
+          <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(24)">24 x pag</a></li>
+          <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(36)">36 x pag</a></li>
+          <li *ngIf="totalItems < 100"><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
         </ul>
       </div>
     </div>
   </div>
   <div class="col-md-4 text-center">
     <div class="ordenar">
-        <div class="btn-group">
-            <button type="button" class="btn btn-matisses dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <div class="btn-group">
+        <button type="button" class="btn btn-matisses dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span [innerHTML]="orderByStr">
                 </span><span class="caret"></span>
             </button>
-            <ul class="dropdown-menu" aria-labelledby="ordenar">
-                <li><a href="javascript:void(0);" (click)="changeOrder('price')">Precio: más bajos primero</a></li>
-                <li><a href="javascript:void(0);" (click)="changeOrder('-price')">Precio: más altos primero</a></li>
-                <li><a href="javascript:void(0);" (click)="changeOrder('itemname')">Nombre: de A a Z</a></li>
-                <li><a href="javascript:void(0);" (click)="changeOrder('-itemname')">Nombre: de Z a A</a></li>
-                <li><a href="javascript:void(0);" (click)="changeOrder('model')">Similares</a></li>
-            </ul>
-        </div>
+        <ul class="dropdown-menu" aria-labelledby="ordenar">
+          <li><a href="javascript:void(0);" (click)="changeOrder('price')">Precio: más bajos primero</a></li>
+          <li><a href="javascript:void(0);" (click)="changeOrder('-price')">Precio: más altos primero</a></li>
+          <li><a href="javascript:void(0);" (click)="changeOrder('itemname')">Nombre: de A a Z</a></li>
+          <li><a href="javascript:void(0);" (click)="changeOrder('-itemname')">Nombre: de Z a A</a></li>
+          <li><a href="javascript:void(0);" (click)="changeOrder('model')">Similares</a></li>
+        </ul>
+      </div>
     </div>
   </div>
   <div class="col-md-4 text-center" *ngIf="pages.length > 1">
-      <ul class="pagination">
-        <li (click)="irAPagina(activePage - 1)">
-          <a href="javascript:void(0)" aria-label="Previous">
+    <ul class="pagination">
+      <li (click)="irAPagina(activePage - 1)">
+        <a href="javascript:void(0)" aria-label="Previous">
             <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
           </a>
-        </li>
-        <li><a href="javascript:void(0)" *ngFor="let page of pages" (click)="irAPagina(page)" [class.active]="page == activePage">{{page}}</a></li>
-        <li (click)="irAPagina(activePage + 1)">
-          <a href="javascript:void(0)" aria-label="Next">
+      </li>
+      <li><a href="javascript:void(0)" *ngFor="let page of pages" (click)="irAPagina(page)" [class.active]="page == activePage">{{page}}</a></li>
+      <li (click)="irAPagina(activePage + 1)">
+        <a href="javascript:void(0)" aria-label="Next">
             <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
           </a>
-        </li>
-      </ul>
+      </li>
+    </ul>
   </div>
 </div>
 
 <!-- Productos -->
 
+<div class="row" *ngIf="items.length == 0">
+  <div class="col-xs-12">
+    <p>
+      No se encontraron resultados
+    </p>
+  </div>
+</div>
 <div class="row" *ngIf="items.length > 0">
   <div class="col-sm-4 col-xs-6" *ngFor="let item of items">
     <div class="producto">
@@ -89,45 +96,45 @@
             {{itemsXPag}} <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-            <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(12)">12 x pag</a></li>
-            <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(24)">24 x pag</a></li>
-            <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(36)">36 x pag</a></li>
-            <li *ngIf="totalItems < 100"><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
+          <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(12)">12 x pag</a></li>
+          <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(24)">24 x pag</a></li>
+          <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(36)">36 x pag</a></li>
+          <li *ngIf="totalItems < 100"><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
         </ul>
       </div>
     </div>
   </div>
   <div class="col-md-4 text-center">
     <div class="ordenar">
-        <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span [innerHTML]="orderByStr">
                 </span><span class="caret"></span>
             </button>
-            <ul class="dropdown-menu" aria-labelledby="ordenar">
-                <li><a href="javascript:void(0);" (click)="changeOrder('price')">Precio: más bajos primero</a></li>
-                <li><a href="javascript:void(0);" (click)="changeOrder('-price')">Precio: más altos primero</a></li>
-                <li><a href="javascript:void(0);" (click)="changeOrder('itemname')">Nombre: de A a Z</a></li>
-                <li><a href="javascript:void(0);" (click)="changeOrder('-itemname')">Nombre: de Z a A</a></li>
-                <li><a href="javascript:void(0);" (click)="changeOrder('model')">Similares</a></li>
-            </ul>
-        </div>
+        <ul class="dropdown-menu" aria-labelledby="ordenar">
+          <li><a href="javascript:void(0);" (click)="changeOrder('price')">Precio: más bajos primero</a></li>
+          <li><a href="javascript:void(0);" (click)="changeOrder('-price')">Precio: más altos primero</a></li>
+          <li><a href="javascript:void(0);" (click)="changeOrder('itemname')">Nombre: de A a Z</a></li>
+          <li><a href="javascript:void(0);" (click)="changeOrder('-itemname')">Nombre: de Z a A</a></li>
+          <li><a href="javascript:void(0);" (click)="changeOrder('model')">Similares</a></li>
+        </ul>
+      </div>
     </div>
   </div>
   <div class="col-md-4 text-center" *ngIf="pages.length > 1">
-      <ul class="pagination">
-        <li (click)="irAPagina(activePage - 1)">
-          <a href="javascript:void(0)" aria-label="Previous">
+    <ul class="pagination">
+      <li (click)="irAPagina(activePage - 1)">
+        <a href="javascript:void(0)" aria-label="Previous">
             <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
           </a>
-        </li>
-        <li><a href="javascript:void(0)" *ngFor="let page of pages" (click)="irAPagina(page)" [class.active]="page == activePage">{{page}}</a></li>
-        <li (click)="irAPagina(activePage + 1)">
-          <a href="javascript:void(0)" aria-label="Next">
+      </li>
+      <li><a href="javascript:void(0)" *ngFor="let page of pages" (click)="irAPagina(page)" [class.active]="page == activePage">{{page}}</a></li>
+      <li (click)="irAPagina(activePage + 1)">
+        <a href="javascript:void(0)" aria-label="Next">
             <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
           </a>
-        </li>
-      </ul>
+      </li>
+    </ul>
   </div>
 </div>
 <matisses-carrito-simple #carritoSimple></matisses-carrito-simple>
