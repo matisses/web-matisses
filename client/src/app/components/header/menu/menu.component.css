@@ -49,6 +49,27 @@
   border-radius: 0;
 }
 
+.resultado-busqueda {
+  background-color: #FFF;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  cursor: pointer;
+  opacity: 0.95;
+}
+
+.table-hover p {
+  font-size: 15px;
+  padding-left: 20px;
+  margin-bottom: 0;
+  margin: 5px;
+}
+
+.table-hover>tbody>tr:hover {
+  font-weight: bolder;
+  background-color: transparent;
+}
+
 .ingreso {
   padding-left: 0;
   margin-bottom: 0;
