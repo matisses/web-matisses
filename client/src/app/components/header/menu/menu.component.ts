@@ -80,6 +80,9 @@ export class MenuComponent implements OnInit, AfterViewInit {
     $('#collapseSearch').on('shown.bs.collapse', function() {
       $('#searchField').focus();
     });
+    $('#collapseSearchMovil').on('shown.bs.collapse', function() {
+      $('#searchFieldMobile').focus();
+    });
   }
 
   ngAfterViewInit() {

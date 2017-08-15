@@ -396,7 +396,9 @@
     <div class="col-xs-10 col-xs-offset-1">
       <div class="collapse" id="collapseSearchMovil">
         <div class="input-group search-group">
-          <input type="text" class="search-bar" placeholder="¿Qué estás buscando?">
+          <form (submit)="search()">
+            <input id="searchFieldMobile" [(ngModel)]="keywords" name="keywords" type="search" class="search-bar" placeholder="¿Qué estás buscando?">
+          </form>
           <span class="input-group-btn">
             <button class="btn icon-close btn-close" type="button" data-toggle="collapse" data-target="#collapseSearchMovil" aria-expanded="false" aria-controls="collapseSearchMovil"></button>
           </span>

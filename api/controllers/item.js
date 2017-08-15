@@ -154,7 +154,11 @@ function filtrar(req, res) {
     if (errorCount) {
       console.error(errorCount);
     } else {
-      Item.find(filterObject, {score: {$meta: "textScore"}}, (err, result) => {
+      Item.find(filterObject, {
+        score: {
+          $meta: "textScore"
+        }
+      }, (err, result) => {
         if (err) {
           res.status(500).send({
             message: 'ocurrio un error al consultar los productos',
@@ -180,6 +184,9 @@ function consultarFiltros(req, res) {
   var filterObject = armarFilterObject(req);
   //consulta los departamentos
   Item.aggregate([{
+      "$match": filterObject
+    },
+    {
       "$group": {
         "_id": {
           "group": "$group"
