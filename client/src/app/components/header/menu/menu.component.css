@@ -144,7 +144,7 @@ a {
   padding: 10px 0px;
   position: absolute;
   width: 100%;
-  top: 164px;
+  top: 169px;
   z-index: 2;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -195,7 +195,7 @@ a {
 
 .stuck-submenu {
   position: fixed;
-  top: 109px;
+  top: 114px;
 }
 
 .selected {
@@ -464,5 +464,26 @@ button.accordion {
   .carrito {
     color: red;
     margin-top: 1px;
+  }
+  .search-group input {
+    -webkit-appearance: none;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .search-group {
+    margin-top: 20px;
+  }
+  .search-bar {
+    border: 1px solid #FFF;
+    width: 100%;
+    padding: 10px;
+    border-radius: 0;
+  }
+
+  .btn-close {
+    padding: 5px;
+    background-color: #FFF;
+    border-radius: 0;
   }
 }

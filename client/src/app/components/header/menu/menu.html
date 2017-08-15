@@ -387,21 +387,19 @@
         </div>
       </div>
       <div class="col-xs-3 text-right">
-        <!-- <span class="glyphicon glyphicon-search" role="button" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"></span> -->
+        <span class="glyphicon glyphicon-search" role="button" data-toggle="collapse" href="#collapseSearchMovil" aria-expanded="false" aria-controls="collapseSearchMovil"></span>
         <span class="glyphicon glyphicon-menu-hamburger menu-mobile" id="hamburger" (click)="carritoMobile.closeResumen()" (click)="toggleClass('#hamburger', 'glyphicon-menu-hamburger', 'glyphicon-remove')" (click)="toggleNav()"></span>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col-xs-10 col-xs-offset-1">
-      <div class="collapse" id="collapseSearch">
-        <div class="search-group">
-          <div class="input-group">
-            <span class="input-group-btn">
-              <button class="btn icon-search" type="button"><span class="glyphicon glyphicon-search"></span></button>
-            </span>
-            <input type="text" class="buscar" placeholder="Buscar">
-          </div>
+      <div class="collapse" id="collapseSearchMovil">
+        <div class="input-group search-group">
+          <input type="text" class="search-bar" placeholder="¿Qué estás buscando?">
+          <span class="input-group-btn">
+            <button class="btn icon-close btn-close" type="button" data-toggle="collapse" data-target="#collapseSearchMovil" aria-expanded="false" aria-controls="collapseSearchMovil"></button>
+          </span>
         </div>
       </div>
     </div>
