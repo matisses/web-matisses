@@ -25,3 +25,9 @@ input:focus, button:focus, span:focus, p:focus, li:focus, div:focus, textarea:fo
   outline: none !important;
   box-shadow: none !important;
 }
+
+@media screen and (max-width: 991px) {
+  .padding-top {
+    padding-top: 60px;
+  }
+}
