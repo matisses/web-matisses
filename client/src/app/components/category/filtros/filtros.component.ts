@@ -160,6 +160,9 @@ export class FiltrosComponent implements AfterViewInit {
           case 'collection':
             this.filtrosAplicados.push(['Colección', this.queryParams.get('collection'), 'collection', this.queryParams.get('collection')]);
             break;
+          case 'keywords':
+            this.filtrosAplicados.push(['Palabras Claves', this.queryParams.get('keywords'), 'keywords', this.queryParams.get('keywords')]);
+            break;
           default:
           //y sino?
         }
