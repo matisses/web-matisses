@@ -98,7 +98,7 @@ hr {
 }
 
 .total-items-carrito-badge {
-  
+
 }
 
 /* Estilos para desktop */
@@ -109,6 +109,7 @@ hr {
   }
   .carrito .badge {
     top: 17px;
+    right: 35px;
   }
   .resumen {
     left: -228px;
