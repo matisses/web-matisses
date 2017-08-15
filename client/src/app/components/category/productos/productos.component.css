@@ -20,9 +20,12 @@
 }
 
 .btn-like {
-  background-color: #ECECEC;
-  color: #65092D;
+  background-color: #EDEDED;
+  color: #E07D7D;
+  font-size: 20px;
+  padding: 4px 5px;
 }
+
 
 .btn-carrito {
   border: 1px solid rgb(230, 230, 230);
@@ -31,8 +34,8 @@
 }
 
 .btn-carrito:hover {
-  color: #65092D;
-  background-color: #ECECEC;
+  background-color: #6D9791;
+  color: #FFF;
 }
 
 .btn-carrito span {

@@ -1,7 +1,6 @@
 .bg-white {
   background-color: #FFF;
   position: sticky;
-  height: 123px;
   z-index: 1;
 }
 
@@ -19,21 +18,56 @@
   padding-left: 10px;
 }
 
+.btn-search {
+  position: relative;
+  right: -70px;
+  top: 5px;
+  background-color: #FFF;
+  color: #7C7C7C;
+  z-index: 5
+}
+
+.btn-search span {
+  font-size: 40px;
+}
+
 .search-group {
   border: 1px solid #EAEAEA;
-  margin-top: 15px;
+  background-color: #FFF;
 }
 
-.buscar {
+.search-bar {
+  border: 1px solid #FFF;
   width: 100%;
-  height: 34px;
-  padding-left: 10px;
-  border: none;
+  padding: 15px;
+  border-radius: 0;
 }
 
-.icon-search {
+.btn-close {
+  padding: 15px;
+  background-color: #FFF;
+  border-radius: 0;
+}
+
+.resultado-busqueda {
+  background-color: #FFF;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  cursor: pointer;
+  opacity: 0.95;
+}
+
+.table-hover p {
+  font-size: 15px;
+  padding-left: 20px;
+  margin-bottom: 0;
+  margin: 5px;
+}
+
+.table-hover>tbody>tr:hover {
+  font-weight: bolder;
   background-color: transparent;
-  color: #5B5B5B;
 }
 
 .ingreso {
@@ -55,7 +89,7 @@
 
 .ingreso li a:hover {
   text-decoration: none;
-  color: #1b1a1a;
+  color: #6D9197;
 }
 
 .border-left {
@@ -63,7 +97,7 @@
 }
 
 .lista-regalos {
-  background-color: #454545;
+  background-color: #6D9791;
   color: #FFF;
   padding: 5px 0;
   margin-top: 10px;
@@ -71,16 +105,8 @@
   cursor: pointer;
 }
 
-.lista-regalos span {
-  color: #6D9791;
-}
-
 .lista-regalos:hover {
-  background-color: #7C7C7C;
-}
-
-.lista-regalos:hover span {
-  color: #FFF;
+  background-color: #E07D7D;
 }
 
 a {
@@ -96,12 +122,14 @@ a {
 
 .nav {
   padding-top: 10px;
+  background-color: #FFF;
 }
 
 .nav ul {
   padding: 0;
   text-align: center;
   color: #5B5B5B;
+  font-size: 17px;
 }
 
 .nav li {
@@ -151,7 +179,7 @@ a {
   position: fixed;
   top: 0;
   margin: 0px;
-  max-width: 1140px;
+  width: 1140px;
   margin-top: 10px;
 }
 

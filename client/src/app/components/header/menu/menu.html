@@ -197,15 +197,10 @@
               <span class="icon-matisses" [routerLink]="['/']"></span>
             </div>
           </div>
-          <div class="col-md-3 col-lg-offset-1 col-md-offset-0 col-sm-6 col-sm-offset-3">
-            <div class="search-group">
-              <div class="input-group">
-                <span class="input-group-btn">
-                  <button class="btn icon-search" type="button"><span class="glyphicon glyphicon-search"></span></button>
-                </span>
-                <input type="text" class="buscar" placeholder="Buscar">
-              </div>
-            </div>
+          <div class="col-md-3 col-lg-offset-1 col-md-offset-0 col-sm-6 col-sm-offset-3 text-right">
+            <button class="btn btn-search" type="button" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch">
+                <span class="glyphicon glyphicon-search" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"></span>
+              </button>
           </div>
           <div class="col-lg-4 col-md-5">
             <div class="row">
@@ -225,6 +220,43 @@
                   </div>
                   <div class="col-xs-3 text-left">
                     <matisses-carrito #carrito id="carrito2"></matisses-carrito>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="collapse" id="collapseSearch">
+              <div class="input-group search-group">
+                <input type="text" class="search-bar" placeholder="¿Qué estás buscando?">
+                <span class="input-group-btn">
+                  <button class="btn icon-close btn-close" type="button" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"></button>
+                </span>
+              </div>
+              <div class="row">
+                <div class="resultado-busqueda">
+                  <div class="col-xs-12">
+                    <table class="table table-hover">
+                      <tbody>
+                        <tr>
+                          <p>Uno</p>
+                        </tr>
+                        <tr>
+                          <p>Dos</p>
+                        </tr>
+                        <tr>
+                          <p>Tres</p>
+                        </tr>
+                        <tr>
+                          <p>Cuatro</p>
+                        </tr>
+                        <tr>
+                          <p>Cinco</p>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
@@ -293,10 +325,10 @@
             <div *ngFor="let grandChild of subMenuItem.children" [routerLink]="['/categoria']" [queryParams]="{group: grandChild.group, subgroup: grandChild.subgroup}" (click)="cerrarNav()">
               <p class="grandchild-accordion" (click)="cerrarNav()" (click)="toggleClass('#hamburger', 'glyphicon-menu-hamburger', 'glyphicon-remove')">{{grandChild.name}}</p>
             </div>
-            <p class="grandchild-accordion" (click)="cerrarNav()" (click)="toggleClass('#hamburger', 'glyphicon-menu-hamburger', 'glyphicon-remove')"><b>Ver todos</b></p>
+            <p class="grandchild-accordion" (click)="cerrarNav()" (click)="toggleClass('#hamburger', 'glyphicon-menu-hamburger', 'glyphicon-remove')" [routerLink]="['/categoria']" [queryParams]="getAvailableParams(subMenuItem)"><b>Ver todos</b></p>
           </div>
         </div>
-        <p class="child-accordion" (click)="cerrarNav()" (click)="toggleClass('#hamburger', 'glyphicon-menu-hamburger', 'glyphicon-remove')"><b>Ver todos</b></p>
+        <!-- <p class="child-accordion" (click)="cerrarNav()" (click)="toggleClass('#hamburger', 'glyphicon-menu-hamburger', 'glyphicon-remove')" [routerLink]="['/categoria']" [queryParams]="getAvailableParams(menuItem)"><b>Ver todos</b></p> -->
       </div>
     </div>
 

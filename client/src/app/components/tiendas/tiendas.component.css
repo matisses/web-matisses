@@ -81,6 +81,10 @@
   font-weight: bold;
 }
 
+.icon-clock::before {
+  color: #6D9791;
+}
+
 @media screen and (max-width: 991px) {
   .stuck-body {
     margin-top: 0px;
