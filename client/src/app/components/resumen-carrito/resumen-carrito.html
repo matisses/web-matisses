@@ -29,9 +29,9 @@
         </div>
         <div class="productos">
           <div class="row producto" *ngFor="let item of carrito.shoppingCart.items">
-            <!-- <div class="saldo-insuficiente">
+            <div class="saldo-insuficiente" *ngIf="item.sinSaldo">
               <p>El saldo es insuficiente <span class="glyphicon glyphicon-trash pull-right" (click)="eliminarItem(item)"></span></p>
-            </div> -->
+            </div>
             <div class="col-md-3 col-sm-12 text-center cursor-pointer" [routerLink]="['/producto', item.shortitemcode]">
               <img src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/mini/{{item.itemcode}}_01.jpg" alt="...">
             </div>
