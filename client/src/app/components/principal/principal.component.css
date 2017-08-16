@@ -68,22 +68,29 @@
 
 /* Estilos banner 02 */
 
-.sub-banner p {
-  margin-top: 15px;
-}
-
-.compra-ya {
-  border: 1px solid #5B5B5B;
-  cursor: pointer;
-  color: #65092d;
-  padding: 5px 10px;
-  font-weight: 700;
-  background-color: transparent;
-  margin-bottom: 20px;
-}
-
-.compra-ya:hover {
+.sub-banner-footer {
   background-color: #EDEDED;
+  padding-top: 30px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.sub-banner-footer p {
+  color: #5B5B5B;
+  font-size: 20px;
+}
+
+.ir-comprar {
+  border: none;
+  cursor: pointer;
+  color: #FFF;
+  padding: 5px 20px;
+  font-weight: 700;
+  background-color: #7C7C7C;
+}
+
+.ir-comprar:hover {
+  background-color: #6D9791;
 }
 
 .principal-03 {
@@ -224,7 +231,7 @@
   .text-01 p::before {
     top: 40px;
     left: 40%;
-}
+  }
   .padding-0 {
     padding-left: 0;
     padding-right: 0;

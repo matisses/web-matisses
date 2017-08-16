@@ -20,7 +20,7 @@
 
 .btn-search {
   position: relative;
-  right: -70px;
+  right: -60px;
   top: 5px;
   background-color: #FFF;
   color: #7C7C7C;
@@ -70,10 +70,20 @@
   background-color: transparent;
 }
 
+.btn-lista {
+  padding-right: 6px;
+  padding-left: 20px;
+}
+
+.glyphicon-log-in {
+  margin-right: 1px;  
+}
+
 .ingreso {
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
+  padding-right: 10px;
 }
 
 .ingreso li {
@@ -82,9 +92,9 @@
 
 .ingreso li a {
   display: block;
-  padding: 0px 10px;
+  padding: 0px 8px;
   color: #5B5B5B;
-  font-size: 9pt;
+  font-size: 11px;
 }
 
 .ingreso li a:hover {
@@ -93,7 +103,7 @@
 }
 
 .border-left {
-  border-left: 1px solid;
+  border-left: 1px solid #d1d1d1;
 }
 
 .lista-regalos {
@@ -480,7 +490,6 @@ button.accordion {
     padding: 10px;
     border-radius: 0;
   }
-
   .btn-close {
     padding: 5px;
     background-color: #FFF;
