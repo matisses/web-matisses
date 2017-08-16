@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
+import { GLOBAL } from '../../services/global';
+
 import { Customer } from '../../models/customer';
 import { Item } from '../../models/item';
 import { City } from '../../models/city';
@@ -31,6 +33,7 @@ export class InfoPagoComponent implements OnInit {
   public totalEnvio: number = 0;
   public messageError: string;
   public tiendaSeleccionada: string = 'Medellín';
+  public urlReturn: string;
   public procesandoP2P: boolean = false;
   public valid: boolean = true;
   public customer: Customer;
@@ -44,6 +47,7 @@ export class InfoPagoComponent implements OnInit {
     private _shippingMethodService: ShippingMethodService, private _placetopayService: PlacetoPayService, private _shoppingCartService: ShoppingCartService,
     private _itemService: ItemService) {
     this.messageError = '';
+    this.urlReturn = GLOBAL.urlTransactionResult;
     this.customer = new Customer().newCustomer('', '', null, '', '', '', '', '', '', '', '', null, '', '', '', '', '', '', [{
       stateCode: null,
       stateName: null,
@@ -350,7 +354,7 @@ export class InfoPagoComponent implements OnInit {
       }
     }
 
-    this.datosPago = new DatosPagoPlaceToPay().newDatosPagoPlaceToPay(buyer, null, navigator.userAgent, payment, null, null, 'http://192.168.5.23:4200/resultado-transaccion/' + _id, '');
+    this.datosPago = new DatosPagoPlaceToPay().newDatosPagoPlaceToPay(buyer, null, navigator.userAgent, payment, null, null, this.urlReturn + _id, '');
 
     console.log(this.datosPago);
 

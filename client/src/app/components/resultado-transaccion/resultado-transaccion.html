@@ -2,28 +2,37 @@
 
 <div sticky-body>
 
-<!-- esperando validacion de transacción -->
+  <!-- esperando validacion de transacción -->
 
-<div class="bg" *ngIf="!transaccion">
+  <div class="bg" *ngIf="!transaccion && (!errorMessage || errorMessage.length <= 0)">
     <div class="container">
       <div class="caption">
-      <div class="row">
-        <div class="col-sm-12 text-center">
-          <img src="assets/images/gif-cargando.gif" alt="">
+        <div class="row">
+          <div class="col-sm-12 text-center">
+            <img src="assets/images/gif-cargando.gif" alt="">
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12 text-center">
-          <hr/>
-          <p><b>Estamos validando tu transacción</b></p>
+        <div class="row">
+          <div class="col-xs-12 text-center">
+            <hr/>
+            <p><b>Estamos validando tu transacción</b></p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
+  <div class="row" *ngIf="errorMessage != null && errorMessage.length > 0">
+    <div class="container">
+      <div class="col-xs-12">
+        <div class="alert alert-danger" role="alert">
+          <p>{{errorMessage}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<!-- resultado de transacción -->
+  <!-- resultado de transacción -->
   <div class="container" *ngIf="transaccion">
     <div class="fondo-gris">
       <div class="fondo-blanco">

@@ -16,6 +16,7 @@ export class ResultadoTransacciComponent implements OnInit {
   @ViewChild(CarritoSimpleComponent)
   private carrito: CarritoSimpleComponent;
 
+  public errorMessage: string = '';
   public transaccion: {
     status: {
       message: string,
@@ -43,6 +44,7 @@ export class ResultadoTransacciComponent implements OnInit {
   }
 
   consultarEstadoPlaceToPay() {
+    this.errorMessage = '';
     this._route.params.forEach((params: Params) => {
       let idCarrito: string = params['idCarrito'];
 
@@ -58,17 +60,22 @@ export class ResultadoTransacciComponent implements OnInit {
           if (datosCompraWeb.items) {
             this._placetopayService.consultar(datosCompraWeb).subscribe(
               response => {
-                this.transaccion = response;
-
-                if (this.transaccion.status.status === 'REJECTED') {
-                  this.transaccion.status.reason = 'rechazada';
-                } else if (this.transaccion.status.status === 'PENDING') {
-                  this.transaccion.status.reason = 'pendiente';
+                if (response.codigo && response.codigo == -1) {
+                  this.errorMessage = response.mensaje;
                 } else {
-                  this.transaccion.status.reason = 'aprobada';
+                  this.transaccion = response;
+
+                  if (this.transaccion.status.status === 'REJECTED') {
+                    this.transaccion.status.reason = 'rechazada';
+                  } else if (this.transaccion.status.status === 'PENDING') {
+                    this.transaccion.status.reason = 'pendiente';
+                  } else {
+                    this.transaccion.status.reason = 'aprobada';
+                  }
                 }
               },
               error => {
+                this.errorMessage = 'No se pudo conectar con el servidor';
                 console.log(error);
               }
             );

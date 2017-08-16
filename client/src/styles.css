@@ -21,6 +21,10 @@
   color: #5b5b5b;
 }
 
+#lhnHelp {
+  display: none;
+}
+
 input:focus, button:focus, span:focus, p:focus, li:focus, div:focus, textarea:focus {
   outline: none !important;
   box-shadow: none !important;

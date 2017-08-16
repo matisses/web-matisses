@@ -34,11 +34,13 @@ function saveShoppingCart(req, res) {
 
 function findShoppingCart(req, res) {
   console.log(req.params.id);
+  var origin = req.params.origin;
+
   ShoppingCart.find({
     "_id": req.params.id
   }, (err, shoppingCart) => {
     if (err) {
-      console.log(error);
+      console.log(err);
       res.status(500).send({
         message: 'ocurrio un error al consultar el carrito'
       });
@@ -49,9 +51,13 @@ function findShoppingCart(req, res) {
       });
     } else {
       console.log(shoppingCart);
-      res.status(200).send({
-        shoppingCart: shoppingCart
-      });
+      if (origin && origin === 'BCS') {
+        res.status(200).send(shoppingCart[0]);
+      } else {
+        res.status(200).send({
+          shoppingcart: shoppingCart
+        });
+      }
     }
   })
 }

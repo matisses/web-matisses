@@ -29,9 +29,9 @@
         </div>
         <div class="productos">
           <div class="row producto" *ngFor="let item of carrito.shoppingCart.items">
-            <!-- <div class="saldo-insuficiente">
+            <div class="saldo-insuficiente" *ngIf="item.sinSaldo">
               <p>El saldo es insuficiente <span class="glyphicon glyphicon-trash pull-right" (click)="eliminarItem(item)"></span></p>
-            </div> -->
+            </div>
             <div class="col-md-3 col-sm-12 text-center cursor-pointer" [routerLink]="['/producto', item.shortitemcode]">
               <img src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/mini/{{item.itemcode}}_01.jpg" alt="...">
             </div>
@@ -79,11 +79,6 @@
         <div class="row">
           <div class="col-md-11 col-md-offset-1">
             <div class="row">
-              <div class="col-xs-12" *ngIf="carrito.shoppingCart.items != null && carrito.shoppingCart.items.length > 0">
-                <p class="btn-continuar" (click)="procederPago()">Proceder al pago <span class="arrow glyphicon glyphicon-circle-arrow-right"></span></p>
-              </div>
-            </div>
-            <div class="row">
               <div class="col-xs-12">
                 <h4>Resumen del pedido:</h4>
                 <h5><b>{{carrito.totalItems}}</b> productos.</h5>
@@ -123,6 +118,12 @@
                 <div class="col-xs-6">
                   <h4>${{carrito.totalCarrito | number}}</h4>
                 </div>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-xs-12" *ngIf="carrito.shoppingCart.items != null && carrito.shoppingCart.items.length > 0">
+                <p class="btn-continuar" (click)="procederPago()">Proceder al pago <span class="arrow glyphicon glyphicon-circle-arrow-right"></span></p>
               </div>
             </div>
             <!-- <div class="row">
