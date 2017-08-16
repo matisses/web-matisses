@@ -46,7 +46,7 @@ export class ContactanosComponent implements OnInit {
     this.reCaptcha = response.token;
   }
 
-  public enviar() {
+  public enviar(contactForm) {
     this.valid = true;
     this.messageError = '';
     this.messageExit = '';
@@ -72,12 +72,13 @@ export class ContactanosComponent implements OnInit {
           'mensaje': this.message
         },
         from: this.mail,
-        to: [this.toMail],
+        to: [this.toMail, this.mail],
         subject: this.subject
       }
       this._sendEmailService.enviar(mailMessage).subscribe(
         response => {
           this.messageExit = 'Gracias por contactarnos, tu mensaje se envió exitosamente te responderemos en el menor tiempo posible.';
+          contactForm.reset();
           this.limpiar();
           return;
         },
@@ -89,7 +90,7 @@ export class ContactanosComponent implements OnInit {
     }
   }
 
-  limpiar() {
+  public limpiar() {
     console.log(this.reCaptcha);
     this.firstName = '';
     this.mail = '';
@@ -98,5 +99,6 @@ export class ContactanosComponent implements OnInit {
     this.subject = '';
     this.message = '';
     grecaptcha.reset();
+    this._router.navigate(['/contactanos']);
   }
 }
