@@ -1,3 +1,57 @@
+<div class="modal fade" id="modalSuscripcion" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Conoce nuestras nuevas colecciones</h4>
+      </div>
+      <form #SubscribeForm="ngForm">
+        <div class="modal-body">
+          <div class="row" *ngIf="errorMessage != null && errorMessage.length > 0">
+            <div class="col-xs-12">
+              <div class="alert alert-danger" role="alert">
+                <p>{{errorMessage}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="successMessage != null && successMessage.length > 0">
+            <div class="col-xs-12">
+              <div class="alert alert-info" role="alert">
+                <p>{{successMessage}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="successMessage == null || successMessage.length <= 0">
+            <div class="col-xs-12">
+              <div class="row">
+                <div class="col-xs-12">
+                  <label for="mail">Correo*</label>
+                  <input id="mail" type="email" class="form-control" [class.required-field]="!valid" name="email" [email]="true" [(ngModel)]="email" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12">
+                  <label for="name">Nombres*</label>
+                  <input id="name" type="text" class="form-control" [class.required-field]="!valid" name="name" [(ngModel)]="name" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12">
+                  <label for="lastname">Apellidos*</label>
+                  <input id="lastname" type="text" class="form-control" [class.required-field]="!valid" name="lastname" [(ngModel)]="lastname" required>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" (click)=limpiar()>Cerrar</button>
+          <button type="button" class="btn btn-primary" (click)="suscribir(SubscribeForm)" *ngIf="successMessage == null || successMessage.length <= 0">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <div class="barra-fondo">
   <div class="container">
     <div class="row">
@@ -5,14 +59,16 @@
         <h2 class="light">Conoce nuestras <b>nuevas colecciones</b></h2>
       </div>
       <div class="col-md-6 col-md-offset-0 col-xs-10 col-xs-offset-1 text-center">
-        <div class="search-group">
+        <div [ngClass]="{'search-group-error' : !valid}" class="search-group">
           <div class="input-group">
             <span class="input-group-btn">
                 <span class="icon-mail"></span>
             </span>
-            <input type="mail" class="e-mail" placeholder="Tu E-mail">
+            <form>
+              <input type="mail" class="e-mail" placeholder="Tu E-mail" [(ngModel)]="email" name="email">
+            </form>
             <span class="input-group-btn">
-              <button class="btn suscribete" type="button">Suscribete</button>
+              <button class="btn suscribete" type="button" (click)="abrirModal()">Suscribete</button>
             </span>
           </div>
         </div>
