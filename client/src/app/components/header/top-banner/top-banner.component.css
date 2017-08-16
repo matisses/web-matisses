@@ -26,5 +26,9 @@
 }
 
 .border-left {
-  border-left: 1px solid;
+  border-left: 1px solid #d1d1d1;
+}
+
+.padding-19 {
+  padding-right: 19px;
 }

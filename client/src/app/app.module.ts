@@ -54,6 +54,7 @@ import { ErrorComponent } from './components/error/error.component';
 //Componentes del footer
 import { FooterComponent } from './components/footer/footer.component';
 import { NewsletterComponent } from './components/footer/newsletter/newsletter.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 // Componenetes de mi cuenta
 import { WishListComponent } from './components/wish-list/wish-list.component';
@@ -111,7 +112,8 @@ import { Ng2GoogleRecaptchaModule } from 'ng2-google-recaptcha';
     AdminComponent,
     WishListComponent,
     ContactanosComponent,
-    ProductoRelacionadosComponent
+    ProductoRelacionadosComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
