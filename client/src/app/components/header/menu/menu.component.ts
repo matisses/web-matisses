@@ -26,8 +26,8 @@ declare var $: any;
         display: 'none',
         opacity: '0',
       })),
-      transition('shown => hidden', animate('400ms ease-out')),
-      transition('hidden => shown', animate('300ms ease-out')),
+      transition('shown => hidden', animate('200ms ease-out')),
+      transition('hidden => shown', animate('150ms ease-out')),
     ]),
     trigger('overlayAnimation', [
       state('shown', style({
@@ -38,8 +38,8 @@ declare var $: any;
         display: 'none',
         opacity: '0'
       })),
-      transition('shown => hidden', animate('200ms ease-out')),
-      transition('hidden => shown', animate('800ms ease-in')),
+      transition('shown => hidden', animate('100ms ease-out')),
+      transition('hidden => shown', animate('400ms ease-in')),
     ])
   ]
 })
