@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Http } from '@angular/http';
+import { MetaService } from '@ngx-meta/core';
 
 import { Item } from '../../models/item';
 import { ItemService } from '../../services/item.service';
@@ -32,7 +33,7 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   public images: Array<string>;
   public itemsRelacionados: Array<any>;
 
-  constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _stockService: StockService, private _http: Http) {
+  constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _stockService: StockService, private _http: Http, private readonly meta: MetaService) {
     this.quantityOptions = new Array<number>();
     this.images = new Array<string>();
     this.itemsRelacionados = new Array<any>();
@@ -62,6 +63,13 @@ export class ProductoComponent implements OnInit, AfterViewInit {
       this._itemService.find(itemCode).subscribe(
         response => {
           this.item = response.result[0];
+
+          let urlImage: string = 'https://www.matisses.co/modules/matisses/files/' + this.item.itemcode + '/images/' + this.item.itemcode + '_01.jpg';
+          //this.meta.setTitle(`Matisses - Producto {{this.item.shortitemcode}}`);
+          this.meta.setTag('og:image', urlImage);
+          this.meta.setTag('og:description', this.item.description);
+          this.meta.setTag('og:title', this.item.itemname);
+
           this.validar360();
           this.validarWow();
           this.validarPlantilla();

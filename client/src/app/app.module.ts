@@ -71,6 +71,7 @@ import { StickySubMenuDirective } from './directives/sticky-submenu.directive';
 import { routing, appRoutingProviders } from './app.routing';
 import { AppComponent } from './app.component';
 import { Ng2GoogleRecaptchaModule } from 'ng2-google-recaptcha';
+import { MetaModule } from '@ngx-meta/core';
 
 @NgModule({
   declarations: [
@@ -120,6 +121,7 @@ import { Ng2GoogleRecaptchaModule } from 'ng2-google-recaptcha';
     FormsModule,
     HttpModule,
     routing,
+    MetaModule.forRoot(),
     BrowserAnimationsModule,
     Ng2GoogleRecaptchaModule
   ],

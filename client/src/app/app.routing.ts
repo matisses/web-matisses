@@ -1,5 +1,6 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { MetaGuard } from '@ngx-meta/core';
 import { HomeComponent } from './components/home/home.component';
 import { CategoryComponent } from './components/category/category.component';
 import { QuienesComponent } from './components/quienes-somos/quienes-somos.component';
@@ -20,25 +21,50 @@ import { WishListComponent } from './components/wish-list/wish-list.component';
 import { ContactanosComponent } from './components/contactanos/contactanos.component';
 
 const appRoutes: Routes = [
-    {path: '', component: HomeComponent},
-    {path: 'categoria', component: CategoryComponent, pathMatch: 'full'},
-    {path: 'quienes', component: QuienesComponent},
-    {path: 'tiendas', component: TiendasComponent},
-    {path: 'trabaja-con-nosotros', component: TrabajaComponent},
-    {path: 'garantias', component: GarantiasComponent},
-    {path: 'envios', component: EnviosComponent},
-    {path: 'resumen-carrito', component: ResumenCarritoComponent},
-    {path: 'producto/:item', component: ProductoComponent},
-    {path: 'redirect/:previous', component: RedirectComponent},
-    {path: 'ingresar', component: IngresarComponent},
-    {path: 'info-pago', component: InfoPagoComponent},
-    {path: 'resultado-transaccion/:idCarrito', component: ResultadoTransacciComponent},
-    {path: 'modal', component: ModalComponent},
-    {path: 'admin/:token', component: AdminComponent},
-    {path: 'lista-de-deseos', component: WishListComponent},
-    {path: 'contactanos', component: ContactanosComponent},
-    //,{path: 'producto/:productId', component: CategoryComponent},
-    {path: '**', component: ErrorComponent} //pagina 404
+  //{path: '', component: HomeComponent},
+  {
+    path: '',
+    canActivateChild: [MetaGuard],
+    children: [
+      {
+        path: '',
+        component: HomeComponent,
+        data: {
+          meta: {
+            title: 'Matisses',
+            description: 'Descripcion para SEO del sitio'
+          }
+        }
+      },
+      {
+        path: 'producto/:item',
+        component: ProductoComponent,
+        data: {
+          meta: {
+            title: 'Matisses',
+            description: ''
+          }
+        }
+      }
+    ]
+  },
+  { path: 'categoria', component: CategoryComponent, pathMatch: 'full' },
+  { path: 'quienes', component: QuienesComponent },
+  { path: 'tiendas', component: TiendasComponent },
+  { path: 'trabaja-con-nosotros', component: TrabajaComponent },
+  { path: 'garantias', component: GarantiasComponent },
+  { path: 'envios', component: EnviosComponent },
+  { path: 'resumen-carrito', component: ResumenCarritoComponent },
+  //{ path: 'producto/:item', component: ProductoComponent },
+  { path: 'redirect/:previous', component: RedirectComponent },
+  { path: 'ingresar', component: IngresarComponent },
+  { path: 'info-pago', component: InfoPagoComponent },
+  { path: 'resultado-transaccion/:idCarrito', component: ResultadoTransacciComponent },
+  { path: 'modal', component: ModalComponent },
+  { path: 'admin/:token', component: AdminComponent },
+  { path: 'lista-de-deseos', component: WishListComponent },
+  { path: 'contactanos', component: ContactanosComponent },
+  { path: '**', component: ErrorComponent } //pagina 404
 ];
 
 export const appRoutingProviders: any[] = [];
