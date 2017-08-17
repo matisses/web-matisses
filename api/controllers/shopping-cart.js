@@ -55,7 +55,7 @@ function findShoppingCart(req, res) {
         res.status(200).send(shoppingCart[0]);
       } else {
         res.status(200).send({
-          shoppingcart: shoppingCart
+          shoppingCart: shoppingCart
         });
       }
     }
