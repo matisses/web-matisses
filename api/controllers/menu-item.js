@@ -1,6 +1,7 @@
 'use strict'
 
 var MenuItem = require('../models/menu-item');
+var Item = require('../models/item');
 var ObjectId = require('mongoose').Types.ObjectId;
 
 function listMenuItems(req, res) {
@@ -24,8 +25,8 @@ function listMenuItems(req, res) {
 }
 
 function edit(req, res) {
-  console.log('actualizando menu item');
-  console.log(req.body);
+  //console.log('actualizando menu item');
+  //console.log(req.body);
   var menuItem = req.body;
 
   MenuItem.findByIdAndUpdate(menuItem._id, menuItem, (err, updated) => {
@@ -46,8 +47,8 @@ function edit(req, res) {
 }
 
 function save(req, res) {
-  console.log('creando menu item');
-  console.log(req.body);
+  //console.log('creando menu item');
+  //console.log(req.body);
   var menuItem = new MenuItem();
   menuItem.name = req.body.name;
   menuItem.parentId = req.body.parentId;
@@ -58,7 +59,7 @@ function save(req, res) {
 
   menuItem.save((err, saved) => {
     if (err) {
-      console.error(err);
+      //console.error(err);
       res.status(500).send({
         message: 'error al crear el menú'
       });
@@ -96,11 +97,10 @@ function remove(req, res) {
 
 function loadMenuRecursively(req, res) {
   var menuItems = [];
-  console.log(req.params.id);
-  executeRecursion(req.params.id, null, menuItems, res);
+  executeRecursion(req.params.id, null, menuItems, req.headers.authorization, res);
 }
 
-function executeRecursion(parentId, idBefore, itemsArray, res) {
+function executeRecursion(parentId, idBefore, itemsArray, token, res) {
   MenuItem.find({
     $and: [{
       parentId: parentId,
@@ -112,18 +112,62 @@ function executeRecursion(parentId, idBefore, itemsArray, res) {
     }]
   }, (err, resp) => {
     if (err) {
-      console.error(err);
       res.status(200).send({
         result: itemsArray
       });
     } else if (resp && resp.length > 0) {
-      itemsArray.push(resp[0]);
-      if (resp[0].menuItemAfter && resp[0].menuItemAfter != null) {
-        executeRecursion(parentId, resp[0]._id, itemsArray, res);
-      } else {
-        res.status(200).send({
-          result: itemsArray
+      //validar que existan items con saldo en las categorias del menu
+      if ((resp[0].subgroup || resp[0].group) && !token) {
+        var groups = resp[0].group ? resp[0].group.split(',') : [];
+        var subgroups = resp[0].subgroup ? resp[0].subgroup.split(',') : [];
+        Item.count({
+          $and: [{
+            $or: [{
+              "subgroup.code": {
+                $in: subgroups
+              }
+            }, {
+              "group.code": {
+                $in: groups
+              }
+            }]
+          }, {
+            availablestock: {
+              $gt: 0
+            }
+          }]
+        }, (error, count) => {
+          if (count > 0) {
+            itemsArray.push(resp[0]);
+            if (resp[0].menuItemAfter && resp[0].menuItemAfter != null) {
+              executeRecursion(parentId, resp[0]._id, itemsArray, token, res);
+            } else {
+              res.status(200).send({
+                result: itemsArray
+              });
+            }
+          } else {
+            if(error){
+              console.error(error);
+            }
+            console.log('no se encontro saldo para el menu ' + resp[0]);
+            res.status(200).send({
+              result: itemsArray
+            });
+          }
         });
+      } else {
+        console.log('procesando menu ppal ' + resp[0].name);
+        itemsArray.push(resp[0]);
+        //Carga el menu hermano siguiente
+        if (resp[0].menuItemAfter && resp[0].menuItemAfter != null) {
+          executeRecursion(parentId, resp[0]._id, itemsArray, token, res);
+        } else {
+          //No hay mas hermanos, retorna
+          res.status(200).send({
+            result: itemsArray
+          });
+        }
       }
     } else {
       res.status(200).send({

@@ -90,7 +90,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   }
 
   private cargarDatosMenu() {
-    this._menuService.listMenuRecursively(null).subscribe(
+    this._menuService.listMenuRecursively(null, this.adminToken).subscribe(
       response => {
         this.categorias = response.result;
         if (!this.categoriaSeleccionada) {
@@ -114,7 +114,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
       this.grupos = null;
     } else {
       if (this.categoriaSeleccionada != null && this.categoriaSeleccionada._id != null && this.categoriaSeleccionada._id.length > 0) {
-        this._menuService.listMenuRecursively(this.categoriaSeleccionada._id).subscribe(
+        this._menuService.listMenuRecursively(this.categoriaSeleccionada._id, this.adminToken).subscribe(
           response => {
             this.grupos = response.result;
 
@@ -144,7 +144,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
       this.grupoSeleccionado = new MenuItem().newMenuItem('', '', '');
     } else {
       if (this.grupoSeleccionado != null && this.grupoSeleccionado._id != null && this.grupoSeleccionado._id.length > 0) {
-        this._menuService.listMenuRecursively(this.grupoSeleccionado._id).subscribe(
+        this._menuService.listMenuRecursively(this.grupoSeleccionado._id, this.adminToken).subscribe(
           response => {
             this.subgrupos = response.result;
 
@@ -591,8 +591,9 @@ export class MenuComponent implements OnInit, AfterViewInit {
   private inicializarMenu() {
     this.menuItems = new Array();
     this.cargarValidarTokenAdmin();
-    this._menuService.listMenuRecursively(null).subscribe(
+    this._menuService.listMenuRecursively(null, this.adminToken).subscribe(
       response => {
+        console.log(response);
         for (let i = 0; i < response.result.length; i++) {
           let menuItem = new MenuItem();
           menuItem._id = response.result[i]._id;
@@ -612,7 +613,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   }
 
   private cargarHijos(menuItem, esPadre) {
-    this._menuService.listMenuRecursively(menuItem._id).subscribe(
+    this._menuService.listMenuRecursively(menuItem._id, this.adminToken).subscribe(
       response => {
         for (let i = 0; i < response.result.length; i++) {
           let child = new MenuItem();
