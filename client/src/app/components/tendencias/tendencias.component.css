@@ -27,7 +27,7 @@ h3::before {
   -moz-background-size: cover;
   -o-background-size: cover;
   /* background-size: cover; */
-  color: #747c79;
+  cursor: pointer;
 }
 
 
@@ -79,18 +79,16 @@ h3::before {
   margin-top: 15px;
 }
 
-.compra-ya {
-  border: 1px solid #5B5B5B;
+.ir-comprar {
+  border: none;
   cursor: pointer;
-  color: #65092d;
-  padding: 5px 10px;
-  font-weight: 700;
-  background-color: transparent;
-  margin-bottom: 20px;
+  color: #FFF;
+  padding: 5px 20px;
+  background-color: #7C7C7C;
 }
 
-.compra-ya:hover {
-  background-color: #EDEDED;
+.ir-comprar:hover {
+  background-color: #6D9791;
 }
 
 @media screen and (max-width: 1200px) {
@@ -157,7 +155,7 @@ h3::before {
     bottom: 4px;
     height: 3px;
     width: 20px;
-    right: 137px;
+    right: 177px;
   }
 }
 

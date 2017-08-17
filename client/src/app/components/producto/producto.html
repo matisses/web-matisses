@@ -72,8 +72,8 @@
 <!-- Modal wow -->
 
 <div sticky-body>
-  <div class="container padding-top" id="product_container">
-<!--
+  <div class="container padding-top">
+    <!--
     <miga-de-pan></miga-de-pan>
 -->
     <div class="row">
@@ -159,7 +159,7 @@
             <div class="col-md-2 col-xs-3">
               <div class="cantidad">
                 <form>
-                  <input class="input-cantidad form-control" type="tel" name="selectedQuantity" min="1" max="{{totalStock}}" [(ngModel)]="selectedQuantity" />
+                  <input class="input-cantidad form-control" type="number" name="selectedQuantity" min="1" max="{{totalStock}}" [(ngModel)]="selectedQuantity" />
                 </form>
               </div>
             </div>
@@ -215,8 +215,12 @@
               <div class="disponibilidad">
                 <p><b>Disponible en:</b></p>
                 <span class="icon-web" *ngIf="totalStock > 0"></span>
-                <span class="icon-med border-left" *ngIf="existenciaMedellin"></span>
-                <span class="icon-bog border-left" *ngIf="existenciaBogota"></span>
+                <button id="popover1" type="button" class="btn-popover" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Conócelo en nuestra tienda física de Medellín">
+                  <span class="icon-med border-left" *ngIf="existenciaMedellin"></span>
+                </button>
+                <button id="popover2" type="button" class="btn-popover" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Conócelo en nuestra tienda física de Bogotá">
+                  <span class="icon-bog border-left" *ngIf="existenciaBogota"></span>
+                </button>
               </div>
             </div>
             <div class="col-md-6">

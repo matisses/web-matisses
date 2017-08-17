@@ -47,6 +47,10 @@ import { TrabajaComponent } from './components/trabaja/trabaja.component';
 import { GarantiasComponent } from './components/garantias/garantias.component';
 import { EnviosComponent } from './components/envios/envios.component';
 import { ContactanosComponent } from './components/contactanos/contactanos.component';
+import { TerminosComponent } from './components/terminos/terminos.component';
+import { PoliticaDatosComponent } from './components/politica-datos/politica-datos.component';
+import { PoliticaPrivacidadComponent } from './components/politica-privacidad/politica-privacidad.component';
+import { PreguntasFrecuentesComponent } from './components/preguntas-frecuentes/preguntas-frecuentes.component';
 
 //Componenete pagina de error
 import { ErrorComponent } from './components/error/error.component';
@@ -114,7 +118,11 @@ import { MetaModule } from '@ngx-meta/core';
     WishListComponent,
     ContactanosComponent,
     ProductoRelacionadosComponent,
-    ChatComponent
+    ChatComponent,
+    TerminosComponent,
+    PoliticaDatosComponent,
+    PoliticaPrivacidadComponent,
+    PreguntasFrecuentesComponent
   ],
   imports: [
     BrowserModule,

@@ -232,6 +232,18 @@
   overflow-y: hidden;
 }
 
+.btn-popover {
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  background-color: transparent;
+  padding: 0;
+  cursor: context-menu;
+}
+
 .politicas {
   background-color: #EDEDED;
   width: 100%;
@@ -333,7 +345,6 @@
     border-right: 0;
   }
 }
-
 
 @media screen and (max-width: 414px) {
   .info, .galeria {

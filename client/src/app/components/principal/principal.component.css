@@ -17,6 +17,7 @@
   -o-background-size: cover;
   background-size: cover;
   color: #747C79;
+  cursor: pointer;
 }
 
 .text-01 {
@@ -128,7 +129,6 @@
   cursor: pointer;
   color: #FFF;
   padding: 5px 20px;
-  font-weight: 700;
   background-color: #7C7C7C;
 }
 
@@ -152,6 +152,7 @@
   -o-background-size: cover;
   /* background-size: cover; */
   color: #747c79;
+  cursor: pointer;
 }
 
 .text-03 {
