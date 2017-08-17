@@ -10,7 +10,6 @@ export class RedirectComponent {
   constructor(private _route: ActivatedRoute, private _router: Router) {
     this._route.params.forEach((params: Params) => {
       let previous: string = params['previous'];
-      console.log(previous);
       this._router.navigate([previous]);
     });
   }

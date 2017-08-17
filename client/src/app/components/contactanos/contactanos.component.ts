@@ -32,11 +32,9 @@ export class ContactanosComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('inicializando componente de contactanos');
   }
 
   ngAfterViewInit() {
-    console.log('Termino de cargar deberia subir el body')
     $(document).ready(function() {
       $("html, body").animate({ scrollTop: 0 }, 1000);
     });
@@ -55,7 +53,6 @@ export class ContactanosComponent implements OnInit {
       this.subject == null || this.subject.length <= 0 ||
       this.message == null || this.message.length <= 0 ||
       !this.reCaptcha) {
-      console.log('Se deben llenar todos los campos obligatorios para poder proceder con el envió');
       this.messageError = 'Se deben llenar todos los campos obligatorios para poder proceder con el envió.';
       this.valid = false;
       return;
@@ -83,7 +80,7 @@ export class ContactanosComponent implements OnInit {
           return;
         },
         error => {
-          console.log(error);
+          console.error(error);
           this.messageError = 'Se produjo un error interno enviando el mensaje. Por favor inténtelo más tarde.';
         }
       );
@@ -91,7 +88,6 @@ export class ContactanosComponent implements OnInit {
   }
 
   public limpiar() {
-    console.log(this.reCaptcha);
     this.firstName = '';
     this.mail = '';
     this.cellular = '';

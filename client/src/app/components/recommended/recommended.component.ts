@@ -30,7 +30,6 @@ export class RecommendedComponent implements OnInit {
   }
 
   ngOnInit() {
-    //console.log('inicializando componente de recomendados');
     this.inicializarItems();
     this._itemService.inicializarWishlist();
   }
@@ -61,23 +60,20 @@ export class RecommendedComponent implements OnInit {
         }
       },
       error => {
-        console.log(error);
+        console.error(error);
       }
     )
   }
 
   mostrarArticulo(articulo) {
-    console.log(articulo);
   }
 
   public botonRight() {
-    console.log('has dado click al botón right');
     $('.section').animate({ scrollLeft: '+=890' }, 500);
     return false;
   }
 
   public botonLeft() {
-    console.log('has dado click al botón right');
     $('.section').animate({ scrollLeft: '-=890' }, 500);
     return false;
   }

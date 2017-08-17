@@ -8,7 +8,7 @@ function listRecommendedItems(req, res) {
     active: true
   }, (err, result) => {
     if (err) {
-      console.log(err);
+      console.error(err);
       res.status(500).send({
         message: 'ocurrio un error al consultar los ítems recomendados'
       });

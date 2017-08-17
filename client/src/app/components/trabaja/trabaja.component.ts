@@ -16,11 +16,9 @@ export class TrabajaComponent implements OnInit {
     }
 
     ngOnInit() {
-        //console.log('inicializando componente de trabaja con nosotros');
     }
 
     ngAfterViewInit() {
-      console.log('Termino de cargar deberia subir el body')
       $(document).ready(function() {
         $("html, body").animate({scrollTop: 0}, 1000);
       });

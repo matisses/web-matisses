@@ -18,11 +18,9 @@ export class HomePrincipalComponent implements OnInit {
     }
 
     ngOnInit() {
-        //console.log('inicializando componente del banner ppal ');
     }
 
     public botonOne() {
-      //console.log('has dado click al botón');
       $('body').animate({scrollTop : '600' }, 500);
       return false;
     }

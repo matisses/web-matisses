@@ -28,13 +28,11 @@ export class NewProductsComponent implements OnInit {
   }
 
   ngOnInit() {
-    //console.log('inicializando componente de nuevos productos');
     this.inicializarItems();
     this._itemService.inicializarWishlist();
   }
 
   ngAfterViewInit() {
-    //console.log('termino de cargar el componente');
   }
 
   private inicializarItems() {
@@ -78,23 +76,20 @@ export class NewProductsComponent implements OnInit {
         }
       },
       error => {
-        console.log(error);
+        console.error(error);
       }
     );
   }
 
   mostrarArticulo(articulo) {
-    console.log(articulo);
   }
 
   public botonRight() {
-    console.log('has dado click al botón right');
     $('.section').animate({ scrollLeft: '+=300' }, 500);
     return false;
   }
 
   public botonLeft() {
-    console.log('has dado click al botón right');
     $('.section').animate({ scrollLeft: '-=300' }, 500);
     return false;
   }
