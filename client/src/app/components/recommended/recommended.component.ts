@@ -40,7 +40,6 @@ export class RecommendedComponent implements OnInit {
 
     this._recommmendedService.list().subscribe(
       response => {
-        console.log(response);
         for (let i = 0; i < response.result.length; i++) {
           let item: Item;
           item = response.result[i].itemId;

@@ -290,23 +290,21 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-8">
-        <div class="row">
-          <div class="col-xs-3" *ngFor="let subMenuItem of padreSeleccionado.children">
-            <ul class="sub-menu">
-              <p class="child medium cursor-pointer">
-                <span [routerLink]="['/categoria']" [queryParams]="getAvailableParams(subMenuItem)" (click)="cerrarOverlay()">{{subMenuItem.name}}</span>
-              </p>
-              <li class="grandchild" *ngFor="let grandChild of subMenuItem.children" [routerLink]="['/categoria']" [queryParams]="getAvailableParams(grandChild)" (click)="cerrarOverlay()">
-                {{grandChild.name}}
-              </li>
-            </ul>
-          </div>
+        <div class="col-nav" *ngFor="let subMenuItem of padreSeleccionado.children">
+          <p class="child medium cursor-pointer">
+            <span [routerLink]="['/categoria']" [queryParams]="getAvailableParams(subMenuItem)" (click)="cerrarOverlay()">{{subMenuItem.name}}</span>
+          </p>
+          <ul class="sub-menu">
+            <li class="grandchild" *ngFor="let grandChild of subMenuItem.children" [routerLink]="['/categoria']" [queryParams]="getAvailableParams(grandChild)" (click)="cerrarOverlay()">
+              {{grandChild.name}}
+            </li>
+          </ul>
         </div>
       </div>
       <div class="col-xs-4">
         <img src="assets/images/menu/{{padreSeleccionado._id}}.jpg" class="img-responsive" alt="">
-        <p class="name-producto-menu">Sarten Ceradur Plus</p>
-        <p class="medium link-producto-menu" [routerLink]="['/producto', '2090006']"><i>Comprar ya</i></p>
+        <!-- <p class="name-producto-menu">Sarten Ceradur Plus</p>
+        <p class="medium link-producto-menu" [routerLink]="['/producto', '2090006']"><i>Comprar ya</i></p> -->
       </div>
     </div>
   </div>
