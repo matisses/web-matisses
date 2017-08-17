@@ -49,9 +49,10 @@ export class MenuItemService {
       .map(res => res.json());
   }
 
-  listMenuRecursively(id) {
+  listMenuRecursively(id, token) {
     const headers = new Headers({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': token
     });
 
     if(id == null){
