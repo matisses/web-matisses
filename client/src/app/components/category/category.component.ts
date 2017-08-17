@@ -4,12 +4,13 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ProductosComponent } from './productos/productos.component';
 import { FiltrosComponent } from './filtros/filtros.component';
 import { ItemService } from '../../services/item.service';
+import { DescuentosService } from '../../services/descuentos.service';
 import { Item } from '../../models/item';
 
 @Component({
   templateUrl: 'category.html',
   styleUrls: ['category.component.css'],
-  providers: [ItemService]
+  providers: [ItemService, DescuentosService]
 })
 
 export class CategoryComponent implements OnInit {
@@ -25,7 +26,7 @@ export class CategoryComponent implements OnInit {
   public queryParams: Map<string, string>;
   private availableFields: string[] = ['page', 'pageSize', 'orderBy', 'department', 'group', 'subgroup', 'color', 'minPrice', 'maxPrice', 'brand', 'material', 'collection', 'keywords'];
 
-  constructor(private _itemService: ItemService, private _route: ActivatedRoute, private _router: Router) {
+  constructor(private _itemService: ItemService, private _route: ActivatedRoute, private _router: Router, private _descuentosService: DescuentosService) {
     this.queryParams = new Map<string, string>();
   }
 
@@ -40,6 +41,22 @@ export class CategoryComponent implements OnInit {
       this._itemService.filter(this.queryString).subscribe(
         response => {
           this.items = response.result;
+          for (let i = 0; i < this.items.length; i++) {
+            //validar si el ítem tiene descuentos
+            this._descuentosService.findDiscount(this.items[i].itemcode).subscribe(
+              response => {
+                if (this.items[i].priceaftervat === response.precio) {
+                  if (response.descuentos && response.descuentos.length > 0) {
+                    this.items[i].descuento = response.descuentos[0].porcentaje;
+                    this.items[i].priceafterdiscount = this.items[i].priceaftervat - ((this.items[i].priceaftervat / 100) * this.items[i].descuento);
+                  }
+                }
+              },
+              error => {
+                console.error(error);
+              }
+            );
+          }
           this.productosComponent.cargarItems(this.availableFields, this.items, this.queryParams, response.records);
           this.filtrosComponent.inicializarFiltros(this.availableFields, this.queryParams, this.queryString, response.records);
         },

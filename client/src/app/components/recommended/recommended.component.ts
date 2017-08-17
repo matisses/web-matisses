@@ -5,6 +5,7 @@ import { Item } from '../../models/item';
 
 import { RecommendedItemService } from '../../services/recommended.service';
 import { ItemService } from '../../services/item.service';
+import { DescuentosService } from '../../services/descuentos.service';
 
 import { CarritoSimpleComponent } from '../header/menu/carrito/carrito-simple.component';
 
@@ -15,7 +16,7 @@ declare var $: any;
   selector: 'recommended',
   templateUrl: 'recommended.html',
   styleUrls: ['recommended.component.css'],
-  providers: [RecommendedItemService, ItemService]
+  providers: [RecommendedItemService, ItemService, DescuentosService]
 })
 
 export class RecommendedComponent implements OnInit {
@@ -24,7 +25,8 @@ export class RecommendedComponent implements OnInit {
 
   public items: Array<Item>;
 
-  constructor(private _recommmendedService: RecommendedItemService, private _itemService: ItemService, private _route: ActivatedRoute, private _router: Router) {
+  constructor(private _recommmendedService: RecommendedItemService, private _itemService: ItemService, private _route: ActivatedRoute, private _router: Router,
+    private _descuentosService: DescuentosService) {
   }
 
   ngOnInit() {
@@ -40,7 +42,23 @@ export class RecommendedComponent implements OnInit {
       response => {
         console.log(response);
         for (let i = 0; i < response.result.length; i++) {
-          this.items.push(response.result[i].itemId);
+          let item: Item;
+          item = response.result[i].itemId;
+          //validar si el ítem tiene descuentos
+          this._descuentosService.findDiscount(item.itemcode).subscribe(
+            response => {
+              if (item.priceaftervat === response.precio) {
+                if (response.descuentos && response.descuentos.length > 0) {
+                  item.descuento = response.descuentos[0].porcentaje;
+                  item.priceafterdiscount = item.priceaftervat - ((item.priceaftervat / 100) * item.descuento);
+                }
+              }
+            },
+            error => {
+              console.error(error);
+            }
+          );
+          this.items.push(item);
         }
       },
       error => {

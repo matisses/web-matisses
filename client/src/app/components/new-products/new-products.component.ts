@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Item } from '../../models/item';
 import { ItemService } from '../../services/item.service';
+import { DescuentosService } from '../../services/descuentos.service'; 0 | 1
 
 import { CarritoSimpleComponent } from '../header/menu/carrito/carrito-simple.component';
 
@@ -11,7 +12,7 @@ declare var $: any;
 @Component({
   selector: 'new-products',
   templateUrl: 'newproducts.html',
-  providers: [ItemService],
+  providers: [ItemService, DescuentosService],
   styleUrls: ['newproducts.component.css']
 })
 
@@ -23,7 +24,7 @@ export class NewProductsComponent implements OnInit {
   public items: Array<Item>;
   public articuloActivo: number = 1;
 
-  constructor(private _itemService: ItemService, private _route: ActivatedRoute, private _router: Router) {
+  constructor(private _itemService: ItemService, private _route: ActivatedRoute, private _router: Router, private _descuentosService: DescuentosService) {
   }
 
   ngOnInit() {
@@ -57,6 +58,23 @@ export class NewProductsComponent implements OnInit {
           this.items.push(response.result[pos3]);
         } else {
           this.items = response.result;
+        }
+
+        for (let i = 0; i < this.items.length; i++) {
+          //validar si el ítem tiene descuentos
+          this._descuentosService.findDiscount(this.items[i].itemcode).subscribe(
+            response => {
+              if (this.items[i].priceaftervat === response.precio) {
+                if (response.descuentos && response.descuentos.length > 0) {
+                  this.items[i].descuento = response.descuentos[0].porcentaje;
+                  this.items[i].priceafterdiscount = this.items[i].priceaftervat - ((this.items[i].priceaftervat / 100) * this.items[i].descuento);
+                }
+              }
+            },
+            error => {
+              console.error(error);
+            }
+          );
         }
       },
       error => {

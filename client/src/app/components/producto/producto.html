@@ -9,7 +9,7 @@
           <!-- Wrapper for slides -->
           <div class="carousel-inner" role="listbox">
             <div class="item" [class.active]="i === 0" *ngFor="let image of item.images; let i = index">
-              <img src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/images/{{image}}" alt="...">
+              <img src="http://img.matisses.co/{{item.itemcode}}/images/{{image}}" alt="...">
             </div>
           </div>
 
@@ -73,7 +73,7 @@
 
 <div sticky-body>
   <div class="container padding-top">
-<!--
+    <!--
     <miga-de-pan></miga-de-pan>
 -->
     <div class="row">
@@ -93,7 +93,7 @@
                   <div class="row">
                     <div class="col-xs-12 cursor-pointer" data-target="#galeria-producto" [attr.data-slide-to]="i" *ngFor="let image of item.images; let i = index">
                       <div class="mini">
-                        <img class="img-responsive" src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/mini/{{image}}" alt="...">
+                        <img class="img-responsive" src="http://img.matisses.co/{{item.itemcode}}/mini/{{image}}" alt="...">
                       </div>
                     </div>
                   </div>
@@ -104,7 +104,7 @@
                 <!-- Wrapper for slides -->
                 <div id="carousel" class="carousel-inner" role="listbox">
                   <div class="item" [class.active]="i === 0" *ngFor="let image of item.images; let i = index">
-                    <img src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/images/{{image}}" alt="...">
+                    <img src="http://img.matisses.co/{{item.itemcode}}/images/{{image}}" alt="...">
                   </div>
                 </div>
                 <!-- Wrapper for slides -->
@@ -148,6 +148,11 @@
           <div class="row">
             <div class="col-xs-12">
               <h3>$ {{item.priceaftervat | number}} <small>Iva incluido</small></h3>
+            </div>
+          </div>
+          <div class="row" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0">
+            <div class="col-xs-12">
+              <h3><small>% {{item.descuento | number}}</small> $ {{item.priceafterdiscount | number}}</h3>
             </div>
           </div>
           <div class="row">
@@ -232,8 +237,8 @@
   <!-- <relacionados></relacionados> -->
   <div class="container">
     <div class="row">
-        <div class="col-xs-12">
-          <div class="politicas">
+      <div class="col-xs-12">
+        <div class="politicas">
           <div class="row">
             <div class="col-md-3 col-sm-6">
               <div class="content">

@@ -122,14 +122,15 @@
                   <div class="row">
                     <div class="col-sm-10 col-sm-offset-1 border-bottom">
                       <h4><b>{{carrito.totalItems}}</b> PRODUCTOS</h4>
-                      <p>Total de los productos: <span class="pull-right"><b>$ {{carrito.totalCarrito | number}}</b></span></p>
+                      <p>Total de los productos: <span class="pull-right"><b>$ {{carrito.totalCarrito - carrito.totalImpuestos | number}}</b></span></p>
                       <p>Total impuestos: <span class="pull-right"><b>$ {{carrito.totalImpuestos | number}}</b></span></p>
+                      <p>Total descuentos: <span class="pull-right"><b>$ {{carrito.totalDescuentos | number}}</b></span></p>
                       <p>Envío estándar: <span class="pull-right"><b>$ {{totalEnvio}}</b></span></p>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-10 col-sm-offset-1">
-                      <p>Total: <span class="pull-right"><b>$ {{(carrito.totalCarrito + totalEnvio) | number}}</b></span></p>
+                      <p>Total: <span class="pull-right"><b>$ {{((carrito.totalCarrito + totalEnvio) - carrito.totalDescuentos) | number}}</b></span></p>
                       <!--<div class="col-xs-5 text-right">
                     <div class="row">
                       <div class="col-xs-7">

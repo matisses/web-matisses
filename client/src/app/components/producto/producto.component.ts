@@ -6,6 +6,7 @@ import { MetaService } from '@ngx-meta/core';
 import { Item } from '../../models/item';
 import { ItemService } from '../../services/item.service';
 import { StockService } from '../../services/stock.service';
+import { DescuentosService } from '../../services/descuentos.service';
 
 import { CarritoSimpleComponent } from '../header/menu/carrito/carrito-simple.component';
 
@@ -14,7 +15,7 @@ declare var $: any;
 @Component({
   templateUrl: 'producto.html',
   styleUrls: ['producto.component.css'],
-  providers: [ItemService, StockService]
+  providers: [ItemService, StockService, DescuentosService]
 })
 export class ProductoComponent implements OnInit, AfterViewInit {
   @ViewChild(CarritoSimpleComponent)
@@ -33,7 +34,8 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   public images: Array<string>;
   public itemsRelacionados: Array<any>;
 
-  constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _stockService: StockService, private _http: Http, private readonly meta: MetaService) {
+  constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _stockService: StockService,
+    private _http: Http, private readonly meta: MetaService, private _descuentosService: DescuentosService) {
     this.quantityOptions = new Array<number>();
     this.images = new Array<string>();
     this.itemsRelacionados = new Array<any>();
@@ -64,7 +66,7 @@ export class ProductoComponent implements OnInit, AfterViewInit {
         response => {
           this.item = response.result[0];
 
-          let urlImage: string = 'https://www.matisses.co/modules/matisses/files/' + this.item.itemcode + '/images/' + this.item.itemcode + '_01.jpg';
+          let urlImage: string = 'http://img.matisses.co/' + this.item.itemcode + '/images/' + this.item.itemcode + '_01.jpg';
           //this.meta.setTitle(`Matisses - Producto {{this.item.shortitemcode}}`);
           this.meta.setTag('og:image', urlImage);
           this.meta.setTag('og:description', this.item.description);
@@ -75,6 +77,21 @@ export class ProductoComponent implements OnInit, AfterViewInit {
           this.validarPlantilla();
           this.cargarInventario();
           this.obtenerRelacionados();
+
+          //validar si el ítem tiene descuentos
+          this._descuentosService.findDiscount(this.item.itemcode).subscribe(
+            response => {
+              if (this.item.priceaftervat === response.precio) {
+                if (response.descuentos && response.descuentos.length > 0) {
+                  this.item.descuento = response.descuentos[0].porcentaje;
+                  this.item.priceafterdiscount = this.item.priceaftervat - ((this.item.priceaftervat / 100) * this.item.descuento);
+                }
+              }
+            },
+            error => {
+              console.error(error);
+            }
+          );
         },
         error => {
           console.error(error);
@@ -108,12 +125,12 @@ export class ProductoComponent implements OnInit, AfterViewInit {
 
   private validar360() {
     try {
-      this._http.get('https://www.matisses.co/modules/matisses/files/' + this.item.itemcode + '/360/' + this.item.itemcode + '.html')
+      this._http.get('http://img.matisses.co/' + this.item.itemcode + '/360/' + this.item.itemcode + '.html')
         .subscribe(
         response => {
           if (response.status === 200) {
             this.existe360 = true;
-            document.getElementById('frame360').setAttribute('src', 'https://www.matisses.co/modules/matisses/files/' + this.item.itemcode + '/360/' + this.item.itemcode + '.html');
+            document.getElementById('frame360').setAttribute('src', 'http://img.matisses.co/' + this.item.itemcode + '/360/' + this.item.itemcode + '.html');
           } else {
             this.existe360 = false;
           }
@@ -128,11 +145,11 @@ export class ProductoComponent implements OnInit, AfterViewInit {
 
   private validarWow() {
     try {
-      this._http.get('https://www.matisses.co/modules/matisses/files/' + this.item.itemcode + '/animacion/' + this.item.itemcode + '.html').subscribe(
+      this._http.get('http://img.matisses.co/' + this.item.itemcode + '/animacion/' + this.item.itemcode + '.html').subscribe(
         response => {
           if (response.status === 200) {
             this.existeWow = true;
-            document.getElementById('frameWow').setAttribute('src', 'https://www.matisses.co/modules/matisses/files/' + this.item.itemcode + '/animacion/' + this.item.itemcode + '.html');
+            document.getElementById('frameWow').setAttribute('src', 'http://img.matisses.co/' + this.item.itemcode + '/animacion/' + this.item.itemcode + '.html');
           } else {
             this.existeWow = false;
           }
@@ -148,11 +165,11 @@ export class ProductoComponent implements OnInit, AfterViewInit {
 
   private validarPlantilla() {
     try {
-      this._http.get('https://www.matisses.co/modules/matisses/files/' + this.item.itemcode + '/plantilla/' + this.item.itemcode + '.jpg').subscribe(
+      this._http.get('http://img.matisses.co/' + this.item.itemcode + '/plantilla/' + this.item.itemcode + '.jpg').subscribe(
         response => {
           if (response.status === 200) {
             this.existePlantilla = true;
-            document.getElementById('plantilla').setAttribute('src', 'https://www.matisses.co/modules/matisses/files/' + this.item.itemcode + '/plantilla/' + this.item.itemcode + '.jpg');
+            document.getElementById('plantilla').setAttribute('src', 'http://img.matisses.co/' + this.item.itemcode + '/plantilla/' + this.item.itemcode + '.jpg');
           } else {
             this.existePlantilla = false;
           }

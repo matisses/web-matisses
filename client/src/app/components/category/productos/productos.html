@@ -69,6 +69,7 @@
         <div class="col-xs-12 text-center">
           <p class="medium nombre-producto">{{item.itemname}}</p>
           <h4>$ {{item.priceaftervat | number:0}}</h4>
+          <h4 *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0"><small>% {{item.descuento | number}}</small> $ {{item.priceafterdiscount | number:0}}</h4>
         </div>
         <div class="botones">
           <div class="col-xs-12 text-center">

@@ -346,7 +346,7 @@ export class InfoPagoComponent implements OnInit {
       reference: _id,
       amount: {
         currency: 'COP',
-        total: this.carrito.totalCarrito,
+        total: (this.carrito.totalCarrito - this.carrito.totalDescuentos),
         taxes: {
           kind: 'valueAddedTax',
           amount: this.carrito.totalImpuestos

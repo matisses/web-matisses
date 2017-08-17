@@ -40,7 +40,7 @@ function findShoppingCart(req, res) {
     "_id": req.params.id
   }, (err, shoppingCart) => {
     if (err) {
-      console.log(err);
+      console.log(error);
       res.status(500).send({
         message: 'ocurrio un error al consultar el carrito'
       });
@@ -55,7 +55,7 @@ function findShoppingCart(req, res) {
         res.status(200).send(shoppingCart[0]);
       } else {
         res.status(200).send({
-          shoppingcart: shoppingCart
+          shoppingCart: shoppingCart
         });
       }
     }
