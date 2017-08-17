@@ -19,6 +19,10 @@ import { ModalComponent } from './components/modal/modal.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { WishListComponent } from './components/wish-list/wish-list.component';
 import { ContactanosComponent } from './components/contactanos/contactanos.component';
+import { TerminosComponent } from './components/terminos/terminos.component';
+import { PoliticaDatosComponent } from './components/politica-datos/politica-datos.component';
+import { PoliticaPrivacidadComponent } from './components/politica-privacidad/politica-privacidad.component';
+import { PreguntasFrecuentesComponent } from './components/preguntas-frecuentes/preguntas-frecuentes.component';
 
 const appRoutes: Routes = [
   //{path: '', component: HomeComponent},
@@ -64,6 +68,10 @@ const appRoutes: Routes = [
   { path: 'admin/:token', component: AdminComponent },
   { path: 'lista-de-deseos', component: WishListComponent },
   { path: 'contactanos', component: ContactanosComponent },
+  { path: 'terminos-y-condiciones', component: TerminosComponent },
+  { path: 'politica-manejo-de-datos', component: PoliticaDatosComponent },
+  { path: 'politica-de-privacidad', component: PoliticaPrivacidadComponent },
+  { path: 'preguntas-frecuentes', component: PreguntasFrecuentesComponent },
   { path: '**', component: ErrorComponent } //pagina 404
 ];
 

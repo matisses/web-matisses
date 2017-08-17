@@ -42,6 +42,15 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.cargarInfoItem();
     this._itemService.inicializarWishlist();
+    $(function() {
+      $('[data-toggle="popover"]').popover()
+    })
+    $("#popover1").hover(function() {
+      $("#popover1").click();
+    });
+    $("#popover2").hover(function() {
+      $("#popover2").click();
+    });
   }
 
   ngAfterViewInit() {

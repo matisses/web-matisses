@@ -2,10 +2,11 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Conoce nuestras nuevas colecciones</h4>
+        <h4 class="modal-title text-center">¡Gracias por suscribirte a nuestra lista de correos!</h4>
       </div>
       <form #SubscribeForm="ngForm">
         <div class="modal-body">
+          <p class="text-center grey"><b>Ahora serás el primero en conocer nuestras nuevas colecciones</b></p>
           <div class="row" *ngIf="errorMessage != null && errorMessage.length > 0">
             <div class="col-xs-12">
               <div class="alert alert-danger" role="alert">
@@ -45,7 +46,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal" (click)=limpiar()>Cerrar</button>
-          <button type="button" class="btn btn-primary" (click)="suscribir(SubscribeForm)" *ngIf="successMessage == null || successMessage.length <= 0">Guardar</button>
+          <button type="button" class="btn btn-newsletter" (click)="suscribir(SubscribeForm)" *ngIf="successMessage == null || successMessage.length <= 0">Guardar</button>
         </div>
       </form>
     </div>
@@ -56,7 +57,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 col-md-offset-0 col-xs-10 col-xs-offset-1 text-center">
-        <h2 class="light">Conoce nuestras <b>nuevas colecciones</b></h2>
+        <h2 class="light">Se el primero en conocer<br/><b>nuestras nuevas colecciones</b></h2>
       </div>
       <div class="col-md-6 col-md-offset-0 col-xs-10 col-xs-offset-1 text-center">
         <div [ngClass]="{'search-group-error' : !valid}" class="search-group">

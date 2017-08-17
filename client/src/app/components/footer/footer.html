@@ -11,7 +11,7 @@
       <div class="col-md-6 col-sm-12 text-right">
         <div class="info-dos">
           <ul>
-            <li class="bordering"><em>Preguntas frecuentes</em></li>
+            <li class="bordering" [routerLink]="['/preguntas-frecuentes']"><em>Preguntas frecuentes</em></li>
             <li [routerLink]="['/envios']" class="bordering"><em>Metodos de envío</em></li>
             <li [routerLink]="['/garantias']"><em>Garantías</em></li>
           </ul>
@@ -48,9 +48,9 @@
     <div class="end-footer">
       <div class="row">
         <div class="col-md-7 col-xs-12">
-          <p>Términos y condiciones</p>
-          <p class="border-left">Politica de manejo de datos</p>
-          <p class="border-left">Politica de privacidad</p>
+          <p class="cursor-pointer" [routerLink]="['/terminos-y-condiciones']">Términos y condiciones</p>
+          <p class="cursor-pointer border-left" [routerLink]="['/politica-manejo-de-datos']">Politica de manejo de datos</p>
+          <p class="border-left cursor-pointer" [routerLink]="['/politica-de-privacidad']">Politica de privacidad</p>
         </div>
         <div class="col-md-5 col-xs-12 text-center">
           <p>© Todos los derechos reservados Matisses 2017</p>
