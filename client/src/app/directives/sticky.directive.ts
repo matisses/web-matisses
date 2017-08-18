@@ -18,7 +18,6 @@ export class StickyMenuDirective {
   }
 
   ngOnInit() {
-      //console.log('inicializando directiva sticky menu');
   }
 
 }

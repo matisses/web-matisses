@@ -14,7 +14,7 @@ function consultarItem(req, res) {
     "shortitemcode": req.params.itemcode
   }, (err, result) => {
     if (err) {
-      console.log(err);
+      console.error(err);
       res.status(500).send({
         message: 'ocurrio un error al consultar el producto'
       });
@@ -120,8 +120,6 @@ function filtrar(req, res) {
   var page = req.query.page;
   var pageSize = req.query.pageSize;
   var orderBy = req.query.orderBy;
-
-  console.log(req.query);
 
   if (typeof page == 'undefined' || page == null) {
     page = 1;

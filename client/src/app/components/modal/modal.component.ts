@@ -19,14 +19,10 @@ export class ModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    //console.log('inicializando componente de modal');
-    //  $('#modal').click();
   }
 
 
   ngAfterViewInit() {
-    console.log('termino de cargar el componente');
-
     $(document).ready(function() {
       $("#corazon").click(function() {
         $('#full').show();

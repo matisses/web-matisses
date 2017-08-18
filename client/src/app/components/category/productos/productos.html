@@ -62,13 +62,14 @@
     <div class="producto">
       <div class="row">
         <div class="col-xs-12 cursor-pointer" [routerLink]="['/producto', item.shortitemcode]">
-          <img src="https://www.matisses.co/modules/matisses/files/{{item.itemcode}}/parrilla/{{item.itemcode}}_01.jpg" class="img-responsive" alt="">
+          <img src="http://img.matisses.co/{{item.itemcode}}/parrilla/{{item.itemcode}}_01.jpg" class="img-responsive" alt="">
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12 text-center">
           <p class="medium nombre-producto">{{item.itemname}}</p>
           <h4>$ {{item.priceaftervat | number:0}}</h4>
+          <h4 *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0"><small>% {{item.descuento | number}}</small> $ {{item.priceafterdiscount | number:0}}</h4>
         </div>
         <div class="botones">
           <div class="col-xs-12 text-center">

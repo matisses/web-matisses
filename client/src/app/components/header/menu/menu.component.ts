@@ -128,7 +128,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
             }
           },
           error => {
-            console.log(error);
+            console.error(error);
           }
         );
       }
@@ -136,7 +136,6 @@ export class MenuComponent implements OnInit, AfterViewInit {
   }
 
   public seleccionarGrupo(grupo, actualizarSubgrupo: boolean) {
-    console.log('---------------------------------');
     this.grupoSeleccionado = grupo;
     this.subgrupos = null;
 
@@ -158,7 +157,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
             }
           },
           error => {
-            console.log(error);
+            console.error(error);
           }
         );
       }
@@ -213,7 +212,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
           }
         },
         error => {
-          console.log(error);
+          console.error(error);
         }
       );
     }
@@ -246,8 +245,6 @@ export class MenuComponent implements OnInit, AfterViewInit {
         menuItemAfter: null
       }
 
-      console.log(itemMenu);
-
       this._menuService.save(itemMenu).subscribe(
         response => {
           this.grupoSeleccionado = new MenuItem().newMenuItem('', '', '');
@@ -259,7 +256,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
           this.seleccionarCategoria(this.categoriaSeleccionada, true);
         },
         error => {
-          console.log(error);
+          console.error(error);
         }
       );
     }
@@ -298,8 +295,6 @@ export class MenuComponent implements OnInit, AfterViewInit {
         menuItemBefore: menuItemBefore,
         menuItemAfter: null
       }
-
-      console.log(itemMenu);
 
       this._menuService.save(itemMenu).subscribe(
         response => {
@@ -394,7 +389,6 @@ export class MenuComponent implements OnInit, AfterViewInit {
   }
 
   public moverPosicionDown(actualizarCategorias: boolean, actualizarGrupos: boolean, actualizarSubgrupos: boolean, item: MenuItem, menuItems: Array<MenuItem>) {
-    console.log('-------------------------');
     for (let i = 0; i < menuItems.length; i++) {
       if (menuItems[i]._id === item._id) {
         if (i < (menuItems.length - 1)) {
@@ -467,7 +461,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
           this.removeCategoria = false;
         },
         error => {
-          console.log(error);
+          console.error(error);
         }
       );
     }
@@ -593,7 +587,6 @@ export class MenuComponent implements OnInit, AfterViewInit {
     this.cargarValidarTokenAdmin();
     this._menuService.listMenuRecursively(null, this.adminToken).subscribe(
       response => {
-        console.log(response);
         for (let i = 0; i < response.result.length; i++) {
           let menuItem = new MenuItem();
           menuItem._id = response.result[i]._id;

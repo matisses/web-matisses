@@ -18,7 +18,6 @@ export class StickyBodyDirective {
   }
 
   ngOnInit() {
-      //console.log('inicializando directiva sticky body');
   }
 
 }

@@ -68,7 +68,6 @@ export class InfoPagoComponent implements OnInit {
   }
 
   ngOnInit() {
-    //console.log('inicializando componente de información de pago');
     this.carrito.cargarCarrito();
     this.obtenerMetodosEnvio();
     this.obtenerCiudades();
@@ -82,7 +81,7 @@ export class InfoPagoComponent implements OnInit {
         this.ciudadesPrincipales = response.cities;
       },
       error => {
-        console.log(error);
+        console.error(error);
       }
     );
     this._cityService.findOtherCities().subscribe(
@@ -90,7 +89,7 @@ export class InfoPagoComponent implements OnInit {
         this.otrasCiudades = response.cities;
       },
       error => {
-        console.log(error);
+        console.error(error);
       }
     );
   }
@@ -100,10 +99,9 @@ export class InfoPagoComponent implements OnInit {
     this._shippingMethodService.listShippingMethods().subscribe(
       response => {
         this.metodosEnvio = response;
-        console.log(this.metodosEnvio);
       },
       error => {
-        console.log(error);
+        console.error(error);
       }
     );
   }
@@ -115,7 +113,6 @@ export class InfoPagoComponent implements OnInit {
       this._customerService.getCustomerData(this.customer.fiscalID).subscribe(
         response => {
           if (response.fiscalIdType == '31') {
-            console.log('El documento no es válido para facturar por este medio: ' + response.fiscalID + ' Tipo Doc: ' + response.fiscalIdType + '-Nit');
             this.messageError = 'Este documento no es válido para facturar por este sitio, esta registrado actualmente como NIT.';
             this.customer = this.customer = new Customer().newCustomer('', '', null, '', '', '', '', '', '', '', '', null, '', '', '', '', '', '', [{
               stateCode: null,
@@ -137,7 +134,7 @@ export class InfoPagoComponent implements OnInit {
           this.customer = response;
         },
         error => {
-          console.log(error);
+          console.error(error);
         }
       );
     }
@@ -147,12 +144,10 @@ export class InfoPagoComponent implements OnInit {
     this.valid = true;
     this.messageError = '';
     if (this.metodoEnvioSeleccionado == null || this.metodoEnvioSeleccionado.code == 0) {
-      console.log('Se debe seleccionar un método de envió');
       this.messageError = 'Se debe seleccionar un método de envió.';
       return;
     }
     if (this.metodoEnvioSeleccionado.code == 2 && (this.tiendaSeleccionada == null || this.tiendaSeleccionada.length <= 0)) {
-      console.log('Debe seleccionar en cual tienda desea recoger los artículos');
       this.messageError = 'Debe seleccionar en cual tienda desea recoger los artículos.';
       return;
     } else if (this.metodoEnvioSeleccionado.code != 2) {
@@ -166,7 +161,6 @@ export class InfoPagoComponent implements OnInit {
       || this.customer.addresses[0].cellphone == null || this.customer.addresses[0].cellphone.length <= 0
       || this.customer.addresses[0].cityCode == null || this.customer.addresses[0].cityCode == 0
       || this.customer.addresses[0].email == null || this.customer.addresses[0].email.length <= 0) {
-      console.log('Se deben llenar todos los campos obligatorios para poder proceder con el pago');
       this.messageError = 'Se deben llenar todos los campos obligatorios para poder proceder con el pago.';
       this.valid = false;
       return;
@@ -187,8 +181,6 @@ export class InfoPagoComponent implements OnInit {
             }
           }
         }
-
-        console.log(items);
 
         if (itemsSinSaldo) {
           //Devolver a la vista de carrito para notificarle al usuario que los items no tienen saldo
@@ -212,20 +204,19 @@ export class InfoPagoComponent implements OnInit {
               this.validarCliente(this.carrito.shoppingCart._id);
             },
             error => {
-              console.log(error);
+              console.error(error);
             }
           );
         }
       },
       error => {
-        console.log(error);
+        console.error(error);
         this.procesandoP2P = false;
       }
     );
   }
 
   private validarCliente(_idCarrito) {
-    console.log('Mandando datos del cliente');
     this.obtenerNombreCiudad();
 
     this._customerService.getCustomerData(this.customer.fiscalID).subscribe(
@@ -311,7 +302,7 @@ export class InfoPagoComponent implements OnInit {
             }
           },
           error => {
-            console.log(error);
+            console.error(error);
           }
         );
       }
@@ -319,7 +310,6 @@ export class InfoPagoComponent implements OnInit {
   }
 
   private enviarPlaceToPay(_id) {
-    console.log(this.customer);
     //Se mapean los datos que se le enviaran a PlacetoPay
     let apellidos = '';
     apellidos += this.customer.lastName1;
@@ -346,7 +336,7 @@ export class InfoPagoComponent implements OnInit {
       reference: _id,
       amount: {
         currency: 'COP',
-        total: this.carrito.totalCarrito,
+        total: (this.carrito.totalCarrito - this.carrito.totalDescuentos),
         taxes: {
           kind: 'valueAddedTax',
           amount: this.carrito.totalImpuestos
@@ -355,8 +345,6 @@ export class InfoPagoComponent implements OnInit {
     }
 
     this.datosPago = new DatosPagoPlaceToPay().newDatosPagoPlaceToPay(buyer, null, navigator.userAgent, payment, null, null, this.urlReturn + _id, '');
-
-    console.log(this.datosPago);
 
     this._placetopayService.redirect(this.datosPago).subscribe(
       response => {
@@ -368,13 +356,12 @@ export class InfoPagoComponent implements OnInit {
         window.location.href = response.respuestaPlaceToPay.processUrl;
       },
       error => {
-        console.log(error);
+        console.error(error);
       }
     );
   }
 
   public seleccionarMetodoEnvio(metodo) {
-    console.log(metodo);
     this.metodoEnvioSeleccionado = metodo;
   }
 

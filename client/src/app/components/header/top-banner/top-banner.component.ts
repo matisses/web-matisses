@@ -8,13 +8,9 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 
 export class TopBannerComponent implements OnInit {
-
-
     constructor(private _route: ActivatedRoute, private _router: Router) {
-
     }
 
     ngOnInit() {
-        //console.log('inicializando componente de banner superior');
     }
 }

@@ -35,6 +35,9 @@ export class Item {
   public images: Array<string>;
   public color: Array<any>;
   public sinSaldo: number;
+  public descuento: number;
+  public priceafterdiscount: number;
+  public taxpercent: number;
 
   constructor() {
 

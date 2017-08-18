@@ -15,6 +15,5 @@ export class MigaDePanComponent implements OnInit {
     }
 
     ngOnInit() {
-        //console.log('inicializando componente de miga de pan');
     }
 }

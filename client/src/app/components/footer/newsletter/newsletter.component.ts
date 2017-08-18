@@ -40,7 +40,6 @@ export class NewsletterComponent implements OnInit {
     this.valid = true;
     this.errorMessage = '';
     this.successMessage = '';
-    console.log(this.name + ' --------- ' + this.lastname + ' --------- ' + this.email);
     if (this.email.length > 0 && this.name.length > 0 && this.lastname.length > 0) {
       let MailChimpSubscribeDTO = {
         email_address: this.email,
