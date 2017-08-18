@@ -2,6 +2,24 @@
   margin-top: 125px;
 }
 
+.old-price, .percentage {
+  display: inline-block;
+  margin-bottom: 1px;
+}
+
+.old-price {
+  text-decoration: line-through;
+}
+
+.percentage {
+  color: #B20404;
+  margin-left: 5px;
+}
+
+.new-price {
+  margin-top: 0;
+}
+
 .border-left {
   border-left: 1px solid #D1D1D1;
   padding: 0px 5px;
@@ -116,7 +134,7 @@
 .btn-carrito {
   border-radius: 0;
   height: 36px;
-  background-color: #6D9197;
+  background-color: #6D9791;
   color: #FFF;
   padding: 0 50px;
   transition: 0.5s;
@@ -173,7 +191,7 @@
 
 .zoom {
   float: right;
-  color: #6D9197;
+  color: #6D9791;
 }
 
 .modal-title {

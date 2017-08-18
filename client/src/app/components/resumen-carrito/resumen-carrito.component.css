@@ -2,9 +2,11 @@
   margin-top: 125px;
 }
 
-.breadcrumb {
-  background-color: transparent;
-  margin: 0px;
+.price-discount .old-price {
+  color: #B20404;
+  text-decoration: line-through;
+  font-size: 10px;
+  margin: 0;
 }
 
 .container {
@@ -26,6 +28,10 @@
   border-bottom: 1px solid #EDEDED;
 }
 
+.producto img {
+  margin-top: 25px;
+}
+
 .item-name {
   margin: 15px 0;
   font-size: 15px;
@@ -42,7 +48,7 @@
 }
 
 .trash:hover {
-  color: #EDEDED;
+  color: #D1D1D1;
 }
 
 input {

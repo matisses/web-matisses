@@ -21,8 +21,12 @@
   color: #5b5b5b;
 }
 
-#lhnHelp {
+#lhnContainerDone {
   display: none;
+}
+
+input, button, textarea, select {
+  -webkit-appearance: none;
 }
 
 input:focus, button:focus, span:focus, p:focus, li:focus, div:focus, textarea:focus, img:focus {

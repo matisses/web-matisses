@@ -61,6 +61,24 @@
   background-color: #D1D1D1;
 }
 
+.old-price, .percentage {
+  display: inline-block;
+  margin-bottom: 1px;
+}
+
+.old-price {
+  text-decoration: line-through;
+}
+
+.percentage {
+  color: #B20404;
+  margin-left: 5px;
+}
+
+.new-price {
+  margin-top: 0;
+}
+
 @media screen and (max-width: 991px) {
   .modal-body .border-left {
     border-left: 0px;

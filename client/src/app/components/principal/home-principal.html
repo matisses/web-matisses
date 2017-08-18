@@ -23,25 +23,25 @@
 <br/>
 
 <div class="container">
-  <div class="row">
-    <div class="col-sm-3 col-xs-6 text-center" *ngFor="let item of items">
+  <div class="row" *ngIf="items && items.length > 0">
+    <div class="col-sm-3 col-xs-6 text-center" >
       <div class="recomendaciones">
-        <p class="name">Set de 2 nocheros<br><b>Nizza</b></p>
-        <img [routerLink]="['/producto', 2440066]" src="http://img.matisses.co/{{item.itemcode}}/parrilla/{{item.itemcode}}_01.jpg" class="img-responsive" alt="Nochero de la Colección Nizza de la marca ALF">
-        <p class="precio"><b>$ {{item.priceaftervat | number}}</b></p>
-        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', 2440066]">Ir a comprar</button>
+        <p class="name">Set 2 nocheros<br><b>Nizza</b></p>
+        <img [routerLink]="['/producto', items[0].shortitemcode]" src="http://img.matisses.co/{{items[0].itemcode}}/parrilla/{{items[0].itemcode}}_04.jpg" class="img-responsive cursor-pointer" alt="{{items[0].itemname}}">
+        <p class="precio"><b>$ {{items[0].priceaftervat | number}}</b></p>
+        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[0].shortitemcode]">Ir a comprar</button>
       </div>
     </div>
-    <!-- <div class="col-sm-3 col-xs-6 text-center">
+    <div class="col-sm-3 col-xs-6 text-center" *ngIf="items && items.length >= 2">
       <div class="recomendaciones">
         <p class="name">Cómoda en madera<br><b>Nizza</b></p>
-        <img [routerLink]="['/producto', 2440047]" src="http://img.matisses.co/24400000000000000047/parrilla/24400000000000000047_03.jpg" class="img-responsive" alt="Cómoda de la Colección Nizza de la marca ALF">
-        <p class="precio"><b>$ 3.660.000</b></p>
-        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', 2440047]">Ir a comprar</button>
+        <img [routerLink]="['/producto', items[1].shortitemcode]" src="http://img.matisses.co/{{items[1].itemcode}}/parrilla/{{items[1].itemcode}}_03.jpg" class="img-responsive cursor-pointer" alt="{{items[1].itemname}}">
+        <p class="precio"><b>$ {{items[1].priceaftervat | number}}</b></p>
+        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[1].shortitemcode]">Ir a comprar</button>
       </div>
-    </div> -->
+    </div>
 
-    <div class="col-sm-6 col-xs-12">
+    <div class="col-sm-6 col-xs-12" *ngIf="items && items.length >= 3">
       <div class="sub-banner">
         <div class="mensaje hidden-xs">
           <p>Siéntete a gusto<br><b>con tu dormitorio</b></p>
@@ -52,7 +52,7 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="sub-banner-footer">
-            <p>Cama extradoble <b>$ 5.090.000</b></p>
+            <p>Cama extradoble <b>$ {{items[2].priceaftervat | number}}</b></p>
             <button type="submit" class="ir-comprar" name="comprar-ya" [routerLink]="['/producto', 2440044]">Ir a comprar</button>
           </div>
         </div>
