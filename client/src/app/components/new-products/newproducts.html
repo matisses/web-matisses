@@ -5,12 +5,16 @@
     </div>
   </div>
   <br/>
-  <a class="left" (click)="botonLeft()">
-    <span class="glyphicon glyphicon-menu-left"></span>
-  </a>
-  <a class="right" (click)="botonRight()">
-    <span class="glyphicon glyphicon-menu-right"></span>
-  </a>
+<div class="row">
+  <div class="col-xs-12">
+    <a class="left" (click)="botonLeft()">
+      <span class="glyphicon glyphicon-menu-left"></span>
+    </a>
+    <a class="right" (click)="botonRight()">
+      <span class="glyphicon glyphicon-menu-right"></span>
+    </a>
+  </div>
+</div>
   <div class="section">
     <div class="article" *ngFor="let item of items">
       <div class="producto">
@@ -19,7 +23,7 @@
         </div>
         <div class="row">
           <div class="col-xs-12" [routerLink]="['/producto', item.shortitemcode]">
-            <img src="http://img.matisses.co/{{item.itemcode}}/images/{{item.itemcode}}_01.jpg" class="img-responsive" alt="">
+            <img src="http://img.matisses.co/{{item.itemcode}}/images/{{item.itemcode}}_01.jpg" class="img-responsive" alt="{{item.itemname}}">
           </div>
         </div>
         <div class="row" *ngIf="item != null">

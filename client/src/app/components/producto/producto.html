@@ -9,7 +9,7 @@
           <!-- Wrapper for slides -->
           <div class="carousel-inner" role="listbox">
             <div class="item" [class.active]="i === 0" *ngFor="let image of item.images; let i = index">
-              <img src="http://img.matisses.co/{{item.itemcode}}/images/{{image}}" alt="...">
+              <img src="http://img.matisses.co/{{item.itemcode}}/images/{{image}}" alt="{{item.itemname}}">
             </div>
           </div>
 

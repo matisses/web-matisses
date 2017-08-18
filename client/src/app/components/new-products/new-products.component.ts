@@ -98,12 +98,12 @@ export class NewProductsComponent implements OnInit {
   }
 
   public botonRight() {
-    $('.section').animate({ scrollLeft: '+=300' }, 500);
+    $('.section').animate({ scrollLeft: '+=890' }, 500);
     return false;
   }
 
   public botonLeft() {
-    $('.section').animate({ scrollLeft: '-=300' }, 500);
+    $('.section').animate({ scrollLeft: '-=890' }, 500);
     return false;
   }
 
