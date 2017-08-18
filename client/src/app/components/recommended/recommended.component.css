@@ -45,6 +45,7 @@ h4 {
   margin-bottom: 5px;
 }
 
+
 /* Estilos carousel */
 
 .section {
@@ -80,6 +81,7 @@ h4 {
   -moz-transition: all 50ms ease-in-out;
   -o-transition: all 50ms ease-in-out;
   transition: all 50ms ease-in-out;
+  z-index: 1;
 }
 
 .left {
@@ -106,7 +108,7 @@ h4 {
   font-size: 12px;
   padding: 10px;
   border-radius: 0;
-  font-weight: 500 ;
+  font-weight: 500;
 }
 
 .btn-like {
@@ -130,7 +132,6 @@ h4 {
 .btn-carrito span {
   color: #750229;
 }
-
 
 @media screen and (max-width: 991px) {
   .article {
