@@ -48,7 +48,7 @@ export class CarritoComponent implements OnInit, AfterViewInit {
       const divs = document.getElementById("carrito1").getElementsByTagName("div");
       for (let i = 0; i < divs.length; i++) {
         if (divs[i].id === 'resumen') {
-          divs[i].style.height = "410px";
+          divs[i].style.height = "315px";
           divs[i].style.boxShadow = "0px 5px 16px 0px rgba(0, 0, 0, 0.75)";
           this.resumenMobileVisible = true;
           break;
@@ -59,7 +59,7 @@ export class CarritoComponent implements OnInit, AfterViewInit {
       const divs = document.getElementById("carrito2").getElementsByTagName("div");
       for (let i = 0; i < divs.length; i++) {
         if (divs[i].id === 'resumen') {
-          divs[i].style.height = "410px";
+          divs[i].style.height = "315px";
           divs[i].style.boxShadow = "0px 5px 16px 0px rgba(0, 0, 0, 0.75)";
           this.resumenDesktopVisible = true;
           break;

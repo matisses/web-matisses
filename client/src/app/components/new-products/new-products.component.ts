@@ -19,7 +19,6 @@ export class NewProductsComponent implements OnInit {
   @ViewChild(CarritoSimpleComponent)
   private carrito: CarritoSimpleComponent;
 
-  public title: string;
   public items: Array<Item>;
   public articuloActivo: number = 1;
 

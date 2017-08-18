@@ -25,7 +25,7 @@
   display: none;
 }
 
-input:focus, button:focus, span:focus, p:focus, li:focus, div:focus, textarea:focus {
+input:focus, button:focus, span:focus, p:focus, li:focus, div:focus, textarea:focus, img:focus {
   outline: none !important;
   box-shadow: none !important;
 }

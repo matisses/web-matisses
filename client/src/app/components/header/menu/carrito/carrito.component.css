@@ -31,7 +31,7 @@
 
 .productos {
   margin: 10px;
-  max-height: 250px;
+  height: 140px;
   overflow: scroll;
   overflow-x: hidden;
   margin-bottom: 20px;
@@ -92,6 +92,7 @@ hr {
 }
 
 .subtotal {
+  margin-top: 15px;
   margin-right: 10px;
   color: #5B5B5B;
   font-weight: bold;
@@ -114,6 +115,7 @@ hr {
   }
   .resumen {
     left: -228px;
+    top: 45px;
   }
 }
 
@@ -126,5 +128,6 @@ hr {
   }
   .resumen {
     left: -238px;
+    top: 45px;
   }
 }
