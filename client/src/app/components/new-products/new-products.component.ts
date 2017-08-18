@@ -38,6 +38,20 @@ export class NewProductsComponent implements OnInit {
     this.items = new Array<Item>();
     this._itemService.listNewItems().subscribe(
       response => {
+        var currentIndex = response.result.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+          // Pick a remaining element...
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex -= 1;
+
+          // And swap it with the current element.
+          temporaryValue = response.result[currentIndex];
+          response.result[currentIndex] = response.result[randomIndex];
+          response.result[randomIndex] = temporaryValue;
+        }
+        /*
         if (response.result.length > 3) {
           let pos1 = (Math.random() * response.result.length) | 0;
           let pos2 = (Math.random() * response.result.length) | 0;
@@ -53,9 +67,9 @@ export class NewProductsComponent implements OnInit {
           this.items.push(response.result[pos1]);
           this.items.push(response.result[pos2]);
           this.items.push(response.result[pos3]);
-        } else {
-          this.items = response.result;
-        }
+        } else {*/
+        this.items = response.result;
+        //}
 
         for (let i = 0; i < this.items.length; i++) {
           //validar si el ítem tiene descuentos
