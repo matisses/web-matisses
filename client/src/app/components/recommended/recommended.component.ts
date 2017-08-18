@@ -41,7 +41,7 @@ export class RecommendedComponent implements OnInit {
       response => {
         for (let i = 0; i < response.result.length; i++) {
           let item: Item;
-          item = response.result[i].itemId;
+          item = response.result[i].item_data;
           //validar si el ítem tiene descuentos
           this._descuentosService.findDiscount(item.itemcode).subscribe(
             response => {
