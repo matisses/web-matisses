@@ -714,7 +714,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
 
   public search() {
     if (this.keywords && this.keywords.length > 0) {
-      let queryParamsObj = { keywords: this.keywords.replace(" ", ",") };
+      let queryParamsObj = { keywords: this.keywords.replace(/ /g, ",") };
       this._router.navigate(['/categoria'], { queryParams: queryParamsObj });
     }
   }

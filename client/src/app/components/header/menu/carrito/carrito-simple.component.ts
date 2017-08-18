@@ -100,6 +100,7 @@ export class CarritoSimpleComponent {
   }
 
   private procesarCarrito() {
+    console.log('validando totales carrito');
     this.totalItems = 0;
     this.totalCarrito = 0;
     this.totalImpuestos = 0;
@@ -112,8 +113,8 @@ export class CarritoSimpleComponent {
       this.totalCarrito += (price * selectedQuantity);
       if (this.shoppingCart.items[i].priceafterdiscount && this.shoppingCart.items[i].priceafterdiscount > 0) {
         let valorIVA = this.shoppingCart.items[i].priceafterdiscount * this.shoppingCart.items[i].taxpercent / 100;
-        totalSinIVA += (this.shoppingCart.items[i].priceafterdiscount - valorIVA);
-        this.totalDescuentos += (this.shoppingCart.items[i].priceaftervat / 100) * this.shoppingCart.items[i].descuento;
+        totalSinIVA += ((this.shoppingCart.items[i].priceafterdiscount - valorIVA) * selectedQuantity);
+        this.totalDescuentos += ((this.shoppingCart.items[i].priceaftervat / 100) * this.shoppingCart.items[i].descuento) * selectedQuantity;
       } else {
         totalSinIVA += (this.shoppingCart.items[i].pricebeforevat ? this.shoppingCart.items[i].pricebeforevat : 0) * selectedQuantity;
       }
