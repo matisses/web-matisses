@@ -1,0 +1,296 @@
+/* CSS Document */
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+@import url(//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css);
+
+/*General styles*/
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #777;
+}
+
+table, table tr, table tr td {
+  vertical-align: middle;
+}
+
+input, textarea, select {
+  width: 100%;
+  border: solid 1px #BBB;
+  padding: 5px;
+}
+
+select {
+  width: 100.8%;
+  color: #777;
+}
+
+label {
+  padding: 10px 5px 5px 0;
+  display: inline-block;
+}
+
+input[type="submit"] {
+  width: auto;
+  padding: 10px;
+  border: none;
+  float: right;
+  background: #D9232E;
+  color: #fff;
+  font-size: 16px;
+}
+
+.tip_left img, #preChatLftAgentPhoto, #lftAgentPhoto, #lftSendBtn, #footer, #countdown, #closeEtran {
+  display: none;
+}
+
+
+/*End*/
+
+.wrap {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.wrap>div {
+  margin: 0 auto;
+}
+
+.logo, #lblCompanyLogoTop {
+  text-align: center;
+  font-size: 0px;
+  width: 1%;
+}
+
+
+/*Ventana Chat*/
+
+#preChatTitleBG, #chatTitleBG {
+  background-color: #fff;
+  background: url(/themes/matisses/img/header/bgHeaderBottom.jpg) repeat-x top;
+  padding: 10px 20px;
+}
+
+#preChatTitle a {
+  display: inline-block;
+  float: right;
+  position: relative;
+  bottom: 40px;
+  font-size: 0px;
+}
+
+#preChatTitle a:before {
+  content: "X";
+  font-size: 14px;
+  display: inline-block;
+  border: solid 1px #888;
+  padding: 5px;
+  width: 10px;
+  height: 10px;
+  text-align: center;
+  line-height: 10px;
+  border-radius: 100%;
+}
+
+#lblCompanyLogoTop {
+  display: inline-block;
+  width: 80%;
+}
+
+#chatTitle * {
+  display: inline-block;
+  vertical-align: top
+}
+
+#chatTitle a+div {
+  width: 1%;
+}
+
+#chatTitle a {
+  font-size: 0px;
+}
+
+#chatTitle a:before {
+  font-family: 'Open sans';
+  content: "x";
+  display: inline-block;
+  font-size: 17px;
+  width: 20px;
+  height: 20px;
+  line-height: 17px;
+  border-radius: 100%;
+  border: solid 1px #AAA;
+  color: #AAA;
+  text-align: center;
+}
+
+#chatTitle a+div+a:before {
+  font-family: FontAwesome;
+  content: "\f003";
+  font-size: 20px;
+  margin-top: 2px;
+  border: none;
+}
+
+#chatTitle a+div+a+div+a:before {
+  content: "\f02f";
+  font-size: 20px;
+}
+
+#chatTitle a:hover:before {
+  border-color: #D9232E;
+}
+
+#chatTitle a+div+a:hover:before, #chatTitle a:hover:before {
+  color: #D9232E;
+}
+
+.logo:before, #lblCompanyLogoTop:before {
+  content: url(/img/logo-1.jpg);
+}
+
+.tip_left:before {
+  content: "ยก";
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  border: solid 2px #D9232E;
+  text-align: center;
+  color: #D9232E;
+  font-weight: bold;
+  line-height: 10px;
+  margin: 0 10px 0 5px;
+}
+
+#preChatWindowTbl {
+  width: 100%;
+  margin: 0 auto;
+}
+
+#preChatContainer {
+  width: 60%;
+  margin: 0 auto;
+}
+
+#preChatContainer iframe, #chatConversation iframe, #msgText textarea {
+  width: 90%;
+  display: block;
+  margin: 0 auto;
+}
+
+#chatConversation iframe {
+  margin-top: 20px;
+  height: 230px;
+  border: solid 1px #BBB;
+}
+
+#msgText {
+  overflow: hidden;
+}
+
+#msgText textarea {
+  width: 89.5%;
+  margin-top: 20px;
+}
+
+#preChatContent div {
+  width: 80%;
+  margin-left: 5%;
+}
+
+#preChatStartRt {
+  padding: 5px;
+  background: #DDD;
+  color: #777;
+  float: right;
+  margin-right: 5%;
+  text-decoration: none;
+}
+
+#preChatStartRt:hover {
+  background: #bc1d27;
+  color: #fff;
+}
+
+#preChatFieldsRt {
+  margin: 16px 5%;
+  background-color: #fff !important;
+}
+
+#prechatFooterNavContainer, #lblCompanyLogoBottom {
+  text-align: right;
+  padding: 10px;
+}
+
+#lblCompanyLogoBottom {
+  display: none;
+}
+
+#prechatFooterNavContainer a {
+  padding: 10px;
+  display: inline;
+  background: #D9232E;
+  color: #fff;
+  text-decoration: none;
+}
+
+#prechatFooterNavContainer a:hover {
+  background: #bc1d27;
+}
+
+#prechatFooterNavContainer a+a {
+  background: #CCC;
+  color: #777;
+}
+
+#prechatFooterNavContainer a+a:hover {
+  color: #fff;
+}
+
+#rtSendBtn {
+  vertical-align: bottom;
+}
+
+#rtSendBtn a {
+  text-align: center;
+  padding: 10px 15px;
+  vertical-align: baseline;
+  margin: 16px 10px 0 0;
+  background: #D9232E;
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+}
+
+#rtSendBtn a:hover {
+  background: #bc1d27;
+}
+
+#preChatContainer iframe {
+  height: 260px !important;
+}
+
+#preChatWindowRow, #preChatWindowRow td {
+  display: block;
+}
+
+#preChatLftAgentPhoto {
+  display: none !important;
+}
+
+#preChatStartRt {
+  display: none !important;
+}
+
+#lblCompanyLogoTop {
+  width: 100%;
+  lblCompanyLogoTop
+}
+
+#preChatFieldRt1 {
+  color: #777777;
+}
