@@ -89,6 +89,10 @@
   cursor: pointer;
 }
 
+.boton:hover {
+  background-color: #6D9791;
+}
+
 .resumen:hover {
   display: block;
 }

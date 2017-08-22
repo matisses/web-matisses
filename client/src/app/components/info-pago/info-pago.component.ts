@@ -73,6 +73,12 @@ export class InfoPagoComponent implements OnInit {
     this.obtenerCiudades();
   }
 
+  ngAfterViewInit() {
+    $(document).ready(function() {
+      $("html, body").animate({ scrollTop: 0 }, 1000);
+    });
+  }
+
   public obtenerCiudades() {
     this.ciudadesPrincipales = new Array<City>();
     this.otrasCiudades = new Array<City>();

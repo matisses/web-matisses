@@ -207,8 +207,8 @@
               <div class="col-md-12 col-sm-6">
                 <ul class="ingreso text-right medium" (mouseover)="carrito.closeResumen()">
                   <li><a href="javascript:void(0)" [routerLink]="['/lista-de-deseos']"><span class="glyphicon glyphicon-heart"> </span> LISTA DE DESEOS</a></li>
-                  <li class="border-left"><a href="javascript:void(0)"><span class="glyphicon glyphicon-log-in"> </span> REGÍSTRATE</a></li>
-                  <li class="border-left"><a href="javascript:void(0)"><span class="icon-user"> </span> INGRESA</a></li>
+                  <!-- <li class="border-left"><a href="javascript:void(0)"><span class="glyphicon glyphicon-log-in"> </span> REGÍSTRATE</a></li>
+                  <li class="border-left"><a href="javascript:void(0)"><span class="icon-user"> </span> INGRESA</a></li> -->
                 </ul>
               </div>
               <div class="col-md-12 col-sm-6 text-right">
@@ -277,7 +277,7 @@
         </div>
       </div>
       <div class="col-xs-4">
-        <img src="assets/images/menu/{{padreSeleccionado._id}}.jpg" class="img-responsive cursor-pointer" [routerLink]="[padreSeleccionado.imageRoute]" [queryParams]="padreSeleccionadoQueryParams" alt="">
+        <img src="assets/images/menu/{{padreSeleccionado._id}}.jpg" class="img-responsive cursor-pointer" [routerLink]="[padreSeleccionado.imageRoute]" [queryParams]="padreSeleccionadoQueryParams" alt="" (click)="cerrarOverlay()">
       </div>
     </div>
   </div>

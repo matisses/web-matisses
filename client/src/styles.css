@@ -25,10 +25,6 @@
   display: none;
 }
 
-input, button, textarea, select {
-  -webkit-appearance: none;
-}
-
 input:focus, button:focus, span:focus, p:focus, li:focus, div:focus, textarea:focus, img:focus {
   outline: none !important;
   box-shadow: none !important;
@@ -37,5 +33,11 @@ input:focus, button:focus, span:focus, p:focus, li:focus, div:focus, textarea:fo
 @media screen and (max-width: 991px) {
   .padding-top {
     padding-top: 60px;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  input, button, textarea, select {
+    -webkit-appearance: none;
   }
 }
