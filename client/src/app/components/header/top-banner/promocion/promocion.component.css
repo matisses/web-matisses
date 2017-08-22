@@ -1,0 +1,12 @@
+.promocion {
+  background-color: #7C7C7C;
+  padding-top: 10px;
+  text-align: center;
+  color: #FFF;
+  height: 40px;
+}
+
+.promocion h3 {
+  margin: 0;
+  font-size: 20px;
+}

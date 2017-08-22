@@ -10,6 +10,7 @@ import { AdminComponent } from './components/admin/admin.component';
 //Componentes del header
 import { HeaderComponent } from './components/header/header.component';
 import { TopBannerComponent } from './components/header/top-banner/top-banner.component';
+import { PromocionComponent } from './components/header/top-banner/promocion/promocion.component';
 import { MenuComponent } from './components/header/menu/menu.component';
 import { CarritoComponent } from './components/header/menu/carrito/carrito.component';
 import { CarritoSimpleComponent } from './components/header/menu/carrito/carrito-simple.component';
@@ -88,6 +89,7 @@ import { MetaModule } from '@ngx-meta/core';
     BestSellerComponent,
     HomePrincipalComponent,
     TopBannerComponent,
+    PromocionComponent,
     MenuComponent,
     StickyMenuDirective,
     StickyBodyDirective,
