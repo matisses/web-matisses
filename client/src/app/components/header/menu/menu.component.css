@@ -1,7 +1,7 @@
 .bg-white {
   background-color: #FFF;
   position: sticky;
-  z-index: 1;
+  z-index: 9;
 }
 
 .header {
@@ -160,7 +160,7 @@ a {
   position: absolute;
   width: 100%;
   top: 166px;
-  z-index: 2;
+  z-index: 10;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -200,7 +200,7 @@ a {
 .overlay {
   background-color: #000;
   position: fixed;
-  z-index: 1;
+  z-index: 8;
   width: 100%;
   height: 100%;
 }
@@ -220,7 +220,7 @@ a {
   width: 100%;
   height: 135px;
   margin: 0;
-  z-index: 2;
+  z-index: 9;
 }
 
 .stuck-submenu {

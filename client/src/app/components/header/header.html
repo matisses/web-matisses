@@ -19,8 +19,12 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-xs-12">
+                    <div class="col-xs-12" *ngIf="!lastAddedItem.priceafterdiscount || lastAddedItem.priceafterdiscount === 0 || lastAddedItem.priceafterdiscount === lastAddedItem.pricebeforediscount">
                       <h4 class="precio-producto">$ {{lastAddedItem.priceaftervat | number}}</h4>
+                    </div>
+                    <div class="col-xs-12" *ngIf="lastAddedItem.priceafterdiscount && lastAddedItem.priceafterdiscount > 0">
+                      <h4 class="old-price">$ {{lastAddedItem.priceaftervat | number}}</h4><h3 class="percentage">-{{lastAddedItem.descuento | number}}%</h3>
+                      <h3 class="new-price">$ {{lastAddedItem.priceafterdiscount | number}} <small>Iva incluido</small></h3>
                     </div>
                   </div>
                   <div class="row">
@@ -42,6 +46,7 @@
                   <h4 class="total-items"><b>{{carrito.totalItems}}</b> ARTÍCULOS</h4>
                   <p class="total-precio">Costo total de los productos: <span class="pull-right"><b>$ {{carrito.totalCarrito | number}}</b></span></p>
                   <p class="total-precio">Total impuestos: <span class="pull-right"><b>$ {{carrito.totalImpuestos | number}}</b></span></p>
+                  <p class="total-precio">Total descuentos: <span class="pull-right"><b>$ {{carrito.totalDescuentos | number}}</b></span></p>
                   <hr/>
                   <p class="total-precio">Total: <span class="pull-right"><b>$ {{carrito.totalCarrito | number}}</b></span></p>
                 </div>

@@ -22,7 +22,6 @@ export class ResumenCarritoComponent implements OnInit {
   }
 
   ngOnInit() {
-    //console.log('inicializando componente de resumen carrito');
     this.carrito.cargarCarrito();
     for (let i = 0; i < this.carrito.shoppingCart.items.length; i++) {
       if (this.carrito.shoppingCart.items[i].sinSaldo) {
@@ -49,19 +48,15 @@ export class ResumenCarritoComponent implements OnInit {
   public procesarItem(item: Item) {
     this.messajeError = '';
     if (item.selectedQuantity > item.availablestock) {
-      console.log('Se está agregando una cantidad del ítem ' + item.itemcode + ' superior a la disponible');
       this.messajeError = 'La cantidad solicitada no está disponible para el ítem ' + item.itemname;
-      //item.selectedQuantity = item.availablestock;
       return;
     }
     this.carrito.procesarItem(item);
-    //this.carrito.cargarCarrito();
   }
 
   public eliminarItem(item: Item) {
     item.selectedQuantity = 0;
     this.carrito.procesarItem(item);
-    //this.carrito.cargarCarrito();
   }
 
   public procederPago() {

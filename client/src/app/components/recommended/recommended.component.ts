@@ -30,7 +30,6 @@ export class RecommendedComponent implements OnInit {
   }
 
   ngOnInit() {
-    //console.log('inicializando componente de recomendados');
     this.inicializarItems();
     this._itemService.inicializarWishlist();
   }
@@ -42,7 +41,7 @@ export class RecommendedComponent implements OnInit {
       response => {
         for (let i = 0; i < response.result.length; i++) {
           let item: Item;
-          item = response.result[i].itemId;
+          item = response.result[i].item_data;
           //validar si el ítem tiene descuentos
           this._descuentosService.findDiscount(item.itemcode).subscribe(
             response => {
@@ -61,23 +60,20 @@ export class RecommendedComponent implements OnInit {
         }
       },
       error => {
-        console.log(error);
+        console.error(error);
       }
     )
   }
 
   mostrarArticulo(articulo) {
-    console.log(articulo);
   }
 
   public botonRight() {
-    console.log('has dado click al botón right');
     $('.section').animate({ scrollLeft: '+=890' }, 500);
     return false;
   }
 
   public botonLeft() {
-    console.log('has dado click al botón right');
     $('.section').animate({ scrollLeft: '-=890' }, 500);
     return false;
   }

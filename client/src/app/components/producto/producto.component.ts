@@ -57,6 +57,9 @@ export class ProductoComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.carrito.cargarCarrito();
+    $(document).ready(function() {
+      $("html, body").animate({scrollTop: 0}, 1000);
+    });
   }
 
   public getCSSClassName(item: Item) {

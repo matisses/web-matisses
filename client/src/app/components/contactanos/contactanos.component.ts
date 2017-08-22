@@ -32,11 +32,9 @@ export class ContactanosComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('inicializando componente de contactanos');
   }
 
   ngAfterViewInit() {
-    console.log('Termino de cargar deberia subir el body')
     $(document).ready(function() {
       $("html, body").animate({ scrollTop: 0 }, 1000);
     });
@@ -90,7 +88,6 @@ export class ContactanosComponent implements OnInit {
   }
 
   public limpiar() {
-    console.log(this.reCaptcha);
     this.firstName = '';
     this.mail = '';
     this.cellular = '';

@@ -8,9 +8,33 @@ h3::before {
   background-color: #5B5B5B;
 }
 
+.porcentaje {
+  color: #FFF;
+  background-color: #B20404;
+  width: 50px;
+  height: 50px;
+  font-weight: bold;
+  z-index: 1;
+  position: absolute;
+  border-radius: 50%;
+  padding: 15px 6px;
+  right: 15px;
+}
+
 .nombre-producto {
   height: 40px;
   white-space: normal;
+}
+
+.precio-discount h4, .precio-discount h5 {
+  display: inline-block;
+  margin: 0px 2px;
+  margin-bottom: 10px;
+}
+
+.precio-discount h5 {
+  color: #B20404;
+  text-decoration: line-through;
 }
 
 .carrito {
@@ -44,6 +68,7 @@ h4 {
   margin-top: 0;
   margin-bottom: 5px;
 }
+
 
 /* Estilos carousel */
 
@@ -80,6 +105,7 @@ h4 {
   -moz-transition: all 50ms ease-in-out;
   -o-transition: all 50ms ease-in-out;
   transition: all 50ms ease-in-out;
+  z-index: 1;
 }
 
 .left {
@@ -106,7 +132,7 @@ h4 {
   font-size: 12px;
   padding: 10px;
   border-radius: 0;
-  font-weight: 500 ;
+  font-weight: 500;
 }
 
 .btn-like {
@@ -130,7 +156,6 @@ h4 {
 .btn-carrito span {
   color: #750229;
 }
-
 
 @media screen and (max-width: 991px) {
   .article {

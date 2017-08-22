@@ -13,14 +13,13 @@ function consultarStockItem(req, res) {
   } else {
     itemcode = req.params.itemcode;
   }
-  console.log(itemcode);
 
   Stock.find({
     "itemCode": itemcode,
     "quantity": {$gt: 0}
   }, (err, result) => {
     if (err) {
-      console.log(err);
+      console.error(err);
       res.status(500).send({
         message: 'ocurrio un error al consultar el stock para el item ' + itemcode
       });
@@ -29,7 +28,6 @@ function consultarStockItem(req, res) {
         message: 'no se encontró ningún stock para el itemcode ' + itemcode
       });
     } else {
-      console.log(result);
       res.status(200).send({
         result: result
       });

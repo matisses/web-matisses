@@ -237,31 +237,6 @@
                   <button class="btn icon-close btn-close" type="button" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"></button>
                 </span>
               </div>
-              <!-- <div class="row">
-                <div class="resultado-busqueda">
-                  <div class="col-xs-12">
-                    <table class="table table-hover">
-                      <tbody>
-                        <tr>
-                          <p>Uno</p>
-                        </tr>
-                        <tr>
-                          <p>Dos</p>
-                        </tr>
-                        <tr>
-                          <p>Tres</p>
-                        </tr>
-                        <tr>
-                          <p>Cuatro</p>
-                        </tr>
-                        <tr>
-                          <p>Cinco</p>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div> -->
             </div>
           </div>
         </div>
@@ -302,9 +277,7 @@
         </div>
       </div>
       <div class="col-xs-4">
-        <img src="assets/images/menu/{{padreSeleccionado._id}}.jpg" class="img-responsive" alt="">
-        <!-- <p class="name-producto-menu">Sarten Ceradur Plus</p>
-        <p class="medium link-producto-menu" [routerLink]="['/producto', '2090006']"><i>Comprar ya</i></p> -->
+        <img src="assets/images/menu/{{padreSeleccionado._id}}.jpg" class="img-responsive cursor-pointer" [routerLink]="[padreSeleccionado.imageRoute]" [queryParams]="padreSeleccionadoQueryParams" alt="">
       </div>
     </div>
   </div>

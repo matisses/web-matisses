@@ -4,11 +4,32 @@ var RecommendedItem = require('../models/recommended-item');
 var jwt = require('../services/jwt');
 
 function listRecommendedItems(req, res) {
-  var find = RecommendedItem.find({
-    active: true
-  }, (err, result) => {
+  RecommendedItem.aggregate([{
+      "$match": {
+        "active": true
+      }
+    },
+    {
+      "$lookup": {
+        "from": "items",
+        "localField": "itemcode",
+        "foreignField": "itemcode",
+        "as": "item_data"
+      }
+    },
+    {
+      "$project": {
+        "item_data": 1
+      }
+    },
+    {
+      "$unwind": {
+        "path": "$item_data"
+      }
+    }
+  ], (err, result) => {
     if (err) {
-      console.log(err);
+      console.error(err);
       res.status(500).send({
         message: 'ocurrio un error al consultar los ítems recomendados'
       });
@@ -21,7 +42,7 @@ function listRecommendedItems(req, res) {
         result: result
       });
     }
-  }).populate({path: 'itemId'});
+  });
 }
 
 module.exports = {

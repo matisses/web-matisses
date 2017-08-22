@@ -25,8 +25,6 @@ function listMenuItems(req, res) {
 }
 
 function edit(req, res) {
-  //console.log('actualizando menu item');
-  //console.log(req.body);
   var menuItem = req.body;
 
   MenuItem.findByIdAndUpdate(menuItem._id, menuItem, (err, updated) => {
@@ -47,8 +45,6 @@ function edit(req, res) {
 }
 
 function save(req, res) {
-  //console.log('creando menu item');
-  //console.log(req.body);
   var menuItem = new MenuItem();
   menuItem.name = req.body.name;
   menuItem.parentId = req.body.parentId;
@@ -150,14 +146,12 @@ function executeRecursion(parentId, idBefore, itemsArray, token, res) {
             if(error){
               console.error(error);
             }
-            console.log('no se encontro saldo para el menu ' + resp[0]);
             res.status(200).send({
               result: itemsArray
             });
           }
         });
       } else {
-        console.log('procesando menu ppal ' + resp[0].name);
         itemsArray.push(resp[0]);
         //Carga el menu hermano siguiente
         if (resp[0].menuItemAfter && resp[0].menuItemAfter != null) {

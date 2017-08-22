@@ -16,11 +16,9 @@ export class PoliticaDatosComponent implements OnInit {
     }
 
     ngOnInit() {
-        //console.log('inicializando componente de garantias');
     }
 
     ngAfterViewInit() {
-      console.log('Termino de cargar deberia subir el body')
       $(document).ready(function() {
         $("html, body").animate({scrollTop: 0}, 1000);
       });

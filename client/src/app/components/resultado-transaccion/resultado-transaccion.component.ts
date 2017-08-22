@@ -38,7 +38,6 @@ export class ResultadoTransacciComponent implements OnInit {
   }
 
   ngOnInit() {
-    //console.log('inicializando componente de resultado transaccion');
     this.carrito.cargarCarrito();
     this.consultarEstadoPlaceToPay();
   }
@@ -76,13 +75,13 @@ export class ResultadoTransacciComponent implements OnInit {
               },
               error => {
                 this.errorMessage = 'No se pudo conectar con el servidor';
-                console.log(error);
+                console.error(error);
               }
             );
           }
         },
         error => {
-          console.log(error);
+          console.error(error);
         }
       );
     });

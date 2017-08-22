@@ -10,6 +10,8 @@ var MenuItemSchema = Schema({
   subgroup: String,
   parentId: String,
   position: Number,
+  imageRoute: String,
+  routeParams: String,
   menuItemAfter: String,
   menuItemBefore: String
 });

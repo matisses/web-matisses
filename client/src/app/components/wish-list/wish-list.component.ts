@@ -26,7 +26,6 @@ export class WishListComponent implements OnInit {
   }
 
   ngOnInit() {
-    //console.log('inicializando componente de lista de deseos');
     this.obtenerItems();
   }
 
@@ -55,7 +54,6 @@ export class WishListComponent implements OnInit {
   }
 
   private compareItems(a, b) {
-    console.log('ejecutando sort [' + a.priceaftervat + '] - [' + b.priceaftervat + ']');
     return a.priceaftervat - b.priceaftervat;
   }
 

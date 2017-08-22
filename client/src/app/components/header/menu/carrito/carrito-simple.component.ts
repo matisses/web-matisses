@@ -110,10 +110,10 @@ export class CarritoSimpleComponent {
       let price = this.shoppingCart.items[i].priceaftervat ? this.shoppingCart.items[i].priceaftervat : 0;
       this.totalItems += selectedQuantity;
       this.totalCarrito += (price * selectedQuantity);
-      this.totalDescuentos += (this.shoppingCart.items[i].priceaftervat / 100) * this.shoppingCart.items[i].descuento;
       if (this.shoppingCart.items[i].priceafterdiscount && this.shoppingCart.items[i].priceafterdiscount > 0) {
         let valorIVA = this.shoppingCart.items[i].priceafterdiscount * this.shoppingCart.items[i].taxpercent / 100;
-        totalSinIVA += (this.shoppingCart.items[i].priceafterdiscount - valorIVA);
+        totalSinIVA += ((this.shoppingCart.items[i].priceafterdiscount - valorIVA) * selectedQuantity);
+        this.totalDescuentos += ((this.shoppingCart.items[i].priceaftervat / 100) * this.shoppingCart.items[i].descuento) * selectedQuantity;
       } else {
         totalSinIVA += (this.shoppingCart.items[i].pricebeforevat ? this.shoppingCart.items[i].pricebeforevat : 0) * selectedQuantity;
       }

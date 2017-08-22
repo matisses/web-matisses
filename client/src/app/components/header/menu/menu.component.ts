@@ -1,5 +1,5 @@
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
-import { Component, OnInit, AfterViewInit, ViewChild  } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { StickyMenuDirective } from '../../../directives/sticky.directive';
@@ -49,6 +49,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   public carrito: CarritoComponent;
   public menuItems: Array<MenuItem>;
   public padreSeleccionado: MenuItem;
+  public padreSeleccionadoQueryParams: any;
   public state: string = 'hidden';
   public stateOverlay: string = 'hidden';
   private viewportWidth: number = 0;
@@ -68,6 +69,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   public categorias: Array<MenuItem>;
   public grupos: Array<MenuItem>;
   public subgrupos: Array<MenuItem>;
+
 
   constructor(private _jwt: JWTService, private _menuService: MenuItemService, private _route: ActivatedRoute, private _router: Router) {
     this.padreSeleccionado = new MenuItem();
@@ -128,7 +130,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
             }
           },
           error => {
-            console.log(error);
+            console.error(error);
           }
         );
       }
@@ -136,7 +138,6 @@ export class MenuComponent implements OnInit, AfterViewInit {
   }
 
   public seleccionarGrupo(grupo, actualizarSubgrupo: boolean) {
-    console.log('---------------------------------');
     this.grupoSeleccionado = grupo;
     this.subgrupos = null;
 
@@ -158,7 +159,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
             }
           },
           error => {
-            console.log(error);
+            console.error(error);
           }
         );
       }
@@ -213,7 +214,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
           }
         },
         error => {
-          console.log(error);
+          console.error(error);
         }
       );
     }
@@ -246,8 +247,6 @@ export class MenuComponent implements OnInit, AfterViewInit {
         menuItemAfter: null
       }
 
-      console.log(itemMenu);
-
       this._menuService.save(itemMenu).subscribe(
         response => {
           this.grupoSeleccionado = new MenuItem().newMenuItem('', '', '');
@@ -259,7 +258,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
           this.seleccionarCategoria(this.categoriaSeleccionada, true);
         },
         error => {
-          console.log(error);
+          console.error(error);
         }
       );
     }
@@ -298,8 +297,6 @@ export class MenuComponent implements OnInit, AfterViewInit {
         menuItemBefore: menuItemBefore,
         menuItemAfter: null
       }
-
-      console.log(itemMenu);
 
       this._menuService.save(itemMenu).subscribe(
         response => {
@@ -394,7 +391,6 @@ export class MenuComponent implements OnInit, AfterViewInit {
   }
 
   public moverPosicionDown(actualizarCategorias: boolean, actualizarGrupos: boolean, actualizarSubgrupos: boolean, item: MenuItem, menuItems: Array<MenuItem>) {
-    console.log('-------------------------');
     for (let i = 0; i < menuItems.length; i++) {
       if (menuItems[i]._id === item._id) {
         if (i < (menuItems.length - 1)) {
@@ -467,7 +463,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
           this.removeCategoria = false;
         },
         error => {
-          console.log(error);
+          console.error(error);
         }
       );
     }
@@ -549,6 +545,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
       this.cerrarOverlay();
     } else {
       this.padreSeleccionado = padreSeleccionado;
+      this.padreSeleccionadoQueryParams = this.setImageParams();
       if (typeof this.padreSeleccionado.children == 'undefined' || this.padreSeleccionado.children.length === 0) {
         //cargar hijos de base de datos
         this.cargarHijos(this.padreSeleccionado, true);
@@ -593,7 +590,6 @@ export class MenuComponent implements OnInit, AfterViewInit {
     this.cargarValidarTokenAdmin();
     this._menuService.listMenuRecursively(null, this.adminToken).subscribe(
       response => {
-        console.log(response);
         for (let i = 0; i < response.result.length; i++) {
           let menuItem = new MenuItem();
           menuItem._id = response.result[i]._id;
@@ -603,6 +599,8 @@ export class MenuComponent implements OnInit, AfterViewInit {
           menuItem.subgroup = response.result[i].subgroup;
           menuItem.parentId = response.result[i].parentId;
           menuItem.position = response.result[i].position;
+          menuItem.imageRoute = response.result[i].imageRoute;
+          menuItem.routeParams = response.result[i].routeParams;
           this.menuItems.push(menuItem);
         }
       },
@@ -719,9 +717,21 @@ export class MenuComponent implements OnInit, AfterViewInit {
     return queryParams;
   }
 
+  private setImageParams() {
+    let queryParams = {};
+    if (this.padreSeleccionado.routeParams && this.padreSeleccionado.routeParams.length > 0) {
+      let params: string[] = this.padreSeleccionado.routeParams.split("&");
+      for (let i = 0; i < params.length; i++) {
+        let param : string[] = params[i].split("=");
+        queryParams[param[0]] = param[1];
+      }
+    }
+    return queryParams;
+  }
+
   public search() {
     if (this.keywords && this.keywords.length > 0) {
-      let queryParamsObj = { keywords: this.keywords.replace(" ", ",") };
+      let queryParamsObj = { keywords: this.keywords.replace(/ /g, ",") };
       this._router.navigate(['/categoria'], { queryParams: queryParamsObj });
     }
   }

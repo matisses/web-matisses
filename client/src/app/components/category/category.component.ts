@@ -80,6 +80,22 @@ export class CategoryComponent implements OnInit {
         this.queryString += key + '=' + this.queryParams.get(key);
       }
     }
+    this.inicializarNombreGrupo();
+  }
+
+  private inicializarNombreGrupo() {
+    this.nombreGrupo = '';
+    if (this.queryParams.has('group')) {
+      this._itemService.findType('grupo', '?fieldValue=' + this.queryParams.get('group')).subscribe(
+        response => {
+          try {
+            this.nombreGrupo = response.result[0].group.name;
+          } catch (e) {
+            console.error(e);
+          }
+        }, error => { console.error(error); }
+      )
+    }
   }
 
   public openFilter() {

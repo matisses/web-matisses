@@ -15,6 +15,5 @@ export class TendenciasComponent implements OnInit {
     }
 
     ngOnInit() {
-        //console.log('inicializando componente de tendencias ');
     }
 }

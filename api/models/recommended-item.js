@@ -4,8 +4,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var RecommendedItemSchema = Schema({
-  itemId: {
-    type: Schema.ObjectId,
+  itemcode: {
+    type: Number,
     ref: 'item'
   },
   active: Boolean

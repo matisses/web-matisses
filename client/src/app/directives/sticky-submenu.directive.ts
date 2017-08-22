@@ -14,7 +14,6 @@ export class StickySubMenuDirective {
   }
 
   ngOnInit() {
-      //console.log('inicializando directiva sticky sub menu');
       this.evaluateScroll();
   }
 
