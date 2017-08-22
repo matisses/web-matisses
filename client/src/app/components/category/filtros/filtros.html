@@ -36,60 +36,6 @@
           </div>
         </div>
 
-        <!-- <div *ngIf="filtrosDisponibles['groups'] && filtrosDisponibles['groups'].length > 1 && queryParams && !(queryParams.has('group') || queryParams.has('subgroup'))">
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="title">
-                <p>categorías</p>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12">
-              <div id="groups" class="filtros-cerrados">
-                <ul>
-                  <div *ngFor="let menuItem of filtrosDisponibles['groups']">
-                    <li *ngIf="showCategoryOption(menuItem)" class="filter-option" (click)="toggleSelection('group',menuItem.code)">
-                      <span>{{menuItem.name}}</span>
-                    </li>
-                  </div>
-                </ul>
-              </div>
-              <div class="row">
-                <div class="col-xs-6 col-xs-offset-3" (click)="toggleFiltros('groups')">
-                  <p class="btn-mostrar-filtros">Mostrar más</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
-
-        <!-- <div *ngIf="viewHasLoaded && (queryParams.has('group') || queryParams.has('subgroup'))">
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="title">
-                <p>subcategorías</p>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12">
-              <div id="subgroups" class="filtros-cerrados">
-                <ul>
-                  <li class="filter-option" *ngFor="let menuItem of filtrosDisponibles['subgroups']" (click)="toggleSelection('subgroup',menuItem.code)">
-                    <span>{{menuItem.name}}</span>
-                  </li>
-                </ul>
-              </div>
-              <div class="row">
-                <div class="col-xs-6 col-xs-offset-3" (click)="toggleFiltros('subgroups')">
-                  <p class="btn-mostrar-filtros">Mostrar más</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
-
         <div class="filtros">
           <div class="row" *ngIf="filtrosDisponibles['groups'] && filtrosDisponibles['groups'].length > 1 && queryParams && !(queryParams.has('group') || queryParams.has('subgroup'))">
             <div class="col-xs-12">
@@ -108,7 +54,7 @@
             </div>
           </div>
 
-          <div class="row" *ngIf="viewHasLoaded && (queryParams.has('group') || queryParams.has('subgroup'))">
+          <div class="row" *ngIf="viewHasLoaded && (queryParams.has('group') || queryParams.has('subgroup')) && filtrosDisponibles['subgroups'].length > 1">
             <div class="col-xs-12">
               <div class="filter-collapse" (click)="toggleClass('#subgroup')" data-toggle="collapse" href="#collapseSubgroups" aria-expanded="false" aria-controls="collapseSubgroups">
                 <p>subcategorías <span id="subgroup" class="icon-plus pull-right"></span></p>
@@ -192,7 +138,7 @@
             </div>
           </div>
 
-          <div class="row" *ngIf="queryParams && !queryParams.has('collection')">
+          <div class="row" *ngIf="queryParams && !queryParams.has('collection') && filtrosDisponibles['collection'].length > 1">
             <div class="col-xs-12">
               <div class="filter-collapse" (click)="toggleClass('#colecciones')" data-toggle="collapse" href="#collapseColecciones" aria-expanded="false" aria-controls="collapseColecciones">
                 <p>Colecciones <span id="colecciones" class="icon-plus pull-right"></span></p>
