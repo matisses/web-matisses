@@ -1,5 +1,5 @@
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
-import { Component, OnInit, AfterViewInit, ViewChild  } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { StickyMenuDirective } from '../../../directives/sticky.directive';
@@ -49,6 +49,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   public carrito: CarritoComponent;
   public menuItems: Array<MenuItem>;
   public padreSeleccionado: MenuItem;
+  public padreSeleccionadoQueryParams: any;
   public state: string = 'hidden';
   public stateOverlay: string = 'hidden';
   private viewportWidth: number = 0;
@@ -68,6 +69,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   public categorias: Array<MenuItem>;
   public grupos: Array<MenuItem>;
   public subgrupos: Array<MenuItem>;
+
 
   constructor(private _jwt: JWTService, private _menuService: MenuItemService, private _route: ActivatedRoute, private _router: Router) {
     this.padreSeleccionado = new MenuItem();
@@ -543,6 +545,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
       this.cerrarOverlay();
     } else {
       this.padreSeleccionado = padreSeleccionado;
+      this.padreSeleccionadoQueryParams = this.setImageParams();
       if (typeof this.padreSeleccionado.children == 'undefined' || this.padreSeleccionado.children.length === 0) {
         //cargar hijos de base de datos
         this.cargarHijos(this.padreSeleccionado, true);
@@ -596,6 +599,8 @@ export class MenuComponent implements OnInit, AfterViewInit {
           menuItem.subgroup = response.result[i].subgroup;
           menuItem.parentId = response.result[i].parentId;
           menuItem.position = response.result[i].position;
+          menuItem.imageRoute = response.result[i].imageRoute;
+          menuItem.routeParams = response.result[i].routeParams;
           this.menuItems.push(menuItem);
         }
       },
@@ -708,6 +713,18 @@ export class MenuComponent implements OnInit, AfterViewInit {
     }
     if (menuItem.subgroup && menuItem.subgroup.length > 0) {
       queryParams['subgroup'] = menuItem.subgroup;
+    }
+    return queryParams;
+  }
+
+  private setImageParams() {
+    let queryParams = {};
+    if (this.padreSeleccionado.routeParams && this.padreSeleccionado.routeParams.length > 0) {
+      let params: string[] = this.padreSeleccionado.routeParams.split("&");
+      for (let i = 0; i < params.length; i++) {
+        let param : string[] = params[i].split("=");
+        queryParams[param[0]] = param[1];
+      }
     }
     return queryParams;
   }
