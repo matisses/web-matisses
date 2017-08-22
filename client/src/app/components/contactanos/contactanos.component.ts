@@ -53,7 +53,7 @@ export class ContactanosComponent implements OnInit {
       this.subject == null || this.subject.length <= 0 ||
       this.message == null || this.message.length <= 0 ||
       !this.reCaptcha) {
-      this.messageError = 'Se deben llenar todos los campos obligatorios para poder proceder con el envió.';
+      this.messageError = 'Debes llenar todos los campos obligatorios para poder proceder con el envío.';
       this.valid = false;
       return;
     } else {
@@ -74,14 +74,14 @@ export class ContactanosComponent implements OnInit {
       }
       this._sendEmailService.enviar(mailMessage).subscribe(
         response => {
-          this.messageExit = 'Gracias por contactarnos, tu mensaje se envió exitosamente te responderemos en el menor tiempo posible.';
+          this.messageExit = 'Gracias por contactarnos, tu mensaje se envió exitosamente. Te responderemos en el menor tiempo posible.';
           contactForm.reset();
           this.limpiar();
           return;
         },
         error => {
-          console.error(error);
-          this.messageError = 'Se produjo un error interno enviando el mensaje. Por favor inténtelo más tarde.';
+          console.log(error);
+          this.messageError = 'Se produjo un error interno enviando el mensaje. Por favor inténtalo más tarde.';
         }
       );
     }

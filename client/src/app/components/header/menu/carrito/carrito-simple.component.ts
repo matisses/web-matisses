@@ -100,7 +100,6 @@ export class CarritoSimpleComponent {
   }
 
   private procesarCarrito() {
-    console.log('validando totales carrito');
     this.totalItems = 0;
     this.totalCarrito = 0;
     this.totalImpuestos = 0;
