@@ -1,11 +1,10 @@
-import { Component, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { ItemService } from '../../../services/item.service';
 import { FiltroItem } from '../../../models/filtros-item';
 import { Item } from '../../../models/item';
 
-//declare var jquery: any;
 declare var $: any;
 
 @Component({
@@ -15,7 +14,7 @@ declare var $: any;
   providers: [ItemService]
 })
 
-export class FiltrosComponent implements AfterViewInit {
+export class FiltrosComponent {
   public filtrosDisponibles: Map<String, Array<any>>;
   public filtrosAplicados: Array<string[]>;
   public queryParams: Map<string, string>;
@@ -32,10 +31,6 @@ export class FiltrosComponent implements AfterViewInit {
     this.availableFields = [];
   }
 
-  ngAfterViewInit() {
-    //this.configurarAlturaInicialFiltros();
-  }
-
   public inicializarFiltros(availableFields, queryParams, queryString, totalItems) {
     this.totalItems = totalItems;
     this.availableFields = availableFields;
@@ -49,7 +44,7 @@ export class FiltrosComponent implements AfterViewInit {
     this.queryString = queryString;
     this._itemService.updateFilters(queryString).subscribe(
       response => {
-        this.filtrosDisponibles = response.result;
+        this.filtrosDisponibles = this.quitarDuplicados(response.result);
         this.configurarFiltrosActivos();
         this.viewHasLoaded = true;
       }, error => {
@@ -58,7 +53,36 @@ export class FiltrosComponent implements AfterViewInit {
     );
   }
 
-  private configurarAlturaInicialFiltros() {
+  private quitarDuplicados(values: Map<String, Array<any>>) {
+    if (!values || values.size === 0) {
+      return new Map<String, Array<any>>();
+    }
+
+    if (values['groups']) {
+      values['groups'] = values['groups'].filter((option, index, self) => self.findIndex((t) => { return t.code === option.code; }) === index);
+    }
+
+    if (values['subgroups']) {
+      values['subgroups'] = values['subgroups'].filter((option, index, self) => self.findIndex((t) => { return t.code === option.code; }) === index);
+    }
+
+    if (values['brands']) {
+      values['brands'] = values['brands'].filter((option, index, self) => self.findIndex((t) => { return t.code === option.code; }) === index);
+    }
+
+    if (values['collection']) {
+      values['collection'] = values['collection'].filter((option, index, self) => self.findIndex((t) => { return t.code === option.code; }) === index);
+    }
+
+    if (values['colors']) {
+      values['colors'] = values['colors'].filter((option, index, self) => self.findIndex((t) => { return t.code === option.code; }) === index);
+    }
+
+    if (values['materials']) {
+      values['materials'] = values['materials'].filter((option, index, self) => self.findIndex((t) => { return t.code === option.code; }) === index);
+    }
+
+    return values;
   }
 
   private configurarFiltrosActivos() {

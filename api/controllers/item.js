@@ -63,7 +63,7 @@ function armarFilterObject(req) {
     availablestock: {
       $gt: 0
     },
-    images: { $exists: true, $not: {$size: 0} },
+    images: { $exists: true, $not: {$size: 0} }
   };
   if (typeof group != 'undefined' && group != null) {
     filterObject['group.code'] = {
