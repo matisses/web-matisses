@@ -58,12 +58,21 @@ export class ContactanosComponent implements OnInit {
       return;
     } else {
       /*envie mensaje*/
+      let celular = 'No suministrado';
+      let telefono = 'No suministrado';
+      if (this.cellular != null && this.cellular.length > 0) {
+        celular = this.cellular;
+      }
+      if (this.phone != null && this.phone.length > 0) {
+        telefono = this.phone;
+      }
+
       let mailMessage = {
         templateName: 'contactanos',
         params: {
           'cliente': this.firstName,
-          'celular': this.cellular,
-          'telefono': this.phone,
+          'celular': celular,
+          'telefono': telefono,
           'correo': this.mail,
           'asunto': this.subject,
           'mensaje': this.message
