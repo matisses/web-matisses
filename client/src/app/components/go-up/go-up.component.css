@@ -1,23 +1,24 @@
-.chat {
+.goup {
   position: fixed;
-  bottom: 0px;
-  right: 35px;
-  background-color: #5B5B5B;
+  bottom: 20%;
+  right: 0px;
+  background-color: #6D9791;
   text-align: center;
   color: #FFF;
   cursor: pointer;
   z-index: 6;
-  width: 200px;
+  width: 35px;
   height: 35px;
   padding-top: 10px;
+  display: none;
 }
 
-.chat:hover {
-  background-color: #6D9791;
+.show {
+  display: block;
 }
 
-.icon-chat {
-  display: inline-block;
+.goup:hover {
+  background-color: #5B5B5B;
 }
 
 .chat:hover .icon-chat::before {

@@ -60,6 +60,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NewsletterComponent } from './components/footer/newsletter/newsletter.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { GoUpComponent } from './components/go-up/go-up.component';
 
 // Componenetes de mi cuenta
 import { WishListComponent } from './components/wish-list/wish-list.component';
@@ -121,6 +122,7 @@ import { MetaModule } from '@ngx-meta/core';
     ContactanosComponent,
     ProductoRelacionadosComponent,
     ChatComponent,
+    GoUpComponent,
     TerminosComponent,
     PoliticaDatosComponent,
     PoliticaPrivacidadComponent,

@@ -17,11 +17,13 @@
 
 .barra-fondo h2 {
   margin: 0;
+  font-size: 25px;
+  margin-top: 12px;
 }
 
 .search-group {
   border: 1px solid #EDEDED;
-  margin-top: 15px;
+  margin-top: 10px;
   background-color: #FFF;
 }
 

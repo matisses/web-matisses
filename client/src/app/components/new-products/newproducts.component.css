@@ -1,4 +1,4 @@
-h3::before {
+h2::before {
   content: '- ';
   position: absolute;
   top: 50px;

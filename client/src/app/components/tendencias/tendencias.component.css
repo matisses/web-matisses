@@ -1,7 +1,12 @@
-h3::before {
+hr {
+  border-color: #7C7C7C;
+  margin-bottom: 0;
+}
+
+h2::before {
   content: '- ';
   position: absolute;
-  top: 50px;
+  top: 55px;
   height: 5px;
   width: 25px;
   color: transparent;
@@ -75,25 +80,44 @@ h3::before {
 
 /* Estilos de los sub-banner */
 
-.sub-banner p {
-  margin-top: 15px;
-}
-
-.ir-comprar {
-  border: none;
+.sub-banner {
+  margin-bottom: 20px;
   cursor: pointer;
-  color: #FFF;
-  padding: 5px 20px;
-  background-color: #7C7C7C;
 }
 
-.ir-comprar:hover {
-  background-color: #6D9791;
+.sub-banner-text {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.3);
+  text-align: center;
+  color: #FFF;
+  padding: 5px 15px;
+  width: 80%;
+  margin-top: 19%;
+  margin-left: 8%;
+  font-size: 20px;
+}
+
+.sub-banner-text p, .sub-banner .accion p {
+  margin: 0;
+}
+
+.sub-banner-text p::before {
+  content: '-';
+  color: transparent;
+  width: 56px;
+  height: 3px;
+  background-color: #FFF;
+  position: absolute;
+  bottom: 0;
+  left: 43%;
 }
 
 @media screen and (max-width: 1200px) {
   .p-principal {
     font-size: 35px;
+  }
+  .sub-banner-text p::before {
+    left: 40%;
   }
 }
 
@@ -106,6 +130,14 @@ h3::before {
   }
   .p-principal {
     font-size: 25px
+  }
+  .sub-banner-text {
+    margin-left: 15%;
+    width: 230px;
+    font-size: 15px;
+  }
+  .sub-banner-text p::before {
+    display: none;
   }
 }
 
@@ -125,13 +157,6 @@ h3::before {
   .sub-banner {
     border: 1px solid #EDEDED;
     margin-bottom: 10px;
-  }
-  .sub-banner p {
-    margin-bottom: 0;
-    margin-top: 10px;
-  }
-  .sub-banner button {
-    margin-bottom: 15px;
   }
 }
 
@@ -157,14 +182,20 @@ h3::before {
     width: 20px;
     right: 177px;
   }
+  .sub-banner-text {
+    margin-left: 20%;
+  }
 }
 
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 375px) {
   .tendencia-01 {
     min-height: 200px;
   }
   .p-principal {
     font-size: 17px;
+  }
+  .sub-banner-text {
+    margin-left: 18%;
   }
 }
 
@@ -177,5 +208,9 @@ h3::before {
     height: 3px;
     width: 20px;
     right: 115px;
+  }
+  .sub-banner-text {
+    margin-left: 13%;
+    margin-top: 19%;
   }
 }
