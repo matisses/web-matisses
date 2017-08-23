@@ -36,6 +36,7 @@ export class InfoPagoComponent implements OnInit {
   public urlReturn: string;
   public procesandoP2P: boolean = false;
   public valid: boolean = true;
+  public disabled: boolean = false;
   public customer: Customer;
   public metodoEnvioSeleccionado: ShippingMethod = null;
   public datosPago: DatosPagoPlaceToPay = null;
@@ -48,20 +49,7 @@ export class InfoPagoComponent implements OnInit {
     private _itemService: ItemService) {
     this.messageError = '';
     this.urlReturn = GLOBAL.urlTransactionResult;
-    this.customer = new Customer().newCustomer('', '', null, '', '', '', '', '', '', '', '', null, '', '', '', '', '', '', [{
-      stateCode: null,
-      stateName: null,
-      cityCode: null,
-      cityName: null,
-      addressName: null,
-      addressType: null,
-      address: null,
-      landLine: null,
-      cellphone: null,
-      email: null,
-      country: null,
-      taxCode: null
-    }]);
+    this.limpiar();
     this.ciudadesPrincipales = new Array<City>();
     this.otrasCiudades = new Array<City>();
     this.metodosEnvio = new Array<ShippingMethod>();
@@ -113,36 +101,30 @@ export class InfoPagoComponent implements OnInit {
   }
 
   public buscarCliente() {
+    this.disabled = false;
     this.customer.fiscalID = this.customer.fiscalID.trim();
     this.messageError = '';
     if (this.customer.fiscalID != null && this.customer.fiscalID.length > 0) {
       this._customerService.getCustomerData(this.customer.fiscalID).subscribe(
         response => {
           if (response.fiscalIdType == '31') {
-            this.messageError = 'Este documento no es válido para facturar por este sitio, esta registrado actualmente como NIT.';
-            this.customer = this.customer = new Customer().newCustomer('', '', null, '', '', '', '', '', '', '', '', null, '', '', '', '', '', '', [{
-              stateCode: null,
-              stateName: null,
-              cityCode: null,
-              cityName: null,
-              addressName: null,
-              addressType: null,
-              address: null,
-              landLine: null,
-              cellphone: null,
-              email: null,
-              country: null,
-              taxCode: null
-            }]);
+            this.messageError = 'Tu tipo de documento no está habilitado actualmente para realizar compras en el sitio web.';
+            this.limpiar();
             this.valid = false;
             return;
           }
           this.customer = response;
+          this.disabled = true;
         },
         error => {
+          let cedula = this.customer.fiscalID;
+          this.limpiar();
+          this.customer.fiscalID = cedula;
           console.error(error);
         }
       );
+    } else {
+      this.limpiar();
     }
   }
 
@@ -150,11 +132,11 @@ export class InfoPagoComponent implements OnInit {
     this.valid = true;
     this.messageError = '';
     if (this.metodoEnvioSeleccionado == null || this.metodoEnvioSeleccionado.code == 0) {
-      this.messageError = 'Se debe seleccionar un método de envió.';
+      this.messageError = 'Debes seleccionar un método de envió.';
       return;
     }
     if (this.metodoEnvioSeleccionado.code == 2 && (this.tiendaSeleccionada == null || this.tiendaSeleccionada.length <= 0)) {
-      this.messageError = 'Debe seleccionar en cual tienda desea recoger los artículos.';
+      this.messageError = 'Debes seleccionar en cual tienda deseas recoger los artículos.';
       return;
     } else if (this.metodoEnvioSeleccionado.code != 2) {
       this.tiendaSeleccionada = null;
@@ -167,7 +149,7 @@ export class InfoPagoComponent implements OnInit {
       || this.customer.addresses[0].cellphone == null || this.customer.addresses[0].cellphone.length <= 0
       || this.customer.addresses[0].cityCode == null || this.customer.addresses[0].cityCode == 0
       || this.customer.addresses[0].email == null || this.customer.addresses[0].email.length <= 0) {
-      this.messageError = 'Se deben llenar todos los campos obligatorios para poder proceder con el pago.';
+      this.messageError = 'Debes llenar todos los campos obligatorios para poder proceder con el pago.';
       this.valid = false;
       return;
     }
@@ -388,5 +370,22 @@ export class InfoPagoComponent implements OnInit {
         }
       }
     }
+  }
+
+  public limpiar() {
+    this.customer = new Customer().newCustomer('', '', null, '', '', '', '', '', '', '', '', null, '', '', '', '', '', '', [{
+      stateCode: null,
+      stateName: null,
+      cityCode: null,
+      cityName: null,
+      addressName: null,
+      addressType: null,
+      address: null,
+      landLine: null,
+      cellphone: null,
+      email: null,
+      country: null,
+      taxCode: null
+    }]);
   }
 }
