@@ -62,7 +62,8 @@ function armarFilterObject(req) {
   var filterObject = {
     availablestock: {
       $gt: 0
-    }
+    },
+    images: { $exists: true, $not: {$size: 0} }
   };
   if (typeof group != 'undefined' && group != null) {
     filterObject['group.code'] = {
@@ -555,7 +556,9 @@ function obtenerRelacionados(req, res) {
   var modelo = req.params.model;
 
   Item.find({
-    "model": modelo
+    "model": modelo,
+    "images": { $exists: true, $not: {$size: 0} },
+    "availablestock": { $gt: 0 }
   }, {
     "color": 1,
     "shortitemcode": 1

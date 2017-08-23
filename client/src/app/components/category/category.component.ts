@@ -7,6 +7,8 @@ import { ItemService } from '../../services/item.service';
 import { DescuentosService } from '../../services/descuentos.service';
 import { Item } from '../../models/item';
 
+declare var $: any;
+
 @Component({
   templateUrl: 'category.html',
   styleUrls: ['category.component.css'],
@@ -90,6 +92,10 @@ export class CategoryComponent implements OnInit {
         response => {
           try {
             this.nombreGrupo = response.result[0].group.name;
+
+            //Cambiar imagen categoria
+            console.log('cambiando clase');
+            $('.img-category').css('background','url(/assets/images/categorias/' + response.result[0].group.code + '.jpg)');
           } catch (e) {
             console.error(e);
           }

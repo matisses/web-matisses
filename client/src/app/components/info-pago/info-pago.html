@@ -9,7 +9,7 @@
         </div>
       </div>
     </div>
-    <form (submit)="pagar()" #infoPago="ngForm">
+    <form id="form_pagar" #infoPago="ngForm" (submit)="pagar()">
       <div class="row" *ngIf="carrito.totalItems != null && carrito.totalItems > 0">
         <div class="col-sm-4">
           <div class="contenido">
@@ -51,7 +51,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <label for="tipo-D">Tipo de documento*</label>
-                  <select name="typeDoc" id="tipo-D" class="form-control" [class.ng-reflect-model]="!31" [class.required-field]="!valid" [(ngModel)]="customer.fiscalIdType" required>
+                  <select name="typeDoc" id="tipo-D" [disabled]="disabled" class="form-control" [class.ng-reflect-model]="!31" [class.required-field]="!valid" [(ngModel)]="customer.fiscalIdType" required>
                     <option style="display:none" disabled selected value>Seleccione uno</option>
                     <option [selected]="customer.fiscalIdType == 13" value="13">Cedula</option>
                     <option [selected]="customer.fiscalIdType == 22" value="22">Cedula extranjería</option>
@@ -66,34 +66,34 @@
               <div class="row">
                 <div class="col-md-12">
                   <label for="name">Nombres*</label>
-                  <input id="name" type="text" class="form-control" [class.required-field]="!valid" name="name" [(ngModel)]="customer.firstName" required>
+                  <input id="name" type="text" [disabled]="disabled" class="form-control" [class.required-field]="!valid" name="name" [(ngModel)]="customer.firstName" required>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
                   <label for="last1">Primer apellido*</label>
-                  <input id="last1" type="text" class="form-control" [class.required-field]="!valid" name="lastname1" [(ngModel)]="customer.lastName1" required>
+                  <input id="last1" type="text" [disabled]="disabled" class="form-control" [class.required-field]="!valid" name="lastname1" [(ngModel)]="customer.lastName1" required>
                 </div>
                 <div class="col-md-6">
                   <label for="last2">Segundo apellido</label>
-                  <input id="last2" type="text" class="form-control" name="lastname2" [(ngModel)]="customer.lastName2">
+                  <input id="last2" type="text" [disabled]="disabled" class="form-control" name="lastname2" [(ngModel)]="customer.lastName2">
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-12">
                 <label for="mail">Correo*</label>
-                <input id="mail" type="email" class="form-control" [class.required-field]="!valid" name="email" [email]="true" [(ngModel)]="customer.addresses[0].email" required>
+                <input id="mail" type="email" [disabled]="disabled" class="form-control" [class.required-field]="!valid" name="email" [email]="true" [(ngModel)]="customer.addresses[0].email" required>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6">
                 <label for="cel">Teléfono móvil*</label>
-                <input id="cel" type="text" class="form-control" [class.required-field]="!valid" name="phone" [(ngModel)]="customer.addresses[0].cellphone" required>
+                <input id="cel" type="text" [disabled]="disabled" class="form-control" [class.required-field]="!valid" name="phone" [(ngModel)]="customer.addresses[0].cellphone" required>
               </div>
               <div class="col-md-6">
                 <label for="city">Ciudad*</label>
-                <select id="city" name="city" class="form-control" [class.required-field]="!valid" [(ngModel)]="customer.addresses[0].cityCode" *ngIf="ciudadesPrincipales" required>
+                <select id="city" name="city" [disabled]="disabled" class="form-control" [class.required-field]="!valid" [(ngModel)]="customer.addresses[0].cityCode" *ngIf="ciudadesPrincipales" required>
                   <option style="display:none" disabled selected value>Seleccione una</option>
                   <option disabled>─ Ciudades capitales</option>
                   <option [selected]="customer.addresses[0].cityCode == principal.code" *ngFor="let principal of ciudadesPrincipales" [ngValue]="principal.code">{{principal.name}}</option>
@@ -105,7 +105,7 @@
             <div class="row">
               <div class="col-md-12">
                 <label for="address">Dirección*</label>
-                <input id="address" type="mail" class="form-control" [class.required-field]="!valid" name="address" [(ngModel)]="customer.addresses[0].address" required>
+                <input id="address" type="mail" [disabled]="disabled" class="form-control" [class.required-field]="!valid" name="address" [(ngModel)]="customer.addresses[0].address" required>
               </div>
             </div>
             <br/>
