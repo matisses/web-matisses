@@ -51,8 +51,8 @@ export class ContactanosComponent implements OnInit {
     if (this.firstName == null || this.firstName.length <= 0 ||
       this.mail == null || this.mail.length <= 0 ||
       this.subject == null || this.subject.length <= 0 ||
-      this.message == null || this.message.length <= 0 ||
-      !this.reCaptcha) {
+      this.message == null || this.message.length <= 0 /*||
+      !this.reCaptcha*/) {
       this.messageError = 'Debes llenar todos los campos obligatorios para poder proceder con el envío.';
       this.valid = false;
       return;
@@ -77,7 +77,7 @@ export class ContactanosComponent implements OnInit {
           'asunto': this.subject,
           'mensaje': this.message
         },
-        from: this.mail,
+        from: this.firstName + '<' + this.mail + '>',
         to: [this.toMail, this.mail],
         subject: this.subject
       }

@@ -1,16 +1,17 @@
-import { Component  } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Item } from '../../../../models/item';
 
 import { DescuentosService } from '../../../../services/descuentos.service';
+import { ItemService } from '../../../../services/item.service';
 
 declare var $: any;
 
 @Component({
   selector: 'matisses-carrito-simple',
   template: `<span style="display: none">este es el componenete de funcionalidad de carrito</span>`,
-  providers: [DescuentosService]
+  providers: [DescuentosService, ItemService]
 })
 
 export class CarritoSimpleComponent {
@@ -23,7 +24,7 @@ export class CarritoSimpleComponent {
   public shoppingCart: any;
   public item: Item;
 
-  constructor(private _route: ActivatedRoute, private _router: Router, private _descuentosService: DescuentosService) {
+  constructor(private _route: ActivatedRoute, private _router: Router, private _descuentosService: DescuentosService, private _itemService: ItemService) {
     this.inicializarShoppingCart();
   }
 
@@ -49,13 +50,37 @@ export class CarritoSimpleComponent {
 
     if (this.shoppingCart.items === null) {
       this.shoppingCart.items = new Array<Item>();
-      //this.items = new Array<Item>();
     }
     this.procesarCarrito();
   }
 
   public procesarItem(item: Item) {
     item.selectedQuantity = parseInt(item.selectedQuantity.toString());
+    if (item.selectedQuantity > 0) {
+      let items = new Array<Item>();
+      items.push(item);
+
+      this._itemService.validarItems(items).subscribe(
+        response => {
+          if (response[0].sinSaldo) {
+            //modal sin saldo
+            item.availablestock = response[0].availablestock;
+            localStorage.setItem('matisses.lastAddedItem', JSON.stringify(item));
+            $('#modalSinSaldo').modal('show');
+          } else {
+            this.cambiarItem(item);
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    } else {
+      this.cambiarItem(item);
+    }
+  }
+
+  private cambiarItem(item: Item) {
     //0. Cargar contenido de localStorage
     this.cargarCarrito();
     //1. validar contenido
@@ -79,20 +104,14 @@ export class CarritoSimpleComponent {
     }
     //3. guardar
     localStorage.setItem('matisses.shoppingCart', JSON.stringify(this.shoppingCart));
-    //4. navegar
-    //this._router.navigate(['/redirect',this._router.url]);
-    //5. Actualizar contenido HTML
+    //4. Actualizar contenido HTML
     this.procesarCarrito();
 
     let components = document.getElementsByClassName("total-items-carrito-badge");
     for (let i = 0; i < components.length; i++) {
       components[i].innerHTML = this.totalItems.toString();
     }
-    //let cantidadCarrito = <HTMLElement>document.querySelector("#totalItemsCarrito");
-    //let cantidadCarritoBadge = <HTMLElement>document.querySelector("#totalItemsCarritoBadge");
 
-    //cantidadCarrito.innerHTML = this.totalItems.toString();
-    //cantidadCarritoBadge.innerHTML = this.totalItems.toString();
     if (!encontrado) {
       localStorage.setItem('matisses.lastAddedItem', JSON.stringify(item));
       $('#carritoModal').modal('show');
