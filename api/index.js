@@ -7,8 +7,8 @@ var app = require('./app');
 var port = process.env.PORT || 3977;
 
 var options = {
-  key: fs.readFileSync('ssl/server.enc.key'),
-  cert: fs.readFileSync('ssl/server.crt'),
+  key: fs.readFileSync('ssl/matisses.co.key'),
+  cert: fs.readFileSync('ssl/matisses.co.crt'),
   passphrase: 'Baru1234.'
 }
 
