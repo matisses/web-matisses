@@ -25,6 +25,10 @@ export class HeaderComponent implements OnInit {
     $('#carritoModal').on('show.bs.modal', () => {
       this.cargarInfoModal();
     });
+
+    $('#modalSinSaldo').on('show.bs.modal', () => {
+      this.cargarInfoModal();
+    });
   }
 
   public cargarInfoModal() {
