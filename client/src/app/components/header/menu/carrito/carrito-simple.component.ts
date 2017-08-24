@@ -64,6 +64,7 @@ export class CarritoSimpleComponent {
         response => {
           if (response[0].sinSaldo) {
             //modal sin saldo
+            item.availablestock = response[0].availablestock;
             localStorage.setItem('matisses.lastAddedItem', JSON.stringify(item));
             $('#modalSinSaldo').modal('show');
           } else {

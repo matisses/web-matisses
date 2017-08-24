@@ -143,6 +143,87 @@
   </div>
 </div>
 
+<div id="modalItemsSinSaldo" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document" *ngIf="itemsSinSaldo">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-center">Saldo insuficiente</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xs-12">
+              <p>
+                No se encontro saldo suficiente de los siguientes ítems:
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6" *ngFor="let item of itemsSinSaldo">
+              <div class="row">
+                <div class="col-md-3 col-xs-offset-0 col-xs-6 col-xs-offset-3">
+                  <img src="https://img.matisses.co/{{item.itemcode}}/images/{{item.itemcode}}_01.jpg" class="img-responsive" alt="{{item.itemname}}">
+                </div>
+                <div class="col-md-9 col-xs-12">
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <p class="nombre-producto"><b>{{item.itemname}}</b></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <div class="color">{{item.color.name}}</div>
+                    </div>
+                    <div class="col-xs-6">
+                      <p>$ {{item.priceaftervat | number}}</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <p>Disponibles: <b>{{item.availablestock}}</b></p>
+                    </div>
+                    <div class="col-xs-6">
+                      <p>Solicitados: <b>{{item.selectedQuantity}}</b></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-xs-12 col-sm-6 col-md-3" *ngFor="let item of itemsSinSaldo">
+              <div class="row">
+                <div class="col-xs-12">
+                  <img src="https://img.matisses.co/{{item.itemcode}}/images/{{item.itemcode}}_01.jpg" class="img-responsive" alt="{{item.itemname}}">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12">
+                  <p class="nombre-producto"><b>{{item.itemname}}</b></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="color">{{item.color.name}}</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12">
+                  <p>$ {{item.priceaftervat | number}}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12">
+                  <p>Cantidad disponible: <b>{{item.availablestock}}</b></p>
+                  <p>Cantidad solicitada: <b>{{item.selectedQuantity}}</b></p>
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <top-banner></top-banner>
 <matisses-menu></matisses-menu>
 <matisses-carrito-simple #carritoSimple></matisses-carrito-simple>
