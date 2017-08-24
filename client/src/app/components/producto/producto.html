@@ -157,15 +157,24 @@
               <h3 class="new-price">$ {{item.priceafterdiscount | number}} <small>IVA incluido</small></h3>
             </div>
           </div>
+          <br/>
           <div class="row">
-            <div class="col-md-2 col-xs-3">
+            <div class="col-md-3 col-xs-4">
               <div class="cantidad">
                 <form>
-                  <input class="input-cantidad form-control" type="tel" name="selectedQuantity" min="1" max="{{totalStock}}" [(ngModel)]="selectedQuantity" />
+                  <div class="input-group">
+                    <span class="input-group-addon span-cantidad">
+                      <button type="button" class="icon-minus btn-cantidad" name="button"></button>
+                    </span>
+                    <input class="input-cantidad form-control" type="tel" name="selectedQuantity" min="1" max="{{totalStock}}" [(ngModel)]="selectedQuantity" />
+                    <span class="input-group-addon span-cantidad">
+                      <button type="button" class="icon-plus btn-cantidad" name="button"></button>
+                    </span>
+                  </div>
                 </form>
               </div>
             </div>
-            <div class="col-md-10 col-xs-9 padding-left">
+            <div class="col-md-9 col-xs-8 padding-left">
               <button type="button" class="btn btn-carrito" (click)="agregarCarrito()">
                 Agregar al carrito
               </button>
@@ -204,7 +213,7 @@
               </div>
               <div class="collapse" id="collapseMateriales">
                 <div *ngFor="let material of item.materials">
-                  <h3 style="padding: 0 10px; margin-top:0;">{{material.name}}</h3>
+                  <h3 class="title-material" style="padding: 0 10px; margin-top:0;">{{material.name}}</h3>
                   <p style="padding: 0 10px;">{{material.cares}}</p>
                 </div>
               </div>
@@ -241,7 +250,7 @@
     </div>
   </div>
   <!-- <relacionados></relacionados> -->
-  <div class="container">
+  <div class="container hidden-sm hidden-xs">
     <div class="row">
       <div class="col-xs-12">
         <div class="politicas">

@@ -53,15 +53,6 @@ hr {
   margin-top: 6px;
 }
 
-.end-footer {
-  margin: 20px 0px 10px 0px;
-}
-
-.end-footer p {
-  display: inline-block;
-  padding: 0px 9px;
-}
-
 .footer-main a {
   color: #5B5B5B;
   text-decoration: none;
@@ -69,7 +60,7 @@ hr {
 
 @media screen and (max-width: 991px) {
   footer {
-    background-color: rgba(209,209,209,0.3);
+    background-color: #EDEDED;
   }
   .info-dos ul, .info-dos li {
     display: list-item;

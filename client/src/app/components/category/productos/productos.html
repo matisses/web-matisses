@@ -64,8 +64,8 @@
         <p>-{{item.descuento | number}}%</p>
       </div>
       <div class="row">
-        <div class="col-xs-12 cursor-pointer" [routerLink]="['/producto', item.shortitemcode]">
-          <img src="https://img.matisses.co/{{item.itemcode}}/parrilla/{{item.itemcode}}_01.jpg" class="img-responsive" alt="{{item.itemname}}">
+        <div class="col-xs-12 cursor-pointer">
+          <a href="javascript:void(0);" [routerLink]="['/producto', item.shortitemcode]"><img src="https://img.matisses.co/{{item.itemcode}}/parrilla/{{item.itemcode}}_01.jpg" class="img-responsive" alt="{{item.itemname}}"></a>
         </div>
       </div>
       <div class="row">

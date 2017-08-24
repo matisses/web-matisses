@@ -266,12 +266,14 @@
     <div class="row">
       <div class="col-xs-8">
         <div class="col-nav" *ngFor="let subMenuItem of padreSeleccionado.children">
-          <p class="child medium cursor-pointer">
-            <span [routerLink]="['/categoria']" [queryParams]="getAvailableParams(subMenuItem)" (click)="cerrarOverlay()">{{subMenuItem.name}}</span>
-          </p>
+          <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="getAvailableParams(subMenuItem)">
+            <p class="child medium cursor-pointer">
+              <span (click)="cerrarOverlay()">{{subMenuItem.name}}</span>
+            </p>
+          </a>
           <ul class="sub-menu">
-            <li class="grandchild" *ngFor="let grandChild of subMenuItem.children" [routerLink]="['/categoria']" [queryParams]="getAvailableParams(grandChild)" (click)="cerrarOverlay()">
-              {{grandChild.name}}
+            <li class="grandchild" *ngFor="let grandChild of subMenuItem.children" (click)="cerrarOverlay()">
+              <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="getAvailableParams(grandChild)">{{grandChild.name}}</a>
             </li>
           </ul>
         </div>

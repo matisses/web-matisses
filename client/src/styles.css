@@ -30,9 +30,34 @@ input:focus, button:focus, span:focus, p:focus, li:focus, div:focus, textarea:fo
   box-shadow: none !important;
 }
 
+.end-footer {
+  margin: 20px 0px 10px 0px;
+}
+
+.end-footer p {
+  display: inline-block;
+  padding: 0px 9px;
+}
+
+.end-footer .border-left {
+  border-left: 1px solid;
+}
+
+.sello-seguridad img {
+  width: 130px;
+}
+
+.text-end-footer {
+  margin-top: 6px;
+  text-align: center;
+}
+
 @media screen and (max-width: 991px) {
   .padding-top {
     padding-top: 60px;
+  }
+  .footer {
+    background-color: #EDEDED;
   }
 }
 
