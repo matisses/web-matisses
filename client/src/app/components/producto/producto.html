@@ -152,7 +152,8 @@
           </div>
           <div class="row" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0">
             <div class="col-xs-12">
-              <h4 class="old-price">$ {{item.priceaftervat | number}}</h4><h3 class="percentage">-{{item.descuento | number}}%</h3>
+              <h4 class="old-price">$ {{item.priceaftervat | number}}</h4>
+              <h3 class="percentage">-{{item.descuento | number}}%</h3>
               <h3 class="new-price">$ {{item.priceafterdiscount | number}} <small>IVA incluido</small></h3>
             </div>
           </div>
@@ -181,7 +182,7 @@
                 <p>Descripción <span id="descripcion" class="icon-plus pull-right"></span></p>
               </div>
               <div class="collapse" id="collapseDescripcion">
-                <p style="padding: 0 10px;">{{item.description}}</p>
+                <p style="padding: 0 10px;" [innerHTML]="item.description"></p>
               </div>
             </div>
           </div>
