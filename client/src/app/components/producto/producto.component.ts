@@ -78,7 +78,7 @@ export class ProductoComponent implements OnInit, AfterViewInit {
         response => {
           this.item = response.result[0];
 
-          let urlImage: string = 'http://img.matisses.co/' + this.item.itemcode + '/images/' + this.item.itemcode + '_01.jpg';
+          let urlImage: string = 'https://img.matisses.co/' + this.item.itemcode + '/images/' + this.item.itemcode + '_01.jpg';
           //this.meta.setTitle(`Matisses - Producto {{this.item.shortitemcode}}`);
           this.meta.setTag('og:image', urlImage);
           this.meta.setTag('og:description', this.item.description);
@@ -137,12 +137,12 @@ export class ProductoComponent implements OnInit, AfterViewInit {
 
   private validar360() {
     try {
-      this._http.get('http://img.matisses.co/' + this.item.itemcode + '/360/' + this.item.itemcode + '.html')
+      this._http.get('https://img.matisses.co/' + this.item.itemcode + '/360/' + this.item.itemcode + '.html')
         .subscribe(
         response => {
           if (response.status === 200) {
             this.existe360 = true;
-            document.getElementById('frame360').setAttribute('src', 'http://img.matisses.co/' + this.item.itemcode + '/360/' + this.item.itemcode + '.html');
+            document.getElementById('frame360').setAttribute('src', 'https://img.matisses.co/' + this.item.itemcode + '/360/' + this.item.itemcode + '.html');
           } else {
             this.existe360 = false;
           }
@@ -157,11 +157,11 @@ export class ProductoComponent implements OnInit, AfterViewInit {
 
   private validarWow() {
     try {
-      this._http.get('http://img.matisses.co/' + this.item.itemcode + '/animacion/' + this.item.itemcode + '.html').subscribe(
+      this._http.get('https://img.matisses.co/' + this.item.itemcode + '/animacion/' + this.item.itemcode + '.html').subscribe(
         response => {
           if (response.status === 200) {
             this.existeWow = true;
-            document.getElementById('frameWow').setAttribute('src', 'http://img.matisses.co/' + this.item.itemcode + '/animacion/' + this.item.itemcode + '.html');
+            document.getElementById('frameWow').setAttribute('src', 'https://img.matisses.co/' + this.item.itemcode + '/animacion/' + this.item.itemcode + '.html');
           } else {
             this.existeWow = false;
           }
@@ -177,11 +177,11 @@ export class ProductoComponent implements OnInit, AfterViewInit {
 
   private validarPlantilla() {
     try {
-      this._http.get('http://img.matisses.co/' + this.item.itemcode + '/plantilla/' + this.item.itemcode + '.jpg').subscribe(
+      this._http.get('https://img.matisses.co/' + this.item.itemcode + '/plantilla/' + this.item.itemcode + '.jpg').subscribe(
         response => {
           if (response.status === 200) {
             this.existePlantilla = true;
-            document.getElementById('plantilla').setAttribute('src', 'http://img.matisses.co/' + this.item.itemcode + '/plantilla/' + this.item.itemcode + '.jpg');
+            document.getElementById('plantilla').setAttribute('src', 'https://img.matisses.co/' + this.item.itemcode + '/plantilla/' + this.item.itemcode + '.jpg');
           } else {
             this.existePlantilla = false;
           }
