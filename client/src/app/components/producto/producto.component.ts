@@ -58,7 +58,7 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.carrito.cargarCarrito();
     $(document).ready(function() {
-      $("html, body").animate({scrollTop: 0}, 1000);
+      $("html, body").animate({ scrollTop: 0 }, 1000);
     });
   }
 
@@ -246,5 +246,18 @@ export class ProductoComponent implements OnInit, AfterViewInit {
     WinPrint.focus();
     WinPrint.print();
     WinPrint.close();
+  }
+
+  public aumentarCantidad() {
+    console.log('Aumentando cantidad para el ítem');
+    if (this.item.availablestock > this.selectedQuantity) {
+      this.selectedQuantity += 1;
+    }
+  }
+
+  public reducirCantidad() {
+    if (this.selectedQuantity > 1) {
+      this.selectedQuantity -= 1;
+    }
   }
 }

@@ -163,11 +163,11 @@
               <div class="cantidad">
                 <form>
                   <div class="input-group">
-                    <span class="input-group-addon span-cantidad">
+                    <span class="input-group-addon span-cantidad" (click)="reducirCantidad()">
                       <button type="button" class="icon-minus btn-cantidad" name="button"></button>
                     </span>
                     <input class="input-cantidad form-control" type="tel" name="selectedQuantity" min="1" max="{{totalStock}}" [(ngModel)]="selectedQuantity" />
-                    <span class="input-group-addon span-cantidad">
+                    <span class="input-group-addon span-cantidad" (click)="aumentarCantidad()">
                       <button type="button" class="icon-plus btn-cantidad" name="button"></button>
                     </span>
                   </div>
