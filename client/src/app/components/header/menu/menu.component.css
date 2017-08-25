@@ -20,7 +20,7 @@
 
 .btn-search {
   position: relative;
-  right: -60px;
+  right: -45px;
   top: 5px;
   background-color: #FFF;
   color: #7C7C7C;
@@ -75,6 +75,14 @@
   padding-left: 20px;
 }
 
+.icono-corazon {
+  font-size: 20px;
+  position: absolute;
+  /*left: 55px;*/ /*activar cuando se active los botones de ingresar y registrar*/
+  right: 135px;
+  color: #E07D7D;
+}
+
 .glyphicon-log-in {
   margin-right: 1px;
 }
@@ -103,24 +111,39 @@
 }
 
 .border-left {
-  border-left: 1px solid #d1d1d1;
+  border-left: 1px solid #D1D1D1;
+}
+
+.icono-regalo {
+  color: #6D9791;
 }
 
 .lista-regalos {
-  background-color: #6D9791;
-  color: #FFF;
+  border: 1px solid #7C7C7C;
+  color: #5B5B5B;
   padding: 5px 0;
   margin-top: 10px;
   margin-left: 17px;
   cursor: pointer;
+  font-size: 12px;
 }
 
 .lista-regalos:hover {
   background-color: #E07D7D;
+  border: 1px solid #E07D7D;
+  color: #FFF;
+}
+
+.lista-regalos:hover .icono-regalo {
+  color: #FFF;
 }
 
 a {
   text-decoration: none;
+}
+
+.btn-bolsa {
+  padding-left: 8px
 }
 
 
@@ -154,7 +177,8 @@ a {
 }
 
 .menu {
-  background-color: #EDEDED;
+  background-color: #FFF;
+  border-top: 1px solid #EDEDED;
   margin-top: 16px;
   padding: 10px 0px;
   position: absolute;
@@ -194,12 +218,12 @@ a {
 .sub-menu li {
   list-style: none;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
   text-transform: initial;
 }
 
 .sub-menu li:hover {
-  font-weight: bold;
+  text-decoration: underline;
 }
 
 .overlay {

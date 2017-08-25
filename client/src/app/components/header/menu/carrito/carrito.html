@@ -1,6 +1,7 @@
 <div class="carrito" (click)="toggleResumen()">
-  <span [ngClass]="{'icon-shopping-cart': (!resumenMobileVisible && !resumenDesktopVisible), 'icon-cerrar': (resumenMobileVisible || resumenDesktopVisible)}"> </span>
+  <span [ngClass]="{'icon-shopping-cart': (!resumenMobileVisible && !resumenDesktopVisible), 'icon-cerrar': (resumenMobileVisible || resumenDesktopVisible)}"></span>
   <span class="badge total-items-carrito-badge">{{carrito.totalItems}}</span>
+  <span class="bolsa-text">BOLSA DE COMPRAS</span>
 </div>
 <div id="resumen" class="resumen resumenmobile">
 <div class="container-fluid">
@@ -43,10 +44,10 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-xs-6 text-center">
+      <div class="col-xs-6 text-center btn-izq">
         <p class="boton" [routerLink]="['/resumen-carrito']">ir al carrito</p>
       </div>
-      <div class="col-xs-6 text-center">
+      <div class="col-xs-6 text-center btn-der">
         <p class="boton" [routerLink]="['/info-pago']">Ir a pagar</p>
       </div>
     </div>

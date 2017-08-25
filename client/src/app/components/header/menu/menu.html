@@ -206,19 +206,19 @@
             <div class="row">
               <div class="col-md-12 col-sm-6">
                 <ul class="ingreso text-right medium" (mouseover)="carrito.closeResumen()">
-                  <li><a href="javascript:void(0)" [routerLink]="['/lista-de-deseos']"><span class="glyphicon glyphicon-heart"> </span> LISTA DE DESEOS</a></li>
+                  <li><a href="javascript:void(0)" [routerLink]="['/lista-de-deseos']"><span class="glyphicon glyphicon-heart icono-corazon"> </span> LISTA DE DESEOS</a></li>
                   <!-- <li class="border-left"><a href="javascript:void(0)"><span class="glyphicon glyphicon-log-in"> </span> REGÍSTRATE</a></li>
                   <li class="border-left"><a href="javascript:void(0)"><span class="icon-user"> </span> INGRESA</a></li> -->
                 </ul>
               </div>
               <div class="col-md-12 col-sm-6 text-right">
                 <div class="row">
-                  <div class="col-xs-8 col-xs-offset-1 btn-lista">
+                  <div class="col-xs-6 btn-lista">
                     <a href="http://listaregalos.matisses.co/" target="_blank">
-                      <p (mouseover)="carrito.closeResumen()" class="lista-regalos text-center"><span class="icon-gift-box"> </span> Lista de Regalos</p>
+                      <p (mouseover)="carrito.closeResumen()" class="lista-regalos text-center"><span class="icon-gift-box icono-regalo"> </span> LISTA DE REGALOS</p>
                     </a>
                   </div>
-                  <div class="col-xs-3 text-left">
+                  <div class="col-xs-6 btn-bolsa text-left">
                     <matisses-carrito #carrito id="carrito2"></matisses-carrito>
                   </div>
                 </div>
@@ -250,7 +250,7 @@
             </div>
             <!-- botones para el administrador -->
             <ul>
-              <li class="item-menu cursor-pointer" [ngClass]="{'selected' : estaSeleccionado(menuItem._id)}" *ngFor="let menuItem of menuItems" (click)="alternarSeleccionPadre(menuItem) + carrito.closeResumen() " (mouseenter)="carrito.closeResumen()">
+              <li class="item-menu cursor-pointer" [ngClass]="{'selected' : estaSeleccionado(menuItem._id)}" *ngFor="let menuItem of menuItems" (mouseenter)="alternarSeleccionPadre(menuItem) + carrito.closeResumen() ">
                 {{menuItem.name}}
               </li>
             </ul>
@@ -284,7 +284,7 @@
     </div>
   </div>
 </div>
-<div class="overlay cursor-pointer hidden-sm hidden-xs" [@overlayAnimation]="stateOverlay" (click)="cerrarOverlay()"></div>
+<div class="overlay cursor-pointer hidden-sm hidden-xs" [@overlayAnimation]="stateOverlay" (mouseover)="cerrarOverlay()"></div>
 
 <!-- Menú responsive -->
 <div id="myNav" class="fondo-menu hidden-md hidden-lg">

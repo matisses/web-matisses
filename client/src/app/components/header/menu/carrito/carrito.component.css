@@ -19,7 +19,7 @@
   left: 0px;
   top: 40px;
   background-color: white;
-  width: 320px;
+  width: 355px;
   z-index: 5;
   height: 0;
   overflow: hidden;
@@ -59,7 +59,7 @@
   font-weight: bold;
 }
 
-.productos .cantidad, .productos .numero  {
+.productos .cantidad, .productos .numero {
   display: inline-block;
   margin-bottom: 0;
 }
@@ -108,8 +108,24 @@ hr {
   font-weight: bold;
 }
 
-.total-items-carrito-badge {
+.total-items-carrito-badge {}
 
+.bolsa-text {
+  display: none;
+}
+
+.icon-cerrar {
+  font-size: 20px;
+  position: relative;
+  top: 0px;
+}
+
+.btn-izq {
+  padding-right: 0;
+}
+
+.btn-der {
+  padding-left: 0;
 }
 
 /* Estilos para desktop */
@@ -120,24 +136,50 @@ hr {
     font-size: 30px
   }
   .carrito .badge {
-    top: 17px;
-    right: 25px;
+    top: 3px;
+    left: 25px;
+    border: 1px solid #FFF;
+    font-size: 10px;
+    padding: 3px 5px;
+  }
+  .bolsa-text {
+    font-size: 12px;
+    position: relative;
+    top: -8px;
+    display: inline-block;
   }
   .resumen {
-    left: -228px;
+    left: -158px;
     top: 45px;
+  }
+  .icon-cerrar {
+    top: -5px;
   }
 }
 
 @media screen and (max-width: 1199px) and (min-width: 992px) {
   .carrito {
-    margin-top: 13px;
+    margin-top: 9px;
+    font-size: 25px;
   }
   .carrito .badge {
-    top: 17px;
+    top: 10px;
+    left: 28px;
+    font-size: 10px;
+    border: 1px solid #FFF;
+  }
+  .bolsa-text {
+    font-size: 12px;
+    position: relative;
+    top: -5px;
+    left: 11px;
+    display: inline-block;
   }
   .resumen {
-    left: -238px;
+    left: -166px;
     top: 45px;
+  }
+  .icon-cerrar {
+    top: -5px;
   }
 }
