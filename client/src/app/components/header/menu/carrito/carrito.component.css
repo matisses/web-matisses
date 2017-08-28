@@ -19,7 +19,7 @@
   left: 0px;
   top: 40px;
   background-color: white;
-  width: 355px;
+  width: 320px;
   z-index: 5;
   height: 0;
   overflow: hidden;
@@ -151,6 +151,7 @@ hr {
   .resumen {
     left: -158px;
     top: 45px;
+    width: 355px;
   }
   .icon-cerrar {
     top: -5px;
@@ -178,6 +179,7 @@ hr {
   .resumen {
     left: -166px;
     top: 45px;
+    width: 355px;
   }
   .icon-cerrar {
     top: -5px;

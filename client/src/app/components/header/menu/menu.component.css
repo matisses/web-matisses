@@ -76,11 +76,11 @@
 }
 
 .icono-corazon {
-  font-size: 20px;
+  font-size: 15px;
   position: absolute;
-  /*left: 55px;*/ /*activar cuando se active los botones de ingresar y registrar*/
-  right: 135px;
+  left: 55px;
   color: #E07D7D;
+  top: 5px;
 }
 
 .glyphicon-log-in {

@@ -85,6 +85,9 @@ export class MenuComponent implements OnInit, AfterViewInit {
     $('#collapseSearchMovil').on('shown.bs.collapse', function() {
       $('#searchFieldMobile').focus();
     });
+    $(function() {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
   }
 
   ngAfterViewInit() {
@@ -722,7 +725,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
     if (this.padreSeleccionado.routeParams && this.padreSeleccionado.routeParams.length > 0) {
       let params: string[] = this.padreSeleccionado.routeParams.split("&");
       for (let i = 0; i < params.length; i++) {
-        let param : string[] = params[i].split("=");
+        let param: string[] = params[i].split("=");
         queryParams[param[0]] = param[1];
       }
     }

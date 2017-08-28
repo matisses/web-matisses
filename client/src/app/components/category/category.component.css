@@ -8,7 +8,7 @@
 }
 
 .img-category {
-  background: url(../../../assets/images/categorias/img-category.jpg) no-repeat center top;
+  /*background: url(../../../assets/images/categorias/img-category.jpg) no-repeat center top;*/
   background-position: center top;
   min-height: 200px;
   width: 100%;

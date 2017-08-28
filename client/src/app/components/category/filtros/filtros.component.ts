@@ -21,6 +21,7 @@ export class FiltrosComponent {
   private queryString: string;
   private availableFields: string[];
   public viewHasLoaded: boolean = false;
+  public mostrarFiltros: boolean = true;
   public minPrice: number;
   public maxPrice: number;
   public totalItems: number = 0;
@@ -250,5 +251,13 @@ export class FiltrosComponent {
 
   public showCategoryOption(menuItem) {
     return !this.queryParams.has('group') || this.queryParams.get('group').split(',').indexOf(menuItem.code) == -1;
+  }
+
+  public showFiltros() {
+    if (this.mostrarFiltros) {
+      this.mostrarFiltros = false;
+    } else {
+      this.mostrarFiltros = true;
+    }
   }
 }

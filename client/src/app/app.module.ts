@@ -68,6 +68,9 @@ import { WishListComponent } from './components/wish-list/wish-list.component';
 // Componenete modal prueba
 import { ModalComponent } from './components/modal/modal.component';
 
+// Componenete vajilla
+import { VajillaComponent } from './components/vajillas/vajilla.component';
+
 //Directivas
 import { StickyMenuDirective } from './directives/sticky.directive';
 import { StickyBodyDirective } from './directives/sticky-body.directive';
@@ -126,7 +129,8 @@ import { MetaModule } from '@ngx-meta/core';
     TerminosComponent,
     PoliticaDatosComponent,
     PoliticaPrivacidadComponent,
-    PreguntasFrecuentesComponent
+    PreguntasFrecuentesComponent,
+    VajillaComponent
   ],
   imports: [
     BrowserModule,
