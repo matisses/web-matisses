@@ -71,6 +71,7 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   }
 
   private cargarInfoItem() {
+    this.selectedQuantity = 1;
     this.quantityOptions = new Array<number>();
     this._route.params.forEach((params: Params) => {
       let itemCode: string = params['item'];
