@@ -264,7 +264,7 @@
 <div class="menu hidden-sm hidden-xs" sticky-submenu [@menuAnimation]="state" *ngIf="padreSeleccionado">
   <div class="container">
     <div class="row">
-      <div class="col-xs-8">
+      <div class="col-xs-12">
         <div class="col-nav" *ngFor="let subMenuItem of padreSeleccionado.children">
           <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="getAvailableParams(subMenuItem)">
             <p class="child medium cursor-pointer">
@@ -278,9 +278,9 @@
           </ul>
         </div>
       </div>
-      <div class="col-xs-4">
+      <!-- <div class="col-xs-4">
         <img src="assets/images/menu/{{padreSeleccionado._id}}.jpg" class="img-responsive cursor-pointer" [routerLink]="[padreSeleccionado.imageRoute]" [queryParams]="padreSeleccionadoQueryParams" alt="" (click)="cerrarOverlay()">
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
