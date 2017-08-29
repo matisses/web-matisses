@@ -72,7 +72,7 @@ export class FiltrosComponent {
     }
 
     if (values['collection']) {
-      values['collection'] = values['collection'].filter((option, index, self) => self.findIndex((t) => { return t.code === option.code; }) === index);
+      values['collection'] = values['collection'].filter((option, index, self) => self.findIndex((t) => { return t === option; }) === index);
     }
 
     if (values['colors']) {

@@ -349,7 +349,7 @@ function consultarFiltros(req, res) {
                         message: 'no se obtuvieron resultados con los filtros especificados'
                       });
                     } else {
-                      //Obtuvo resultados para color
+                      //Obtuvo resultados para material
                       resultados['materials'] = [];
                       for (var i = 0; i < result5.length; i++) {
                         if (result5[i]._id.material != null && result5[i]._id.material.name != null) {
