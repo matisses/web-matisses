@@ -23,7 +23,7 @@ import { TerminosComponent } from './components/terminos/terminos.component';
 import { PoliticaDatosComponent } from './components/politica-datos/politica-datos.component';
 import { PoliticaPrivacidadComponent } from './components/politica-privacidad/politica-privacidad.component';
 import { PreguntasFrecuentesComponent } from './components/preguntas-frecuentes/preguntas-frecuentes.component';
-import { VajillaComponent } from './components/vajillas/vajilla.component';
+
 
 const appRoutes: Routes = [
   //{path: '', component: HomeComponent},
@@ -73,7 +73,6 @@ const appRoutes: Routes = [
   { path: 'politica-manejo-de-datos', component: PoliticaDatosComponent },
   { path: 'politica-de-privacidad', component: PoliticaPrivacidadComponent },
   { path: 'preguntas-frecuentes', component: PreguntasFrecuentesComponent },
-  { path: 'vajillas', component: VajillaComponent },
   { path: '**', component: ErrorComponent } //pagina 404
 ];
 
