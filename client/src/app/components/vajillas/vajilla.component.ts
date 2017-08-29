@@ -24,11 +24,11 @@ export class VajillaComponent implements OnInit {
 
     private inicializarItems(){
 
-      // this.items = new Array<Item>();
-      // this.items.push(new Item().newItem('22600000000000000070', 'Domo Gold', 56000));
-      // this.items.push(new Item().newItem('22600000000000000071', 'Domo Platinum', 56000));
-      // this.items.push(new Item().newItem('22600000000000000072', 'Domo White', 400000));
-      // this.items.push(new Item().newItem('22600000000000000073', 'A la Plage', 89000));
+      this.items = new Array<Item>();
+      this.items.push(new Item().newItem('22600000000000000070', 'Domo Gold', 56000));
+      this.items.push(new Item().newItem('22600000000000000071', 'Domo Platinum', 56000));
+      this.items.push(new Item().newItem('22600000000000000072', 'Domo White', 400000));
+      this.items.push(new Item().newItem('22600000000000000073', 'A la Plage', 89000));
     }
 
 }
