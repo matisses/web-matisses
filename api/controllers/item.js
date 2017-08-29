@@ -31,7 +31,11 @@ function consultarItem(req, res) {
 }
 
 function consultarNuevos(req, res) {
-  Item.find({}, (err, result) => {
+  Item.find({
+    availablestock: {
+      $gt: 0
+    }
+  }, (err, result) => {
     if (err) {
       res.status(500).send({
         message: 'ocurrio un error al consultar los productos nuevos'
@@ -63,7 +67,12 @@ function armarFilterObject(req) {
     availablestock: {
       $gt: 0
     },
-    images: { $exists: true, $not: {$size: 0} }
+    images: {
+      $exists: true,
+      $not: {
+        $size: 0
+      }
+    }
   };
   if (typeof group != 'undefined' && group != null) {
     filterObject['group.code'] = {
@@ -557,8 +566,15 @@ function obtenerRelacionados(req, res) {
 
   Item.find({
     "model": modelo,
-    "images": { $exists: true, $not: {$size: 0} },
-    "availablestock": { $gt: 0 }
+    "images": {
+      $exists: true,
+      $not: {
+        $size: 0
+      }
+    },
+    "availablestock": {
+      $gt: 0
+    }
   }, {
     "color": 1,
     "shortitemcode": 1
