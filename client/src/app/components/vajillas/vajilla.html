@@ -74,7 +74,7 @@
                   </thead>
                   <tbody>
                     <tr *ngFor="let item of puesto">
-                      <th><img src="https://img.matisses.co/{{item.itemcode}}/mini/{{item.itemcode}}_01.jpg" class="img-resposive" alt="">  {{item.shortitemcode}}</th>
+                      <th><img src="https://img.matisses.co/{{item.itemcode}}/mini/{{item.itemcode}}_01.jpg" class="img-resposive" alt=""> {{item.shortitemcode}}</th>
                       <td>{{item.itemname}}</td>
                       <td>
                         <form>
@@ -100,7 +100,27 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-carrito">Crear</button>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xs-4">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Agregar referencia">
+                <span class="input-group-btn">
+                  <button class="btn btn-carrito" type="button">Agregar</button>
+                </span>
+              </div>
+            </div>
+            <div class="col-xs-4">
+              <div class="form-group">
+                <label for="exampleInputFile" class="btn-subir">Subir imagen</label>
+                <input type="file" id="exampleInputFile" class="custom-file-input">
+              </div>
+            </div>
+            <div class="col-xs-3">
+              <button type="button" class="btn btn-crear">Crear</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -246,7 +266,7 @@
       </div>
     </div>
     <br/>
-    <div class="row">
+    <div class="row hidden-sm hidden-xs">
       <div class="col-xs-12 text-center">
         <button type="button" class="btn-agregar-vajilla" data-toggle="modal" data-target="#modalEditar">Agregar vajilla <span class="glyphicon glyphicon-plus"></span></button>
       </div>
