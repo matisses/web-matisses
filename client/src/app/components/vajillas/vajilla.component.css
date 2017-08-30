@@ -23,6 +23,7 @@
   height: 17px;
 }
 
+
 /* paginador */
 
 .pagination {
@@ -69,7 +70,7 @@
 }
 
 .producto {
-
+  cursor: pointer;
 }
 
 .info {
@@ -89,6 +90,190 @@
   padding: 2px 15px;
 }
 
+
+/* Modal puestos */
+
+.modal-content {
+  border-radius: 0px;
+  color: #5B5B5B;
+}
+
+.modal-content .producto-modal {
+  margin-bottom: 15px;
+}
+
+.modal-content .producto-modal img {
+  display: inline-block;
+}
+
+.modal-content .producto-modal h1 {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.modal-content .producto-modal .referencia {
+  margin: 0;
+  font-weight: normal;
+}
+
+.modal-content .producto-modal p {
+  display: inline-block;
+  font-weight: bold;
+}
+
+.modal-content .info-modal {
+  margin-top: 20px;
+}
+
+.btn-carrito {
+  border-radius: 0;
+  background-color: #6D9791;
+  color: #FFF;
+}
+
+.btn-carrito:hover {
+  background-color: #425E63;
+}
+
+.precio-vajilla {
+  text-align: right;
+}
+
+.btn-agregar {
+  text-align: left;
+}
+
+
+/* Btn de cantidad */
+
+.input-cantidad {
+  border-radius: 0;
+  border-color: #D1D1D1;
+  text-align: center;
+  z-index: 0;
+  padding: 0;
+  height: 36px;
+}
+
+.span-cantidad {
+  padding: 0px;
+  border-radius: 0;
+  background-color: transparent;
+}
+
+.span-cantidad:hover {
+  background-color: #ECECEC;
+}
+
+.btn-cantidad {
+  font-size: 10px;
+  background-color: transparent;
+  border: none;
+  color: #5b5b5b;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 0;
+}
+
+.btn-agregar-vajilla {
+  background-color: #5B5B5B;
+  color: #FFF;
+  border: none;
+  padding: 5px 15px;
+  font-weight: 700;
+}
+
+.btn-agregar-vajilla:hover {
+  background-color: #A59B93;
+}
+
+.btn-agregar-vajilla span {
+  margin-left: 5px;
+}
+
+
+/* Estilo de modal agregar vajilla */
+
+.form-control:focus {
+  border-color: #D1D1D1;
+}
+
+.form-control {
+  border-radius: 0;
+  border-color: #D1D1D1;
+}
+
+.table-bordered>tbody>tr>td {
+  border: 1px solid #D1D1D1;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.grupo-cantidad {
+    width: 100px;
+    margin: 0 auto;
+}
+
+
+/* Agregar archivos */
+
+.custom-file {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  height: 30px;
+  margin-bottom: 0;
+  cursor: pointer;
+  font-weight: normal;
+}
+
+.custom-file-input {
+  max-width: 100%;
+  height: 30px;
+  margin: 0;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  cursor: pointer;
+}
+
+.custom-file-control {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 5;
+  height: 30px;
+  padding: 5px 10px;
+  line-height: 1.5;
+  color: #5B5B5B;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: #fff;
+  border: 1px solid #D1D1D1;
+}
+
+.custom-file-control::before {
+  content: "Subir";
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  z-index: 6;
+  display: block;
+  height: 30px;
+  padding: 5px 20px;
+  line-height: 1.5;
+  color: #5B5B5B;
+  background-color: #EDEDED;
+  border: 1px solid #D1D1D1;
+}
+
+.custom-file-control::after {
+  content: "Seleccionar archivo";
+}
+
 @media screen and (max-width: 991px) {
   .stuck-body {
     margin-top: 0px;
@@ -101,5 +286,38 @@
   }
   .carousel-indicators .active {
     display: none;
+  }
+  .modal-dialog {
+    width: auto;
+  }
+  .modal-content {
+    width: 95%;
+    margin: 0 auto;
+  }
+  .modal-content .info-modal {
+    margin-top: 0px;
+  }
+  .modal-content .info-modal h1 {
+    margin-top: 0px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .modal-dialog {
+    width: auto;
+  }
+  .producto-modal {
+    border-bottom: 1px solid #D1D1D1;
+  }
+  .modal-content .info-modal {
+    margin-top: 20px;
+    text-align: center;
+  }
+  .last {
+    border: none;
+  }
+  .btn-agregar, .precio-vajilla {
+    text-align: center;
+    margin: 15px 0;
   }
 }

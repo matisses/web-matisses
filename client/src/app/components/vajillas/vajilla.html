@@ -1,5 +1,167 @@
 <matisses-header></matisses-header>
 
+<!-- Modal editar -->
+<div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="modalEditarLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="icon-close"></span></button>
+        <h4 class="modal-title text-center" id="modalEditar">Agregar nueva vajilla</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="form-group">
+                <label for="name">Nombre:</label>
+                <input type="text" class="form-control" id="name">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="marca">Marca:</label>
+                <select class="form-control" id="marca">
+                  <option>Vista Alegre</option>
+                  <option>ASA</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="colection">Colección:</label>
+                <select class="form-control" id="colection">
+                  <option>Domo Gold</option>
+                  <option>Domo Platinum</option>
+                  <option>ETC</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="price">Precio:</label>
+                <input type="text" class="form-control " id="price" readonly="readonly">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label for="ref">Referencias:</label>
+                <input type="text" class="form-control " id="ref" readonly="readonly">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label for="piece">Piezas:</label>
+                <input type="text" class="form-control " id="piece" readonly="readonly">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Referencia</th>
+                      <th>Nombre</th>
+                      <th>Cantidad</th>
+                      <th>Precio</th>
+                      <th>Valor total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of puesto">
+                      <th><img src="https://img.matisses.co/{{item.itemcode}}/mini/{{item.itemcode}}_01.jpg" class="img-resposive" alt="">  {{item.shortitemcode}}</th>
+                      <td>{{item.itemname}}</td>
+                      <td>
+                        <form>
+                          <div class="input-group grupo-cantidad">
+                            <span class="input-group-addon span-cantidad" (click)="reducirCantidad()">
+                            <button type="button" class="icon-minus btn-cantidad" name="button"></button>
+                          </span>
+                            <input class="input-cantidad form-control" type="tel" name="selectedQuantity" min="1" max="{{totalStock}}" [(ngModel)]="selectedQuantity" />
+                            <span class="input-group-addon span-cantidad" (click)="aumentarCantidad()">
+                            <button type="button" class="icon-plus btn-cantidad" name="button"></button>
+                          </span>
+                          </div>
+                        </form>
+                      </td>
+                      <td>{{item.priceaftervat | number:0}}</td>
+                      <td>{{item.priceaftervat | number:0}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-carrito">Crear</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal vajillas -->
+<div class="modal fade" id="modalVajillas" tabindex="-1" role="dialog" aria-labelledby="modalVajillasLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="icon-close"></span></button>
+        <h4 class="modal-title text-center" id="modalVajillas">Vajilla 4 puestos Domo Gold</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-6 producto-modal" *ngFor="let item of puesto, let last = last" [ngClass]="{last : last}">
+            <div class="row">
+              <div class="col-sm-5 text-center">
+                <img src="https://img.matisses.co/{{item.itemcode}}/parrilla/{{item.itemcode}}_01.jpg" class="img-responsive" alt="">
+              </div>
+              <div class="col-sm-7">
+                <div class="info-modal">
+                  <h1>{{item.itemname}}</h1>
+                  <P class="referencia">Ref: {{item.shortitemcode}}</P>
+                  <h4>$ {{item.priceaftervat | number:0}}</h4>
+                  <p>Cantidad:</p>
+                  <p>4</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="container-fluid">
+          <div class="col-sm-5 col-xs-12 precio-vajilla">
+            <h4>$ Precio de la vajilla</h4>
+          </div>
+          <div class="col-sm-2 col-sm-offset-0 col-xs-8 col-xs-offset-2">
+            <form>
+              <div class="input-group">
+                <span class="input-group-addon span-cantidad" (click)="reducirCantidad()">
+                  <button type="button" class="icon-minus btn-cantidad" name="button"></button>
+                </span>
+                <input class="input-cantidad form-control" type="tel" name="selectedQuantity" min="1" max="{{totalStock}}" [(ngModel)]="selectedQuantity" />
+                <span class="input-group-addon span-cantidad" (click)="aumentarCantidad()">
+                  <button type="button" class="icon-plus btn-cantidad" name="button"></button>
+                </span>
+              </div>
+            </form>
+          </div>
+          <div class="col-sm-5 col-xs-12 btn-agregar">
+            <button type="button" class="btn btn-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div sticky-body>
   <div class="container-fluid padding-0">
     <div class="row">
@@ -16,15 +178,15 @@
           <div class="carousel-inner" role="listbox">
 
             <div class="item active">
-              <img src="assets/images/vajillas/01.png" class="img-responsive" alt="">
+              <img src="assets/images/vajillas/banner/01.png" class="img-responsive" alt="">
             </div>
 
             <div class="item">
-              <img src="assets/images/vajillas/02.png" class="img-responsive" alt="">
+              <img src="assets/images/vajillas/banner/02.png" class="img-responsive" alt="">
             </div>
 
             <div class="item">
-              <img src="assets/images/vajillas/03.png" class="img-responsive" alt="">
+              <img src="assets/images/vajillas/banner/03.png" class="img-responsive" alt="">
             </div>
 
           </div>
@@ -85,28 +247,25 @@
     </div>
     <br/>
     <div class="row">
-      <div class="col-xs-4" *ngFor="let item of items">
-        <div class="col-sm-12 col-xs-2 inline-block">
-          <div class="producto">
-            <div class="row">
-              <div class="col-xs-12">
-                <img src="https://img.matisses.co/{{item.itemcode}}/images/{{item.itemcode}}_01.jpg" class="img-responsive" alt="">
-              </div>
-            </div>
-            <div class="info">
-              <div class="row">
-                <div class="col-xs-12 text-center">
-                  <p>{{item.itemname}}</p>
-                  <button type="button" name="button" class="btn-coleccion" data-toggle="collapse" data-target="#" aria-expanded="false" aria-controls="">Ver Colección</button>
-                </div>
-              </div>
+      <div class="col-xs-12 text-center">
+        <button type="button" class="btn-agregar-vajilla" data-toggle="modal" data-target="#modalEditar">Agregar vajilla <span class="glyphicon glyphicon-plus"></span></button>
+      </div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-sm-4 col-xs-6" *ngFor="let item of items">
+        <div class="producto">
+          <div class="row">
+            <div class="col-xs-12">
+              <img src="assets/images/vajillas/puestos/{{item.itemcode}}.jpg" class="img-responsive" alt="">
             </div>
           </div>
-        </div>
-        <div class="col-xs-12">
-          <div class="collapse" id="">
-            <div class="well">
-              ...
+          <div class="info">
+            <div class="row">
+              <div class="col-xs-12 text-center">
+                <p>{{item.itemname}}</p>
+                <button type="button" class="btn-coleccion" data-toggle="modal" data-target="#modalVajillas">Ver Colección</button>
+              </div>
             </div>
           </div>
         </div>
