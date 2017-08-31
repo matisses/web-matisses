@@ -220,6 +220,7 @@
   background-color: #6D9791;
   padding: 5px 50px;
   color: #FFF;
+  text-align: left;
 }
 
 .btn-crear:hover {
@@ -242,6 +243,7 @@
   position: relative;
   left: -69px;
   z-index: 1;
+  cursor: pointer;
 }
 .modal-footer .form-group {
   height: 0;
