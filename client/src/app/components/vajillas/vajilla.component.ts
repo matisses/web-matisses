@@ -1,58 +1,167 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ItemService } from '../../services/item.service';
+import { CrockeryService } from '../../services/crockery.service';
 import { Item } from '../../models/item';
+import { Vajilla } from '../../models/crockery';
 
 declare var $: any;
 
 @Component({
-    templateUrl: 'vajilla.html',
-    styleUrls: ['vajilla.component.css'],
-    providers: [ItemService]
+  templateUrl: 'vajilla.html',
+  styleUrls: ['vajilla.component.css'],
+  providers: [ItemService, CrockeryService]
 })
 
 export class VajillaComponent implements OnInit {
-    public items:Array<Item>;
-    public puesto:Array<Item>;
+  public cantidadSeleccionada: number = 1;
+  public vajilla: Vajilla;
+  public marcas: Array<any>;
+  public colecciones: Array<any>;
+  public itemsColeccion: Array<Item>;
+  public vajillas: Array<Vajilla>;
+  private itemsSeleccionados: Map<String, Item>;
 
-    constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService) {
+  constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _crockeryService: CrockeryService) {
+    this.itemsSeleccionados = new Map<String, Item>();
+    this.vajillas = new Array<Vajilla>();
+    this.limpiarFormulario();
+  }
+
+  ngOnInit() {
+    this.cargarMarcas();
+    this.cargarVajillas();
+  }
+
+  private cargarMarcas() {
+    this.marcas = new Array<any>();
+    this._itemService.listBrands().subscribe(
+      response => {
+        for (let i = 0; i < response.length; i++) {
+          this.marcas.push(response[i].brand);
+        }
+      }, error => { console.error(error); }
+    );
+  }
+
+  private cargarVajillas() {
+    this._crockeryService.list().subscribe(
+      response => {
+        console.log(response);
+        this.vajillas = response;
+      }, error => { console.error(error); }
+    );
+  }
+
+  public cargarColecciones() {
+    this._itemService.listCollections(this.vajilla.brand).subscribe(
+      response => {
+        this.colecciones = response.sort();
+      }, error => { console.error(error); }
+    );
+  }
+
+  public cargarProductos() {
+    let queryStr: string = encodeURI('?collection=' + this.vajilla.coleccion + '&brand=' + this.vajilla.brand + '&pageSize=1000')
+    this._itemService.filter(queryStr).subscribe(
+      response => {
+        this.itemsColeccion = response.result;
+      }, error => { console.error(error); }
+    );
+  }
+
+  public reducirCantidad(index) {
+    if (this.itemsColeccion[index].selectedQuantity && this.itemsColeccion[index].selectedQuantity > 0) {
+      this.itemsColeccion[index].selectedQuantity--;
+      if (this.itemsColeccion[index].selectedQuantity === 0) {
+        this.itemsSeleccionados.delete(this.itemsColeccion[index].shortitemcode);
+      }
+      this.calcularIndicadores();
     }
+  }
 
-    ngOnInit() {
-        this.inicializarItems();
-        this.inicializarPuesto();
+  public aumentarCantidad(index) {
+    if (this.itemsColeccion[index].selectedQuantity) {
+      if (this.itemsColeccion[index].selectedQuantity < this.itemsColeccion[index].availablestock) {
+        this.itemsColeccion[index].selectedQuantity++;
+      }
+    } else {
+      this.itemsColeccion[index].selectedQuantity = 1;
     }
+    this.itemsSeleccionados.set(this.itemsColeccion[index].shortitemcode, this.itemsColeccion[index]);
+    this.calcularIndicadores();
+  }
 
-    private inicializarItems(){
+  private calcularIndicadores() {
+    this.vajilla.price = 0;
+    this.vajilla.pieces = 0;
+    this.vajilla.items = 0;
+    this.itemsSeleccionados.forEach((value, key, map) => {
+      this.vajilla.items++;
+      this.vajilla.price = Number(this.vajilla.price) + Number(value.selectedQuantity * value.priceaftervat);
+      this.vajilla.pieces += value.selectedQuantity;
+    });
 
-      this.items = new Array<Item>();
-      this.items.push(new Item().newItem('1', 'Vajilla 4 puestos', 56000));
-      this.items.push(new Item().newItem('2', 'Vajilla 4 puestos', 56000));
-      this.items.push(new Item().newItem('3', 'Vajilla 4 puestos', 400000));
+    this.vajilla.priceTxt = Number(this.vajilla.price).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+    this.vajilla.priceTxt = this.vajilla.priceTxt.substring(0, this.vajilla.priceTxt.length - 3);
+  }
+
+  public guardarVajilla() {
+    if (!this.vajilla.name || this.vajilla.name.length === 0) {
+      console.warn('no se ingreso el nombre de la vajilla');
+      return;
     }
-
-    private inicializarPuesto() {
-      this.puesto = new Array<Item>();
-      this._itemService.find('2260041').subscribe(
-        response => {
-          this.puesto.push(response.result[0]);
-          this._itemService.find('2260045').subscribe(
-            response => {
-              this.puesto.push(response.result[0]);
-              this._itemService.find('2260043').subscribe(
-                response => {
-                  this.puesto.push(response.result[0]);
-                  this._itemService.find('2260276').subscribe(
-                    response => {
-                      this.puesto.push(response.result[0]);
-                    }, error => { console.error(); }
-                  );
-                }, error => { console.error(); }
-              );
-            }, error => { console.error(); }
-          );
-        }, error => { console.error(); }
-      );
+    if (!this.vajilla.brand) {
+      console.warn('no se selecciono la marca de la vajilla');
+      return;
     }
+    if (!this.vajilla.coleccion) {
+      console.warn('no se selecciono la coleccion de la vajilla');
+      return;
+    }
+    if (this.vajilla.items === 0) {
+      console.warn('no se selecciono ningun item para la vajilla');
+      return;
+    }
+    this.vajilla.detail = new Array<any>();
+    this.itemsSeleccionados.forEach((value, key, map) => {
+      let item = {
+        itemcode: value.itemcode,
+        quantity: value.selectedQuantity
+      };
+      this.vajilla.detail.push(item);
+    });
+    this._crockeryService.create(this.vajilla).subscribe(
+      response => {
+        console.log('vajilla creada con exito. ');
+        this.limpiarFormulario();
+        $('#modalEditar').modal('hide');
+      }, error => { console.error(error); }
+    );
+  }
+
+  private limpiarFormulario() {
+    this.vajilla = new Vajilla();
+    this.vajilla.brand = '';
+    this.vajilla.coleccion = '';
+    this.vajilla.pieces = 0;
+    this.vajilla.price = 0;
+    this.vajilla.priceTxt = '0';
+    this.vajilla.items = 0;
+  }
+
+  public mostrarVajilla(vajilla) {
+    console.log(vajilla);
+    this.vajilla = vajilla;
+    this._crockeryService.listItems(vajilla._id).subscribe(
+      response => {
+        this.vajilla.detail = new Array<any>();
+        for(let i = 0; i < response.length; i++){
+          this.vajilla.detail.push(response[i].item);
+        }
+      }, error => { console.error(error); }
+    );
+    $('#modalVajillas').modal('show');
+  }
 
 }

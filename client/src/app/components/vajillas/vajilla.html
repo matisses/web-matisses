@@ -4,104 +4,103 @@
 <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="modalEditarLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="icon-close"></span></button>
-        <h4 class="modal-title text-center" id="modalEditar">Agregar nueva vajilla</h4>
-      </div>
-      <div class="modal-body">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="form-group">
-                <label for="name">Nombre:</label>
-                <input type="text" class="form-control" id="name">
+      <form>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="icon-close"></span></button>
+          <h4 class="modal-title text-center" id="modalEditar">Agregar nueva vajilla</h4>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="form-group">
+                  <label for="name">Nombre:</label>
+                  <input type="text" class="form-control" id="name" name="name" [(ngModel)]="vajilla.name" placeholder="ej: Vajilla Domo Gold 6 puestos">
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="form-group">
-                <label for="marca">Marca:</label>
-                <select class="form-control" id="marca">
-                  <option>Vista Alegre</option>
-                  <option>ASA</option>
-                </select>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="marca">Marca:</label>
+                  <select id="marca" name="marca" class="form-control" [(ngModel)]="vajilla.brand" (change)="cargarColecciones()">
+                    <option disabled selected value>Seleccione una</option>
+                    <option [selected]="vajilla.brand == marca.code" *ngFor="let marca of marcas" [ngValue]="marca.code">{{marca.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="collection">Colección:</label>
+                  <select id="collection" name="collection" class="form-control" [(ngModel)]="vajilla.coleccion" (change)="cargarProductos()">
+                    <option disabled selected value>Seleccione una</option>
+                    <option [selected]="vajilla.coleccion == coleccion" *ngFor="let coleccion of colecciones" [ngValue]="coleccion">{{coleccion}}</option>
+                  </select>
+                </div>
               </div>
             </div>
-            <div class="col-sm-6">
-              <div class="form-group">
-                <label for="colection">Colección:</label>
-                <select class="form-control" id="colection">
-                  <option>Domo Gold</option>
-                  <option>Domo Platinum</option>
-                  <option>ETC</option>
-                </select>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="price">Precio:</label>
+                  <input type="text" class="form-control" style="text-align: right" id="price" name="precio" [(ngModel)]="vajilla.priceTxt" readonly="readonly">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="ref">Referencias:</label>
+                  <input type="text" class="form-control" style="text-align: right" id="ref" name="items" [(ngModel)]="vajilla.items" readonly="readonly">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="piece">Piezas:</label>
+                  <input type="text" class="form-control" style="text-align: right" id="piece" name="pieces" [(ngModel)]="vajilla.pieces" readonly="readonly">
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="form-group">
-                <label for="price">Precio:</label>
-                <input type="text" class="form-control " id="price" readonly="readonly">
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <div class="form-group">
-                <label for="ref">Referencias:</label>
-                <input type="text" class="form-control " id="ref" readonly="readonly">
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <div class="form-group">
-                <label for="piece">Piezas:</label>
-                <input type="text" class="form-control " id="piece" readonly="readonly">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="table-responsive">
-                <table class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th>Referencia</th>
-                      <th>Nombre</th>
-                      <th>Cantidad</th>
-                      <th>Precio</th>
-                      <th>Valor total</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let item of puesto">
-                      <th><img src="https://img.matisses.co/{{item.itemcode}}/mini/{{item.itemcode}}_01.jpg" class="img-resposive" alt="">  {{item.shortitemcode}}</th>
-                      <td>{{item.itemname}}</td>
-                      <td>
-                        <form>
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="table-responsive">
+                  <table class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Referencia</th>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Valor total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of itemsColeccion; let i = index">
+                        <th><img src="https://img.matisses.co/{{item.itemcode}}/mini/{{item.itemcode}}_01.jpg" class="img-resposive" alt=""> {{item.shortitemcode}}</th>
+                        <td>{{item.itemname}}</td>
+                        <td>
                           <div class="input-group grupo-cantidad">
-                            <span class="input-group-addon span-cantidad" (click)="reducirCantidad()">
-                            <button type="button" class="icon-minus btn-cantidad" name="button"></button>
-                          </span>
-                            <input class="input-cantidad form-control" type="tel" name="selectedQuantity" min="1" max="{{totalStock}}" [(ngModel)]="selectedQuantity" />
-                            <span class="input-group-addon span-cantidad" (click)="aumentarCantidad()">
-                            <button type="button" class="icon-plus btn-cantidad" name="button"></button>
-                          </span>
+                            <span class="input-group-addon span-cantidad" (click)="reducirCantidad(i)">
+                              <button type="button" class="icon-minus btn-cantidad" name="button"></button>
+                            </span>
+                            <input class="input-cantidad form-control" type="tel" name="selectedQuantity_{{i}}" min="1" max="{{itemsColeccion[i].availablestock}}" [(ngModel)]="itemsColeccion[i].selectedQuantity" readonly/>
+                            <span class="input-group-addon span-cantidad" (click)="aumentarCantidad(i)">
+                              <button type="button" class="icon-plus btn-cantidad" name="button"></button>
+                            </span>
                           </div>
-                        </form>
-                      </td>
-                      <td>{{item.priceaftervat | number:0}}</td>
-                      <td>{{item.priceaftervat | number:0}}</td>
-                    </tr>
-                  </tbody>
-                </table>
+                        </td>
+                        <td>{{item.priceaftervat | number:0}}</td>
+                        <td>{{item.priceaftervat * (!itemsColeccion[i].selectedQuantity ? 0 : itemsColeccion[i].selectedQuantity) | number:0}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-carrito">Crear</button>
-      </div>
+        <div class="modal-footer">
+          <button type="button" (click)="guardarVajilla()" class="btn btn-carrito">Crear</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -113,11 +112,11 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="icon-close"></span></button>
-        <h4 class="modal-title text-center" id="modalVajillas">Vajilla 4 puestos Domo Gold</h4>
+        <h4 class="modal-title text-center" id="modalVajillas">{{vajilla.name}}</h4>
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-sm-6 producto-modal" *ngFor="let item of puesto, let last = last" [ngClass]="{last : last}">
+          <div class="col-sm-6 producto-modal" *ngFor="let item of vajilla.detail, let last = last" [ngClass]="{last : last}">
             <div class="row">
               <div class="col-sm-5 text-center">
                 <img src="https://img.matisses.co/{{item.itemcode}}/parrilla/{{item.itemcode}}_01.jpg" class="img-responsive" alt="">
@@ -128,7 +127,7 @@
                   <P class="referencia">Ref: {{item.shortitemcode}}</P>
                   <h4>$ {{item.priceaftervat | number:0}}</h4>
                   <p>Cantidad:</p>
-                  <p>4</p>
+                  <p>{{item.selectedQuantity}}</p>
                 </div>
               </div>
             </div>
@@ -138,16 +137,16 @@
       <div class="modal-footer">
         <div class="container-fluid">
           <div class="col-sm-5 col-xs-12 precio-vajilla">
-            <h4>$ Precio de la vajilla</h4>
+            <h4>Precio total vajilla: ${{vajilla.price | number:0}}</h4>
           </div>
           <div class="col-sm-2 col-sm-offset-0 col-xs-8 col-xs-offset-2">
             <form>
               <div class="input-group">
-                <span class="input-group-addon span-cantidad" (click)="reducirCantidad()">
+                <span class="input-group-addon span-cantidad" (click)="cambiarCantidadVajilla(-1)">
                   <button type="button" class="icon-minus btn-cantidad" name="button"></button>
                 </span>
-                <input class="input-cantidad form-control" type="tel" name="selectedQuantity" min="1" max="{{totalStock}}" [(ngModel)]="selectedQuantity" />
-                <span class="input-group-addon span-cantidad" (click)="aumentarCantidad()">
+                <input class="input-cantidad form-control" type="tel" name="selectedQuantity" min="1" max="{{totalStock}}" [(ngModel)]="cantidadSeleccionada" />
+                <span class="input-group-addon span-cantidad" (click)="cambiarCantidadVajilla(1)">
                   <button type="button" class="icon-plus btn-cantidad" name="button"></button>
                 </span>
               </div>
@@ -253,18 +252,18 @@
     </div>
     <br/>
     <div class="row">
-      <div class="col-sm-4 col-xs-6" *ngFor="let item of items">
+      <div class="col-sm-4 col-xs-6" *ngFor="let vajilla of vajillas">
         <div class="producto">
           <div class="row">
             <div class="col-xs-12">
-              <img src="assets/images/vajillas/puestos/{{item.itemcode}}.jpg" class="img-responsive" alt="">
+              <img src="assets/images/vajillas/puestos/{{vajillas._id}}.jpg" class="img-responsive" alt="">
             </div>
           </div>
           <div class="info">
             <div class="row">
               <div class="col-xs-12 text-center">
-                <p>{{item.itemname}}</p>
-                <button type="button" class="btn-coleccion" data-toggle="modal" data-target="#modalVajillas">Ver Colección</button>
+                <p>{{vajilla.name}}</p>
+                <button type="button" class="btn-coleccion" (click)="mostrarVajilla(vajilla)">Mostrar</button>
               </div>
             </div>
           </div>

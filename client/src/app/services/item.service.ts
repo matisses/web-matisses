@@ -17,7 +17,7 @@ export class ItemService {
     this.wishlist = new Array<Item>();
   }
 
-  listNewItems() {
+  public listNewItems() {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
@@ -26,7 +26,7 @@ export class ItemService {
       .map(res => res.json());
   }
 
-  filter(queryString) {
+  public filter(queryString) {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
@@ -34,7 +34,7 @@ export class ItemService {
       .map(res => res.json());
   }
 
-  updateFilters(queryString) {
+  public updateFilters(queryString) {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
@@ -42,7 +42,7 @@ export class ItemService {
       .map(res => res.json());
   }
 
-  findType(type, queryString) {
+  public findType(type, queryString) {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
@@ -50,7 +50,7 @@ export class ItemService {
       .map(res => res.json());
   }
 
-  find(itemCode: string) {
+  public find(itemCode: string) {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
@@ -108,12 +108,30 @@ export class ItemService {
       .map(res => res.json());
   }
 
-  validarItems(items){
+  public validarItems(items) {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
 
     return this._http.post(this.urlBCS + 'validarinventario/validar', JSON.stringify(items), { headers: headers })
+      .map(res => res.json());
+  }
+
+  public listBrands() {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.url + 'item/listarmarcasvajilla', { headers: headers })
+      .map(res => res.json());
+  }
+
+  public listCollections(brand) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.url + 'item/listarcolecciones/' + brand, { headers: headers })
       .map(res => res.json());
   }
 }

@@ -15,5 +15,7 @@ api.get('/consultarcolor/', ItemController.consultarColor);
 api.get('/consultarmaterial/', ItemController.consultarMaterial);
 api.get('/consultaritem/:itemcode', ItemController.consultarItem);
 api.get('/obtenerrelacionados/:model', ItemController.obtenerRelacionados);
+api.get('/listarmarcasvajilla/', ItemController.listarMarcasVajillas);
+api.get('/listarcolecciones/:brand', ItemController.listarColeccionesPorMarca);
 
 module.exports = api;

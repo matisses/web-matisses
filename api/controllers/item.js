@@ -521,6 +521,84 @@ function consultarMarca(req, res) {
   }).limit(1);
 }
 
+function listarMarcasVajillas(req, res) {
+  Item.aggregate([{
+      $match: {
+        "group.code": "024",
+        "availablestock": {
+          $gt: 0
+        }
+      }
+    },
+    {
+      $project: {
+        "brand": 1
+      }
+    },
+    {
+      $group: {
+        _id: "$brand._id"
+      }
+    },
+    {
+      $lookup: {
+        from: "brands",
+        localField: "_id",
+        foreignField: "_id",
+        as: "brand"
+      }
+    },
+    {
+      $unwind: "$brand"
+    },
+    {
+      $project: {
+        "_id": 0
+      }
+    },
+    {
+      $sort: {
+        "brand.name": 1
+      }
+    }
+  ], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send({
+        message: 'ocurrio un error al consultar las marcas de vajillas'
+      });
+    } else if (!result) {
+      res.status(404).send({
+        message: 'no se encontraron marcas de vajillas'
+      });
+    } else {
+      res.status(200).send(result);
+    }
+  });
+}
+
+function listarColeccionesPorMarca(req, res) {
+  Item.distinct(
+    "collection", {
+      "brand.code": req.params.brand,
+      "collection": {
+        $ne: null
+      }
+    }, (err, result) => {
+      if (err) {
+        res.status(500).send({
+          message: 'ocurrio un error al ejecutar la consulta'
+        });
+      } else if (!result) {
+        res.status(404).send({
+          message: 'no se encontraron marcas en la base de datos'
+        });
+      } else {
+        res.status(200).send(result);
+      }
+    });
+}
+
 function consultarColor(req, res) {
   Color.find({
     "code": req.query.fieldValue
@@ -605,5 +683,7 @@ module.exports = {
   consultarMarca,
   consultarColor,
   consultarMaterial,
-  obtenerRelacionados
+  obtenerRelacionados,
+  listarMarcasVajillas,
+  listarColeccionesPorMarca
 };
