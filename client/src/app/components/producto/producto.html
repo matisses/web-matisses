@@ -187,22 +187,22 @@
         <div class="detalles" *ngIf="item">
           <div class="row">
             <div class="col-xs-12">
-              <div class="detalles-collapse" (click)="toggleClass('#descripcion')" data-toggle="collapse" href="#collapseDescripcion" aria-expanded="false" aria-controls="collapseDescripcion">
-                <p>Descripción <span id="descripcion" class="icon-plus pull-right"></span></p>
+              <div class="detalles-collapse" (click)="toggleClass('#colores')" data-toggle="collapse" href="#collapseColores" aria-expanded="true" aria-controls="collapseColores">
+                <p>Colores <span id="colores" class="icon-minus pull-right"></span></p>
               </div>
-              <div class="collapse" id="collapseDescripcion">
-                <p style="padding: 0 10px;" [innerHTML]="item.description"></p>
+              <div class="collapse in" id="collapseColores">
+                <div class="color" [ngClass]="{'color-selected' : (item.shortitemcode === relacionado.shortitemcode)}" *ngFor="let relacionado of itemsRelacionados" [style.background-color]="relacionado.color.hexa" [routerLink]="['/producto', relacionado.shortitemcode]"
+                  data-toggle="tooltip" title="{{relacionado.color.name}}"></div>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-xs-12">
-              <div class="detalles-collapse" (click)="toggleClass('#colores')" data-toggle="collapse" href="#collapseColores" aria-expanded="false" aria-controls="collapseColores">
-                <p>Colores <span id="colores" class="icon-plus pull-right"></span></p>
+              <div class="detalles-collapse" (click)="toggleClass('#descripcion')" data-toggle="collapse" href="#collapseDescripcion" aria-expanded="false" aria-controls="collapseDescripcion">
+                <p>Descripción <span id="descripcion" class="icon-plus pull-right"></span></p>
               </div>
-              <div class="collapse" id="collapseColores">
-                <div class="color" [ngClass]="{'color-selected' : (item.shortitemcode === relacionado.shortitemcode)}" *ngFor="let relacionado of itemsRelacionados" [style.background-color]="relacionado.color.hexa" [routerLink]="['/producto', relacionado.shortitemcode]"
-                  data-toggle="tooltip" title="{{relacionado.color.name}}"></div>
+              <div class="collapse" id="collapseDescripcion">
+                <p style="padding: 0 10px;" [innerHTML]="item.description"></p>
               </div>
             </div>
           </div>
