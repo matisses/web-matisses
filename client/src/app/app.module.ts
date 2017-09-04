@@ -23,8 +23,11 @@ import { HomeComponent } from './components/home/home.component';
 import { RecommendedComponent } from './components/recommended/recommended.component';
 import { NewProductsComponent } from './components/new-products/new-products.component';
 import { BestSellerComponent } from './components/best-seller/best-seller.component';
-import { HomePrincipalComponent } from './components/principal/principal.component';
 import { TendenciasComponent } from './components/tendencias/tendencias.component';
+
+//Componentes de Carousel principal
+import { HomePrincipalComponent } from './components/principal/principal.component';
+import { Slide1Component } from './components/principal/slide1/slide-1.component';
 
 //Componentes de la seccion de categorias
 import { CategoryComponent } from './components/category/category.component';
@@ -90,6 +93,7 @@ import { MetaModule } from '@ngx-meta/core';
     NewProductsComponent,
     BestSellerComponent,
     HomePrincipalComponent,
+    Slide1Component,
     TopBannerComponent,
     PromocionComponent,
     MenuComponent,
