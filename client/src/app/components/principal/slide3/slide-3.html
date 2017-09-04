@@ -1,0 +1,70 @@
+<div class="container-fluid padding-0">
+  <div class="row">
+    <div class="col-xs-12">
+      <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{brand: '0016', collection: 'Hello FUNctionals'}">
+        <div class="principal-01">
+          <div class="container">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="text-01 text-center">
+                  <p>Dejate sorprender por los nuevos utensilios de cocina</p>
+                  <h2>Hello FUNctionals</h2>
+                  <!-- <p class="precio">Artículos desde $ </p> -->
+                  <p class="btn-banner01">
+                    IR A COMPRAR
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+<br/>
+
+<div class="container">
+  <div class="row" *ngIf="items && items.length > 0">
+    <div class="col-sm-3 col-xs-6 text-center" >
+      <div class="recomendaciones">
+        <p class="name">Pimentero<br><b>Functionals</b></p>
+        <a href="javascript:void(0)" [routerLink]="['/producto', items[0].shortitemcode]">
+          <img src="https://img.matisses.co/{{items[0].itemcode}}/parrilla/{{items[0].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[0].itemname}}">
+        </a>
+        <p class="precio"><b>$ {{items[0].priceaftervat | number}}</b></p>
+        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[0].shortitemcode]">Ir a comprar</button>
+      </div>
+    </div>
+    <div class="col-sm-3 col-xs-6 text-center" *ngIf="items && items.length >= 2">
+      <div class="recomendaciones">
+        <p class="name">Espátula<br><b>Functionals</b></p>
+        <a href="javascript:void(0)" [routerLink]="['/producto', items[1].shortitemcode]">
+          <img src="https://img.matisses.co/{{items[1].itemcode}}/parrilla/{{items[1].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[1].itemname}}">
+        </a>
+        <p class="precio"><b>$ {{items[1].priceaftervat | number}}</b></p>
+        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[1].shortitemcode]">Ir a comprar</button>
+      </div>
+    </div>
+    <div class="col-sm-3 col-xs-6 text-center" *ngIf="items && items.length >= 2">
+      <div class="recomendaciones">
+        <p class="name">Cortador de piña<br><b>Functionals</b></p>
+        <a href="javascript:void(0)" [routerLink]="['/producto', items[2].shortitemcode]">
+          <img src="https://img.matisses.co/{{items[2].itemcode}}/parrilla/{{items[2].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[2].itemname}}">
+        </a>
+        <p class="precio"><b>$ {{items[2].priceaftervat | number}}</b></p>
+        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[2].shortitemcode]">Ir a comprar</button>
+      </div>
+    </div>
+    <div class="col-sm-3 col-xs-6 text-center" *ngIf="items && items.length >= 2">
+      <div class="recomendaciones">
+        <p class="name">Batidor<br><b>Functionals</b></p>
+        <a href="javascript:void(0)" [routerLink]="['/producto', items[1].shortitemcode]">
+          <img src="https://img.matisses.co/{{items[3].itemcode}}/parrilla/{{items[3].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[3].itemname}}">
+        </a>
+        <p class="precio"><b>$ {{items[3].priceaftervat | number}}</b></p>
+        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[3].shortitemcode]">Ir a comprar</button>
+      </div>
+    </div>
+  </div>
+</div>

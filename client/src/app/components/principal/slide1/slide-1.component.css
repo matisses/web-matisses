@@ -1,0 +1,245 @@
+.padding-0 {
+  padding-left: 0;
+  padding-right: 0;
+  overflow: hidden;
+}
+
+.principal-01 {
+  background: url(../../../../assets/images/banner/slide-1/banner-01.jpg) no-repeat center top;
+  margin-top: 0px;
+  padding-top: 10px;
+  background-attachment: relative;
+  background-position: center center;
+  min-height: 450px;
+  width: 100%;
+  -webkit-background-size: 100%;
+  -moz-background-size: 100%;
+  -o-background-size: 100%;
+  background-size: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  color: #747C79;
+  cursor: pointer;
+}
+
+.text-01 {
+  color: #FFF;
+  position: relative;
+  padding-top: 15px;
+  bottom: -270px;
+  left: 36%;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 280px;
+}
+
+.text-01 p {
+  font-size: 20px;
+  margin: 0;
+  margin-bottom: 5px
+}
+
+.text-01 p::before {
+  content: '';
+  width: 45px;
+  height: 3px;
+  background-color: #9C8D7A;
+  position: absolute;
+  top: 45px;
+  left: 43%;
+  cursor: auto;
+}
+
+.text-01 h2 {
+  font-size: 50px;
+  margin: 0;
+}
+
+.text-01 .btn-banner01 {
+  padding: 5px 10px;
+  font-size: 15px;
+  background-color: #9C8D7A;
+  margin: 0;
+  width: 46%;
+  margin-left: 27%;
+  cursor: pointer;
+}
+
+.text-01 .precio {
+  font-size: 12px;
+}
+
+
+/* Estilos banner 02 */
+
+.recomendaciones {
+  border: 1px solid #d1d1d1;
+  color: #5B5B5B;
+  margin-bottom: 20px;
+}
+
+.recomendaciones .name {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 17px;
+}
+
+.recomendaciones .precio {
+  margin-top: 30px;
+  font-size: 20px;
+}
+
+.pull-bottom {
+  position: relative;
+  bottom: 0px;
+  margin-top: 11px;
+}
+
+.sub-banner .mensaje {
+  position: absolute;
+  top: 160px;
+  left: 147px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #FFF;
+  padding: 10px 20px;
+  font-size: 19px;
+}
+
+.sub-banner .mensaje p {
+  position: relative;
+  top: 15px;
+  margin-right: 15px;
+  line-height: 25px;
+}
+
+.sub-banner .mensaje p, .sub-banner .mensaje img {
+  display: inline-block;
+}
+
+.sub-banner-footer {
+  background-color: #EDEDED;
+  padding-top: 30px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.sub-banner-footer p {
+  color: #5B5B5B;
+  font-size: 20px;
+}
+
+.ir-comprar {
+  border: none;
+  cursor: pointer;
+  color: #FFF;
+  padding: 5px 20px;
+  background-color: #7C7C7C;
+}
+
+.ir-comprar:hover {
+  background-color: #6D9791;
+}
+
+@media screen and (max-width: 1200px) {
+  .text-01 {
+    left: 33%;
+  }
+  .recomendaciones .precio {
+    margin-top: 15px;
+  }
+  .sub-banner .mensaje {
+    top: 125px;
+    left: 95px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .principal-01 {
+    min-height: 300px;
+  }
+  .text-01 {
+    left: 28%;
+    bottom: -100px;
+  }
+  .text-01 .btn-banner01 {
+    font-size: 10px;
+  }
+  .recomendaciones .name {
+    font-size: 15px;
+  }
+  .recomendaciones .precio {
+    margin-top: 8px;
+  }
+  .sub-banner .mensaje {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .principal-01 {
+    min-height: 300px;
+  }
+  .text-01 {
+    width: 216px;
+    left: 33%;
+  }
+  .text-01 .btn-banner01 {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .principal-01 {
+    min-height: 250px;
+    background-position: center 50px;
+  }
+  .text-01 {
+    left: 21%;
+    bottom: -80px;
+    width: 200px;
+  }
+  .text-01 p {
+    font-size: 15px;
+  }
+  .text-01 h2 {
+    font-size: 40px;
+  }
+  .text-01 .precio {
+    font-size: 10px;
+  }
+  .text-01 p::before {
+    top: 40px;
+    left: 40%;
+  }
+  .recomendaciones .precio {
+    font-size: 15px;
+  }
+  .pull-bottom {
+    font-size: 10px;
+  }
+  .sub-banner {
+    margin-top: 15px;
+  }
+  .sub-banner-footer {
+    padding-top: 20px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .principal-01 {
+    min-height: 270px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .principal-01 {
+    min-height: 240px;
+  }
+  .text-01 {
+    left: 15%;
+  }
+  .recomendaciones .name {
+    font-size: 12px;
+  }
+}

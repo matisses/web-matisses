@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { ItemService } from '../../services/item.service';
-import { Item } from '../../models/item';
+import { ItemService } from '../../../services/item.service';
+import { Item } from '../../../models/item';
 
 //declare var jquery: any;
 declare var $: any;
 
 @Component({
-  selector: 'principal',
-  templateUrl: 'home-principal.html',
-  styleUrls: ['principal.component.css'],
+  selector: 'slide-1',
+  templateUrl: 'slide-1.html',
+  styleUrls: ['slide-1.component.css'],
   providers: [ItemService]
 })
 
-export class HomePrincipalComponent implements OnInit {
+export class Slide1Component implements OnInit {
   public items: Array<Item>;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService) {
@@ -22,11 +22,6 @@ export class HomePrincipalComponent implements OnInit {
 
   ngOnInit() {
     this.inicializarItems();
-
-    $('.carousel').carousel({
-      pause: null
-    })
-
   }
 
   private inicializarItems() {
