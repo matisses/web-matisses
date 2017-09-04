@@ -1,0 +1,239 @@
+.jumbotron {
+  padding: 20px;
+  margin: 20px;
+  border-radius: 6px;
+}
+
+.btn-primary {
+  background-color: #6D9791;
+  border-color: #6D9791;
+}
+
+.btn-primary:hover {
+  background-color: #425E63;
+  border-color: #425E63;
+}
+
+.table {
+  margin-bottom: 10px !important;
+}
+
+.pointer-cursor {
+  cursor: pointer;
+}
+
+.margin-top-15 {
+  margin-top: 15px;
+}
+
+.margin-bottom-10 {
+  margin-bottom: 10px;
+}
+
+.ng-valid[required], .ng-valid.required {
+  border-left: 5px solid #6D9197;
+}
+
+.ng-touched.ng-invalid[required], .ng-untouched.ng-pristine.ng-invalid[required].required-field {
+  border-left: 5px solid #65092D;
+}
+
+.input-calculadora {
+  font-size: 50px;
+  padding-right: 0;
+  height: 116px;
+}
+
+.contenedor-calculadora {
+  margin: 5px 1px 0px 0px;
+  padding: 5px;
+  background-color: #6D9791;
+  color: #FFFFFF;
+  font-size: 50px;
+  border: none;
+  height: 86.2px;
+  border-radius: 6px;
+}
+
+.contenedor-calculadora:hover {
+  background-color: #425E63;
+}
+
+.width-contenedor-calculadora {
+  width: 86.2px;
+}
+
+.width-contenedor-calculadora-cero {
+  width: 177.2px;
+}
+
+.moneda {
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+}
+
+.billete {
+  height: 70px;
+  cursor: pointer;
+}
+
+.img-dinero {
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+}
+
+.img-dinero:hover {
+  filter: grayscale(0%);
+  -webkit-filter: grayscale(0%);
+  -moz-filter: grayscale(0%);
+  -ms-filter: grayscale(0%);
+  -o-filter: grayscale(0%);
+}
+
+.img-dinero-activo {
+  filter: grayscale(0%);
+  -webkit-filter: grayscale(0%);
+  -moz-filter: grayscale(0%);
+  -ms-filter: grayscale(0%);
+  -o-filter: grayscale(0%);
+}
+
+.valor-dinero {
+  font-size: 25px;
+}
+
+.total-caja {
+  font-size: 32px;
+  margin-bottom: 0px;
+  font-weight: bold;
+}
+
+.contenedor {
+  overflow: hidden;
+}
+
+.datos-pago {
+  background-color: #f8f8f8;
+  padding: 15px 0px 0px 15px;
+  margin-top: -15px;
+  height: 100vh;
+}
+
+.input-cliente {
+  margin-top: 15px;
+}
+
+.h3-pagos {
+  margin-top: 0px;
+}
+
+.contenedor-medio-pago {
+  height: 60px;
+  padding: 14px;
+  border: 1px solid #6D9791;
+  font-size: 20px;
+  background-color: #f8f8f8;
+  border-radius: 6px;
+}
+
+.contenedor-medio-pago-activo {
+  height: 60px;
+  padding: 14px;
+  border: 1px solid #6D9791;
+  background-color: #6D9791;
+  color: #FFFFFF;
+  font-size: 20px;
+  border-radius: 6px;
+}
+
+.contenedor-medio-pago:hover {
+  border: 1px solid #6D9791;
+  background-color: #6D9791;
+  color: #FFFFFF;
+}
+
+.contenedor-total-medio-pago {
+  font-size: 20px;
+  padding-top: 15px;
+}
+
+.valor-oculto {
+  opacity: 0;
+  height: 0;
+  -o-transition: all 0.5s ease-out;
+  -moz-transition: all 0.5s ease-out;
+  -webkit-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+}
+
+.valor-visible {
+  opacity: 1;
+  height: fit-content;
+  margin-bottom: 10px;
+}
+
+.input-efectivo {
+  padding: 0px 16.5px;
+  font-size: 20px;
+}
+
+.btn-full {
+  width: 100%;
+}
+
+.img-franquicia {
+  height: 70px;
+}
+
+.input-referencia {
+  margin-top: 15px;
+}
+
+.iconos-items {
+  font-size: 29.5px;
+  padding-top: 7px;
+}
+
+.header-table-products {
+  background-color: #6D9791 !important;
+  color: #FFF;
+}
+
+.producto-descuento {
+  text-decoration: line-through;
+  color: #AAAAAA;
+}
+
+.tag-descuentos {
+  position: relative;
+  display: inline-block;
+  background: #990000;
+  color: #FFF;
+  padding: 0 5px;
+  border-radius: 4px;
+}
+
+.tag-descuentos::before {
+  position: absolute;
+  display: inline-block;
+  border-width: 7px 8px;
+  border-style: solid;
+  content: '';
+  right: 11px;
+  top: -12px;
+  border-color: transparent transparent #990000 transparent;
+}
+
+.contenedor-tabla {
+  overflow: hidden;
+}
+
+.nano {
+  height: 550px !important;
+  min-height: 100px;
+  width: 100%;
+}
