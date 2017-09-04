@@ -28,6 +28,8 @@ import { TendenciasComponent } from './components/tendencias/tendencias.componen
 //Componentes de Carousel principal
 import { HomePrincipalComponent } from './components/principal/principal.component';
 import { Slide1Component } from './components/principal/slide1/slide-1.component';
+import { Slide2Component } from './components/principal/slide2/slide-2.component';
+import { Slide3Component } from './components/principal/slide3/slide-3.component';
 
 //Componentes de la seccion de categorias
 import { CategoryComponent } from './components/category/category.component';
@@ -94,6 +96,8 @@ import { MetaModule } from '@ngx-meta/core';
     BestSellerComponent,
     HomePrincipalComponent,
     Slide1Component,
+    Slide2Component,
+    Slide3Component,
     TopBannerComponent,
     PromocionComponent,
     MenuComponent,

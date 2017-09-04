@@ -5,7 +5,7 @@
 }
 
 .principal-01 {
-  background: url(../../../../assets/images/banner/slide-1/banner-01.jpg) no-repeat center top;
+  background: url(../../../../assets/images/banner/slide-3/banner-01.jpg) no-repeat center top;
   margin-top: 0px;
   padding-top: 10px;
   background-attachment: relative;
@@ -28,8 +28,8 @@
   color: #FFF;
   position: relative;
   padding-top: 15px;
-  bottom: -270px;
-  left: 36%;
+  top: 0;
+  left: 11%;
   background-color: rgba(0, 0, 0, 0.5);
   width: 280px;
 }
@@ -104,6 +104,7 @@
   color: #FFF;
   padding: 10px 20px;
   font-size: 19px;
+  top: 10px;
 }
 
 .sub-banner .mensaje p {
