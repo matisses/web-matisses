@@ -24,12 +24,12 @@
 }
 
 .text-03 {
-  color: #FFF;
+  color: #9C8D7A;
   font-size: 30px;
-  margin-top: 10%;
-  background-color: rgba(24, 24, 24, 0.5);
-  width: 40%;
-  padding: 50px;
+  margin-top: 15px;
+  background-color: rgba(255, 255, 255, 0.7);
+  width: 45%;
+  padding: 20px;
 }
 
 .titulo {
@@ -40,11 +40,11 @@
 .titulo::before {
   content: '- ';
   position: absolute;
-  bottom: 50px;
-  height: 8px;
+  bottom: 25px;
+  height: 5px;
   width: 65px;
   color: transparent;
-  background-color: #FFF;
+  background-color: #9C8D7A;
 }
 
 @media screen and (max-width: 1200px) {
