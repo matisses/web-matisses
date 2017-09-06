@@ -125,6 +125,9 @@ h2::before {
   }
   .text {
     font-size: 30px;
+    position: initial;
+    width: 300px;
+    margin-top: 165px;
   }
   .p-principal {
     font-size: 25px
@@ -144,8 +147,6 @@ h2::before {
     background-position: center;
   }
   .text {
-    background-color: rgba(237, 237, 237, 0.5);
-    width: 60%;
     padding-bottom: 3px;
   }
   .btn-comprar::before {
@@ -169,7 +170,7 @@ h2::before {
   }
   .p-principal {
     font-size: 20px;
-    text-align: left;
+    text-align: center;
   }
   .btn-comprar {
     font-size: 10px;

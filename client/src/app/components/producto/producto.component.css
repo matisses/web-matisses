@@ -33,6 +33,7 @@
 
 .extras {
   text-align: right;
+  margin-top: 5px;
 }
 
 .extras span {
@@ -168,7 +169,8 @@
 }
 
 .detalles {
-  margin: 65px 0px;
+  margin-top: 65px;
+  margin-bottom: 30px;
   border-bottom: 1px solid #D1D1D1;
 }
 

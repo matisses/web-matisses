@@ -4,6 +4,54 @@
   overflow: hidden;
 }
 
+.carousel-control {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 8%;
+  font-size: 20px;
+  color: #5B5B5B;
+  text-align: center;
+  opacity: 1;
+}
+
+.glyphicon-menu-left, .glyphicon-menu-right {
+  background-color: rgba(237, 237, 237, 0.5);
+  padding: 10px;
+  top: 25%;
+  width: auto;
+  height: auto;
+}
+
+.glyphicon-menu-left:hover, .glyphicon-menu-right:hover {
+  background-color: #5B5B5B;
+  color: #EDEDED;
+}
+
+.carousel-control.left {
+  background-image: none;
+}
+
+.carousel-control.right {
+  right: 0;
+  left: auto;
+  background-image: none;
+}
+
+.carousel-indicators {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  z-index: 15;
+  width: 60%;
+  padding-left: 0;
+  margin-left: -30%;
+  text-align: center;
+  list-style: none;
+  opacity: 0.7;
+}
+
 .principal-03 {
   background: url(../../../assets/images/banner/banner-04.jpg) no-repeat center top;
   margin-top: 0px;
@@ -70,6 +118,9 @@
   .text-03 {
     width: 50%;
   }
+  .carousel-indicators {
+    top: 44%;
+  }
 }
 
 @media screen and (max-width: 767px) {
@@ -92,16 +143,22 @@
     height: 4px;
     width: 50px;
   }
+  .carousel-indicators {
+    top: 25%;
+  }
 }
 
 @media screen and (max-width: 414px) {
-
+  .carousel-control {
+    top: 15%;
+    bottom: 0;
+  }
 }
 
 @media screen and (max-width: 375px) {
-
+  .carousel-indicators {
+    top: 28%;
+  }
 }
 
-@media screen and (max-width: 320px) {
-
-}
+@media screen and (max-width: 320px) {}
