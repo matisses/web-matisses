@@ -69,6 +69,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   public categorias: Array<MenuItem>;
   public grupos: Array<MenuItem>;
   public subgrupos: Array<MenuItem>;
+  public mostrarBuscador: boolean = false;
 
 
   constructor(private _jwt: JWTService, private _menuService: MenuItemService, private _route: ActivatedRoute, private _router: Router) {
@@ -738,4 +739,35 @@ export class MenuComponent implements OnInit, AfterViewInit {
       this._router.navigate(['/categoria'], { queryParams: queryParamsObj });
     }
   }
+
+  public showSearch() {
+    if (this.mostrarBuscador) {
+      this.mostrarBuscador = false;
+      $("#menu").removeClass('top-204');
+    } else {
+      this.mostrarBuscador = true;
+      $("#menu").addClass('top-204');
+    }
+  }
+
+  public getBgMenuClass() {
+    if ($("#bg-menu").hasClass('stuck-bg') && this.mostrarBuscador) {
+      $("#bg-menu").addClass('height-190');
+    } else {
+      $("#bg-menu").removeClass('height-190');
+    }
+  }
+
+  public getMenuClass() {
+    if ($("#menu").hasClass('stuck-submenu') && this.mostrarBuscador) {
+      $("#menu").removeClass('top-204');
+      $("#menu").addClass('top-164');
+    } else if (this.mostrarBuscador) {
+      $("#menu").addClass('top-204');
+      $("#menu").removeClass('top-164');
+    } else {
+      $("#menu").removeClass('top-164');
+    }
+  }
+
 }

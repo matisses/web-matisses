@@ -187,7 +187,7 @@
   </div>
 </div>
 
-<div class="bg-white hidden-sm hidden-xs" sticky-bg-menu>
+<div class="bg-white hidden-sm hidden-xs" id="bg-menu" sticky-bg-menu [ngClass]="getBgMenuClass()">
   <div class="container hidden-sm hidden-xs header">
     <div sticky-menu>
       <div class="info-ppl" (mouseover)="cerrarOverlay()">
@@ -199,7 +199,7 @@
           </div>
           <div class="col-md-3 col-lg-offset-1 col-md-offset-0 col-sm-6 col-sm-offset-3 text-right">
             <button class="btn btn-search" type="button" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch">
-              <span class="glyphicon glyphicon-search" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"></span>
+              <span class="glyphicon glyphicon-search" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch" (click)="showSearch()"></span>
             </button>
           </div>
           <div class="col-lg-4 col-md-5">
@@ -234,7 +234,7 @@
                   <input id="searchField" [(ngModel)]="keywords" name="keywords" type="text" class="search-bar" placeholder="¿Qué estás buscando?">
                 </form>
                 <span class="input-group-btn">
-                  <button class="btn icon-close btn-close" type="button" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"></button>
+                  <button class="btn icon-close btn-close" type="button" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch" (click)="showSearch()"></button>
                 </span>
               </div>
             </div>
@@ -250,7 +250,7 @@
             </div>
             <!-- botones para el administrador -->
             <ul>
-              <li class="item-menu cursor-pointer" [ngClass]="{'selected' : estaSeleccionado(menuItem._id)}" *ngFor="let menuItem of menuItems" (mouseenter)="alternarSeleccionPadre(menuItem) + carrito.closeResumen() ">
+              <li class="item-menu cursor-pointer" [ngClass]="{'selected' : estaSeleccionado(menuItem._id)}" *ngFor="let menuItem of menuItems" (mouseenter)="alternarSeleccionPadre(menuItem) + carrito.closeResumen()">
                 {{menuItem.name}}
               </li>
             </ul>
@@ -261,7 +261,7 @@
   </div>
 </div>
 
-<div class="menu hidden-sm hidden-xs" sticky-submenu [@menuAnimation]="state" *ngIf="padreSeleccionado">
+<div class="menu hidden-sm hidden-xs" id="menu" sticky-submenu [@menuAnimation]="state" *ngIf="padreSeleccionado" [ngClass]="getMenuClass()">
   <div class="container">
     <div class="row">
       <div class="col-xs-12">

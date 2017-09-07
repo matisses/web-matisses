@@ -5,6 +5,18 @@
   margin-bottom: 10px;
 }
 
+.top-204 {
+  top: 204px !important;
+}
+
+.height-190 {
+  height: 190px !important;
+}
+
+.top-164 {
+  top: 164px !important;
+}
+
 .header {
   margin-top: 10px;
   -webkit-user-select: none;
