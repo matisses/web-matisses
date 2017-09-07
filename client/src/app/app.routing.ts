@@ -53,6 +53,7 @@ const appRoutes: Routes = [
       }
     ]
   },
+  { path: '92-consola', redirectTo: 'categoria?group=002' },
   { path: 'categoria', component: CategoryComponent, pathMatch: 'full' },
   { path: 'quienes', component: QuienesComponent },
   { path: 'tiendas', component: TiendasComponent },
@@ -73,7 +74,6 @@ const appRoutes: Routes = [
   { path: 'politica-manejo-de-datos', component: PoliticaDatosComponent },
   { path: 'politica-de-privacidad', component: PoliticaPrivacidadComponent },
   { path: 'preguntas-frecuentes', component: PreguntasFrecuentesComponent },
-  { path: '92-consola', redirectTo: 'categoria?group=002' }, 
   { path: '**', component: ErrorComponent } //pagina 404
 ];
 
