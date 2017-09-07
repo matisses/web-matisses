@@ -73,7 +73,7 @@ const appRoutes: Routes = [
   { path: 'politica-manejo-de-datos', component: PoliticaDatosComponent },
   { path: 'politica-de-privacidad', component: PoliticaPrivacidadComponent },
   { path: 'preguntas-frecuentes', component: PreguntasFrecuentesComponent },
-  { path: '92-consola', redirectTo: 'categoria?group=002&subgroup=006', pathMatch: 'full' }, 
+  { path: '92-consola', redirectTo: 'categoria?group=002&subgroup=006' }, 
   { path: '**', component: ErrorComponent } //pagina 404
 ];
 
