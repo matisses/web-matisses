@@ -52,6 +52,11 @@ input:focus, button:focus, span:focus, p:focus, li:focus, div:focus, textarea:fo
   text-align: center;
 }
 
+.text-end-footer a {
+  color: #5B5B5B;
+  text-decoration: none;
+}
+
 @media screen and (max-width: 991px) {
   .padding-top {
     padding-top: 60px;
