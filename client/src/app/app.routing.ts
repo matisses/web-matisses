@@ -37,7 +37,7 @@ const appRoutes: Routes = [
         data: {
           meta: {
             title: 'Matisses',
-            description: 'Descripcion para SEO del sitio'
+            description: 'Compra online todos nuestros artículos y disfruta de lo mejor en mobiliario y accesorios para tu hogar.'
           }
         }
       },
@@ -46,7 +46,7 @@ const appRoutes: Routes = [
         component: ProductoComponent,
         data: {
           meta: {
-            title: 'Matisses',
+            title: 'item',
             description: ''
           }
         }
@@ -73,7 +73,6 @@ const appRoutes: Routes = [
   { path: 'politica-manejo-de-datos', component: PoliticaDatosComponent },
   { path: 'politica-de-privacidad', component: PoliticaPrivacidadComponent },
   { path: 'preguntas-frecuentes', component: PreguntasFrecuentesComponent },
-  { path: '92-consola', redirectTo: 'categoria?group=002&subgroup=006', pathMatch: 'full' }, 
   { path: '**', component: ErrorComponent } //pagina 404
 ];
 
