@@ -41,16 +41,16 @@ const appRoutes: Routes = [
           }
         }
       },
-      // {
-      //   path: 'producto/:item',
-      //   component: ProductoComponent,
-      //   data: {
-      //     meta: {
-      //       title: 'Matisses',
-      //       description: ''
-      //     }
-      //   }
-      // }
+      {
+        path: 'producto/:item',
+        component: ProductoComponent,
+        data: {
+          meta: {
+            title: 'Matisses',
+            description: ''
+          }
+        }
+      }
     ]
   },
   { path: '92-consola', redirectTo: 'categoria?group=002' },
