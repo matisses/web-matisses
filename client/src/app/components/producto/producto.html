@@ -183,6 +183,15 @@
               </button>
             </div>
           </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="btn-mco">
+                <a href="javascript:void(0);">
+                  <p>Comprar en 12 cuotas de $ {{(item.priceaftervat / 12) | number}}</p>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="detalles" *ngIf="item">
           <div class="row">
