@@ -77,7 +77,7 @@ export class ContactanosComponent implements OnInit {
           'asunto': this.subject,
           'mensaje': this.message
         },
-        from: this.firstName + '<' + this.mail + '>',
+        from: 'Contacto Matisses <info@matisses.co>',
         to: [this.toMail, this.mail],
         subject: this.subject
       }
