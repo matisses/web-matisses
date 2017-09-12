@@ -8,6 +8,7 @@ export class Item {
   public description: string;
   public availablestock: number;
   public model: string;
+  public urlmercadolibre: string;
   public newFrom: Date;
   public active: boolean;
   public selectedQuantity: number;

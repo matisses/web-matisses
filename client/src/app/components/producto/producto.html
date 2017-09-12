@@ -183,10 +183,10 @@
               </button>
             </div>
           </div>
-          <div class="row">
+          <div class="row" *ngIf="!item.urlmercadolibre && item.urlmercadolibre.length > 0">
             <div class="col-xs-12">
               <div class="btn-mco">
-                <a href="javascript:void(0);">
+                <a href="{{item.urlmercadolibre}}" target="_blank">
                   <p>Comprar en 12 cuotas de $ {{(item.priceaftervat / 12) | number}}</p>
                 </a>
               </div>
