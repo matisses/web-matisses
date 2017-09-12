@@ -24,6 +24,7 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   public selectedQuantity: number = 1;
   public itemPosition: number = 0;
   public totalStock: number = 0;
+  public cuotaMCO: number = 0;
   public existe360: boolean = false;
   public existeWow: boolean = false;
   public existePlantilla: boolean = false;
@@ -77,6 +78,7 @@ export class ProductoComponent implements OnInit, AfterViewInit {
       let itemCode: string = params['item'];
       this._itemService.find(itemCode).subscribe(
         response => {
+          console.log(response.result[0]);
           this.item = response.result[0];
 
           let urlImage: string = 'https://img.matisses.co/' + this.item.itemcode + '/images/' + this.item.itemcode + '_01.jpg';
@@ -90,6 +92,8 @@ export class ProductoComponent implements OnInit, AfterViewInit {
           this.validarPlantilla();
           this.cargarInventario();
           this.obtenerRelacionados();
+
+          this.cuotaMCO = Math.round(this.item.priceaftervat / 12);
 
           //validar si el ítem tiene descuentos
           this._descuentosService.findDiscount(this.item.itemcode).subscribe(

@@ -168,6 +168,10 @@
   padding-left: 0;
 }
 
+.padding-right {
+  padding-right: 0;
+}
+
 .detalles {
   margin-top: 65px;
   margin-bottom: 30px;
@@ -341,6 +345,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  display: inline-block;
 }
 
 .btn-mco:hover {
@@ -353,6 +358,10 @@
   text-decoration: none;
 }
 
+.info-mco {
+  display: inline-block;
+}
+
 @media screen and (max-width: 1200px) {
   .detalles {
     margin: 40px 0px;
@@ -362,6 +371,9 @@
   }
   .icon-envios {
     left: 20px;
+  }
+  .btn-mco {
+    width: 304px;
   }
 }
 
@@ -406,6 +418,9 @@
   .icon-envios {
     left: 75px;
   }
+  .btn-mco {
+    width: 240px;
+  }
 }
 
 @media screen and (max-width: 767px) {
@@ -442,5 +457,23 @@
   }
   .btn-cantidad {
     padding: 3px;
+  }
+  .btn-mco {
+    width: 245px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .btn-mco {
+    width: 232px
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .btn-mco {
+    width: 214px;
+  }
+  .btn-mco p {
+    font-size: 12px;
   }
 }
