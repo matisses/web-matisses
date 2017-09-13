@@ -195,21 +195,32 @@
               </button>
             </div>
           </div>
-          <div class="row" *ngIf="item.urlmercadolibre != null && item.urlmercadolibre.length > 0">
-            <div class="col-xs-11">
-              <div class="btn-mco">
-                <a href="{{item.urlmercadolibre}}" target="_blank">
-                  <p>12 cuotas de $ {{cuotaMCO | number}} sin interés.</p>
-                </a>
-              </div>
-              <div class="info-mco">
-                <a href="http://192.168.5.189:4200/sin-intereses" target="_blank"><span class="icon-info"></span></a>
+          <div *ngIf="item.urlmercadolibre != null && item.urlmercadolibre.length > 0">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="link-mco">
+                  <a href="{{item.urlmercadolibre}}" target="_blank">
+                    <span class="icon-credit-card"></span>Ir a comprar hasta en 12 cuotas de $ {{cuotaMCO | number}} sin intereses.
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12">
-              <p>*Aplican condiciones y restricciones</p>
+            <!-- <div class="row">
+              <div class="col-xs-12">
+                <button type="button" class="btn btn-mco">Comprar sin intereses</button>
+              </div>
+            </div> -->
+            <div class="row">
+              <div class="col-xs-12">
+                <p style="font-size:12px; margin:0;">*Aplican condiciones y restricciones</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <a href="http://192.168.5.189:4200/sin-intereses" target="_blank">
+                  Más información <span class="icon-info"></span>
+                </a>
+              </div>
             </div>
           </div>
         </div>

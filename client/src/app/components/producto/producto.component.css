@@ -333,33 +333,33 @@
   margin-top: 15px;
 }
 
-.btn-mco {
-  background-color: #6D9791;
+.link-mco {
   margin-top: 10px;
-  color: #FFF;
-  padding: 5px;
-  width: 324px;
-  text-align: center;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  display: inline-block;
+}
+
+.link-mco a {
+  color: #425E63;
+  font-weight: bold;
+}
+
+.link-mco:hover {
+  color: #6D9791;
+}
+
+.link-mco span {
+  margin-right: 10px;
+}
+
+.btn-mco {
+  border: 1px solid #6D9791;
+  color: #425E63;
+  background-color: transparent;
 }
 
 .btn-mco:hover {
-  background-color: #425E63;
-}
-
-.btn-mco p, .btn-mco a {
-  margin-bottom: 0;
+  border: 1px solid #425E63;
   color: #FFF;
-  text-decoration: none;
-}
-
-.info-mco {
-  display: inline-block;
+  background-color: #425E63;
 }
 
 @media screen and (max-width: 1200px) {
@@ -371,9 +371,6 @@
   }
   .icon-envios {
     left: 20px;
-  }
-  .btn-mco {
-    width: 304px;
   }
 }
 
@@ -418,9 +415,6 @@
   .icon-envios {
     left: 75px;
   }
-  .btn-mco {
-    width: 240px;
-  }
 }
 
 @media screen and (max-width: 767px) {
@@ -458,22 +452,8 @@
   .btn-cantidad {
     padding: 3px;
   }
-  .btn-mco {
-    width: 245px;
-  }
 }
 
-@media screen and (max-width: 375px) {
-  .btn-mco {
-    width: 232px
-  }
-}
+@media screen and (max-width: 375px) {}
 
-@media screen and (max-width: 320px) {
-  .btn-mco {
-    width: 214px;
-  }
-  .btn-mco p {
-    font-size: 12px;
-  }
-}
+@media screen and (max-width: 320px) {}
