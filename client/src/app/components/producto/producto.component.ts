@@ -53,7 +53,7 @@ export class ProductoComponent implements OnInit, AfterViewInit {
     });
     $("#popover2").hover(function() {
       $("#popover2").click();
-    });
+    });    
   }
 
   ngAfterViewInit() {

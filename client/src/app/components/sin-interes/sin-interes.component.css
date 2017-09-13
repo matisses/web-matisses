@@ -1,0 +1,57 @@
+.stuck-body {
+  margin-top: 125px;
+}
+
+.padding-0 {
+  padding-left: 0;
+  padding-right: 0;
+  overflow: hidden;
+}
+
+.img-banner {
+  background: url(../../../assets/images/banner-sin-interes.jpg) no-repeat center center;
+  background-position: center center;
+  min-height: 300px;
+  width: 100%;
+  -webkit-background-size: 100%;
+  -moz-background-size: 100%;
+  -o-background-size: 100%;
+  background-size: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.img-banner h2 {
+  position: absolute;
+  color: #FFF;
+  background-color: rgba(0, 0, 0, 0.5);
+  left: 0;
+  width: 400px;
+  margin-top: 8%;
+  font-size: 30px;
+  padding: 15px;
+}
+
+@media screen and (max-width: 991px) {
+  .stuck-body {
+    margin-top: 0px;
+  }
+  .content {
+    margin-top: -10px;
+  }
+}
+
+@media screen and (max-width: 767px) {}
+
+@media screen and (max-width: 500px) {
+  .img-banner {
+    min-height: 150px;
+  }
+  .img-banner h2 {
+    font-size: 20px;
+    padding: 10px;
+    width: 200px;
+  }
+}
