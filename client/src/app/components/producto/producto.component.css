@@ -362,6 +362,11 @@
   background-color: #425E63;
 }
 
+.detalles-mco {
+  margin-top: 20px;
+  margin-bottom: 11px;
+}
+
 @media screen and (max-width: 1200px) {
   .detalles {
     margin: 40px 0px;

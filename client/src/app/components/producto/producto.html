@@ -224,7 +224,7 @@
             </div>
           </div>
         </div>
-        <div class="detalles" *ngIf="item">
+        <div class="detalles" *ngIf="item" [ngClass]="{'detalles-mco' : item.urlmercadolibre != null && item.urlmercadolibre.length > 0}">
           <div class="row">
             <div class="col-xs-12">
               <div class="detalles-collapse" (click)="toggleClass('#colores')" data-toggle="collapse" href="#collapseColores" aria-expanded="true" aria-controls="collapseColores">
