@@ -23,6 +23,7 @@ function consultarItem(req, res) {
         message: 'no se encontró ningún producto con el itemcode ' + req.query.itemcode
       });
     } else {
+      console.log(result);
       res.status(200).send({
         result: result
       });

@@ -36,6 +36,12 @@ export class HeaderComponent implements OnInit {
     });
 
     this.validarSaldoCarrito();
+
+    $(document).ready(function() {
+      $(".modal-backdrop").remove();
+      $("body").removeClass('modal-open');
+    });
+
   }
 
   public cargarInfoModal() {

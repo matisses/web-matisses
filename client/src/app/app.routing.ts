@@ -23,6 +23,7 @@ import { TerminosComponent } from './components/terminos/terminos.component';
 import { PoliticaDatosComponent } from './components/politica-datos/politica-datos.component';
 import { PoliticaPrivacidadComponent } from './components/politica-privacidad/politica-privacidad.component';
 import { PreguntasFrecuentesComponent } from './components/preguntas-frecuentes/preguntas-frecuentes.component';
+import { SinInteresComponent } from './components/sin-interes/sin-interes.component';
 
 
 const appRoutes: Routes = [
@@ -53,11 +54,12 @@ const appRoutes: Routes = [
       }
     ]
   },
-  { path: '92-consola', redirectTo: 'consola', pathMatch: 'full' },
-  { path: 'consola', loadChildren:'./cagroup=002' },
+
+  // { path: '92-consola', redirectTo: 'categoria?group=002' },
   { path: 'categoria', component: CategoryComponent, pathMatch: 'full' },
   { path: 'quienes', component: QuienesComponent },
   { path: 'tiendas', component: TiendasComponent },
+  { path: 'sin-intereses', component: SinInteresComponent },
   { path: 'trabaja-con-nosotros', component: TrabajaComponent },
   { path: 'garantias', component: GarantiasComponent },
   { path: 'envios', component: EnviosComponent },

@@ -95,7 +95,7 @@ export class CategoryComponent implements OnInit {
 
             //Cambiar imagen categoria
             console.log('cambiando clase');
-            $('.img-category').css('background','url(/assets/images/categorias/' + response.result[0].group.code + '.jpg) no-repeat center top');
+            $('.img-category').css('background', 'url(/assets/images/categorias/' + response.result[0].group.code + '.jpg) no-repeat center top');
           } catch (e) {
             console.error(e);
           }

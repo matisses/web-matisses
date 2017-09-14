@@ -4,6 +4,9 @@
 <div class="modal fade modal" id="zoomModal" tabindex="-1" role="dialog" aria-labelledby="zoomLabel" *ngIf="item">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content modal-2">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
       <div class="modal-body">
         <div id="carousel-modal" class="carousel slide" data-ride="carousel">
           <!-- Wrapper for slides -->
@@ -35,6 +38,9 @@
 <div class="modal fade modal" id="plantillaModal" tabindex="-1" role="dialog" aria-labelledby="plantillaLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content modal-2">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
       <div class="modal-body">
         <img id="plantilla" width="100%" alt="">
       </div>
@@ -47,6 +53,9 @@
 <div class="modal fade modal hidden-xs" id="360Modal" tabindex="-1" role="dialog" aria-labelledby="360Label">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content modal-2">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
       <div class="modal-body">
         <div class="animacion">
           <iframe id="frame360" class="animacion-iframe" frameborder="0" vspace="0" hspace="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" scrolling="no"></iframe>
@@ -61,6 +70,9 @@
 <div class="modal fade modal hidden-xs" id="wowModal" tabindex="-1" role="dialog" aria-labelledby="wowLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content modal-2">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
       <div class="modal-body">
         <div class="animacion">
           <iframe id="frameWow" class="animacion-iframe" frameborder="0" vspace="0" hspace="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" scrolling="no"></iframe>
@@ -174,7 +186,7 @@
                 </form>
               </div>
             </div>
-            <div class="col-md-9 col-xs-8 padding-left">
+            <div class="col-md-9 col-xs-8 padding-left padding-right">
               <button type="button" class="btn btn-carrito" (click)="agregarCarrito()">
                 Agregar al carrito
               </button>
@@ -183,8 +195,36 @@
               </button>
             </div>
           </div>
+          <div *ngIf="item.urlmercadolibre != null && item.urlmercadolibre.length > 0">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="link-mco">
+                  <a href="{{item.urlmercadolibre}}" target="_blank">
+                    <span class="icon-credit-card"></span>Ir a comprar hasta en 12 cuotas de $ {{cuotaMCO | number}} sin intereses.
+                  </a>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="row">
+              <div class="col-xs-12">
+                <button type="button" class="btn btn-mco">Comprar sin intereses</button>
+              </div>
+            </div> -->
+            <div class="row">
+              <div class="col-xs-12">
+                <p style="font-size:12px; margin:0;">*Aplican condiciones y restricciones</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <a href="http://192.168.5.189:4200/sin-intereses" target="_blank">
+                  Más información <span class="icon-info"></span>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="detalles" *ngIf="item">
+        <div class="detalles" *ngIf="item" [ngClass]="{'detalles-mco' : item.urlmercadolibre != null && item.urlmercadolibre.length > 0}">
           <div class="row">
             <div class="col-xs-12">
               <div class="detalles-collapse" (click)="toggleClass('#colores')" data-toggle="collapse" href="#collapseColores" aria-expanded="true" aria-controls="collapseColores">

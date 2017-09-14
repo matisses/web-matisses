@@ -8,6 +8,7 @@ var ItemSchema = Schema({
   shortitemcode: String,
   itemname: String,
   description: String,
+  urlmercadolibre: String,
   availablestock: Number,
   urlMercadolibre: String,
   model: String,
