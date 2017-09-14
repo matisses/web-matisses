@@ -10,6 +10,7 @@ var ItemSchema = Schema({
   description: String,
   urlmercadolibre: String,
   availablestock: Number,
+  urlMercadolibre: String,
   model: String,
   newfrom: Date,
   active: String,
