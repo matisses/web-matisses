@@ -190,6 +190,20 @@ export class VajillaComponent implements OnInit {
     $('#modalVajillas').modal('show');
   }
 
+  public eliminarVajilla(vajilla) {
+    console.log('Eliminando vajilla ' + vajilla);
+    this.vajilla = vajilla;
+    // this._crockeryService.remove(vajilla._id).subscribe(
+    //   response => {
+    //     this.vajilla.detail = new Array<any>();
+    //     for (let i = 0; i < response.length; i++) {
+    //       this.vajilla.detail.push(response[i].item);
+    //     }
+    //   }, error => { console.error(error); }
+    // );
+    console.log('Vajilla eliminada');
+  }
+
   private compareItems(a, b) {
     return a.priceaftervat - b.priceaftervat;
   }

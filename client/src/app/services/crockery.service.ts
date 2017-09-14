@@ -21,6 +21,15 @@ export class CrockeryService {
       .map(res => res.json());
   }
 
+  public remove(vajilla) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.url + 'crockery/', vajilla, { headers: headers })
+      .map(res => res.json());
+  }
+
   public list() {
     const headers = new Headers({
       'Content-Type': 'application/json'

@@ -98,6 +98,25 @@ function listItems(req, res) {
   });
 }
 
+function remove(req, res) {
+  Vajilla.remove({
+    _id: ObjectId(req.params._id)
+  }, (err, response) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send({
+        message: 'error al eliminar la vajilla'
+      });
+    } else if (!response) {
+      res.status(404).send({
+        message: 'no se encontró la vajilla'
+      });
+    } else {
+      return res.status(200).send(response);
+    }
+  });
+}
+
 module.exports = {
   save,
   list,

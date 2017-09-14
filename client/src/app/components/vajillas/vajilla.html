@@ -300,6 +300,8 @@
               <div class="col-xs-12 text-center">
                 <p>{{vajilla.name}}</p>
                 <button type="button" class="btn-coleccion" (click)="mostrarVajilla(vajilla)">Mostrar</button>
+                <button type="button" class="btn-coleccion" data-toggle="modal" data-target="#modalEditar">Editar</button>
+                <button type="button" class="btn-coleccion" (click)="eliminarVajilla(vajilla)">Eliminar</button>
               </div>
             </div>
           </div>
