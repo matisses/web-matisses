@@ -24,11 +24,6 @@ import { PoliticaDatosComponent } from './components/politica-datos/politica-dat
 import { PoliticaPrivacidadComponent } from './components/politica-privacidad/politica-privacidad.component';
 import { PreguntasFrecuentesComponent } from './components/preguntas-frecuentes/preguntas-frecuentes.component';
 
-let routes: Routes = [
-{ path: '92-consola', redirectTo: 'consola', pathMatch: 'full'},
-{ path: 'consola', loadChildren: './categoria?group=002' }
-];
-
 
 const appRoutes: Routes = [
   //{path: '', component: HomeComponent},
@@ -58,6 +53,8 @@ const appRoutes: Routes = [
       }
     ]
   },
+  { path: '92-consola', redirectTo: 'consola', pathMatch: 'full' },
+  { path: 'consola', loadChildren:'./cagroup=002' },
   { path: 'categoria', component: CategoryComponent, pathMatch: 'full' },
   { path: 'quienes', component: QuienesComponent },
   { path: 'tiendas', component: TiendasComponent },
