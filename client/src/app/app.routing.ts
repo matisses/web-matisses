@@ -53,7 +53,8 @@ const appRoutes: Routes = [
       }
     ]
   },
-  // { path: '92-consola', redirectTo: 'categoria', loadChildren:'./group=002' },
+  { path: '92-consola', redirectTo: 'consola', pathMatch: 'full' },
+  { path: 'consola', loadChildren:'./categoria?group=002' },
   { path: 'categoria', component: CategoryComponent, pathMatch: 'full' },
   { path: 'quienes', component: QuienesComponent },
   { path: 'tiendas', component: TiendasComponent },
