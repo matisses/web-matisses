@@ -15,7 +15,13 @@ declare var $: any;
 
 export class VajillaComponent implements OnInit {
   public cantidadSeleccionada: number = 1;
+  public itemsXPag: string;
+  public orderByStr: string;
+  public messageError: string;
+  public messageExit: string;
+  public valid: boolean = true;
   public vajilla: Vajilla;
+  public pages: Array<number>;
   public marcas: Array<any>;
   public colecciones: Array<any>;
   public itemsColeccion: Array<Item>;
@@ -25,7 +31,12 @@ export class VajillaComponent implements OnInit {
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _crockeryService: CrockeryService) {
     this.itemsSeleccionados = new Map<String, Item>();
     this.vajillas = new Array<Vajilla>();
+    this.pages = new Array<number>();
     this.limpiarFormulario();
+    this.itemsXPag = '12 x pag';
+    this.orderByStr = 'Nuevos';
+    this.messageExit = '';
+    this.messageError = '';
   }
 
   ngOnInit() {
@@ -106,23 +117,26 @@ export class VajillaComponent implements OnInit {
     this.vajilla.priceTxt = this.vajilla.priceTxt.substring(0, this.vajilla.priceTxt.length - 3);
   }
 
-  public guardarVajilla() {
-    if (!this.vajilla.name || this.vajilla.name.length === 0) {
-      console.warn('no se ingreso el nombre de la vajilla');
+  public guardarVajilla(ModalForm) {
+    this.valid = true;
+    if (!this.vajilla.name || this.vajilla.name.length === 0 || !this.vajilla.brand || !this.vajilla.coleccion || this.vajilla.items === 0) {
+      console.error('Debes llenar todos los campos obligatorios para poder proceder con la creación.');
+      this.messageError = 'Debes llenar todos los campos obligatorios para poder proceder con la creación.';
+      this.valid = false;
       return;
     }
-    if (!this.vajilla.brand) {
-      console.warn('no se selecciono la marca de la vajilla');
-      return;
-    }
-    if (!this.vajilla.coleccion) {
-      console.warn('no se selecciono la coleccion de la vajilla');
-      return;
-    }
-    if (this.vajilla.items === 0) {
-      console.warn('no se selecciono ningun item para la vajilla');
-      return;
-    }
+    //if (!this.vajilla.brand) {
+    //  console.warn('no se selecciono la marca de la vajilla');
+    //  return;
+    //}
+    //if (!this.vajilla.coleccion) {
+    //  console.warn('no se selecciono la coleccion de la vajilla');
+    //  return;
+    //}
+    //if (this.vajilla.items === 0) {
+    //  console.warn('no se selecciono ningun item para la vajilla');
+    //  return;
+    //}
     this.vajilla.detail = new Array<any>();
     this.itemsSeleccionados.forEach((value, key, map) => {
       let item = {
@@ -134,20 +148,32 @@ export class VajillaComponent implements OnInit {
     this._crockeryService.create(this.vajilla).subscribe(
       response => {
         console.log('vajilla creada con exito. ');
-        this.limpiarFormulario();
+        this.messageExit = 'Vajilla creada con éxito.';
+        this.refreshModal(ModalForm);
+        this.cargarVajillas();
         $('#modalEditar').modal('hide');
-      }, error => { console.error(error); }
+      }, error => {
+        console.error(error);
+        this.messageError = 'Se produjo un error interno. Por favor inténtalo más tarde.';
+      }
     );
   }
 
   private limpiarFormulario() {
     this.vajilla = new Vajilla();
+    this.itemsColeccion = new Array<Item>();
     this.vajilla.brand = '';
     this.vajilla.coleccion = '';
     this.vajilla.pieces = 0;
     this.vajilla.price = 0;
     this.vajilla.priceTxt = '0';
     this.vajilla.items = 0;
+    this.messageError = '';
+  }
+
+  public refreshModal(ModalForm) {
+    ModalForm.reset();
+    this.limpiarFormulario();
   }
 
   public mostrarVajilla(vajilla) {
@@ -156,7 +182,7 @@ export class VajillaComponent implements OnInit {
     this._crockeryService.listItems(vajilla._id).subscribe(
       response => {
         this.vajilla.detail = new Array<any>();
-        for(let i = 0; i < response.length; i++){
+        for (let i = 0; i < response.length; i++) {
           this.vajilla.detail.push(response[i].item);
         }
       }, error => { console.error(error); }
@@ -164,4 +190,7 @@ export class VajillaComponent implements OnInit {
     $('#modalVajillas').modal('show');
   }
 
+  private compareItems(a, b) {
+    return a.priceaftervat - b.priceaftervat;
+  }
 }

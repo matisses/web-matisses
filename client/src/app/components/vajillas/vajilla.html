@@ -4,26 +4,35 @@
 <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="modalEditarLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <form>
+      <form id="form_modal" #ModalForm="ngForm" (submit)="guardarVajilla(ModalForm)">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="icon-close"></span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="icon-close" (click)="refreshModal(ModalForm)"></span></button>
           <h4 class="modal-title text-center" id="modalEditar">Agregar nueva vajilla</h4>
+        </div>
+        <div class="row" *ngIf="messageError != null && messageError.length > 0">
+          <div class="col-xs-12">
+            <div class="alert alert-danger" role="alert">
+              <p>{{messageError}}</p>
+            </div>
+          </div>
         </div>
         <div class="modal-body">
           <div class="container-fluid">
             <div class="row">
               <div class="col-xs-12">
                 <div class="form-group">
-                  <label for="name">Nombre:</label>
-                  <input type="text" class="form-control" id="name" name="name" [(ngModel)]="vajilla.name" placeholder="ej: Vajilla Domo Gold 6 puestos">
+                  <label for="name">Nombre*</label>
+                  <input id="name" type="text" class="form-control" [class.required-field]="!valid" name="name" [(ngModel)]="vajilla.name" placeholder="ej: Vajilla Domo Gold 6 puestos" required>
+                  <!-- form-control ng-pristine ng-invalid ng-touched -->
                 </div>
               </div>
             </div>
+
             <div class="row">
               <div class="col-sm-6">
                 <div class="form-group">
-                  <label for="marca">Marca:</label>
-                  <select id="marca" name="marca" class="form-control" [(ngModel)]="vajilla.brand" (change)="cargarColecciones()">
+                  <label for="marca">Marca*</label>
+                  <select id="marca" name="marca" class="form-control" [class.required-field]="!valid" [(ngModel)]="vajilla.brand" (change)="cargarColecciones()" required>
                     <option disabled selected value>Seleccione una</option>
                     <option [selected]="vajilla.brand == marca.code" *ngFor="let marca of marcas" [ngValue]="marca.code">{{marca.name}}</option>
                   </select>
@@ -31,8 +40,8 @@
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
-                  <label for="collection">Colección:</label>
-                  <select id="collection" name="collection" class="form-control" [(ngModel)]="vajilla.coleccion" (change)="cargarProductos()">
+                  <label for="collection">Colección*</label>
+                  <select id="collection" name="collection" class="form-control" [class.required-field]="!valid" [(ngModel)]="vajilla.coleccion" (change)="cargarProductos()" required>
                     <option disabled selected value>Seleccione una</option>
                     <option [selected]="vajilla.coleccion == coleccion" *ngFor="let coleccion of colecciones" [ngValue]="coleccion">{{coleccion}}</option>
                   </select>
@@ -115,7 +124,7 @@
                 </div>
               </div>
               <div class="col-xs-4">
-                <button type="button" (click)="guardarVajilla()" class="btn btn-carrito">Crear</button>
+                <button class="btn btn-carrito" type="submit" name="guardarVajilla">Crear</button>
               </div>
             </div>
           </div>
@@ -130,6 +139,13 @@
 <div class="modal fade" id="modalVajillas" tabindex="-1" role="dialog" aria-labelledby="modalVajillasLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
+      <div class="row" *ngIf="messageExit != null && messageExit.length > 0">
+        <div class="col-xs-12">
+          <div class="alert alert-success" role="alert">
+            <p>{{messageExit}}</p>
+          </div>
+        </div>
+      </div>
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="icon-close"></span></button>
         <h4 class="modal-title text-center" id="modalVajillas">{{vajilla.name}}</h4>
@@ -223,10 +239,10 @@
                 {{itemsXPag}} <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(12)">12 x pag</a></li>
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(24)">24 x pag</a></li>
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(36)">36 x pag</a></li>
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
+              <li><a (click)="cambiarTamanoPagina(12)">12 x pag</a></li>
+              <li><a (click)="cambiarTamanoPagina(24)">24 x pag</a></li>
+              <li><a (click)="cambiarTamanoPagina(36)">36 x pag</a></li>
+              <li><a (click)="cambiarTamanoPagina(10000)">Todos</a></li>
             </ul>
           </div>
         </div>
@@ -239,11 +255,11 @@
                     </span><span class="caret"></span>
                 </button>
             <ul class="dropdown-menu" aria-labelledby="ordenar">
-              <li><a href="javascript:void(0);" (click)="changeOrder('price')">Precio: más bajos primero</a></li>
-              <li><a href="javascript:void(0);" (click)="changeOrder('-price')">Precio: más altos primero</a></li>
-              <li><a href="javascript:void(0);" (click)="changeOrder('itemname')">Nombre: de A a Z</a></li>
-              <li><a href="javascript:void(0);" (click)="changeOrder('-itemname')">Nombre: de Z a A</a></li>
-              <li><a href="javascript:void(0);" (click)="changeOrder('model')">Similares</a></li>
+              <li><a (click)="orderByPrice(1)">Precio: más bajos primero</a></li>
+              <li><a (click)="orderByPrice(-1)">Precio: más altos primero</a></li>
+              <li><a (click)="changeOrder('itemname')">Nombre: de A a Z</a></li>
+              <li><a (click)="changeOrder('-itemname')">Nombre: de Z a A</a></li>
+              <li><a (click)="changeOrder('model')">Nuevos</a></li>
             </ul>
           </div>
         </div>
