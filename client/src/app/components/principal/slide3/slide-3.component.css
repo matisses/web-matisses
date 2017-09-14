@@ -1,50 +1,101 @@
-  .padding-0 {
-    padding-left: 0;
-    padding-right: 0;
-    overflow: hidden;
-  }
+.padding-0 {
+  padding-left: 0;
+  padding-right: 0;
+  overflow: hidden;
+}
 
-  .principal-01 {
-    background: url(../../../../assets/images/banner/slide-3/banner-01.jpg) no-repeat center top;
-    margin-top: 0px;
-    padding-top: 10px;
-    background-attachment: relative;
-    background-position: center center;
-    min-height: 450px;
-    width: 100%;
-    -webkit-background-size: 100%;
-    -moz-background-size: 100%;
-    -o-background-size: 100%;
-    background-size: 100%;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    color: #747C79;
-    cursor: pointer;
-  }
+.control-slide {
+  position: absolute;
+  z-index: 1;
+  height: 100%;
+  padding: 15px;
+  top: 0;
+  color: #FFF;
+}
 
-  .text-01 {
-    color: #FFF;
-    position: relative;
-    padding: 15px;
-    top: 100px;
-    left: 600px;
-    background-color: rgb(0, 96, 101);
-    width: 522px;
-  }
+.left {
+  left: 15px;
+}
 
-  .text-01 img {
-    width: 60%;
-    margin: 0 auto;
-  }
+.right {
+  right: 15px;
+}
 
-  .text-01 p {
-    font-size: 20px;
-    margin: 0;
-    margin-bottom: 5px
-  }
-  /*.text-01 p::before {
+.left:hover {
+  background: rgba(255, 255, 255, 0.5);
+  background: -moz-linear-gradient(left, rgba(255, 255, 255, 0.5) 0%, rgba(0, 0, 0, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255, 255, 255, 0.5)), color-stop(0%, rgba(0, 0, 0, 0.5)), color-stop(100%, rgba(255, 255, 255, 0)));
+  background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0.5) 0%, rgba(0, 0, 0, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
+  background: -o-linear-gradient(left, rgba(255, 255, 255, 0.5) 0%, rgba(0, 0, 0, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
+  background: -ms-linear-gradient(left, rgba(255, 255, 255, 0.5) 0%, rgba(0, 0, 0, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.5) 0%, rgba(0, 0, 0, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff', GradientType=1);
+}
+
+.right:hover {
+  background: rgba(255, 255, 255, 0);
+  background: -moz-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, rgba(0, 0, 0, 0.5)));
+  background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
+  background: -o-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
+  background: -ms-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000', GradientType=1);
+}
+
+.control-slide .glyphicon {
+  top: 50%;
+  opacity: 0.5;
+  font-size: 25px;
+}
+
+.control-slide:hover .glyphicon {
+  opacity: 0.7;
+}
+
+.principal-01 {
+  background: url(../../../../assets/images/banner/slide-3/banner-01.jpg) no-repeat center top;
+  margin-top: 0px;
+  padding-top: 10px;
+  background-attachment: relative;
+  background-position: center center;
+  min-height: 450px;
+  width: 100%;
+  -webkit-background-size: 100%;
+  -moz-background-size: 100%;
+  -o-background-size: 100%;
+  background-size: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  color: #747C79;
+  cursor: pointer;
+}
+
+.text-01 {
+  color: #FFF;
+  position: relative;
+  padding: 15px;
+  top: 100px;
+  left: 600px;
+  background-color: rgb(0, 96, 101);
+  width: 522px;
+}
+
+.text-01 img {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.text-01 p {
+  font-size: 20px;
+  margin: 0;
+  margin-bottom: 5px
+}
+
+
+/*.text-01 p::before {
   content: '';
   width: 45px;
   height: 3px;
@@ -55,218 +106,222 @@
   cursor: auto;
 }*/
 
-  .text-01 h2 {
-    font-size: 50px;
-    margin: 0;
-  }
+.text-01 h2 {
+  font-size: 50px;
+  margin: 0;
+}
 
-  .text-01 .btn-banner01 {
-    padding: 5px 10px;
-    font-size: 15px;
-    background-color: #6D9791;
-    color: #FFF;
-    margin: 0;
-    margin: 20px;
-    width: 46%;
-    margin-left: 27%;
-    cursor: pointer;
-  }
-  /*.text-01 .precio {
+.text-01 .btn-banner01 {
+  padding: 5px 10px;
+  font-size: 15px;
+  background-color: #6D9791;
+  color: #FFF;
+  margin: 0;
+  margin: 20px;
+  width: 46%;
+  margin-left: 27%;
+  cursor: pointer;
+}
+
+
+/*.text-01 .precio {
   font-size: 12px;
 }*/
-  /* Estilos banner 02 */
 
-  .recomendaciones {
-    border: 1px solid #d1d1d1;
-    color: #5B5B5B;
-    margin-bottom: 20px;
+
+/* Estilos banner 02 */
+
+.recomendaciones {
+  border: 1px solid #d1d1d1;
+  color: #5B5B5B;
+  margin-bottom: 20px;
+}
+
+.recomendaciones .name {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 17px;
+}
+
+.recomendaciones .precio {
+  margin-top: 30px;
+  font-size: 20px;
+}
+
+.pull-bottom {
+  position: relative;
+  bottom: 0px;
+  margin-top: 11px;
+}
+
+.sub-banner .mensaje {
+  position: absolute;
+  top: 160px;
+  left: 147px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #FFF;
+  padding: 10px 20px;
+  font-size: 19px;
+  top: 10px;
+}
+
+.sub-banner .mensaje p {
+  position: relative;
+  top: 15px;
+  margin-right: 15px;
+  line-height: 25px;
+}
+
+.sub-banner .mensaje p, .sub-banner .mensaje img {
+  display: inline-block;
+}
+
+.sub-banner-footer {
+  background-color: #EDEDED;
+  padding-top: 30px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.sub-banner-footer p {
+  color: #5B5B5B;
+  font-size: 20px;
+}
+
+.ir-comprar {
+  border: none;
+  cursor: pointer;
+  color: #FFF;
+  padding: 5px 20px;
+  background-color: #7C7C7C;
+}
+
+.ir-comprar:hover {
+  background-color: #6D9791;
+}
+
+@media screen and (max-width: 1200px) {
+  .text-01 {
+    left: 469px;
+    top: 108px;
+    width: 322px;
   }
-
-  .recomendaciones .name {
-    text-align: center;
-    margin-top: 15px;
-    font-size: 17px;
-  }
-
   .recomendaciones .precio {
-    margin-top: 30px;
-    font-size: 20px;
+    margin-top: 15px;
   }
-
-  .pull-bottom {
-    position: relative;
-    bottom: 0px;
-    margin-top: 11px;
-  }
-
   .sub-banner .mensaje {
-    position: absolute;
-    top: 160px;
-    left: 147px;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #FFF;
-    padding: 10px 20px;
-    font-size: 19px;
-    top: 10px;
+    top: 125px;
+    left: 95px;
   }
+}
 
-  .sub-banner .mensaje p {
-    position: relative;
-    top: 15px;
-    margin-right: 15px;
-    line-height: 25px;
+@media screen and (max-width: 991px) {
+  .principal-01 {
+    min-height: 300px;
   }
-
-  .sub-banner .mensaje p, .sub-banner .mensaje img {
-    display: inline-block;
+  .text-01 {
+    left: 358px;
+    top: 36px;
+    width: 312px;
   }
+  .text-01 p {
+    font-size: 12px
+  }
+  .text-01 h2 {
+    font-size: 30px
+  }
+  .text-01 .btn-banner01 {
+    font-size: 10px;
+  }
+  .recomendaciones .name {
+    font-size: 15px;
+  }
+  .recomendaciones .precio {
+    margin-top: 8px;
+  }
+  .sub-banner .mensaje {
+    display: none;
+  }
+}
 
+@media screen and (max-width: 767px) {
+  .principal-01 {
+    min-height: 300px;
+  }
+  .text-01 .btn-banner01 {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 568px) {
+  .text-01 {
+    left: 266px;
+    top: 36px;
+    width: 288px;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .principal-01 {
+    min-height: 250px;
+    background-position: center 50px;
+  }
+  .text-01 {
+    left: 184px;
+    width: 216px;
+    padding: 5px;
+    top: 105px;
+  }
+  .text-01 p {
+    font-size: 10px;
+  }
+  .text-01 h2 {
+    font-size: 25px;
+  }
+  .text-01 .precio {
+    font-size: 10px;
+  }
+  .text-01 p::before {
+    top: 40px;
+    left: 40%;
+  }
+  .recomendaciones .precio {
+    font-size: 15px;
+  }
+  .pull-bottom {
+    font-size: 10px;
+  }
+  .sub-banner {
+    margin-top: 15px;
+  }
   .sub-banner-footer {
-    background-color: #EDEDED;
-    padding-top: 30px;
-    text-align: center;
-    margin-bottom: 15px;
+    padding-top: 20px;
   }
+}
 
-  .sub-banner-footer p {
-    color: #5B5B5B;
-    font-size: 20px;
+@media screen and (max-width: 375px) {
+  .principal-01 {
+    min-height: 270px;
   }
+  .text-01 {
+    left: 171px;
+    width: 202px;
+    padding: 2px;
+    top: 130px;
+  }
+}
 
-  .ir-comprar {
-    border: none;
-    cursor: pointer;
-    color: #FFF;
-    padding: 5px 20px;
-    background-color: #7C7C7C;
+@media screen and (max-width: 320px) {
+  .principal-01 {
+    min-height: 240px;
   }
-
-  .ir-comprar:hover {
-    background-color: #6D9791;
+  .text-01 {
+    left: 72px;
+    top: 100px;
+    width: 234px;
+    padding: 3px;
   }
-
-  @media screen and (max-width: 1200px) {
-    .text-01 {
-      left: 469px;
-      top: 108px;
-      width: 322px;
-    }
-    .recomendaciones .precio {
-      margin-top: 15px;
-    }
-    .sub-banner .mensaje {
-      top: 125px;
-      left: 95px;
-    }
+  .recomendaciones .name {
+    font-size: 12px;
   }
-
-  @media screen and (max-width: 991px) {
-    .principal-01 {
-      min-height: 300px;
-    }
-    .text-01 {
-      left: 358px;
-      top: 36px;
-      width: 312px;
-    }
-    .text-01 p {
-      font-size: 12px
-    }
-    .text-01 h2 {
-      font-size: 30px
-    }
-    .text-01 .btn-banner01 {
-      font-size: 10px;
-    }
-    .recomendaciones .name {
-      font-size: 15px;
-    }
-    .recomendaciones .precio {
-      margin-top: 8px;
-    }
-    .sub-banner .mensaje {
-      display: none;
-    }
-  }
-
-  @media screen and (max-width: 767px) {
-    .principal-01 {
-      min-height: 300px;
-    }
-    .text-01 .btn-banner01 {
-      font-size: 10px;
-    }
-  }
-
-  @media screen and (max-width: 568px) {
-    .text-01 {
-      left: 266px;
-      top: 36px;
-      width: 288px;
-    }
-  }
-
-  @media screen and (max-width: 414px) {
-    .principal-01 {
-      min-height: 250px;
-      background-position: center 50px;
-    }
-    .text-01 {
-      left: 184px;
-      width: 216px;
-      padding: 5px;
-      top: 105px;
-    }
-    .text-01 p {
-      font-size: 10px;
-    }
-    .text-01 h2 {
-      font-size: 25px;
-    }
-    .text-01 .precio {
-      font-size: 10px;
-    }
-    .text-01 p::before {
-      top: 40px;
-      left: 40%;
-    }
-    .recomendaciones .precio {
-      font-size: 15px;
-    }
-    .pull-bottom {
-      font-size: 10px;
-    }
-    .sub-banner {
-      margin-top: 15px;
-    }
-    .sub-banner-footer {
-      padding-top: 20px;
-    }
-  }
-
-  @media screen and (max-width: 375px) {
-    .principal-01 {
-      min-height: 270px;
-    }
-    .text-01 {
-      left: 171px;
-      width: 202px;
-      padding: 2px;
-      top: 130px;
-    }
-  }
-
-  @media screen and (max-width: 320px) {
-    .principal-01 {
-      min-height: 240px;
-    }
-    .text-01 {
-      left: 72px;
-      top: 100px;
-      width: 234px;
-      padding: 3px;
-    }
-    .recomendaciones .name {
-      font-size: 12px;
-    }
-  }
+}

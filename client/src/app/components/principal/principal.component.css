@@ -29,7 +29,7 @@
   color: #EDEDED;
 }
 
-.carousel-control.left {
+/*.carousel-control.left {
   background-image: none;
 }
 
@@ -37,7 +37,7 @@
   right: 0;
   left: auto;
   background-image: none;
-}
+}*/
 
 .carousel-indicators {
   position: absolute;
