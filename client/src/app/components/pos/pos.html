@@ -11,13 +11,13 @@
           <div class="row">
             <div class="col-xs-12 margin-bottom-10">
               <label for="usuarioAutoriza">Usuario:</label>
-              <input id="usuarioAutoriza" type="text" class="form-control input-lg" name="usuarioAutoriza" [(ngModel)]="usuarioAutoriza" [class.required-field]="!valid" required>
+              <input id="usuarioAutoriza" type="text" class="form-control input-lg" name="usuarioAutoriza" [(ngModel)]="usuarioAutoriza" [class.required-field]="!valid" required autocomplete="off">
             </div>
           </div>
           <div class="row">
             <div class="col-xs-12">
               <label for="passwordAutoriza">Contraseña:</label>
-              <input id="passwordAutoriza" type="password" class="form-control input-lg" name="passwordAutoriza" [(ngModel)]="claveAutoriza" [class.required-field]="!valid" required (keyup.enter)="abrirCaja(true, AuthorizationForm)">
+              <input id="passwordAutoriza" type="password" class="form-control input-lg" name="passwordAutoriza" [(ngModel)]="claveAutoriza" [class.required-field]="!valid" required (keyup.enter)="abrirCaja(true, AuthorizationForm)" autocomplete="off">
             </div>
           </div>
         </form>
@@ -53,7 +53,7 @@
               <div class="col-xs-4">
                 <div class="row">
                   <div class="col-xs-12">
-                    <input class="form-control input-lg text-right input-calculadora" type="number" name="valor" [(ngModel)]="cantidad" disabled>
+                    <input class="form-control input-lg text-right input-calculadora" type="number" name="valor" [(ngModel)]="cantidad" disabled autocomplete="off">
                   </div>
                 </div>
                 <br/>
@@ -113,7 +113,83 @@
   </div>
 </div>
 
-<div id="modalTarjetas" class="modal fade" tabindex="-1" role="dialog">
+<div id="modalBono" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Tarjeta regalo matisses</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-6 text-center">
+            <img class="img-responsive" src="https://img.matisses.co/360/POS/Franquicias/T.REGALO.jpg" alt="Tarjeta Regalo">
+          </div>
+          <div class="col-xs-6">
+            <div class="row">
+              <div class="col-xs-12 margin-bottom-5">
+                <label>Ingrese el valor de la tarjeta: </label>
+                <input id="valorBono" class="form-control input-lg text-right" type="number" name="valorTarjetaMatisses" [(ngModel)]="valorTarjetaMatisses">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <label>Número de tarjetas:</label>
+                <input class="form-control input-lg text-center" type="text" name="cantidadTarjetaMatisses" [(ngModel)]="cantidadTarjetaMatisses">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="row" *ngIf="mensajeError && mensajeError.length > 0">
+          <div class="col-xs-12 text-left">
+            <div class="alert alert-danger" role="alert">{{mensajeError}}</div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary btn-lg" (click)="agregarTarjetaRegalo()">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalItemEliminar" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row" *ngIf="itemEliminar != null">
+          <div class="col-xs-4">
+            <div class="row">
+              <div class="col-xs-12">
+                <img class="img-responsive" src="https://img.matisses.co/{{itemEliminar.itemCode}}/parrilla/{{itemEliminar.itemCode}}_01.jpg" alt="{{itemEliminar.itemCode}}">
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-8">
+            <div class="row">
+              <div class="col-xs-12 margin-bottom-10">
+                <p>¿Está seguro que desea eliminar cantidades de la referencia <b>{{itemEliminar.shortItemCode}}</b>?</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="margin-top-31" [ngClass]="{'col-xs-6' : itemEliminar.cantidad <= 1, 'col-xs-4' : itemEliminar.cantidad > 1}">
+                <button class="btn btn-default btn-lg btn-full" data-dismiss="modal">Cerrar</button>
+              </div>
+              <div class="col-xs-4 margin-top-31" *ngIf="itemEliminar.cantidad > 1">
+                <button class="btn btn-default btn-lg btn-full" (click)="eliminarItem(itemEliminar.cantidad)">Quitar {{itemEliminar.cantidad}}</button>
+              </div>
+              <div class="margin-top-31" [ngClass]="{'col-xs-6' : itemEliminar.cantidad <= 1, 'col-xs-4' : itemEliminar.cantidad > 1}">
+                <button class="btn btn-primary btn-lg btn-full" (click)="eliminarItem(1)">Quitar 1</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalTarjetas" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -123,7 +199,7 @@
         <div class="row">
           <div class="col-xs-3">
             <div class="row">
-              <div class="col-xs-12 margin-bottom-10">
+              <div class="col-xs-12 margin-bottom-10" *ngIf="indexTarjeta == null">
                 <div class="text-center pointer-cursor contenedor-medio-pago" [ngClass]="{'contenedor-medio-pago-activo' : tipoPagoTarjeta === 1}" (click)="seleccionarTipoPagoTarjeta(1)">
                   <p>Automático</p>
                 </div>
@@ -160,23 +236,164 @@
                   <form>
                     <div class="col-xs-3">
                       <label for="digitos">Últimos dígitos</label>
-                      <input id="digitos" type="number" class="form-control input-lg text-center" name="Digitos" [(ngModel)]="ultimosDigitos">
+                      <input id="digitos" type="number" class="form-control input-lg text-center" name="Digitos" [(ngModel)]="ultimosDigitos" autocomplete="off">
                     </div>
                     <div class="col-xs-3">
                       <label for="digitos"># voucher</label>
-                      <input id="voucher" type="number" class="form-control input-lg text-center" name="Voucher" [(ngModel)]="voucher">
+                      <input id="voucher" type="number" class="form-control input-lg text-center" name="Voucher" [(ngModel)]="voucher" autocomplete="off">
                     </div>
                     <div class="col-xs-6">
-                      <label for="digitos">Valor</label>
-                      <div class="input-group">
-                        <span class="input-group-addon input-efectivo">$</span>
-                        <input id="valor" type="number" class="form-control input-lg text-right" name="valor" [(ngModel)]="valorTarjeta">
-                        <span class="input-group-btn">
-                          <button type="button" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-magnet"></span></button>
-                        </span>
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <label for="digitos">Valor</label>
+                          <div class="input-group">
+                            <span class="input-group-addon input-efectivo">$</span>
+                            <input id="valor" type="number" class="form-control input-lg text-right" name="valor" [(ngModel)]="valorTarjeta" autocomplete="off" (keyup)="calcularDatosIVA()">
+                            <span class="input-group-btn" *ngIf="totalVenta > 0">
+                              <button type="button" class="btn btn-primary btn-lg" (click)="asignarValorTotal('tarjeta')"><span class="glyphicon glyphicon-magnet"></span></button>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row" *ngIf="valorTarjeta > 0">
+                        <div class="col-xs-12">
+                          <div class="alert alert-warning margin-bottom-0 margin-top-15" role="alert">
+                            <b>Base: </b>{{baseIVA | number}} - <b>IVA: </b>{{valorIVA | number}}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </form>
+                </div>
+              </div>
+            </div>
+            <div class="row" *ngIf="tipoPagoTarjeta && tipoPagoTarjeta === 3">
+              <div class="col-xs-12">
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                  <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="4"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="5"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="6"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="7"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="8"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="9"></li>
+                  </ol>
+
+                  <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <div class="jumbotron">
+                            <h2 class="text-center">Manual configuración datáfono</h2>
+                            <br>
+                            <p class="margin-top-15">En este manual podrá realizar la configuración necesaria para colocar el datáfono en estado automático y viceversa.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="row">
+                        <div class="col-xs-6">
+                          <p style="font-size: 20px">Presionar la tecla ▲ en el datáfono, mientras este se encuentre en la pantalla de inicio (sin ninguna transacción iniciada)</p>
+                        </div>
+                        <div class="col-xs-6">
+                          <img class="img-responsive" src="https://img.matisses.co/360/POS/DATAFONO1.jpg" alt="">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="row">
+                        <div class="col-xs-6">
+                          <img class="img-responsive" src="https://img.matisses.co/360/POS/DATAFONO2.jpg" alt="">
+                        </div>
+                        <div class="col-xs-6">
+                          <p style="font-size: 20px">Desplazarse con las teclas ▼▲, seleccionar la segunda opción del menú (“Ver”) y presionar la tecla verde.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="row">
+                        <div class="col-xs-6">
+                          <p style="font-size: 20px">Ingresar la clave de supervisor (la misma que se utiliza para ejecutar el cierre de datáfono todos los días) y presionar la tecla verde.</p>
+                        </div>
+                        <div class="col-xs-6">
+                          <img class="img-responsive" src="https://img.matisses.co/360/POS/DATAFONO3.jpg" alt="">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="row">
+                        <div class="col-xs-6">
+                          <img class="img-responsive" src="https://img.matisses.co/360/POS/DATAFONO4.jpg" alt="">
+                        </div>
+                        <div class="col-xs-6">
+                          <p style="font-size: 20px">Desplazarse con las teclas ▼▲, seleccionar la sexta opción del menú (Caja Regis.) y presionar la tecla verde.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="row">
+                        <div class="col-xs-6">
+                          <p style="font-size: 20px">Si el datáfono se encuentra en modo manual, se solicitará confirmación para activar el modo automático. Presionar la tecla verde para confirmar (o la roja para cancelar).</p>
+                        </div>
+                        <div class="col-xs-6">
+                          <img class="img-responsive" src="https://img.matisses.co/360/POS/DATAFONO5.jpg" alt="">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="row">
+                        <div class="col-xs-6">
+                          <img class="img-responsive" src="https://img.matisses.co/360/POS/DATAFONO6.jpg" alt="">
+                        </div>
+                        <div class="col-xs-6">
+                          <p style="font-size: 20px">Presionar la tecla roja cuando el datáfono consulte si se desea habilitar el código de cajero.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="row">
+                        <div class="col-xs-6">
+                          <p style="font-size: 20px">Presionar la tecla roja cuando el datáfono consulte si se desea habilitar la recarga en efectivo.</p>
+                        </div>
+                        <div class="col-xs-6">
+                          <img class="img-responsive" src="https://img.matisses.co/360/POS/DATAFONO7.jpg" alt="">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="row">
+                        <div class="col-xs-6">
+                          <img class="img-responsive" src="https://img.matisses.co/360/POS/DATAFONO8.jpg" alt="">
+                        </div>
+                        <div class="col-xs-6">
+                          <p style="font-size: 20px">Desplazarse usando las teclas ▼▲, seleccionar la primera opción (CAJAS SERIAL) y presionar la tecla verde.
+                            <br>Luego, presionar varias veces la tecla roja hasta salir por completo del menú.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <p style="font-size: 20px">
+                            Para quitar el modo automático (y volver al modo manual), se deben repetir los primeros cuatro pasos. Al llegar al paso 5, el sistema pedirá confirmación para deshabilitar el modo caja, con lo que el datáfono volverá al modo manual. Luego de esto se debe
+                            presionar varias veces la tecla roja, hasta salir del menú.
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -189,38 +406,182 @@
             <div class="alert alert-danger" role="alert">{{mensajeError}}</div>
           </div>
         </div>
-        <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-default btn-lg" data-dismiss="modal" (click)="limpiarDatosPagoTarjeta()">Cerrar</button>
+        <button type="button" class="btn btn-default btn-lg" *ngIf="indexTarjeta != null" (click)="eliminarPagoTarjeta()">Eliminar</button>
         <button type="button" class="btn btn-primary btn-lg" (click)="agregarPagoTarjeta()">Guardar</button>
       </div>
     </div>
   </div>
 </div>
 
-<div class="jumbotron" *ngIf="!cajaAbierta">
-  <h1>¡Hola {{nombreUsuario}}!</h1>
+<div id="modalVentasPendientes" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Ventas suspendidas</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped table-bordered table-hover">
+          <tr class="header-table-products">
+            <th class="text-center">Fecha</th>
+            <th class="text-center">Documento Cliente</th>
+            <th class="text-center">Total Items</th>
+          </tr>
+          <tr class="pointer-cursor" *ngFor="let ventaPendiente of ventasPendientes" (click)=consultarVentaPendiente(ventaPendiente)>
+            <td class="text-center">{{ventaPendiente.fecha}}</td>
+            <td class="text-center">{{ventaPendiente.nit}}</td>
+            <td class="text-right">{{ventaPendiente.numeroProductos}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalCancelarVenta" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p class="font-size-17">¿Está seguro que desea cancelar la venta actual?</p>
+        <p class="font-size-17" *ngIf="pagosTarjeta.length > 0"><b>Recuerde que debe anular las transacciones de datáfono realizadas</b></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary btn-lg" (click)="limpiarVenta()">Sí</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalFactura" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Facturando venta</h4>
+      </div>
+      <div class="modal-body" *ngIf="itemFactura != null">
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="row">
+              <div class="col-xs-12 text-center">
+                <img src="https://img.matisses.co/{{itemFactura.itemCode}}/parrilla/{{itemFactura.itemCode}}_01.jpg" alt="{{itemFactura.itemCode}}">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 text-center" style="font-size: 25px"><b>{{itemFactura.shortItemCode}}</b></div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 text-center">{{itemFactura.providerCode}}</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 text-center">{{itemFactura.itemName}}</div>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="row">
+              <div class="col-xs-6 margin-bottom-50">
+                <div class="row">
+                  <div class="col-xs-12 text-center font-size-17">Elejida: <b>{{itemFactura.cantidad}}</b></div>
+                </div>
+              </div>
+              <div class="col-xs-6 margin-bottom-10">
+                <div class="row">
+                  <div class="col-xs-12 text-center font-size-17">Asignada: <b>{{ubicaciones[itemSeleccionado].exhibicion.seleccionado
+                     + ubicaciones[itemSeleccionado].bodega.seleccionado}}</b></div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="contenedor-saldos">
+                  <div class="row">
+                    <div class="col-xs-12 margin-bottom-10 text-center">Bodega</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12 margin-bottom-10 text-center">
+                      <span>{{ubicaciones[itemSeleccionado].bodega.seleccionado}} / </span><span class="font-size-17">{{ubicaciones[itemSeleccionado].bodega.disponible}}</span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div class="row">
+                        <div class="col-xs-6 text-center" style="border-right: 1px solid #6D9791">
+                          <span class="glyphicon glyphicon-minus pointer-cursor"></span>
+                        </div>
+                        <div class="col-xs-6 text-center">
+                          <span class="glyphicon glyphicon-plus pointer-cursor"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-6">
+                <div class="contenedor-saldos">
+                  <div class="row">
+                    <div class="col-xs-12 margin-bottom-10 text-center">Exhibición</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12 margin-bottom-10 text-center">
+                      <span>{{ubicaciones[itemSeleccionado].exhibicion.seleccionado}} / </span><span class="font-size-17">{{ubicaciones[itemSeleccionado].exhibicion.disponible}}</span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div class="row">
+                        <div class="col-xs-6 text-center" style="border-right: 1px solid #6D9791">
+                          <span class="glyphicon glyphicon-minus pointer-cursor"></span>
+                        </div>
+                        <div class="col-xs-6 text-center">
+                          <span class="glyphicon glyphicon-plus pointer-cursor"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="jumbotron" *ngIf="!sesionPOS.cajaAbierta">
+  <h1>¡Hola {{sesionPOS.nombreUsuario}}!</h1>
   <p>{{mensajeInicio}}</p>
   <p *ngIf="permitirAbrirCaja">
     <a class="btn btn-primary btn-lg" role="button" (click)="abrirCaja(false)">Abrir caja</a>
   </p>
 </div>
-<div *ngIf="cajaAbierta">
+<div *ngIf="sesionPOS.cajaAbierta">
   <div class="container-fluid contenedor">
     <div class="row">
       <div class="col-xs-8">
         <div class="row">
           <div class="col-xs-10 input-referencia margin-bottom-10">
             <form (submit)="agregarItem()">
-              <input id="referencia" type="text" class="form-control input-lg" name="referencia" placeholder="Referencia a agregar" [(ngModel)]="referencia" autofocus>
+              <input id="referencia" type="text" class="form-control input-lg" name="referencia" placeholder="Referencia a agregar" [(ngModel)]="referencia" autofocus [disabled]="modoBono">
             </form>
           </div>
           <div class="col-xs-2 margin-top-15">
             <div class="row">
-              <div class="col-xs-6 text-center"><span class="glyphicon glyphicon-th-large iconos-items"></span></div>
-              <div class="col-xs-6 text-center"><span class="glyphicon glyphicon-gift iconos-items"></span></div>
+              <div class="col-xs-6 text-center">
+                <span class="glyphicon glyphicon-th-large iconos-items pointer-cursor" *ngIf="!cuadricula" (click)="mostrarCuadricula()"></span>
+                <span class="glyphicon glyphicon-th-list iconos-items pointer-cursor" *ngIf="cuadricula" (click)="mostrarCuadricula()"></span>
+              </div>
+              <div class="col-xs-6 text-center">
+                <span class="glyphicon glyphicon-gift iconos-items pointer-cursor" (click)="abrirModalBono()" [ngClass]="{'iconos-items-disabled' : ((sesionPOS.tarjetasRegaloDisponibles > 0 || items.length > 0) && !modoBono)}"></span>
+              </div>
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="!cuadricula">
           <div class="col-xs-12">
             <table class="table table-bordered" style="margin-bottom: -1px !important;">
               <tr class="header-table-products">
@@ -235,8 +596,8 @@
             <div class="nano">
               <div class="nano-content">
                 <table class="table table-striped table-bordered table-hover">
-                  <tr class="pointer-cursor" *ngFor="let item of items">
-                    <td class="text-center" style="width: 120px"><img style="max-width: 100%" src="https://img.matisses.co/{{item.itemCode}}/mini/{{item.itemCode}}_01.jpg" alt="{{item.itemCode}}"></td>
+                  <tr class="pointer-cursor" *ngFor="let item of items" (click)="seleccionarItemEliminar(item)">
+                    <td class="text-center" style="width: 120px"><img style="max-width: 100%" src="https://img.matisses.co/{{item.itemCode}}/mini/{{item.itemCode}}.jpg" alt="{{item.itemCode}}"></td>
                     <td class="text-center" style="width: 80px">{{item.shortItemCode}}</td>
                     <td>
                       {{item.itemName}}
@@ -248,7 +609,7 @@
                         $ {{item.price | number}}
                       </p>
                       <p *ngIf="item.discountPercent > 0">
-                        $ {{((item.price / 100) * item.discountPercent) | number}}
+                        $ {{item.price - ((item.price / 100) * item.discountPercent) | number}}
                       </p>
                       <div class="tag-descuentos" *ngIf="item.discountPercent > 0">
                         <p style="margin: 0 !important; font-size: 12px">-{{item.discountPercent}}%</p>
@@ -259,7 +620,7 @@
                         $ {{(item.price * item.cantidad) | number}}
                       </p>
                       <p *ngIf="item.discountPercent > 0">
-                        $ {{(((item.price * item.cantidad) / 100) * item.discountPercent) | number}}
+                        $ {{item.price - (((item.price * item.cantidad) / 100) * item.discountPercent) | number}}
                       </p>
                     </td>
                   </tr>
@@ -268,17 +629,94 @@
             </div>
           </div>
         </div>
+        <div class="row" *ngIf="cuadricula">
+          <div class="col-xs-12">
+            <div class="nano has-scrollbar">
+              <div class="nano-content">
+                <div class="row">
+                  <div class="col-xs-6" *ngFor="let item of items">
+                    <div class="contenedor-cuadricula pointer-cursor">
+                      <div class="row">
+                        <div class="col-xs-3">
+                          <div class="row">
+                            <div class="col-xs-12"><img class="img-responsive" src="https://img.matisses.co/{{item.itemCode}}/mini/{{item.itemCode}}.jpg" alt="{{item.itemCode}}"></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-xs-12 text-center">
+                              <p class="margin-bottom-0" [ngClass]="{'producto-descuento' : item.discountPercent > 0}">
+                                $ {{item.price | number}}
+                              </p>
+                              <p class="margin-bottom-5" *ngIf="item.discountPercent > 0">
+                                $ {{item.price - ((item.price / 100) * item.discountPercent) | number}}
+                              </p>
+                              <div class="tag-descuentos" *ngIf="item.discountPercent > 0">
+                                <p class="margin-bottom-0" style="margin: 0 !important; font-size: 12px">-{{item.discountPercent}}%</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xs-7">
+                          <div class="row">
+                            <div class="col-xs-12"><b>Referencia:</b> {{item.shortItemCode}}</div>
+                          </div>
+                          <div class="row">
+                            <div class="col-xs-12">{{item.itemName}}</div>
+                          </div>
+                          <div class="row">
+                            <div class="col-xs-12">{{item.providerCode}}</div>
+                          </div>
+                          <div class="row">
+                            <div class="col-xs-12 text-right">
+                              <div class="total-cuadricula">
+                                <b>
+                                  Total:
+                                  <span [ngClass]="{'producto-descuento' : item.discountPercent > 0}"> $ {{(item.price * item.cantidad) | number}}</span>
+                                  <span *ngIf="item.discountPercent > 0"> / $ {{item.price - (((item.price * item.cantidad) / 100) * item.discountPercent) | number}}</span>
+                                </b>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xs-2">
+                          <div class="row">
+                            <div class="col-xs-12 text-center">Cant</div>
+                          </div>
+                          <div class="row">
+                            <div class="col-xs-12 text-center" style="font-size: 40px">{{item.cantidad}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
       <div class="col-xs-4 input-cliente">
         <div class="datos-pago">
           <div class="row">
-            <div class="col-xs-12">
-              <div class="input-group">
-                <input class="form-control input-lg" type="text" name="Documento" placeholder="Documento cliente">
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-search"></span></button>
-                </span>
-              </div>
+            <div class="col-xs-12 margin-bottom-10">
+              <form (submit)="obtenerDatosCliente()">
+                <div class="input-group">
+                  <input class="form-control input-lg" type="text" name="Documento" placeholder="Documento cliente" [(ngModel)]="documentoCliente" autocomplete="off">
+                  <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-search"></span></button>
+                  </span>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="row" *ngIf="cliente.cardCode != null && cliente.cardCode.length > 0">
+            <div class="col-xs-12 font-size-17">
+              (<b>{{cliente.cardCode}}</b>) - {{cliente.cardName}}
+            </div>
+          </div>
+          <div class="row" *ngIf="mensajeErrorCliente && mensajeErrorCliente.length > 0">
+            <div class="col-xs-12 text-left">
+              <div class="alert alert-danger" role="alert">{{mensajeErrorCliente}}</div>
             </div>
           </div>
           <hr>
@@ -293,7 +731,7 @@
                 Efectivo
               </div>
             </div>
-            <div class="col-xs-6 text-right">
+            <div class="col-xs-6 text-right" *ngIf="valorEfectivo != null && valorEfectivo > 0">
               <p class="contenedor-total-medio-pago">$ {{valorEfectivo | number}}</p>
             </div>
           </div>
@@ -302,7 +740,10 @@
               <div class="valor-oculto" [ngClass]="{'valor-visible' : medioPago === 1}">
                 <div class="input-group">
                   <span class="input-group-addon input-efectivo">Valor: $</span>
-                  <input id="efectivo" type="number" class="form-control input-lg text-right" [(ngModel)]="valorEfectivo">
+                  <input id="efectivo" type="number" class="form-control input-lg text-right" [(ngModel)]="valorEfectivo" autocomplete="off" (keyup)="calcularPendienteVenta()">
+                  <span class="input-group-btn" *ngIf="totalVenta > 0">
+                    <button type="button" class="btn btn-primary btn-lg" (click)="asignarValorTotal('efectivo')"><span class="glyphicon glyphicon-magnet"></span></button>
+                  </span>
                 </div>
               </div>
             </div>
@@ -313,22 +754,22 @@
                 Tarjeta
               </div>
             </div>
-            <div class="col-xs-6 text-right">
+            <div class="col-xs-6 text-right" *ngIf="valorTotalTarjetas != null && valorTotalTarjetas > 0">
               <p class="contenedor-total-medio-pago">$ {{valorTotalTarjetas | number}}</p>
             </div>
           </div>
           <div class="row">
             <div class="col-xs-12 ">
               <div class="valor-oculto" [ngClass]="{'valor-visible' : (medioPago === 3)}">
-                <table class="table table-striped table-bordered">
-                  <tr>
+                <table class="table table-striped table-bordered table-hover" *ngIf="pagosTarjeta != null && pagosTarjeta.length > 0">
+                  <tr class="header-table-products">
                     <th class="text-center">#</th>
                     <th class="text-center">Franquicia</th>
                     <th class="text-center">Voucher</th>
                     <th class="text-center">Dígitos</th>
                     <th class="text-center">Total</th>
                   </tr>
-                  <tr *ngFor="let pago of pagosTarjeta; let i = index">
+                  <tr class="pointer-cursor" *ngFor="let pago of pagosTarjeta; let i = index" (click)="seleccionarPagoTarjeta(i)">
                     <td class="text-center">{{i + 1}}</td>
                     <td class="text-center">{{pago.franquicia}}</td>
                     <td class="text-center">{{pago.voucher}}</td>
@@ -343,46 +784,98 @@
               </div>
             </div>
           </div>
-          <div class="row">
+          <div class="row" *ngIf="cliente.cardCode != null && cliente.cardCode.length > 0">
             <div class="col-xs-6 margin-bottom-10">
-              <div class="text-center contenedor-medio-pago pointer-cursor" (click)="seleccionarMedioPago(5)">
+              <div class="text-center contenedor-medio-pago pointer-cursor" [ngClass]="{'contenedor-medio-pago-activo' : (medioPago === 5)}" (click)="seleccionarMedioPago(5)">
                 Cruce
               </div>
             </div>
-            <div class="col-xs-6 text-right">
-              <p class="contenedor-total-medio-pago">$ </p>
+            <div class="col-xs-6 text-right" *ngIf="valorSaldoFavor != null && valorSaldoFavor > 0">
+              <p class="contenedor-total-medio-pago">$ {{valorSaldoFavor | number}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="valor-oculto" [ngClass]="{'valor-visible' : (medioPago === 5)}">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <p class="alerta-saldo-favor" *ngIf="saldoFavorDisponible != null">
+                      El cliente cuenta con $ <b>{{saldoFavorDisponible | number}}</b> de saldo a favor.
+                    </p>
+                  </div>
+                </div>
+                <div class="row" *ngIf="saldoFavorDisponible > 0">
+                  <div class="col-xs-12">
+                    <div class="input-group">
+                      <span class="input-group-addon input-efectivo">Valor: $</span>
+                      <input id="saldoFavor" type="number" class="form-control input-lg text-right" [(ngModel)]="valorSaldoFavor" (change)="aplicarSaldoFavor()" autocomplete="off" (keyup)="calcularPendienteVenta()">
+                      <span class="input-group-btn" *ngIf="totalVenta > 0">
+                        <button type="button" class="btn btn-primary btn-lg" (click)="asignarValorTotal('saldoFavor')"><span class="glyphicon glyphicon-magnet"></span></button>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="div-totales" [ngClass]="{'margin-bottom-50' : pendienteVenta === 0}" *ngIf="totalVenta != null && totalVenta > 0">
+            <div class="row">
+              <div class="col-xs-6">Total</div>
+              <div class="col-xs-6 text-right">$ {{totalVenta | number}}</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6">Pendiente</div>
+              <div class="col-xs-6 text-right">
+                $ {{pendienteVenta | number}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6">Pagado</div>
+              <div class="col-xs-6 text-right" *ngIf="(valorEfectivo != null && valorEfectivo > 0) || (valorTotalTarjetas != null && valorTotalTarjetas > 0) || (valorSaldoFavor != null && valorSaldoFavor > 0)">
+                $ {{(((valorTotalTarjetas) > 0 ? valorTotalTarjetas : 0) + ((valorEfectivo) > 0 ? valorEfectivo : 0) + ((valorSaldoFavor) > 0 ? valorSaldoFavor : 0)) | number}}
+              </div>
+            </div>
+            <div class="row" *ngIf="valorEfectivo != null && valorEfectivo > 0">
+              <div class="col-xs-6">Cambio</div>
+              <div class="col-xs-6 text-right">
+                $ {{cambioVenta | number}}
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="navbar navbar-fixed-bottom" *ngIf="cajaAbierta">
+
+  <div class="navbar navbar-fixed-bottom" *ngIf="sesionPOS.cajaAbierta">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-8">
           <div class="btn-group btn-group-lg dropup">
             <button type="button" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Venta
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-scroll">
-              <li style="font-size: 20px"><a href="#">Anular</a></li>
-              <li style="font-size: 20px"><a href="#">Suspender</a></li>
-              <li style="font-size: 20px"><a href="#">Reanudar</a></li>
-              <li style="font-size: 20px"><a href="#">Cancelar</a></li>
+              <li class="pointer-cursor" style="font-size: 20px"><a href="#">Anular</a></li>
+              <li class="pointer-cursor" style="font-size: 20px"><a (click)="suspenderVenta()">Suspender</a></li>
+              <li class="pointer-cursor" style="font-size: 20px"><a (click)="listarVentasPendientes()">Reanudar</a></li>
+              <li class="pointer-cursor" style="font-size: 20px" *ngIf="items.length > 0"><a data-toggle="modal" data-target="#modalCancelarVenta">Cancelar</a></li>
             </ul>
           </div>
-          <div class="btn-group btn-group-lg dropup open">
+          <div class="btn-group btn-group-lg dropup">
             <button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Caja
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-scroll">
-              <li style="font-size: 20px"><a href="#">Abrir cajón</a></li>
-              <li style="font-size: 20px"><a href="#">Cerrar</a></li>
+              <li class="pointer-cursor" style="font-size: 20px"><a href="#">Abrir cajón</a></li>
+              <li class="pointer-cursor" style="font-size: 20px"><a href="#">Cerrar</a></li>
             </ul>
           </div>
+        </div>
+        <div class="col-xs-4" *ngIf="pendienteVenta === 0">
+          <button type="button" class="btn btn-lg btn-primary btn-full" (click)="validarTipoVenta()">Efectuar pago</button>
         </div>
       </div>
     </div>

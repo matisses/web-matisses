@@ -14,14 +14,11 @@ declare var $: any;
 
 export class PosComponent implements OnInit {
 
-  public totalCompra: number;
   public token: string;
-  public usuario: string;
-  public nombreUsuario: string;
+  public sesionPOS: any;
   public mensajeInicio: string;
   public mensajeError: string;
   public permitirAbrirCaja: boolean = false;
-  public cajaAbierta: boolean = false;
 
   // Variables de autorizacion
   public usuarioAutoriza: string;
@@ -36,9 +33,21 @@ export class PosComponent implements OnInit {
 
   // Variables de items
   public referencia: string;
+  public cuadricula: boolean = false;
+  public modoBono: boolean = false;
+  public itemEliminar: any;
   public items: Array<any>;
+  public ventasPendientes: Array<any>;
+
+  // Variables de tarjetas matisses
+  public valorTarjetaMatisses: number;
+  public cantidadTarjetaMatisses: number;
 
   // Variables de pagos
+  public documentoCliente: string;
+  public mensajeErrorCliente: string;
+  public cliente: any;
+
   public medioPago: number;
   public valorEfectivo: number;
 
@@ -46,25 +55,59 @@ export class PosComponent implements OnInit {
   public valorTarjeta: number;
   public totalBase: number;
   public totalIVA: number;
+  public baseIVA: number;
+  public valorIVA: number;
   public valorTotalTarjetas: number = 0;
+  public indexTarjeta: number;
   public ultimosDigitos: string;
   public voucher: string;
   public franquiciaSeleccionada: any;
   public franquicias: Array<any>;
   public pagosTarjeta: Array<any>;
 
+  public saldoFavorDisponible: number;
+  public valorSaldoFavor: number;
+  public mensajeSaldoFavor: string;
+
+  public totalVenta: number;
+  public pendienteVenta: number;
+  public cambioVenta: number = 0;
+
+  // Variables de facturacion
+  public itemSeleccionado: number;
+  public itemFactura: any;
+  public ubicaciones: Array<any>;
+
   constructor(private _route: ActivatedRoute, private _router: Router, private _jwt: JWTService, private _posService: PosService) {
+    this.sesionPOS = {
+      idTurnoCaja: '',
+      tarjetasRegaloDisponibles: 0,
+      usuario: '',
+      nombreUsuario: '',
+      almacen: '',
+      mensajeError: '',
+      ip: '',
+      cuentaEfectivo: '',
+      nombreCaja: '',
+      sesionValida: false,
+      cajaAbierta: false
+    }
     this.denominaciones = new Array<any>();
     this.items = new Array<any>();
     this.franquicias = new Array<any>();
     this.pagosTarjeta = new Array<any>();
+    this.inicializarCliente();
   }
 
   ngOnInit() {
     this.validarToken();
     $('#modalAutorizacion').on('shown.bs.modal', function() {
       $('#usuarioAutoriza').focus()
-    })
+    });
+
+    $('#modalBono').on('shown.bs.modal', function() {
+      $('#valorBono').focus()
+    });
   }
 
   private validarToken() {
@@ -76,8 +119,7 @@ export class PosComponent implements OnInit {
           $('#footer').addClass('hidden-xs hidden-md hidden-sm hidden-lg');
 
           if (response.estado === 0) {
-            this.usuario = response.usuario;
-            this.nombreUsuario = response.nombreUsuario;
+            this.sesionPOS = response;
             localStorage.setItem('matisses.pos-token', this.token);
             console.log('El token recibido es valido');
 
@@ -100,12 +142,11 @@ export class PosComponent implements OnInit {
     this.permitirAbrirCaja = false;
     this._posService.validarSesion(this.token).subscribe(
       response => {
-        console.log(response);
         if (response.mensajeError && response.mensajeError.length > 0) {
           this.mensajeInicio = response.mensajeError;
         } else {
           if (response.cajaAbierta) {
-            this.cajaAbierta = true;
+            this.sesionPOS.cajaAbierta = true;
           } else {
             this.mensajeInicio = 'La caja se encuentra cerrada. Ejecute la operación de apertura de caja para comenzar a realizar ventas.';
             this.permitirAbrirCaja = true;
@@ -316,15 +357,16 @@ export class PosComponent implements OnInit {
     this.mensajeError = null;
     if (this.totalCaja >= 400000) {
       let transaccion = {
-        usuario: this.usuario,
+        usuario: this.sesionPOS.usuario,
         tipo: 'apertura',
         valor: this.totalCaja
       }
       this._posService.abrirCaja(transaccion).subscribe(
         response => {
           if (response) {
-            this.cajaAbierta = true;
+            this.sesionPOS.cajaAbierta = true;
             $('#modalCaja').modal('hide');
+            this.validarToken();
           }
         },
         error => {
@@ -336,11 +378,47 @@ export class PosComponent implements OnInit {
     }
   }
 
+  private inicializarCliente() {
+    this.cliente = {
+      cardCode: '',
+      birthDate: '',
+      cardName: '',
+      cardType: '',
+      defaultBillingAddress: '',
+      defaultShippingAddress: '',
+      firstName: '',
+      fiscalID: '',
+      fiscalIdType: '',
+      foreignType: '',
+      gender: '',
+      lastName1: '',
+      lastName2: '',
+      nationality: '',
+      personType: '',
+      salesPersonCode: '',
+      selfRetainer: '',
+      taxRegime: '',
+      addresses: [{
+        address: '',
+        addressName: '',
+        addressType: '',
+        cellphone: '',
+        cityCode: '',
+        cityName: '',
+        country: '',
+        email: '',
+        landLine: '',
+        stateCode: '',
+        stateName: '',
+        taxCode: ''
+      }]
+    };
+  }
+
   public agregarItem() {
-    //TODO: Codigo quemado
     this.mensajeError = '';
     if (this.referencia != null && this.referencia.length > 0) {
-      this._posService.agregarReferencia(this.referencia, '0203').subscribe(
+      this._posService.agregarReferencia(this.referencia, this.sesionPOS.almacen).subscribe(
         response => {
           console.log(response);
           if (response.availableQuantity > 0) {
@@ -356,6 +434,7 @@ export class PosComponent implements OnInit {
             if (pos >= 0) {
               if (response.availableQuantity > this.items[pos].cantidad) {
                 this.items[pos].cantidad++;
+                this.calcularTotalVenta();
               } else {
                 this.mensajeError = 'Se estan agregando mas productos de los que hay disponibles (' + response.availableQuantity + ')';
                 //TODO: modal de saldo insuficiente
@@ -372,6 +451,7 @@ export class PosComponent implements OnInit {
                   }
 
                   this.items.unshift(response);
+                  this.calcularTotalVenta();
                 },
                 error => {
                   console.log(error);
@@ -387,6 +467,144 @@ export class PosComponent implements OnInit {
     }
   }
 
+  public agregarTarjetaRegalo() {
+    //TODO: Se debe validar que no haya mas de un registro para bono
+    this.mensajeError = '';
+    this.modoBono = false;
+    if (this.valorTarjetaMatisses != null && this.valorTarjetaMatisses > 0 && this.cantidadTarjetaMatisses != null && this.cantidadTarjetaMatisses > 0) {
+      let item = {
+        itemCode: 'BONO',
+        shortItemCode: 'BONO',
+        itemName: 'TARJETA DE REGALO MATISSES (' + this.cantidadTarjetaMatisses + ' TARJETAS)',
+        price: this.valorTarjetaMatisses,
+        providerCode: '000000',
+        cantidad: 1
+      }
+
+      this.items.unshift(item);
+      this.valorTarjetaMatisses = null;
+      this.cantidadTarjetaMatisses = null;
+      this.calcularTotalVenta();
+      this.modoBono = true;
+
+      $('#modalBono').modal('hide');
+    } else {
+      this.mensajeError = 'Todos los campos son obligatorios.';
+    }
+  }
+
+  public seleccionarItemEliminar(item: any) {
+    this.itemEliminar = item;
+    $('#modalItemEliminar').modal('show');
+  }
+
+  public eliminarItem(cantidadEliminar: number) {
+    for (let i = 0; i < this.items.length; i++) {
+      if (this.itemEliminar.itemCode === this.items[i].itemCode) {
+        if (this.items[i].cantidad === cantidadEliminar) {
+          this.items.splice(i, 1);
+        } else {
+          if (this.items[i].cantidad > 1) {
+            this.items[i].cantidad--;
+          } else {
+            this.items.splice(i, 1);
+          }
+        }
+
+        this.calcularTotalVenta();
+        $('#modalItemEliminar').modal('hide');
+        break;
+      }
+    }
+  }
+
+  public mostrarCuadricula() {
+    if (this.cuadricula) {
+      this.cuadricula = false;
+    } else {
+      this.cuadricula = true;
+    }
+  }
+
+  public abrirModalBono() {
+    if (this.items == null || this.items.length <= 0) {
+      $('#modalBono').modal('show');
+    }
+  }
+
+  public obtenerDatosCliente() {
+    this.mensajeErrorCliente = '';
+    if (this.documentoCliente != null && this.documentoCliente.length > 0) {
+      this._posService.consultarDatosCliente(this.documentoCliente).subscribe(
+        response => {
+          console.log(response);
+          if (response.cardCode != null && response.cardCode.length > 0) {
+            this.cliente = response;
+            this.documentoCliente = null;
+            if (this.medioPago === 5) {
+              this.obtenerSaldoFavorCliente();
+            }
+          } else {
+            this.mensajeErrorCliente = 'No se encontró  el cliente con documento: ' + this.documentoCliente;
+          }
+        },
+        error => {
+          console.log(error);
+          this.mensajeErrorCliente = 'No se encontró  el cliente con documento: ' + this.documentoCliente;
+        }
+      );
+    }
+  }
+
+  private calcularTotalVenta() {
+    this.totalVenta = 0;
+    this.totalBase = 0;
+    this.totalIVA = 0;
+    if (this.items != null && this.items.length > 0) {
+      for (let i = 0; i < this.items.length; i++) {
+        let totalLinea: number = 0;
+        let totalIvaLinea: number = 0;
+
+        if (this.items[i].discountPercent > 0) {
+          totalLinea = (((this.items[i].price * this.items[i].cantidad) / 100) * this.items[i].discountPercent);
+        } else {
+          totalLinea = (this.items[i].price * this.items[i].cantidad);
+        }
+
+        totalIvaLinea = (parseInt(this.items[i].taxRate) * totalLinea) / (100 + parseInt(this.items[i].taxRate));
+
+        this.totalIVA += Math.round(totalIvaLinea);
+        this.totalVenta += totalLinea;
+      }
+
+      this.totalBase += this.totalVenta - this.totalIVA;
+    }
+    this.calcularPendienteVenta();
+  }
+
+  private calcularPendienteVenta() {
+    this.pendienteVenta = this.totalVenta;
+
+    if (this.valorTotalTarjetas != null && this.valorTotalTarjetas > 0) {
+      this.pendienteVenta -= this.valorTotalTarjetas;
+    }
+    if (this.valorSaldoFavor != null && this.valorSaldoFavor > 0) {
+      this.pendienteVenta -= this.valorSaldoFavor;
+    }
+    if (this.valorEfectivo != null && this.valorEfectivo > 0) {
+      this.pendienteVenta -= this.valorEfectivo;
+    }
+
+    if (this.pendienteVenta < 0) {
+      this.pendienteVenta = 0;
+    }
+
+    this.cambioVenta = ((this.totalVenta - (this.valorEfectivo + this.valorTotalTarjetas + (this.valorSaldoFavor > 0 ? this.valorSaldoFavor : 0))) * -1);
+    if (this.cambioVenta < 0) {
+      this.cambioVenta = 0;
+    }
+  }
+
   public seleccionarMedioPago(medioPago: number) {
     this.medioPago = medioPago;
 
@@ -394,13 +612,15 @@ export class PosComponent implements OnInit {
       $('#efectivo').focus();
     } else if (this.medioPago === 3 && (this.franquicias === null || this.franquicias.length <= 0)) {
       this.obtenerFranquicias();
+    } else if (this.medioPago === 5) {
+      $('#saldoFavor').focus();
+      this.obtenerSaldoFavorCliente();
     }
   }
 
   private obtenerFranquicias() {
-    //TODO: Codigo quemado
     this.mensajeError = '';
-    this._posService.obtenerFranquicias('0203').subscribe(
+    this._posService.obtenerFranquicias(this.sesionPOS.almacen).subscribe(
       response => {
         console.log(response);
         this.franquicias = response;
@@ -420,6 +640,13 @@ export class PosComponent implements OnInit {
     $('#digitos').focus();
   }
 
+  public calcularDatosIVA() {
+    let porcentaje = this.valorTarjeta / this.totalVenta;
+
+    this.baseIVA = Math.round((this.totalBase * porcentaje));
+    this.valorIVA = Math.round((this.totalIVA * porcentaje));
+  }
+
   public agregarPagoTarjeta() {
     this.mensajeError = '';
     if (this.tipoPagoTarjeta === 2) {
@@ -427,7 +654,9 @@ export class PosComponent implements OnInit {
         this.mensajeError = 'Debe seleccionar una franquicia.';
         return;
       }
-      if (this.ultimosDigitos == null || this.ultimosDigitos.toString().length <= 0 || this.voucher == null || this.voucher.toString().length <= 0 || this.valorTarjeta == null || this.valorTarjeta <= 0) {
+      if (this.franquiciaSeleccionada.type === 'credit' &&
+        (this.ultimosDigitos == null || this.ultimosDigitos.toString().length <= 0 || this.voucher == null || this.voucher.toString().length <= 0 ||
+          this.valorTarjeta == null || this.valorTarjeta <= 0)) {
         this.mensajeError = 'Debe llenar todos los campos obligatorios.';
         return;
       }
@@ -436,8 +665,9 @@ export class PosComponent implements OnInit {
         return;
       }
 
-      let porcentaje = this.valorTarjeta / this.totalCompra;
+      let porcentaje = this.valorTarjeta / this.totalVenta;
       let pagoTarjeta = {
+        tipoTransaccion: 'M',
         tipo: this.franquiciaSeleccionada.creditCardId,
         franquicia: this.franquiciaSeleccionada.franchiseName,
         valor: this.valorTarjeta,
@@ -447,13 +677,347 @@ export class PosComponent implements OnInit {
         iva: this.totalIVA * porcentaje
       }
 
-      this.registrarPagoTarjeta(pagoTarjeta);
+      if (this.indexTarjeta != null) {
+        this.valorTotalTarjetas -= this.pagosTarjeta[this.indexTarjeta].valor;
+
+        this.pagosTarjeta[this.indexTarjeta].tipoTransaccion = pagoTarjeta.tipoTransaccion;
+        this.pagosTarjeta[this.indexTarjeta].valor = pagoTarjeta.valor;
+        this.pagosTarjeta[this.indexTarjeta].base = pagoTarjeta.base;
+        this.pagosTarjeta[this.indexTarjeta].iva = pagoTarjeta.iva;
+        this.pagosTarjeta[this.indexTarjeta].tarjeta = pagoTarjeta.tarjeta;
+        this.pagosTarjeta[this.indexTarjeta].voucher = pagoTarjeta.voucher;
+        this.pagosTarjeta[this.indexTarjeta].franquicia = pagoTarjeta.franquicia;
+        this.pagosTarjeta[this.indexTarjeta].tipo = pagoTarjeta.tipo;
+
+        this.aplicarPagoTarjeta(pagoTarjeta);
+      } else {
+        this.pagosTarjeta.push(pagoTarjeta);
+        this.aplicarPagoTarjeta(pagoTarjeta);
+      }
     }
   }
 
-  private registrarPagoTarjeta(pagoTarjeta: any) {
-    this.pagosTarjeta.push(pagoTarjeta);
+  public eliminarPagoTarjeta() {
+    this.valorTotalTarjetas -= this.pagosTarjeta[this.indexTarjeta].valor;
+    this.pagosTarjeta.splice(this.indexTarjeta, 1);
+    this.limpiarDatosPagoTarjeta();
+  }
+
+  private aplicarPagoTarjeta(pagoTarjeta: any) {
     this.valorTotalTarjetas += pagoTarjeta.valor;
+    this.limpiarDatosPagoTarjeta();
+  }
+
+  public seleccionarPagoTarjeta(posicion: number) {
+    //TODO: Los pagos con tarjeta realizados automaticamente no se pueden editar
+    this.tipoPagoTarjeta = this.pagosTarjeta[posicion].tipoTransaccion === 'M' ? 2 : 1;
+    this.valorTarjeta = this.pagosTarjeta[posicion].valor;
+    this.totalBase = this.pagosTarjeta[posicion].base;
+    this.totalIVA = this.pagosTarjeta[posicion].iva;
+    this.ultimosDigitos = this.pagosTarjeta[posicion].tarjeta === 'N/A' ? '' : this.pagosTarjeta[posicion].tarjeta;
+    this.voucher = this.pagosTarjeta[posicion].voucher;
+
+    for (let i = 0; i < this.franquicias.length; i++) {
+      if (this.franquicias[i].franchiseName === this.pagosTarjeta[posicion].franquicia) {
+        this.franquiciaSeleccionada = this.franquicias[i];
+        break;
+      }
+    }
+
+    this.indexTarjeta = posicion;
+    $('#modalTarjetas').modal('show');
+  }
+
+  private obtenerSaldoFavorCliente() {
+    this.mensajeSaldoFavor = '';
+    if (this.cliente.cardCode == null || this.cliente.cardCode.length <= 0) {
+      this.mensajeSaldoFavor = 'Debe ingresar el documento del cliente primero para ejecutar la consulta.';
+      return;
+    }
+
+    this._posService.consultarSaldoFavorCliente(this.cliente.cardCode).subscribe(
+      response => {
+        if (response > 0) {
+          this.saldoFavorDisponible = response;
+        } else {
+          this.saldoFavorDisponible = 0;
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  public aplicarSaldoFavor() {
+    if (this.valorSaldoFavor > this.saldoFavorDisponible) {
+      this.valorSaldoFavor = this.saldoFavorDisponible;
+    } else if (this.valorSaldoFavor > this.totalVenta) {
+      this.valorSaldoFavor = this.totalVenta;
+    }
+  }
+
+  public asignarValorTotal(tipo) {
+    console.log('Asignando valor total a ' + tipo)
+    let totalPendiente = this.totalVenta;
+
+    if (this.valorEfectivo != null && this.valorEfectivo > 0) {
+      totalPendiente -= this.valorEfectivo;
+    }
+    if (this.valorSaldoFavor != null && this.valorSaldoFavor > 0) {
+      totalPendiente -= this.valorSaldoFavor;
+    }
+    if (this.valorTotalTarjetas != null && this.valorTotalTarjetas > 0) {
+      totalPendiente -= this.valorTotalTarjetas;
+    }
+
+    if (totalPendiente > 0) {
+      if (tipo === 'efectivo') {
+        this.valorEfectivo = totalPendiente;
+      } else if (tipo === 'tarjeta') {
+        this.valorTarjeta = totalPendiente;
+      } else if (tipo === 'saldoFavor') {
+        this.valorSaldoFavor = totalPendiente;
+        this.aplicarSaldoFavor();
+      }
+    }
+    this.calcularPendienteVenta();
+  }
+
+  public validarTipoVenta() {
+    if (this.modoBono) {
+
+    } else {
+      this.mostrarModalFactura();
+    }
+  }
+
+  private mostrarModalFactura() {
+    this.validarSaldoProductos(true);
+  }
+
+  private validarSaldoProductos(mostrarModal: boolean) {
+    let referencias = [];
+
+    for (let i = 0; i < this.items.length; i++) {
+      referencias.push(this.items[i].itemCode);
+    }
+
+    this._posService.obtenerStockItem(this.sesionPOS.almacen, referencias).subscribe(
+      response => {
+        console.log(response);
+        for (let i = 0; i < response.length; i++) {
+          for (let j = 0; j < this.items.length; j++) {
+            if (response[i].itemCode === this.items[j].itemCode) {
+              this.items[j].stock = response[i].stock;
+              this.items[j].availableQuantity = response[i].availableQuantity;
+              break;
+            }
+          }
+        }
+
+        if (mostrarModal) {
+          this.mostrarUbicaciones();
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  private mostrarUbicaciones() {
+    // Se selecciona el primer articulo para mostrarlo
+    this.itemSeleccionado = 0;
+    this.itemFactura = null;
+    this.ubicaciones = new Array<any>();
+
+    if (this.items != null && this.items.length > 0) {
+      for (let i = 0; i < this.items.length; i++) {
+        this.itemFactura = this.items[i];
+
+        for (let j = 0; j < this.items[i].stock.length; j++) {
+          this.agregarUbicacion(this.items[i].stock[j].binAbs, this.items[i].stock[j].quantity, this.items[i].itemCode, this.items[i].stock[j].warehouseCode, this.items[i].stock[j].binCode);
+        }
+      }
+
+      $('#modalFactura').modal('show');
+    }
+  }
+
+  private agregarUbicacion(binAbs: number, cantidad: number, referencia: string, almacen: string, binCode: string) {
+    let i = 0;
+
+    while (i < this.ubicaciones.length) {
+      if (this.ubicaciones[i].referencia === referencia) {
+        break;
+      }
+      i++;
+    }
+
+    if (i < this.ubicaciones.length) {
+      // La referencia YA ha sido agregada, solo agregar el detalle de la ubicacion
+      if (binCode.indexOf('COMPL') >= 0) {
+        this.ubicaciones[i].exhibicion.disponible += cantidad;
+        if (this.ubicaciones[i].exhibicion.binAbs === 0) {
+          this.ubicaciones[i].exhibicion.binAbs = binAbs;
+        }
+        this.ubicaciones[i].exhibicion.whsCode = almacen;
+      } else {
+        this.ubicaciones[i].bodega.disponible += cantidad;
+        this.ubicaciones[i].bodega.ubicacionesBodega.push({
+          whsCode: almacen,
+          binCode: binCode,
+          binAbs: binAbs,
+          disponible: cantidad,
+          seleccionado: 0
+        });
+      }
+    } else {
+      // La referencia No ha sido agregada, agregar registro completo
+      let ubicacionProducto = {};
+
+      if (binCode.indexOf('COMPL') >= 0) {
+        // Exhibicion
+        ubicacionProducto = {
+          referencia: referencia,
+          exhibicion: {
+            whsCode: almacen,
+            binAbs: binAbs,
+            disponible: cantidad,
+            seleccionado: 0
+          },
+          bodega: {
+            disponible: cantidad,
+            seleccionado: 0,
+            ubicacionesBodega: []
+          }
+        }
+      } else {
+        // Bodega
+        ubicacionProducto = {
+          referencia: referencia,
+          exhibicion: {
+            binAbs: 0,
+            disponible: 0,
+            seleccionado: 0
+          },
+          bodega: {
+            disponible: cantidad,
+            seleccionado: 0,
+            ubicacionesBodega: [{
+              whsCode: almacen,
+              binCode: binCode,
+              binAbs: binAbs,
+              disponible: cantidad,
+              seleccionado: 0
+            }]
+          }
+        }
+      }
+      this.ubicaciones.push(ubicacionProducto);
+    }
+  }
+
+  public agregarCantidadUbicacion(tipoAlmacen: string){
+    if(tipoAlmacen === 'b'){
+      if(this.ubicaciones[this.itemSeleccionado].bodega.seleccionado === this.ubicaciones[this.itemSeleccionado].bodega.disponible){
+        //TODO: No hay mas saldo para asignar
+        return;
+      } else if(this.items[this.itemSeleccionado].cantidad === this.ubicaciones[this.itemSeleccionado].bodega.seleccionado + this.ubicaciones[this.itemSeleccionado].exhibicion.seleccionado){
+        //TODO: No se pueden seleccionar mas productos de los necesarios
+        return;
+      } else {
+
+      }
+    }
+  }
+
+  public suspenderVenta() {
+    if (this.items != null && this.items.length > 0) {
+      if (this.cliente.cardCode != null && this.cliente.cardCode.length > 0) {
+        let ventapos = {
+          estado: "PE",
+          nit: this.cliente ? this.cliente.cardCode : null,
+          almacen: this.sesionPOS.almacen,
+          usuario: this.sesionPOS.usuario,
+          productos: this.items,
+          idTurnoCaja: this.sesionPOS.idTurnoCaja
+        }
+
+        this._posService.suspenderVenta(ventapos).subscribe(
+          response => {
+            this.limpiarFormularioVenta();
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      } else {
+        console.log("No se encontró el nit del cliente");
+      }
+    } else {
+      this.mensajeError = 'No se puede suspender la venta debido a que no ha seleccionado items';
+    }
+  }
+
+  public listarVentasPendientes() {
+    this._posService.listarVentasPendientes('2107').subscribe(
+      response => {
+        if (response.length > 0) {
+          console.log(response);
+          this.ventasPendientes = response;
+          $('#modalVentasPendientes').modal('show');
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  public consultarVentaPendiente(ventaPendiente) {
+    this._posService.consultarVentaPendiente(ventaPendiente.idVentaPOS).subscribe(
+      response => {
+        if (response.length > 0) {
+          this.items = response;
+          this.cliente.cardCode = ventaPendiente.nit;
+          $('#modalVentasPendientes').modal('hide');
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  private limpiarVenta() {
+    this.referencia = null;
+    this.modoBono = false;
+    this.valorTarjetaMatisses = null;
+    this.cantidadTarjetaMatisses = null;
+    this.documentoCliente = null;
+    this.mensajeErrorCliente = null
+    this.medioPago = null;
+    this.valorEfectivo = null;
+    this.pagosTarjeta = new Array<any>();
+    this.saldoFavorDisponible = null;
+    this.valorSaldoFavor = null;
+    this.mensajeSaldoFavor = null;
+    this.valorTotalTarjetas = 0;
+    this.totalVenta = null;
+
+    this.limpiarFormularioVenta();
+    this.limpiarDatosPagoTarjeta();
+
+    $('#modalCancelarVenta').modal('hide');
+    $('#referencia').focus();
+  }
+
+  private limpiarFormularioVenta() {
+    this.itemEliminar = null;
+    this.items = new Array<any>();
+    this.inicializarCliente();
   }
 
   private limpiarDatosAutorizacion(authorizationForm) {
@@ -462,5 +1026,18 @@ export class PosComponent implements OnInit {
     this.usuarioAutoriza = null;
     this.valid = true;
     authorizationForm.reset();
+  }
+
+  public limpiarDatosPagoTarjeta() {
+    this.tipoPagoTarjeta = null;
+    this.valorTarjeta = null;
+    this.totalBase = null;
+    this.totalIVA = null;
+    this.ultimosDigitos = null;
+    this.voucher = null;
+    this.franquiciaSeleccionada = null;
+    this.indexTarjeta = null;
+
+    $('#modalTarjetas').modal('hide');
   }
 }

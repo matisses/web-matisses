@@ -65,4 +65,58 @@ export class PosService {
     return this._http.get(this.urlBCS + 'consultaproductos/descuento/PO/' + referencia, { headers: headers })
       .map(res => res.json());
   }
+
+  suspenderVenta(datosVenta) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'ventapos/guardar/', JSON.stringify(datosVenta), { headers: headers })
+      .map(res => res.json());
+  }
+
+  listarVentasPendientes(idTurnoCaja) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'ventapos/pendientes/' + idTurnoCaja, { headers: headers })
+      .map(res => res.json());
+  }
+
+  consultarVentaPendiente(idVentaPendiente) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'ventapos/pendientes/productos/' + idVentaPendiente, { headers: headers })
+      .map(res => res.json());
+  }
+
+  consultarDatosCliente(nit) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'sociodenegocios/' + nit, { headers: headers })
+      .map(res => res.json());
+  }
+
+  consultarSaldoFavorCliente(nit) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'sociodenegocios/saldo/' + nit, { headers: headers })
+      .map(res => res.json());
+  }
+
+  obtenerStockItem(almacen: string, items) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'iteminventario/consultastock/' + almacen, JSON.stringify(items), { headers: headers })
+      .map(res => res.json());
+  }
 }
