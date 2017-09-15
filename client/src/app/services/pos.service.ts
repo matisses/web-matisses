@@ -119,4 +119,13 @@ export class PosService {
     return this._http.post(this.urlBCS + 'iteminventario/consultastock/' + almacen, JSON.stringify(items), { headers: headers })
       .map(res => res.json());
   }
+
+  listarEmpleados() {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'empleado/list', { headers: headers })
+      .map(res => res.json());
+  }
 }

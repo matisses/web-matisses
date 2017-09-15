@@ -457,10 +457,14 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Facturando venta</h4>
+        <h4 class="modal-title">
+          <b>Facturando venta </b>
+          <span *ngIf="pasoFacturacion == 1">evaluando ítems</span>
+          <span *ngIf="pasoFacturacion == 2">asesores y comentario</span>
+        </h4>
       </div>
-      <div class="modal-body" *ngIf="itemFactura != null">
-        <div class="row">
+      <div class="modal-body">
+        <div class="row" *ngIf="pasoFacturacion === 1 && ubicaciones && itemFactura != null">
           <div class="col-xs-6">
             <div class="row">
               <div class="col-xs-12 text-center">
@@ -492,8 +496,8 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-xs-6">
-                <div class="contenedor-saldos">
+              <div class="col-xs-6" *ngIf="ubicaciones">
+                <div class="contenedor-saldos" *ngIf="ubicaciones[itemSeleccionado].bodega.disponible > 0">
                   <div class="row">
                     <div class="col-xs-12 margin-bottom-10 text-center">Bodega</div>
                   </div>
@@ -506,10 +510,10 @@
                     <div class="col-xs-12">
                       <div class="row">
                         <div class="col-xs-6 text-center" style="border-right: 1px solid #6D9791">
-                          <span class="glyphicon glyphicon-minus pointer-cursor"></span>
+                          <span class="glyphicon glyphicon-minus pointer-cursor" (click)="quitarCantidadUbicacion('b')"></span>
                         </div>
                         <div class="col-xs-6 text-center">
-                          <span class="glyphicon glyphicon-plus pointer-cursor"></span>
+                          <span class="glyphicon glyphicon-plus pointer-cursor" (click)="agregarCantidadUbicacion('b')"></span>
                         </div>
                       </div>
                     </div>
@@ -517,7 +521,7 @@
                 </div>
               </div>
               <div class="col-xs-6">
-                <div class="contenedor-saldos">
+                <div class="contenedor-saldos" *ngIf="ubicaciones[itemSeleccionado].exhibicion.disponible > 0">
                   <div class="row">
                     <div class="col-xs-12 margin-bottom-10 text-center">Exhibición</div>
                   </div>
@@ -530,10 +534,10 @@
                     <div class="col-xs-12">
                       <div class="row">
                         <div class="col-xs-6 text-center" style="border-right: 1px solid #6D9791">
-                          <span class="glyphicon glyphicon-minus pointer-cursor"></span>
+                          <span class="glyphicon glyphicon-minus pointer-cursor" (click)="quitarCantidadUbicacion('e')"></span>
                         </div>
                         <div class="col-xs-6 text-center">
-                          <span class="glyphicon glyphicon-plus pointer-cursor"></span>
+                          <span class="glyphicon glyphicon-plus pointer-cursor" (click)="agregarCantidadUbicacion('e')"></span>
                         </div>
                       </div>
                     </div>
@@ -543,10 +547,104 @@
             </div>
           </div>
         </div>
+        <div class="row" *ngIf="pasoFacturacion === 2">
+          <div class="col-xs-8">
+            <ul class="nav nav-tabs">
+              <li *ngFor="let sucursal of sucursales" [ngClass]="{'active' : (sucursales[0].code === sucursal.code)}" (click)="seleccionarSucursal(sucursal)">
+                <a data-toggle="tab" [href]="sucursal.code">{{sucursal.name}}</a>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div id="empleados" class="tab-pane fade in active empleado-ventas">
+                <div class="row">
+                  <div class="col-xs-3 text-center margin-top-15" *ngFor="let empleado of empleados">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <img class="asesor-venta pointer-cursor" [ngClass]="{'asesor-venta-selected' : (obtenerPosicionEmpleado(empleado) >= 0)}" (click)="seleccionarEmpleado(empleado)" src="https://360.matisses.co:8443/shared/empleados/comisiones/{{empleado.cedula}}.jpg" alt="{{empleado.cedula}}">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-12">
+                        {{empleado.nombre}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-4">
+            <div class="row">
+              <div class="col-xs-12">
+                <h4>Seleccione el estado:</h4>
+                <select class="form-control input-lg">
+                  <option style="display:none" disabled selected value>Estados disponibles</option>
+                  <option>Entrega inmediata</option>
+                  <option>Programar entrega</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <h4>Pagos:</h4>
+                <div class="row">
+                  <div class="col-xs-8 text-right">Articulos:</div>
+                  <div class="col-xs-4 text-right"><b>{{calcularTotalItems() | number}}</b></div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-8 text-right">Total:</div>
+                  <div class="col-xs-4 text-right">$<b> {{totalVenta | number}}</b></div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-8 text-right"><b>Pagos</b></div>
+                  <div class="col-xs-12">
+                    <div class="row">
+                      <div class="col-xs-8 text-right">Efectivo:</div>
+                      <div class="col-xs-4 text-right">$<b> {{valorEfectivo | number}}</b></div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-8 text-right">Tarjetas:</div>
+                      <div class="col-xs-4 text-right">$<b> {{valorTotalTarjetas | number}}</b></div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-8 text-right">Cruce:</div>
+                      <div class="col-xs-4 text-right">$<b> {{((valorSaldoFavor) > 0 ? valorSaldoFavor : 0) | number}}</b></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <h4>Comentario:</h4>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <textarea class="form-control input-lg" style="resize: none; height: 100px;"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <div class="row" *ngIf="mensajeError && mensajeError.length > 0">
+          <div class="col-xs-12 text-left">
+            <div class="alert alert-danger" role="alert">{{mensajeError}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6 text-center" style="font-size: 20px; margin-top: 10px;">
+            <span *ngIf="pasoFacturacion === 1 && itemFactura != null">Producto <b>{{itemSeleccionado + 1}}</b> de {{items.length}}</span>
+          </div>
+          <div class="col-xs-6 text-right">
+            <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-default btn-lg" *ngIf="itemSeleccionado > 0" (click)="anteriorItem()">Atrás</button>
+            <button type="button" class="btn btn-primary btn-lg" *ngIf="pasoFacturacion === 1 && ubicaciones && itemFactura != null" [disabled]="pasoFacturacion === 1 && ((ubicaciones[itemSeleccionado].exhibicion.seleccionado
+                 + ubicaciones[itemSeleccionado].bodega.seleccionado) < itemFactura.cantidad)" (click)="siguientePaso()">Siguiente</button>
+            <button type="button" class="btn btn-primary btn-lg" *ngIf="pasoFacturacion === 2" (click)="siguientePaso()">Siguiente</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -635,7 +733,7 @@
               <div class="nano-content">
                 <div class="row">
                   <div class="col-xs-6" *ngFor="let item of items">
-                    <div class="contenedor-cuadricula pointer-cursor">
+                    <div class="contenedor-cuadricula pointer-cursor" (click)="seleccionarItemEliminar(item)">
                       <div class="row">
                         <div class="col-xs-3">
                           <div class="row">
@@ -818,7 +916,7 @@
               </div>
             </div>
           </div>
-          <div class="div-totales" [ngClass]="{'margin-bottom-50' : pendienteVenta === 0}" *ngIf="totalVenta != null && totalVenta > 0">
+          <div class="div-totales" [ngClass]="{'margin-bottom-50' : (pendienteVenta === 0 && items != null && items.length > 0 && cliente != null && cliente.cardCode != null && cliente.cardCode.length > 0)}" *ngIf="totalVenta != null && totalVenta > 0">
             <div class="row">
               <div class="col-xs-6">Total</div>
               <div class="col-xs-6 text-right">$ {{totalVenta | number}}</div>
@@ -874,7 +972,7 @@
             </ul>
           </div>
         </div>
-        <div class="col-xs-4" *ngIf="pendienteVenta === 0">
+        <div class="col-xs-4" *ngIf="pendienteVenta === 0 && items != null && items.length > 0 && cliente != null && cliente.cardCode != null && cliente.cardCode.length > 0">
           <button type="button" class="btn btn-lg btn-primary btn-full" (click)="validarTipoVenta()">Efectuar pago</button>
         </div>
       </div>

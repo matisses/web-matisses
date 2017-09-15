@@ -74,9 +74,13 @@ export class PosComponent implements OnInit {
   public cambioVenta: number = 0;
 
   // Variables de facturacion
+  public pasoFacturacion: number;
   public itemSeleccionado: number;
   public itemFactura: any;
   public ubicaciones: Array<any>;
+  public empleados: Array<any>;
+  public sucursales: Array<any>;
+  public empleadosSeleccionados: Array<any>;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _jwt: JWTService, private _posService: PosService) {
     this.sesionPOS = {
@@ -797,6 +801,8 @@ export class PosComponent implements OnInit {
   }
 
   private validarSaldoProductos(mostrarModal: boolean) {
+    this.pasoFacturacion = 1;
+    this.itemFactura = null;
     let referencias = [];
 
     for (let i = 0; i < this.items.length; i++) {
@@ -817,6 +823,7 @@ export class PosComponent implements OnInit {
         }
 
         if (mostrarModal) {
+          this.itemFactura = this.items[0];
           this.mostrarUbicaciones();
         }
       },
@@ -829,13 +836,10 @@ export class PosComponent implements OnInit {
   private mostrarUbicaciones() {
     // Se selecciona el primer articulo para mostrarlo
     this.itemSeleccionado = 0;
-    this.itemFactura = null;
     this.ubicaciones = new Array<any>();
 
     if (this.items != null && this.items.length > 0) {
       for (let i = 0; i < this.items.length; i++) {
-        this.itemFactura = this.items[i];
-
         for (let j = 0; j < this.items[i].stock.length; j++) {
           this.agregarUbicacion(this.items[i].stock[j].binAbs, this.items[i].stock[j].quantity, this.items[i].itemCode, this.items[i].stock[j].warehouseCode, this.items[i].stock[j].binCode);
         }
@@ -919,18 +923,150 @@ export class PosComponent implements OnInit {
     }
   }
 
-  public agregarCantidadUbicacion(tipoAlmacen: string){
-    if(tipoAlmacen === 'b'){
-      if(this.ubicaciones[this.itemSeleccionado].bodega.seleccionado === this.ubicaciones[this.itemSeleccionado].bodega.disponible){
-        //TODO: No hay mas saldo para asignar
+  public agregarCantidadUbicacion(tipoAlmacen: string) {
+    this.mensajeError = '';
+    if (tipoAlmacen === 'b') {
+      if (this.ubicaciones[this.itemSeleccionado].bodega.seleccionado === this.ubicaciones[this.itemSeleccionado].bodega.disponible) {
+        this.mensajeError = 'No hay más saldo para asignar';
         return;
-      } else if(this.items[this.itemSeleccionado].cantidad === this.ubicaciones[this.itemSeleccionado].bodega.seleccionado + this.ubicaciones[this.itemSeleccionado].exhibicion.seleccionado){
-        //TODO: No se pueden seleccionar mas productos de los necesarios
+      } else if (this.items[this.itemSeleccionado].cantidad === (this.ubicaciones[this.itemSeleccionado].bodega.seleccionado + this.ubicaciones[this.itemSeleccionado].exhibicion.seleccionado)) {
+        this.mensajeError = 'No se pueden seleccionar más productos de los necesarios';
         return;
       } else {
+        this.ubicaciones[this.itemSeleccionado].bodega.seleccionado++;
 
+        for (let i = 0; i < this.ubicaciones[this.itemSeleccionado].bodega.ubicacionesBodega.length; i++) {
+          if (this.ubicaciones[this.itemSeleccionado].bodega.ubicacionesBodega[i].seleccionado < this.ubicaciones[this.itemSeleccionado].bodega.ubicacionesBodega[i].disponible) {
+            // Se incrementara la cantidad seleccionda de la ubicacion
+            this.ubicaciones[this.itemSeleccionado].bodega.ubicacionesBodega[i].seleccionado++;
+            break;
+          }
+        }
+      }
+    } else {
+      if (this.ubicaciones[this.itemSeleccionado].exhibicion.seleccionado === this.ubicaciones[this.itemSeleccionado].exhibicion.disponible) {
+        this.mensajeError = 'No hay más saldo para asignar';
+        return;
+      } else if (this.items[this.itemSeleccionado].cantidad === (this.ubicaciones[this.itemSeleccionado].bodega.seleccionado + this.ubicaciones[this.itemSeleccionado].exhibicion.seleccionado)) {
+        this.mensajeError = 'No se pueden seleccionar más productos de los necesarios';
+        return;
+      } else {
+        this.ubicaciones[this.itemSeleccionado].exhibicion.seleccionado++;
       }
     }
+  }
+
+  public quitarCantidadUbicacion(tipoAlmacen: string) {
+    this.mensajeError = '';
+    if (tipoAlmacen === 'b') {
+      if (this.ubicaciones[this.itemSeleccionado].bodega.seleccionado === 0) {
+        this.mensajeError = 'No se puede quitar más cantidad de las ubicaciones de bodega';
+        return;
+      } else {
+        this.ubicaciones[this.itemSeleccionado].bodega.seleccionado--;
+
+        for (let i = 0; i < this.ubicaciones[this.itemSeleccionado].bodega.ubicacionesBodega.length; i++) {
+          if (this.ubicaciones[this.itemSeleccionado].bodega.ubicacionesBodega[i].seleccionado > 0) {
+            this.ubicaciones[this.itemSeleccionado].bodega.ubicacionesBodega[i].seleccionado--;
+            break;
+          }
+        }
+      }
+    } else {
+      if (this.ubicaciones[this.itemSeleccionado].exhibicion.seleccionado === 0) {
+        this.mensajeError = 'No se puede quitar más cantidad de las ubicaciones de exhibición';
+        return;
+      } else {
+        this.ubicaciones[this.itemSeleccionado].exhibicion.seleccionado--;
+      }
+    }
+  }
+
+  public siguientePaso() {
+    this.mensajeError = '';
+    if ((this.items.length - 1) > this.itemSeleccionado) {
+      if ((this.ubicaciones[this.itemSeleccionado].exhibicion.seleccionado + this.ubicaciones[this.itemSeleccionado].bodega.seleccionado) < this.items[this.itemSeleccionado].cantidad) {
+        this.mensajeError = 'Debe asignar la cantidad de las ubicaciones que necesita del ítem para continuar.';
+        return;
+      }
+      this.itemSeleccionado++;
+      this.itemFactura = this.items[this.itemSeleccionado];
+    } else {
+      // Se debe enviar al usuario a que elija los asesores que comisionarian
+      this.pasoFacturacion++;
+      this.cargarEmpleados();
+    }
+  }
+
+  public anteriorItem() {
+    this.mensajeError = '';
+    if (this.itemSeleccionado > 0 &&
+      ((this.ubicaciones[this.itemSeleccionado].exhibicion.seleccionado + this.ubicaciones[this.itemSeleccionado].bodega.seleccionado) === this.items[this.itemSeleccionado].cantidad)) {
+      this.itemSeleccionado--;
+      this.itemFactura = this.items[this.itemSeleccionado];
+    } else {
+      this.mensajeError = 'Debe asignar la cantidad de las ubicaciones que necesita del ítem para continuar.';
+    }
+  }
+
+  private cargarEmpleados() {
+    this.mensajeError = '';
+    this.empleados = new Array<any>();
+    this.sucursales = new Array<any>();
+    this.empleadosSeleccionados = new Array<any>();
+
+    this._posService.listarEmpleados().subscribe(
+      response => {
+        if (response.length > 0) {
+          this.sucursales = response;
+          this.seleccionarSucursal(this.sucursales[0]);
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  private seleccionarSucursal(sucursal) {
+    this.empleados = sucursal.empleados;
+  }
+
+  public seleccionarEmpleado(empleado) {
+    this.mensajeError = '';
+    let posicion = this.obtenerPosicionEmpleado(empleado);
+
+    if (posicion >= 0) {
+      this.empleadosSeleccionados.splice(posicion, 1);
+    } else {
+      if (this.empleadosSeleccionados.length < 5) {
+        this.empleadosSeleccionados.push(empleado);
+      } else {
+        this.mensajeError = 'No puede asignar más de 5 empleados para que comisionen.';
+      }
+    }
+  }
+
+  public obtenerPosicionEmpleado(empleado) {
+    let i = 0;
+    while (i < this.empleadosSeleccionados.length) {
+      if (this.empleadosSeleccionados[i].cedula === empleado.cedula) {
+        return i;
+      }
+      i++;
+    }
+
+    return -1;
+  }
+
+  public calcularTotalItems() {
+    let totalItems = 0;
+
+    for (let i = 0; i < this.items.length; i++) {
+      totalItems += this.items[i].cantidad;
+    }
+
+    return totalItems;
   }
 
   public suspenderVenta() {
