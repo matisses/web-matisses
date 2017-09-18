@@ -21,12 +21,12 @@ export class CrockeryService {
       .map(res => res.json());
   }
 
-  public remove(vajilla) {
+  public remove(id_vajilla) {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
 
-    return this._http.post(this.url + 'crockery/', vajilla, { headers: headers })
+    return this._http.delete(this.url + 'crockery/remove/' + id_vajilla, { headers: headers })
       .map(res => res.json());
   }
 

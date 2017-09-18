@@ -139,13 +139,6 @@
 <div class="modal fade" id="modalVajillas" tabindex="-1" role="dialog" aria-labelledby="modalVajillasLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <div class="row" *ngIf="messageExit != null && messageExit.length > 0">
-        <div class="col-xs-12">
-          <div class="alert alert-success" role="alert">
-            <p>{{messageExit}}</p>
-          </div>
-        </div>
-      </div>
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="icon-close"></span></button>
         <h4 class="modal-title text-center" id="modalVajillas">{{vajilla.name}}</h4>
@@ -189,7 +182,7 @@
             </form>
           </div>
           <div class="col-sm-5 col-xs-12 btn-agregar">
-            <button type="button" class="btn btn-carrito">Agregar al carrito</button>
+            <button type="button" class="btn btn-carrito" (click)="agregarCarrito()" data-dismiss="modal">Agregar al carrito</button>
           </div>
         </div>
       </div>
@@ -281,6 +274,13 @@
       </div>
     </div>
     <br/>
+    <div class="row" *ngIf="messageExit != null && messageExit.length > 0">
+      <div class="col-xs-12">
+        <div class="alert alert-success" role="alert">
+          <p>{{messageExit}}</p>
+        </div>
+      </div>
+    </div>
     <div class="row hidden-sm hidden-xs">
       <div class="col-xs-12 text-center">
         <button type="button" class="btn-agregar-vajilla" data-toggle="modal" data-target="#modalEditar">Agregar vajilla <span class="glyphicon glyphicon-plus"></span></button>
@@ -292,7 +292,7 @@
         <div class="producto">
           <div class="row">
             <div class="col-xs-12">
-              <img src="assets/images/vajillas/puestos/{{vajillas._id}}.jpg" class="img-responsive" alt="">
+              <img src="assets/images/vajillas/puestos/{{vajilla._id}}.jpg" class="img-responsive" alt="">
             </div>
           </div>
           <div class="info">
@@ -311,5 +311,6 @@
   </div>
 </div>
 
+<matisses-carrito-simple #carritoSimple></matisses-carrito-simple>
 <newsletter></newsletter>
 <matisses-footer></matisses-footer>

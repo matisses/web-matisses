@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ItemService } from '../../services/item.service';
 import { CrockeryService } from '../../services/crockery.service';
 import { Item } from '../../models/item';
 import { Vajilla } from '../../models/crockery';
+import { CarritoSimpleComponent } from '../header/menu/carrito/carrito-simple.component';
 
 declare var $: any;
 
@@ -14,6 +15,8 @@ declare var $: any;
 })
 
 export class VajillaComponent implements OnInit {
+  @ViewChild(CarritoSimpleComponent)
+  private carrito: CarritoSimpleComponent;
   public cantidadSeleccionada: number = 1;
   public itemsXPag: string;
   public orderByStr: string;
@@ -125,18 +128,6 @@ export class VajillaComponent implements OnInit {
       this.valid = false;
       return;
     }
-    //if (!this.vajilla.brand) {
-    //  console.warn('no se selecciono la marca de la vajilla');
-    //  return;
-    //}
-    //if (!this.vajilla.coleccion) {
-    //  console.warn('no se selecciono la coleccion de la vajilla');
-    //  return;
-    //}
-    //if (this.vajilla.items === 0) {
-    //  console.warn('no se selecciono ningun item para la vajilla');
-    //  return;
-    //}
     this.vajilla.detail = new Array<any>();
     this.itemsSeleccionados.forEach((value, key, map) => {
       let item = {
@@ -191,20 +182,27 @@ export class VajillaComponent implements OnInit {
   }
 
   public eliminarVajilla(vajilla) {
-    console.log('Eliminando vajilla ' + vajilla);
-    this.vajilla = vajilla;
-    // this._crockeryService.remove(vajilla._id).subscribe(
-    //   response => {
-    //     this.vajilla.detail = new Array<any>();
-    //     for (let i = 0; i < response.length; i++) {
-    //       this.vajilla.detail.push(response[i].item);
-    //     }
-    //   }, error => { console.error(error); }
-    // );
+    console.log('Eliminando vajilla ' + vajilla._id);
+    this._crockeryService.remove(vajilla._id).subscribe(
+      response => {
+        this.cargarVajillas();
+      }, error => { console.error(error); }
+    );
     console.log('Vajilla eliminada');
+    this.messageExit = 'Vajilla eliminada con éxito.';
   }
 
   private compareItems(a, b) {
     return a.priceaftervat - b.priceaftervat;
+  }
+
+  public agregarCarrito() {
+    console.log('Agregando al carrito la vajilla');
+    console.log(this.vajilla.detail);
+    for (let i = 0; i < this.vajilla.detail.length; i++) {
+      console.log('vajilla ' + this.vajilla.detail[i].itemcode);
+      console.log('vajilla ' + this.vajilla.detail[i].selectedQuantity);
+      this.carrito.procesarItem(this.vajilla.detail[i]);
+    }
   }
 }
