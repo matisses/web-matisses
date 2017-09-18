@@ -83,7 +83,7 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let item of itemsColeccion; let i = index">
-                        <th><img src="https://img.matisses.co/{{item.itemcode}}/mini/{{item.itemcode}}_01.jpg" class="img-resposive" alt=""> {{item.shortitemcode}}</th>
+                        <th><img src="https://img.matisses.co/{{item.itemcode}}/mini/{{item.itemcode}}_01.jpg" class="img-resposive" alt="">{{item.shortitemcode}}</th>
                         <td>{{item.itemname}}</td>
                         <td>
                           <div class="input-group grupo-cantidad">
@@ -111,9 +111,10 @@
             <div class="row">
               <div class="col-xs-4">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Agregar referencia">
+                  <input id="shortitemcode" type="text" class="form-control" name="shortitemcode" [(ngModel)]= "shortitemcode" placeholder="Agregar referencia">
+                  <!-- <input id="name" type="text" class="form-control" [class.required-field]="!valid" name="name" [(ngModel)]="vajilla.name" placeholder="ej: Vajilla Domo Gold 6 puestos" required> -->
                   <span class="input-group-btn">
-                      <button class="btn btn-carrito" type="button">Agregar</button>
+                      <button type="button" class="btn btn-carrito" (click)="agregarReferencia(shortitemcode)">Agregar</button>
                     </span>
                 </div>
               </div>

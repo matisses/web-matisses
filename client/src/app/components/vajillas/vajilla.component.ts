@@ -18,6 +18,7 @@ export class VajillaComponent implements OnInit {
   @ViewChild(CarritoSimpleComponent)
   private carrito: CarritoSimpleComponent;
   public cantidadSeleccionada: number = 1;
+  public shortitemcode: string;
   public itemsXPag: string;
   public orderByStr: string;
   public messageError: string;
@@ -160,14 +161,17 @@ export class VajillaComponent implements OnInit {
     this.vajilla.priceTxt = '0';
     this.vajilla.items = 0;
     this.messageError = '';
+    this.shortitemcode = '';
   }
 
   public refreshModal(ModalForm) {
-    ModalForm.reset();
     this.limpiarFormulario();
+    ModalForm.reset();
   }
 
   public mostrarVajilla(vajilla) {
+    this.messageExit = '';
+    this.messageError = '';
     console.log(vajilla);
     this.vajilla = vajilla;
     this._crockeryService.listItems(vajilla._id).subscribe(
@@ -182,11 +186,16 @@ export class VajillaComponent implements OnInit {
   }
 
   public eliminarVajilla(vajilla) {
+    this.messageExit = '';
+    this.messageError = '';
     console.log('Eliminando vajilla ' + vajilla._id);
     this._crockeryService.remove(vajilla._id).subscribe(
       response => {
         this.cargarVajillas();
-      }, error => { console.error(error); }
+      }, error => {
+        console.error(error);
+        this.messageError = 'No se pudo eliminar la vajilla.'
+      }
     );
     console.log('Vajilla eliminada');
     this.messageExit = 'Vajilla eliminada con éxito.';
@@ -197,12 +206,20 @@ export class VajillaComponent implements OnInit {
   }
 
   public agregarCarrito() {
-    console.log('Agregando al carrito la vajilla');
-    console.log(this.vajilla.detail);
     for (let i = 0; i < this.vajilla.detail.length; i++) {
-      console.log('vajilla ' + this.vajilla.detail[i].itemcode);
-      console.log('vajilla ' + this.vajilla.detail[i].selectedQuantity);
       this.carrito.procesarItem(this.vajilla.detail[i]);
     }
+  }
+
+  public agregarReferencia(shortitemcode) {
+    this.messageError = ''
+    this._itemService.find(shortitemcode).subscribe(
+      response => {
+        this.itemsColeccion.push(response.result[0]);
+      }, error => {
+        console.error(error);
+        this.messageError = 'Debe ingresar un ítem.';
+      }
+    );
   }
 }
