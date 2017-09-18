@@ -557,7 +557,7 @@
             <div class="tab-content">
               <div id="empleados" class="tab-pane fade in active empleado-ventas">
                 <div class="row">
-                  <div class="col-xs-3 text-center margin-top-15" *ngFor="let empleado of empleados">
+                  <div class="col-xs-3 text-center margin-top-15" *ngFor="let empleado of empleados" style="height: 147px">
                     <div class="row">
                       <div class="col-xs-12">
                         <img class="asesor-venta pointer-cursor" [ngClass]="{'asesor-venta-selected' : (obtenerPosicionEmpleado(empleado) >= 0)}" (click)="seleccionarEmpleado(empleado)" src="https://360.matisses.co:8443/shared/empleados/comisiones/{{empleado.cedula}}.jpg" alt="{{empleado.cedula}}">
@@ -577,41 +577,11 @@
             <div class="row">
               <div class="col-xs-12">
                 <h4>Seleccione el estado:</h4>
-                <select class="form-control input-lg">
+                <select class="form-control input-lg" [(ngModel)]="estadoFactura">
                   <option style="display:none" disabled selected value>Estados disponibles</option>
-                  <option>Entrega inmediata</option>
-                  <option>Programar entrega</option>
+                  <option [selected]="estadoFactura === 'D'" value="D">Entrega inmediata</option>
+                  <option [selected]="estadoFactura === 'P'" value="P">Programar entrega</option>
                 </select>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12">
-                <h4>Pagos:</h4>
-                <div class="row">
-                  <div class="col-xs-8 text-right">Articulos:</div>
-                  <div class="col-xs-4 text-right"><b>{{calcularTotalItems() | number}}</b></div>
-                </div>
-                <div class="row">
-                  <div class="col-xs-8 text-right">Total:</div>
-                  <div class="col-xs-4 text-right">$<b> {{totalVenta | number}}</b></div>
-                </div>
-                <div class="row">
-                  <div class="col-xs-8 text-right"><b>Pagos</b></div>
-                  <div class="col-xs-12">
-                    <div class="row">
-                      <div class="col-xs-8 text-right">Efectivo:</div>
-                      <div class="col-xs-4 text-right">$<b> {{valorEfectivo | number}}</b></div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-8 text-right">Tarjetas:</div>
-                      <div class="col-xs-4 text-right">$<b> {{valorTotalTarjetas | number}}</b></div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-8 text-right">Cruce:</div>
-                      <div class="col-xs-4 text-right">$<b> {{((valorSaldoFavor) > 0 ? valorSaldoFavor : 0) | number}}</b></div>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
             <div class="row">
@@ -619,8 +589,42 @@
                 <h4>Comentario:</h4>
                 <div class="row">
                   <div class="col-xs-12">
-                    <textarea class="form-control input-lg" style="resize: none; height: 100px;"></textarea>
+                    <textarea class="form-control input-lg" style="resize: none; height: 100px;" [(ngModel)]="comentarioFactura"></textarea>
                   </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <h4>Resumen:</h4>
+                <div class="row">
+                  <div class="col-xs-6 text-right">Articulos:</div>
+                  <div class="col-xs-6 text-right"><b>{{calcularTotalItems() | number}}</b></div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6 text-right">Total:</div>
+                  <div class="col-xs-6 text-right">$<b> {{totalVenta | number}}</b></div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12 text-center"><b>Pagos</b></div>
+                  <div class="col-xs-12">
+                    <div class="row">
+                      <div class="col-xs-6 text-right">Efectivo:</div>
+                      <div class="col-xs-6 text-right">$<b> {{valorEfectivo | number}}</b></div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-6 text-right">Tarjetas:</div>
+                      <div class="col-xs-6 text-right">$<b> {{valorTotalTarjetas | number}}</b></div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-6 text-right">Cruce:</div>
+                      <div class="col-xs-6 text-right">$<b> {{((valorSaldoFavor) > 0 ? valorSaldoFavor : 0) | number}}</b></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6 text-right">Cambio:</div>
+                  <div class="col-xs-6 text-right">$<b> {{cambioVenta | number}}</b></div>
                 </div>
               </div>
             </div>
@@ -642,13 +646,95 @@
             <button type="button" class="btn btn-default btn-lg" *ngIf="itemSeleccionado > 0" (click)="anteriorItem()">Atrás</button>
             <button type="button" class="btn btn-primary btn-lg" *ngIf="pasoFacturacion === 1 && ubicaciones && itemFactura != null" [disabled]="pasoFacturacion === 1 && ((ubicaciones[itemSeleccionado].exhibicion.seleccionado
                  + ubicaciones[itemSeleccionado].bodega.seleccionado) < itemFactura.cantidad)" (click)="siguientePaso()">Siguiente</button>
-            <button type="button" class="btn btn-primary btn-lg" *ngIf="pasoFacturacion === 2" (click)="siguientePaso()">Siguiente</button>
+            <button type="button" class="btn btn-primary btn-lg" *ngIf="pasoFacturacion === 2" (click)="facturar()">Facturar</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<div id="modalEspera" class="modal fade" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content dialog-content noround">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-12 center-component">
+            <span class="input-lg">
+                Estamos procesando tu solicitud.
+            </span>
+          </div>
+        </div>
+        <br/>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="progress">
+              <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" style="width: 100%; background-color: #6D9791 !important"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalTerminar" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Se generó la factura <b>PSAB001826</b></h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="nav nav-tabs">
+              <li class="active">
+                <a data-toggle="tab" href="#bolsas">Bolsas</a>
+              </li>
+              <li>
+                <a data-toggle="tab" href="#cajas">Cajas</a>
+              </li>
+              <li>
+                <a data-toggle="tab" href="#otros">Otros</a>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div id="bolsas" class="tab-pane fade in active material-empaque">
+                <div class="row">
+                  <div class="col-xs-2 text-center margin-top-15">
+                    <div>
+                      <div class="row">
+                        <div class="col-xs-12 text-center">
+                          <img src="https://img.matisses.co/360/POS/Empaques/ME00011.jpg" alt="ME00011">
+                        </div>
+                        <div class="talla-empaque">
+                          <b>S</b>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <p>Bolsa vista alegre medidas 35x</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="bolsas" class="tab-pane fade material-empaque"></div>
+              <div id="bolsas" class="tab-pane fade material-empaque"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button type="button" name="button" data-toggle="modal" data-target="#modalTerminar">Prueba</button>
 
 <div class="jumbotron" *ngIf="!sesionPOS.cajaAbierta">
   <h1>¡Hola {{sesionPOS.nombreUsuario}}!</h1>

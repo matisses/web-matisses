@@ -345,3 +345,10 @@
   -ms-filter: grayscale(0%);
   -o-filter: grayscale(0%);
 }
+
+.talla-empaque {
+  font-size: 40px;
+  position: absolute;
+  right: 14px;
+  bottom: 41px;
+}

@@ -76,11 +76,14 @@ export class PosComponent implements OnInit {
   // Variables de facturacion
   public pasoFacturacion: number;
   public itemSeleccionado: number;
+  public comentarioFactura: string;
+  public estadoFactura: string = '';
   public itemFactura: any;
   public ubicaciones: Array<any>;
   public empleados: Array<any>;
   public sucursales: Array<any>;
   public empleadosSeleccionados: Array<any>;
+  public resultadoFactura: any;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _jwt: JWTService, private _posService: PosService) {
     this.sesionPOS = {
@@ -123,7 +126,6 @@ export class PosComponent implements OnInit {
           $('#footer').addClass('hidden-xs hidden-md hidden-sm hidden-lg');
 
           if (response.estado === 0) {
-            this.sesionPOS = response;
             localStorage.setItem('matisses.pos-token', this.token);
             console.log('El token recibido es valido');
 
@@ -146,11 +148,15 @@ export class PosComponent implements OnInit {
     this.permitirAbrirCaja = false;
     this._posService.validarSesion(this.token).subscribe(
       response => {
+        console.log('Sesion POS: ');
+        console.log(response);
+
         if (response.mensajeError && response.mensajeError.length > 0) {
           this.mensajeInicio = response.mensajeError;
         } else {
           if (response.cajaAbierta) {
             this.sesionPOS.cajaAbierta = true;
+            this.sesionPOS = response;
           } else {
             this.mensajeInicio = 'La caja se encuentra cerrada. Ejecute la operación de apertura de caja para comenzar a realizar ventas.';
             this.permitirAbrirCaja = true;
@@ -1067,6 +1073,115 @@ export class PosComponent implements OnInit {
     }
 
     return totalItems;
+  }
+
+  public facturar() {
+    this.mensajeError = '';
+    if (this.estadoFactura === null || this.estadoFactura.length <= 0) {
+      // No se selecciono un estado para el pedido, por lo que se mandara como entrega inmediata
+      this.estadoFactura = 'D';
+    }
+    if (this.sesionPOS.idTurnoCaja === null) {
+      this.mensajeError = 'No se encontró un ID de sesión valido. Cierre sesión y vuelva a intentarlo.';
+      return;
+    }
+
+    console.log(this.items);
+    console.log(this.sesionPOS);
+
+    let productos = new Array<any>();
+
+    for (let i = 0; i < this.items.length; i++) {
+      let ubicacionesProducto = new Array<any>();
+
+      for (let j = 0; j < this.ubicaciones.length; j++) {
+        if (this.ubicaciones[j].referencia === this.items[i].itemCode) {
+          if (this.ubicaciones[j].exhibicion.seleccionado > 0) {
+            let ubicacion = {
+              binAbsEntry: this.ubicaciones[j].exhibicion.binAbs,
+              cantidad: this.ubicaciones[j].exhibicion.seleccionado,
+              almacen: this.ubicaciones[j].exhibicion.whsCode
+            };
+
+            ubicacionesProducto.push(ubicacion);
+          }
+
+          if (this.ubicaciones[j].bodega.seleccionado > 0) {
+            for (let k = 0; k < this.ubicaciones[j].bodega.ubicacionesBodega.length; k++) {
+              let ubicacion = {
+                binAbsEntry: this.ubicaciones[j].bodega.ubicacionesBodega[k].binAbs,
+                cantidad: this.ubicaciones[j].bodega.ubicacionesBodega[k].seleccionado,
+                almacen: this.ubicaciones[j].bodega.ubicacionesBodega[k].whsCode
+              };
+
+              ubicacionesProducto.push(ubicacion);
+            }
+          }
+          break;
+        }
+      }
+
+      let producto = {
+        referencia: this.items[i].itemCode,
+        descripcion: this.items[i].itemName,
+        refProveedor: this.items[i].providerCode,
+        cantidad: this.items[i].cantidad,
+        precio: this.items[i].price,
+        descuento: this.items[i].discountPercent,
+        ubicaciones: ubicacionesProducto
+      }
+
+      productos.push(producto);
+    }
+
+    console.log(productos);
+
+    let pagos = new Array<any>();
+
+    for (let i = 0; i < this.pagosTarjeta.length; i++) {
+      if (this.pagosTarjeta[i] !== null && this.pagosTarjeta[i].tipo !== null && this.pagosTarjeta[i].valor !== null && this.pagosTarjeta[i].tarjeta !== null && this.pagosTarjeta[i].voucher !== null) {
+        let pago = {
+          franquicia: this.pagosTarjeta[i].tipo,
+          valor: this.pagosTarjeta[i].valor,
+          digitos: this.pagosTarjeta[i].tarjeta,
+          voucher: this.pagosTarjeta[i].voucher
+        }
+
+        pagos.push(pago);
+      }
+    }
+
+    let venta = {
+      idVentaPOS: this.sesionPOS.idTurnoCaja,
+      estado: 'PE',
+      estadoPedido: this.estadoFactura,
+      asesores: this.empleadosSeleccionados,
+      comentarios: this.comentarioFactura,
+      nit: this.cliente ? this.cliente.cardCode : null,
+      almacen: this.sesionPOS.almacen,
+      usuario: this.sesionPOS.nombreUsuario,
+      productos: productos,
+      totalVenta: this.totalVenta,
+      efectivo: this.valorEfectivo === null ? 0 : (this.valorEfectivo - this.cambioVenta),
+      cuentaEfectivo: this.sesionPOS.cuentaEfectivo,
+      certificadosRegalo: null, //TODO: falta
+      pagosTarjeta: pagos
+    }
+
+    // Cerrar el modal de facturacion y abrir uno de espera
+    $('#modalFactura').modal('hide');
+    $('#modalEspera').modal('show');
+
+    this._posService.facturar(venta).subscribe(
+      response => {
+        if(response.codigo === 0){
+
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   public suspenderVenta() {

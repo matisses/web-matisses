@@ -128,4 +128,13 @@ export class PosService {
     return this._http.get(this.urlBCS + 'empleado/list', { headers: headers })
       .map(res => res.json());
   }
+
+  facturar(venta) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'ventapos/facturar/', JSON.stringify(venta), { headers: headers })
+      .map(res => res.json());
+  }
 }
