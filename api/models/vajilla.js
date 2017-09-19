@@ -7,6 +7,7 @@ var CrockerySchema = Schema({
     name: String,
     brand: String,
     coleccion: String,
+    photo: String,
     price: Number,
     items: Number,
     pieces: Number,

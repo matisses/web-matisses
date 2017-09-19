@@ -17,6 +17,7 @@ declare var $: any;
 export class VajillaComponent implements OnInit {
   @ViewChild(CarritoSimpleComponent)
   private carrito: CarritoSimpleComponent;
+  private itemsSeleccionados: Map<String, Item>;
   public cantidadSeleccionada: number = 1;
   public shortitemcode: string;
   public itemsXPag: string;
@@ -30,7 +31,6 @@ export class VajillaComponent implements OnInit {
   public colecciones: Array<any>;
   public itemsColeccion: Array<Item>;
   public vajillas: Array<Vajilla>;
-  private itemsSeleccionados: Map<String, Item>;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _crockeryService: CrockeryService) {
     this.itemsSeleccionados = new Map<String, Item>();
@@ -39,8 +39,6 @@ export class VajillaComponent implements OnInit {
     this.limpiarFormulario();
     this.itemsXPag = '12 x pag';
     this.orderByStr = 'Nuevos';
-    this.messageExit = '';
-    this.messageError = '';
   }
 
   ngOnInit() {
@@ -123,6 +121,7 @@ export class VajillaComponent implements OnInit {
 
   public guardarVajilla(ModalForm) {
     this.valid = true;
+    this.vaciarMessage();
     if (!this.vajilla.name || this.vajilla.name.length === 0 || !this.vajilla.brand || !this.vajilla.coleccion || this.vajilla.items === 0) {
       console.error('Debes llenar todos los campos obligatorios para poder proceder con la creación.');
       this.messageError = 'Debes llenar todos los campos obligatorios para poder proceder con la creación.';
@@ -156,12 +155,17 @@ export class VajillaComponent implements OnInit {
     this.itemsColeccion = new Array<Item>();
     this.vajilla.brand = '';
     this.vajilla.coleccion = '';
+    this.vajilla.priceTxt = '0';
+    this.shortitemcode = '';
     this.vajilla.pieces = 0;
     this.vajilla.price = 0;
-    this.vajilla.priceTxt = '0';
     this.vajilla.items = 0;
+    this.vaciarMessage();
+  }
+
+  public vaciarMessage() {
+    this.messageExit = '';
     this.messageError = '';
-    this.shortitemcode = '';
   }
 
   public refreshModal(ModalForm) {
@@ -170,8 +174,7 @@ export class VajillaComponent implements OnInit {
   }
 
   public mostrarVajilla(vajilla) {
-    this.messageExit = '';
-    this.messageError = '';
+    this.vaciarMessage();
     console.log(vajilla);
     this.vajilla = vajilla;
     this._crockeryService.listItems(vajilla._id).subscribe(
@@ -186,8 +189,7 @@ export class VajillaComponent implements OnInit {
   }
 
   public eliminarVajilla(vajilla) {
-    this.messageExit = '';
-    this.messageError = '';
+    this.vaciarMessage();
     console.log('Eliminando vajilla ' + vajilla._id);
     this._crockeryService.remove(vajilla._id).subscribe(
       response => {
@@ -212,10 +214,27 @@ export class VajillaComponent implements OnInit {
   }
 
   public agregarReferencia(shortitemcode) {
-    this.messageError = ''
+    this.vaciarMessage();
     this._itemService.find(shortitemcode).subscribe(
       response => {
-        this.itemsColeccion.push(response.result[0]);
+        if (response.result.length > 0) {
+          let existe = false;
+          for (let i = 0; i < this.itemsColeccion.length; i++) {
+            let item = this.itemsColeccion[i].shortitemcode;
+            if (item != shortitemcode) {
+              existe = false;
+            } else {
+              this.messageError = 'La ítem ya está agregado.'
+              existe = true;
+              return;
+            }
+          }
+          if (!existe) {
+            this.itemsColeccion.push(response.result[0]);
+          }
+        } else {
+          this.messageError = 'No se encontro el ítem ingresado.';
+        }
       }, error => {
         console.error(error);
         this.messageError = 'Debe ingresar un ítem.';

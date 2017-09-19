@@ -4,6 +4,7 @@ export class Vajilla {
   public name: string;
   public brand: string;
   public coleccion: string;
+  public photo: string;
   public priceTxt: string;
   public price: number;
   public items: number;

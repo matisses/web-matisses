@@ -6,7 +6,7 @@
     <div class="modal-content">
       <form id="form_modal" #ModalForm="ngForm" (submit)="guardarVajilla(ModalForm)">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="icon-close" (click)="refreshModal(ModalForm)"></span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="refreshModal(ModalForm)"><span aria-hidden="true" class="icon-close"></span></button>
           <h4 class="modal-title text-center" id="modalEditar">Agregar nueva vajilla</h4>
         </div>
         <div class="row" *ngIf="messageError != null && messageError.length > 0">
@@ -111,8 +111,7 @@
             <div class="row">
               <div class="col-xs-4">
                 <div class="input-group">
-                  <input id="shortitemcode" type="text" class="form-control" name="shortitemcode" [(ngModel)]= "shortitemcode" placeholder="Agregar referencia">
-                  <!-- <input id="name" type="text" class="form-control" [class.required-field]="!valid" name="name" [(ngModel)]="vajilla.name" placeholder="ej: Vajilla Domo Gold 6 puestos" required> -->
+                  <input id="shortitemcode" type="text" class="form-control" name="shortitemcode" [(ngModel)]="shortitemcode" placeholder="Agregar referencia">
                   <span class="input-group-btn">
                       <button type="button" class="btn btn-carrito" (click)="agregarReferencia(shortitemcode)">Agregar</button>
                     </span>
@@ -120,10 +119,15 @@
               </div>
               <div class="col-xs-4">
                 <div class="form-group">
+                  <label for="piture">{{vajilla.photo}}</label>
+                </div>
+              </div>
+              <!-- <div class="col-xs-4">
+                <div class="form-group">
                   <label for="exampleInputFile" class="btn-subir">Subir imagen</label>
                   <input type="file" id="exampleInputFile" class="custom-file-input">
                 </div>
-              </div>
+              </div> -->
               <div class="col-xs-4">
                 <button class="btn btn-carrito" type="submit" name="guardarVajilla">Crear</button>
               </div>
@@ -284,7 +288,7 @@
     </div>
     <div class="row hidden-sm hidden-xs">
       <div class="col-xs-12 text-center">
-        <button type="button" class="btn-agregar-vajilla" data-toggle="modal" data-target="#modalEditar">Agregar vajilla <span class="glyphicon glyphicon-plus"></span></button>
+        <button type="button" class="btn-agregar-vajilla" data-toggle="modal" data-target="#modalEditar" (click)="vaciarMessage()">Agregar vajilla <span class="glyphicon glyphicon-plus"></span></button>
       </div>
     </div>
     <br/>
