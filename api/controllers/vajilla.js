@@ -9,7 +9,6 @@ function save(req, res) {
   vajilla.name = req.body.name;
   vajilla.brand = req.body.brand;
   vajilla.coleccion = req.body.coleccion;
-  vajilla.photo = req.body.photo;
   vajilla.price = req.body.price;
   vajilla.items = req.body.items;
   vajilla.pieces = req.body.pieces;
