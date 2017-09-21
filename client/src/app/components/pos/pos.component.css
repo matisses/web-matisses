@@ -352,3 +352,28 @@
   right: 14px;
   bottom: 41px;
 }
+
+.material-empaque {
+  height: 170px;
+  border: 1px solid #6D9791;
+  padding: 5px;
+  margin-top: 5px;
+}
+
+.div-material-empaque-eliminar {
+  height: 79px;
+  font-size: 22px;
+  padding-top: 29px;
+  margin-left: -10px;
+}
+
+.empaque {
+  border-right: 1px solid #6D9791;
+  height: 158px;
+  margin-right: -15px;
+}
+
+.table-anular {
+  color: #000000;
+  background-color: #EDEDED;
+}

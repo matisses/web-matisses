@@ -39,6 +39,33 @@ export class PosService {
       .map(res => res.json());
   }
 
+  transacciones(transacciones) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'caja/transacciones/', JSON.stringify(transacciones), { headers: headers })
+      .map(res => res.json());
+  }
+
+  obtenerSaldo(usuario) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'caja/saldo', JSON.stringify(usuario), { headers: headers })
+      .map(res => res.json());
+  }
+
+  consultartransacciones(facturaAnular) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'caja/consultartransacciones/', JSON.stringify(facturaAnular), { headers: headers })
+      .map(res => res.json());
+  }
+
   obtenerFranquicias(almacen) {
     const headers = new Headers({
       'Content-Type': 'application/json'
@@ -93,6 +120,24 @@ export class PosService {
       .map(res => res.json());
   }
 
+  facturar(venta) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'ventapos/facturar/', JSON.stringify(venta), { headers: headers })
+      .map(res => res.json());
+  }
+
+  venderTarjetaRagalo(venta) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'ventapos/venderTarjetaRegalo/', JSON.stringify(venta), { headers: headers })
+      .map(res => res.json());
+  }
+
   consultarDatosCliente(nit) {
     const headers = new Headers({
       'Content-Type': 'application/json'
@@ -129,12 +174,75 @@ export class PosService {
       .map(res => res.json());
   }
 
-  facturar(venta) {
+  obtenerEmpaqueVenta(almacen) {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
 
-    return this._http.post(this.urlBCS + 'ventapos/facturar/', JSON.stringify(venta), { headers: headers })
+    return this._http.get(this.urlBCS + 'empaqueventa/list/' + almacen, { headers: headers })
+      .map(res => res.json());
+  }
+
+  registrarEmpaqueVenta(empaqueVenta) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'empaqueventa', JSON.stringify(empaqueVenta), { headers: headers })
+      .map(res => res.json());
+  }
+
+  imprimirRecibo(ip: string, invoiceData) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post('http://' + ip + ':8008/print/', JSON.stringify(invoiceData), { headers: headers })
+      .map(res => res.json());
+  }
+
+  imprimirReciboCaja(ip: string, receiptData) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post('http://' + ip + ':8008/printReciboCaja/', JSON.stringify(receiptData), { headers: headers })
+      .map(res => res.json());
+  }
+
+  imprimir(ip: string, receiptData) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post('http://' + ip + ':8008/void/', JSON.stringify(receiptData), { headers: headers })
+      .map(res => res.json());
+  }
+
+  listarFacturasAnular(idTurnoCaja) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'factura/anular/lista/' + idTurnoCaja, { headers: headers })
+      .map(res => res.json());
+  }
+
+  consultarAnulacion(numeroFactura, numeroNotaCredito, nombreCaja, usuario) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'factura/consulta/anulacion/' + numeroFactura + '/' + numeroNotaCredito + '/' + nombreCaja + '/' + usuario, { headers: headers })
+      .map(res => res.json());
+  }
+
+  anularFV(usuario, facturaAnular) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'notacredito/anular/' + usuario, JSON.stringify(facturaAnular), { headers: headers })
       .map(res => res.json());
   }
 }

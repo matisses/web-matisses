@@ -23,12 +23,16 @@ export class PosComponent implements OnInit {
   // Variables de autorizacion
   public usuarioAutoriza: string;
   public claveAutoriza: string;
+  public accion: string;
+  public objeto: string;
+  public funcion: string;
   public valid: boolean = true;
 
   // Variables de caja
   public idDenominacion: number;
   public cantidad: number;
   public totalCaja: number;
+  public valorUltimoDeposito: number = 0;
   public denominaciones: Array<any>;
 
   // Variables de items
@@ -55,8 +59,8 @@ export class PosComponent implements OnInit {
   public valorTarjeta: number;
   public totalBase: number;
   public totalIVA: number;
-  public baseIVA: number;
-  public valorIVA: number;
+  public baseIVA: number = 0;
+  public valorIVA: number = 0;
   public valorTotalTarjetas: number = 0;
   public indexTarjeta: number;
   public ultimosDigitos: string;
@@ -79,11 +83,19 @@ export class PosComponent implements OnInit {
   public comentarioFactura: string;
   public estadoFactura: string = '';
   public itemFactura: any;
+  public resultadoFactura: any;
   public ubicaciones: Array<any>;
   public empleados: Array<any>;
   public sucursales: Array<any>;
   public empleadosSeleccionados: Array<any>;
-  public resultadoFactura: any;
+  public regalos: Array<any>;
+
+  // Variables de empaque
+  public empaques: Array<any>;
+
+  // Variables de anulacion
+  public facturaAnularSeleccionada: any;
+  public facturasAnulables: Array<any>;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _jwt: JWTService, private _posService: PosService) {
     this.sesionPOS = {
@@ -128,6 +140,7 @@ export class PosComponent implements OnInit {
           if (response.estado === 0) {
             localStorage.setItem('matisses.pos-token', this.token);
             console.log('El token recibido es valido');
+            this.sesionPOS = response;
 
             // Se valida el estado actual de la caja en la que se quiere trabajar
             this.validarEstadoCaja();
@@ -148,9 +161,7 @@ export class PosComponent implements OnInit {
     this.permitirAbrirCaja = false;
     this._posService.validarSesion(this.token).subscribe(
       response => {
-        console.log('Sesion POS: ');
         console.log(response);
-
         if (response.mensajeError && response.mensajeError.length > 0) {
           this.mensajeInicio = response.mensajeError;
         } else {
@@ -169,39 +180,48 @@ export class PosComponent implements OnInit {
     );
   }
 
-  public abrirCaja(validarAutorizacion: boolean, authorizationForm) {
-    if (!validarAutorizacion) {
-      this.mensajeError = '';
-      $('#modalAutorizacion').modal('show');
-    } else {
-      if (this.usuarioAutoriza == null || this.usuarioAutoriza.length <= 0 || this.claveAutoriza == null || this.claveAutoriza.length <= 0) {
-        this.mensajeError = 'Llene todos los campos.';
-        return;
-      }
-
-      let validarPermisos = {
-        usuario: this.usuarioAutoriza,
-        clave: this.claveAutoriza,
-        accion: 'ABRIR',
-        objeto: 'CAJON_MONEDERO'
-      }
-
-      this.validarPermisoAutorizacion(validarPermisos, authorizationForm);
+  public abrirModalValidarPermisoAutorizacion(accion, objeto, modal, funcion, authorizationForm) {
+    if (modal !== 'undefine') {
+      $(modal).modal('hide');
     }
+
+    $('#modalAutorizacion').modal('show');
+
+    this.accion = accion;
+    this.objeto = objeto;
+    this.funcion = funcion;
+
+    console.log('Accion: ' + this.accion + ', Objeto: ' + this.objeto + ', Funcion: ' + this.funcion);
   }
 
   public cerrarModalValidarPermisoAutorizacion(authorizationForm) {
     this.limpiarDatosAutorizacion(authorizationForm);
   }
 
-  private validarPermisoAutorizacion(validarPermisos, authorizationForm) {
+  private validarPermisoAutorizacion(authorizationForm) {
     this.mensajeError = '';
+    if (this.usuarioAutoriza == null || this.usuarioAutoriza.length <= 0 || this.claveAutoriza == null || this.claveAutoriza.length <= 0) {
+      this.mensajeError = 'Llene todos los campos.';
+      return;
+    }
+
+    let validarPermisos = {
+      usuario: this.usuarioAutoriza,
+      clave: this.claveAutoriza,
+      accion: this.accion,
+      objeto: this.objeto
+    }
+
+    console.log(validarPermisos);
+
     this._posService.validarPermisos(validarPermisos).subscribe(
       response => {
         if (response) {
           this.limpiarDatosAutorizacion(authorizationForm);
           if (validarPermisos.objeto === 'CAJON_MONEDERO') {
             this.ejecutarCaja();
+          } else if (this.funcion === 'ANULAR FV') {
+            this.anularFV();
           }
         } else {
           this.mensajeError = 'El usuario no está autorizado o la contraseña es incorrecta.';
@@ -388,6 +408,33 @@ export class PosComponent implements OnInit {
     }
   }
 
+  public validarCierreCaja() {
+    this.mensajeError = '';
+    //this.totalCaja = null;
+
+    // Consultar el total de transacciones de la caja
+    console.log(this.sesionPOS.usuario);
+    this._posService.obtenerSaldo(this.sesionPOS.usuario).subscribe(
+      response => {
+        let saldoActual = response;
+
+        // Comparar valor consultado con el valor ingresado
+        if (saldoActual !== this.totalCaja) {
+          // Si los valores no son iguales, mostrar mensaje de error en ventana de cierre / apertura
+          this.mensajeError = 'El monto ingresado no es el esperado.';
+        } else {
+          // Si los valores son iguales, mostrar ventana de confirmacion de ultimo deposito
+          this.valorUltimoDeposito = saldoActual - 400000;
+          $('#modalCaja').modal('hide');
+          $('#modalConfirmacionCierre').modal('show');
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
   private inicializarCliente() {
     this.cliente = {
       cardCode: '',
@@ -462,6 +509,7 @@ export class PosComponent implements OnInit {
 
                   this.items.unshift(response);
                   this.calcularTotalVenta();
+                  this.referencia = null;
                 },
                 error => {
                   console.log(error);
@@ -478,9 +526,7 @@ export class PosComponent implements OnInit {
   }
 
   public agregarTarjetaRegalo() {
-    //TODO: Se debe validar que no haya mas de un registro para bono
     this.mensajeError = '';
-    this.modoBono = false;
     if (this.valorTarjetaMatisses != null && this.valorTarjetaMatisses > 0 && this.cantidadTarjetaMatisses != null && this.cantidadTarjetaMatisses > 0) {
       let item = {
         itemCode: 'BONO',
@@ -491,6 +537,11 @@ export class PosComponent implements OnInit {
         cantidad: 1
       }
 
+      if (this.modoBono) {
+        // Si el carrito ya contiene un bono, lo elimina para agregar los nuevos datos
+        this.items.splice(0, 1);
+      }
+
       this.items.unshift(item);
       this.valorTarjetaMatisses = null;
       this.cantidadTarjetaMatisses = null;
@@ -499,6 +550,7 @@ export class PosComponent implements OnInit {
 
       $('#modalBono').modal('hide');
     } else {
+      this.modoBono = false;
       this.mensajeError = 'Todos los campos son obligatorios.';
     }
   }
@@ -521,8 +573,13 @@ export class PosComponent implements OnInit {
           }
         }
 
+        if (this.modoBono) {
+          this.modoBono = false;
+        }
+
         this.calcularTotalVenta();
         $('#modalItemEliminar').modal('hide');
+        $('#referencia').focus();
         break;
       }
     }
@@ -538,6 +595,11 @@ export class PosComponent implements OnInit {
 
   public abrirModalBono() {
     if (this.items == null || this.items.length <= 0) {
+      $('#modalBono').modal('show');
+    } else if (this.modoBono) {
+      this.valorTarjetaMatisses = this.items[0].price;
+      this.cantidadTarjetaMatisses = this.items[0].cantidad;
+
       $('#modalBono').modal('show');
     }
   }
@@ -576,7 +638,7 @@ export class PosComponent implements OnInit {
         let totalIvaLinea: number = 0;
 
         if (this.items[i].discountPercent > 0) {
-          totalLinea = (((this.items[i].price * this.items[i].cantidad) / 100) * this.items[i].discountPercent);
+          totalLinea = (this.items[i].price - (((this.items[i].price) / 100) * this.items[i].discountPercent)) * this.items[i].cantidad;
         } else {
           totalLinea = (this.items[i].price * this.items[i].cantidad);
         }
@@ -700,9 +762,11 @@ export class PosComponent implements OnInit {
         this.pagosTarjeta[this.indexTarjeta].tipo = pagoTarjeta.tipo;
 
         this.aplicarPagoTarjeta(pagoTarjeta);
+        this.calcularPendienteVenta();
       } else {
         this.pagosTarjeta.push(pagoTarjeta);
         this.aplicarPagoTarjeta(pagoTarjeta);
+        this.calcularPendienteVenta();
       }
     }
   }
@@ -786,6 +850,7 @@ export class PosComponent implements OnInit {
         this.valorEfectivo = totalPendiente;
       } else if (tipo === 'tarjeta') {
         this.valorTarjeta = totalPendiente;
+        this.calcularDatosIVA();
       } else if (tipo === 'saldoFavor') {
         this.valorSaldoFavor = totalPendiente;
         this.aplicarSaldoFavor();
@@ -796,7 +861,86 @@ export class PosComponent implements OnInit {
 
   public validarTipoVenta() {
     if (this.modoBono) {
+      let pagosTarjeta = new Array<any>();
 
+      for (let i = 0; i < this.pagosTarjeta.length; i++) {
+        if (this.pagosTarjeta[i] !== null && this.pagosTarjeta[i].tipo !== null && this.pagosTarjeta[i].valor !== null && this.pagosTarjeta[i].tarjeta !== null && this.pagosTarjeta[i].voucher !== null) {
+          let pago = {
+            franquicia: this.pagosTarjeta[i].tipo,
+            valor: this.pagosTarjeta[i].valor,
+            digitos: this.pagosTarjeta[i].tarjeta,
+            voucher: this.pagosTarjeta[i].voucher
+          }
+
+          pagosTarjeta.push(pago);
+        }
+      }
+
+      let pagosCuenta = [{
+        accountCode: '28050503',
+        cardCode: this.cliente.cardCode,
+        sumPaid: this.totalVenta
+      }];
+
+      let venta = {
+        usuario: this.sesionPOS.usuario,
+        almacen: this.sesionPOS.almacen,
+        pagosTarjeta: pagosTarjeta,
+        efectivo: this.valorEfectivo === null ? 0 : this.valorEfectivo,
+        cuentaEfectivo: this.sesionPOS.cuentaEfectivo,
+        nombreCliente: this.cliente ? this.cliente.cardName : null,
+        nit: this.cliente ? this.cliente.cardCode : null,
+        totalVenta: this.totalVenta,
+        pagosCuenta: pagosCuenta,
+        estacion: this.sesionPOS.nombreCaja,
+        productos: [{
+          descripcion: this.items[0].itemName
+        }]
+      }
+
+      $('#modalEspera').modal('show');
+
+      this._posService.venderTarjetaRagalo(venta).subscribe(
+        response => {
+          if (response.codigo === '0') {
+            //Imprime tirilla
+            let operaciones = this.construirPagosParaImpresion(response.mensaje, 'R');
+
+            this._posService.transacciones(operaciones.transaccionesRegistrar).subscribe();
+
+            let receiptData = {
+              change: this.cambioVenta,
+              cashReceipNumber: response.mensaje,
+              printerName: null,
+              cashierName: this.sesionPOS.usuario,
+              cashRegister: this.sesionPOS.nombreCaja,
+              customer: {
+                id: venta.nit.replace('CL', ''),
+                name: this.cliente.cardName
+              },
+              payments: operaciones.pagos
+            }
+
+            console.log(receiptData);
+
+            this._posService.imprimirReciboCaja(this.sesionPOS.ip, receiptData).subscribe(
+              response2 => {
+                console.log(response2);
+              },
+              error2 => {
+                console.log(error2);
+              }
+            );
+          }
+
+          $('#modalEspera').modal('hide');
+          this.limpiarVenta();
+          this.validarToken();
+        },
+        error => {
+          console.log(error);
+        }
+      );
     } else {
       this.mostrarModalFactura();
     }
@@ -1086,9 +1230,6 @@ export class PosComponent implements OnInit {
       return;
     }
 
-    console.log(this.items);
-    console.log(this.sesionPOS);
-
     let productos = new Array<any>();
 
     for (let i = 0; i < this.items.length; i++) {
@@ -1159,7 +1300,7 @@ export class PosComponent implements OnInit {
       comentarios: this.comentarioFactura,
       nit: this.cliente ? this.cliente.cardCode : null,
       almacen: this.sesionPOS.almacen,
-      usuario: this.sesionPOS.nombreUsuario,
+      usuario: this.sesionPOS.usuario,
       productos: productos,
       totalVenta: this.totalVenta,
       efectivo: this.valorEfectivo === null ? 0 : (this.valorEfectivo - this.cambioVenta),
@@ -1174,14 +1315,291 @@ export class PosComponent implements OnInit {
 
     this._posService.facturar(venta).subscribe(
       response => {
-        if(response.codigo === 0){
+        if (response.codigo === '0') {
+          $('#modalEspera').modal('hide');
+          this.resultadoFactura = response;
+          this.cargarTiposEmpaque();
 
+          $('#modalTerminar').modal('show');
+
+          if (this.resultadoFactura.numeroFactura !== '' && this.resultadoFactura.resolucion !== null) {
+            this.regalos = this.resultadoFactura.certificados;
+
+            //Invocar servicio para imprimirrecibo
+            let itemsRecibo = new Array<any>();
+            let detalleIVA = new Array<any>();
+
+            for (let i = 0; i < this.items.length; i++) {
+              let item = {
+                itemCode: this.items[i].itemCode,
+                itemName: this.items[i].itemName,
+                quantity: this.items[i].cantidad,
+                price: (this.items[i].price) - ((this.items[i].price / 100) * this.items[i].discountPercent)
+              }
+
+              itemsRecibo.push(item);
+
+              let impuestoExiste = false;
+              for (let j = 0; j < detalleIVA.length; j++) {
+                if (detalleIVA[j].vatName === this.items[i].taxName) {
+                  // Acumula el valor base del impuesto
+                  detalleIVA[j].baseValue = detalleIVA[j].baseValue + (item.price / (1 + (this.items[i].taxRate / 100))) * this.items[i].cantidad;
+                  detalleIVA[j].value = detalleIVA[j].value + ((item.price * this.items[i].cantidad) - ((item.price * this.items[i].cantidad) / (1 + (this.items[i].taxRate / 100))));
+                  impuestoExiste = true;
+                  break;
+                }
+              }
+
+              if (!impuestoExiste) {
+                // Agrega el nuevo registro de impuesto
+
+                let iva = {
+                  vatName: this.items[i].taxName,
+                  value: ((item.price * this.items[i].cantidad) - ((item.price * this.items[i].cantidad) / (1 + (this.items[i].taxRate / 100)))),
+                  baseValue: (item.price * this.items[i].cantidad) / (1 + (this.items[i].taxRate / 100))
+                }
+
+                detalleIVA.push(iva);
+              }
+            }
+
+            let operaciones = this.construirPagosParaImpresion(this.resultadoFactura.numeroFactura, 'F');
+
+            this._posService.transacciones(operaciones.transaccionesRegistrar).subscribe(
+              response2 => {
+                this._posService.obtenerSaldo(this.sesionPOS.usuario).subscribe(
+                  response3 => {
+                    if (response3 > 3000000) {
+                      //TODO: Enviar SMS alerta monto caja alto
+                    }
+                  },
+                  error3 => {
+                    console.log(error3);
+                  }
+                );
+              },
+              error2 => {
+                console.log(error2);
+              }
+            );
+
+            let invoiceData = {
+              invoiceNumber: this.resultadoFactura.numeroFactura,
+              cashierName: this.sesionPOS.usuario,
+              cashRegister: this.sesionPOS.nombreCaja,
+              orderStatus: this.estadoFactura,
+              invoiceResolution: {
+                number: this.resultadoFactura.numero,
+                date: this.resultadoFactura.resolucion.fecha,
+                prefix: this.resultadoFactura.resolucion.prefijo,
+                from: this.resultadoFactura.resolucion.desde,
+                to: this.resultadoFactura.resolucion.hasta
+              },
+              customer: {
+                id: venta.nit.replace('CL', ''),
+                name: this.cliente.cardName
+              },
+              change: this.cambioVenta,
+              footerText: 'Aviso de privacidad: Los datos personales suministrados en el presente documento seran tratados de manera confidencial, solo para fines comerciales y como base de soporte para la presente negociacion. Igualmente tendran como finalidad informar sobre nuevos productos, promociones y servicios , vinculados o relacionados con nuestra marca Matisses, Distribuciones Baru S.A., propietaria de la marca o en colaboracion con terceros. Cualquier consulta que requiera sobre sus datos personales, puede realizarla por medio de nuestros canales: Pagina web www.matisses.co, correo electronico servicioalcliente@matisses.co, o comunicandose a la linea gratuita nacional matisses 01 8000 41 00 44 - ( 034)444-04-34 Opc 1, en el horario de atencion al cliente de Lunes a viernes de 9:30 am a 12:30 pm y de 1:30 pm a 5:00 pm. Las devoluciones solo seran aceptadas si el producto se entrega en su empaque original y tanto el empaque como el producto se encuentran en perfecto estado. ' + 'Para procesos de garantia, no se aceptaran reclamaciones donde se evidencie el mal uso del producto o el incorrecto seguimiento del manual de instrucciones del mismo.',
+              items: itemsRecibo,
+              vatDetail: detalleIVA,
+              payments: operaciones.pagos,
+              binAllocations: this.resultadoFactura.ubicaciones,
+              giftCertificates: this.regalos === null ? new Array<any>() : this.regalos
+            }
+
+            // Invocar servicio de impresion del equipo que genero la factura
+            console.log('Se imprimira el recibo para la factura.');
+            this._posService.imprimirRecibo(this.sesionPOS.ip, invoiceData).subscribe(
+              response2 => {
+                console.log(response2);
+              },
+              error2 => {
+                console.log(error2);
+              }
+            );
+          }
+          this.limpiarVenta();
+        } else {
+          this.mensajeError = response.mensaje;
+
+          $('#modalEspera').modal('hide');
+          $('#modalTerminar').modal('show');
         }
       },
       error => {
         console.log(error);
       }
     );
+  }
+
+  private construirPagosParaImpresion(justificacion, tipoDoc) {
+    let pagosRecibo = new Array<any>();
+    let transaccionesRegistrar = new Array<any>();
+
+    // Si hay pago en efectivo, lo agrega
+    if (this.valorEfectivo != null && this.valorEfectivo > 0) {
+      let pagoEfectivo = {
+        paymentType: "Efectivo",
+        valuePaid: this.valorEfectivo,
+        requiresCashDrawer: true
+      }
+
+      pagosRecibo.push(pagoEfectivo);
+
+      // Registra la entrada de efectivo para el cuadre de caja
+      let operacionEfectivo = {
+        usuario: this.sesionPOS.usuario,
+        tipo: 'pago',
+        valor: this.valorEfectivo,
+        justificacion: justificacion,
+        tipoDocumento: tipoDoc
+      }
+
+      transaccionesRegistrar.push(operacionEfectivo);
+
+      if (this.cambioVenta > 0) {
+        // Registra la salida de efectivo (por entrega de cambio) para el cuadre de caja
+        let operacionCambio = {
+          usuario: this.sesionPOS.usuario,
+          tipo: 'cambio',
+          valor: this.cambioVenta,
+          justificacion: justificacion,
+          tipoDocumento: tipoDoc
+        }
+
+        transaccionesRegistrar.push(operacionCambio);
+      }
+    }
+
+    // Si hay pago con saldo a favor, lo agrega
+    if (this.valorSaldoFavor > 0) {
+      let pagoSaldo = {
+        paymentType: "Otro",
+        valuePaid: this.valorSaldoFavor,
+        requiresCashDrawer: false
+      }
+
+      pagosRecibo.push(pagoSaldo);
+
+      // Registra operacion de caja para pago con saldo a favor
+      let operacionSaldo = {
+        usuario: this.sesionPOS.usuario,
+        tipo: 'otro',
+        valor: this.valorSaldoFavor,
+        justificacion: justificacion,
+        tipoDocumento: tipoDoc
+      }
+
+      transaccionesRegistrar.push(operacionSaldo);
+    }
+
+    // Agrega los pagos realizados con tarjeta
+    for (let i = 0; i < this.pagosTarjeta.length; i++) {
+      if (this.pagosTarjeta[i] !== null && this.pagosTarjeta[i].tipo !== null && this.pagosTarjeta[i].valor !== null && this.pagosTarjeta[i].tarjeta !== null && this.pagosTarjeta[i].voucher !== null) {
+        let pagoRecibo = {
+          paymentType: this.pagosTarjeta[i].franquicia,
+          valuePaid: this.pagosTarjeta[i].valor,
+          requiresCashDrawer: false
+        }
+
+        pagosRecibo.push(pagoRecibo);
+
+        // Agrega el registro de pago con tarjeta
+        let operacionTarjeta = {
+          usuario: this.sesionPOS.usuario,
+          tipo: 'tarjeta',
+          valor: this.pagosTarjeta[i].valor,
+          justificacion: justificacion,
+          tipoDocumento: tipoDoc
+        }
+
+        transaccionesRegistrar.push(operacionTarjeta);
+      }
+    }
+
+    let operaciones = {
+      pagos: pagosRecibo,
+      transaccionesRegistrar: transaccionesRegistrar
+    }
+
+    console.log(operaciones);
+    return operaciones;
+  }
+
+  private cargarTiposEmpaque() {
+    console.log('Obteniendo empaques de venta');
+    this.empaques = new Array<any>();
+
+    this._posService.obtenerEmpaqueVenta(this.sesionPOS.almacen).subscribe(
+      response => {
+        console.log('Empaques de venta obtenidos');
+        console.log(response);
+        this.empaques = response;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  public validarTipoEmpaque(providerCode, stringToLook) {
+    if (providerCode.indexOf(stringToLook) === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public agregarEmpaque(itemCode) {
+    for (let i = 0; i < this.empaques.length; i++) {
+      if (this.empaques[i].itemCode === itemCode) {
+        this.empaques[i].quantity++;
+        break;
+      }
+    }
+  }
+
+  public eliminarEmpaque(itemCode) {
+    for (let i = 0; i < this.empaques.length; i++) {
+      if (this.empaques[i].itemCode === itemCode && this.empaques[i].quantity > 0) {
+        this.empaques[i].quantity--;
+        break;
+      }
+    }
+  }
+
+  public crearRegistroEmpaqueVenta() {
+    let referenciasEmpaque = new Array<any>();
+
+    for (let i = 0; i < this.empaques.length; i++) {
+      if (this.empaques[i].quantity > 0) {
+        let detalleEmpaque = {
+          referencia: this.empaques[i].itemCode,
+          cantidad: this.empaques[i].quantity
+        }
+
+        referenciasEmpaque.push(detalleEmpaque);
+      }
+    }
+
+    let empaqueVenta = {
+      usuario: this.sesionPOS.usuario,
+      numeroFactura: this.resultadoFactura.numeroFactura,
+      almacen: this.sesionPOS.almacen,
+      cuenta: this.sesionPOS.cuentaEfectivo,
+      referencias: referenciasEmpaque
+    }
+
+    this._posService.registrarEmpaqueVenta(empaqueVenta).subscribe(
+      response => {
+        console.log(response);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+    this.limpiarDatosFactura();
   }
 
   public suspenderVenta() {
@@ -1242,6 +1660,84 @@ export class PosComponent implements OnInit {
     );
   }
 
+  public listarVentasAnular() {
+    this.facturasAnulables = new Array<any>();
+
+    this._posService.listarFacturasAnular(this.sesionPOS.idTurnoCaja).subscribe(
+      response => {
+        this.facturasAnulables = response.facturas;
+
+        if (this.facturasAnulables.length > 0) {
+          $('#modalFacturasAnular').modal('show');
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  public seleccionarFacturaAnular(factura: any) {
+    this.facturaAnularSeleccionada = factura;
+    console.log('Se selecciono la fv ' + factura.numeroFactura + ', para anular');
+  }
+
+  private anularFV() {
+    $('#modalEspera').modal('show');
+
+    this._posService.anularFV(this.sesionPOS.usuario, this.facturaAnularSeleccionada).subscribe(
+      response => {
+        if (response) {
+          let datosNotaCredito = response;
+
+          if (datosNotaCredito.codigo === '0') {
+            // Consulta las transacciones de caja para la factura y agrega registros opuestos equivalentes para anularlos
+            this._posService.consultartransacciones(this.facturaAnularSeleccionada).subscribe(
+              response2 => {
+                let transacciones = new Array<any>();
+
+                for (let i = 0; i < response2.length; i++) {
+                  let transaccion = {
+                    usuario: this.sesionPOS.usuario,
+                    tipo: response2[i].tipo,
+                    valor: response2[i].valor,
+                    justificacion: this.facturaAnularSeleccionada.prefijoFactura + this.facturaAnularSeleccionada.numeroFactura.substring(2),
+                    anulacion: true
+                  }
+
+                  transacciones.push(transaccion);
+                }
+
+                this._posService.transacciones(transacciones).subscribe();
+
+                // Consulta los datos de la anulacion y envia a imprimir el comprobante
+                this._posService.consultarAnulacion(this.facturaAnularSeleccionada.numeroFactura, datosNotaCredito.nroNotaCredito, this.sesionPOS.nombreCaja, this.sesionPOS.usuario).subscribe(
+                  response3 => {
+                    if (response) {
+                      this._posService.imprimir(this.sesionPOS.ip, response3).subscribe();
+                    }
+                  },
+                  error3 => {
+                    console.log(error3);
+                  }
+                );
+
+                this.facturaAnularSeleccionada = null;
+                $('#modalEspera').modal('hide');
+              },
+              error2 => {
+                console.log(error2);
+              }
+            );
+          }
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
   private limpiarVenta() {
     this.referencia = null;
     this.modoBono = false;
@@ -1290,5 +1786,21 @@ export class PosComponent implements OnInit {
     this.indexTarjeta = null;
 
     $('#modalTarjetas').modal('hide');
+  }
+
+  public limpiarDatosFactura() {
+    this.pasoFacturacion = null;
+    this.itemSeleccionado = null;
+    this.comentarioFactura = null;
+    this.estadoFactura = '';
+    this.itemFactura = null;
+    this.ubicaciones = new Array<any>();
+    this.empleados = new Array<any>();
+    this.sucursales = new Array<any>();
+    this.empleadosSeleccionados = new Array<any>();
+    this.resultadoFactura = null;
+
+    $('#modalTerminar').modal('hide');
+    $('#referencia').focus();
   }
 }

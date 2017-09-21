@@ -17,14 +17,14 @@
           <div class="row">
             <div class="col-xs-12">
               <label for="passwordAutoriza">Contraseña:</label>
-              <input id="passwordAutoriza" type="password" class="form-control input-lg" name="passwordAutoriza" [(ngModel)]="claveAutoriza" [class.required-field]="!valid" required (keyup.enter)="abrirCaja(true, AuthorizationForm)" autocomplete="off">
+              <input id="passwordAutoriza" type="password" class="form-control input-lg" name="passwordAutoriza" [(ngModel)]="claveAutoriza" [class.required-field]="!valid" required (keyup.enter)="validarPermisoAutorizacion(AuthorizationForm)" autocomplete="off">
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default btn-lg" (click)="cerrarModalValidarPermisoAutorizacion(AuthorizationForm)">Cerrar</button>
-        <button type="button" class="btn btn-primary btn-lg" (click)="abrirCaja(true, AuthorizationForm)">Autorizar</button>
+        <button type="button" class="btn btn-primary btn-lg" (click)="validarPermisoAutorizacion(AuthorizationForm)">Autorizar</button>
       </div>
     </div>
   </div>
@@ -104,8 +104,9 @@
               Total: $ {{totalCaja | number}}
             </p>
           </div>
-          <div class="col-xs-6" *ngIf="totalCaja >= 400000">
-            <button class="btn btn-primary btn-lg" type="button" (click)="ejecutarAperturaCaja()">Abrir</button>
+          <div class="col-xs-6" *ngIf="totalCaja > 0">
+            <button class="btn btn-primary btn-lg" type="button" *ngIf="!sesionPOS.cajaAbierta" (click)="ejecutarAperturaCaja()">Abrir</button>
+            <button class="btn btn-primary btn-lg" type="button" *ngIf="sesionPOS.cajaAbierta" (click)="validarCierreCaja()">Validar</button>
           </div>
         </div>
       </div>
@@ -424,8 +425,8 @@
         <table class="table table-striped table-bordered table-hover">
           <tr class="header-table-products">
             <th class="text-center">Fecha</th>
-            <th class="text-center">Documento Cliente</th>
-            <th class="text-center">Total Items</th>
+            <th class="text-center">Documento cliente</th>
+            <th class="text-center">Total ítems</th>
           </tr>
           <tr class="pointer-cursor" *ngFor="let ventaPendiente of ventasPendientes" (click)=consultarVentaPendiente(ventaPendiente)>
             <td class="text-center">{{ventaPendiente.fecha}}</td>
@@ -682,7 +683,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Se generó la factura <b>PSAB001826</b></h4>
+        <h4 class="modal-title" *ngIf="resultadoFactura">Se generó la factura <b>{{resultadoFactura.numeroFactura}}</b> - indique el material de empaque</h4>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -699,32 +700,159 @@
               </li>
             </ul>
             <div class="tab-content">
-              <div id="bolsas" class="tab-pane fade in active material-empaque">
+              <div id="bolsas" class="tab-pane fade in active">
                 <div class="row">
-                  <div class="col-xs-2 text-center margin-top-15">
-                    <div>
-                      <div class="row">
-                        <div class="col-xs-12 text-center">
-                          <img src="https://img.matisses.co/360/POS/Empaques/ME00011.jpg" alt="ME00011">
-                        </div>
-                        <div class="talla-empaque">
-                          <b>S</b>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-xs-12">
-                          <p>Bolsa vista alegre medidas 35x</p>
+                  <div class="text-center margin-top-15" *ngFor="let empaque of empaques">
+                    <div class="col-xs-3" *ngIf="validarTipoEmpaque(empaque.providerCode, 'ME-BO-')">
+                      <div class="material-empaque">
+                        <div class="row">
+                          <div class="col-xs-9">
+                            <div class="empaque pointer-cursor" (click)="agregarEmpaque(empaque.itemCode)">
+                              <div class="row">
+                                <div class="col-xs-12 text-center">
+                                  <img src="https://img.matisses.co/360/POS/Empaques/{{empaque.itemCode}}.jpg" alt="{{empaque.itemCode}}">
+                                </div>
+                                <!-- <div class="talla-empaque">
+                                <b>S</b>
+                              </div> -->
+                              </div>
+                              <div class="row">
+                                <div class="col-xs-12">
+                                  <p>{{empaque.itemName}}</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-xs-3 text-center">
+                            <div class="div-material-empaque-eliminar">{{empaque.quantity}}</div>
+                            <div class="div-material-empaque-eliminar pointer-cursor"><span class="glyphicon glyphicon-trash" (click)="eliminarEmpaque(empaque.itemCode)"></span></div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div id="bolsas" class="tab-pane fade material-empaque"></div>
-              <div id="bolsas" class="tab-pane fade material-empaque"></div>
+              <div id="cajas" class="tab-pane fade">
+                <div class="row">
+                  <div class="text-center margin-top-15" *ngFor="let empaque of empaques">
+                    <div class="col-xs-3" *ngIf="validarTipoEmpaque(empaque.providerCode, 'ME-CA-')">
+                      <div class="material-empaque">
+                        <div class="row">
+                          <div class="col-xs-9">
+                            <div class="empaque pointer-cursor" (click)="agregarEmpaque(empaque.itemCode)">
+                              <div class="row">
+                                <div class="col-xs-12 text-center">
+                                  <img src="https://img.matisses.co/360/POS/Empaques/{{empaque.itemCode}}.jpg" alt="{{empaque.itemCode}}">
+                                </div>
+                                <!-- <div class="talla-empaque">
+                                <b>S</b>
+                              </div> -->
+                              </div>
+                              <div class="row">
+                                <div class="col-xs-12">
+                                  <p>{{empaque.itemName}}</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-xs-3 text-center">
+                            <div class="div-material-empaque-eliminar">{{empaque.quantity}}</div>
+                            <div class="div-material-empaque-eliminar pointer-cursor"><span class="glyphicon glyphicon-trash" (click)="eliminarEmpaque(empaque.itemCode)"></span></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="otros" class="tab-pane fade">
+                <div class="row">
+                  <div class="text-center margin-top-15" *ngFor="let empaque of empaques">
+                    <div class="col-xs-3" *ngIf="validarTipoEmpaque(empaque.providerCode, 'ME-OT-')">
+                      <div class="material-empaque">
+                        <div class="row">
+                          <div class="col-xs-9">
+                            <div class="empaque pointer-cursor" (click)="agregarEmpaque(empaque.itemCode)">
+                              <div class="row">
+                                <div class="col-xs-12 text-center">
+                                  <img src="https://img.matisses.co/360/POS/Empaques/{{empaque.itemCode}}.jpg" alt="{{empaque.itemCode}}">
+                                </div>
+                                <!-- <div class="talla-empaque">
+                                <b>S</b>
+                              </div> -->
+                              </div>
+                              <div class="row">
+                                <div class="col-xs-12">
+                                  <p>{{empaque.itemName}}</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-xs-3 text-center">
+                            <div class="div-material-empaque-eliminar">{{empaque.quantity}}</div>
+                            <div class="div-material-empaque-eliminar pointer-cursor"><span class="glyphicon glyphicon-trash" (click)="eliminarEmpaque(empaque.itemCode)"></span></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-lg" (click)="crearRegistroEmpaqueVenta()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalFacturasAnular" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Facturas anulables</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row" *ngIf="facturasAnulables && facturasAnulables.length > 0">
+          <div class="col-xs-12">
+            <table class="table table-bordered table-hover">
+              <tr class="header-table-products">
+                <th class="text-center">Factura</th>
+                <th class="text-center">Documento cliente</th>
+                <th class="text-center">Cliente</th>
+                <th class="text-center">Total</th>
+              </tr>
+              <tr class="pointer-cursor" [ngClass]="{'table-anular' : (facturaAnularSeleccionada && facturaAnularSeleccionada.numeroFactura === factura.numeroFactura)}" *ngFor="let factura of facturasAnulables" (click)=seleccionarFacturaAnular(factura)>
+                <td class="text-center">{{factura.numeroFactura}}</td>
+                <td class="text-center">{{factura.nit}}</td>
+                <td class="text-center">{{factura.nombreCliente}}</td>
+                <td class="text-right">{{factura.totalVenta | number}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary btn-lg" (click)="abrirModalValidarPermisoAutorizacion('ANULAR', 'FACTURA_POS', '#modalFacturasAnular', 'ANULAR FV')" [disabled]="!facturaAnularSeleccionada || facturaAnularSeleccionada.numeroFactura === null">Anular</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalConfirmacionCierre" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -734,13 +862,11 @@
   </div>
 </div>
 
-<button type="button" name="button" data-toggle="modal" data-target="#modalTerminar">Prueba</button>
-
 <div class="jumbotron" *ngIf="!sesionPOS.cajaAbierta">
   <h1>¡Hola {{sesionPOS.nombreUsuario}}!</h1>
   <p>{{mensajeInicio}}</p>
   <p *ngIf="permitirAbrirCaja">
-    <a class="btn btn-primary btn-lg" role="button" (click)="abrirCaja(false)">Abrir caja</a>
+    <a class="btn btn-primary btn-lg" role="button" (click)="abrirModalValidarPermisoAutorizacion('ABRIR', 'CAJON_MONEDERO', null, 'ABRIR CAJA')">Abrir caja</a>
   </p>
 </div>
 <div *ngIf="sesionPOS.cajaAbierta">
@@ -750,7 +876,7 @@
         <div class="row">
           <div class="col-xs-10 input-referencia margin-bottom-10">
             <form (submit)="agregarItem()">
-              <input id="referencia" type="text" class="form-control input-lg" name="referencia" placeholder="Referencia a agregar" [(ngModel)]="referencia" autofocus [disabled]="modoBono">
+              <input id="referencia" type="text" class="form-control input-lg" name="referencia" placeholder="Referencia a agregar" [(ngModel)]="referencia" autofocus [disabled]="modoBono" autocomplete="off">
             </form>
           </div>
           <div class="col-xs-2 margin-top-15">
@@ -760,7 +886,7 @@
                 <span class="glyphicon glyphicon-th-list iconos-items pointer-cursor" *ngIf="cuadricula" (click)="mostrarCuadricula()"></span>
               </div>
               <div class="col-xs-6 text-center">
-                <span class="glyphicon glyphicon-gift iconos-items pointer-cursor" (click)="abrirModalBono()" [ngClass]="{'iconos-items-disabled' : ((sesionPOS.tarjetasRegaloDisponibles > 0 || items.length > 0) && !modoBono)}"></span>
+                <span class="glyphicon glyphicon-gift iconos-items pointer-cursor" (click)="abrirModalBono()" [ngClass]="{'iconos-items-disabled' : ((sesionPOS.tarjetasRegaloDisponibles === 0 || items.length > 0) && !modoBono)}"></span>
               </div>
             </div>
           </div>
@@ -804,7 +930,7 @@
                         $ {{(item.price * item.cantidad) | number}}
                       </p>
                       <p *ngIf="item.discountPercent > 0">
-                        $ {{item.price - (((item.price * item.cantidad) / 100) * item.discountPercent) | number}}
+                        $ {{(item.price - (((item.price) / 100) * item.discountPercent)) * item.cantidad | number}}
                       </p>
                     </td>
                   </tr>
@@ -853,7 +979,7 @@
                             <div class="col-xs-12 text-right">
                               <div class="total-cuadricula">
                                 <b>
-                                  Total:
+                                  Subtotal:
                                   <span [ngClass]="{'producto-descuento' : item.discountPercent > 0}"> $ {{(item.price * item.cantidad) | number}}</span>
                                   <span *ngIf="item.discountPercent > 0"> / $ {{item.price - (((item.price * item.cantidad) / 100) * item.discountPercent) | number}}</span>
                                 </b>
@@ -1041,7 +1167,7 @@
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-scroll">
-              <li class="pointer-cursor" style="font-size: 20px"><a href="#">Anular</a></li>
+              <li class="pointer-cursor" style="font-size: 20px"><a (click)="listarVentasAnular()">Anular</a></li>
               <li class="pointer-cursor" style="font-size: 20px"><a (click)="suspenderVenta()">Suspender</a></li>
               <li class="pointer-cursor" style="font-size: 20px"><a (click)="listarVentasPendientes()">Reanudar</a></li>
               <li class="pointer-cursor" style="font-size: 20px" *ngIf="items.length > 0"><a data-toggle="modal" data-target="#modalCancelarVenta">Cancelar</a></li>
@@ -1054,7 +1180,7 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-scroll">
               <li class="pointer-cursor" style="font-size: 20px"><a href="#">Abrir cajón</a></li>
-              <li class="pointer-cursor" style="font-size: 20px"><a href="#">Cerrar</a></li>
+              <li class="pointer-cursor" style="font-size: 20px"><a (click)="abrirModalValidarPermisoAutorizacion('ABRIR', 'CAJON_MONEDERO', '#modalCaja', 'CERRAR CAJA')">Cerrar</a></li>
             </ul>
           </div>
         </div>
