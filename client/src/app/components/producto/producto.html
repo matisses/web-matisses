@@ -91,7 +91,7 @@
     <div class="row">
       <div class="col-sm-7">
         <div class="galeria" *ngIf="item && item.images && item.images.length > 0">
-          <div id="galeria-producto" class="carousel slide" data-ride="carousel">
+          <div id="galeria-producto" class="carousel slide" data-ride="carousel" data-interval="2000000">
             <div class="row">
               <div class="col-md-2 hidden-sm hidden-xs">
                 <a class="up" (click)="botonUp()" *ngIf="item.images.length > 3">
@@ -171,6 +171,11 @@
           </div>
           <br/>
           <div class="row">
+            <div class="col-xs-12 text-center">
+              <p>Solicitar cotización</p>
+            </div>
+          </div>
+          <div class="row">
             <div class="col-md-3 col-xs-4">
               <div class="cantidad">
                 <form>
@@ -205,11 +210,6 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="row">
-              <div class="col-xs-12">
-                <button type="button" class="btn btn-mco">Comprar sin intereses</button>
-              </div>
-            </div> -->
             <div class="row">
               <div class="col-xs-12">
                 <p style="font-size:12px; margin:0;">*Aplican condiciones y restricciones</p>
@@ -289,7 +289,7 @@
       </div>
     </div>
   </div>
-  <!-- <relacionados></relacionados> -->
+  <relacionados></relacionados>
   <div class="container hidden-sm hidden-xs">
     <div class="row">
       <div class="col-xs-12">

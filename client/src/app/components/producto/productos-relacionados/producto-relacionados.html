@@ -1,12 +1,13 @@
-<br/>
-<div class="container">
-<hr/>
+<div class="container" >
+
   <div class="row">
-    <div class="col-xs-12 text-center">
-      <h3 class="bold grey">Productos relacionados</h3>
+    <div class="relacionados-title">
+      <div class="col-xs-12 text-center">
+        <h3 class="bold grey">Relacionados</h3>
+      </div>
     </div>
   </div>
-<br/>
+
   <div class="row">
     <div class="col-xs-12">
 
@@ -16,25 +17,36 @@
       <a class="right" (click)="botonRight()">
         <span class="glyphicon glyphicon-menu-right"></span>
       </a>
-      <div class="section-relacionados">
+      <div class="section">
         <div class="article" *ngFor="let item of items">
-          <div class="row">
-            <div class="col-xs-10 col-xs-offset-1" [routerLink]="['/producto', item.shortitemcode]" (click)="scrollTop()">
-              <img src="https://img.matisses.co/{{item.itemcode}}/images/{{item.itemcode}}_01.jpg" class="img-responsive" alt="">
+          <div class="porcentaje" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0">
+            <p>-{{item.descuento | number}}%</p>
+          </div>
+          <div class="row" *ngIf="item != null">
+            <div class="col-xs-10 col-xs-offset-1">
+              <a href="javascript:void(0)" [routerLink]="['/producto', item.shortitemcode]">
+                <img src="https://img.matisses.co/{{item.itemcode}}/images/{{item.itemcode}}_01.jpg" class="img-responsive" alt="{{item.itemname}}">
+              </a>
             </div>
           </div>
-          <div class="row">
+          <div class="row" *ngIf="item != null">
             <div class="col-xs-12 text-center">
               <p class="medium nombre-producto">{{item.itemname}}</p>
-              <h4>$ {{item.pricea | number:0}}</h4>
+              <div class="precio-full" *ngIf="!item.priceafterdiscount || item.priceafterdiscount === 0 || item.priceafterdiscount === item.pricebeforediscount">
+                <h4>$ {{item.priceaftervat | number:0}}</h4>
+              </div>
+              <div class="precio-discount" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0">
+                <h5>$ {{item.priceaftervat | number:0}}</h5>
+                <h4>$ {{item.priceafterdiscount | number:0}}</h4>
+              </div>
             </div>
             <div class="botones">
               <div class="col-xs-12 text-center">
                 <button type="button" class="btn btn-like" (click)="toggleWishList(item)">
                   <span class="glyphicon  wish-list" [ngClass]="getCSSClassName(item)"></span>
                 </button>
-                <button type="button" class="btn btn-carrito" >
-                  <span class="icon-shopping-cart carrito"> </span> AGREGAR AL CARRITO
+                <button type="button" class="btn btn-carrito" (click)="agregarCarrito(item)">
+                  AGREGAR AL CARRITO
                 </button>
               </div>
             </div>
@@ -44,3 +56,4 @@
     </div>
   </div>
 </div>
+<matisses-carrito-simple #carritoSimple></matisses-carrito-simple>
