@@ -75,12 +75,12 @@ export class PosService {
       .map(res => res.json());
   }
 
-  consultarDatosTirillaZ(usuario, idTurnoCaja) {
+  consultarDatosTirillaZ(usuario, idTurnoCaja, reportData) {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
 
-    return this._http.post(this.urlBCS + 'caja/generarZ/' + usuario + '/' + idTurnoCaja, { headers: headers })
+    return this._http.post(this.urlBCS + 'caja/generarZ/' + usuario + '/' + idTurnoCaja, JSON.stringify(reportData), { headers: headers })
       .map(res => res.json());
   }
 

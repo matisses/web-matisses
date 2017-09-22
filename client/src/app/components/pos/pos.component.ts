@@ -161,13 +161,12 @@ export class PosComponent implements OnInit {
     this.permitirAbrirCaja = false;
     this._posService.validarSesion(this.token).subscribe(
       response => {
-        console.log(response);
+        this.sesionPOS = response;
         if (response.mensajeError && response.mensajeError.length > 0) {
           this.mensajeInicio = response.mensajeError;
         } else {
           if (response.cajaAbierta) {
             this.sesionPOS.cajaAbierta = true;
-            this.sesionPOS = response;
 
             this.obtenerValorApertura();
           } else {
@@ -234,7 +233,12 @@ export class PosComponent implements OnInit {
         if (response) {
           this.limpiarDatosAutorizacion(authorizationForm);
           if (validarPermisos.objeto === 'CAJON_MONEDERO') {
-            this.ejecutarCaja();
+            this.abrirCajon();
+            if (this.funcion === 'ABRIR CAJON MONEDERO') {
+              //this.abrirCajon();
+            } else {
+              this.ejecutarCaja();
+            }
           } else if (this.funcion === 'ANULAR FV') {
             this.anularFV();
           }
@@ -412,6 +416,7 @@ export class PosComponent implements OnInit {
             this.sesionPOS.cajaAbierta = true;
             $('#modalCaja').modal('hide');
             this.validarToken();
+            $('#referencia').focus();
           }
         },
         error => {
@@ -453,13 +458,6 @@ export class PosComponent implements OnInit {
   public cerrarCaja() {
     let transacciones = new Array<any>();
 
-    let transaccion = {
-      usuario: this.sesionPOS.usuario,
-      tipo: 'cierre',
-      valor: 400000,
-      cierre: true
-    }
-
     let transaccionDeposito = {
       usuario: this.sesionPOS.usuario,
       tipo: 'deposito',
@@ -467,8 +465,15 @@ export class PosComponent implements OnInit {
       justificacion: null
     }
 
-    transacciones.push(transaccion);
+    let transaccion = {
+      usuario: this.sesionPOS.usuario,
+      tipo: 'cierre',
+      valor: 400000,
+      cierre: true
+    }
+
     transacciones.push(transaccionDeposito);
+    transacciones.push(transaccion);
 
     this._posService.transacciones(transacciones).subscribe(
       response => {
@@ -489,9 +494,9 @@ export class PosComponent implements OnInit {
     this._posService.consultarDatosCierreCaja(this.sesionPOS.almacen, this.sesionPOS.idTurnoCaja).subscribe(
       response => {
         // Imprimir informe de cierre (tirilla z)
-        console.log(response);
-        this._posService.consultarDatosTirillaZ(this.sesionPOS.usuario, this.sesionPOS.idTurnoCaja).subscribe(
+        this._posService.consultarDatosTirillaZ(this.sesionPOS.usuario, this.sesionPOS.idTurnoCaja, response).subscribe(
           response2 => {
+            console.log(response2);
             if (response2) {
               let reportData = response2;
 
@@ -512,7 +517,7 @@ export class PosComponent implements OnInit {
     );
   }
 
-  public abrirCajon() {
+  private abrirCajon() {
     this._posService.abrirCajon(this.sesionPOS.ip).subscribe();
   }
 
