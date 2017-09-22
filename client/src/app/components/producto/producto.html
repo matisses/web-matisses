@@ -83,6 +83,44 @@
 </div>
 <!-- Modal wow -->
 
+<!-- Modal cotización -->
+<div class="modal fade" id="modalSolicitud" tabindex="-1" role="dialog" aria-labelledby="modalSolicitudLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center" id="modalSolicitudLabel">Solicitar Cotización</h4>
+      </div>
+      <div class="modal-body">
+        <div class="col-xs-12">
+          <p>Dejanos tus datos y recibiras un correo electronico con toda la informacion solicitada.</p>
+        </div>
+        <form id="form_contact" #ContactForm="ngForm" (submit)="enviar(ContactForm)">
+          <div class="row">
+            <div class="col-xs-8 col-xs-offset-2">
+              <label for="name">Nombre*</label>
+              <input id="name" type="text" class="input-matisses" [class.required-field]="!valid" name="firstName" [(ngModel)]="firstName" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-8 col-xs-offset-2">
+              <label for="mail">E-mail*</label>
+              <input id="mail" type="mail" class="input-matisses" [class.required-field]="!valid" name="mail" [email]="true" [(ngModel)]="mail" required>
+            </div>
+          </div>
+        </form>
+          <div class="col-xs-12">
+            <p class="terminos">Acepto <a href="javascript:void(0);" [routerLink]="['/terminos-y-condiciones']">Términos y Condiciones</a>  y autorizo el <a href="javascript:void(0);" [routerLink]="['/politica-manejo-de-datos']">Tratamiento de datos</a> personales.</p>
+          </div>
+          <br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-carrito">Solicitar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div sticky-body>
   <div class="container padding-top">
     <!--
@@ -171,8 +209,10 @@
           </div>
           <br/>
           <div class="row">
-            <div class="col-xs-12 text-center">
-              <p>Solicitar cotización</p>
+            <div class="col-xs-12">
+              <button type="button" class="btn btn-carrito" data-toggle="modal" data-target="#modalSolicitud">
+                Solicitar cotización
+              </button>
             </div>
           </div>
           <div class="row">
@@ -289,7 +329,7 @@
       </div>
     </div>
   </div>
-  <relacionados></relacionados>
+  <!-- <relacionados></relacionados> -->
   <div class="container hidden-sm hidden-xs">
     <div class="row">
       <div class="col-xs-12">
