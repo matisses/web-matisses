@@ -66,6 +66,24 @@ export class PosService {
       .map(res => res.json());
   }
 
+  obtenerValorApertura(idTurnoCaja) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'caja/valorapertura/' + idTurnoCaja, { headers: headers })
+      .map(res => res.json());
+  }
+
+  consultarDatosTirillaZ(usuario, idTurnoCaja) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'caja/generarZ/' + usuario + '/' + idTurnoCaja, { headers: headers })
+      .map(res => res.json());
+  }
+
   obtenerFranquicias(almacen) {
     const headers = new Headers({
       'Content-Type': 'application/json'
@@ -219,6 +237,24 @@ export class PosService {
       .map(res => res.json());
   }
 
+  imprimirZ(ip: string, receiptData) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post('http://' + ip + ':8008/printZ/', JSON.stringify(receiptData), { headers: headers })
+      .map(res => res.json());
+  }
+
+  abrirCajon(ip: string) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get('http://' + ip + ':8008/open/', { headers: headers })
+      .map(res => res.json());
+  }
+
   listarFacturasAnular(idTurnoCaja) {
     const headers = new Headers({
       'Content-Type': 'application/json'
@@ -234,6 +270,15 @@ export class PosService {
     });
 
     return this._http.get(this.urlBCS + 'factura/consulta/anulacion/' + numeroFactura + '/' + numeroNotaCredito + '/' + nombreCaja + '/' + usuario, { headers: headers })
+      .map(res => res.json());
+  }
+
+  consultarDatosCierreCaja(almacen, idTurnoCaja) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'factura/consultarDatosCierre/' + almacen + '/' + idTurnoCaja, { headers: headers })
       .map(res => res.json());
   }
 

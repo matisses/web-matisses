@@ -168,6 +168,8 @@ export class PosComponent implements OnInit {
           if (response.cajaAbierta) {
             this.sesionPOS.cajaAbierta = true;
             this.sesionPOS = response;
+
+            this.obtenerValorApertura();
           } else {
             this.mensajeInicio = 'La caja se encuentra cerrada. Ejecute la operación de apertura de caja para comenzar a realizar ventas.';
             this.permitirAbrirCaja = true;
@@ -176,6 +178,19 @@ export class PosComponent implements OnInit {
       },
       error => {
         console.error(error);
+      }
+    );
+  }
+
+  private obtenerValorApertura() {
+    this.totalCaja = 0;
+
+    this._posService.obtenerValorApertura(this.sesionPOS.idTurnoCaja).subscribe(
+      response => {
+        this.totalCaja = response;
+      },
+      error => {
+        this.totalCaja = 0;
       }
     );
   }
@@ -413,7 +428,6 @@ export class PosComponent implements OnInit {
     //this.totalCaja = null;
 
     // Consultar el total de transacciones de la caja
-    console.log(this.sesionPOS.usuario);
     this._posService.obtenerSaldo(this.sesionPOS.usuario).subscribe(
       response => {
         let saldoActual = response;
@@ -421,7 +435,7 @@ export class PosComponent implements OnInit {
         // Comparar valor consultado con el valor ingresado
         if (saldoActual !== this.totalCaja) {
           // Si los valores no son iguales, mostrar mensaje de error en ventana de cierre / apertura
-          this.mensajeError = 'El monto ingresado no es el esperado.';
+          this.mensajeError = 'El monto ingresado no es el esperado. Valor esperado ' + saldoActual;
         } else {
           // Si los valores son iguales, mostrar ventana de confirmacion de ultimo deposito
           this.valorUltimoDeposito = saldoActual - 400000;
@@ -431,8 +445,75 @@ export class PosComponent implements OnInit {
       },
       error => {
         console.log(error);
+        this.mensajeError = error;
       }
     );
+  }
+
+  public cerrarCaja() {
+    let transacciones = new Array<any>();
+
+    let transaccion = {
+      usuario: this.sesionPOS.usuario,
+      tipo: 'cierre',
+      valor: 400000,
+      cierre: true
+    }
+
+    let transaccionDeposito = {
+      usuario: this.sesionPOS.usuario,
+      tipo: 'deposito',
+      valor: this.valorUltimoDeposito,
+      justificacion: null
+    }
+
+    transacciones.push(transaccion);
+    transacciones.push(transaccionDeposito);
+
+    this._posService.transacciones(transacciones).subscribe(
+      response => {
+        this.sesionPOS.cajaAbierta = false;
+        this.limpiar();
+        $('#modalConfirmacionCierre').modal('hide');
+        this.imprimirInformeCierre();
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  private imprimirInformeCierre() {
+    this.mensajeError = '';
+    // Consultar datos cierre
+    this._posService.consultarDatosCierreCaja(this.sesionPOS.almacen, this.sesionPOS.idTurnoCaja).subscribe(
+      response => {
+        // Imprimir informe de cierre (tirilla z)
+        console.log(response);
+        this._posService.consultarDatosTirillaZ(this.sesionPOS.usuario, this.sesionPOS.idTurnoCaja).subscribe(
+          response2 => {
+            if (response2) {
+              let reportData = response2;
+
+              reportData.caja = this.sesionPOS.nombreCaja;
+              this._posService.imprimirZ(this.sesionPOS.ip, reportData).subscribe();
+              this.validarToken();
+            }
+          },
+          error2 => {
+            console.log(error2);
+            this.mensajeError = error2;
+          }
+        );
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  public abrirCajon() {
+    this._posService.abrirCajon(this.sesionPOS.ip).subscribe();
   }
 
   private inicializarCliente() {
@@ -509,7 +590,6 @@ export class PosComponent implements OnInit {
 
                   this.items.unshift(response);
                   this.calcularTotalVenta();
-                  this.referencia = null;
                 },
                 error => {
                   console.log(error);
@@ -523,6 +603,7 @@ export class PosComponent implements OnInit {
         }
       );
     }
+    this.referencia = null;
   }
 
   public agregarTarjetaRegalo() {
@@ -1736,6 +1817,12 @@ export class PosComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  private limpiar() {
+    this.totalCaja = 0;
+    this.valorUltimoDeposito = 0;
+    this.limpiarVenta();
   }
 
   private limpiarVenta() {
