@@ -70,7 +70,7 @@
             </div>
             <div class="row">
               <div class="col-xs-12">
-                <div class="table-responsive">
+                <div class="table-responsive" *ngIf="itemsColeccion && itemsColeccion.length > 0">
                   <table class="table table-bordered table-striped">
                     <thead>
                       <tr>
@@ -90,7 +90,7 @@
                             <span class="input-group-addon span-cantidad" (click)="reducirCantidad(i)">
                               <button type="button" class="icon-minus btn-cantidad" name="button"></button>
                             </span>
-                            <input class="input-cantidad form-control" type="tel" name="selectedQuantity_{{i}}" min="1" max="{{itemsColeccion[i].availablestock}}" [(ngModel)]="itemsColeccion[i].selectedQuantity" readonly/>
+                            <input class="input-cantidad form-control" type="tel" name="selectedQuantity_{{i}}" min="1" max="{{item.availablestock}}" [(ngModel)]="item.selectedQuantity" readonly/>
                             <span class="input-group-addon span-cantidad" (click)="aumentarCantidad(i)">
                               <button type="button" class="icon-plus btn-cantidad" name="button"></button>
                             </span>
@@ -103,6 +103,13 @@
                   </table>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="messageError != null && messageError.length > 0">
+          <div class="col-xs-12">
+            <div class="alert alert-danger" role="alert">
+              <p>{{messageError}}</p>
             </div>
           </div>
         </div>
@@ -138,7 +145,6 @@
     </div>
   </div>
 </div>
-
 
 <!-- Modal vajillas -->
 <div class="modal fade" id="modalVajillas" tabindex="-1" role="dialog" aria-labelledby="modalVajillasLabel">
@@ -286,7 +292,7 @@
         </div>
       </div>
     </div>
-    <div class="row hidden-sm hidden-xs">
+    <div class="row hidden-sm hidden-xs" *ngIf="validToken">
       <div class="col-xs-12 text-center">
         <button type="button" class="btn-agregar-vajilla" data-toggle="modal" data-target="#modalEditar" (click)="vaciarMessage()">Agregar vajilla <span class="glyphicon glyphicon-plus"></span></button>
       </div>
@@ -297,7 +303,8 @@
         <div class="producto">
           <div class="row">
             <div class="col-xs-12">
-              <img src="assets/images/vajillas/puestos/{{vajilla._id}}.jpg" class="img-responsive" alt="">
+              <p *ngIf="validToken">{{vajilla._id}}</p>
+              <img src="https://img.matisses.co/vajillas/{{vajilla._id}}.jpg" class="img-responsive" alt="{{vajilla.name}}">
             </div>
           </div>
           <div class="info">
@@ -305,11 +312,19 @@
               <div class="col-xs-12 text-center">
                 <p>{{vajilla.name}}</p>
                 <button type="button" class="btn-coleccion" (click)="mostrarVajilla(vajilla)">Mostrar</button>
-                <button type="button" class="btn-coleccion" data-toggle="modal" data-target="#modalEditar">Editar</button>
-                <button type="button" class="btn-coleccion" (click)="eliminarVajilla(vajilla)">Eliminar</button>
+                <button type="button" class="btn-coleccion" data-toggle="modal" data-target="#modalEditar" *ngIf="validToken">Editar</button>
+                <button type="button" class="btn-coleccion" (click)="eliminarVajilla(vajilla)" *ngIf="validToken">Eliminar</button>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <br/>
+    <div class="row" *ngIf="messageExit != null && messageExit.length > 0">
+      <div class="col-xs-12">
+        <div class="alert alert-success" role="alert">
+          <p>{{messageExit}}</p>
         </div>
       </div>
     </div>

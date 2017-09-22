@@ -5,13 +5,14 @@ import { CrockeryService } from '../../services/crockery.service';
 import { Item } from '../../models/item';
 import { Vajilla } from '../../models/crockery';
 import { CarritoSimpleComponent } from '../header/menu/carrito/carrito-simple.component';
+import { JWTService } from '../../services/jwt.service';
 
 declare var $: any;
 
 @Component({
   templateUrl: 'vajilla.html',
   styleUrls: ['vajilla.component.css'],
-  providers: [ItemService, CrockeryService]
+  providers: [ItemService, CrockeryService, JWTService]
 })
 
 export class VajillaComponent implements OnInit {
@@ -25,6 +26,7 @@ export class VajillaComponent implements OnInit {
   public messageError: string;
   public messageExit: string;
   public valid: boolean = true;
+  public validToken: boolean = true//false;
   public vajilla: Vajilla;
   public pages: Array<number>;
   public marcas: Array<any>;
@@ -32,7 +34,8 @@ export class VajillaComponent implements OnInit {
   public itemsColeccion: Array<Item>;
   public vajillas: Array<Vajilla>;
 
-  constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _crockeryService: CrockeryService) {
+  constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _crockeryService: CrockeryService,
+    private _jwtService: JWTService) {
     this.itemsSeleccionados = new Map<String, Item>();
     this.vajillas = new Array<Vajilla>();
     this.pages = new Array<number>();
@@ -44,6 +47,30 @@ export class VajillaComponent implements OnInit {
   ngOnInit() {
     this.cargarMarcas();
     this.cargarVajillas();
+    this.cargarValidarTokenAdmin();
+    $('#modalEditar').on('shown.bs.modal', function() {
+      $('#name').focus()
+    });
+  }
+
+  private cargarValidarTokenAdmin() {
+    if (localStorage.getItem('matisses.admin-token')) {
+      this._jwtService.validateToken(localStorage.getItem('matisses.admin-token')).subscribe(
+        response => {
+          if (response.estado != 0) {
+            console.error('El token del localStorage no es valido. ' + response.mensaje);
+            this.validToken = false;
+            localStorage.removeItem('matisses.admin-token');
+          } else {
+            this.validToken = true;
+          }
+        }, error => {
+          console.error(error);
+          localStorage.removeItem('matisses.admin-token');
+          this.validToken = false;
+        }
+      );
+    }
   }
 
   private cargarMarcas() {
@@ -78,6 +105,7 @@ export class VajillaComponent implements OnInit {
     let queryStr: string = encodeURI('?collection=' + this.vajilla.coleccion + '&brand=' + this.vajilla.brand + '&pageSize=1000')
     this._itemService.filter(queryStr).subscribe(
       response => {
+        console.log(response);
         this.itemsColeccion = response.result;
       }, error => { console.error(error); }
     );
@@ -136,18 +164,27 @@ export class VajillaComponent implements OnInit {
       };
       this.vajilla.detail.push(item);
     });
-    this._crockeryService.create(this.vajilla).subscribe(
-      response => {
-        console.log('vajilla creada con exito. ');
-        this.messageExit = 'Vajilla creada con éxito.';
-        this.refreshModal(ModalForm);
-        this.cargarVajillas();
-        $('#modalEditar').modal('hide');
-      }, error => {
-        console.error(error);
-        this.messageError = 'Se produjo un error interno. Por favor inténtalo más tarde.';
-      }
-    );
+    let qtyAcomulada = 0;
+    for (let i = 0; i < this.vajilla.detail.length; i++) {
+      qtyAcomulada += this.vajilla.detail[i].quantity;
+    }
+    if (qtyAcomulada > 1) {
+      this._crockeryService.create(this.vajilla).subscribe(
+        response => {
+          this.refreshModal(ModalForm);
+          this.cargarVajillas();
+          console.log(response.result);
+          console.log('vajilla creada con exito. ');
+          this.messageExit = 'Vajilla creada con éxito.';
+          $('#modalEditar').modal('hide');
+        }, error => {
+          console.error(error);
+          this.messageError = 'Se produjo un error interno. Por favor inténtalo más tarde.';
+        }
+      );
+    } else {
+      this.messageError = 'Debe agregar más ítems.';
+    }
   }
 
   private limpiarFormulario() {
