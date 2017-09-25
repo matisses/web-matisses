@@ -14,6 +14,7 @@ declare var $: any;
 
 export class PosComponent implements OnInit {
 
+  private timer;
   public token: string;
   public sesionPOS: any;
   public mensajeInicio: string;
@@ -129,11 +130,18 @@ export class PosComponent implements OnInit {
     });
   }
 
+  private interval() {
+    this.timer = setTimeout(this.validarToken(), 1000);
+  }
+
   private validarToken() {
+    //this.mensajeError = '';
     this._route.params.forEach((params: Params) => {
       this.token = params['token'];
       this._jwt.validateToken(this.token).subscribe(
         response => {
+          $('#modalError').modal('hide');
+
           // Ocultar el footer
           $('#footer').addClass('hidden-xs hidden-md hidden-sm hidden-lg');
 
@@ -150,8 +158,11 @@ export class PosComponent implements OnInit {
             this._router.navigate(['/pos']);
           }
         }, error => {
+          this.mensajeError = 'La conexión con SAP <b>no esta disponibe en este momento</b>. Espera mientras se restablece o vuelve a cargar la página para intentarlo manualmente.';
           console.error(error);
           localStorage.removeItem('matisses.pos-token');
+          $('#modalError').modal('show');
+          this.interval();
         }
       );
     });

@@ -377,3 +377,9 @@
   color: #000000;
   background-color: #EDEDED;
 }
+
+.header-modal-error {
+  background-color: #BF0039;
+  border-radius: 5px 5px 0px 0px;
+  color: #FFFFFF;
+}
