@@ -26,7 +26,7 @@ export class VajillaComponent implements OnInit {
   public messageError: string;
   public messageExit: string;
   public valid: boolean = true;
-  public validToken: boolean = true//false;
+  public validToken: boolean = false;
   public vajilla: Vajilla;
   public pages: Array<number>;
   public marcas: Array<any>;
@@ -96,6 +96,7 @@ export class VajillaComponent implements OnInit {
   public cargarColecciones() {
     this._itemService.listCollections(this.vajilla.brand).subscribe(
       response => {
+        console.log(response);
         this.colecciones = response.sort();
       }, error => { console.error(error); }
     );
@@ -212,7 +213,6 @@ export class VajillaComponent implements OnInit {
 
   public mostrarVajilla(vajilla) {
     this.vaciarMessage();
-    console.log(vajilla);
     this.vajilla = vajilla;
     this._crockeryService.listItems(vajilla._id).subscribe(
       response => {
@@ -223,6 +223,36 @@ export class VajillaComponent implements OnInit {
       }, error => { console.error(error); }
     );
     $('#modalVajillas').modal('show');
+  }
+
+  public editarVajilla(vajilla) {
+    this.vaciarMessage();
+    this.colecciones = new Array<any>();
+    this.vajilla = vajilla;
+    this.cargarProductos();
+    this.cargarColecciones();
+
+    console.log(this.vajilla.detail.length);
+    for (let i = 0; i < this.vajilla.detail.length; i++) {
+      console.log(this.vajilla.detail[i].itemcode);
+      if (this.vajilla.detail[i].itemcode === this.itemsColeccion){
+      }
+    }
+
+    //this.itemsColeccion = vajilla.detail;
+
+
+
+    //this.cargarProductos();
+    // this._crockeryService.listItems(vajilla._id).subscribe(
+    //   response => {
+    //     this.vajilla.detail = new Array<any>();
+    //     for (let i = 0; i < response.length; i++) {
+    //       this.vajilla.detail.push(response[i].item);
+    //     }
+    //   }, error => { console.error(error); }
+    // );
+    $('#modalEditar').modal('show');
   }
 
   public eliminarVajilla(vajilla) {
@@ -238,6 +268,19 @@ export class VajillaComponent implements OnInit {
     );
     console.log('Vajilla eliminada');
     this.messageExit = 'Vajilla eliminada con éxito.';
+  }
+
+  public actualizarVajilla() {
+    console.log('***************');
+    console.log(this.vajilla);
+    this._crockeryService.edit(this.vajilla).subscribe(
+      response => {
+        console.log('Se edito la vajilla');
+      }, error => {
+        console.error(error);
+        this.messageError = 'No se pudo editar la vajilla.'
+      }
+    );
   }
 
   private compareItems(a, b) {

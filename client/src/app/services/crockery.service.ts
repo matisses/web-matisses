@@ -30,6 +30,14 @@ export class CrockeryService {
       .map(res => res.json());
   }
 
+  public edit(vajilla) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    return this._http.post(this.url + 'crockery/edit', JSON.stringify(vajilla), { headers: headers })
+      .map(res => res.json());
+  }
+
   public list() {
     const headers = new Headers({
       'Content-Type': 'application/json'
