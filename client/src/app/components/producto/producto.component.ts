@@ -18,6 +18,7 @@ declare var $: any;
   styleUrls: ['producto.component.css'],
   providers: [ItemService, StockService, DescuentosService, CotizacionService]
 })
+
 export class ProductoComponent implements OnInit, AfterViewInit {
   @ViewChild(CarritoSimpleComponent)
   private carrito: CarritoSimpleComponent;
@@ -35,6 +36,7 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   public existePlantilla: boolean = false;
   public existenciaMedellin: boolean = false;
   public existenciaBogota: boolean = false;
+  public valid: boolean = true;
   public item: Item;
   public quantityOptions: Array<number>;
   public images: Array<string>;
@@ -58,6 +60,9 @@ export class ProductoComponent implements OnInit, AfterViewInit {
     });
     $("#popover2").hover(function() {
       $("#popover2").click();
+    });
+    $('#modalSolicitud').on('shown.bs.modal', function() {
+      $('#name').focus()
     });
   }
 
@@ -271,7 +276,7 @@ export class ProductoComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public solicitarCotizacion() {
+  public solicitarCotizacion(contactForm) {
     console.log('Se mandara la cotizacion');
     this.mensajeError = '';
     if (this.nombreCotizacion == null || this.nombreCotizacion.length <= 0 || this.emailCotizacion == null || this.emailCotizacion.length <= 0) {
@@ -281,11 +286,25 @@ export class ProductoComponent implements OnInit, AfterViewInit {
 
     this._cotizacionService.create(this.item.itemcode, this.nombreCotizacion, this.emailCotizacion).subscribe(
       response => {
-
+        if (response.estado === 0) {
+          contactForm.reset();
+          this.valid = true;
+          this.nombreCotizacion = null;
+          this.emailCotizacion = null;
+          this.pasoCotizacion = 2;
+        } else {
+          this.mensajeError = 'No fue posible enviar la cotización solicitada';
+        }
       },
       error => {
-
+        console.log(error);
       }
     );
+  }
+
+  public cerrarModalCotizacion() {
+    this.pasoCotizacion = 1;
+
+    $('#modalSolicitud').modal('hide');
   }
 }

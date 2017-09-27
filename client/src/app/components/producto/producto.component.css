@@ -367,7 +367,9 @@
   margin-bottom: 11px;
 }
 
+
 /* Estilos de formulario para cotización */
+
 form label {
   font-weight: normal;
 }
@@ -402,6 +404,8 @@ textarea {
   text-decoration: underline;
   color: #5B5B5B;
 }
+
+
 /**/
 
 @media screen and (max-width: 1200px) {
