@@ -14,6 +14,7 @@ var ItemSchema = Schema({
   model: String,
   newfrom: Date,
   active: String,
+  precioVisible: Boolean,
   dimensions: {
     depth: Number,
     height: Number,

@@ -39,6 +39,7 @@ export class Item {
   public descuento: number;
   public priceafterdiscount: number;
   public taxpercent: number;
+  public precioVisible: boolean;
 
   constructor() {
 
