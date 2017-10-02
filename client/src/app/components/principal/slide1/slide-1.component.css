@@ -158,9 +158,10 @@
   color: #FFF;
   padding: 5px 30px;
   margin-left: 24%;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.7);
   margin-top: 10px;
   font-size: 20px;
+  bottom: 150px;
 }
 
 .sub-banner .mensaje p, .sub-banner .mensaje img {
