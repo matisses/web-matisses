@@ -2,6 +2,17 @@
   margin-top: 125px;
 }
 
+.margin-cotizacion {
+  margin: 40px 0px;
+}
+
+.info-cotizacion {
+  font-size: 21px;
+  position: absolute;
+  top: 47px;
+  margin-left: 10px;
+}
+
 .old-price, .percentage {
   display: inline-block;
   margin-bottom: 1px;
@@ -366,6 +377,47 @@
   margin-top: 20px;
   margin-bottom: 11px;
 }
+
+
+/* Estilos de formulario para cotización */
+
+form label {
+  font-weight: normal;
+}
+
+.input-matisses {
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid #7C7C7C;
+}
+
+.ng-valid[required], .ng-valid.required {
+  border-left: 5px solid #6D9197;
+  /* green */
+}
+
+.ng-touched.ng-invalid[required], .ng-untouched.ng-pristine.ng-invalid[required].required-field {
+  border-left: 5px solid #65092D;
+  /* red */
+}
+
+textarea {
+  max-width: 452px;
+}
+
+.terminos {
+  margin: 10 0;
+}
+
+.terminos a {
+  text-decoration: underline;
+  color: #5B5B5B;
+}
+
+
+/**/
 
 @media screen and (max-width: 1200px) {
   .detalles {

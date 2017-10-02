@@ -7,6 +7,7 @@ import { Item } from '../../models/item';
 import { ItemService } from '../../services/item.service';
 import { StockService } from '../../services/stock.service';
 import { DescuentosService } from '../../services/descuentos.service';
+import { CotizacionService } from '../../services/cotizacion.service';
 
 import { CarritoSimpleComponent } from '../header/menu/carrito/carrito-simple.component';
 
@@ -15,8 +16,9 @@ declare var $: any;
 @Component({
   templateUrl: 'producto.html',
   styleUrls: ['producto.component.css'],
-  providers: [ItemService, StockService, DescuentosService]
+  providers: [ItemService, StockService, DescuentosService, CotizacionService]
 })
+
 export class ProductoComponent implements OnInit, AfterViewInit {
   @ViewChild(CarritoSimpleComponent)
   private carrito: CarritoSimpleComponent;
@@ -25,18 +27,23 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   public itemPosition: number = 0;
   public totalStock: number = 0;
   public cuotaMCO: number = 0;
+  public pasoCotizacion: number = 1;
+  public nombreCotizacion: string;
+  public emailCotizacion: string;
+  public mensajeError: string;
   public existe360: boolean = false;
   public existeWow: boolean = false;
   public existePlantilla: boolean = false;
   public existenciaMedellin: boolean = false;
   public existenciaBogota: boolean = false;
+  public valid: boolean = true;
   public item: Item;
   public quantityOptions: Array<number>;
   public images: Array<string>;
   public itemsRelacionados: Array<any>;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _stockService: StockService,
-    private _http: Http, private readonly meta: MetaService, private _descuentosService: DescuentosService) {
+    private _http: Http, private readonly meta: MetaService, private _descuentosService: DescuentosService, private _cotizacionService: CotizacionService) {
     this.quantityOptions = new Array<number>();
     this.images = new Array<string>();
     this.itemsRelacionados = new Array<any>();
@@ -53,7 +60,13 @@ export class ProductoComponent implements OnInit, AfterViewInit {
     });
     $("#popover2").hover(function() {
       $("#popover2").click();
-    });    
+    });
+    $('#modalSolicitud').on('shown.bs.modal', function() {
+      $('#name').focus()
+    });
+    $(function() {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
   }
 
   ngAfterViewInit() {
@@ -264,5 +277,37 @@ export class ProductoComponent implements OnInit, AfterViewInit {
     if (this.selectedQuantity > 1) {
       this.selectedQuantity -= 1;
     }
+  }
+
+  public solicitarCotizacion(contactForm) {
+    console.log('Se mandara la cotizacion');
+    this.mensajeError = '';
+    if (this.nombreCotizacion == null || this.nombreCotizacion.length <= 0 || this.emailCotizacion == null || this.emailCotizacion.length <= 0) {
+      this.mensajeError = 'Debe llenar todos los datos necesarios para la cotización';
+      return;
+    }
+
+    this._cotizacionService.create(this.item.itemcode, this.nombreCotizacion, this.emailCotizacion).subscribe(
+      response => {
+        if (response.estado === 0) {
+          contactForm.reset();
+          this.valid = true;
+          this.nombreCotizacion = null;
+          this.emailCotizacion = null;
+          this.pasoCotizacion = 2;
+        } else {
+          this.mensajeError = 'No fue posible enviar la cotización solicitada';
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  public cerrarModalCotizacion() {
+    this.pasoCotizacion = 1;
+
+    $('#modalSolicitud').modal('hide');
   }
 }

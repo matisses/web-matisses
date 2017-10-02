@@ -28,7 +28,7 @@
             </a>
           </div>
         </div>
-        <div class="row" *ngIf="item != null">
+        <div class="row" *ngIf="item != null && item.showprice === 'true' || item.showprice">
           <div class="col-xs-12 text-center">
             <p class="medium nombre-producto">{{item.itemname}}</p>
             <div class="precio-full" *ngIf="!item.priceafterdiscount || item.priceafterdiscount === 0 || item.priceafterdiscount === item.pricebeforediscount">
@@ -46,6 +46,21 @@
               </button>
               <button type="button" class="btn btn-carrito" (click)="agregarCarrito(item)">
                 AGREGAR AL CARRITO
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="item != null && item.showprice === 'flase' || !item.showprice">
+          <div class="col-xs-12 text-center">
+            <p class="medium nombre-producto">{{item.itemname}}</p>
+            <div class="precio-full">
+              <h4 class="visibility-0">0</h4>
+            </div>
+          </div>
+          <div class="botones">
+            <div class="col-xs-12 text-center">
+              <button type="button" class="btn btn-carrito" (click)="agregarCarrito(item)">
+                VER PRODUCTO
               </button>
             </div>
           </div>

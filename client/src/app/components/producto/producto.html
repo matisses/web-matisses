@@ -83,6 +83,58 @@
 </div>
 <!-- Modal wow -->
 
+<!-- Modal cotización -->
+<div class="modal fade" id="modalSolicitud" tabindex="-1" role="dialog" aria-labelledby="modalSolicitudLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center" id="modalSolicitudLabel">Solicitar Cotización</h4>
+      </div>
+      <form #ContactForm="ngForm">
+        <div class="modal-body">
+          <div class="row" *ngIf="mensajeError != null && mensajeError.length > 0">
+            <div class="col-xs-12">
+              <div class="alert alert-danger" role="alert">
+                <p>{{mensajeError}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="pasoCotizacion == 1">
+            <div class="col-xs-12">
+              <p>Dejanos tus datos y recibiras un correo electronico con toda la informacion solicitada.</p>
+            </div>
+            <div class="row">
+              <div class="col-xs-8 col-xs-offset-2">
+                <label for="name">Nombre*</label>
+                <input id="name" type="text" class="input-matisses" [class.required-field]="!valid" name="firstName" [(ngModel)]="nombreCotizacion" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-8 col-xs-offset-2">
+                <label for="mail">E-mail*</label>
+                <input id="mail" type="mail" class="input-matisses" [class.required-field]="!valid" name="mail" [email]="true" [(ngModel)]="emailCotizacion" required>
+              </div>
+            </div>
+            <div class="col-xs-12">
+              <p class="terminos">Acepto <a href="javascript:void(0);" [routerLink]="['/terminos-y-condiciones']">Términos y Condiciones</a> y autorizo el <a href="javascript:void(0);" [routerLink]="['/politica-manejo-de-datos']">Tratamiento de datos</a> personales.</p>
+            </div>
+          </div>
+          <div class="row" *ngIf="pasoCotizacion == 2">
+            <div class="col-xs-12">
+              <p>Se envio la cotización correctamente</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-carrito" (click)="solicitarCotizacion(ContactForm)" *ngIf="pasoCotizacion == 1">Solicitar</button>
+          <button type="button" class="btn btn-carrito" (click)="cerrarModalCotizacion()" *ngIf="pasoCotizacion == 2">Salir</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <div sticky-body>
   <div class="container padding-top">
     <!--
@@ -91,7 +143,7 @@
     <div class="row">
       <div class="col-sm-7">
         <div class="galeria" *ngIf="item && item.images && item.images.length > 0">
-          <div id="galeria-producto" class="carousel slide" data-ride="carousel">
+          <div id="galeria-producto" class="carousel slide" data-ride="carousel" data-interval="2000000">
             <div class="row">
               <div class="col-md-2 hidden-sm hidden-xs">
                 <a class="up" (click)="botonUp()" *ngIf="item.images.length > 3">
@@ -157,70 +209,77 @@
               <p>Ref: {{item.shortitemcode}}</p>
             </div>
           </div>
-          <div class="row">
-            <div class="col-xs-12" *ngIf="!item.priceafterdiscount || item.priceafterdiscount === 0 || item.priceafterdiscount === item.pricebeforediscount">
-              <h3>$ {{item.priceaftervat | number}} <small>IVA incluido</small></h3>
-            </div>
-          </div>
-          <div class="row" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0">
+          <div class="row" *ngIf="item.showprice === 'true' || item.showprice"> <!-- boton normal -->
             <div class="col-xs-12">
-              <h4 class="old-price">$ {{item.priceaftervat | number}}</h4>
-              <h3 class="percentage">-{{item.descuento | number}}%</h3>
-              <h3 class="new-price">$ {{item.priceafterdiscount | number}} <small>IVA incluido</small></h3>
-            </div>
-          </div>
-          <br/>
-          <div class="row">
-            <div class="col-md-3 col-xs-4">
-              <div class="cantidad">
-                <form>
-                  <div class="input-group">
-                    <span class="input-group-addon span-cantidad" (click)="reducirCantidad()">
-                      <button type="button" class="icon-minus btn-cantidad" name="button"></button>
-                    </span>
-                    <input class="input-cantidad form-control" type="tel" name="selectedQuantity" min="1" max="{{totalStock}}" [(ngModel)]="selectedQuantity" />
-                    <span class="input-group-addon span-cantidad" (click)="aumentarCantidad()">
-                      <button type="button" class="icon-plus btn-cantidad" name="button"></button>
-                    </span>
-                  </div>
-                </form>
+              <div class="row">
+                <div class="col-xs-12" *ngIf="!item.priceafterdiscount || item.priceafterdiscount === 0 || item.priceafterdiscount === item.pricebeforediscount">
+                  <h3>$ {{item.priceaftervat | number}} <small>IVA incluido</small></h3>
+                </div>
               </div>
-            </div>
-            <div class="col-md-9 col-xs-8 padding-left padding-right">
-              <button type="button" class="btn btn-carrito" (click)="agregarCarrito()">
-                Agregar al carrito
-              </button>
-              <button type="button" class="btn btn-like" (click)="toggleWishList(item)">
-                <span class="glyphicon wish-list" [ngClass]="getCSSClassName(item)"></span>
-              </button>
-            </div>
-          </div>
-          <div *ngIf="item.urlmercadolibre != null && item.urlmercadolibre.length > 0">
-            <div class="row">
-              <div class="col-xs-12">
-                <div class="link-mco">
-                  <a href="{{item.urlmercadolibre}}" target="_blank">
-                    <span class="icon-credit-card"></span>Ir a comprar hasta en 12 cuotas de $ {{cuotaMCO | number}} sin intereses.
-                  </a>
+              <div class="row" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0">
+                <div class="col-xs-12">
+                  <h4 class="old-price">$ {{item.priceaftervat | number}}</h4>
+                  <h3 class="percentage">-{{item.descuento | number}}%</h3>
+                  <h3 class="new-price">$ {{item.priceafterdiscount | number}} <small>IVA incluido</small></h3>
+                </div>
+              </div>
+              <br/>
+              <div class="row">
+                <div class="col-md-3 col-xs-4">
+                  <div class="cantidad">
+                    <form>
+                      <div class="input-group">
+                        <span class="input-group-addon span-cantidad" (click)="reducirCantidad()">
+                          <button type="button" class="icon-minus btn-cantidad" name="button"></button>
+                        </span>
+                        <input class="input-cantidad form-control" type="tel" name="selectedQuantity" min="1" max="{{totalStock}}" [(ngModel)]="selectedQuantity" />
+                        <span class="input-group-addon span-cantidad" (click)="aumentarCantidad()">
+                          <button type="button" class="icon-plus btn-cantidad" name="button"></button>
+                        </span>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div class="col-md-9 col-xs-8 padding-left padding-right">
+                  <button type="button" class="btn btn-carrito" (click)="agregarCarrito()">
+                    Agregar al carrito
+                  </button>
+                  <button type="button" class="btn btn-like" (click)="toggleWishList(item)">
+                    <span class="glyphicon wish-list" [ngClass]="getCSSClassName(item)"></span>
+                  </button>
+                </div>
+              </div>
+              <div *ngIf="item.urlmercadolibre != null && item.urlmercadolibre.length > 0">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="link-mco">
+                      <a href="{{item.urlmercadolibre}}" target="_blank">
+                        <span class="icon-credit-card"></span>Ir a comprar hasta en 12 cuotas de $ {{cuotaMCO | number}} sin intereses.
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <p style="font-size:12px; margin:0;">*Aplican condiciones y restricciones</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <a href="javascript:void(0);" [routerLink]="['/sin-intereses']">
+                      Más información <span class="icon-info"></span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
-            <!-- <div class="row">
-              <div class="col-xs-12">
-                <button type="button" class="btn btn-mco">Comprar sin intereses</button>
-              </div>
-            </div> -->
-            <div class="row">
-              <div class="col-xs-12">
-                <p style="font-size:12px; margin:0;">*Aplican condiciones y restricciones</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12">
-                <a href="javascript:void(0);" [routerLink]="['/sin-intereses']">
-                  Más información <span class="icon-info"></span>
-                </a>
-              </div>
+          </div>
+          <div class="row" *ngIf="item.showprice === 'false' || !item.showprice"> <!-- boton cotizacion -->
+            <div class="col-xs-12">
+              <button type="button" class="btn btn-carrito" data-toggle="modal" data-target="#modalSolicitud" [ngClass]="{'margin-cotizacion' : item.showprice === 'false' || !item.showprice}">
+                Solicitar cotización
+              </button>
+              <span class="icon-info info-cotizacion" data-toggle="tooltip" data-placement="bottom" title="Dejanos tus datos y recibiras un correo electronico con toda la informacion y un paso a paso para la compra."></span>
             </div>
           </div>
         </div>

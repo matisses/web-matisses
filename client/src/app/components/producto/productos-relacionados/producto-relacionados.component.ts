@@ -1,23 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Item } from '../../../models/item';
 
+import { RecommendedItemService } from '../../../services/recommended.service';
 import { ItemService } from '../../../services/item.service';
+import { DescuentosService } from '../../../services/descuentos.service';
 
-// declare var jquery: any;
+import { CarritoSimpleComponent } from '../../header/menu/carrito/carrito-simple.component';
+
+//declare var jquery: any;
 declare var $: any;
 
 @Component({
   selector: 'relacionados',
   templateUrl: 'producto-relacionados.html',
-  styleUrls: ['producto-relacionados.component.css']
+  styleUrls: ['producto-relacionados.component.css'],
+  providers: [RecommendedItemService, ItemService, DescuentosService]
 })
 
 export class ProductoRelacionadosComponent implements OnInit {
+  @ViewChild(CarritoSimpleComponent)
+  private carrito: CarritoSimpleComponent;
+
   public items: Array<Item>;
 
-  constructor(private _route: ActivatedRoute, private _itemService: ItemService, private _router: Router) {
+  constructor(private _recommmendedService: RecommendedItemService, private _itemService: ItemService, private _route: ActivatedRoute, private _router: Router,
+    private _descuentosService: DescuentosService) {
   }
 
   ngOnInit() {
@@ -26,37 +35,46 @@ export class ProductoRelacionadosComponent implements OnInit {
   }
 
   private inicializarItems() {
-
     this.items = new Array<Item>();
-    /*
-        this.items.push(new Item().newItem('22400000000000000012', 'Nombre de producto el cual puede tener mas de 30 caracteres', 56000));
-        this.items.push(new Item().newItem('23100000000000000495', 'Plato de postre', 56000));
-        this.items.push(new Item().newItem('23100000000000000494', 'Plato de carga', 400000));
-        this.items.push(new Item().newItem('23100000000000000493', 'Plato principal el cual esta es una prueba', 89000));
-        this.items.push(new Item().newItem('22400000000000000012', 'Nombre de producto el cual puede tener mas de 30 caracteres', 56000));
-        this.items.push(new Item().newItem('23100000000000000495', 'Plato de postre', 56000));
-        this.items.push(new Item().newItem('23100000000000000494', 'Plato de carga', 400000));
-        this.items.push(new Item().newItem('23100000000000000493', 'Plato principal el cual esta es una prueba', 89000));
-        this.items.push(new Item().newItem('22400000000000000012', 'Nombre de producto el cual puede tener mas de 30 caracteres', 56000));
-        this.items.push(new Item().newItem('23100000000000000495', 'Plato de postre', 56000));
-        this.items.push(new Item().newItem('23100000000000000494', 'Plato de carga', 400000));
-        this.items.push(new Item().newItem('23100000000000000493', 'Plato principal el cual esta es una prueba', 89000));
-        */
+
+    this._recommmendedService.list().subscribe(
+      response => {
+        for (let i = 0; i < response.result.length; i++) {
+          let item: Item;
+          item = response.result[i].item_data;
+          //validar si el ítem tiene descuentos
+          this._descuentosService.findDiscount(item.itemcode).subscribe(
+            response => {
+              if (item.priceaftervat === response.precio) {
+                if (response.descuentos && response.descuentos.length > 0) {
+                  item.descuento = response.descuentos[0].porcentaje;
+                  item.priceafterdiscount = item.priceaftervat - ((item.priceaftervat / 100) * item.descuento);
+                }
+              }
+            },
+            error => {
+              console.error(error);
+            }
+          );
+          this.items.push(item);
+        }
+      },
+      error => {
+        console.error(error);
+      }
+    )
   }
 
+  mostrarArticulo(articulo) {
+  }
 
   public botonRight() {
-    $('.section-relacionados').animate({ scrollLeft: '+=890' }, 500);
+    $('.section').animate({ scrollLeft: '+=890' }, 500);
     return false;
   }
 
   public botonLeft() {
-    $('.section-relacionados').animate({ scrollLeft: '-=890' }, 500);
-    return false;
-  }
-
-  public scrollTop() {
-    $("html, body").animate({ scrollTop: 0 }, 1000);
+    $('.section').animate({ scrollLeft: '-=890' }, 500);
     return false;
   }
 
@@ -72,4 +90,8 @@ export class ProductoRelacionadosComponent implements OnInit {
     return this._itemService.getCSSClassName(item);
   }
 
+  public agregarCarrito(item: Item) {
+    item.selectedQuantity = 1;
+    this.carrito.procesarItem(item);
+  }
 }
