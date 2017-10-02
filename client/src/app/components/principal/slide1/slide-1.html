@@ -21,7 +21,7 @@
                   <p>100% hecho a mano en</p>
                   <h2>Colombia</h2>
                   <p class="btn-banner01">
-                    VER PRODUCTOS
+                    Ver productos
                   </p>
                 </div>
               </div>
@@ -38,22 +38,22 @@
   <div class="row" *ngIf="items && items.length > 0">
     <div class="col-sm-3 col-xs-6 text-center" >
       <div class="recomendaciones">
-        <p class="name">Tapete en fibra natural<br><b>VERDI</b></p>
+        <p class="name">Tapete fibra natural<br><b>VERDI</b></p>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[0].shortitemcode]">
           <img src="https://img.matisses.co/{{items[0].itemcode}}/parrilla/{{items[0].itemcode}}_02.jpg" class="img-responsive cursor-pointer" alt="{{items[0].itemname}}">
         </a>
         <p class="precio">220cm x 270cm</p>
-        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[0].shortitemcode]">VER PRODUCTO</button>
+        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[0].shortitemcode]">Ver producto</button>
       </div>
     </div>
     <div class="col-sm-3 col-xs-6 text-center" *ngIf="items && items.length >= 2">
       <div class="recomendaciones">
-        <p class="name">Tapete en fibra y estaño<br><b>VERDI</b></p>
+        <p class="name">Tapete fibra y estaño<br><b>VERDI</b></p>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[1].shortitemcode]">
           <img src="https://img.matisses.co/{{items[1].itemcode}}/parrilla/{{items[1].itemcode}}_02.jpg" class="img-responsive cursor-pointer" alt="{{items[1].itemname}}">
         </a>
         <p class="precio">150cm x 200cm</p>
-        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[1].shortitemcode]">VER PRODUCTO</button>
+        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[1].shortitemcode]">Ver producto</button>
       </div>
     </div>
 
@@ -71,7 +71,7 @@
           <div class="sub-banner-footer">
             <p>Tapete en fibra y cobre de 200cm x 300cm</p>
             <a href="javascript:void(0)" [routerLink]="['/producto', items[2].shortitemcode]">
-              <button type="submit" class="ir-comprar" name="comprar-ya">VER PRODUCTO</button>
+              <button type="submit" class="ir-comprar" name="comprar-ya">Ver producto</button>
             </a>
           </div>
         </div>
