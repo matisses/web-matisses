@@ -874,7 +874,7 @@
   </div>
 </div>
 
-<!-- <div id="modalError" class="modal fade" tabindex="-1" role="dialog">
+<div id="modalError" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header header-modal-error">
@@ -888,10 +888,10 @@
       </div>
     </div>
   </div>
-</div> -->
+</div>
 
 <div class="jumbotron" *ngIf="!sesionPOS.cajaAbierta">
-  <h1>¡Hola {{sesionPOS.nombreUsuario}}!</h1>
+  <h1>¡Hola {{nombreUsuario}}!</h1>
   <p>{{mensajeInicio}}</p>
   <p *ngIf="permitirAbrirCaja">
     <a class="btn btn-primary btn-lg" role="button" (click)="abrirModalValidarPermisoAutorizacion('ABRIR', 'CAJON_MONEDERO', null, 'ABRIR CAJA')">Abrir caja</a>

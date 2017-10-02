@@ -19,6 +19,7 @@ export class PosComponent implements OnInit {
   public sesionPOS: any;
   public mensajeInicio: string;
   public mensajeError: string;
+  public nombreUsuario: string;
   public permitirAbrirCaja: boolean = false;
 
   // Variables de autorizacion
@@ -103,7 +104,6 @@ export class PosComponent implements OnInit {
       idTurnoCaja: '',
       tarjetasRegaloDisponibles: 0,
       usuario: '',
-      nombreUsuario: '',
       almacen: '',
       mensajeError: '',
       ip: '',
@@ -134,6 +134,10 @@ export class PosComponent implements OnInit {
     this.timer = setTimeout(this.validarToken(), 1000);
   }
 
+  private abrirModalError() {
+    $('#modalError').modal('show');
+  }
+
   private validarToken() {
     //this.mensajeError = '';
     this._route.params.forEach((params: Params) => {
@@ -149,6 +153,7 @@ export class PosComponent implements OnInit {
             localStorage.setItem('matisses.pos-token', this.token);
             console.log('El token recibido es valido');
             this.sesionPOS = response;
+            this.nombreUsuario = response.nombreUsuario;
 
             // Se valida el estado actual de la caja en la que se quiere trabajar
             this.validarEstadoCaja();
@@ -161,7 +166,7 @@ export class PosComponent implements OnInit {
           this.mensajeError = 'La conexión con SAP <b>no esta disponibe en este momento</b>. Espera mientras se restablece o vuelve a cargar la página para intentarlo manualmente.';
           console.error(error);
           localStorage.removeItem('matisses.pos-token');
-          $('#modalError').modal('show');
+          this.abrirModalError();
           this.interval();
         }
       );
@@ -1700,6 +1705,7 @@ export class PosComponent implements OnInit {
   }
 
   public suspenderVenta() {
+    this.mensajeError = '';
     if (this.items != null && this.items.length > 0) {
       if (this.cliente.cardCode != null && this.cliente.cardCode.length > 0) {
         let ventapos = {
@@ -1721,6 +1727,8 @@ export class PosComponent implements OnInit {
         );
       } else {
         console.log("No se encontró el nit del cliente");
+        this.mensajeError = 'No se encontró el nit del cliente';
+        this.abrirModalError();
       }
     } else {
       this.mensajeError = 'No se puede suspender la venta debido a que no ha seleccionado items';
@@ -1728,7 +1736,7 @@ export class PosComponent implements OnInit {
   }
 
   public listarVentasPendientes() {
-    this._posService.listarVentasPendientes('2107').subscribe(
+    this._posService.listarVentasPendientes(this.sesionPOS.idTurnoCaja).subscribe(
       response => {
         if (response.length > 0) {
           console.log(response);
