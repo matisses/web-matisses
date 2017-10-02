@@ -10,7 +10,7 @@
         <span class="glyphicon glyphicon-menu-right"></span>
         <span class="sr-only">Next</span>
       </a>
-      <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{brand: '0026', collection: 'Nizza'}">
+      <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{brand: '0032'}">
         <div class="principal-01">
           <div class="container">
             <div class="row">
@@ -37,21 +37,21 @@
   <div class="row" *ngIf="items && items.length > 0">
     <div class="col-sm-3 col-xs-6 text-center" >
       <div class="recomendaciones">
-        <p class="name">Set 2 nocheros<br><b>Nizza</b></p>
+        <p class="name">Tapete en fibra natural<br><b>VERDI</b></p>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[0].shortitemcode]">
-          <img src="https://img.matisses.co/{{items[0].itemcode}}/parrilla/{{items[0].itemcode}}_04.jpg" class="img-responsive cursor-pointer" alt="{{items[0].itemname}}">
+          <img src="https://img.matisses.co/{{items[0].itemcode}}/parrilla/{{items[0].itemcode}}_02.jpg" class="img-responsive cursor-pointer" alt="{{items[0].itemname}}">
         </a>
-        <p class="precio"><b>$ {{items[0].priceaftervat | number}}</b></p>
+        <!-- <p class="precio"><b>$ {{items[0].priceaftervat | number}}</b></p> -->
         <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[0].shortitemcode]">Ir a comprar</button>
       </div>
     </div>
     <div class="col-sm-3 col-xs-6 text-center" *ngIf="items && items.length >= 2">
       <div class="recomendaciones">
-        <p class="name">Cómoda en madera<br><b>Nizza</b></p>
+        <p class="name">Tapete en fibra y cobre<br><b>VERDI</b></p>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[1].shortitemcode]">
-          <img src="https://img.matisses.co/{{items[1].itemcode}}/parrilla/{{items[1].itemcode}}_03.jpg" class="img-responsive cursor-pointer" alt="{{items[1].itemname}}">
+          <img src="https://img.matisses.co/{{items[1].itemcode}}/parrilla/{{items[1].itemcode}}_02.jpg" class="img-responsive cursor-pointer" alt="{{items[1].itemname}}">
         </a>
-        <p class="precio"><b>$ {{items[1].priceaftervat | number}}</b></p>
+        <!-- <p class="precio"><b>$ {{items[1].priceaftervat | number}}</b></p> -->
         <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[1].shortitemcode]">Ir a comprar</button>
       </div>
     </div>
