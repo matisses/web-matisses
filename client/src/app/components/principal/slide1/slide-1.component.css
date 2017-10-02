@@ -77,28 +77,16 @@
   color: #FFF;
   position: relative;
   padding-top: 15px;
-  bottom: -245px;
-  left: 38%;
+  top: 0;
+  left: 0%;
   background-color: rgba(0, 0, 0, 0.5);
   width: 280px;
-  z-index: 3;
 }
 
 .text-01 p {
   font-size: 20px;
   margin: 0;
   margin-bottom: 5px
-}
-
-.text-01 p::before {
-  content: '';
-  width: 45px;
-  height: 3px;
-  background-color: #9C8D7A;
-  position: absolute;
-  top: 45px;
-  left: 43%;
-  cursor: auto;
 }
 
 .text-01 h2 {
@@ -109,8 +97,9 @@
 .text-01 .btn-banner01 {
   padding: 5px 10px;
   font-size: 15px;
-  background-color: #9C8D7A;
+  background-color: #ae3e02;
   margin: 0;
+  margin-top: 15px;
   width: 46%;
   margin-left: 27%;
   cursor: pointer;
@@ -154,6 +143,7 @@
   color: #FFF;
   padding: 10px 20px;
   font-size: 19px;
+  top: 10px;
 }
 
 .sub-banner .mensaje p {
@@ -161,6 +151,16 @@
   top: 15px;
   margin-right: 15px;
   line-height: 25px;
+}
+
+.sub-banner p {
+  position: absolute;
+  color: #FFF;
+  padding: 5px 30px;
+  margin-left: 24%;
+  background-color: rgba(0, 0, 0, 0.4);
+  margin-top: 10px;
+  font-size: 20px;
 }
 
 .sub-banner .mensaje p, .sub-banner .mensaje img {
@@ -209,8 +209,8 @@
     min-height: 300px;
   }
   .text-01 {
-    left: 28%;
-    bottom: -100px;
+    left: 13%;
+    top: 50px;
   }
   .text-01 .btn-banner01 {
     font-size: 10px;
@@ -233,6 +233,15 @@
   .text-01 {
     width: 216px;
     left: 33%;
+  }
+  .text-01 img {
+    width: 30%;
+  }
+  .text-01 p {
+    font-size: 15px;
+  }
+  .text-01 h2 {
+    font-size: 30px;
   }
   .text-01 .btn-banner01 {
     font-size: 10px;

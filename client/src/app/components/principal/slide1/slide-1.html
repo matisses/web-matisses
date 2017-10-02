@@ -16,9 +16,9 @@
             <div class="row">
               <div class="col-xs-12">
                 <div class="text-01 text-center">
-                  <p>COLECCIÓN</p>
-                  <h2>Nizza</h2>
-                  <p class="precio">Artículos desde $ 3.120.000</p>
+                  <img src="assets/images/banner/slide-1/logo-verdi.png" alt="">
+                  <p>100% hecho a mano en</p>
+                  <h2>Colombia</h2>
                   <p class="btn-banner01">
                     IR A COMPRAR
                   </p>
@@ -57,11 +57,10 @@
     </div>
 
     <div class="col-sm-6 col-xs-12" *ngIf="items && items.length >= 3">
-      <div class="sub-banner">
-        <div class="mensaje hidden-xs">
-          <p>Siéntete a gusto<br><b>con tu dormitorio</b></p>
-          <img src="assets/images/logo_alf.png" alt="Cama de la Colección Nizza de la marca ALF">
-        </div>
+      <div class="sub-banner text-center">
+        <p><b>Del telar, a tu hogar</b></p>
+        <!-- <div class="mensaje hidden-xs text-center">
+        </div> -->
         <a href="javascript:void(0)" [routerLink]="['/producto', items[2].shortitemcode]">
           <img src="assets/images/banner/slide-1/banner-03.jpg" class="img-responsive" alt="">
         </a>
