@@ -68,7 +68,7 @@
           <a href="javascript:void(0);" [routerLink]="['/producto', item.shortitemcode]"><img src="https://img.matisses.co/{{item.itemcode}}/parrilla/{{item.itemcode}}_01.jpg" class="img-responsive" alt="{{item.itemname}}"></a>
         </div>
       </div>
-      <div class="row">
+      <div class="row" *ngIf="item.showprice === 'true' || item.showprice">
         <div class="col-xs-12 text-center">
           <p class="medium nombre-producto">{{item.itemname}}</p>
           <div class="precio-full" *ngIf="!item.priceafterdiscount || item.priceafterdiscount === 0 || item.priceafterdiscount === item.pricebeforediscount">
@@ -87,6 +87,23 @@
               </button>
               <button type="button" class="btn btn-carrito" (click)="agregarCarrito(item)">
                 AGREGAR AL CARRITO
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="item.showprice === 'false' || !item.showprice">
+        <div class="col-xs-12 text-center">
+          <p class="medium nombre-producto">{{item.itemname}}</p>
+          <div class="precio-full">
+            <h4 class="visibility-0">0</h4>
+          </div>
+        </div>
+        <div class="botones">
+          <div class="col-xs-12 text-center">
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-carrito" (click)="agregarCarrito(item)">
+                VER PRODUCTO
               </button>
             </div>
           </div>

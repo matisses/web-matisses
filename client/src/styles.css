@@ -57,6 +57,10 @@ input:focus, button:focus, span:focus, p:focus, li:focus, div:focus, textarea:fo
   text-decoration: none;
 }
 
+.visibility-0 {
+  visibility: hidden;
+}
+
 @media screen and (max-width: 991px) {
   .padding-top {
     padding-top: 60px;

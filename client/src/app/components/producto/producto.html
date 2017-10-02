@@ -209,7 +209,7 @@
               <p>Ref: {{item.shortitemcode}}</p>
             </div>
           </div>
-          <div class="row" *ngIf="item.precioVisible === 'undefined' || item.precioVisible">
+          <div class="row" *ngIf="item.showprice === 'true' || item.showprice"> <!-- boton normal -->
             <div class="col-xs-12">
               <div class="row">
                 <div class="col-xs-12" *ngIf="!item.priceafterdiscount || item.priceafterdiscount === 0 || item.priceafterdiscount === item.pricebeforediscount">
@@ -223,6 +223,7 @@
                   <h3 class="new-price">$ {{item.priceafterdiscount | number}} <small>IVA incluido</small></h3>
                 </div>
               </div>
+              <br/>
               <div class="row">
                 <div class="col-md-3 col-xs-4">
                   <div class="cantidad">
@@ -273,11 +274,12 @@
               </div>
             </div>
           </div>
-          <div class="row" *ngIf="item.precioVisible !== 'undefined' || !item.precioVisible">
+          <div class="row" *ngIf="item.showprice === 'false' || !item.showprice"> <!-- boton cotizacion -->
             <div class="col-xs-12">
-              <button type="button" class="btn btn-carrito" data-toggle="modal" data-target="#modalSolicitud">
+              <button type="button" class="btn btn-carrito" data-toggle="modal" data-target="#modalSolicitud" [ngClass]="{'margin-cotizacion' : item.showprice === 'false' || !item.showprice}">
                 Solicitar cotización
               </button>
+              <span class="icon-info info-cotizacion" data-toggle="tooltip" data-placement="bottom" title="Dejanos tus datos y recibiras un correo electronico con toda la informacion y un paso a paso para la compra."></span>
             </div>
           </div>
         </div>

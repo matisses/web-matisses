@@ -64,6 +64,9 @@ export class ProductoComponent implements OnInit, AfterViewInit {
     $('#modalSolicitud').on('shown.bs.modal', function() {
       $('#name').focus()
     });
+    $(function() {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
   }
 
   ngAfterViewInit() {
