@@ -10,15 +10,15 @@
         <span class="glyphicon glyphicon-menu-right"></span>
         <span class="sr-only">Next</span>
       </a>
-      <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{brand: '0026', collection: 'Vega'}">
+      <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{brand: '0004'}">
         <div class="principal-01">
           <div class="container">
             <div class="row">
               <div class="col-xs-12">
                 <div class="text-01 text-center">
-                  <p>NUEVA COLECCIÓN</p>
-                  <h2>Vega</h2>
-                  <p class="precio">Artículos desde $ 2.235.000</p>
+                  <img src="assets/images/logo_calia.png" alt="">
+                  <p><b>Diseño elegante, cómodo</b><br/>e indiscutiblemente</p>
+                  <h2>Italiano</h2>
                   <p class="btn-banner01">
                     IR A COMPRAR
                   </p>
@@ -37,7 +37,7 @@
   <div class="row" *ngIf="items && items.length > 0">
     <div class="col-sm-3 col-xs-6 text-center" >
       <div class="recomendaciones">
-        <p class="name">Mesa de centro<br><b>Vega</b></p>
+        <p class="name">Sofá 3xl en piel<br><b>Elisir</b></p>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[0].shortitemcode]">
           <img src="https://img.matisses.co/{{items[0].itemcode}}/parrilla/{{items[0].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[0].itemname}}">
         </a>
@@ -47,7 +47,7 @@
     </div>
     <div class="col-sm-3 col-xs-6 text-center" *ngIf="items && items.length >= 2">
       <div class="recomendaciones">
-        <p class="name">Mueble para TV<br><b>Vega</b></p>
+        <p class="name">Silla ocasional<br><b>Delizia</b></p>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[1].shortitemcode]">
           <img src="https://img.matisses.co/{{items[1].itemcode}}/parrilla/{{items[1].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[1].itemname}}">
         </a>
@@ -59,8 +59,8 @@
     <div class="col-sm-6 col-xs-12" *ngIf="items && items.length >= 3">
       <div class="sub-banner">
         <div class="mensaje hidden-xs">
-          <p>Made in <br><b>Italy</b></p>
-          <img src="assets/images/logo_alf.png" alt="Cama de la Colección Nizza de la marca ALF">
+          <img src="assets/images/logo_top-grain.png" alt="">
+          <p>Materiales<br><b>100% Europeos</b></p>
         </div>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[2].shortitemcode]">
           <img src="assets/images/banner/slide-4/banner-03.jpg" class="img-responsive" alt="">
@@ -69,7 +69,7 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="sub-banner-footer">
-            <p>Set comedor 8 puestos <b>$ {{items[2].priceaftervat | number}}</b></p>
+            <p>Sofá 3xl Belle Epoque <b>$ {{items[2].priceaftervat | number}}</b></p>
             <a href="javascript:void(0)" [routerLink]="['/producto', items[2].shortitemcode]">
               <button type="submit" class="ir-comprar" name="comprar-ya">Ir a comprar</button>
             </a>
