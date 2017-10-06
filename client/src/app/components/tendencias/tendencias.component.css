@@ -44,7 +44,7 @@ h2::before {
   padding-left: 15px;
   line-height: 1;
   padding: 10px 20px;
-  background-color: rgba(80, 80, 80, 0.41);
+  background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
   bottom: -456px;
   left: 0;
