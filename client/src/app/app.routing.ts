@@ -9,6 +9,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { TrabajaComponent } from './components/trabaja/trabaja.component';
 import { GarantiasComponent } from './components/garantias/garantias.component';
 import { EnviosComponent } from './components/envios/envios.component';
+import { InfoEnviosComponent } from './components/info-envios/info-envios.component';
 import { ResumenCarritoComponent } from './components/resumen-carrito/resumen-carrito.component';
 import { ProductoComponent } from './components/producto/producto.component';
 import { RedirectComponent } from './components/redirect/redirect.component';
@@ -63,6 +64,7 @@ const appRoutes: Routes = [
   { path: 'trabaja-con-nosotros', component: TrabajaComponent },
   { path: 'garantias', component: GarantiasComponent },
   { path: 'envios', component: EnviosComponent },
+  { path: 'info-envios', component: InfoEnviosComponent },
   { path: 'resumen-carrito', component: ResumenCarritoComponent },
   //{ path: 'producto/:item', component: ProductoComponent },
   { path: 'redirect/:previous', component: RedirectComponent },
