@@ -53,6 +53,7 @@ import { TiendasComponent } from './components/tiendas/tiendas.component';
 import { TrabajaComponent } from './components/trabaja/trabaja.component';
 import { GarantiasComponent } from './components/garantias/garantias.component';
 import { EnviosComponent } from './components/envios/envios.component';
+import { InfoEnviosComponent } from './components/info-envios/info-envios.component';
 import { ContactanosComponent } from './components/contactanos/contactanos.component';
 import { TerminosComponent } from './components/terminos/terminos.component';
 import { PoliticaDatosComponent } from './components/politica-datos/politica-datos.component';
@@ -121,6 +122,7 @@ import { MetaModule } from '@ngx-meta/core';
     TrabajaComponent,
     GarantiasComponent,
     EnviosComponent,
+    InfoEnviosComponent,
     ResumenCarritoComponent,
     ProductoComponent,
     CarritoSimpleComponent,
