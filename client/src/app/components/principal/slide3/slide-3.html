@@ -10,14 +10,14 @@
         <span class="glyphicon glyphicon-menu-right"></span>
         <span class="sr-only">Next</span>
       </a>
-      <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{brand: '0016', collection: 'Hello FUNctionals'}">
+      <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{group:'015', brand: '0007'}">
         <div class="principal-01">
           <div class="container">
             <div class="row">
               <div class="col-xs-12">
                 <div class="text-01 text-center">
-                  <p>Déjate sorprender por los nuevos utensilios de cocina</p>
-                  <img src="assets/images/banner/slide-3/logo.png" class="img-responsive" alt="">
+                  <img src="assets/images/banner/slide-3/logo-nomon.png" alt="">
+                  <p>Relojes de interior<br/>Hechos a mano</p>
                   <p class="btn-banner01">
                     IR A COMPRAR
                   </p>
@@ -36,7 +36,7 @@
   <div class="row" *ngIf="items && items.length > 0">
     <div class="col-sm-3 col-xs-6 text-center" >
       <div class="recomendaciones">
-        <p class="name">Pimentero<br><b>Functionals</b></p>
+        <p class="name">Reloj Mini OJ<br><b>NOMON</b></p>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[0].shortitemcode]">
           <img src="https://img.matisses.co/{{items[0].itemcode}}/parrilla/{{items[0].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[0].itemname}}">
         </a>
@@ -46,7 +46,7 @@
     </div>
     <div class="col-sm-3 col-xs-6 text-center" *ngIf="items && items.length >= 2">
       <div class="recomendaciones">
-        <p class="name">Espátula<br><b>Functionals</b></p>
+        <p class="name">Reloj Axioma<br><b>NOMON</b></p>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[1].shortitemcode]">
           <img src="https://img.matisses.co/{{items[1].itemcode}}/parrilla/{{items[1].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[1].itemname}}">
         </a>
@@ -54,24 +54,22 @@
         <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[1].shortitemcode]">Ir a comprar</button>
       </div>
     </div>
-    <div class="col-sm-3 col-xs-6 text-center" *ngIf="items && items.length >= 2">
-      <div class="recomendaciones">
-        <p class="name">Cortador de piña<br><b>Functionals</b></p>
+
+    <div class="col-sm-6 col-xs-12" *ngIf="items && items.length >= 3">
+      <div class="sub-banner text-center">
         <a href="javascript:void(0)" [routerLink]="['/producto', items[2].shortitemcode]">
-          <img src="https://img.matisses.co/{{items[2].itemcode}}/parrilla/{{items[2].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[2].itemname}}">
+          <img src="assets/images/banner/slide-3/banner-03.jpg" class="img-responsive" alt="">
         </a>
-        <p class="precio"><b>$ {{items[2].priceaftervat | number}}</b></p>
-        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[2].shortitemcode]">Ir a comprar</button>
       </div>
-    </div>
-    <div class="col-sm-3 col-xs-6 text-center" *ngIf="items && items.length >= 2">
-      <div class="recomendaciones">
-        <p class="name">Batidor<br><b>Functionals</b></p>
-        <a href="javascript:void(0)" [routerLink]="['/producto', items[3].shortitemcode]">
-          <img src="https://img.matisses.co/{{items[3].itemcode}}/parrilla/{{items[3].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[3].itemname}}">
-        </a>
-        <p class="precio"><b>$ {{items[3].priceaftervat | number}}</b></p>
-        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[3].shortitemcode]">Ir a comprar</button>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="sub-banner-footer">
+            <p>Reloj Punto y Coma <b>$ {{items[2].priceaftervat | number}}</b></p>
+            <a href="javascript:void(0)" [routerLink]="['/producto', items[2].shortitemcode]">
+              <button type="submit" class="ir-comprar" name="comprar-ya">Ir a comprar</button>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
