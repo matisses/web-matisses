@@ -11,7 +11,7 @@
 .img-banner {
   background: url(../../../assets/images/banner-sin-interes.jpg) no-repeat center center;
   background-position: center center;
-  min-height: 300px;
+  min-height: 350px;
   width: 100%;
   -webkit-background-size: 100%;
   -moz-background-size: 100%;
@@ -23,15 +23,32 @@
   background-size: cover;
 }
 
-.img-banner h2 {
+.ir-comprar {
+  background-color: #6D9791;
+  color: #ECECEC;
+  z-index: 0 !important;
+  border-radius: 0;
+  margin-top: 10px;
+}
+
+.ir-comprar:hover {
+  background-color: #425E63 !important;
+}
+
+.img-banner .title {
   position: absolute;
-  color: #FFF;
-  background-color: rgba(0, 0, 0, 0.6);
+  color: #6d9791;
   left: 0;
   width: 400px;
   margin-top: 8%;
   font-size: 30px;
-  padding: 15px;
+  text-align: center;
+  padding: 5px;
+  border: 1px solid #6d9791;
+}
+
+.title p {
+  color: #5b5b5b;
 }
 
 iframe {
