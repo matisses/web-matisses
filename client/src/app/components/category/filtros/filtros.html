@@ -49,7 +49,7 @@
               <div class="collapse" id="collapseGroups">
                 <ul>
                   <div *ngFor="let menuItem of filtrosDisponibles['groups']">
-                    <li class="filter-option" *ngIf="showCategoryOption(menuItem)" (click)="toggleSelection('group',menuItem.code)">
+                    <li class="filter-option" *ngIf="showCategoryOption(menuItem)" (click)="toggleSelection('group',menuItem.code); scrollAfterFiter()">
                       <span>{{menuItem.name}}</span>
                     </li>
                   </div>
@@ -65,7 +65,7 @@
               </div>
               <div class="collapse" id="collapseSubgroups">
                 <ul>
-                  <li class="filter-option" *ngFor="let menuItem of filtrosDisponibles['subgroups']" (click)="toggleSelection('subgroup',menuItem.code)">
+                  <li class="filter-option" *ngFor="let menuItem of filtrosDisponibles['subgroups']" (click)="toggleSelection('subgroup',menuItem.code); scrollAfterFiter()">
                     <span>{{menuItem.name}}</span>
                   </li>
                 </ul>
@@ -80,7 +80,7 @@
               </div>
               <div class="collapse" id="collapseMarca">
                 <ul>
-                  <li class="filter-option" *ngFor="let marcaItem of filtrosDisponibles['brands'], let i = index" (click)="toggleSelection('brand',marcaItem.code)">
+                  <li class="filter-option" *ngFor="let marcaItem of filtrosDisponibles['brands'], let i = index" (click)="toggleSelection('brand',marcaItem.code); scrollAfterFiter()">
                     <span>{{marcaItem.name}}</span>
                   </li>
                 </ul>
@@ -119,7 +119,7 @@
               </div>
               <div class="collapse" id="collapseColor">
                 <ul>
-                  <li class="filter-option filtro-color" *ngFor="let colorItem of filtrosDisponibles['colors'], let i = index" (click)="toggleSelection('color',colorItem.code)">
+                  <li class="filter-option filtro-color" *ngFor="let colorItem of filtrosDisponibles['colors'], let i = index" (click)="toggleSelection('color',colorItem.code); scrollAfterFiter()">
                     <span>{{colorItem.name}}</span>
                   </li>
                 </ul>
@@ -134,7 +134,7 @@
               </div>
               <div class="collapse" id="collapseMateriales">
                 <ul>
-                  <li class="filter-option" *ngFor="let materialesItem of filtrosDisponibles['materials']" (click)="toggleSelection('material',materialesItem.code)">
+                  <li class="filter-option" *ngFor="let materialesItem of filtrosDisponibles['materials']" (click)="toggleSelection('material',materialesItem.code); scrollAfterFiter()">
                     <span>{{materialesItem.name}}</span>
                   </li>
                 </ul>
@@ -149,7 +149,7 @@
               </div>
               <div class="collapse" id="collapseColecciones">
                 <ul>
-                  <li class="filter-option" *ngFor="let coleccion of filtrosDisponibles['collection']" (click)="toggleSelection('collection',coleccion)">
+                  <li class="filter-option" *ngFor="let coleccion of filtrosDisponibles['collection']" (click)="toggleSelection('collection',coleccion); scrollAfterFiter()">
                     <span>{{coleccion}}</span>
                   </li>
                 </ul>
