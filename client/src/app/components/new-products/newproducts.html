@@ -1,67 +1,68 @@
 <div class="container" *ngIf="items.length > 0">
   <div class="row">
     <div class="col-xs-12 text-center">
-      <h2 class="bold grey">Productos Nuevos</h2>
+      <h2 class="bold grey" id="new-products" (click)="slickNewProducts()">Productos Nuevos</h2>
     </div>
   </div>
-  <br/>
-<div class="row">
-  <div class="col-xs-12">
-    <a class="left" (click)="botonLeft()">
-      <span class="glyphicon glyphicon-menu-left"></span>
-    </a>
-    <a class="right" (click)="botonRight()">
-      <span class="glyphicon glyphicon-menu-right"></span>
-    </a>
-  </div>
-</div>
-  <div class="section">
-    <div class="article"  *ngFor="let item of items">
-      <div class="producto" id="producto-nuevo">
-        <div class="porcentaje" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0">
-          <p>-{{item.descuento | number}}%</p>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="slider-newProducts-container">
+        <div class="controllers">
+          <a class="left prev">
+            <span class="glyphicon glyphicon-menu-left"></span>
+          </a>
+          <a class="right next">
+            <span class="glyphicon glyphicon-menu-right"></span>
+          </a>
         </div>
-        <div class="row">
-          <div class="col-xs-12">
-            <a href="javascript:void(0)" [routerLink]="['/producto', item.shortitemcode]">
-              <img src="https://img.matisses.co/{{item.itemcode}}/images/{{item.itemcode}}_01.jpg" class="img-responsive" alt="{{item.itemname}}">
-            </a>
-          </div>
-        </div>
-        <div class="row" *ngIf="item != null && item.showprice === 'true' || item.showprice">
-          <div class="col-xs-12 text-center">
-            <p class="medium nombre-producto">{{item.itemname}}</p>
-            <div class="precio-full" *ngIf="!item.priceafterdiscount || item.priceafterdiscount === 0 || item.priceafterdiscount === item.pricebeforediscount">
-              <h4>$ {{item.priceaftervat | number:0}}</h4>
+        <div class="slider-newProducts">
+          <div class="article" *ngFor="let item of items">
+            <div class="porcentaje" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0">
+              <p>-{{item.descuento | number}}%</p>
             </div>
-            <div class="precio-discount" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0">
-              <h5>$ {{item.priceaftervat | number:0}}</h5>
-              <h4>$ {{item.priceafterdiscount | number:0}}</h4>
+            <div class="row" *ngIf="item != null">
+              <div class="col-xs-10 col-xs-offset-1 text-center">
+                <a href="javascript:void(0)" [routerLink]="['/producto', item.shortitemcode]">
+                  <img src="https://img.matisses.co/{{item.itemcode}}/parrilla/{{item.itemcode}}_01.jpg" class="img-producto" alt="{{item.itemname}}">
+                </a>
+              </div>
             </div>
-          </div>
-          <div class="botones">
-            <div class="col-xs-12 text-center">
-              <button type="button" class="btn btn-like" (click)="toggleWishList(item)">
-                <span class="glyphicon  wish-list" [ngClass]="getCSSClassName(item)"></span>
-              </button>
-              <button type="button" class="btn btn-carrito" (click)="agregarCarrito(item)">
-                AGREGAR AL CARRITO
-              </button>
+            <div class="row" *ngIf="item != null && item.showprice === 'true' || item.showprice">
+              <div class="col-xs-12 text-center">
+                <p class="medium nombre-producto">{{item.itemname}}</p>
+                <div class="precio-full" *ngIf="!item.priceafterdiscount || item.priceafterdiscount === 0 || item.priceafterdiscount === item.pricebeforediscount">
+                  <h4>$ {{item.priceaftervat | number:0}}</h4>
+                </div>
+                <div class="precio-discount" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0">
+                  <h5>$ {{item.priceaftervat | number:0}}</h5>
+                  <h4>$ {{item.priceafterdiscount | number:0}}</h4>
+                </div>
+              </div>
+              <div class="botones">
+                <div class="col-xs-12 text-center">
+                  <button type="button" class="btn btn-like" (click)="toggleWishList(item)">
+                    <span class="glyphicon  wish-list" [ngClass]="getCSSClassName(item)"></span>
+                  </button>
+                  <button type="button" class="btn btn-carrito" (click)="agregarCarrito(item)">
+                    AGREGAR AL CARRITO
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="row" *ngIf="item != null && item.showprice === 'flase' || !item.showprice">
-          <div class="col-xs-12 text-center">
-            <p class="medium nombre-producto">{{item.itemname}}</p>
-            <div class="precio-full">
-              <h4 class="visibility-0">0</h4>
-            </div>
-          </div>
-          <div class="botones">
-            <div class="col-xs-12 text-center">
-              <button type="button" class="btn btn-carrito"  [routerLink]="['/producto', item.shortitemcode]">
-                VER PRODUCTO
-              </button>
+            <div class="row" *ngIf="item != null && item.showprice === 'flase' || !item.showprice">
+              <div class="col-xs-12 text-center">
+                <p class="medium nombre-producto">{{item.itemname}}</p>
+                <div class="precio-full">
+                  <h4 class="visibility-0">0</h4>
+                </div>
+              </div>
+              <div class="botones">
+                <div class="col-xs-12 text-center">
+                  <button type="button" class="btn btn-carrito" [routerLink]="['/producto', item.shortitemcode]">
+                    VER PRODUCTO
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

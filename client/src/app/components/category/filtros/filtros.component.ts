@@ -25,11 +25,16 @@ export class FiltrosComponent {
   public minPrice: number;
   public maxPrice: number;
   public totalItems: number = 0;
+  private viewportWidth: number = 0;
 
   constructor(private _itemService: ItemService, private _route: ActivatedRoute, private _router: Router) {
     this.filtrosDisponibles = new Map<String, Array<any>>();
     this.filtrosAplicados = new Array<string[]>();
     this.availableFields = [];
+  }
+
+  ngAfterViewInit() {
+    this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
   }
 
   public inicializarFiltros(availableFields, queryParams, queryString, totalItems) {
@@ -260,4 +265,14 @@ export class FiltrosComponent {
       this.mostrarFiltros = true;
     }
   }
+
+  private scrollAfterFiter() {
+    if (this.viewportWidth <= 768) {
+      $("html, body").animate({ scrollTop: 400 }, 1000);
+      this.showFiltros();
+    } else {
+      console.log('no hay que hacer scroll')
+    }
+  }
+
 }

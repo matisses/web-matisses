@@ -36,6 +36,12 @@ export class CategoryComponent implements OnInit {
     this.cargarItems();
   }
 
+  ngAfterViewInit() {
+    $(document).ready(function() {
+      $("html, body").animate({ scrollTop: 0 }, 1000);
+    });
+  }
+
   private cargarItems() {
     this.items = new Array<Item>();
     this._route.queryParams.forEach((params: Params) => {
@@ -111,4 +117,5 @@ export class CategoryComponent implements OnInit {
   public closeFilter() {
     document.getElementById("myFilter").style.width = "0%";
   }
+
 }

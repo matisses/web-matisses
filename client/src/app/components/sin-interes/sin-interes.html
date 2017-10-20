@@ -25,27 +25,35 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-xs-12 text-center">
-        <h4 style="font-size:100px; margin-bottom:0; margin-top:20px;">12</h4>
+      <div class="col-sm-2 col-sm-offset-5 col-xs-6 col-xs-offset-3 text-center" style="background-color: #729992; color: #FFF;">
+        <h4 style="font-size:100px; margin-bottom:0; margin-top:0px;">12</h4>
         <h4 style="font-size:24px; margin:0;">CUOTAS</h4>
-        <h4 style="font-size:16px; margin:0;">SIN INTERÉS</h4>
+        <h4 style="font-size:16px; margin-top:0;">SIN INTERÉS</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-4">
+        <div class="title-bancos">
+          <h4>Con las tarjetas de estos <b>bancos</b></h4>
+        </div>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-6 col-sm-offset-3 text-center">
-        <h4 style="font-size:24px; margin-bottom:15px; margin-top:20px; text-align:center ">Con las tarjetas de estos <b>bancos</b></h4>
-        <div class="row">
-          <div class="col-xs-3">
-            <img src="assets/images/bancocolombia.jpg" class="img-responsive" alt="">
-          </div>
-          <div class="col-xs-3">
-            <img src="assets/images/logo_02.jpg" class="img-responsive" alt="">
-          </div>
-          <div class="col-xs-3">
-            <img src="assets/images/colpatria_02.png" class="img-responsive" alt="">
-          </div>
-          <div class="col-xs-3">
-            <img src="assets/images/bancobogota.jpg" class="img-responsive" alt="">
+        <div class="bancos">
+          <div class="row">
+            <div class="col-xs-6 col-sm-3">
+              <img src="assets/images/bancocolombia.jpg" class="img-banco" alt="">
+            </div>
+            <div class="col-xs-6 col-sm-3">
+              <img src="assets/images/logo_02.jpg" class="img-banco" alt="">
+            </div>
+            <div class="col-xs-6 col-sm-3">
+              <img src="assets/images/colpatria_02.png" class="img-banco" alt="">
+            </div>
+            <div class="col-xs-6 col-sm-3">
+              <img src="assets/images/bancobogota.jpg" class="img-banco" alt="">
+            </div>
           </div>
         </div>
       </div>
@@ -55,29 +63,27 @@
     <div class="bg-video">
       <div class="container">
         <div class="row">
-          <div class="col-md-6 text-center">
-            <iframe src="https://www.youtube.com/embed/T8V9WhTTxyw?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-          </div>
-          <div class="col-md-6">
+          <div class="col-md-4 col-md-offset-1">
             <div class="paso-paso">
-              <h4 class="text-center">Cómo comprar sin intereses</h4>
+              <h3>Cómo comprar sin intereses</h3>
+              <hr/>
               <ul>
-                <li>Navega en el sitio y encuentra el producto que deseas.</li>
-                <li>Dar clic en la opción <b>Ir a comprar hasta en 12 cuotas </b></li>
-                <li>Serás redireccionado a MercadoLibre donde tendrás que iniciar sesión</li>
+                <li>Navega nuestro sitio web <b>www.matisses.co</b> y encuentra el producto que deseas.</li>
+                <li>Dar clic en la opción <b>Ir a comprar hasta en 12 cuotas.</b></li>
+                <li>Serás redireccionado a <b>MercadoLibre</b> donde tendrás que iniciar sesión</li>
                 <li>Sigue los pasos de facturación y espera el envío de tu producto</li>
               </ul>
-              <div class="row">
-                <div class="col-xs-12 text-center">
-                  <button class="btn ir-comprar" type="button" [routerLink]="['/']">Ir a comprar</button>
-                </div>
-              </div>
             </div>
+          </div>
+          <div class="col-md-6 text-center">
+            <iframe src="https://www.youtube.com/embed/T8V9WhTTxyw?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <productos-recomendados></productos-recomendados>
+  <br/>
   <div class="container">
     <div class="row">
       <div class="col-xs-12">

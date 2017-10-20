@@ -32,6 +32,9 @@ export class NewProductsComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    setTimeout(function() {
+      $("#new-products").click();
+    }, 2000);
   }
 
   private inicializarItems() {
@@ -95,6 +98,29 @@ export class NewProductsComponent implements OnInit {
   }
 
   mostrarArticulo(articulo) {
+  }
+
+  public slickNewProducts() {
+    $(".slider-newProducts").slick({
+      prevArrow: '.slider-newProducts-container .prev',
+      nextArrow: '.slider-newProducts-container .next',
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      responsive: [
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 2
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1
+          }
+        }
+      ]
+    });
   }
 
   public botonRight() {

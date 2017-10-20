@@ -34,6 +34,12 @@ export class RecommendedComponent implements OnInit {
     this._itemService.inicializarWishlist();
   }
 
+  ngAfterViewInit() {
+    setTimeout(function() {
+      $("#recommended").click();
+    }, 2500);
+  }
+
   private inicializarItems() {
     this.items = new Array<Item>();
 
@@ -66,6 +72,36 @@ export class RecommendedComponent implements OnInit {
   }
 
   mostrarArticulo(articulo) {
+  }
+
+  public slickRecommended() {
+    $(".slider-recommended").slick({
+      prevArrow: '.slider-recommended-container .prev',
+      nextArrow: '.slider-recommended-container .next',
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      responsive: [
+        {
+          breakpoint: 1025,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 2
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1
+          }
+        }
+      ]
+    });
   }
 
   public botonRight() {

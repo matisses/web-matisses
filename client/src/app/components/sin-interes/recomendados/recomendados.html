@@ -1,12 +1,12 @@
 <div class="container" *ngIf="items.length > 0">
   <div class="row">
     <div class="col-xs-12 text-center">
-      <h3 class="bold grey" id="recommended" (click)="slickRecommended()">Recomendados</h3>
+      <h2 class="bold grey" id="title" (click)="slick()">Productos recomendados</h2>
     </div>
   </div>
   <div class="row">
     <div class="col-xs-12">
-      <div class="slider-recommended-container">
+      <div class="slider-container">
         <div class="controllers">
           <a class="left prev">
             <span class="glyphicon glyphicon-menu-left"></span>
@@ -15,7 +15,7 @@
             <span class="glyphicon glyphicon-menu-right"></span>
           </a>
         </div>
-        <div class="slider-recommended">
+        <div class="slider">
           <div class="article" *ngFor="let item of items">
             <div class="porcentaje" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0">
               <p>-{{item.descuento | number}}%</p>
