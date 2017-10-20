@@ -71,7 +71,7 @@ const appRoutes: Routes = [
   { path: 'ingresar', component: IngresarComponent },
   { path: 'info-pago', component: InfoPagoComponent },
   { path: 'resultado-transaccion/:idCarrito', component: ResultadoTransacciComponent },
-  { path: 'modal', component: ModalComponent },
+  //{ path: 'pruebas', component: ModalComponent },
   { path: 'admin/:token', component: AdminComponent },
   { path: 'lista-de-deseos', component: WishListComponent },
   { path: 'contactanos', component: ContactanosComponent },

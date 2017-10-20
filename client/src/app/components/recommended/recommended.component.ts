@@ -35,6 +35,7 @@ export class RecommendedComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+
   }
 
   private inicializarItems() {
@@ -54,7 +55,6 @@ export class RecommendedComponent implements OnInit {
                   item.priceafterdiscount = item.priceaftervat - ((item.priceaftervat / 100) * item.descuento);
                 }
               }
-              this.slickRecommended();
             },
             error => {
               console.error(error);
