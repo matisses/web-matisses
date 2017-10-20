@@ -32,6 +32,9 @@ export class NewProductsComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    setTimeout(function() {
+      $("#new-products").click();
+    }, 2000);
   }
 
   private inicializarItems() {
@@ -81,7 +84,6 @@ export class NewProductsComponent implements OnInit {
                   this.items[i].priceafterdiscount = this.items[i].priceaftervat - ((this.items[i].priceaftervat / 100) * this.items[i].descuento);
                 }
               }
-              this.slickNewProducts();
             },
             error => {
               console.error(error);

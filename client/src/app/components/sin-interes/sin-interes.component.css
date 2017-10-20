@@ -38,17 +38,49 @@
 .img-banner .title {
   position: absolute;
   color: #6d9791;
-  left: 0;
-  width: 400px;
+  left: 10%;
+  width: 350px;
   margin-top: 8%;
-  font-size: 30px;
+  font-size: 20px;
   text-align: center;
   padding: 5px;
   border: 1px solid #6d9791;
 }
 
+.img-banner h2 {
+  font-size: 30px;
+  font-weight: 700;
+}
+
 .title p {
   color: #5b5b5b;
+}
+
+.title-bancos {
+  background-color: #7C7C7C;
+  color: #FFF;
+  padding: 5px 20px;
+  margin-top: 20px;
+}
+
+.title-bancos h4 {
+  font-size: 20px;
+  text-align: center;
+  margin: 0;
+}
+
+.bancos {
+  border: 1px solid #EDEDED;
+  padding: 40px 15px 20px;
+  position: relative;
+  top: -20px;
+  z-index: -1;
+}
+
+.bancos .img-banco {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 iframe {
@@ -57,19 +89,34 @@ iframe {
 }
 
 .bg-video {
-  background-color: #EDEDED;
+  background-color: rgba(220, 220, 220, 0.1);
   padding: 25px 0;
   margin: 20px 0;
 }
 
-.paso-paso {
-  margin: 100px 0;
+.paso-paso h3 {
+  padding: 0 20px;
+}
+
+.paso-paso hr {
+  margin-top: 5px;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 4px dotted #7C7C7C;
+}
+
+.paso-paso li {
+  margin-bottom: 10px;
 }
 
 @media screen and (max-width: 1200px) {
   iframe {
     width: 480px;
     height: 270px;
+  }
+  .img-banner .title {
+    left: 5%;
+    margin-top: 10%;
   }
   .paso-paso {
     margin: 55px 0;
@@ -85,16 +132,26 @@ iframe {
   }
 }
 
-@media screen and (max-width: 767px) {}
-
-@media screen and (max-width: 500px) {
-  .img-banner {
-    min-height: 150px;
+@media screen and (max-width: 769px) {
+  .img-banner .title {
+    left: 0;
+    width: 320px;
+    margin-top: 13%;
+    background-color: rgba(255, 255, 255, 0.3);
   }
   .img-banner h2 {
     font-size: 20px;
-    padding: 10px;
-    width: 200px;
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .img-banner {
+    min-height: 150px;
+  }
+  .img-banner .title {
+    width: 190px;
+    margin-top: 2%;
+    font-size: 12px;
   }
   iframe {
     width: 100%;
@@ -105,6 +162,9 @@ iframe {
 @media screen and (max-width: 375px) {
   iframe {
     height: 194px;
+  }
+  .img-banner .title {
+    background-color: rgba(255, 255, 255, 0.8);
   }
 }
 

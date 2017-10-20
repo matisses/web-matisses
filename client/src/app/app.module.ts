@@ -60,6 +60,7 @@ import { PoliticaDatosComponent } from './components/politica-datos/politica-dat
 import { PoliticaPrivacidadComponent } from './components/politica-privacidad/politica-privacidad.component';
 import { PreguntasFrecuentesComponent } from './components/preguntas-frecuentes/preguntas-frecuentes.component';
 import { SinInteresComponent } from './components/sin-interes/sin-interes.component';
+import { RecomendadosComponent } from './components/sin-interes/recomendados/recomendados.component';
 
 //Componenete pagina de error
 import { ErrorComponent } from './components/error/error.component';
@@ -141,7 +142,8 @@ import { MetaModule } from '@ngx-meta/core';
     PoliticaDatosComponent,
     PoliticaPrivacidadComponent,
     PreguntasFrecuentesComponent,
-    SinInteresComponent
+    SinInteresComponent,
+    RecomendadosComponent
   ],
   imports: [
     BrowserModule,
