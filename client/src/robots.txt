@@ -1,0 +1,6 @@
+# Disallow all crawlers access to certain pages.
+User-agent: *
+
+Sitemap: http://www.matisses.co/sitemap-matisses-octubre.xml
+
+Disallow:

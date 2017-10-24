@@ -89,7 +89,7 @@
   margin-bottom: 5px
 }
 
-.text-01 p::before {
+/*.text-01 p::before {
   content: '';
   width: 45px;
   height: 3px;
@@ -98,7 +98,7 @@
   top: 45px;
   left: 43%;
   cursor: auto;
-}
+}*/
 
 .text-01 h2 {
   font-size: 50px;
@@ -108,7 +108,7 @@
 .text-01 .btn-banner01 {
   padding: 5px 10px;
   font-size: 15px;
-  background-color: #9C8D7A;
+  background-color: #cfa37e;
   margin: 0;
   width: 46%;
   margin-left: 27%;
@@ -226,7 +226,7 @@
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 769px) {
   .principal-01 {
     min-height: 300px;
   }
@@ -236,6 +236,10 @@
   }
   .text-01 .btn-banner01 {
     font-size: 10px;
+  }
+  .sub-banner-footer p {
+    color: #5B5B5B;
+    font-size: 15px;
   }
 }
 
