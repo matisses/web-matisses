@@ -253,6 +253,9 @@
               <li class="item-menu cursor-pointer" [ngClass]="{'selected' : estaSeleccionado(menuItem._id)}" *ngFor="let menuItem of menuItems" (mouseenter)="alternarSeleccionPadre(menuItem) + carrito.closeResumen()">
                 {{menuItem.name}}
               </li>
+              <li class="item-menu hot-sale cursor-pointer" (mouseenter)="carrito.closeResumen() + cerrarOverlay()">
+                HOT SALE
+              </li>
             </ul>
           </div>
         </div>
@@ -305,6 +308,10 @@
         </div>
         <!-- <p class="child-accordion" (click)="cerrarNav()" (click)="toggleClass('#hamburger', 'glyphicon-menu-hamburger', 'glyphicon-remove')" [routerLink]="['/categoria']" [queryParams]="getAvailableParams(menuItem)"><b>Ver todos</b></p> -->
       </div>
+    </div>
+
+    <div>
+      <button class="accordion hot-sale">HOT SALE</button>
     </div>
 
     <div class="row">

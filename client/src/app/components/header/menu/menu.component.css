@@ -162,6 +162,11 @@ a {
 
 /*Menú*/
 
+.hot-sale {
+  background-color: red !important;
+  color: #FFF !important;
+}
+
 .info-ppl {
   border-bottom: 1px solid #5B5B5B;
 }
