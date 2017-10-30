@@ -29,6 +29,14 @@ export class HomePrincipalComponent implements OnInit {
 
   }
 
+  ngAfterViewInit() {
+    setTimeout(function() {
+      $(document).ready(function() {
+        $('#modalHotSale').modal('show')
+      });
+    }, 2000);
+  }
+
   private inicializarItems() {
     this.items = new Array<Item>();
     this._itemService.find('2440066').subscribe(

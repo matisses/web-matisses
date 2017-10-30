@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
+declare var $: any;
+
 @Component({
     selector: 'top-banner',
     templateUrl: 'top-banner.html',
@@ -13,4 +15,5 @@ export class TopBannerComponent implements OnInit {
 
     ngOnInit() {
     }
+
 }

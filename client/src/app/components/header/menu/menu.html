@@ -253,7 +253,7 @@
               <li class="item-menu cursor-pointer" [ngClass]="{'selected' : estaSeleccionado(menuItem._id)}" *ngFor="let menuItem of menuItems" (mouseenter)="alternarSeleccionPadre(menuItem) + carrito.closeResumen()">
                 {{menuItem.name}}
               </li>
-              <li class="item-menu hot-sale cursor-pointer" (mouseenter)="carrito.closeResumen() + cerrarOverlay()">
+              <li class="item-menu hot-sale cursor-pointer" (mouseenter)="carrito.closeResumen() + cerrarOverlay()" [routerLink]="['/categoria']" [queryParams]="{keywords: 'maison'}">
                 HOT SALE
               </li>
             </ul>

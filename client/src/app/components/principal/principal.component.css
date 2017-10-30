@@ -1,3 +1,30 @@
+/* Estilos modal hot-sale */
+
+.modal-content {
+  border-radius: 0;
+}
+
+.modal-header {
+  padding: 5px;
+  border-bottom: 0px solid #e5e5e5;
+}
+
+.modal-body img {
+  text-align: center;
+  width: 100%;
+}
+
+.btn-modal {
+  background-color: red;
+  color: #FFF;
+  border: none;
+  padding: 5px 10px;
+  font-family: 'Quicksand', sans-serif;
+}
+
+
+/* Estilos modal hot-sale */
+
 .padding-0 {
   padding-left: 0;
   padding-right: 0;
