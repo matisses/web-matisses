@@ -15,6 +15,7 @@ import { ShippingMethodService } from '../../services/shipping-method.service';
 import { PlacetoPayService } from '../../services/placetopay.service';
 import { ShoppingCartService } from '../../services/shopping-cart.service';
 import { ItemService } from '../../services/item.service';
+import { CoordinadoraService } from '../../services/coordinadora.service';
 
 import { CarritoSimpleComponent } from '../header/menu/carrito/carrito-simple.component';
 
@@ -23,7 +24,7 @@ declare var $: any;
 @Component({
   templateUrl: 'info-pago.html',
   styleUrls: ['info-pago.component.css'],
-  providers: [CustomerService, CityService, ShippingMethodService, PlacetoPayService, ShoppingCartService, ItemService]
+  providers: [CustomerService, CityService, ShippingMethodService, PlacetoPayService, ShoppingCartService, ItemService, CoordinadoraService]
 })
 
 export class InfoPagoComponent implements OnInit {
@@ -31,6 +32,7 @@ export class InfoPagoComponent implements OnInit {
   public carrito: CarritoSimpleComponent;
 
   public totalEnvio: number = 0;
+  public costoEnvio: number = 0;
   public messageError: string;
   public tiendaSeleccionada: string = 'Medellín';
   public urlReturn: string;
@@ -46,7 +48,7 @@ export class InfoPagoComponent implements OnInit {
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService, private _cityService: CityService,
     private _shippingMethodService: ShippingMethodService, private _placetopayService: PlacetoPayService, private _shoppingCartService: ShoppingCartService,
-    private _itemService: ItemService) {
+    private _itemService: ItemService, private _coordinadoraService: CoordinadoraService) {
     this.messageError = '';
     this.urlReturn = GLOBAL.urlTransactionResult;
     this.limpiar();
@@ -115,6 +117,8 @@ export class InfoPagoComponent implements OnInit {
           }
           this.customer = response;
           this.disabled = true;
+          console.log('Consultando costo de envio');
+          this.consultarCostoEnvio();
         },
         error => {
           let cedula = this.customer.fiscalID;
@@ -126,6 +130,29 @@ export class InfoPagoComponent implements OnInit {
     } else {
       this.limpiar();
     }
+  }
+
+  public consultarCostoEnvio() {
+    let datosCompra = {
+      ciudadDestino: this.customer.addresses[0].cityCode,
+      items: []
+    };
+    for (let j = 0; j < this.carrito.shoppingCart.items.length; j++) {
+      datosCompra.items.push(this.carrito.shoppingCart.items[j]);
+    }
+
+    this._coordinadoraService.crearCotizacionEnvio(datosCompra).subscribe(
+      response => {
+        for (let i = 0; i < this.metodosEnvio.length; i++) {
+          if (this.metodosEnvio[i].code === 3) {
+            this.metodosEnvio[i].description = response.valor;
+          }
+        }
+      },
+      error => {
+        console.error(error);
+      }
+    );
   }
 
   public pagar() {
@@ -369,6 +396,13 @@ export class InfoPagoComponent implements OnInit {
           }
         }
       }
+    }
+  }
+
+  public cambiarCiudad() {
+    if (this.customer.addresses[0].cityCode != null || this.customer.addresses[0].cityCode != 0) {
+      console.log('Consultando costo de envio');
+      this.consultarCostoEnvio();
     }
   }
 

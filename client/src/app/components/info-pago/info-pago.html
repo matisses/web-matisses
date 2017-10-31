@@ -21,7 +21,10 @@
                 <div class="col-xs-12">
                   <div *ngFor="let metodo of metodosEnvio">
                     <input id="metodo_{{metodo.code}}" type="radio" name="envio" (click)="seleccionarMetodoEnvio(metodo)" [checked]="metodoEnvioSeleccionado && metodoEnvioSeleccionado.code === metodo.code" class="cursor-pointer">
-                    <label for="metodo_{{metodo.code}}" class="cursor-pointer">{{metodo.name}} {{metodo.description}}</label>
+                    <label for="metodo_{{metodo.code}}" class="cursor-pointer">{{metodo.name}}
+                      <span *ngIf="metodo.code === 3"><b> ${{metodo.description | number}}</b></span>
+                      <span *ngIf="metodo.code !== 3"> {{metodo.description}}</span>
+                    </label>
                   </div>
                 </div>
               </div>
@@ -93,7 +96,7 @@
               </div>
               <div class="col-md-6">
                 <label for="city">Ciudad*</label>
-                <select id="city" name="city" [disabled]="disabled" class="form-control" [class.required-field]="!valid" [(ngModel)]="customer.addresses[0].cityCode" *ngIf="ciudadesPrincipales" required>
+                <select id="city" name="city" [disabled]="disabled" class="form-control" [class.required-field]="!valid" [(ngModel)]="customer.addresses[0].cityCode" (change)="cambiarCiudad()" *ngIf="ciudadesPrincipales" required>
                   <option style="display:none" disabled selected value>Seleccione una</option>
                   <option disabled>─ Ciudades capitales</option>
                   <option [selected]="customer.addresses[0].cityCode == principal.code" *ngFor="let principal of ciudadesPrincipales" [ngValue]="principal.code">{{principal.name}}</option>
