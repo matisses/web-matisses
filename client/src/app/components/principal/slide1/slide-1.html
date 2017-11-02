@@ -10,7 +10,7 @@
         <span class="glyphicon glyphicon-menu-right"></span>
         <span class="sr-only">Next</span>
       </a>
-      <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{brand: '0032'}">
+      <a href="javascript:void(0)" [routerLink]="['/hot-sale']">
         <div class="principal-01"></div>
       </a>
     </div>
@@ -33,7 +33,7 @@
     </div>
     <div class="col-sm-3 col-xs-6 text-center" *ngIf="items && items.length >= 2">
       <div class="recomendaciones">
-        <p class="name">{{items[0].itemname}}<br><b>VERDI</b></p>
+        <p class="name">JARDÍN INTELIGENTE<br><b>PLANTUI</b></p>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[1].shortitemcode]">
           <img src="https://img.matisses.co/{{items[1].itemcode}}/parrilla/{{items[1].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[1].itemname}}">
         </a>
@@ -55,6 +55,7 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="sub-banner-footer">
+            <p class="name">{{items[2].itemname}}</p>
             <p class="precio old-price">$ {{items[2].priceaftervat | number}}</p>
             <p class="precio new-price"><b>$ {{items[2].priceaftervat * 0.6 | number}}</b></p>
             <br/>

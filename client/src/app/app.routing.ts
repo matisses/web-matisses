@@ -25,6 +25,7 @@ import { PoliticaDatosComponent } from './components/politica-datos/politica-dat
 import { PoliticaPrivacidadComponent } from './components/politica-privacidad/politica-privacidad.component';
 import { PreguntasFrecuentesComponent } from './components/preguntas-frecuentes/preguntas-frecuentes.component';
 import { SinInteresComponent } from './components/sin-interes/sin-interes.component';
+import { HotSaleComponent } from './components/hot-sale/hot-sale.component';
 
 
 const appRoutes: Routes = [
@@ -62,6 +63,7 @@ const appRoutes: Routes = [
   { path: 'tiendas', component: TiendasComponent },
   { path: 'sin-intereses', component: SinInteresComponent },
   { path: 'trabaja-con-nosotros', component: TrabajaComponent },
+  { path: 'hot-sale', component: HotSaleComponent },
   { path: 'garantias', component: GarantiasComponent },
   { path: 'envios', component: EnviosComponent },
   { path: 'info-envios', component: InfoEnviosComponent },

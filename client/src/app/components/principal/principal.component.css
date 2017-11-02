@@ -2,6 +2,7 @@
 
 .modal-content {
   border-radius: 0;
+  text-align: center;
 }
 
 .modal-header {
@@ -9,7 +10,7 @@
   border-bottom: 0px solid #e5e5e5;
 }
 
-.modal-body img {
+.modal-content img {
   text-align: center;
   width: 100%;
 }
@@ -20,6 +21,12 @@
   border: none;
   padding: 5px 10px;
   font-family: 'Quicksand', sans-serif;
+  width: 100%;
+}
+
+.close {
+  position: absolute;
+  right: 9px;
 }
 
 

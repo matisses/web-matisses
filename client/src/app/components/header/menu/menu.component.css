@@ -14,7 +14,7 @@
 }
 
 .top-164 {
-  top: 164px !important;
+  top: 124px !important;
 }
 
 .header {
@@ -197,7 +197,7 @@ a {
 .menu {
   background-color: #FFF;
   border-top: 1px solid #EDEDED;
-  margin-top: 16px;
+  margin-top: 56px;
   padding: 10px 0px;
   position: absolute;
   width: 100%;
@@ -272,7 +272,7 @@ a {
 
 .stuck-submenu {
   position: fixed;
-  top: 111px;
+  top: 71px;
 }
 
 .selected {

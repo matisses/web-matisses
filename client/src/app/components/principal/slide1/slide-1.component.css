@@ -199,7 +199,7 @@
   cursor: pointer;
   color: #FFF;
   padding: 5px 20px;
-  background-color: #7C7C7C;
+  background-color: red;
 }
 
 .ir-comprar:hover {
@@ -276,11 +276,17 @@
   }
 }
 
-@media screen and (max-width: 414px) {
+@media screen and (max-width: 425px) {
   .principal-01 {
-    min-height: 250px;
-    background-position: center 50px;
+    min-height: 400px;
+    background: url(../../../../assets/images/banner/slide-1/banner-mobile.jpg) no-repeat center center;
+    margin-top: 50px;
   }
+}
+@media screen and (max-width: 414px) {
+  /*.principal-01 {
+    min-height: 400px;
+  }*/
   .text-01 {
     left: 21%;
     bottom: -80px;
@@ -327,15 +333,15 @@
 }
 
 @media screen and (max-width: 375px) {
-  .principal-01 {
+  /*.principal-01 {
     min-height: 270px;
-  }
+  }*/
 }
 
 @media screen and (max-width: 320px) {
-  .principal-01 {
+  /*.principal-01 {
     min-height: 240px;
-  }
+  }*/
   .text-01 {
     left: 15%;
   }
