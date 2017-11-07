@@ -33,7 +33,8 @@ var ItemSchema = Schema({
   department: {
     code: String,
     name: String
-  }
+  },
+  descuento: Boolean
 });
 
 module.exports = mongoose.model('item', ItemSchema);

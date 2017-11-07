@@ -6,7 +6,7 @@
     <miga-de-pan></miga-de-pan> -->
     <!-- Miga de pan -->
     <!-- Imagen categoria -->
-    <div class="row" *ngIf="queryParams.has('group')">
+    <div class="row" *ngIf="queryParams.has('group') && !queryParams.has('discount')">
       <div class="col-xs-12">
         <div class="img-category">
           <h2>{{nombreGrupo}}</h2>
@@ -20,7 +20,7 @@
       <div class="col-md-3">
         <filtros-matisses #filtros></filtros-matisses>
       </div>
-      
+
       <div class="col-md-9">
         <productos-matisses></productos-matisses>
       </div>

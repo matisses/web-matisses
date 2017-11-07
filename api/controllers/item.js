@@ -63,6 +63,7 @@ function armarFilterObject(req) {
   var minPrice = req.query.minPrice;
   var maxPrice = req.query.maxPrice;
   var keywords = req.query.keywords;
+  var discount = req.query.discount;
 
   var filterObject = {
     availablestock: {
@@ -123,6 +124,9 @@ function armarFilterObject(req) {
     filterObject['$text'] = {
       $search: keywords
     }
+  }
+  if (typeof discount != 'undefined' && discount != null) {
+    filterObject['discount'] = true;
   }
   return filterObject;
 }
@@ -430,9 +434,24 @@ function consultarFiltros(req, res) {
                                 }
                               }
 
-                              //Obtuvo resultados para coleccion
-                              res.status(200).send({
-                                result: resultados
+                              Item.aggregate([{
+                                "$match": filterObject
+                              }], (err8, result8) => {
+                                if (err8) {
+                                  console.error(err8);
+                                  res.status(500).send({
+                                    message: 'ocurrio un error al consultar los filtros (descuento)'
+                                  });
+                                } else if (!result8) {
+                                  res.status(404).send({
+                                    message: 'no se obtuvieron resultados con los filtros especificados'
+                                  });
+                                } else {
+                                  //Obtuvo resultados para coleccion
+                                  res.status(200).send({
+                                    result: resultados
+                                  });
+                                }
                               });
                             }
                           });

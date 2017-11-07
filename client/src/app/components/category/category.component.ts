@@ -26,7 +26,7 @@ export class CategoryComponent implements OnInit {
   public items: Array<Item>;
   public queryString: string;
   public queryParams: Map<string, string>;
-  private availableFields: string[] = ['page', 'pageSize', 'orderBy', 'department', 'group', 'subgroup', 'color', 'minPrice', 'maxPrice', 'brand', 'material', 'collection', 'keywords'];
+  private availableFields: string[] = ['page', 'pageSize', 'orderBy', 'department', 'group', 'subgroup', 'color', 'minPrice', 'maxPrice', 'brand', 'material', 'collection', 'keywords', 'discount'];
 
   constructor(private _itemService: ItemService, private _route: ActivatedRoute, private _router: Router, private _descuentosService: DescuentosService) {
     this.queryParams = new Map<string, string>();

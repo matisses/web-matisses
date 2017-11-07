@@ -3,16 +3,16 @@
   <div class="panel panel-default">
 
     <!-- boton abrir filtros -->
-      <a data-parent="#accordion" (click)="showFiltros()">
-        <div class="panel-heading visible-sm visible-xs" role="tab" id="headingOne">
-          <h4 class="panel-title text-center" *ngIf="mostrarFiltros">
+    <a data-parent="#accordion" (click)="showFiltros()">
+      <div class="panel-heading visible-sm visible-xs" role="tab" id="headingOne">
+        <h4 class="panel-title text-center" *ngIf="mostrarFiltros">
             Ocultar filtros
           </h4>
-          <h4 class="panel-title text-center" *ngIf="!mostrarFiltros">
+        <h4 class="panel-title text-center" *ngIf="!mostrarFiltros">
             Mostrar filtros
           </h4>
-        </div>
-      </a>
+      </div>
+    </a>
 
     <!-- boton abrir filtros -->
 
@@ -46,7 +46,7 @@
               <div class="filter-collapse" (click)="toggleClass('#group')" data-toggle="collapse" href="#collapseGroups" aria-expanded="false" aria-controls="collapseGroups">
                 <p>Categorías <span id="group" class="icon-plus pull-right"></span></p>
               </div>
-              <div class="collapse" id="collapseGroups">
+              <div class="collapse" [ngClass]="{'in' : queryParams.has('discount')}" id="collapseGroups">
                 <ul>
                   <div *ngFor="let menuItem of filtrosDisponibles['groups']">
                     <li class="filter-option" *ngIf="showCategoryOption(menuItem)" (click)="toggleSelection('group',menuItem.code); scrollAfterFiter()">
