@@ -21,7 +21,10 @@
                 <div class="col-xs-12">
                   <div *ngFor="let metodo of metodosEnvio">
                     <input id="metodo_{{metodo.code}}" type="radio" name="envio" (click)="seleccionarMetodoEnvio(metodo)" [checked]="metodoEnvioSeleccionado && metodoEnvioSeleccionado.code === metodo.code" class="cursor-pointer">
-                    <label for="metodo_{{metodo.code}}" class="cursor-pointer">{{metodo.name}} {{metodo.description}}</label>
+                    <label for="metodo_{{metodo.code}}" class="cursor-pointer">{{metodo.name}}
+                      <span *ngIf="metodo.code === 3"><b> ${{metodo.description | number}}</b></span>
+                      <span *ngIf="metodo.code !== 3"> {{metodo.description}}</span>
+                    </label>
                   </div>
                 </div>
               </div>
