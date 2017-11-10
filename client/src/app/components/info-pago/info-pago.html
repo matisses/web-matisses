@@ -11,37 +11,6 @@
     </div>
     <form id="form_pagar" #infoPago="ngForm" (submit)="pagar()">
       <div class="row" *ngIf="carrito.totalItems != null && carrito.totalItems > 0">
-        <div class="col-sm-4">
-          <div class="contenido">
-            <div class="titulo">
-              <p>Medios de envío</p>
-            </div>
-            <div class="medios-envio">
-              <div class="row">
-                <div class="col-xs-12">
-                  <div *ngFor="let metodo of metodosEnvio">
-                    <input id="metodo_{{metodo.code}}" type="radio" name="envio" (click)="seleccionarMetodoEnvio(metodo)" [checked]="metodoEnvioSeleccionado && metodoEnvioSeleccionado.code === metodo.code" class="cursor-pointer">
-                    <label for="metodo_{{metodo.code}}" class="cursor-pointer">{{metodo.name}} {{metodo.description}}</label>
-                  </div>
-                </div>
-              </div>
-              <br/>
-              <div *ngIf="metodoEnvioSeleccionado && metodoEnvioSeleccionado.code == 2">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <label for="tienda">Tienda*</label>
-                    <select name="tienda" id="tienda" class="form-control" [class.ng-reflect-model]="!31" [class.required-field]="!valid" [(ngModel)]="tiendaSeleccionada" required>
-                      <option style="display:none" disabled selected value>Seleccione una</option>
-                      <option [selected]="tiendaSeleccionada == 'Bogotá'" value="Bogotá">Bogotá</option>
-                      <option [selected]="tiendaSeleccionada == 'Medellín'" value="Medellín">Medellín</option>
-                    </select>
-                  </div>
-                </div>
-                <br/>
-              </div>
-            </div>
-          </div>
-        </div>
         <div class="col-sm-4 border-both">
           <div class="contenido">
             <div class="titulo">
@@ -93,7 +62,7 @@
               </div>
               <div class="col-md-6">
                 <label for="city">Ciudad*</label>
-                <select id="city" name="city" [disabled]="disabled" class="form-control" [class.required-field]="!valid" [(ngModel)]="customer.addresses[0].cityCode" *ngIf="ciudadesPrincipales" required>
+                <select id="city" name="city" [disabled]="disabled" class="form-control" [class.required-field]="!valid" [(ngModel)]="customer.addresses[0].cityCode" (change)="cambiarCiudad()" *ngIf="ciudadesPrincipales" required>
                   <option style="display:none" disabled selected value>Seleccione una</option>
                   <option disabled>─ Ciudades capitales</option>
                   <option [selected]="customer.addresses[0].cityCode == principal.code" *ngFor="let principal of ciudadesPrincipales" [ngValue]="principal.code">{{principal.name}}</option>
@@ -109,6 +78,41 @@
               </div>
             </div>
             <br/>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="contenido">
+            <div class="titulo">
+              <p>Medios de envío</p>
+            </div>
+            <div class="medios-envio">
+              <p *ngIf="customer.addresses[0].cityCode == null">Debe seleccionar la ciudad para poder desplegar los medios de envío.</p>
+              <div class="row">
+                <div class="col-xs-12" *ngIf="customer.addresses[0].cityCode != null && customer.addresses[0].cityCode.length > 0">
+                  <div *ngFor="let metodo of metodosEnvio">
+                    <input id="metodo_{{metodo.code}}" type="radio" name="envio" (click)="seleccionarMetodoEnvio(metodo)" [checked]="metodoEnvioSeleccionado && metodoEnvioSeleccionado.code === metodo.code" class="cursor-pointer">
+                    <label for="metodo_{{metodo.code}}" class="cursor-pointer">{{metodo.name}}
+                      <span *ngIf="metodo.code !== 3">{{metodo.description}}</span>
+                      <span *ngIf="metodo.code == 3"><b>$ {{costoEnvio | number}}</b></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <br/>
+              <div *ngIf="metodoEnvioSeleccionado && metodoEnvioSeleccionado.code == 2">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <label for="tienda">Tienda*</label>
+                    <select name="tienda" id="tienda" class="form-control" [class.ng-reflect-model]="!31" [class.required-field]="!valid" [(ngModel)]="tiendaSeleccionada" required>
+                      <option style="display:none" disabled selected value>Seleccione una</option>
+                      <option [selected]="tiendaSeleccionada == 'Bogotá'" value="Bogotá">Bogotá</option>
+                      <option [selected]="tiendaSeleccionada == 'Medellín'" value="Medellín">Medellín</option>
+                    </select>
+                  </div>
+                </div>
+                <br/>
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-sm-4">
