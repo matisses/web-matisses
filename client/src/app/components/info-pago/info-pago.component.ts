@@ -116,7 +116,14 @@ export class InfoPagoComponent implements OnInit {
     this.metodosEnvio = new Array<ShippingMethod>();
     this._shippingMethodService.listShippingMethods().subscribe(
       response => {
-        this.metodosEnvio = response;
+        for (let i = 0; i < response.length; i++) {
+          if (response[i].code === 3) {
+            //TODO: se debe quitar esta condición si el medio es Coordinadora
+          } else {
+            this.metodosEnvio.push(response[i]);
+          }
+        }
+        // this.metodosEnvio = response;
       },
       error => {
         console.error(error);
