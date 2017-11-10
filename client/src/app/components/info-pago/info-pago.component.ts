@@ -96,7 +96,9 @@ export class InfoPagoComponent implements OnInit {
     this._shippingMethodService.listShippingMethods().subscribe(
       response => {
         for (let i = 0; i < response.length; i++) {
-          if (this.validarEnvioGratis()) {
+          if(response[i].code === 3){
+            //TODO: se debe quitar esta condición si el medio es Coordinadora
+          } else if (this.validarEnvioGratis()) {
             this.metodosEnvio.push(response[i]);
           } else if (((this.carrito.totalCarrito) - this.carrito.totalDescuentos) >= base && response[i].code === 1) {
             this.metodosEnvio.push(response[i]);
