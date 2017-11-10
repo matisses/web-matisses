@@ -45,7 +45,7 @@
 
     <div class="col-sm-6 col-xs-12" *ngIf="items && items.length >= 3">
       <div class="sub-banner text-center">
-        <p><b>Prepara, cocina y saborea</b></p>
+        <p class="hidden-xs"><b>Prepara, cocina y saborea</b></p>
         <!-- <div class="mensaje hidden-xs text-center">
         </div> -->
         <a href="javascript:void(0)" [routerLink]="['/producto', items[2].shortitemcode]">
@@ -55,7 +55,7 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="sub-banner-footer">
-            <p class="name">{{items[2].itemname}}</p>
+            <p class="name_1">OLLA A PRESIÓN 3,0 L</p>
             <p class="precio old-price">$ {{items[2].priceaftervat | number}}</p>
             <p class="precio new-price"><b>$ {{items[2].priceaftervat * 0.6 | number}}</b></p>
             <br/>

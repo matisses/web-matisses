@@ -1,9 +1,70 @@
 .promocion {
   text-align: center;
   color: #FFF;
-  max-height: 40px;
+  background: #454545;
+  height: 30px;
+  font-weight: bold;
 }
 
-.promocion img {
-  width: 100%;
+#countdown_dashboard, img, .tres {
+  display: inline-block;
+}
+
+img {
+  margin: 0 30px;
+}
+
+.tres {
+  font-weight: normal;
+}
+
+.title {
+  height: 20px;
+  display: inline-block;
+  word-spacing: 10px
+}
+
+.dash {
+  height: 20px;
+  display: inline-block;
+}
+
+.hours_dash, .minutes_dash, .seconds_dash {
+  margin-left: 5px;
+}
+
+.digit {
+  height: 20px;
+  width: 10px;
+  margin-top: 5px;
+  float: left;
+}
+
+@media screen and (max-width: 1190px) {
+  #countdown_dashboard, .tres {
+    font-size: 10px;
+  }
+  .digit {
+    margin-top: 10px;
+  }
+}
+
+@media screen and (max-width: 990px) {
+  .none {
+    top: -500px;
+    position: absolute;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  #countdown_dashboard, .tres {
+    font-size: 9px;
+  }
+  .digit {
+    margin-top: 11px;
+    width: 5px;
+  }
+  .title {
+    word-spacing: 5px
+  }
 }

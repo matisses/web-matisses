@@ -10,7 +10,7 @@
 }
 
 .portada {
-  background: url(../../../assets/images/banner-hot-sale.jpg) no-repeat center center;
+  background: url(../../../assets/images/hot-sale/banner-hot-sale.jpg) no-repeat center center;
   background-attachment: relative;
   background-position: center center;
   min-height: 500px;
@@ -71,6 +71,6 @@
 
 @media screen and (max-width: 425px) {
   .portada {
-    background: url(../../../assets/images/banner-hot-sale-mobile.jpg) no-repeat center center;
+    background: url(../../../assets/images/hot-sale/banner-hot-sale-mobile.jpg) no-repeat center center;
   }
 }
