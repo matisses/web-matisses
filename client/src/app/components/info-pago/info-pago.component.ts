@@ -31,8 +31,8 @@ export class InfoPagoComponent implements OnInit {
   @ViewChild(CarritoSimpleComponent)
   public carrito: CarritoSimpleComponent;
 
-  public totalEnvio: number = 0;
   public costoEnvio: number = 0;
+  public totalEnvio: number = 0;
   public messageError: string;
   public tiendaSeleccionada: string = 'Medellín';
   public urlReturn: string;
@@ -91,10 +91,20 @@ export class InfoPagoComponent implements OnInit {
   }
 
   public obtenerMetodosEnvio() {
+    let base = 150000;//TODO: monto base para envios gratis.
     this.metodosEnvio = new Array<ShippingMethod>();
     this._shippingMethodService.listShippingMethods().subscribe(
       response => {
-        this.metodosEnvio = response;
+        for (let i = 0; i < response.length; i++) {
+          if (this.validarEnvioGratis()) {
+            this.metodosEnvio.push(response[i]);
+          } else if (((this.carrito.totalCarrito) - this.carrito.totalDescuentos) >= base && response[i].code === 1) {
+            this.metodosEnvio.push(response[i]);
+          } else if (((this.carrito.totalCarrito) - this.carrito.totalDescuentos) < base && response[i].code !== 1) {
+            this.metodosEnvio.push(response[i]);
+          }
+        }
+        console.log(this.metodosEnvio);
       },
       error => {
         console.error(error);
@@ -137,6 +147,7 @@ export class InfoPagoComponent implements OnInit {
       ciudadDestino: this.customer.addresses[0].cityCode,
       items: []
     };
+
     for (let j = 0; j < this.carrito.shoppingCart.items.length; j++) {
       datosCompra.items.push(this.carrito.shoppingCart.items[j]);
     }
@@ -145,9 +156,12 @@ export class InfoPagoComponent implements OnInit {
       response => {
         for (let i = 0; i < this.metodosEnvio.length; i++) {
           if (this.metodosEnvio[i].code === 3) {
-            this.metodosEnvio[i].description = response.valor;
+            this.costoEnvio = response.valor;
+            console.log(this.costoEnvio);
+            break;
           }
         }
+        this.obtenerMetodosEnvio();
       },
       error => {
         console.error(error);
@@ -155,11 +169,56 @@ export class InfoPagoComponent implements OnInit {
     );
   }
 
+  private validarEnvioGratis() {
+    //TODO: parametrizacion de ciudades para envios gratis.
+    //Antioquia: valle de Aburra
+    let ciudadesEnvioGratis = [
+      "Medellín05001",
+      "Bello05088",
+      "Itagui05360",
+      "Eenvigado05266",
+      "Caldas (Antioquia)05129",
+      "Copacabana05212",
+      "La Estrella05380",
+      "Girardota05308",
+      "Sabaneta05631",
+      "Barbosa (Antioquia)05079",
+      //Bogotá DC: area metropolitana
+      "Bogotá11001",
+      "Soacha25754",
+      "Chía25175",
+      "Zipaquirá25899",
+      "Madrid25430",
+      "Funza25286",
+      "Cajicá25126",
+      "Sibaté25740",
+      "Tocancipá25817",
+      "Tabio25785",
+      "La Calera25377",
+      "Sopó25758",
+      "Cota25214",
+      "Tenjo25799",
+      "Mosquera (Cundinamarca)25473",
+      "Gachancipá25295",
+      "Bojacá25099",
+      "El Rosal25260"
+    ];
+
+    for (let k = 0; k < ciudadesEnvioGratis.length; k++) {
+      if (ciudadesEnvioGratis[k] == (this.customer.addresses[0].cityName + this.customer.addresses[0].cityCode)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    return false;
+  }
+
   public pagar() {
     this.valid = true;
     this.messageError = '';
     if (this.metodoEnvioSeleccionado == null || this.metodoEnvioSeleccionado.code == 0) {
-      this.messageError = 'Debes seleccionar un método de envió.';
+      this.messageError = 'Debes seleccionar un medio de envió.';
       return;
     }
     if (this.metodoEnvioSeleccionado.code == 2 && (this.tiendaSeleccionada == null || this.tiendaSeleccionada.length <= 0)) {
@@ -351,7 +410,7 @@ export class InfoPagoComponent implements OnInit {
       reference: _id,
       amount: {
         currency: 'COP',
-        total: (this.carrito.totalCarrito - this.carrito.totalDescuentos),
+        total: ((this.carrito.totalCarrito + this.costoEnvio) - this.carrito.totalDescuentos),
         taxes: {
           kind: 'valueAddedTax',
           amount: this.carrito.totalImpuestos
@@ -378,6 +437,11 @@ export class InfoPagoComponent implements OnInit {
 
   public seleccionarMetodoEnvio(metodo) {
     this.metodoEnvioSeleccionado = metodo;
+    if (metodo.code === 2) {
+      this.totalEnvio = 0;
+    } else {
+      this.totalEnvio = this.costoEnvio;
+    }
   }
 
   private obtenerNombreCiudad() {
@@ -401,6 +465,7 @@ export class InfoPagoComponent implements OnInit {
 
   public cambiarCiudad() {
     if (this.customer.addresses[0].cityCode != null || this.customer.addresses[0].cityCode != 0) {
+      this.obtenerNombreCiudad();
       console.log('Consultando costo de envio');
       this.consultarCostoEnvio();
     }
