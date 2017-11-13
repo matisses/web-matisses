@@ -6,7 +6,7 @@
 }
 
 .top-204 {
-  top: 204px !important;
+  top: 194px !important;
 }
 
 .height-190 {
@@ -14,7 +14,7 @@
 }
 
 .top-164 {
-  top: 164px !important;
+  top: 124px !important;
 }
 
 .header {
@@ -162,6 +162,11 @@ a {
 
 /*Menú*/
 
+.hot-sale {
+  background-color: red !important;
+  color: #FFF !important;
+}
+
 .info-ppl {
   border-bottom: 1px solid #5B5B5B;
 }
@@ -192,11 +197,11 @@ a {
 .menu {
   background-color: #FFF;
   border-top: 1px solid #EDEDED;
-  margin-top: 16px;
+  margin-top: 56px;
   padding: 10px 0px;
   position: absolute;
   width: 100%;
-  top: 151px;
+  top: 141px;
   z-index: 10;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -267,7 +272,7 @@ a {
 
 .stuck-submenu {
   position: fixed;
-  top: 111px;
+  top: 71px;
 }
 
 .selected {

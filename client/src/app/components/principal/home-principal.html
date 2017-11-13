@@ -1,4 +1,15 @@
-<div class="container-fluid padding-0">
+<!-- Modal hot sale -->
+<div class="modal fade" id="modalHotSale" tabindex="-1" role="dialog" aria-labelledby="modalHotSaleLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <img src="assets/images/hot-sale/hotsale-matisses.jpg" alt="">
+      <button type="button" class="btn-modal" [routerLink]="['/hot-sale']">Ver Productos</button>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid padding-0"> <!-- data-toggle="modal" data-target="#modalHotSale" -->
   <div class="row">
     <div class="col-xs-12">
       <div id="carousel-banner-principal" class="carousel slide" data-ride="carousel" data-interval="1000000">
@@ -13,17 +24,17 @@
 
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
-          <div class="item">
+          <div class="item active">
             <slide-1></slide-1>
           </div>
           <div class="item">
-            <slide-4></slide-4>
-          </div>
-          <div class="item active">
             <slide-2></slide-2>
           </div>
           <div class="item ">
             <slide-3></slide-3>
+          </div>
+          <div class="item">
+            <slide-4></slide-4>
           </div>
         </div>
 
@@ -35,9 +46,9 @@
 <div class="container">
   <div class="row hidden-xs">
     <div class="col-xs-12">
-      <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{group: '037', brand: '0020'}">
+      <a href="javascript:void(0)" [routerLink]="['/hot-sale']" > <!-- [queryParams]="{group: '037', brand: '0020'}" -->
         <div class="principal-03">
-          <div class="container">
+          <!-- <div class="container">
             <div class="row">
               <div class="col-xs-12">
                 <div class="text-03 text-center">
@@ -49,7 +60,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </a>
     </div>

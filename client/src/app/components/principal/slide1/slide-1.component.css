@@ -1,3 +1,23 @@
+.name_1 {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 15px !important;
+}
+
+.old-price, .new-price {
+  display: inline-block;
+}
+
+.old-price {
+  font-size: 15px !important;
+  font-weight: 100 !important;
+  text-decoration: line-through;
+}
+
+.old-price {
+  color: red !important;
+}
+
 .padding-0 {
   padding-left: 0;
   padding-right: 0;
@@ -185,11 +205,17 @@
   cursor: pointer;
   color: #FFF;
   padding: 5px 20px;
-  background-color: #7C7C7C;
+  background-color: red;
 }
 
 .ir-comprar:hover {
   background-color: #6D9791;
+}
+
+@media screen and (max-width: 1440px) {
+  .principal-01 {
+    min-height: 330px;
+  }
 }
 
 @media screen and (max-width: 1200px) {
@@ -202,6 +228,12 @@
   .sub-banner .mensaje {
     top: 125px;
     left: 95px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .principal-01 {
+    min-height: 240px;
   }
 }
 
@@ -227,7 +259,7 @@
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .principal-01 {
     min-height: 300px;
   }
@@ -247,6 +279,9 @@
   .text-01 .btn-banner01 {
     font-size: 10px;
   }
+  .old-price {
+    font-size: 12px !important;
+  }
   .sub-banner p {
     position: absolute;
     color: #FFF;
@@ -259,11 +294,17 @@
   }
 }
 
-@media screen and (max-width: 414px) {
+@media screen and (max-width: 425px) {
   .principal-01 {
-    min-height: 250px;
-    background-position: center 50px;
+    min-height: 400px;
+    background: url(../../../../assets/images/banner/slide-1/banner-mobile.jpg) no-repeat center center;
+    margin-top: 50px;
   }
+}
+@media screen and (max-width: 414px) {
+  /*.principal-01 {
+    min-height: 400px;
+  }*/
   .text-01 {
     left: 21%;
     bottom: -80px;
@@ -285,6 +326,9 @@
   .recomendaciones .precio {
     font-size: 15px;
   }
+  .old-price {
+    font-size: 10px !important;
+  }
   .pull-bottom {
     font-size: 10px;
   }
@@ -304,18 +348,21 @@
     font-size: 16px;
     bottom: 225px;
   }
+  .name_1 {
+    display: block;
+  }
 }
 
 @media screen and (max-width: 375px) {
-  .principal-01 {
+  /*.principal-01 {
     min-height: 270px;
-  }
+  }*/
 }
 
 @media screen and (max-width: 320px) {
-  .principal-01 {
+  /*.principal-01 {
     min-height: 240px;
-  }
+  }*/
   .text-01 {
     left: 15%;
   }
