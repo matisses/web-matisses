@@ -67,10 +67,10 @@ export class HotSaleComponent implements OnInit {
                                                         this._itemService.find('2420002').subscribe(// Item 14
                                                           response => {
                                                             this.items.push(response.result[0]);
-                                                            this._itemService.find('2420016').subscribe(// Item 15
+                                                            this._itemService.find('2420003').subscribe(// Item 15
                                                               response => {
                                                                 this.items.push(response.result[0]);
-                                                                this._itemService.find('2420028').subscribe(// Item 16
+                                                                this._itemService.find('2420038').subscribe(// Item 16
                                                                   response => {
                                                                     this.items.push(response.result[0]);
                                                                   }, error => { console.error(); }
