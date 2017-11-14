@@ -26,15 +26,20 @@ export class Slide1Component implements OnInit {
 
   private inicializarItems() {
     this.items = new Array<Item>();
-    this._itemService.find('2240149').subscribe(
+    this._itemService.find('2290139').subscribe(
       response => {
         this.items.push(response.result[0]);
-        this._itemService.find('2420001').subscribe(
+        this._itemService.find('1970001').subscribe(
           response => {
             this.items.push(response.result[0]);
-            this._itemService.find('2310208').subscribe(
+            this._itemService.find('1330467').subscribe(
               response => {
                 this.items.push(response.result[0]);
+                this._itemService.find('1330184').subscribe(
+                  response => {
+                    this.items.push(response.result[0]);
+                  }, error => { console.error(); }
+                );
               }, error => { console.error(); }
             );
           }, error => { console.error(); }

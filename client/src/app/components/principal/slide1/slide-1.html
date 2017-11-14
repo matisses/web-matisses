@@ -22,7 +22,7 @@
   <div class="row" *ngIf="items && items.length > 0">
     <div class="col-sm-3 col-xs-6 text-center" >
       <div class="recomendaciones">
-        <p class="name">{{items[0].itemname}}<br><b>EVA SOLO</b></p>
+        <p class="name">FLORERO GARDEN<br></p>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[0].shortitemcode]">
           <img src="https://img.matisses.co/{{items[0].itemcode}}/parrilla/{{items[0].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[0].itemname}}">
         </a>
@@ -33,7 +33,7 @@
     </div>
     <div class="col-sm-3 col-xs-6 text-center" *ngIf="items && items.length >= 2">
       <div class="recomendaciones">
-        <p class="name">JARDÍN INTELIGENTE<br><b>PLANTUI</b></p>
+        <p class="name">JARRÓN EN CERÁMICA<br></p>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[1].shortitemcode]">
           <img src="https://img.matisses.co/{{items[1].itemcode}}/parrilla/{{items[1].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[1].itemname}}">
         </a>
@@ -42,28 +42,26 @@
         <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[1].shortitemcode]">Ver producto</button>
       </div>
     </div>
-
-    <div class="col-sm-6 col-xs-12" *ngIf="items && items.length >= 3">
-      <div class="sub-banner text-center">
-        <p class="hidden-xs"><b>Prepara, cocina y saborea</b></p>
-        <!-- <div class="mensaje hidden-xs text-center">
-        </div> -->
+    <div class="col-sm-3 col-xs-6 text-center" *ngIf="items && items.length >= 2">
+      <div class="recomendaciones">
+        <p class="name">SILLA EN TELA</p>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[2].shortitemcode]">
-          <img src="assets/images/banner/slide-1/banner-03.jpg" class="img-responsive" alt="">
+          <img src="https://img.matisses.co/{{items[2].itemcode}}/parrilla/{{items[2].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[2].itemname}}">
         </a>
+        <p class="precio old-price">$ {{items[2].priceaftervat | number}}</p>
+        <p class="precio new-price"><b>$ {{items[2].priceaftervat * 0.6 | number}}</b></p>
+        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[2].shortitemcode]">Ver producto</button>
       </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="sub-banner-footer">
-            <p class="name_1">OLLA A PRESIÓN 3,0 L</p>
-            <p class="precio old-price">$ {{items[2].priceaftervat | number}}</p>
-            <p class="precio new-price"><b>$ {{items[2].priceaftervat * 0.6 | number}}</b></p>
-            <br/>
-            <a href="javascript:void(0)" [routerLink]="['/producto', items[2].shortitemcode]">
-              <button type="submit" class="ir-comprar" name="comprar-ya">Ver producto</button>
-            </a>
-          </div>
-        </div>
+    </div>
+    <div class="col-sm-3 col-xs-6 text-center" *ngIf="items && items.length >= 2">
+      <div class="recomendaciones">
+        <p class="name">SILLA EN PIEL</p>
+        <a href="javascript:void(0)" [routerLink]="['/producto', items[3].shortitemcode]">
+          <img src="https://img.matisses.co/{{items[3].itemcode}}/parrilla/{{items[3].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[3].itemname}}">
+        </a>
+        <p class="precio old-price">$ {{items[3].priceaftervat | number}}</p>
+        <p class="precio new-price"><b>$ {{items[3].priceaftervat * 0.6 | number}}</b></p>
+        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[3].shortitemcode]">Ver producto</button>
       </div>
     </div>
   </div>
