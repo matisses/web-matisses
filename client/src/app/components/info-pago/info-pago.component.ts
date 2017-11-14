@@ -91,44 +91,45 @@ export class InfoPagoComponent implements OnInit {
   }
 
   public obtenerMetodosEnvio() {
-    // let base = 150000;//TODO: monto base para envios gratis.
-    // this.metodosEnvio = new Array<ShippingMethod>();
-    // this._shippingMethodService.listShippingMethods().subscribe(
-    //   response => {
-    //     for (let i = 0; i < response.length; i++) {
-    //       if(response[i].code === 3){
-    //         //TODO: se debe quitar esta condición si el medio es Coordinadora
-    //       } else if (this.validarEnvioGratis()) {
-    //         this.metodosEnvio.push(response[i]);
-    //       } else if (((this.carrito.totalCarrito) - this.carrito.totalDescuentos) >= base && response[i].code === 1) {
-    //         this.metodosEnvio.push(response[i]);
-    //       } else if (((this.carrito.totalCarrito) - this.carrito.totalDescuentos) < base && response[i].code !== 1) {
-    //         this.metodosEnvio.push(response[i]);
-    //       }
-    //     }
-    //     console.log(this.metodosEnvio);
-    //   },
-    //   error => {
-    //     console.error(error);
-    //   }
-    // );
-
+    let base = 150000;//TODO: monto base para envios gratis.
     this.metodosEnvio = new Array<ShippingMethod>();
     this._shippingMethodService.listShippingMethods().subscribe(
       response => {
         for (let i = 0; i < response.length; i++) {
-          if (response[i].code === 3) {
-            //TODO: se debe quitar esta condición si el medio es Coordinadora
-          } else {
+          // if(response[i].code === 3){
+          //   //TODO: se debe quitar esta condición si el medio es Coordinadora
+          // } else
+          if (this.validarEnvioGratis()) {
+            this.metodosEnvio.push(response[i]);
+          } else if (((this.carrito.totalCarrito) - this.carrito.totalDescuentos) >= base && response[i].code === 1) {
+            this.metodosEnvio.push(response[i]);
+          } else if (((this.carrito.totalCarrito) - this.carrito.totalDescuentos) < base && response[i].code !== 1) {
             this.metodosEnvio.push(response[i]);
           }
         }
-        // this.metodosEnvio = response;
+        console.log(this.metodosEnvio);
       },
       error => {
         console.error(error);
       }
     );
+
+    // this.metodosEnvio = new Array<ShippingMethod>();
+    // this._shippingMethodService.listShippingMethods().subscribe(
+    //   response => {
+    //     for (let i = 0; i < response.length; i++) {
+    //       if (response[i].code === 3) {
+    //         //TODO: se debe quitar esta condición si el medio es Coordinadora
+    //       } else {
+    //         this.metodosEnvio.push(response[i]);
+    //       }
+    //     }
+    //     // this.metodosEnvio = response;
+    //   },
+    //   error => {
+    //     console.error(error);
+    //   }
+    // );
   }
 
   public buscarCliente() {
