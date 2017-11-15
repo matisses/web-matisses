@@ -109,6 +109,26 @@ export class HotSaleComponent implements OnInit {
                                                                                                                 this._itemService.find('2270020').subscribe(// Item 28
                                                                                                                   response => {
                                                                                                                     this.items.push(response.result[0]);
+                                                                                                                    this._itemService.find('2290251').subscribe(// Item 29
+                                                                                                                      response => {
+                                                                                                                        this.items.push(response.result[0]);
+                                                                                                                        this._itemService.find('2290253').subscribe(// Item 30
+                                                                                                                          response => {
+                                                                                                                            this.items.push(response.result[0]);
+                                                                                                                            this._itemService.find('2290209').subscribe(// Item 31
+                                                                                                                              response => {
+                                                                                                                                this.items.push(response.result[0]);
+                                                                                                                                this._itemService.find('2290207').subscribe(// Item 32
+                                                                                                                                  response => {
+                                                                                                                                    this.items.push(response.result[0]);
+                                                                                                                                  }, error => { console.error(); }
+                                                                                                                                );
+                                                                                                                              }, error => { console.error(); }
+                                                                                                                            );
+                                                                                                                          }, error => { console.error(); }
+                                                                                                                        );
+                                                                                                                      }, error => { console.error(); }
+                                                                                                                    );
                                                                                                                   }, error => { console.error(); }
                                                                                                                 );
                                                                                                               }, error => { console.error(); }
