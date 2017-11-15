@@ -182,6 +182,7 @@ export class InfoPagoComponent implements OnInit {
           }
         }
         this.obtenerMetodosEnvio();
+        console.error(response);
       },
       error => {
         console.error(error);
