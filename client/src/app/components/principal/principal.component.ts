@@ -30,11 +30,11 @@ export class HomePrincipalComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    // setTimeout(function() {
-    //   $(document).ready(function() {
-    //     $('#modalHotSale').modal('show')
-    //   });
-    // }, 2000); //Solo el dia del hot SALE
+    setTimeout(function() {
+      $(document).ready(function() {
+        $('#modalHotSale').modal('show')
+      });
+    }, 1000); //Solo el dia del hot SALE
   }
 
   private inicializarItems() {

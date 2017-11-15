@@ -4,7 +4,7 @@
     <div class="modal-content">
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       <img src="assets/images/hot-sale/hotsale-matisses.jpg" alt="">
-      <button type="button" class="btn-modal" [routerLink]="['/hot-sale']">Ver Productos</button>
+      <button type="button" class="btn-modal" [routerLink]="['/categoria']" [queryParams]="{discount: 'true'}">Ver Productos</button>
     </div>
   </div>
 </div>
@@ -46,7 +46,7 @@
 <div class="container">
   <div class="row hidden-xs">
     <div class="col-xs-12">
-      <a href="javascript:void(0)" [routerLink]="['/hot-sale']" > <!-- [queryParams]="{group: '037', brand: '0020'}" -->
+      <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{discount: 'true', brand: '0016', collection:'Hello%20FUNctionals'}">
         <div class="principal-03">
           <!-- <div class="container">
             <div class="row">

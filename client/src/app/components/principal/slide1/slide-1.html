@@ -10,7 +10,7 @@
         <span class="glyphicon glyphicon-menu-right"></span>
         <span class="sr-only">Next</span>
       </a>
-      <a href="javascript:void(0)" [routerLink]="['/hot-sale']">
+      <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{discount: 'true'}">
         <div class="principal-01"></div>
       </a>
     </div>
@@ -22,46 +22,46 @@
   <div class="row" *ngIf="items && items.length > 0">
     <div class="col-sm-3 col-xs-6 text-center" >
       <div class="recomendaciones">
-        <p class="name">SET BATERÍA<br></p>
+        <p class="name">POSAVASOS<br><b>EPICUREAN</b></p>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[0].shortitemcode]">
           <img src="https://img.matisses.co/{{items[0].itemcode}}/parrilla/{{items[0].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[0].itemname}}">
         </a>
         <p class="precio old-price">$ {{items[0].priceaftervat | number}}</p>
         <p class="precio new-price"><b>$ {{items[0].priceaftervat * 0.6 | number}}</b></p>
-        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[0].shortitemcode]">Ver producto</button>
+        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[0].shortitemcode]">Ir a Comprar</button>
       </div>
     </div>
     <div class="col-sm-3 col-xs-6 text-center" *ngIf="items && items.length >= 2">
       <div class="recomendaciones">
-        <p class="name">CENTRO DE MESA<br></p>
+        <p class="name">SET 2 MUGS EN PORCELANA<br><b>EVA SOLO</b></p>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[1].shortitemcode]">
           <img src="https://img.matisses.co/{{items[1].itemcode}}/parrilla/{{items[1].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[1].itemname}}">
         </a>
         <p class="precio old-price">$ {{items[1].priceaftervat | number}}</p>
         <p class="precio new-price"><b>$ {{items[1].priceaftervat * 0.6 | number}}</b></p>
-        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[1].shortitemcode]">Ver producto</button>
+        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[1].shortitemcode]">Ir a Comprar</button>
       </div>
     </div>
     <div class="col-sm-3 col-xs-6 text-center" *ngIf="items && items.length >= 2">
       <div class="recomendaciones">
-        <p class="name">CUBIERTOS VINTAGE x30</p>
+        <p class="name">PARRILLA DE MESA<br><b>EVA SOLO</b></p>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[2].shortitemcode]">
           <img src="https://img.matisses.co/{{items[2].itemcode}}/parrilla/{{items[2].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[2].itemname}}">
         </a>
         <p class="precio old-price">$ {{items[2].priceaftervat | number}}</p>
         <p class="precio new-price"><b>$ {{items[2].priceaftervat * 0.6 | number}}</b></p>
-        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[2].shortitemcode]">Ver producto</button>
+        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[2].shortitemcode]">Ir a Comprar</button>
       </div>
     </div>
     <div class="col-sm-3 col-xs-6 text-center" *ngIf="items && items.length >= 2">
       <div class="recomendaciones">
-        <p class="name">SET JARRA PARA TÉ</p>
+        <p class="name">JARDÍN INTELIGENTE<br><b>PLANTUI</b></p>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[3].shortitemcode]">
           <img src="https://img.matisses.co/{{items[3].itemcode}}/parrilla/{{items[3].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[3].itemname}}">
         </a>
         <p class="precio old-price">$ {{items[3].priceaftervat | number}}</p>
         <p class="precio new-price"><b>$ {{items[3].priceaftervat * 0.6 | number}}</b></p>
-        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[3].shortitemcode]">Ver producto</button>
+        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[3].shortitemcode]">Ir a Comprar</button>
       </div>
     </div>
   </div>

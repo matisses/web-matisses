@@ -63,7 +63,7 @@
               <div class="filter-collapse" (click)="toggleClass('#subgroup')" data-toggle="collapse" href="#collapseSubgroups" aria-expanded="false" aria-controls="collapseSubgroups">
                 <p>subcategorías <span id="subgroup" class="icon-plus pull-right"></span></p>
               </div>
-              <div class="collapse" id="collapseSubgroups">
+              <div class="collapse" [ngClass]="{'in' : queryParams.has('discount','group')}" id="collapseSubgroups">
                 <ul>
                   <li class="filter-option" *ngFor="let menuItem of filtrosDisponibles['subgroups']" (click)="toggleSelection('subgroup',menuItem.code); scrollAfterFiter()">
                     <span>{{menuItem.name}}</span>

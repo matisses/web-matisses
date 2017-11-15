@@ -17,7 +17,7 @@ export class PromocionComponent implements OnInit {
     $(document).ready(function() {
       $('#countdown_dashboard').countDown({
         targetDate: {
-          'day': 16,
+          'day': 17,
           'month': 11,
           'year': 2017,
           'hour': 0,

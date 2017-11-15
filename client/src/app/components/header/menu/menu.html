@@ -253,7 +253,7 @@
               <li class="item-menu cursor-pointer" [ngClass]="{'selected' : estaSeleccionado(menuItem._id)}" *ngFor="let menuItem of menuItems" (mouseenter)="alternarSeleccionPadre(menuItem) + carrito.closeResumen()">
                 {{menuItem.name}}
               </li>
-              <li class="item-menu hot-sale cursor-pointer" (mouseenter)="carrito.closeResumen() + cerrarOverlay()" [routerLink]="['/hot-sale']">
+              <li class="item-menu hot-sale cursor-pointer" (mouseenter)="carrito.closeResumen() + cerrarOverlay()" [routerLink]="['/categoria']" [queryParams]="{discount: 'true'}">
                 SALE
               </li>
             </ul>
@@ -311,7 +311,7 @@
     </div>
 
     <div>
-      <button [routerLink]="['/hot-sale']" class="accordion hot-sale">CHRISTMAS SALE</button>
+      <button [routerLink]="['/categoria']" [queryParams]="{discount: 'true'}" class="accordion hot-sale">CHRISTMAS SALE</button>
     </div>
 
     <div class="row">
