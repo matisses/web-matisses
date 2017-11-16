@@ -49,7 +49,7 @@
                   <p class="total-precio">Total impuestos: <span class="pull-right"><b>$ {{carrito.totalImpuestos | number}}</b></span></p>
                   <p class="total-precio">Total descuentos: <span class="pull-right"><b>$ {{carrito.totalDescuentos | number}}</b></span></p>
                   <hr/>
-                  <p class="total-precio">Total: <span class="pull-right"><b>$ {{carrito.totalCarrito | number}}</b></span></p>
+                  <p class="total-precio">Total: <span class="pull-right"><b>$ {{(carrito.totalCarrito - carrito.totalDescuentos) | number}}</b></span></p>
                 </div>
               </div>
               <div class="row">

@@ -1,3 +1,15 @@
+.precio-discount h4, .precio-discount h5 {
+  margin: 0px 2px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.precio-discount h5 {
+  color: #B20404;
+  text-decoration: line-through;
+}
+
 .carrito {
   cursor: pointer;
   color: #6D9791 !important;
