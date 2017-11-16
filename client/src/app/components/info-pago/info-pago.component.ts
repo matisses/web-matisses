@@ -424,13 +424,14 @@ export class InfoPagoComponent implements OnInit {
         country: this.customer.addresses[0].country
       }
     };
+
     let payment = {
       allowPartial: 'false',
       description: 'Compra matisses.co',
       reference: _id,
       amount: {
         currency: 'COP',
-        total: ((this.carrito.totalCarrito + this.costoEnvio) - this.carrito.totalDescuentos),
+        total: ((this.carrito.totalCarrito + (this.metodoEnvioSeleccionado.code === 2 ? 0 : this.costoEnvio)) - this.carrito.totalDescuentos),
         taxes: {
           kind: 'valueAddedTax',
           amount: this.carrito.totalImpuestos
