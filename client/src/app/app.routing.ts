@@ -63,7 +63,7 @@ const appRoutes: Routes = [
   { path: 'tiendas', component: TiendasComponent },
   { path: 'sin-intereses', component: SinInteresComponent },
   { path: 'trabaja-con-nosotros', component: TrabajaComponent },
-  { path: 'hot-sale', component: HotSaleComponent },
+  // { path: 'hot-sale', component: HotSaleComponent },
   { path: 'garantias', component: GarantiasComponent },
   { path: 'envios', component: EnviosComponent },
   { path: 'info-envios', component: InfoEnviosComponent },
