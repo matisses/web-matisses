@@ -21,6 +21,7 @@ export class CarritoSimpleComponent {
   public totalCarrito: number = 0;
   public totalImpuestos: number = 0;
   public totalDescuentos: number = 0;
+  public mostrar: boolean = true;
   public shoppingCart: any;
   public item: Item;
 
@@ -80,6 +81,16 @@ export class CarritoSimpleComponent {
     }
   }
 
+  public mostrarModalCarrito(show: boolean) {
+    if (show) {
+      this.mostrar = true;
+      this.cargarCarrito();
+    } else {
+      this.mostrar = false;
+      this.cargarCarrito();
+    }
+  }
+
   private cambiarItem(item: Item) {
     //0. Cargar contenido de localStorage
     this.cargarCarrito();
@@ -112,7 +123,7 @@ export class CarritoSimpleComponent {
       components[i].innerHTML = this.totalItems.toString();
     }
 
-    if (!encontrado) {
+    if (!encontrado && this.mostrar) {
       localStorage.setItem('matisses.lastAddedItem', JSON.stringify(item));
       $('#carritoModal').modal('show');
     }

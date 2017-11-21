@@ -16,24 +16,31 @@ import { PlacetoPayService } from '../../services/placetopay.service';
 import { ShoppingCartService } from '../../services/shopping-cart.service';
 import { ItemService } from '../../services/item.service';
 import { CoordinadoraService } from '../../services/coordinadora.service';
+import { ShoppingCartValidatorService } from '../../services/shopping-cart-validator.service';
+import { DescuentosService } from '../../services/descuentos.service';
 
 import { CarritoSimpleComponent } from '../header/menu/carrito/carrito-simple.component';
+import { CarritoComponent } from '../header/menu/carrito/carrito.component';
 
 declare var $: any;
 
 @Component({
   templateUrl: 'info-pago.html',
   styleUrls: ['info-pago.component.css'],
-  providers: [CustomerService, CityService, ShippingMethodService, PlacetoPayService, ShoppingCartService, ItemService, CoordinadoraService]
+  providers: [CustomerService, CityService, ShippingMethodService, PlacetoPayService, ShoppingCartService, ItemService, CoordinadoraService, ShoppingCartValidatorService, DescuentosService]
 })
 
 export class InfoPagoComponent implements OnInit {
   @ViewChild(CarritoSimpleComponent)
   public carrito: CarritoSimpleComponent;
 
+  @ViewChild(CarritoComponent)
+  public carrito1: CarritoComponent;
+
   public costoEnvio: number = 0;
   public totalEnvio: number = 0;
   public messageError: string;
+  public messageCambio: string;
   public tiendaSeleccionada: string = 'Medellín';
   public urlReturn: string;
   public procesandoP2P: boolean = false;
@@ -45,10 +52,14 @@ export class InfoPagoComponent implements OnInit {
   public ciudadesPrincipales: Array<City>;
   public otrasCiudades: Array<City>;
   public metodosEnvio: Array<ShippingMethod>;
+  private viewportWidth: number = 0;
+  public resumenMobileVisible: boolean = false;
+  public resumenDesktopVisible: boolean = false;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService, private _cityService: CityService,
     private _shippingMethodService: ShippingMethodService, private _placetopayService: PlacetoPayService, private _shoppingCartService: ShoppingCartService,
-    private _itemService: ItemService, private _coordinadoraService: CoordinadoraService) {
+    private _itemService: ItemService, private _coordinadoraService: CoordinadoraService, private _shoppingCartValidatorService: ShoppingCartValidatorService,
+    private _descuentosService: DescuentosService) {
     this.messageError = '';
     this.urlReturn = GLOBAL.urlTransactionResult;
     this.limpiar();
@@ -404,56 +415,196 @@ export class InfoPagoComponent implements OnInit {
   }
 
   private enviarPlaceToPay(_id) {
-    //Se mapean los datos que se le enviaran a PlacetoPay
-    let apellidos = '';
-    apellidos += this.customer.lastName1;
-    if (this.customer.lastName2 != null && this.customer.lastName2.length > 0) {
-      apellidos += ' ' + this.customer.lastName2;
+    //Se valida el estado de los items como primera medida
+    let datosCompraWeb = {
+      idCarrito: '00000000000000000',
+      items: this.carrito.shoppingCart.items
     }
 
-    let buyer = {
-      document: this.customer.fiscalID,
-      name: this.customer.firstName,
-      surname: apellidos,
-      documentType: this.customer.fiscalIdType,
-      email: this.customer.addresses[0].email,
-      mobile: this.customer.addresses[0].cellphone,
-      address: {
-        street: this.customer.addresses[0].address,
-        city: this.customer.addresses[0].cityName,
-        country: this.customer.addresses[0].country
-      }
-    };
+    console.log(datosCompraWeb);
 
-    let payment = {
-      allowPartial: 'false',
-      description: 'Compra matisses.co',
-      reference: _id,
-      amount: {
-        currency: 'COP',
-        total: ((this.carrito.totalCarrito + (this.metodoEnvioSeleccionado.code === 2 ? 0 : this.costoEnvio)) - this.carrito.totalDescuentos),
-        taxes: {
-          kind: 'valueAddedTax',
-          amount: this.carrito.totalImpuestos
-        }
-      }
-    }
-
-    this.datosPago = new DatosPagoPlaceToPay().newDatosPagoPlaceToPay(buyer, null, navigator.userAgent, payment, null, null, this.urlReturn + _id, '');
-
-    this._placetopayService.redirect(this.datosPago).subscribe(
+    this._shoppingCartValidatorService.validate(datosCompraWeb).subscribe(
       response => {
-        if (response.codigo === -1) {
-          this.procesandoP2P = false;
-          return;
+        console.log(response);
+        if (response.mensaje === 'true') {
+          //Se mapean los datos que se le enviaran a PlacetoPay
+          let apellidos = '';
+          apellidos += this.customer.lastName1;
+          if (this.customer.lastName2 != null && this.customer.lastName2.length > 0) {
+            apellidos += ' ' + this.customer.lastName2;
+          }
+
+          let buyer = {
+            document: this.customer.fiscalID,
+            name: this.customer.firstName,
+            surname: apellidos,
+            documentType: this.customer.fiscalIdType,
+            email: this.customer.addresses[0].email,
+            mobile: this.customer.addresses[0].cellphone,
+            address: {
+              street: this.customer.addresses[0].address,
+              city: this.customer.addresses[0].cityName,
+              country: this.customer.addresses[0].country
+            }
+          };
+
+          let payment = {
+            allowPartial: 'false',
+            description: 'Compra matisses.co',
+            reference: _id,
+            amount: {
+              currency: 'COP',
+              total: ((this.carrito.totalCarrito + (this.metodoEnvioSeleccionado.code === 2 ? 0 : this.costoEnvio)) - this.carrito.totalDescuentos),
+              taxes: {
+                kind: 'valueAddedTax',
+                amount: this.carrito.totalImpuestos
+              }
+            }
+          }
+
+          this.datosPago = new DatosPagoPlaceToPay().newDatosPagoPlaceToPay(buyer, null, navigator.userAgent, payment, null, null, this.urlReturn + _id, '');
+
+          this._placetopayService.redirect(this.datosPago).subscribe(
+            response => {
+              if (response.codigo === -1) {
+                this.procesandoP2P = false;
+                return;
+              }
+              localStorage.removeItem('matisses.shoppingCart');
+              window.location.href = response.respuestaPlaceToPay.processUrl;
+            },
+            error => {
+              console.error(error);
+            }
+          );
+        } else {
+          this.messageCambio = 'No se pudo continuar con el proceso de compra, debido a que uno o varios ítems ya no aplican descuento.';
+          $('#cambioPrecio').modal('show');
+
         }
-        localStorage.removeItem('matisses.shoppingCart');
-        window.location.href = response.respuestaPlaceToPay.processUrl;
-      },
-      error => {
-        console.error(error);
+      }, error => {
+        console.log('**********************************');
+        console.log(error);
+        console.log('**********************************');
       }
     );
+
+    //
+    //
+    //
+    //
+    // //Se mapean los datos que se le enviaran a PlacetoPay
+    // let apellidos = '';
+    // apellidos += this.customer.lastName1;
+    // if (this.customer.lastName2 != null && this.customer.lastName2.length > 0) {
+    //   apellidos += ' ' + this.customer.lastName2;
+    // }
+    //
+    // let buyer = {
+    //   document: this.customer.fiscalID,
+    //   name: this.customer.firstName,
+    //   surname: apellidos,
+    //   documentType: this.customer.fiscalIdType,
+    //   email: this.customer.addresses[0].email,
+    //   mobile: this.customer.addresses[0].cellphone,
+    //   address: {
+    //     street: this.customer.addresses[0].address,
+    //     city: this.customer.addresses[0].cityName,
+    //     country: this.customer.addresses[0].country
+    //   }
+    // };
+    //
+    // let payment = {
+    //   allowPartial: 'false',
+    //   description: 'Compra matisses.co',
+    //   reference: _id,
+    //   amount: {
+    //     currency: 'COP',
+    //     total: ((this.carrito.totalCarrito + (this.metodoEnvioSeleccionado.code === 2 ? 0 : this.costoEnvio)) - this.carrito.totalDescuentos),
+    //     taxes: {
+    //       kind: 'valueAddedTax',
+    //       amount: this.carrito.totalImpuestos
+    //     }
+    //   }
+    // }
+    //
+    // this.datosPago = new DatosPagoPlaceToPay().newDatosPagoPlaceToPay(buyer, null, navigator.userAgent, payment, null, null, this.urlReturn + _id, '');
+    //
+    // this._placetopayService.redirect(this.datosPago).subscribe(
+    //   response => {
+    //     if (response.codigo === -1) {
+    //       this.procesandoP2P = false;
+    //       return;
+    //     }
+    //     localStorage.removeItem('matisses.shoppingCart');
+    //     window.location.href = response.respuestaPlaceToPay.processUrl;
+    //   },
+    //   error => {
+    //     console.error(error);
+    //   }
+    // );
+  }
+
+  public refrescarValoresCarrito() {
+    console.log('*************** desplegando carrito desde el modal ***************')
+    this.carrito1.clickCarrito();
+    // console.log('Variable mostrar: ' + this.carrito.mostrar);
+    console.log('------------------------------------');
+    console.log('Datos encontrados en LocalStorage: ');
+    console.log(this.carrito.shoppingCart.items);
+    console.log('------------------------------------');
+
+    for (let i = 0; this.carrito.shoppingCart.items.length; i++) {
+      console.log(this.carrito.shoppingCart.items[i].shortitemcode);
+      this._itemService.find(this.carrito.shoppingCart.items[i].shortitemcode).subscribe(
+        response => {
+          console.log('Precio encontrado en mongo: ' + response.result[0].priceaftervat + ' - Precio encontrado en LocalStorage: ' +
+            this.carrito.shoppingCart.items[i].priceaftervat + ' Ref: ' + this.carrito.shoppingCart.items[i].shortitemcode);
+          if (response.result[0].priceaftervat !== this.carrito.shoppingCart.items[i].priceaftervat) {
+            console.log('El precio no coincide: ' + this.carrito.shoppingCart.items[i].shortitemcode);
+            response.result[0].selectedQuantity = this.carrito.shoppingCart.items[i].selectedQuantity;
+            this.carrito.shoppingCart.items[i].selectedQuantity = 0;
+            this.carrito.procesarItem(this.carrito.shoppingCart.items[i]);
+            this.carrito.procesarItem(response.result[0]);
+          } else {
+            if (this.carrito.shoppingCart.items[i].descuento) {
+              if (this.carrito.shoppingCart.items[i].descuento > 0) {
+                this._descuentosService.findDiscount(this.carrito.shoppingCart.items[i].itemcode).subscribe(
+                  response => {
+                    if (!(response.descuentos.length > 0 && (response.descuentos[0].porcentaje === this.carrito.shoppingCart.items[i].descuento))) {
+                      let item = this.carrito.shoppingCart.items[i];
+                      console.log(this.carrito.shoppingCart.items[i]);
+                      let selectedQuantity = this.carrito.shoppingCart.items[i].selectedQuantity;
+                      if (response.descuentos.length > 0 && response.descuentos[0].porcentaje !== 'undefined') {
+                        this.carrito.shoppingCart.items[i].discount = response.descuentos[0].porcentaje;
+                        item.descuento = response.descuentos[0].porcentaje;
+                        item.priceafterdiscount = this.carrito.shoppingCart.items[i].priceaftervat + ((this.carrito.shoppingCart.items[i].priceaftervat / 100) * item.descuento);
+                      } else {
+                        this.carrito.shoppingCart.items[i].discount = 0;
+                        item.descuento = 0;
+                        item.priceafterdiscount = 0;
+                      }
+                      this.carrito.shoppingCart.items[i].selectedQuantity = 0;
+                      this.carrito.procesarItem(this.carrito.shoppingCart.items[i]);
+                      item.selectedQuantity = selectedQuantity;
+                      this.carrito.procesarItem(item);
+                      this.carrito.mostrarModalCarrito(false);//TODO: false no muestra modal de agreagr al cerrar cambioPrecio
+                      this.procesandoP2P = false;
+                    }
+                  }, error => {
+                    console.error(error);
+                  }
+                );
+              }
+            }
+          }
+        }, error => {
+          console.error(error);
+        }
+      );
+    }
+    this._router.navigate(['www.matisses.co/resumen-carrito']);
+    this.carrito.cargarCarrito();
   }
 
   public seleccionarMetodoEnvio(metodo) {
@@ -508,4 +659,74 @@ export class InfoPagoComponent implements OnInit {
       taxCode: null
     }]);
   }
+
+  public toggleResumen() {
+    if (this.resumenMobileVisible || this.resumenDesktopVisible) {
+      //ocultar mobile
+      this.closeResumen();
+    } else {
+      //mostrar mobile/desktop
+      this.openResumen();
+    }
+  }
+
+  private openResumen() {
+    if (this.viewportWidth <= 991) {
+      //mostrar mobile
+      const divs = document.getElementById("carrito1").getElementsByTagName("div");
+      for (let i = 0; i < divs.length; i++) {
+        if (divs[i].id === 'resumen') {
+          divs[i].style.height = "315px";
+          divs[i].style.boxShadow = "0px 5px 16px 0px rgba(0, 0, 0, 0.75)";
+          this.resumenMobileVisible = true;
+          break;
+        }
+      }
+    } else {
+      //mostrar desktop
+      const divs = document.getElementById("carrito2").getElementsByTagName("div");
+      for (let i = 0; i < divs.length; i++) {
+        if (divs[i].id === 'resumen') {
+          divs[i].style.height = "315px";
+          divs[i].style.boxShadow = "0px 5px 16px 0px rgba(0, 0, 0, 0.75)";
+          this.resumenDesktopVisible = true;
+          break;
+        }
+      }
+    }
+    this.carrito.cargarCarrito();
+  }
+
+  public closeResumen() {
+    if (this.viewportWidth <= 991) {
+      //mostrar mobile
+      const divs = document.getElementById("carrito1").getElementsByTagName("div");
+      for (let i = 0; i < divs.length; i++) {
+        if (divs[i].id === 'resumen') {
+          divs[i].style.height = "0px";
+          divs[i].style.boxShadow = "0px 5px 16px 0px rgba(0, 0, 0, 0)";
+          this.resumenMobileVisible = false;
+          break;
+        }
+      }
+    } else {
+      //mostrar desktop
+      const divs = document.getElementById("carrito2").getElementsByTagName("div");
+      for (let i = 0; i < divs.length; i++) {
+        if (divs[i].id === 'resumen') {
+          divs[i].style.height = "0px";
+          divs[i].style.boxShadow = "0px 5px 16px 0px rgba(0, 0, 0, 0)";
+          this.resumenDesktopVisible = false;
+          break;
+        }
+      }
+    }
+  }
+
+
+
+
+
+
+
 }

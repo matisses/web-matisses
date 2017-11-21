@@ -32,6 +32,13 @@ export class CarritoComponent implements OnInit, AfterViewInit {
     this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
   }
 
+  public clickCarrito(){
+    setTimeout(function() {
+        $('.carrito').click()
+        console.log('desplegando resumen de carrito')
+    }, 1000);
+  }
+
   public toggleResumen() {
     if (this.resumenMobileVisible || this.resumenDesktopVisible) {
       //ocultar mobile
