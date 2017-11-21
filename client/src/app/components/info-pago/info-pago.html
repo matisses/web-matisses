@@ -1,5 +1,22 @@
 <matisses-header></matisses-header>
 
+<div id="cambioPrecio" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="refrescarValoresCarrito()" data-dismiss="modal" [routerLink]="['/resumen-carrito']">&times;</button>
+        <h4 class="modal-title">Lo sentimos</h4>
+      </div>
+      <div class="modal-body">
+        <p>{{messageCambio}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="refrescarValoresCarrito(); carrito1.toggleResumen()" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div sticky-body>
   <div class="container padding-top">
     <div class="row" *ngIf="messageError != null && messageError.length > 0">
@@ -159,7 +176,7 @@
                 <div class="col-sm-10 col-sm-offset-1 text-center">
                   <p class="text-left">El proceso de pago te redireccionará a un sitio seguro.</p>
                   <img src="assets/images/logo-p2p.png" class="text-center" alt="">
-                  <!-- <p><button *ngIf="!procesandoP2P" type="submit" class="btn-continuar" name="submit">Continuar</button></p> -->
+                  <p><button *ngIf="!procesandoP2P" type="submit" class="btn-continuar" name="submit">Continuar</button></p>
 
                   <!--<p  *ngIf="!procesandoP2P" class="btn-continuar"   (click)="pagar()">Continuar</p>-->
                   <img *ngIf="procesandoP2P" src="assets/images/gif-cargando.gif" alt="">
@@ -180,3 +197,6 @@
 
 <matisses-footer></matisses-footer>
 <matisses-carrito-simple #carritoSimple></matisses-carrito-simple>
+<div class="hidden-lg hidden-md hidden-sm hidden-xs">
+  <matisses-carrito></matisses-carrito>
+</div>
