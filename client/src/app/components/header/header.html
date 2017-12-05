@@ -80,7 +80,7 @@
   <div class="modal-dialog modal-lg" role="document" *ngIf="lastAddedItem">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title text-center">Saldo insuficiente</h4>
+        <h4 class="modal-title text-center">Cantidad insuficiente</h4>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
@@ -122,7 +122,7 @@
             <div class="col-md-5 border-left">
               <div class="row">
                 <div class="col-sm-10 col-sm-offset-1 col-xs-12 col-xs-offset-0 resumen-carrito">
-                  <p>No se encontró saldo suficiente para el ítem seleccionado:</p>
+                  <p>No se encontró cantidad suficiente para el ítem seleccionado:</p>
                   <br/>
                   <p>Cantidad disponible: <b>{{lastAddedItem.availablestock}}</b></p>
                   <p>Cantidad solicitada: <b>{{lastAddedItem.selectedQuantity}}</b></p>
@@ -147,14 +147,14 @@
   <div class="modal-dialog modal-lg" role="document" *ngIf="itemsSinSaldo">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title text-center">Saldo insuficiente</h4>
+        <h4 class="modal-title text-center">Cantidad insuficiente</h4>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
           <div class="row">
             <div class="col-xs-12">
               <p>
-                No se encontro saldo suficiente de los siguientes ítems:
+                No se encontro cantidad suficiente de los siguientes ítems:
               </p>
             </div>
           </div>
