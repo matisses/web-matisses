@@ -26,6 +26,8 @@ import { PoliticaPrivacidadComponent } from './components/politica-privacidad/po
 import { PreguntasFrecuentesComponent } from './components/preguntas-frecuentes/preguntas-frecuentes.component';
 import { SinInteresComponent } from './components/sin-interes/sin-interes.component';
 import { HotSaleComponent } from './components/hot-sale/hot-sale.component';
+// Lista de Regalos
+import { ListaRegalosComponent } from './components/lista-de-regalos/lista-regalos.component';
 
 
 const appRoutes: Routes = [
@@ -73,7 +75,7 @@ const appRoutes: Routes = [
   { path: 'ingresar', component: IngresarComponent },
   { path: 'info-pago', component: InfoPagoComponent },
   { path: 'resultado-transaccion/:idCarrito', component: ResultadoTransacciComponent },
-  //{ path: 'pruebas', component: ModalComponent },
+  { path: 'pruebas', component: ModalComponent },
   { path: 'admin/:token', component: AdminComponent },
   { path: 'lista-de-deseos', component: WishListComponent },
   { path: 'contactanos', component: ContactanosComponent },
@@ -81,6 +83,8 @@ const appRoutes: Routes = [
   { path: 'politica-manejo-de-datos', component: PoliticaDatosComponent },
   { path: 'politica-de-privacidad', component: PoliticaPrivacidadComponent },
   { path: 'preguntas-frecuentes', component: PreguntasFrecuentesComponent },
+  //Lista de regalos
+  { path: 'lista-de-regalos', component: ListaRegalosComponent },
   { path: '**', component: ErrorComponent } //pagina 404
 ];
 
