@@ -89,6 +89,7 @@
   margin-bottom: 5px
 }
 
+
 /*.text-01 p::before {
   content: '';
   width: 45px;
@@ -243,10 +244,16 @@
   }
 }
 
+@media screen and (max-width: 500px) {
+  .principal-01 {
+    background: url(../../../../assets/images/banner/slide-1/banner-01_02.jpg) no-repeat center top;
+  }
+}
+
 @media screen and (max-width: 414px) {
   .principal-01 {
     min-height: 250px;
-    background-position: center 50px;
+    background-position: center -16px;
   }
   .text-01 {
     left: 21%;

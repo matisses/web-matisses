@@ -6,6 +6,9 @@ import { ShoppingCartService } from '../../services/shopping-cart.service';
 
 import { CarritoSimpleComponent } from '../header/menu/carrito/carrito-simple.component';
 
+//declare var jquery: any;
+declare var $: any;
+
 @Component({
   templateUrl: 'resultado-transaccion.html',
   styleUrls: ['resultado-transaccion.component.css'],
@@ -40,6 +43,14 @@ export class ResultadoTransacciComponent implements OnInit {
   ngOnInit() {
     this.carrito.cargarCarrito();
     this.consultarEstadoPlaceToPay();
+  }
+
+  ngAfterViewInit() {
+    setTimeout(function() {
+      $(document).ready(function() {
+        $('#modalVacaiones').modal('show')
+      });
+    }, 500); // Modal Vacaiones
   }
 
   consultarEstadoPlaceToPay() {
