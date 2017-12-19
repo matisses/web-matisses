@@ -50,15 +50,25 @@ const appRoutes: Routes = [
         data: {
           meta: {
             title: 'Matisses',
-            description: ''
+            description: 'Compra online todos nuestros artículos y disfruta de lo mejor en mobiliario y accesorios para tu hogar.'
+          }
+        }
+      },
+      {
+        path: 'categoria',
+        component: CategoryComponent,
+        data: {
+          meta: {
+            title: 'Matisses',
+            description: 'Compra online todos nuestros artículos y disfruta de lo mejor en mobiliario y accesorios para tu hogar.'
           }
         }
       }
     ]
   },
 
-  // { path: '92-consola', redirectTo: 'categoria?group=002' },
-  { path: 'categoria', component: CategoryComponent, pathMatch: 'full' },
+  // { path: '92-consola', redirectTo: 'HomeComponent' },
+  // { path: 'categoria', component: CategoryComponent, pathMatch: 'full' },
   { path: 'quienes', component: QuienesComponent },
   { path: 'tiendas', component: TiendasComponent },
   { path: 'sin-intereses', component: SinInteresComponent },
