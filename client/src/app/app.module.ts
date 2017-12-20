@@ -80,6 +80,7 @@ import { ModalComponent } from './components/modal/modal.component';
 
 //Lista de regalos
 import { ListaRegalosComponent } from './components/lista-de-regalos/lista-regalos.component';
+import { MenuListaComponent } from './components/lista-de-regalos/menu-lista/menu-lista.component';
 
 //Directivas
 import { StickyMenuDirective } from './directives/sticky.directive';
@@ -149,7 +150,9 @@ import { MetaModule } from '@ngx-meta/core';
     RecomendadosComponent,
     HotSaleComponent,
     //Lista de Regalos
-    ListaRegalosComponent
+    ListaRegalosComponent,
+    MenuListaComponent
+
   ],
   imports: [
     BrowserModule,
