@@ -28,6 +28,7 @@ import { SinInteresComponent } from './components/sin-interes/sin-interes.compon
 import { HotSaleComponent } from './components/hot-sale/hot-sale.component';
 // Lista de Regalos
 import { ListaRegalosComponent } from './components/lista-de-regalos/lista-regalos.component';
+import { TipoEventoComponent } from './components/lista-de-regalos/tipo-evento/tipo-evento.component';
 
 
 const appRoutes: Routes = [
@@ -55,12 +56,24 @@ const appRoutes: Routes = [
             description: ''
           }
         }
-      }
+      },
+      //Lista de regalos
+      {
+        path: 'lista-de-regalos',
+        component: ListaRegalosComponent,
+        pathMatch: 'full',
+        data: {
+          meta: {
+            title: 'Matisses - Lista de Regalos',
+            description: 'Lista de regalos Matisses te permite elegir entre todos los productos que tenemos en nuestro amplio catálogo, compartirla con tus invitados y ellos podrán elegir de tu lista lo que quieren regalarte.'
+          }
+        }
+       }
     ]
   },
 
   // { path: '92-consola', redirectTo: 'categoria?group=002' },
-  { path: 'categoria', component: CategoryComponent, pathMatch: 'full' },
+  // { path: 'categoria', component: CategoryComponent, pathMatch: 'full' },
   { path: 'quienes', component: QuienesComponent },
   { path: 'tiendas', component: TiendasComponent },
   { path: 'sin-intereses', component: SinInteresComponent },
@@ -83,8 +96,6 @@ const appRoutes: Routes = [
   { path: 'politica-manejo-de-datos', component: PoliticaDatosComponent },
   { path: 'politica-de-privacidad', component: PoliticaPrivacidadComponent },
   { path: 'preguntas-frecuentes', component: PreguntasFrecuentesComponent },
-  //Lista de regalos
-  { path: 'lista-de-regalos', component: ListaRegalosComponent },
   { path: '**', component: ErrorComponent } //pagina 404
 ];
 
