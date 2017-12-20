@@ -1,0 +1,11 @@
+li {
+  display: inline-block;
+  list-style: none;
+  padding: 10px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.seleccionado {
+  color: red;
+}

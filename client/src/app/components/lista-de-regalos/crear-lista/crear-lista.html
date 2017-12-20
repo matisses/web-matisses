@@ -1,0 +1,78 @@
+<menu-lista></menu-lista>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <h3>TIPO DE EVENTO</h3>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row" *ngIf="tipoEvento === 0">
+    <div class="col-xs-12">
+      <ul>
+        <li (click)="seleccionarEvento(1)" [ngClass]="{'seleccionado' : tipoEvento === 1}">Lista de regalos</li>
+        <li (click)="seleccionarEvento(2)" [ngClass]="{'seleccionado' : tipoEvento === 2}">Cumpleaños</li>
+        <li (click)="seleccionarEvento(2)" [ngClass]="{'seleccionado' : tipoEvento === 2}">Aniversario</li>
+        <li (click)="seleccionarEvento(2)" [ngClass]="{'seleccionado' : tipoEvento === 2}">Homeshower</li>
+      </ul>
+    </div>
+  </div>
+  <div class="row" *ngIf="tipoEvento === 1">
+    <div class="col-xs-12">
+      <div class="row" *ngIf="paso === 1">
+        <div class="col-xs-12">
+          <h1>Paso # 1</h1>
+          <button type="button" name="button" (click)="obtenerSiguientePaso()">Siguiente</button>
+        </div>
+      </div>
+      <div class="row" *ngIf="paso === 2">
+        <div class="col-xs-12">
+          <h1>Paso # 2</h1>
+          <button type="button" name="button" (click)="obtenerPasoAnterior()">Atras</button>
+          <button type="button" name="button" (click)="obtenerSiguientePaso()">Siguiente</button>
+        </div>
+      </div>
+      <div class="row" *ngIf="paso === 3">
+        <div class="col-xs-12">
+          <h1>Paso # 3</h1>
+          <button type="button" name="button" (click)="obtenerPasoAnterior()">Atras</button>
+          <button type="button" name="button" (click)="obtenerSiguientePaso()">Siguiente</button>
+        </div>
+      </div>
+      <div class="row" *ngIf="paso === 4">
+        <div class="col-xs-12">
+          <h1>Paso # 4</h1>
+          <button type="button" name="button" (click)="obtenerPasoAnterior()">Atras</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="tipoEvento === 2">
+    <div class="col-xs-12">
+      <div class="row" *ngIf="paso === 1">
+        <div class="col-xs-12">
+          <h1>Paso Evento 2 # 1</h1>
+          <button type="button" name="button" (click)="obtenerSiguientePaso()">Siguiente</button>
+        </div>
+      </div>
+      <div class="row" *ngIf="paso === 2">
+        <div class="col-xs-12">
+          <h1>Paso Evento 2 # 2</h1>
+          <button type="button" name="button" (click)="obtenerSiguientePaso()">Siguiente</button>
+        </div>
+      </div>
+      <div class="row" *ngIf="paso === 3">
+        <div class="col-xs-12">
+          <h1>Paso Evento 2 # 3</h1>
+          <button type="button" name="button" (click)="obtenerSiguientePaso()">Siguiente</button>
+        </div>
+      </div>
+      <div class="row" *ngIf="paso === 4">
+        <div class="col-xs-12">
+          <h1>Paso Evento 2 # 4</h1>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

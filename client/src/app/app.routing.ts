@@ -28,7 +28,7 @@ import { SinInteresComponent } from './components/sin-interes/sin-interes.compon
 import { HotSaleComponent } from './components/hot-sale/hot-sale.component';
 // Lista de Regalos
 import { ListaRegalosComponent } from './components/lista-de-regalos/lista-regalos.component';
-import { TipoEventoComponent } from './components/lista-de-regalos/tipo-evento/tipo-evento.component';
+import { CrearListaComponent } from './components/lista-de-regalos/crear-lista/crear-lista.component';
 
 
 const appRoutes: Routes = [
@@ -68,7 +68,8 @@ const appRoutes: Routes = [
             description: 'Lista de regalos Matisses te permite elegir entre todos los productos que tenemos en nuestro amplio catálogo, compartirla con tus invitados y ellos podrán elegir de tu lista lo que quieren regalarte.'
           }
         }
-       }
+      },
+      { path: 'lista-de-regalos/crear-lista', component: CrearListaComponent }
     ]
   },
 
