@@ -11,13 +11,14 @@ declare var $: any;
 })
 
 export class MiListaComponent implements OnInit {
+  public nombreUsuario: string;
 
   constructor(private _route: ActivatedRoute, private _router: Router) {
-
+    this.nombreUsuario = 'Alejandro Guerra';
   }
 
   ngOnInit() {
-
+    $('#cambioContraseña').modal('show')
   }
 
 

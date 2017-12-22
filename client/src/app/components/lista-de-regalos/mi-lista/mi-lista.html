@@ -1,1 +1,32 @@
-<h1>Bienvenido A tu Lista</h1>
+<!-- Modal cambio de contraseña -->
+<div class="modal fade" id="cambioContraseña" tabindex="-1" role="dialog" aria-labelledby="cambioContraseñaLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p>Por motivos de seguridad debes asignar una contraseña nueva para el ingreso a tu lista de regalos.</p>
+        <div class="row">
+          <div class="col-xs-4 col-xs-offset-4">
+            <label class="label-lista" for="contraseña">Nueva contraseña</label>
+            <input type="text" class="form-lista-regalos" id="contraseña">
+            <label class="label-lista" for="confirmar-contraseña">Confirmar contraseña</label>
+            <input type="text" class="form-lista-regalos" id="confirmar-contraseña">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-buscar" data-dismiss="modal">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<menu-lista></menu-lista>
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 text-center">
+    <h1>Bienvenido A tu Lista {{nombreUsuario}}</h1></div>
+  </div>
+</div>
