@@ -1,76 +1,487 @@
 <menu-lista></menu-lista>
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 text-center">
+    <div class="col-xs-12 text-center" *ngIf="tipoEvento === 0">
       <h3>TIPO DE EVENTO</h3>
     </div>
   </div>
 </div>
 <div class="container">
-  <div class="row" *ngIf="tipoEvento === 0">
-    <div class="col-xs-12">
-      <ul>
-        <li (click)="seleccionarEvento(1)" [ngClass]="{'seleccionado' : tipoEvento === 1}">Lista de regalos</li>
-        <li (click)="seleccionarEvento(2)" [ngClass]="{'seleccionado' : tipoEvento === 2}">Cumpleaños</li>
-        <li (click)="seleccionarEvento(2)" [ngClass]="{'seleccionado' : tipoEvento === 2}">Aniversario</li>
-        <li (click)="seleccionarEvento(2)" [ngClass]="{'seleccionado' : tipoEvento === 2}">Homeshower</li>
-      </ul>
-    </div>
-  </div>
-  <div class="row" *ngIf="tipoEvento === 1">
-    <div class="col-xs-12">
-      <div class="row" *ngIf="paso === 1">
-        <div class="col-xs-12">
-          <h1>Paso # 1</h1>
-          <button type="button" name="button" (click)="obtenerSiguientePaso()">Siguiente</button>
-        </div>
-      </div>
-      <div class="row" *ngIf="paso === 2">
-        <div class="col-xs-12">
-          <h1>Paso # 2</h1>
-          <button type="button" name="button" (click)="obtenerPasoAnterior()">Atras</button>
-          <button type="button" name="button" (click)="obtenerSiguientePaso()">Siguiente</button>
-        </div>
-      </div>
-      <div class="row" *ngIf="paso === 3">
-        <div class="col-xs-12">
-          <h1>Paso # 3</h1>
-          <button type="button" name="button" (click)="obtenerPasoAnterior()">Atras</button>
-          <button type="button" name="button" (click)="obtenerSiguientePaso()">Siguiente</button>
-        </div>
-      </div>
-      <div class="row" *ngIf="paso === 4">
-        <div class="col-xs-12">
-          <h1>Paso # 4</h1>
-          <button type="button" name="button" (click)="obtenerPasoAnterior()">Atras</button>
-        </div>
+  <div class="contenedor-formulario">
+    <div class="row" *ngIf="tipoEvento === 0">
+      <div class="col-xs-12">
+        <ul>
+          <li (click)="seleccionarEvento(1)">Lista de regalos</li>
+          <li (click)="seleccionarEvento(2)">Cumpleaños</li>
+          <li (click)="seleccionarEvento(2)">Aniversario</li>
+          <li (click)="seleccionarEvento(2)">Homeshower</li>
+        </ul>
       </div>
     </div>
-  </div>
-  <div class="row" *ngIf="tipoEvento === 2">
-    <div class="col-xs-12">
-      <div class="row" *ngIf="paso === 1">
-        <div class="col-xs-12">
-          <h1>Paso Evento 2 # 1</h1>
-          <button type="button" name="button" (click)="obtenerSiguientePaso()">Siguiente</button>
+    <!-- Formulario para evento de novios -->
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <ul>
+          <li *ngIf="tipoEvento === 1" [ngClass]="{'seleccionado' : paso === 1}">Paso # 1</li>
+          <li *ngIf="tipoEvento === 1" [ngClass]="{'seleccionado' : paso === 2}">Paso # 2</li>
+          <li *ngIf="tipoEvento === 1" [ngClass]="{'seleccionado' : paso === 3}">Paso # 3</li>
+          <li *ngIf="tipoEvento === 1" [ngClass]="{'seleccionado' : paso === 4}">Paso # 4</li>
+        </ul>
+      </div>
+    </div>
+    <div class="row" *ngIf="tipoEvento === 1">
+      <div class="col-xs-12">
+        <!-- Paso para la información de los novios -->
+        <div class="row" *ngIf="paso === 1">
+          <div class="row">
+            <!-- Datos de la novia -->
+            <div class="col-xs-5">
+              <h1 class="text-center">Novia(o)</h1>
+              <label class="label-lista">Genero:</label>
+              <br/>
+              <div class="text-center">
+                <label class="radio-inline">
+                  <input type="radio" name="genero">Mujer
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="genero">Hombre
+                </label>
+              </div>
+              <br/>
+              <label class="label-lista" for="tipo-D">Tipo de documento*</label>
+              <select name="typeDoc" id="tipo-D" class="form-lista-regalos" required>
+                <option style="display:none">Seleccione uno</option>
+                <option>Cedula</option>
+                <option>Cedula extranjería</option>
+                <option>Pasaporte</option>
+              </select>
+              <label class="label-lista" for="documento">Documento</label>
+              <input type="text" class="form-lista-regalos" id="documento" maxlength="30" required>
+              <label class="label-lista" for="nombre">Nombre</label>
+              <input type="text" class="form-lista-regalos" id="nombre" maxlength="30" required>
+              <label class="label-lista" for="apellidos">Apellidos</label>
+              <input type="text" class="form-lista-regalos" id="apellidos" maxlength="30" required>
+              <label class="label-lista" for="email">Email</label>
+              <input type="email" class="form-lista-regalos" id="email" maxlength="30" required>
+              <br/>
+              <!-- Notificación # 1 -->
+              <div class="row">
+                <div class="col-xs-12">
+                  <p>Notificarme de forma <b>inmediata</b> cada vez que alguien realiza una compra por medio de:</p>
+                  <div class="row">
+                    <div class="col-xs-5 col-xs-offset-1 text-center">
+                      <label class="radio-inline">
+                        <input type="checkbox"><b class="notificaciones">Vía Mail</b>
+                      </label>
+                    </div>
+                    <div class="col-xs-5 text-center">
+                      <label class="radio-inline">
+                        <input type="checkbox"><b class="notificaciones">Vía SMS</b>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr/>
+              <!-- Notificación # 2 -->
+              <div class="row">
+                <div class="col-xs-12">
+                  <p>Notificarme <b>diariamente</b> las compras hechas en mi lista por medio de:</p>
+                  <div class="row">
+                    <div class="col-xs-5 col-xs-offset-1 text-center">
+                      <label class="radio-inline">
+                        <input type="checkbox"><b class="notificaciones">Vía Mail</b>
+                      </label>
+                    </div>
+                    <div class="col-xs-5 text-center">
+                      <label class="radio-inline">
+                        <input type="checkbox"><b class="notificaciones">Vía SMS</b>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr/>
+              <!-- Notificación # 3 -->
+              <div class="row">
+                <div class="col-xs-12">
+                  <p>Notificarme <b>semanalmente</b> las compras hechasen mi lista por medio de:</p>
+                  <div class="row">
+                    <div class="col-xs-5 col-xs-offset-1 text-center">
+                      <label class="radio-inline">
+                        <input type="checkbox"><b class="notificaciones">Vía Mail</b>
+                      </label>
+                    </div>
+                    <div class="col-xs-5 text-center">
+                      <label class="radio-inline">
+                        <input type="checkbox"><b class="notificaciones">Vía SMS</b>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr/>
+            </div>
+            <!-- Datos del novio -->
+            <div class="col-xs-5 col-xs-offset-2">
+              <h1 class="text-center">Novio(a)</h1>
+              <label class="label-lista">Genero:</label>
+              <br/>
+              <div class="text-center">
+                <label class="radio-inline">
+                  <input type="radio" name="genero-2">Mujer
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="genero-2">Hombre
+                </label>
+              </div>
+              <br/>
+              <label class="label-lista" for="tipo-D-2">Tipo de documento*</label>
+              <select name="typeDoc" id="tipo-D-2" class="form-lista-regalos" required>
+                <option style="display:none">Seleccione uno</option>
+                <option>Cedula</option>
+                <option>Cedula extranjería</option>
+                <option>Pasaporte</option>
+              </select>
+              <label class="label-lista" for="documento-2">Documento</label>
+              <input type="text" class="form-lista-regalos" id="documento-2" maxlength="30">
+              <label class="label-lista" for="nombre-2">Nombre</label>
+              <input type="text" class="form-lista-regalos" id="nombre-2" maxlength="30" required>
+              <label class="label-lista" for="apellidos-2">Apellidos</label>
+              <input type="text" class="form-lista-regalos" id="apellidos-2" maxlength="30" required>
+              <label class="label-lista" for="email-2">Email</label>
+              <input type="email" class="form-lista-regalos" id="email-2" maxlength="30">
+              <br/>
+              <!-- Notificación # 1 -->
+              <div class="row">
+                <div class="col-xs-12">
+                  <p>Notificarme de forma <b>inmediata</b> cada vez que alguien realiza una compra por medio de:</p>
+                  <div class="row">
+                    <div class="col-xs-5 col-xs-offset-1 text-center">
+                      <label class="radio-inline">
+                        <input type="checkbox"><b class="notificaciones">Vía Mail</b>
+                      </label>
+                    </div>
+                    <div class="col-xs-5 text-center">
+                      <label class="radio-inline">
+                        <input type="checkbox"><b class="notificaciones">Vía SMS</b>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr/>
+              <!-- Notificación # 2 -->
+              <div class="row">
+                <div class="col-xs-12">
+                  <p>Notificarme <b>diariamente</b> las compras hechas en mi lista por medio de:</p>
+                  <div class="row">
+                    <div class="col-xs-5 col-xs-offset-1 text-center">
+                      <label class="radio-inline">
+                        <input type="checkbox"><b class="notificaciones">Vía Mail</b>
+                      </label>
+                    </div>
+                    <div class="col-xs-5 text-center">
+                      <label class="radio-inline">
+                        <input type="checkbox"><b class="notificaciones">Vía SMS</b>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr/>
+              <!-- Notificación # 3 -->
+              <div class="row">
+                <div class="col-xs-12">
+                  <p>Notificarme <b>semanalmente</b> las compras hechasen mi lista por medio de:</p>
+                  <div class="row">
+                    <div class="col-xs-5 col-xs-offset-1 text-center">
+                      <label class="radio-inline">
+                        <input type="checkbox"><b class="notificaciones">Vía Mail</b>
+                      </label>
+                    </div>
+                    <div class="col-xs-5 text-center">
+                      <label class="radio-inline">
+                        <input type="checkbox"><b class="notificaciones">Vía SMS</b>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr/>
+            </div>
+          </div>
+        </div>
+        <!-- Paso para la información de la celebración -->
+        <div class="row" *ngIf="paso === 2">
+          <div class="info-evento">
+            <div class="col-xs-12 text-center">
+              <p class="label-lista">Fecha del evento*</p>
+              <div class="row">
+                <div class="col-xs-4">
+                  <select name="typeDoc" id="tipo-D-2" class="form-lista-regalos height-40" required>
+                    <option style="display:none">Día</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>...</option>
+                  </select>
+                </div>
+                <div class="col-xs-4">
+                  <select name="typeDoc" id="tipo-D-2" class="form-lista-regalos height-40" required>
+                    <option style="display:none">Mes</option>
+                    <option>Enero</option>
+                    <option>Febrero</option> height-40
+                    <option>Marzo</option>
+                    <option>...</option>
+                  </select>
+                </div>
+                <div class="col-xs-4">
+                  <select name="typeDoc" id="tipo-D-2" class="form-lista-regalos height-40" required>
+                    <option style="display:none">Año</option> <!-- Maximo un año desde la fecha de creación de la lista -->
+                    <option>2018</option>
+                    <option>...</option>
+                  </select>
+                </div>
+              </div>
+              <br/>
+              <div class="row">
+                <div class="col-xs-4">
+                  <label class="label-lista" for="tipo-D-2">Tipo de celebración</label>
+                  <select name="typeDoc" id="tipo-D-2" class="form-lista-regalos height-40" required>
+                    <option style="display:none"> </option>
+                    <option>Religioso</option>
+                    <option>Civil</option>
+                  </select>
+                </div>
+                <div class="col-xs-4">
+                  <label class="label-lista" for="tipo-D-2">Lugar</label>
+                  <select name="typeDoc" id="tipo-D-2" class="form-lista-regalos height-40" required>
+                    <option style="display:none"> </option>
+                    <option>Casa</option>
+                    <option>Centro de Eventos</option>
+                    <option>Hotel</option>
+                    <option>Otros</option>
+                  </select>
+                </div>
+                <div class="col-xs-4">
+                  <label class="label-lista" for="tipo-D-2">N° de invitados</label>
+                  <input type="number" class="form-lista-regalos height-40" min="0">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Paso para la información de envio -->
+        <div class="row" *ngIf="paso === 3">
+          <div class="row">
+            <!-- Datos de la novia -->
+            <div class="col-xs-5">
+              <h1 class="text-center">Novia(o)</h1>
+              <br/>
+              <label class="label-lista" for="departamento-1">Departamento*</label>
+              <select name="typeDoc" id="departamento-1" class="form-lista-regalos" required>
+                <option style="display:none">Seleccione uno</option>
+                <option>Amazonas</option>
+                <option>Antioquia</option>
+                <option>...</option>
+              </select>
+              <label class="label-lista" for="ciudad-1">Ciudad*</label>
+              <select name="typeDoc" id="ciudad-1" class="form-lista-regalos" required>
+                <option style="display:none">Seleccione uno</option>
+                <option>Bogotá</option>
+                <option>Medellín</option>
+                <option>...</option>
+              </select>
+              <label class="label-lista" for="direccion-1">Dirección*</label>
+              <input type="text" class="form-lista-regalos" id="direccion-1" required>
+              <label class="label-lista" for="tel-1">Teléfono*</label>
+              <input type="tel" class="form-lista-regalos" id="tel-1" maxlength="30" required>
+              <label class="label-lista" for="cel-1">Celular*</label>
+              <input type="tel" class="form-lista-regalos" id="cel-1" maxlength="30" required>
+            </div>
+            <!-- Datos del novio -->
+            <div class="col-xs-5 col-xs-offset-2">
+              <h1 class="text-center">Novio(a)</h1>
+              <br/>
+              <label class="label-lista" for="departamento-2">Departamento*</label>
+              <select name="typeDoc" id="departamento-2" class="form-lista-regalos" required>
+                <option style="display:none">Seleccione uno</option>
+                <option>Amazonas</option>
+                <option>Antioquia</option>
+                <option>...</option>
+              </select>
+              <label class="label-lista" for="ciudad-2">Ciudad*</label>
+              <select name="typeDoc" id="ciudad-2" class="form-lista-regalos" required>
+                <option style="display:none">Seleccione uno</option>
+                <option>Bogotá</option>
+                <option>Medellín</option>
+                <option>...</option>
+              </select>
+              <label class="label-lista" for="direccion-2">Dirección*</label>
+              <input type="text" class="form-lista-regalos" id="direccion-2" required>
+              <label class="label-lista" for="tel-2">Teléfono*</label>
+              <input type="tel" class="form-lista-regalos" id="tel-2" maxlength="30" required>
+              <label class="label-lista" for="cel-2">Celular*</label>
+              <input type="tel" class="form-lista-regalos" id="cel-2" maxlength="30" required>
+            </div>
+          </div>
+          <br/>
+          <div class="row">
+            <div class="col-xs-10 col-xs-offset-1 text-center">
+              <p><b>Usar datos de envío de:</b>
+                <label class="radio-inline">
+                  <input type="radio" name="usar-datos">Novia(o)
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="usar-datos">Novio(a)
+                </label>
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-4 col-xs-offset-4 text-center">
+              <p><b>TIENDA DE CONTACTO</b></p>
+              <select name="typeDoc" id="tienda" class="form-lista-regalos" required>
+                <option style="display:none">Seleccione uno</option>
+                <option>Medellín (Las Vegas)</option>
+                <option>Bogotá</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!-- Paso para aceptar terminos y condiciones -->
+        <div class="row" *ngIf="paso === 4">
+          <div class="col-xs-12">
+            <h1>Beneficios novios Matisses</h1>
+            <label class="radio-inline">
+              <input type="checkbox">Acepto las condiciones del contrato y a firmar una copia de éste en la tienda elegida anteriormente.
+            </label>
+            <br/>
+          </div>
         </div>
       </div>
-      <div class="row" *ngIf="paso === 2">
-        <div class="col-xs-12">
-          <h1>Paso Evento 2 # 2</h1>
-          <button type="button" name="button" (click)="obtenerSiguientePaso()">Siguiente</button>
+      <br/>
+      <div class="row">
+        <div class="col-xs-4 text-center">
+          <p>* Información requerida</p>
+        </div>
+        <div class="col-xs-4 text-center">
+          Conoce terminos y condiciones <u><b>aquí</b></u>
+        </div>
+        <div class="col-xs-4 text-right" *ngIf="paso === 1 || paso === 2 || paso === 3">
+          <button type="button" name="button" class="btn-formulario btn-grey" (click)="obtenerPasoAnterior()">Atras</button>
+          <!-- No dejar seguir si la información requerida no esta completa -->
+          <button type="button" class="btn-formulario" name="button" (click)="obtenerSiguientePaso()">Siguiente</button>
+        </div>
+        <div class="col-xs-4 text-right" *ngIf="paso === 4">
+          <button type="button" name="button" class="btn-formulario btn-grey" (click)="obtenerPasoAnterior()">Atras</button>
+          <!-- Finaliza la creación de la lista. Envia correo de bienvenida al usuario y envía correo a matisses avisando la nueva lista -->
+          <button type="button" class="btn-formulario" name="button">Finalizar</button>
         </div>
       </div>
-      <div class="row" *ngIf="paso === 3">
-        <div class="col-xs-12">
-          <h1>Paso Evento 2 # 3</h1>
+    </div>
+    <!-- Formulario para los otros eventos -->
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <ul>
+          <li *ngIf="tipoEvento === 2" [ngClass]="{'seleccionado' : paso === 1}">Paso # 1</li>
+          <li *ngIf="tipoEvento === 2" [ngClass]="{'seleccionado' : paso === 2}">Paso # 2</li>
+          <li *ngIf="tipoEvento === 2" [ngClass]="{'seleccionado' : paso === 3}">Paso # 3</li>
+          <li *ngIf="tipoEvento === 2" [ngClass]="{'seleccionado' : paso === 4}">Paso # 4</li>
+        </ul>
+      </div>
+    </div>
+    <div class="row" *ngIf="tipoEvento === 2">
+      <div class="col-xs-12">
+        <!-- Paso para la información del creador -->
+        <div class="row" *ngIf="paso === 1">
+          <div class="row">
+            <!-- Datos del creador -->
+            <div class="col-xs-5">
+              <h1 class="text-center">Creador</h1>
+              <label class="label-lista">Genero:</label>
+              <br/>
+              <div class="text-center">
+                <label class="radio-inline">
+                  <input type="radio" name="genero">Mujer
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="genero">Hombre
+                </label>
+              </div>
+              <br/>
+              <label class="label-lista" for="tipo-D">Tipo de documento*</label>
+              <select name="typeDoc" id="tipo-D" class="form-lista-regalos" required>
+                <option style="display:none">Seleccione uno</option>
+                <option>Cedula</option>
+                <option>Cedula extranjería</option>
+                <option>Pasaporte</option>
+              </select>
+              <label class="label-lista" for="documento">Documento</label>
+              <input type="text" class="form-lista-regalos" id="documento" maxlength="20" required>
+              <label class="label-lista" for="nombre">Nombre</label>
+              <input type="text" class="form-lista-regalos" id="nombre" maxlength="30" required>
+              <label class="label-lista" for="apellidos">Apellidos</label>
+              <input type="text" class="form-lista-regalos" id="apellidos" maxlength="30" required>
+              <label class="label-lista" for="email">Email</label>
+              <input type="email" class="form-lista-regalos" id="email" maxlength="30" required>
+            </div>
+            <!-- Datos del co-creador -->
+            <div class="col-xs-5 col-xs-offset-2">
+              <h1 class="text-center">Co-Creador</h1>
+              <label class="label-lista">Genero:</label>
+              <br/>
+              <div class="text-center">
+                <label class="radio-inline">
+                  <input type="radio" name="genero-2">Mujer
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="genero-2">Hombre
+                </label>
+              </div>
+              <br/>
+              <label class="label-lista" for="tipo-D-2">Tipo de documento*</label>
+              <select name="typeDoc" id="tipo-D-2" class="form-lista-regalos" required>
+                <option style="display:none">Seleccione uno</option>
+                <option>Cedula</option>
+                <option>Cedula extranjería</option>
+                <option>Pasaporte</option>
+              </select>
+              <label class="label-lista" for="documento-2">Documento</label>
+              <input type="text" class="form-lista-regalos" id="documento-2" maxlength="30" required>
+              <label class="label-lista" for="nombre-2">Nombre</label>
+              <input type="text" class="form-lista-regalos" id="nombre-2" maxlength="30" required>
+              <label class="label-lista" for="apellidos-2">Apellidos</label>
+              <input type="text" class="form-lista-regalos" id="apellidos-2" maxlength="30" required>
+              <label class="label-lista" for="email-2">Email</label>
+              <input type="email" class="form-lista-regalos" id="email-2" maxlength="30" required>
+            </div>
+          </div>
           <button type="button" name="button" (click)="obtenerSiguientePaso()">Siguiente</button>
         </div>
-      </div>
-      <div class="row" *ngIf="paso === 4">
-        <div class="col-xs-12">
-          <h1>Paso Evento 2 # 4</h1>
-
+        <!-- Paso para la información de la celebración -->
+        <div class="row" *ngIf="paso === 2">
+          <div class="col-xs-12">
+            <h1>Paso # 2</h1>
+            <button type="button" name="button" (click)="obtenerPasoAnterior()">Atras</button>
+            <button type="button" name="button" (click)="obtenerSiguientePaso()">Siguiente</button>
+          </div>
+        </div>
+        <!-- Paso para la información de envio -->
+        <div class="row" *ngIf="paso === 3">
+          <div class="col-xs-12">
+            <h1>Paso # 3</h1>
+            <button type="button" name="button" (click)="obtenerPasoAnterior()">Atras</button>
+            <button type="button" name="button" (click)="obtenerSiguientePaso()">Siguiente</button>
+          </div>
+        </div>
+        <!-- Paso para aceptar terminos y condiciones -->
+        <div class="row" *ngIf="paso === 4">
+          <div class="col-xs-12">
+            <h1>Paso # 4</h1>
+            <button type="button" name="button" (click)="obtenerPasoAnterior()">Atras</button>
+          </div>
         </div>
       </div>
     </div>

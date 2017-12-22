@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 
-declare var jquery: any;
+declare var jQuery: any;
 declare var $: any;
 
 @Component({
@@ -18,6 +18,36 @@ export class CrearListaComponent implements OnInit {
   }
 
   ngOnInit() {
+    $(window).scroll(function() {
+      var scroll = $(window).scrollTop();
+      if (scroll >= 30) {
+        $(".contenedor-formulario").addClass("margin-top-scroll");
+      } else {
+        $(".contenedor-formulario").removeClass("margin-top-scroll")
+      }
+    });
+
+    //Bloqueo del botón ir atras, no deja al usuario ir atras.
+    window.onload = function() {
+      if (typeof history.pushState === "function") {
+        history.pushState(null, null, null);
+        window.onpopstate = function() {
+          history.pushState(null, null, null);
+        };
+      }
+    }
+
+    //Mensaje de pereder los datos si recarga la página.
+    window.onbeforeunload = function(e) {
+      var e = e || window.event;
+      var msg = "¿De verdad quieres dejar esta página?"
+      // For IE and Firefox
+      if (e) {
+        e.returnValue = msg;
+      }
+      // For Safari / chrome
+      return msg;
+    };
   }
 
 

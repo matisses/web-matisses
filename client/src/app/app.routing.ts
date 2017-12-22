@@ -29,6 +29,7 @@ import { HotSaleComponent } from './components/hot-sale/hot-sale.component';
 // Lista de Regalos
 import { ListaRegalosComponent } from './components/lista-de-regalos/lista-regalos.component';
 import { CrearListaComponent } from './components/lista-de-regalos/crear-lista/crear-lista.component';
+import { MiListaComponent } from './components/lista-de-regalos/mi-lista/mi-lista.component';
 
 
 const appRoutes: Routes = [
@@ -69,7 +70,8 @@ const appRoutes: Routes = [
           }
         }
       },
-      { path: 'lista-de-regalos/crear-lista', component: CrearListaComponent }
+      { path: 'lista-de-regalos/crear-lista', component: CrearListaComponent },
+      { path: 'mi-lista', component: MiListaComponent }
     ]
   },
 

@@ -82,6 +82,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { ListaRegalosComponent } from './components/lista-de-regalos/lista-regalos.component';
 import { MenuListaComponent } from './components/lista-de-regalos/menu-lista/menu-lista.component';
 import { CrearListaComponent } from './components/lista-de-regalos/crear-lista/crear-lista.component';
+import { MiListaComponent } from './components/lista-de-regalos/mi-lista/mi-lista.component';
 
 //Directivas
 import { StickyMenuDirective } from './directives/sticky.directive';
@@ -153,7 +154,8 @@ import { MetaModule } from '@ngx-meta/core';
     //Lista de Regalos
     ListaRegalosComponent,
     MenuListaComponent,
-    CrearListaComponent
+    CrearListaComponent,
+    MiListaComponent
 
   ],
   imports: [
