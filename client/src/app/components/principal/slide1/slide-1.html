@@ -10,7 +10,7 @@
         <span class="glyphicon glyphicon-menu-right"></span>
         <span class="sr-only">Next</span>
       </a>
-      <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{group: '015'}">
+      <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{keywords: 'calia', pageSize: '10000'}">
         <div class="principal-01">
           <!-- <div class="container">
             <div class="row">
@@ -38,7 +38,7 @@
   <div class="row" *ngIf="items && items.length > 0">
     <div class="col-sm-3 col-xs-6 text-center" >
       <div class="recomendaciones">
-        <p class="name">PINTURA DESTELLO</p>
+        <p class="name">SILLA OCASIONAL<br><b>Delizia</b></p>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[0].shortitemcode]">
           <img src="https://img.matisses.co/{{items[0].itemcode}}/parrilla/{{items[0].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[0].itemname}}">
         </a>
@@ -48,7 +48,7 @@
     </div>
     <div class="col-sm-3 col-xs-6 text-center" >
       <div class="recomendaciones">
-        <p class="name">FLORERO ORCA</p>
+        <p class="name">SOFÁ CAMA<br><b>Camillion</b></p>
         <a href="javascript:void(1)" [routerLink]="['/producto', items[1].shortitemcode]">
           <img src="https://img.matisses.co/{{items[1].itemcode}}/parrilla/{{items[1].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[1].itemname}}">
         </a>
@@ -58,7 +58,7 @@
     </div>
     <div class="col-sm-3 col-xs-6 text-center" >
       <div class="recomendaciones">
-        <p class="name">FLORERO ONO</p>
+        <p class="name">SOFÁ 3XL<br><b>Elisir</b></p>
         <a href="javascript:void(2)" [routerLink]="['/producto', items[2].shortitemcode]">
           <img src="https://img.matisses.co/{{items[2].itemcode}}/parrilla/{{items[2].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[2].itemname}}">
         </a>
@@ -68,7 +68,7 @@
     </div>
     <div class="col-sm-3 col-xs-6 text-center" >
       <div class="recomendaciones">
-        <p class="name">FAROL EN VIDRIO</p>
+        <p class="name">CHAISE LOUNGE<br><b>Monade</b></p>
         <a href="javascript:void(3)" [routerLink]="['/producto', items[3].shortitemcode]">
           <img src="https://img.matisses.co/{{items[3].itemcode}}/parrilla/{{items[3].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[3].itemname}}">
         </a>

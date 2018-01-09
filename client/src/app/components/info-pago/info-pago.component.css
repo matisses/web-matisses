@@ -1,37 +1,3 @@
-/* Estilos modal vacaciones */
-
-.modal-content {
-  border-radius: 0;
-  text-align: center;
-}
-
-.modal-header {
-  padding: 5px;
-  border-bottom: 0px solid #e5e5e5;
-}
-
-.modal-content img {
-  text-align: center;
-  width: 100%;
-}
-
-.btn-modal {
-  background-color: red;
-  color: #FFF;
-  border: none;
-  padding: 5px 10px;
-  font-family: 'Quicksand', sans-serif;
-  width: 100%;
-}
-
-.close {
-  position: absolute;
-  right: 9px;
-}
-
-
-/* Estilos modal vacaciones */
-
 .stuck-body {
   margin-top: 130px;
 }

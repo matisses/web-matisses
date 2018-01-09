@@ -1,13 +1,3 @@
-<!-- Modal vacaciones -->
-<div class="modal fade" id="modalVacaiones" tabindex="-1" role="dialog" aria-labelledby="modalVacaionesLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <img src="assets/images/pop-up-vacaciones.jpg" alt="">
-    </div>
-  </div>
-</div>
-
 <matisses-header></matisses-header>
 
 <div id="cambioPrecio" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
@@ -126,21 +116,10 @@
                 </div>
               </div>
               <br/>
-              <!-- <div class="row" *ngIf="metodoEnvioSeleccionado && metodoEnvioSeleccionado.code == 2">
+              <div class="row" *ngIf="metodoEnvioSeleccionado && metodoEnvioSeleccionado.code == 2">
                 <div class="col-xs-12">
                   <p class="info_recoger_item"><b>Nota:</b> Nos pondremos en contacto para programar la entrega del producto en la tienda seleccionada. Espera la llamada de nuestro equipo de servicio al cliente.</p>
                 </div>
-              </div> -->
-
-              <!-- Mensaje de envios en vacaiones  -->
-              <div class="row" *ngIf="metodoEnvioSeleccionado">
-                <div class="col-xs-12">
-                  <p class="info_recoger_item"><b>Nota:</b> Por motivo de vacaciones, nuestras tiendas físicas no prestarán servicio desde el 23 de Diciembre. hasta el 4 de Enero.
-                    <br><br>Las compras realizadas en nuestro sitio web desde el 20 de Diciembre, hasta el 8 de Enero serán enviadas a partir del 9 de Enero de 2018.
-                    <br><br><b>Recuerda que nuestras entregas tienen un tiempo estimado de 8 a 10 días hábiles.</b></p>
-                </div>
-                <!-- Mensaje de envios en vacaiones  -->
-
               </div>
               <div *ngIf="metodoEnvioSeleccionado && metodoEnvioSeleccionado.code == 2">
                 <div class="row">
