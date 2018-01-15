@@ -1,0 +1,22 @@
+.stuck-body {
+  margin-top: 125px;
+  color: #5B5B5B;
+}
+
+@media screen and (max-width: 1024px) {
+
+}
+
+@media screen and (max-width: 991px) {
+  .stuck-body {
+    margin-top: 0px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+
+}
+
+@media screen and (max-width: 425px) {
+
+}

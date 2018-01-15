@@ -62,6 +62,7 @@ import { PreguntasFrecuentesComponent } from './components/preguntas-frecuentes/
 import { SinInteresComponent } from './components/sin-interes/sin-interes.component';
 import { RecomendadosComponent } from './components/sin-interes/recomendados/recomendados.component';
 import { HotSaleComponent } from './components/hot-sale/hot-sale.component';
+import { PlantuiComponent } from './components/plantui/plantui.component';
 
 //Componenete pagina de error
 import { ErrorComponent } from './components/error/error.component';
@@ -145,7 +146,8 @@ import { MetaModule } from '@ngx-meta/core';
     PreguntasFrecuentesComponent,
     SinInteresComponent,
     RecomendadosComponent,
-    HotSaleComponent
+    HotSaleComponent,
+    PlantuiComponent
   ],
   imports: [
     BrowserModule,
