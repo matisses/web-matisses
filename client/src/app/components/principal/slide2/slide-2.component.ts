@@ -32,6 +32,11 @@ export class Slide2Component implements OnInit {
         this._itemService.find('2230019').subscribe(
           response => {
             this.items.push(response.result[0]);
+            this._itemService.find('2230019').subscribe(
+              response => {
+                this.items.push(response.result[0]);
+              }, error => { console.error(); }
+            );
           }, error => { console.error(); }
         );
       }, error => { console.error(); }
