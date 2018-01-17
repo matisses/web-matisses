@@ -67,7 +67,7 @@ const appRoutes: Routes = [
     ]
   },
 
-  // { path: '92-consola', redirectTo: 'HomeComponent' },
+  { path: 'blog', redirectTo: '/', pathMatch: 'full' },
   // { path: 'categoria', component: CategoryComponent, pathMatch: 'full' },
   { path: 'quienes', component: QuienesComponent },
   { path: 'tiendas', component: TiendasComponent },
