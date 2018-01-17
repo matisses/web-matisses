@@ -60,7 +60,8 @@ const appRoutes: Routes = [
         data: {
           meta: {
             title: 'Matisses',
-            description: 'Compra online todos nuestros artículos y disfruta de lo mejor en mobiliario y accesorios para tu hogar.'
+            description: 'Compra online todos nuestros artículos y disfruta de lo mejor en mobiliario y accesorios para tu hogar. -- 2',
+            keywords: 'categoria, sofas, mesas, casas'
           }
         }
       }
