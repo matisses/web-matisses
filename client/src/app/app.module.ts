@@ -78,6 +78,8 @@ import { WishListComponent } from './components/wish-list/wish-list.component';
 // Componenete modal prueba
 import { ModalComponent } from './components/modal/modal.component';
 
+// Promocion alf
+import { PromocionAlfComponent } from './components/promocion-alf/promocion-alf.component';
 
 //Directivas
 import { StickyMenuDirective } from './directives/sticky.directive';
@@ -145,7 +147,8 @@ import { MetaModule } from '@ngx-meta/core';
     PreguntasFrecuentesComponent,
     SinInteresComponent,
     RecomendadosComponent,
-    HotSaleComponent
+    HotSaleComponent,
+    PromocionAlfComponent
   ],
   imports: [
     BrowserModule,

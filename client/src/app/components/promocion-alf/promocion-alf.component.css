@@ -1,0 +1,171 @@
+.stuck-body {
+  margin-top: 125px;
+  color: #5B5B5B;
+}
+
+.padding-0 {
+  padding-left: 0;
+  padding-right: 0;
+  overflow: hidden;
+}
+
+.principal-01 {
+  background: url(../../../assets/images/serena.jpg) no-repeat center center;
+  margin-top: 0px;
+  padding-top: 10px;
+  background-attachment: relative;
+  background-position: center center;
+  min-height: 550px;
+  width: 100%;
+  -webkit-background-size: 100%;
+  -moz-background-size: 100%;
+  -o-background-size: 100%;
+  background-size: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  color: #747C79;
+  cursor: pointer;
+}
+
+.text-01 {
+  color: #000;
+  padding: 15px;
+  margin-left: auto;
+  background-color: rgba(255, 255, 255, 0.7);
+  width: 250px;
+}
+
+.text-01 .uno, .text-mobile .uno {
+  font-size: 14px;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.text-01 .dos, .text-mobile .dos {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.text-01 .tres, .text-mobile .tres {
+  font-size: 22px;
+  font-family: serif;
+  margin: 5px 0;
+  padding: 0px 0;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+}
+
+.text-01 .cuatro, .text-mobile .cuatro {
+  margin: 0;
+  font-size: 15px;
+  font-family: sans-serif;
+}
+
+.text-01 .cinco, .text-mobile .cinco {
+  margin: 0;
+  color: #9C0D0D;
+  font-family: serif;
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.text-mobile {
+  display: none;
+}
+
+.nombre-producto {
+  display: inline-block;
+  text-align: right;
+  width: 50%;
+  padding: 10px;
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.precio-ahora {
+  float: right;
+  text-align: left;
+  background-color: #9C0D0D;
+  color: white;
+  width: 50%;
+  padding: 10px;
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.btn-ver-mas {
+  color: #6b5b5a;
+  border-color: #6b5b5a;
+  background-color: transparent;
+  margin-top: 15px;
+  border-radius: 0;
+}
+
+.btn-ver-mas:hover {
+  background-color: #6D9691;
+  color: #FFF;
+}
+
+@media screen and (max-width: 991px) {
+  .stuck-body {
+    margin-top: 0px;
+  }
+  .principal-01 {
+    min-height: 300px;
+    margin-top: 20px;
+  }
+  .text-mobile {
+    display: block;
+    margin-top: 60px;
+  }
+}
+
+@media screen and (max-width: 769px) {
+  .principal-01 {
+    min-height: 300px;
+  }
+  .nombre-producto {
+    font-size: 15px;
+  }
+  .precio-ahora {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .text-01 {
+    margin: 0 auto;
+    margin-top: 50px;
+  }
+  .nombre-producto {
+    width: 100%;
+  }
+  .precio-ahora {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .principal-01 {
+    min-height: 250px;
+    background-position: center -16px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .principal-01 {
+    min-height: 270px;
+    margin-top: 40px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .principal-01 {
+    min-height: 240px;
+    margin-top: 40px;
+  }
+}
