@@ -9,6 +9,7 @@ function saveShoppingCart(req, res) {
   shoppingCart.metodoEnvio = params.metodoEnvio;
   shoppingCart.tiendaRecoge = params.tiendaRecoge;
   shoppingCart.fechacreacion = new Date();
+  shoppingCart.precioNuevo = params.precioNuevo;
   shoppingCart.items = params.items;
 
   shoppingCart.save((err, shoppingCartStored) => {

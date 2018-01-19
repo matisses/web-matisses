@@ -19,10 +19,10 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-xs-12" *ngIf="!lastAddedItem.priceafterdiscount || lastAddedItem.priceafterdiscount === 0 || lastAddedItem.priceafterdiscount === lastAddedItem.pricebeforediscount">
+                    <div class="col-xs-12" *ngIf="!lastAddedItem.priceafterdiscount || lastAddedItem.priceafterdiscount === 0 || lastAddedItem.priceafterdiscount === lastAddedItem.pricebeforediscount || !carrito.validarItem(lastAddedItem.itemcode)">
                       <h4 class="precio-producto">$ {{lastAddedItem.priceaftervat | number}}</h4>
                     </div>
-                    <div class="col-xs-12" *ngIf="lastAddedItem.priceafterdiscount && lastAddedItem.priceafterdiscount > 0">
+                    <div class="col-xs-12" *ngIf="lastAddedItem.priceafterdiscount && lastAddedItem.priceafterdiscount > 0 && lastAddedItem.itemcode != '24400000000000000121'">
                       <h4 class="old-price">$ {{lastAddedItem.priceaftervat | number}}</h4>
                       <h3 class="percentage">-{{lastAddedItem.descuento | number}}%</h3>
                       <h3 class="new-price">$ {{lastAddedItem.priceafterdiscount | number}} <small>Iva incluido</small></h3>

@@ -30,10 +30,10 @@
             <div class="row" *ngIf="item != null && item.showprice === 'true' || item.showprice">
               <div class="col-xs-12 text-center">
                 <p class="medium nombre-producto">{{item.itemname}}</p>
-                <div class="precio-full" *ngIf="!item.priceafterdiscount || item.priceafterdiscount === 0 || item.priceafterdiscount === item.pricebeforediscount">
+                <div class="precio-full" *ngIf="!item.priceafterdiscount || item.priceafterdiscount === 0 || item.priceafterdiscount === item.pricebeforediscount || !carrito.validarItem(item.itemcode)">
                   <h4>$ {{item.priceaftervat | number:0}}</h4>
                 </div>
-                <div class="precio-discount" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0">
+                <div class="precio-discount" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0 && carrito.validarItem(item.itemcode)">
                   <h5>$ {{item.priceaftervat | number:0}}</h5>
                   <h4>$ {{item.priceafterdiscount | number:0}}</h4>
                 </div>
