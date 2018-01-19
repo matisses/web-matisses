@@ -180,6 +180,7 @@ export class CarritoSimpleComponent {
         if (this.validarItem(this.shoppingCart.items[i].itemcode) && this.shoppingCart.items[i].itemcode === '24400000000000000121') {
         } else if (this.validarItem(this.shoppingCart.items[i].itemcode) && this.shoppingCart.items[i].itemcode !== '24400000000000000121') {
         } else {
+          totalSinIVA += (this.shoppingCart.items[i].pricebeforevat ? this.shoppingCart.items[i].pricebeforevat : 0) * selectedQuantity;
           continue;
         }
         let valorIVA = this.shoppingCart.items[i].priceafterdiscount * this.shoppingCart.items[i].taxpercent / 100;
