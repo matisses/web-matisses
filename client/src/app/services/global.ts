@@ -1,5 +1,5 @@
 export let GLOBAL = {
-  url: 'https://api.matisses.co:3977/api/',
+  url: 'https://api.matisses.co:8081/api/',
   urlBCS: 'https://360.matisses.co:8443/BCS/res/',
   recaptchaSiteKey: '6LekJy0UAAAAANoeggt1-X3VqaROvs97RZI8g3Co',
   toMail: 'info@matisses.co',
