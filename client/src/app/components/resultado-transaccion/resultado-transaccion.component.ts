@@ -64,6 +64,7 @@ export class ResultadoTransacciComponent implements OnInit {
             metodoEnvio: response.shoppingCart[0].metodoEnvio,
             tiendaRecoge: response.shoppingCart[0].tiendaRecoge,
             idCarrito: idCarrito,
+            precioNuevo: response.shoppingCart[0].precioNuevo,
             items: response.shoppingCart[0].items
           }
 

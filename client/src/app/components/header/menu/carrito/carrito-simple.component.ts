@@ -92,6 +92,9 @@ export class CarritoSimpleComponent {
   }
 
   private cambiarItem(item: Item) {
+    console.log('Se recibion un item para cambiar');
+    console.log(item);
+
     //0. Cargar contenido de localStorage
     this.cargarCarrito();
     //1. validar contenido
@@ -129,6 +132,39 @@ export class CarritoSimpleComponent {
     }
   }
 
+  public validarItem(itemCode) {
+    if (itemCode === '24400000000000000121') {
+      let items = [
+        "20900000000000000049", "20900000000000000077", "20900000000000000081", "20900000000000000083",
+        "20900000000000000089", "20900000000000000091", "20900000000000000092", "20900000000000000099",
+        "20900000000000000101", "20900000000000000102", "20900000000000000103", "20900000000000000106",
+        "20900000000000000107", "20900000000000000108", "20900000000000000109", "20900000000000000110",
+        "21300000000000000033", "21300000000000000040", "21300000000000000041", "21300000000000000042",
+        "21300000000000000044", "21300000000000000046", "21300000000000000047", "21300000000000000048",
+        "21300000000000000050", "21300000000000000051", "21300000000000000054", "21300000000000000056",
+        "21300000000000000058", "21300000000000000059", "21300000000000000060", "21300000000000000061",
+        "21300000000000000062", "21300000000000000063", "21300000000000000065", "21300000000000000066",
+        "21300000000000000067", "21300000000000000068", "21300000000000000069"
+      ];
+      let itemDescuento = [
+        "24400000000000000121"
+      ];
+
+      let hayMueble = false;
+      for (let i = 0; i < this.shoppingCart.items.length; i++) {
+        for (let j = 0; j < items.length; j++) {
+          if (items[j] === this.shoppingCart.items[i].itemcode) {
+            hayMueble = true;
+          }
+        }
+      }
+
+      return hayMueble;
+    }
+
+    return true;
+  }
+
   private procesarCarrito() {
     this.totalItems = 0;
     this.totalCarrito = 0;
@@ -140,7 +176,9 @@ export class CarritoSimpleComponent {
       let price = this.shoppingCart.items[i].priceaftervat ? this.shoppingCart.items[i].priceaftervat : 0;
       this.totalItems += selectedQuantity;
       this.totalCarrito += (price * selectedQuantity);
-      if (this.shoppingCart.items[i].priceafterdiscount && this.shoppingCart.items[i].priceafterdiscount > 0) {
+      if ((this.shoppingCart.items[i].priceafterdiscount && this.shoppingCart.items[i].priceafterdiscount > 0)) {
+        if (this.validarItem(this.shoppingCart.items[i].itemcode) && this.shoppingCart.items[i].itemcode === '24400000000000000121') {
+        }
         let valorIVA = this.shoppingCart.items[i].priceafterdiscount * this.shoppingCart.items[i].taxpercent / 100;
         totalSinIVA += ((this.shoppingCart.items[i].priceafterdiscount - valorIVA) * selectedQuantity);
         this.totalDescuentos += ((this.shoppingCart.items[i].priceaftervat / 100) * this.shoppingCart.items[i].descuento) * selectedQuantity;

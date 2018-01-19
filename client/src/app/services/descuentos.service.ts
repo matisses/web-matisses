@@ -20,4 +20,13 @@ export class DescuentosService {
     return this._http.get(this.urlBCS + 'descuentos/consultaritemweb/' + itemcode, { headers: headers })
       .map(res => res.json());
   }
+
+  findDiscountChannel(itemcode, channel) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'descuentos/consultardescuento/' + itemcode + '/' + channel, { headers: headers })
+      .map(res => res.json());
+  }
 }
