@@ -12,17 +12,27 @@ declare var $: any;
 
 export class MiListaComponent implements OnInit {
   public nombreUsuario: string;
+  public claveNueva:string;
+  public claveConfirmacion:string;
+  public messageError: string;
 
   constructor(private _route: ActivatedRoute, private _router: Router) {
-    this.nombreUsuario = 'Alejandro Guerra';
+    this.nombreUsuario = localStorage.getItem('username-lista');
   }
 
   ngOnInit() {
-    $('#cambioContraseña').modal('show')
+    if(localStorage.getItem('cambio-clave')=='si'){
+      $('#cambioContraseña').modal('show');
+    }
   }
 
 
   ngAfterViewInit() {
+
+  }
+
+  public actualizarClave(){
+
 
   }
 

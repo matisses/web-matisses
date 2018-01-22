@@ -4,6 +4,13 @@
     <div class="modal-content">
       <div class="modal-body">
         <p>Por motivos de seguridad debes asignar una contraseña nueva para el ingreso a tu lista de regalos.</p>
+        <div class="row" *ngIf="messageError != null && messageError.length > 0">
+          <div class="col-xs-12">
+            <div class="alert alert-danger" role="alert">
+              <p>{{messageError}}</p>
+            </div>
+          </div>
+        </div>
         <div class="row">
           <div class="col-xs-4 col-xs-offset-4">
             <label class="label-lista" for="contraseña">Nueva contraseña</label>
@@ -27,6 +34,6 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 text-center">
-    <h1>Bienvenido A tu Lista {{nombreUsuario}}</h1></div>
+    <h1>Bienvenido a tu lista {{nombreUsuario}}</h1></div>
   </div>
 </div>
