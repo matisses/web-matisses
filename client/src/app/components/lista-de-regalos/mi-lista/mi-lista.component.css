@@ -1,34 +1,93 @@
-.form-lista-regalos {
-  display: block;
+.margin-top-scroll {
+  margin-top: 130px;
+}
+
+.producto {
+  border: 1px solid #FFF;
+  padding: 5px;
+}
+
+.producto:hover {
+  border: 1px solid #EDEDED;
+}
+
+.producto p {
+  margin-bottom: 0;
+}
+
+.producto .nombre {
+  height: 40px;
+}
+
+.producto .detalle {
+  font-style: italic;
+  cursor: pointer;
+}
+
+.producto .detalle:hover {
+  font-style: italic;
+  text-decoration: underline;
+}
+
+.jpg-responsive {
   width: 100%;
-  height: 27px;
-  padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.42857143;
+  height: 100%;
+}
+
+/* paginador */
+
+.pagination {
+  margin: 0;
+}
+
+.pagination li a {
+  color: #5B5B5B;
+  padding: 6px 8px;
+  border-color: transparent;
+}
+
+.pagination li a.active {
+  background-color: #eee;
+}
+
+.btn-matisses {
   color: #5B5B5B;
   background-color: #FFF;
-  background-image: none;
-  border: 1px solid #CECECE;
-  margin-bottom: 5px;
+  border-color: #EDEDED;
+  border-radius: 0;
 }
 
-.label-lista {
-  color: #5B5B5B;
-  font-weight: normal;
-  font-family: 'Quicksand', sans-serif;
+
+/* mostrar por */
+
+.mostrar:before {
+  content: "Mostrar";
+  margin: 0 5px;
+  display: inline-block;
+  border-right: 1px solid #626262;
+  padding: 0 10px;
 }
 
-.btn-buscar {
-  background-color: #F77E7E;
-  border: none;
-  padding: 10px 30px;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  color: #FFF;
-  margin-top: 13px;
+
+/* Order por */
+
+.ordenar:before {
+  content: "Ordenar";
+  margin: 0 5px;
+  display: inline-block;
+  border-right: 1px solid #626262;
+  padding: 0 10px;
 }
 
-.btn-buscar:hover {
-  background-color: #AB4646;
+@media screen and (max-width: 1200px) {
+  .pagination li a {
+    padding: 10px 7px;
+    font-size: 11px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .ordenar {
+    margin: 10px;
+  }
 }

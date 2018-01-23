@@ -1,3 +1,20 @@
+.publicidad {
+  background-color: #CECECE;
+  width: 100%;
+  max-height: 35px;
+  text-align: center;
+}
+
+.publicidad p {
+  margin: 0;
+  font-size: 15pt;
+  display: inline-block;
+}
+
+.publicidad .dos {
+  font-weight: bold;
+}
+
 .menu-lista {
   background-color: #FFF;
   margin-bottom: 30px;
