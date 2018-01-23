@@ -145,9 +145,11 @@
   }
   .nombre-producto {
     width: 100%;
+    text-align: center;
   }
   .precio-ahora {
     width: 100%;
+    text-align: center;
   }
 }
 
