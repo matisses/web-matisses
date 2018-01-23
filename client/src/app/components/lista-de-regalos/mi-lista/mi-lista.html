@@ -1,5 +1,5 @@
 <!-- Modal cambio de contraseña -->
-<div class="modal fade" id="cambioContraseña" tabindex="-1" role="dialog" aria-labelledby="cambioContraseñaLabel">
+<div class="modal fade" id="cambioContrasena" tabindex="-1" role="dialog" aria-labelledby="cambioContraseñaLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-body">
@@ -12,16 +12,19 @@
           </div>
         </div>
         <div class="row">
+          <form #ContactForm="ngForm" (submit)="actualizarClave()">
           <div class="col-xs-4 col-xs-offset-4">
             <label class="label-lista" for="contraseña">Nueva contraseña</label>
-            <input type="text" class="form-lista-regalos" id="contraseña">
+            <input type="text" class="form-lista-regalos" id="contraseña" name="claveNueva" [(ngModel)]="claveNueva" required>
             <label class="label-lista" for="confirmar-contraseña">Confirmar contraseña</label>
-            <input type="text" class="form-lista-regalos" id="confirmar-contraseña">
+            <input type="text" class="form-lista-regalos" id="confirmar-contraseña" name="claveConfirmacion" [(ngModel)]="claveConfirmacion" required>
           </div>
+          </form>
         </div>
+
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-buscar" data-dismiss="modal">Guardar</button>
+        <button type="button" class="btn btn-buscar"  (click)="actualizarClave()" *ngIf="successMessage == null || successMessage.length <= 0">Guardar</button>
       </div>
     </div>
   </div>

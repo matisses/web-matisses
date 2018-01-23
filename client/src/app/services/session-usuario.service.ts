@@ -23,5 +23,14 @@ export class SessionUsuarioService {
       .map(res => res.json());
   }
 
-  
+  updateUser(datosUsuario) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'sessionusuario/updatepass', JSON.stringify(datosUsuario), { headers: headers })
+      .map(res => res.json());
+  }
+
+
 }
