@@ -29,11 +29,64 @@
 
 <menu-lista></menu-lista>
 
-
-
 <div class="container">
   <div class="row">
+    <div class="col-xs-12 text-right">
+      <p>(Cerrar sesión)</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 text-left">
+      <p>Hola {{nombreUsuario}}</p>
+    </div>
+    <div class="col-xs-6">
+      <div class="row">
+        <div class="col-xs-4 text-center">
+          <p>Lista de regalos</p>
+        </div>
+        <div class="col-xs-4 text-center">
+          <p>Regalos recibidos</p>
+        </div>
+        <div class="col-xs-4 text-center">
+          <p>Lista de invitados</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 text-right">
+      <p>Codigo de novios: ########</p>
+    </div>
+    <div class="col-xs-6 text-left">
+      <p>Fecha celebracion</p>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-xs-12 text-center">
-    <h1>Bienvenido a tu lista {{nombreUsuario}}</h1></div>
+      <h1>MI LISTA E REGALOS</h1>
+      <p>Agrega, edita o elimina productos de tu lista de regalos</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-3 text-center">
+      <p><b>#</b></p>
+      <p>Regalos agregados</p>
+    </div>
+    <div class="col-xs-3">
+      <p class="cursor-pointer" [routerLink]="['/mi-lista/agregar-productos']">Agregar regalos</p>
+    </div>
+    <div class="col-xs-3">
+      <p class="cursor-pointer">compartir lista</p>
+    </div>
+    <div class="col-xs-3">
+      <input type="text" name="search" class="form-control" value="Busca productos en tu lista">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <h3>Aun no hay regalos en tu lista</h3>
+      <p><b>Elige lo mejor para tu hogar. Empieza a crear tu lista</b></p>
+      <span class="glyphicon glyphicon-plus cursor-pointer" [routerLink]="['/mi-lista/agregar-productos']"> Agregar regalos</span>
+    </div>
   </div>
 </div>
