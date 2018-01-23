@@ -20,6 +20,7 @@ export class ListaRegalosComponent implements OnInit {
   public valid: boolean = true;
   public token: string;
   public nombreSession: string;
+  public idUsuario: string;
   public cambioContrasena: string='no';
 
   constructor(private _route: ActivatedRoute, private _router: Router,private _userService: SessionUsuarioService, private _jwt: JWTService) {
@@ -36,6 +37,10 @@ export class ListaRegalosComponent implements OnInit {
   }
 
   public login() {
+    localStorage.removeItem('matisses.lista-token');
+    localStorage.removeItem('username-lista');
+    localStorage.removeItem('usuario-id');
+    localStorage.removeItem('cambio-clave');
     this.valid = true;
     this.messageError = '';
     if (this.nombreUsuario == null || this.nombreUsuario.length <= 0) {
@@ -53,27 +58,33 @@ export class ListaRegalosComponent implements OnInit {
     }
     this._userService.login(usuarioDTO).subscribe(
       response => {
-        console.log("retorno el usuario");
-        console.log(response);
+
+        if(response.codigo=='-1'){
+          this.messageError="Error de session,datos inválidos";
+          return;
+        }
         this.token=response.token;
+        this.idUsuario=response.usuarioId;
         this.nombreSession=response.nombre;
         if(response.esNuevo){
             this.cambioContrasena='si';
         }
 
-        console.log(this.token);
+
         this._jwt.validateToken(this.token).subscribe(
           response => {
-            console.log(response);
+
             localStorage.setItem('matisses.lista-token', this.token);
             localStorage.setItem('username-lista',this.nombreSession);
+            localStorage.setItem('usuario-id',this.idUsuario);
             localStorage.setItem('cambio-clave',this.cambioContrasena);
-            console.log(localStorage);
+
           }, error => {
             console.error(error);
             localStorage.removeItem('matisses.lista-token');
           }
         );
+          
         this._router.navigate(['/mi-lista']);
       },
       error => {
