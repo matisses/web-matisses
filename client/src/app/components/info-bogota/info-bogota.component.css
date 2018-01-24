@@ -1,0 +1,130 @@
+.stuck-body {
+  margin-top: 125px;
+  color: #5B5B5B;
+}
+
+.padding-0 {
+  padding-left: 0;
+  padding-right: 0;
+  overflow: hidden;
+}
+
+.grey-bg {
+  background-color: #EDEDED;
+  padding: 20px 0;
+}
+
+.portada {
+  background: url(../../../assets/images/comunicado.jpg) no-repeat center center;
+  background-attachment: relative;
+  background-position: center center;
+  min-height: 280px;
+  width: 100%;
+  -webkit-background-size: 100%;
+  -moz-background-size: 100%;
+  -o-background-size: 100%;
+  background-size: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.producto {
+  border: 1px solid #EDEDED;
+}
+
+.imagen img {
+  width: 100%;
+  height: 100%;
+}
+
+.padding-l-20 {
+  padding: 0 20px;
+}
+
+.separated::before {
+  content: '-';
+  color: transparent;
+  height: 410px;
+  width: 1px;
+  background-color: #D1D1D1;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.medellin {
+  background: url(../../../assets/images/medellin.jpg) no-repeat center top;
+  margin-top: 0px;
+  padding-top: 10px;
+  background-attachment: relative;
+  background-position: center top;
+  min-height: 300px;
+  width: 100%;
+  -webkit-background-size: 100%;
+  -moz-background-size: 100%;
+  -o-background-size: 100%;
+  background-size: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.mapa {
+  height: 300px;
+}
+
+.info {
+  margin-top: 15px;
+  color: #5B5B5B;
+}
+
+.info span {
+  color: #6D9197;
+  font-weight: bold;
+}
+
+.icon-clock::before {
+  color: #6D9791;
+}
+
+@media screen and (max-width: 1024px) {
+  .portada {
+    min-height: 350px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .stuck-body {
+    margin-top: 0px;
+  }
+  .padding-top {
+      padding-top: 50px;
+    }
+    .medellin, .bogota {
+      min-height: 400px;
+    }
+    .mapa {
+      height: 400px;
+    }
+    .separated::before {
+      content: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+  .portada {
+    min-height: 250px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .medellin, .bogota {
+    min-height: 200px;
+  }
+  .mapa {
+    height: 200px;
+  }
+}
