@@ -1,5 +1,175 @@
 <menu-lista></menu-lista>
 
 <div class="container">
-  <h1>Agregar productos</h1>
+  <div class="contenedor">
+    <div class="row">
+      <div class="col-xs-12 text-right">
+        <p>(Cerrar sesión)</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6 text-left">
+        <p>Hola {{nombreUsuario}}</p>
+      </div>
+      <div class="col-xs-6">
+        <div class="row">
+          <div class="col-xs-4 text-center">
+            <p>Lista de regalos</p>
+          </div>
+          <div class="col-xs-4 text-center">
+            <p>Regalos recibidos</p>
+          </div>
+          <div class="col-xs-4 text-center">
+            <p>Lista de invitados</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6 text-right">
+        <p>Codigo de novios: ########</p>
+      </div>
+      <div class="col-xs-6 text-left">
+        <p>Fecha celebracion</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+        <p>Logo agregar regalos</p>
+      </div>
+      <div class="col-xs-6">
+        <p>Volver a mi lista</p>
+        <input type="text" name="search-item" class="form-control" value="Buscar productos para gregar">
+      </div>
+    </div>
+    <!-- menu -->
+    <div class="row">
+      <div class="col-xs-12">
+        Aqui va el menu
+      </div>
+    </div>
+    <!-- parrilla y filtros -->
+    <div class="row">
+      <div class="col-xs-3">
+        filtros
+      </div>
+      <div class="col-xs-9">
+        <!-- botones como mostrar los productos -->
+        <div class="row">
+          <div class="col-md-4 text-center">
+            <div class="mostrar">
+              <div class="btn-group">
+                <button type="button" class="btn btn-matisses dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{itemsXPag}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a href="javascript:void(0);">12 x pag</a></li>
+                  <li><a href="javascript:void(0);">24 x pag</a></li>
+                  <li><a href="javascript:void(0);">36 x pag</a></li>
+                  <li><a href="javascript:void(0);">Todos</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 text-center">
+            <div class="ordenar">
+              <div class="btn-group">
+                <button type="button" class="btn btn-matisses dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span [innerHTML]="orderByStr">
+                        </span><span class="caret"></span>
+                    </button>
+                <ul class="dropdown-menu" aria-labelledby="ordenar">
+                  <li><a href="javascript:void(0);">Precio: más bajos primero</a></li>
+                  <li><a href="javascript:void(0);">Precio: más altos primero</a></li>
+                  <li><a href="javascript:void(0);">Nombre: de A a Z</a></li>
+                  <li><a href="javascript:void(0);">Nombre: de Z a A</a></li>
+                  <li><a href="javascript:void(0);">Similares</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 text-center">
+            <ul class="pagination">
+              <li>
+                <a href="javascript:void(0)" aria-label="Previous">
+                    <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
+                  </a>
+              </li>
+              <li><a href="javascript:void(0)" class="active">1</a></li>
+              <li><a href="javascript:void(0)">2</a></li>
+              <li><a href="javascript:void(0)">3</a></li>
+              <li>
+                <a href="javascript:void(0)" aria-label="Next">
+                    <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
+                  </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- Informacón productos para agregar -->
+        <div class="row" *ngIf="items && items.length > 0">
+          <div class="col-sm-4 col-xs-6 producto" *ngFor="let item of items; let i = index">
+            <img src="https://img.matisses.co/{{items[i].itemcode}}/parrilla/{{items[i].itemcode}}_01.jpg" class="jpg-responsive" alt="{{items[i].itemname}}">
+            <p class="nombre"><b>{{items[i].itemname}}</b></p>
+            <p class="referencia"><b>Ref:</b> {{items[i].shortitemcode}}</p>
+            <p class="precio"><b>$ {{items[i].priceaftervat | number}}</b></p>
+            <p class="cantidad">Cantidad: <b>#</b></p>
+            <p class="detalle">Ver Detalle</p>
+          </div>
+        </div>
+        <!-- botones como mostrar los productos -->
+        <div class="row">
+          <div class="col-md-4 text-center">
+            <div class="mostrar">
+              <div class="btn-group dropup">
+                <button type="button" class="btn btn-matisses dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{itemsXPag}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a href="javascript:void(0);">12 x pag</a></li>
+                  <li><a href="javascript:void(0);">24 x pag</a></li>
+                  <li><a href="javascript:void(0);">36 x pag</a></li>
+                  <li><a href="javascript:void(0);">Todos</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 text-center">
+            <div class="ordenar">
+              <div class="btn-group dropup">
+                <button type="button" class="btn btn-matisses dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span [innerHTML]="orderByStr">
+                        </span><span class="caret"></span>
+                    </button>
+                <ul class="dropdown-menu" aria-labelledby="ordenar">
+                  <li><a href="javascript:void(0);">Precio: más bajos primero</a></li>
+                  <li><a href="javascript:void(0);">Precio: más altos primero</a></li>
+                  <li><a href="javascript:void(0);">Nombre: de A a Z</a></li>
+                  <li><a href="javascript:void(0);">Nombre: de Z a A</a></li>
+                  <li><a href="javascript:void(0);">Similares</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 text-center">
+            <ul class="pagination">
+              <li>
+                <a href="javascript:void(0)" aria-label="Previous">
+                    <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
+                  </a>
+              </li>
+              <li><a href="javascript:void(0)" class="active">1</a></li>
+              <li><a href="javascript:void(0)">2</a></li>
+              <li><a href="javascript:void(0)">3</a></li>
+              <li>
+                <a href="javascript:void(0)" aria-label="Next">
+                    <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
+                  </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
