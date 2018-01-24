@@ -3,6 +3,27 @@
   color: #5B5B5B;
 }
 
+.show {
+  display: none !important;
+}
+
+.leer-mas {
+  position: fixed;
+  left: 40%;
+  background-color: #444243;
+  color: #FFF;
+  padding: 5px 20px;
+  border-radius: 5px 5px 0 0;
+  bottom: 0;
+  z-index: 500;
+  display: block;
+  text-align: center;
+}
+
+.leer-mas p {
+  margin: 0;
+}
+
 .padding-0 {
   padding-left: 0;
   padding-right: 0;
@@ -120,20 +141,20 @@
     margin-top: 0px;
   }
   .padding-top {
-      padding-top: 50px;
-    }
-    .medellin, .bogota {
-      min-height: 400px;
-    }
-    .mapa {
-      height: 400px;
-    }
-    .separated::before {
-      content: none;
-    }
-    .tendencia-01 {
-      min-height: 300px;
-    }
+    padding-top: 50px;
+  }
+  .medellin, .bogota {
+    min-height: 400px;
+  }
+  .mapa {
+    height: 400px;
+  }
+  .separated::before {
+    content: none;
+  }
+  .tendencia-01 {
+    min-height: 300px;
+  }
 }
 
 @media screen and (max-width: 768px) {

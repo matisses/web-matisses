@@ -17,6 +17,17 @@ export class InfoBogotaComponent implements OnInit {
   }
 
   ngOnInit() {
+    $(window).scroll(function() {
+      var scroll = $(window).scrollTop();
+      if (scroll > 1) {
+        $(".leer-mas").addClass("show");
+      } else {
+        $(".leer-mas").removeClass("show")
+      }
+    });
 
+    $(".leer-mas").click(function() {
+      $("html, body").animate({scrollTop: 900}, 500);
+    });
   }
 }
