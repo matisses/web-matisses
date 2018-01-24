@@ -90,6 +90,25 @@
   color: #6D9791;
 }
 
+.tendencia-01 {
+  background: url(../../../assets/images/tendencias/tendencias-011.jpg) no-repeat center top;
+  margin-top: 0px;
+  padding-top: 10px;
+  background-attachment: relative;
+  background-position: center center;
+  min-height: 480px;
+  width: 100%;
+  -webkit-background-size: 100%;
+  -moz-background-size: 100%;
+  -o-background-size: 100%;
+  background-size: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  /* background-size: cover; */
+  cursor: pointer;
+}
+
 @media screen and (max-width: 1024px) {
   .portada {
     min-height: 350px;
@@ -112,11 +131,17 @@
     .separated::before {
       content: none;
     }
+    .tendencia-01 {
+      min-height: 300px;
+    }
 }
 
 @media screen and (max-width: 768px) {
   .portada {
     min-height: 250px;
+  }
+  .tendencia-01 {
+    background-position: center;
   }
 }
 
@@ -126,5 +151,8 @@
   }
   .mapa {
     height: 200px;
+  }
+  .tendencia-01 {
+    min-height: 250px;
   }
 }
