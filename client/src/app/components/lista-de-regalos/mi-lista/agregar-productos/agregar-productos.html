@@ -43,17 +43,184 @@
       </div>
     </div>
     <!-- menu -->
-    <div class="row">
+    <div class="row hidden-xs">
       <div class="col-xs-12">
-        Aqui va el menu
+        <div class="menu-productos">
+          <ul>
+            <li class="active">Mobiliario</li>
+            <li class="">Bar y mesa</li>
+            <li class="">Cocina</li>
+            <li class="">Accesorios</li>
+            <li class="">Fragancias y velas</li>
+            <li class="">Gadgets</li>
+            <li class="">Iluminacion</li>
+            <li class="">Libros</li>
+          </ul>
+        </div>
       </div>
     </div>
     <!-- parrilla y filtros -->
     <div class="row">
-      <div class="col-xs-3">
-        filtros
+      <div class="col-md-3">
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+          <div class="panel panel-default">
+            <!-- boton abrir filtros -->
+            <a data-parent="#accordion" (click)="showFiltros()">
+              <div class="panel-heading visible-sm visible-xs" role="tab" id="headingOne">
+                <h4 class="panel-title text-center" *ngIf="mostrarFiltros">
+                    Ocultar filtros
+                  </h4>
+                <h4 class="panel-title text-center" *ngIf="!mostrarFiltros">
+                    Mostrar filtros
+                  </h4>
+              </div>
+            </a>
+            <!-- body filtros -->
+            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" [ngClass]="{'in' : mostrarFiltros}">
+              <div class="panel-body">
+                <div>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div class="title">
+                        <p>Filtros seleccionados</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div class="tags-filtros">
+                        <span class="active-filter">
+                          filtro[1]
+                          <span class="active-filter-delete icon-close"></span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="filtros">
+                  <!-- categorias -->
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div class="filter-collapse" (click)="toggleClass('#group')" data-toggle="collapse" href="#collapseGroups" aria-expanded="false" aria-controls="collapseGroups">
+                        <p>Categorías <span id="group" class="icon-plus pull-right"></span></p>
+                      </div>
+                      <div class="collapse" id="collapseGroups">
+                        <ul>
+                          <div>
+                            <li class="filter-option" (click)="scrollAfterFiter()">
+                              <span>menuItem.name</span>
+                            </li>
+                          </div>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- subcategorias -->
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div class="filter-collapse" (click)="toggleClass('#subgroup')" data-toggle="collapse" href="#collapseSubgroups" aria-expanded="false" aria-controls="collapseSubgroups">
+                        <p>subcategorías <span id="subgroup" class="icon-plus pull-right"></span></p>
+                      </div>
+                      <div class="collapse" id="collapseSubgroups">
+                        <ul>
+                          <li class="filter-option" (click)="scrollAfterFiter()">
+                            <span>menuItem.name</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- marca -->
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div class="filter-collapse" (click)="toggleClass('#marca')" data-toggle="collapse" href="#collapseMarca" aria-expanded="false" aria-controls="collapseMarca">
+                        <p>Marca <span id="marca" class="icon-plus pull-right"></span></p>
+                      </div>
+                      <div class="collapse" id="collapseMarca">
+                        <ul>
+                          <li class="filter-option" (click)="scrollAfterFiter()">
+                            <span>marcaItem.name</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Precio -->
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div class="filter-collapse" (click)="toggleClass('#precio')" data-toggle="collapse" href="#collapsePrecio" aria-expanded="false" aria-controls="collapsePrecio">
+                        <p>Precio <span id="precio" class="icon-plus pull-right"></span></p>
+                      </div>
+                      <div class="collapse" id="collapsePrecio">
+                        <div class="filtro-precio">
+                          <div class="row">
+                            <form>
+                              <div class="col-xs-6">
+                                <p>Desde</p>
+                                <input type="tel" class="desde" name="minPrice">
+                              </div>
+                              <div class="col-xs-6">
+                                <p>Hasta</p>
+                                <input type="tel" class="hasta" name="maxPrice">
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- colores -->
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div class="filter-collapse" (click)="toggleClass('#colores')" data-toggle="collapse" href="#collapseColor" aria-expanded="false" aria-controls="collapseColor">
+                        <p>Colores <span id="colores" class="icon-plus pull-right"></span></p>
+                      </div>
+                      <div class="collapse" id="collapseColor">
+                        <ul>
+                          <li class="filter-option filtro-color" (click)="scrollAfterFiter()">
+                            <span>colorItem.name</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- materiales -->
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div class="filter-collapse" (click)="toggleClass('#materiales')" data-toggle="collapse" href="#collapseMateriales" aria-expanded="false" aria-controls="collapseMateriales">
+                        <p>Materiales <span id="materiales" class="icon-plus pull-right"></span></p>
+                      </div>
+                      <div class="collapse" id="collapseMateriales">
+                        <ul>
+                          <li class="filter-option" (click)="scrollAfterFiter()">
+                            <span>materialesItem.name</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- colecciones -->
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div class="filter-collapse" (click)="toggleClass('#colecciones')" data-toggle="collapse" href="#collapseColecciones" aria-expanded="false" aria-controls="collapseColecciones">
+                        <p>Colecciones <span id="colecciones" class="icon-plus pull-right"></span></p>
+                      </div>
+                      <div class="collapse" id="collapseColecciones">
+                        <ul>
+                          <li class="filter-option" (click)="scrollAfterFiter()">
+                            <span>coleccion</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col-xs-9">
+      <div class="col-md-9">
         <!-- botones como mostrar los productos -->
         <div class="row">
           <div class="col-md-4 text-center">
@@ -110,11 +277,30 @@
         <div class="row" *ngIf="items && items.length > 0">
           <div class="col-sm-4 col-xs-6 producto" *ngFor="let item of items; let i = index">
             <img src="https://img.matisses.co/{{items[i].itemcode}}/parrilla/{{items[i].itemcode}}_01.jpg" class="jpg-responsive" alt="{{items[i].itemname}}">
-            <p class="nombre"><b>{{items[i].itemname}}</b></p>
-            <p class="referencia"><b>Ref:</b> {{items[i].shortitemcode}}</p>
+            <p class="nombre">{{items[i].itemname}}</p>
             <p class="precio"><b>$ {{items[i].priceaftervat | number}}</b></p>
-            <p class="cantidad">Cantidad: <b>#</b></p>
-            <p class="detalle">Ver Detalle</p>
+            <div class="botones">
+              <div class="col-xs-12 text-center">
+                <div class="btn-group" role="group">
+                  <div class="cantidad">
+                    <form>
+                      <div class="input-group">
+                        <span class="input-group-addon span-cantidad">
+                          <button type="button" class="icon-minus btn-cantidad" name="button"></button>
+                        </span>
+                        <input class="input-cantidad form-control" type="tel" name="selectedQuantity" min="1" max="" />
+                        <span class="input-group-addon span-cantidad">
+                          <button type="button" class="icon-plus btn-cantidad" name="button"></button>
+                        </span>
+                      </div>
+                    </form>
+                  </div>
+                  <button type="button" class="btn btn-carrito">
+                    AGREGAR REGALO
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <!-- botones como mostrar los productos -->

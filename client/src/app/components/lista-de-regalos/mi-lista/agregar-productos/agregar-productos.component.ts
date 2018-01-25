@@ -15,6 +15,8 @@ declare var $: any;
 
 export class AgregarProductosComponent implements OnInit {
   public items: Array<Item>;
+  public mostrarFiltros: boolean = true;
+  private viewportWidth: number = 0;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService) {
 
@@ -27,6 +29,8 @@ export class AgregarProductosComponent implements OnInit {
 
   ngAfterViewInit() {
 
+    this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+
     $(window).scroll(function() {
       var scroll = $(window).scrollTop();
       if (scroll >= 30) {
@@ -36,6 +40,27 @@ export class AgregarProductosComponent implements OnInit {
         $(".contenedor").removeClass("margin-top-scroll")
       }
     });
+  }
+
+  public showFiltros() {
+    if (this.mostrarFiltros) {
+      this.mostrarFiltros = false;
+    } else {
+      this.mostrarFiltros = true;
+    }
+  }
+
+  public toggleClass(idComponent) {
+    $(idComponent).toggleClass("icon-plus icon-minus");
+  }
+
+  private scrollAfterFiter() {
+    if (this.viewportWidth <= 768) {
+      $("html, body").animate({ scrollTop: 400 }, 1000);
+      this.showFiltros();
+    } else {
+      console.log('no hay que hacer scroll')
+    }
   }
 
   private inicializarItems() {

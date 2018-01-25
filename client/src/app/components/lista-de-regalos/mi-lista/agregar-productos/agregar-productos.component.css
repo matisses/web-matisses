@@ -2,9 +2,35 @@
   margin-top: 130px;
 }
 
+
+/* menu */
+
+.menu-productos {
+  background-color: #EDEDED;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.menu-productos li {
+  display: inline-block !important;
+  margin: 0 15px;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+}
+
+.menu-productos li:hover {
+  border-bottom: 2px solid #5B5B5B;
+}
+
+.menu-productos .active {
+  border-bottom: 2px solid #5B5B5B;
+}
+
 .producto {
   border: 1px solid #FFF;
   padding: 5px;
+  text-align: center;
 }
 
 .producto:hover {
@@ -33,6 +59,7 @@
   width: 100%;
   height: 100%;
 }
+
 
 /* paginador */
 
@@ -79,6 +106,228 @@
   padding: 0 10px;
 }
 
+
+/* Estilos de los filtros  */
+
+.panel {
+  box-shadow: none;
+}
+
+.panel-default {
+  border-color: #FFF;
+}
+
+.panel-heading {
+  color: #5B5B5B;
+  background-color: #FFF;
+  width: 50%;
+  margin-left: 25%;
+  border: 1px solid #EDEDED;
+  margin-bottom: 10px;
+  padding: 5px 0;
+}
+
+.cerrar-filtros {
+  background-color: #EDEDED;
+}
+
+.panel-heading a {
+  text-decoration: none;
+}
+
+.panel-group .panel-heading+.panel-collapse>.list-group, .panel-group .panel-heading+.panel-collapse>.panel-body {
+  border-top: 1px solid #FFF;
+}
+
+.panel-body {
+  padding: 0px;
+}
+
+.panel-collapse hr {
+  border-top: 1px dotted #EDEDED;
+}
+
+
+/*  Estilos de los filtros */
+
+.title {
+  text-transform: uppercase;
+  border-bottom: 1px solid #7C7C7C;
+  padding-left: 10px;
+}
+
+.title p, .filter-collapse p {
+  margin-bottom: 0;
+}
+
+.bolder {
+  font-weight: bolder !important;
+}
+
+ul {
+  list-style: none;
+  padding: 5px;
+  margin-top: 5px;
+}
+
+ul label {
+  font-weight: normal;
+  margin-left: 10px;
+}
+
+.main {
+  font-size: 120%;
+  color: red;
+}
+
+.btn-mostrar-filtros {
+  border: 1px solid #7C7C7C;
+  padding: 5px 0px;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.btn-mostrar-filtros:hover {
+  background-color: #ECECEC;
+}
+
+.filtros-cerrados {
+  height: 200px;
+  overflow: hidden;
+  transition: 1s;
+}
+
+.filtros-abiertos {
+  height: 400px;
+  overflow: hidden;
+  transition: 1s;
+}
+
+.filter-collapse {
+  text-transform: uppercase;
+  border-top: 1px solid #7C7C7C;
+  padding: 5px 5px 5px 10px;
+  cursor: pointer;
+}
+
+.filter-collapse span {
+  font-size: 10px;
+  margin: 5px 0;
+  font-weight: bolder;
+}
+
+.color-preview {
+  opacity: 0.8;
+  float: right;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+}
+
+.tags-filtros {
+  padding: 10px;
+}
+
+.active-filter {
+  margin: 0px 5px 5px 0px;
+  padding: 2px 5px;
+  border: 1px solid #D1D1D1;
+  display: inline-block;
+  font-size: 12px;
+}
+
+.active-filter:hover {
+  cursor: pointer;
+  background-color: #EDEDED;
+}
+
+li.filter-option {
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+li.filter-option:hover {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#collapseColor {
+  text-transform: lowercase;
+}
+
+.filtro-precio {
+  margin-top: 10px;
+  margin-bottom: 15px;
+  padding: 0 10px;
+}
+
+.filtro-precio p {
+  margin-bottom: 0;
+}
+
+.desde, .hasta {
+  width: 100%;
+  padding: 5px 15px;
+  margin-top: 5px;
+}
+
+
+/* botones agregar */
+
+.input-cantidad {
+  border-radius: 0;
+  border-color: #D1D1D1;
+  text-align: center;
+  z-index: 0;
+  padding: 0;
+  height: 36px;
+}
+
+.span-cantidad {
+  padding: 0px;
+  border-radius: 0;
+  background-color: transparent;
+}
+
+.span-cantidad:hover {
+  background-color: #ECECEC;
+}
+
+.btn-cantidad {
+  font-size: 10px;
+  background-color: transparent;
+  border: none;
+  color: #5b5b5b;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 0;
+}
+
+.btn-carrito, .btn-like {
+  font-size: 12px;
+  padding: 10px;
+  border-radius: 0;
+}
+
+.btn-like {
+  background-color: #EDEDED;
+  color: #E07D7D;
+  font-size: 20px;
+  padding: 4px 5px;
+}
+
+.btn-carrito {
+  border: 1px solid rgb(230, 230, 230);
+  background-color: transparent;
+  margin-left: 5px !important;
+}
+
+.btn-carrito:hover {
+  background-color: #DB7D7D;
+  color: #FFF;
+}
+
 @media screen and (max-width: 1200px) {
   .pagination li a {
     padding: 10px 7px;
@@ -89,5 +338,17 @@
 @media screen and (max-width: 991px) {
   .ordenar {
     margin: 10px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .menu-productos li {
+    margin: 0 5px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .producto .nombre {
+    height: 60px;
   }
 }
