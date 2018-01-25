@@ -50,5 +50,14 @@ export class ListaRegalosService {
       .map(res => res.json());
   }
 
+  eliminarProducto(itemcode, idLista) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'listaregalos/eliminaritemlista/' + idLista + '/' + itemcode, { headers: headers })
+      .map(res => res.json());
+  }
+
 
 }

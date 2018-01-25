@@ -59,10 +59,10 @@
     </div>
     <div class="row">
       <div class="col-xs-6 text-right">
-        <p>Codigo de novios: ########</p>
+        <p>Codigo de novios: {{codigoLista}}</p>
       </div>
       <div class="col-xs-6 text-left">
-        <p>Fecha celebracion</p>
+        <p>Fecha celebracion {{fechaEvento}}</p>
       </div>
     </div>
     <div class="row">
@@ -83,11 +83,14 @@
         <p class="cursor-pointer">compartir lista</p>
       </div>
       <div class="col-xs-3">
-        <input type="text" name="search" class="form-control" value="Busca productos en tu lista">
+        <form (submit)="search()">
+          <input id="searchField" [(ngModel)]="keywords" name="keywords" type="text" class="search-bar" placeholder="Busca productos en tu lista">
+        </form>
+        <!--<input type="text" name="search" class="form-control" value="Busca productos en tu lista">-->
       </div>
     </div>
     <!-- Informacion cuando no hay prodcutos -->
-    <div class="row">
+    <div class="row" *ngIf="items && items.length <=0">
       <div class="col-xs-12 text-center">
         <h3>Aun no hay regalos en tu lista</h3>
         <p><b>Elige lo mejor para tu hogar. Empieza a crear tu lista</b></p>
@@ -103,10 +106,10 @@
                 {{itemsXPag}} <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-              <li><a href="javascript:void(0);">12 x pag</a></li>
-              <li><a href="javascript:void(0);">24 x pag</a></li>
-              <li><a href="javascript:void(0);">36 x pag</a></li>
-              <li><a href="javascript:void(0);">Todos</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(12)">12 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(24)">24 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(36)">36 x pag</a></li>
+              <li *ngIf="totalItems < 100"><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
             </ul>
           </div>
         </div>
@@ -118,27 +121,25 @@
                     <span [innerHTML]="orderByStr">
                     </span><span class="caret"></span>
                 </button>
-            <ul class="dropdown-menu" aria-labelledby="ordenar">
-              <li><a href="javascript:void(0);">Precio: más bajos primero</a></li>
-              <li><a href="javascript:void(0);">Precio: más altos primero</a></li>
-              <li><a href="javascript:void(0);">Nombre: de A a Z</a></li>
-              <li><a href="javascript:void(0);">Nombre: de Z a A</a></li>
-              <li><a href="javascript:void(0);">Similares</a></li>
-            </ul>
+                <ul class="dropdown-menu" aria-labelledby="ordenar">
+                  <li><a href="javascript:void(0);" (click)="changeOrder('price')">Precio: más bajos primero</a></li>
+                  <li><a href="javascript:void(0);" (click)="changeOrder('-price')">Precio: más altos primero</a></li>
+                  <li><a href="javascript:void(0);" (click)="changeOrder('itemname')">Nombre: de A a Z</a></li>
+                  <li><a href="javascript:void(0);" (click)="changeOrder('-itemname')">Nombre: de Z a A</a></li>
+                  <li><a href="javascript:void(0);" (click)="changeOrder('model')">Similares</a></li>
+                </ul>
           </div>
         </div>
       </div>
-      <div class="col-md-4 text-center">
+      <div class="col-md-4 text-center" *ngIf="pages.length > 1">
         <ul class="pagination">
-          <li>
+          <li (click)="irAPagina(activePage - 1)">
             <a href="javascript:void(0)" aria-label="Previous">
                 <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
               </a>
           </li>
-          <li><a href="javascript:void(0)" class="active">1</a></li>
-          <li><a href="javascript:void(0)">2</a></li>
-          <li><a href="javascript:void(0)">3</a></li>
-          <li>
+          <li><a href="javascript:void(0)" *ngFor="let page of pages" (click)="irAPagina(page)" [class.active]="page == activePage">{{page}}</a></li>
+          <li (click)="irAPagina(activePage + 1)">
             <a href="javascript:void(0)" aria-label="Next">
                 <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
               </a>
@@ -155,10 +156,11 @@
         <p class="precio"><b>$ {{items[i].priceaftervat | number}}</b></p>
         <p class="cantidad">Cantidad: <b>#</b></p>
         <p class="detalle">Ver Detalle</p>
+          <button type="button" class="btn btn-default"  (click)=eliminarProducto(items[i].shortitemcode)>Eliminar</button>
       </div>
     </div>
     <!-- botones como mostrar los productos -->
-    <div class="row">
+    <div class="row" *ngIf="items.length > 0">
       <div class="col-md-4 text-center">
         <div class="mostrar">
           <div class="btn-group dropup">
@@ -166,10 +168,10 @@
                 {{itemsXPag}} <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-              <li><a href="javascript:void(0);">12 x pag</a></li>
-              <li><a href="javascript:void(0);">24 x pag</a></li>
-              <li><a href="javascript:void(0);">36 x pag</a></li>
-              <li><a href="javascript:void(0);">Todos</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(12)">12 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(24)">24 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(36)">36 x pag</a></li>
+              <li *ngIf="totalItems < 100"><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
             </ul>
           </div>
         </div>
@@ -181,27 +183,25 @@
                     <span [innerHTML]="orderByStr">
                     </span><span class="caret"></span>
                 </button>
-            <ul class="dropdown-menu" aria-labelledby="ordenar">
-              <li><a href="javascript:void(0);">Precio: más bajos primero</a></li>
-              <li><a href="javascript:void(0);">Precio: más altos primero</a></li>
-              <li><a href="javascript:void(0);">Nombre: de A a Z</a></li>
-              <li><a href="javascript:void(0);">Nombre: de Z a A</a></li>
-              <li><a href="javascript:void(0);">Similares</a></li>
-            </ul>
+                <ul class="dropdown-menu" aria-labelledby="ordenar">
+                  <li><a href="javascript:void(0);" (click)="changeOrder('price')">Precio: más bajos primero</a></li>
+                  <li><a href="javascript:void(0);" (click)="changeOrder('-price')">Precio: más altos primero</a></li>
+                  <li><a href="javascript:void(0);" (click)="changeOrder('itemname')">Nombre: de A a Z</a></li>
+                  <li><a href="javascript:void(0);" (click)="changeOrder('-itemname')">Nombre: de Z a A</a></li>
+                  <li><a href="javascript:void(0);" (click)="changeOrder('model')">Similares</a></li>
+                </ul>
           </div>
         </div>
       </div>
-      <div class="col-md-4 text-center">
+      <div class="col-md-4 text-center" *ngIf="pages.length > 1">
         <ul class="pagination">
-          <li>
+          <li (click)="irAPagina(activePage - 1)">
             <a href="javascript:void(0)" aria-label="Previous">
                 <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
               </a>
           </li>
-          <li><a href="javascript:void(0)" class="active">1</a></li>
-          <li><a href="javascript:void(0)">2</a></li>
-          <li><a href="javascript:void(0)">3</a></li>
-          <li>
+          <li><a href="javascript:void(0)" *ngFor="let page of pages" (click)="irAPagina(page)" [class.active]="page == activePage">{{page}}</a></li>
+          <li (click)="irAPagina(activePage + 1)">
             <a href="javascript:void(0)" aria-label="Next">
                 <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
               </a>
