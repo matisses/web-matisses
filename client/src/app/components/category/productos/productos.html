@@ -71,7 +71,7 @@
       <div class="row" *ngIf="item.showprice === 'true' || item.showprice">
         <div class="col-xs-12 text-center">
           <p class="medium nombre-producto">{{item.itemname}}</p>
-          <div class="precio-full" *ngIf="!item.priceafterdiscount || item.priceafterdiscount === 0 || item.priceafterdiscount === item.pricebeforediscount || !carrito.validarItem(item.itemcode) || item.itemcode != '24400000000000000121'">
+          <div class="precio-full" *ngIf="!item.priceafterdiscount || item.priceafterdiscount === 0 || item.priceafterdiscount === item.pricebeforediscount || (!carrito.validarItem(item.itemcode) && item.itemcode === '24400000000000000121')">
             <h4>$ {{item.priceaftervat | number:0}}</h4>
           </div>
           <div class="precio-discount" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0 && item.itemcode != '24400000000000000121'">
