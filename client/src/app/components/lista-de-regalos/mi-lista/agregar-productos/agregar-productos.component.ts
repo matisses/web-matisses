@@ -85,61 +85,10 @@ export class AgregarProductosComponent implements OnInit {
     }
   }
 
-  private inicializarItems() {
-
-    this.items = new Array<Item>();
-
-    this._itemService.find('2280058').subscribe( // Item 1
-      response => {
-        this.items.push(response.result[0]);
-        this._itemService.find('2240080').subscribe( // Item 1
-          response => {
-            this.items.push(response.result[0]);
-            this._itemService.find('2090109').subscribe( // Item 1
-              response => {
-                this.items.push(response.result[0]);
-                this._itemService.find('2230002').subscribe( // Item 1
-                  response => {
-                    this.items.push(response.result[0]);
-                    this._itemService.find('2090108').subscribe( // Item 1
-                      response => {
-                        this.items.push(response.result[0]);
-                        this._itemService.find('2410024').subscribe( // Item 1
-                          response => {
-                            this.items.push(response.result[0]);
-                            this._itemService.find('2310428').subscribe( // Item 1
-                              response => {
-                                this.items.push(response.result[0]);
-                                this._itemService.find('2310429').subscribe( // Item 1
-                                  response => {
-                                    this.items.push(response.result[0]);
-
-                                  }, error => { console.error(); }
-                                );
-                              }, error => { console.error(); }
-                            );
-                          }, error => { console.error(); }
-                        );
-                      }, error => { console.error(); }
-                    );
-                  }, error => { console.error(); }
-                );
-              }, error => { console.error(); }
-            );
-          }, error => { console.error(); }
-        );
-      }, error => { console.error(); }
-    );
-  }
-
-
-
   public irAPagina(pagina) {
     this.queryParams.set('page', pagina);
     this.navigate();
   }
-
-
 
   public changeOrder(orderkey) {
     this.queryParams.set('orderBy', orderkey);
@@ -429,8 +378,6 @@ export class AgregarProductosComponent implements OnInit {
     }
   }
 
-
-
   public toggleSelection(tipoFiltro: string, codigo: string) {
     if (tipoFiltro.endsWith('Price')) {
       if (!codigo || codigo == null || codigo.length === 0) {
@@ -465,12 +412,7 @@ export class AgregarProductosComponent implements OnInit {
     $(idComponent).toggleClass("icon-plus icon-minus");
   }
 
-
-
   public showCategoryOption(menuItem) {
     return !this.queryParams.has('group') || this.queryParams.get('group').split(',').indexOf(menuItem.code) == -1;
   }
-
-
-
 }
