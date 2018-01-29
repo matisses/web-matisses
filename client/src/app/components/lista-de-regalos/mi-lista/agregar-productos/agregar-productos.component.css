@@ -275,52 +275,18 @@ li.filter-option:hover {
 
 /* botones agregar */
 
-.input-cantidad {
-  border-radius: 0;
-  border-color: #D1D1D1;
-  text-align: center;
-  z-index: 0;
-  padding: 0;
-  height: 36px;
-}
-
-.span-cantidad {
-  padding: 0px;
-  border-radius: 0;
-  background-color: transparent;
-}
-
-.span-cantidad:hover {
-  background-color: #ECECEC;
-}
-
-.btn-cantidad {
-  font-size: 10px;
-  background-color: transparent;
-  border: none;
-  color: #5b5b5b;
-  font-weight: bold;
-  padding: 5px;
-  border-radius: 0;
-}
-
-.btn-carrito, .btn-like {
-  font-size: 12px;
-  padding: 10px;
-  border-radius: 0;
-}
-
-.btn-like {
-  background-color: #EDEDED;
-  color: #E07D7D;
+.icon-regalo_1::before {
   font-size: 20px;
-  padding: 4px 5px;
 }
 
 .btn-carrito {
+  font-size: 12px;
+  padding: 10px 40px;
+  border-radius: 0;
   border: 1px solid rgb(230, 230, 230);
   background-color: transparent;
   margin-left: 5px !important;
+  margin-top: 10px;
 }
 
 .btn-carrito:hover {

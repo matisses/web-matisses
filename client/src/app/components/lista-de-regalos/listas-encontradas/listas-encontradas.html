@@ -1,0 +1,72 @@
+<menu-lista></menu-lista>
+
+<div class="container">
+  <div class="contenedor">
+    <!-- Campos para nueva lista -->
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <hr class="linea-top">
+        <p>Resultado de búsqueda</p>
+      </div>
+    </div>
+    <div class="row text-center">
+      <div class="buscar-lista">
+        <div class="col-sm-3" *ngIf="mostrarFiltros">
+          <h4>Busca una lista</h4>
+        </div>
+        <div class="col-sm-3" *ngIf="!mostrarFiltros">
+          <h4 role="button" (click)="showFiltros()">Busca una lista <span class="glyphicon glyphicon-chevron-down"></span></h4>
+        </div>
+        <div class="collapse" id="collapseExample" [ngClass]="{'in' : mostrarFiltros}">
+          <div class="col-sm-2 text-left">
+            <label style="display: block" for="nombre">Nombre</label>
+            <input style="display: block" id="nombre" type="text">
+          </div>
+          <div class="col-sm-2 text-left">
+            <label style="display: block" for="apellido">Apellido</label>
+            <input style="display: block" id="apellido" type="text">
+          </div>
+          <div class="col-sm-2 text-left">
+            <label style="display: block" for="codigo">Código</label>
+            <input style="display: block" id="codigo" type="text">
+          </div>
+          <div class="col-sm-3">
+            <button class="btn btn-listas">Buscar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <!-- Tabla con listas encontradas -->
+    <div class="row">
+      <div class="row">
+        <div class="col-xs-12 text-center">
+          <hr class="linea-bottom">
+          <p>Se encontraron # resultados</p>
+        </div>
+      </div>
+      <div class="col-xs-12">
+        <table class="table table-striped table-hover table-listas">
+          <thead>
+            <tr class="table-title">
+              <th>Código</th>
+              <th>Novios</th>
+              <th class="hidden-xs">Fecha de boda</th>
+              <th class="hidden-xs">Lista de regalos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let novios of pruebaListas">
+              <th scope="row">{{novios.codigo}}</th>
+              <td>{{novios.novios}}</td>
+              <td class="hidden-xs">{{novios.fecha}}</td>
+              <td class="hidden-xs">
+                <button class="btn btn-listas">Ver lista</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
