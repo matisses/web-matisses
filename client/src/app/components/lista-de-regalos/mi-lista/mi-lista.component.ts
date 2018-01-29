@@ -39,6 +39,12 @@ export class MiListaComponent implements OnInit {
   private idListaUsuario: string;
   private codigoLista: string;
   private fechaEvento:string;
+  private paramsConsulta: any;
+  private itemsListaBcs:Array<any>;
+  private totalLista:number;
+
+
+
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista= localStorage.getItem('codigo-lista');
@@ -49,29 +55,65 @@ export class MiListaComponent implements OnInit {
     this.orderByStr = 'Similares';
     this.pages = new Array<number>();
     this.items = new Array<Item>();
+    this.itemsListaBcs=new Array<any>();
+    //this.inicializarParamsConsulta();
+    //this.inicializarListaBcs();
   }
 
+  private inicializarParamsConsulta() {
+    this.paramsConsulta = {
+    idLista:localStorage.getItem('id-lista'),
+    pagina:'1',
+    registrosPagina:'12',
+    orderBy:'referencia asc',
+    sortOrder:''
+    };
+  }
+
+  // private inicializarListaBcs() {
+  //   this.itemsListaBcs = {
+  //     idLista: '',
+  //       idProductoLista:'',
+  //       cantidadSeleccionadaFactura: null,
+  //       cantidadElegida: null,
+  //       cantidadComprada: null,
+  //       cantidadEntregada: null,
+  //       referencia: '',
+  //       descripcionProducto:'',
+  //       mensajeAgradecimiento:'',
+  //       favorito: false,
+  //       active: null
+  //   };
+  // }
+
+
+//consultarListaPaginada
   ngOnInit() {
+    console.log('entra por aca');
     // if (localStorage.getItem('cambio-clave') == 'si') {
     //   $('#cambioContraseña').modal('show');
     // }
-
+    //this.inicializarParamsConsulta();
   this.nombreUsuario = localStorage.getItem('username-lista');
   this.codigoLista= localStorage.getItem('codigo-lista');
   this.fechaEvento=localStorage.getItem('fecha-evento');
   this.idListaUsuario=localStorage.getItem('id-lista');
-
+console.log('id de la lista'+this.idListaUsuario);
     this.cargarItems0();
+
+
   }
 
 
-  ngAfterViewInit() {
+  AfterViewInit() {
+    console.log('noooo, entra por aca');
       //this.inicializarItems();
-
+      //this.inicializarParamsConsulta();
       this.nombreUsuario = localStorage.getItem('username-lista');
       this.codigoLista= localStorage.getItem('codigo-lista');
       this.fechaEvento=localStorage.getItem('fecha-evento');
       this.idListaUsuario=localStorage.getItem('id-lista');
+
 
       this.cargarItems0();
 
@@ -143,52 +185,7 @@ export class MiListaComponent implements OnInit {
 
   }
 
-  private inicializarItems() {
 
-    this.items = new Array<Item>();
-
-    this._itemService.find('2280058').subscribe( // Item 1
-      response => {
-        this.items.push(response.result[0]);
-        this._itemService.find('2240080').subscribe( // Item 1
-          response => {
-            this.items.push(response.result[0]);
-            this._itemService.find('2090109').subscribe( // Item 1
-              response => {
-                this.items.push(response.result[0]);
-                this._itemService.find('2230002').subscribe( // Item 1
-                  response => {
-                    this.items.push(response.result[0]);
-                    this._itemService.find('2090108').subscribe( // Item 1
-                      response => {
-                        this.items.push(response.result[0]);
-                        this._itemService.find('2410024').subscribe( // Item 1
-                          response => {
-                            this.items.push(response.result[0]);
-                            this._itemService.find('2310428').subscribe( // Item 1
-                              response => {
-                                this.items.push(response.result[0]);
-                                this._itemService.find('2310429').subscribe( // Item 1
-                                  response => {
-                                    this.items.push(response.result[0]);
-
-                                  }, error => { console.error(); }
-                                );
-                              }, error => { console.error(); }
-                            );
-                          }, error => { console.error(); }
-                        );
-                      }, error => { console.error(); }
-                    );
-                  }, error => { console.error(); }
-                );
-              }, error => { console.error(); }
-            );
-          }, error => { console.error(); }
-        );
-      }, error => { console.error(); }
-    );
-  }
 
   public irAPagina(pagina) {
     this.queryParams.set('page', pagina);
@@ -222,6 +219,7 @@ export class MiListaComponent implements OnInit {
 
   public cargarItems(availableFields, items, queryParams, records) {
     console.log('cargar items');
+    this.items = new Array<Item>();
     this.items = items;
     this.availableFields = availableFields;
     this.queryParams = queryParams;
@@ -232,24 +230,31 @@ export class MiListaComponent implements OnInit {
         this.itemsXPag = 'Todos';
       } else {
         this.itemsXPag = this.queryParams.get('pageSize') + ' x pag';
+
       }
+
     }
     if (this.queryParams.has('orderBy')) {
       switch (this.queryParams.get('orderBy')) {
         case 'price':
           this.orderByStr = 'Precio: <span class="glyphicon glyphicon-sort-by-order"></span> ';
+
           break;
         case '-price':
           this.orderByStr = 'Precio: <span class="glyphicon glyphicon-sort-by-order-alt"></span> ';
+
           break;
         case 'itemname':
           this.orderByStr = 'Nombre: <span class="glyphicon glyphicon-sort-by-alphabet"></span> ';
+
           break;
         case '-itemname':
           this.orderByStr = 'Nombre: <span class="glyphicon glyphicon-sort-by-alphabet-alt"></span> ';
+
           break;
         default:
           this.orderByStr = 'Similares';
+
       }
     } else {
       this.orderByStr = 'Similares';
@@ -274,39 +279,125 @@ export class MiListaComponent implements OnInit {
     for (let i = initialPage; i <= totalPages && i - initialPage < 5; i++) {
       this.pages.push(i);
     }
+
+
   }
 
   private cargarItems0() {
+    console.log('entro en cargarItems0');
     this.items = new Array<Item>();
+    this.inicializarParamsConsulta();
+
     this._route.queryParams.forEach((params: Params) => {
       this.inicializarMapa(params);
-      this._itemService.filter(this.queryString).subscribe(
-        response => {
-          this.items = response.result;
-          this.totalItems=response.records;
-          for (let i = 0; i < this.items.length; i++) {
-            //validar si el ítem tiene descuentos
-            // this._descuentosService.findDiscount(this.items[i].itemcode).subscribe(
-            //   response => {
-            //     if (this.items[i].priceaftervat === response.precio) {
-            //       if (response.descuentos && response.descuentos.length > 0) {
-            //         this.items[i].descuento = response.descuentos[0].porcentaje;
-            //         this.items[i].priceafterdiscount = this.items[i].priceaftervat - ((this.items[i].priceaftervat / 100) * this.items[i].descuento);
-            //       }
-            //     }
-            //   },
-            //   error => {
-            //     console.error(error);
-            //   }
-            // );
-          }
-          this.cargarItems(this.availableFields, this.items, this.queryParams, response.records);
-          //this.filtrosComponent.inicializarFiltros(this.availableFields, this.queryParams, this.queryString, response.records);
-        },
-        error => {
-          console.error(error);
+
+      if (this.queryParams.has('pageSize')) {
+
+        this.paramsConsulta.registrosPagina=this.queryParams.get('pageSize');
+      }
+
+      if (this.queryParams.has('orderBy')) {
+        switch (this.queryParams.get('orderBy')) {
+          case 'price':
+
+            this.paramsConsulta.orderBy='precio';
+            break;
+          case '-price':
+
+            this.paramsConsulta.orderBy='precio asc';
+            break;
+          case 'itemname':
+
+            this.paramsConsulta.orderBy='referencia';
+            break;
+          case '-itemname':
+
+            this.paramsConsulta.orderBy='referencia asc';
+            break;
+          default:
+
+            this.paramsConsulta.orderBy='';
         }
+      }
+
+
+      console.log('paramsConsulta---'+this.paramsConsulta.registrosPagina);
+
+      this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
+          response => {
+            this.totalLista=response;
+            console.log('totalLista--'+this.totalLista)
+          },
+          error =>{
+            console.log("error servicio bcs"+error);
+          }
+
+
       );
+
+      console.log('antes de ir al servicio llevo');
+      console.log(this.paramsConsulta.registrosPagina);
+      console.log(this.paramsConsulta.idLista);
+      console.log(this.paramsConsulta.pagina);
+      console.log(this.paramsConsulta.orderBy);
+      this._listaService.consultarListaPaginada(this.paramsConsulta).subscribe(
+          response => {
+            console.log("servicio bcs"+response.data);
+            this.itemsListaBcs=response;
+            console.log('variable'+this.itemsListaBcs.length);
+            this.items=new Array<Item>();
+            for (let i = 0; i < this.itemsListaBcs.length; i++) {
+               this.itemsListaBcs[i].referencia;
+               console.log(this.itemsListaBcs[i].referencia);
+               let cadena1=this.itemsListaBcs[i].referencia.substring(0,3);
+               let cadena2=this.itemsListaBcs[i].referencia.substring(16,20);
+               console.log('cadena1'+cadena1+cadena2);
+               this._itemService.find(cadena1+cadena2).subscribe( // Item 1
+                 response => {
+                   this.items.push(response.result[0]);
+                },
+                error=>{
+
+                }
+
+              );
+            }
+            this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalLista);
+          },
+          error =>{
+            console.log("error servicio bcs"+error);
+          }
+
+
+      );
+
+      // this._itemService.filter(this.queryString).subscribe(
+      //   response => {
+      //     //this.items = response.result;
+      //     //this.totalItems=response.records;
+      //     for (let i = 0; i < this.items.length; i++) {
+      //       //validar si el ítem tiene descuentos
+      //       // this._descuentosService.findDiscount(this.items[i].itemcode).subscribe(
+      //       //   response => {
+      //       //     if (this.items[i].priceaftervat === response.precio) {
+      //       //       if (response.descuentos && response.descuentos.length > 0) {
+      //       //         this.items[i].descuento = response.descuentos[0].porcentaje;
+      //       //         this.items[i].priceafterdiscount = this.items[i].priceaftervat - ((this.items[i].priceaftervat / 100) * this.items[i].descuento);
+      //       //       }
+      //       //     }
+      //       //   },
+      //       //   error => {
+      //       //     console.error(error);
+      //       //   }
+      //       // );
+      //     }
+      //     //this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalLista);
+      //     //this.filtrosComponent.inicializarFiltros(this.availableFields, this.queryParams, this.queryString, response.records);
+      //   },
+      //   error => {
+      //     console.error(error);
+      //   }
+      // );
     });
   }
 
