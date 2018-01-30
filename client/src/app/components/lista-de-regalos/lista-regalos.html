@@ -9,14 +9,21 @@
             <div class="row">
               <div class="col-xs-6">
                 <div class="buscar">
-                  <h4>Buscar una lista</h4>
-                  <label class="label-lista" for="name">Nombre</label>
-                  <input type="text" class="form-lista-regalos" id="name">
-                  <label class="label-lista" for="lastname">Apellido</label>
-                  <input type="text" class="form-lista-regalos" id="lastname">
-                  <label class="label-lista" for="code">Código</label>
-                  <input type="text" class="form-lista-regalos" id="code">
-                  <button type="button" name="buscar" class="btn-buscar">Buscar</button>
+                  <div class="row">
+                    <div class="alert alert-danger" role="alert" *ngIf="messageErrorSearch != null && messageErrorSearch.length > 0">
+                      <p>{{messageErrorSearch}}</p>
+                    </div>
+                  </div>
+                  <form id="buscarLista">
+                    <h4>Buscar una lista</h4>
+                    <label class="label-lista" for="name">Nombre</label>
+                    <input id="name" type="text" class="form-lista-regalos" name="nombresNovios" [(ngModel)]="nombresNovios">
+                    <label class="label-lista" for="lastname">Apellido</label>
+                    <input id="lastname" type="text" class="form-lista-regalos" name="apellidosNovios" [(ngModel)]="apellidosNovios">
+                    <label class="label-lista" for="code">Código</label>
+                    <input id="code" type="text" class="form-lista-regalos" name="codigoLista" [(ngModel)]="codigoLista">
+                    <button type="button" name="buscar" class="btn-buscar" (click)="buscarLista()">Buscar</button>
+                  </form>
                 </div>
                 <div class="crear">
                   <h4>Crea una lista</h4>
@@ -33,14 +40,14 @@
                     </div>
                   </div>
                   <form #ContactForm="ngForm" (submit)="login()">
-                  <h4>Iniciar sesión</h4>
-                  <p>Administra tu lista, edita cantidades, estilos y mensajes</p>
-                  <label class="label-lista" for="e-mail">Correo electronico</label>
-                  <input type="email" class="form-lista-regalos" id="e-mail" [class.required-field]="!valid" name="nombreUsuario" [(ngModel)]="nombreUsuario" required>
-                  <label class="label-lista" for="password">Contraseña</label>
-                  <input type="password" class="form-lista-regalos" id="password" [class.required-field]="!valid" name="password" [(ngModel)]="password" required>
-                  <button type="button" name="buscar" (click)="login()" class="btn-buscar">Ingresar</button>
-                </form>
+                    <h4>Iniciar sesión</h4>
+                    <p>Administra tu lista, edita cantidades, estilos y mensajes</p>
+                    <label class="label-lista" for="e-mail">Correo electrónico</label>
+                    <input id="e-mail" type="email" class="form-lista-regalos" [class.required-field]="!valid" name="nombreUsuario" [(ngModel)]="nombreUsuario" required>
+                    <label class="label-lista" for="password">Contraseña</label>
+                    <input id="password" type="password" class="form-lista-regalos" [class.required-field]="!valid" name="password" [(ngModel)]="password" required>
+                    <button type="button" name="buscar" (click)="login()" class="btn-buscar">Ingresar</button>
+                  </form>
                 </div>
               </div>
             </div>
