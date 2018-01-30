@@ -33,6 +33,7 @@ import { MiListaComponent } from './components/lista-de-regalos/mi-lista/mi-list
 import { AgregarProductosComponent } from './components/lista-de-regalos/mi-lista/agregar-productos/agregar-productos.component';
 import { ResultadoBusquedaListasComponent } from './components/lista-de-regalos/listas-encontradas/listas-encontradas.component';
 import { ListaInvitadoComponent } from './components/lista-de-regalos/lista/lista-invitado.component';
+import { ResumenRegalosComponent } from './components/lista-de-regalos/lista/resumen-regalos/resumen-regalos.component';
 
 const appRoutes: Routes = [
   //{path: '', component: HomeComponent},
@@ -76,7 +77,8 @@ const appRoutes: Routes = [
       { path: 'mi-lista', component: MiListaComponent },
       { path: 'mi-lista/agregar-productos', component: AgregarProductosComponent },
       { path: 'lista-de-regalos/resultado-busqueda', component: ResultadoBusquedaListasComponent },
-      { path: 'lista', component: ListaInvitadoComponent } //imprimir el codigo de la lista en la url
+      { path: 'lista', component: ListaInvitadoComponent }, //imprimir el codigo de la lista en la url
+      { path: 'resumen-regalos', component: ResumenRegalosComponent }
     ]
   },
 

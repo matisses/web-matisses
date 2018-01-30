@@ -86,6 +86,7 @@ import { MiListaComponent } from './components/lista-de-regalos/mi-lista/mi-list
 import { AgregarProductosComponent } from './components/lista-de-regalos/mi-lista/agregar-productos/agregar-productos.component';
 import { ResultadoBusquedaListasComponent } from './components/lista-de-regalos/listas-encontradas/listas-encontradas.component';
 import { ListaInvitadoComponent } from './components/lista-de-regalos/lista/lista-invitado.component';
+import { ResumenRegalosComponent } from './components/lista-de-regalos/lista/resumen-regalos/resumen-regalos.component';
 
 //Directivas
 import { StickyMenuDirective } from './directives/sticky.directive';
@@ -161,7 +162,8 @@ import { MetaModule } from '@ngx-meta/core';
     MiListaComponent,
     AgregarProductosComponent,
     ResultadoBusquedaListasComponent,
-    ListaInvitadoComponent
+    ListaInvitadoComponent,
+    ResumenRegalosComponent
 
   ],
   imports: [
