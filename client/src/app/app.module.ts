@@ -163,6 +163,8 @@ import { MetaModule } from '@ngx-meta/core';
     MiListaComponent,
     AgregarProductosComponent,
     ResultadoBusquedaListasComponent,
+
+    ListaInvitadoComponent,
     CarritoRegalosComponent,
     CarritoRegalosSimpleComponent,
     ResumenRegalosComponent
