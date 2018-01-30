@@ -90,6 +90,7 @@ import { ResumenRegalosComponent } from './components/lista-de-regalos/lista/res
 import { CarritoRegalosComponent } from './components/lista-de-regalos/lista/carrito-regalos/carrito-regalos.component';
 import { CarritoRegalosSimpleComponent } from './components/lista-de-regalos/lista/carrito-regalos/carrito-regalos-simple.component';
 import { InfoPagoRegalosComponent } from './components/lista-de-regalos/lista/info-pago-regalos/info-pago-regalos.component';
+import { ResultadoTransaccionListaComponent } from './components/lista-de-regalos/lista/resultados-transaccion-lista/resultados-transaccion-lista.component';
 //Directivas
 import { StickyMenuDirective } from './directives/sticky.directive';
 import { StickyBodyDirective } from './directives/sticky-body.directive';
@@ -169,7 +170,8 @@ import { MetaModule } from '@ngx-meta/core';
     CarritoRegalosComponent,
     CarritoRegalosSimpleComponent,
     ResumenRegalosComponent,
-    InfoPagoRegalosComponent
+    InfoPagoRegalosComponent,
+    ResultadoTransaccionListaComponent
 
   ],
   imports: [

@@ -35,6 +35,7 @@ import { ResultadoBusquedaListasComponent } from './components/lista-de-regalos/
 import { ListaInvitadoComponent } from './components/lista-de-regalos/lista/lista-invitado.component';
 import { ResumenRegalosComponent } from './components/lista-de-regalos/lista/resumen-regalos/resumen-regalos.component';
 import { InfoPagoRegalosComponent } from './components/lista-de-regalos/lista/info-pago-regalos/info-pago-regalos.component';
+import { ResultadoTransaccionListaComponent } from './components/lista-de-regalos/lista/resultados-transaccion-lista/resultados-transaccion-lista.component';
 
 const appRoutes: Routes = [
   //{path: '', component: HomeComponent},
@@ -80,9 +81,8 @@ const appRoutes: Routes = [
       { path: 'lista-de-regalos/resultado-busqueda', component: ResultadoBusquedaListasComponent },
       { path: 'lista/:codigoLista', component: ListaInvitadoComponent },//imprimir el codigo de la lista en la url
       { path: 'resumen-regalos', component: ResumenRegalosComponent },
-      { path: 'info-pago-regalos', component: InfoPagoRegalosComponent }
-
-
+      { path: 'info-pago-regalos', component: InfoPagoRegalosComponent },
+      { path: 'resultado-transaccion-regalos', component: ResultadoTransaccionListaComponent }
     ]
   },
 
