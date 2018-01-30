@@ -19,7 +19,7 @@ export class ListaRegalosService {
       'Content-Type': 'application/json'
     });
 
-    return this._http.post(this.urlBCS + 'listaregalos/crear/', JSON.stringify(datosLista), { headers: headers })
+    return this._http.post(this.urlBCS + 'listaregalos/crear', JSON.stringify(datosLista), { headers: headers })
       .map(res => res.json());
   }
 
@@ -27,8 +27,7 @@ export class ListaRegalosService {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
-
-    return this._http.post(this.urlBCS + 'listaregalos/consultarlistas/', JSON.stringify(datosConsulta), { headers: headers })
+    return this._http.post(this.urlBCS + 'listaregalos/consultarlistas', JSON.stringify(datosConsulta), { headers: headers })
       .map(res => res.json());
   }
 
