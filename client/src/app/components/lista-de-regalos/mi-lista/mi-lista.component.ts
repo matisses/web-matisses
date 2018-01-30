@@ -319,8 +319,9 @@ console.log('id de la lista'+this.idListaUsuario);
             this.paramsConsulta.orderBy='';
         }
       }
-
-
+      if(this.queryParams.has('page')){
+        this.paramsConsulta.pagina=this.queryParams.get('page');
+      }
       console.log('paramsConsulta---'+this.paramsConsulta.registrosPagina);
 
       this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(

@@ -135,7 +135,7 @@
       </div>
     </div>
     <!-- menu -->
-    <!--<div class="row hidden-xs">
+    <div class="row hidden-xs">
       <div class="col-xs-12">
         <div class="menu-productos">
           <!-- <ul>
@@ -150,7 +150,7 @@
           </ul> -->
         </div>
       </div>
-    </div>-->
+    </div>
     <!-- parrilla y filtros -->
     <div class="row">
       <div class="col-md-3">
@@ -371,9 +371,9 @@
             <p class="precio"><b>$ {{items[i].priceaftervat | number}}</b></p>
             <div class="botones">
               <div class="col-xs-12 text-center">
-                <div class="btn-group" role="group">
+                <div class="btn-group" role="group"  *ngIf="!items[i].agregadoLista">
 
-                  <button type="button" class="btn btn-carrito">
+                  <button type="button" class="btn btn-carrito" (click)="abrirModal(items[i].shortitemcode)">
 <!--aca hay conflicto revisar-->
                     <!-- <span class="icon-regalo_1"></span> -->
                     AGREGAR REGALO

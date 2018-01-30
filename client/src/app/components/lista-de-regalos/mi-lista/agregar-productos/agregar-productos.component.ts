@@ -445,6 +445,7 @@ export class AgregarProductosComponent implements OnInit {
 
 
   public abrirModal(itemcode) {
+
     this.inicializarForm();
     this.messageError='';
     this.successMessage='';

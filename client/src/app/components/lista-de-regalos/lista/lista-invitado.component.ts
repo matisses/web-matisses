@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild,AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { ItemService } from '../../../services/item.service';
@@ -6,6 +6,9 @@ import { Item } from '../../../models/item';
 
 import {SessionUsuarioService } from '../../../services/session-usuario.service';
 import {ListaRegalosService } from '../../../services/lista-regalos.service';
+
+import { CarritoRegalosComponent } from '././carrito-regalos/carrito-regalos.component';
+import { CarritoRegalosSimpleComponent } from '././carrito-regalos/carrito-regalos-simple.component';
 
 
 
@@ -19,7 +22,13 @@ declare var $: any;
   providers: [ItemService, SessionUsuarioService,ListaRegalosService]
 })
 
-export class ListaInvitadoComponent implements OnInit {
+export class ListaInvitadoComponent implements OnInit, AfterViewInit {
+  // @ViewChild(CarritoRegalosComponent)
+  // public carrito: CarritoRegalosComponent;
+  @ViewChild(CarritoRegalosSimpleComponent)
+  public carrito: CarritoRegalosSimpleComponent;
+  public lastAddedItem: Item;
+  public itemsSinSaldo: Array<Item>;
   public nombreUsuario: string;
   public claveNueva: string;
   public claveConfirmacion: string;
@@ -31,6 +40,8 @@ export class ListaInvitadoComponent implements OnInit {
   public successMessage: string;
   public totalItems: number;
   public activePage: number;
+  public url:string;
+  private viewportWidth: number = 0;
   public itemsXPag: string;
   public orderByStr: string;
   public pages: Array<number>;
@@ -39,16 +50,49 @@ export class ListaInvitadoComponent implements OnInit {
   private idListaUsuario: string;
   private codigoLista: string;
   private fechaEvento:string;
+  public resumenMobileVisible: boolean = false;
+  public resumenDesktopVisible: boolean = false;
+
+  private paramsConsulta: any;
+  private itemsListaBcs:Array<any>;
+  private totalLista:number;
+
+  //campos carrito carrito simple
+  public shoppingCart: any;
+  public item: Item;
+  private idCarrito: string;
+ public totalItemsCarrito: number;
+  public totalCarrito: number = 0;
+  public totalImpuestos: number = 0;
+  public totalDescuentos: number = 0;
+  public mostrar: boolean = true;
+
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista= localStorage.getItem('codigo-lista');
     this.fechaEvento=localStorage.getItem('fecha-evento');
-    this.idListaUsuario=localStorage.getItem('id-lista');
+    //this.idListaUsuario=localStorage.getItem('id-lista');cambiar a esta al tener la consulta
+    this.idListaUsuario='2056';
     this.queryParams = new Map<string, string>();
     this.itemsXPag = '12 x pag';
     this.orderByStr = 'Similares';
     this.pages = new Array<number>();
     this.items = new Array<Item>();
+    this.url = this._router.url;
+    this.itemsListaBcs=new Array<any>();
+
+    //carrito de COMPRAS
+    this.inicializarShoppingCart();
+  }
+
+  private inicializarParamsConsulta() {
+    this.paramsConsulta = {
+    idLista:localStorage.getItem('id-lista'),
+    pagina:'1',
+    registrosPagina:'12',
+    orderBy:'referencia asc',
+    sortOrder:''
+    };
   }
 
   ngOnInit() {
@@ -60,26 +104,26 @@ export class ListaInvitadoComponent implements OnInit {
   this.codigoLista= localStorage.getItem('codigo-lista');
   this.fechaEvento=localStorage.getItem('fecha-evento');
   this.idListaUsuario=localStorage.getItem('id-lista');
-
-    this.cargarItems0();
+  this.inicializarShoppingCart();
+  this.cargarItems0();
   }
 
 
   ngAfterViewInit() {
       //this.inicializarItems();
-
+      //this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
       this.nombreUsuario = localStorage.getItem('username-lista');
       this.codigoLista= localStorage.getItem('codigo-lista');
       this.fechaEvento=localStorage.getItem('fecha-evento');
       this.idListaUsuario=localStorage.getItem('id-lista');
 
-      this.cargarItems0();
+      //this.cargarItems0();
 
 
     $(window).scroll(function() {
       var scroll = $(window).scrollTop();
       if (scroll >= 30) {
-        console.log(scroll);
+        
         $(".contenedor").addClass("margin-top-scroll");
       } else {
         $(".contenedor").removeClass("margin-top-scroll")
@@ -94,54 +138,7 @@ export class ListaInvitadoComponent implements OnInit {
     }, 500);
   }
 
-  public actualizarClave() {
 
-
-
-    this.messageError = '';
-    if (this.claveNueva == null || this.claveNueva.length <= 0) {
-
-      this.messageError = 'Ingresa la contraseña';
-        this.valid = false;
-        this.successMessage = '';
-        return;
-    }
-
-    if (this.claveConfirmacion == null || this.claveConfirmacion.length <= 0 || this.claveConfirmacion == 'undefined') {
-      this.messageError = 'Ingresa la confirmación de la contraseña.';
-          this.valid = false;
-          this.successMessage = '';
-        return;
-    }
-    if (this.claveNueva !=this.claveConfirmacion ) {
-      this.messageError = 'Ambas contraseñas deben ser iguales.';
-      this.successMessage = '';
-        return;
-    }
-    let usuarioDTO = {
-      nombreUsuario: this.nombreUsuario,
-      password: this.claveNueva,
-      usuarioId:localStorage.getItem('usuario-id')
-
-    }
-
-    this._userService.updateUser(usuarioDTO).subscribe(
-      response => {
-
-        this.successMessage = '1';
-        localStorage.removeItem('cambio-clave');
-        localStorage.setItem('cambio-clave','no');
-          $('#cambioContrasena').modal('hide');
-        return;
-      },
-      error => {
-
-
-        this.messageError="ocurrio un error en el servicio";
-      }
-    );
-
-  }
 
   public irAPagina(pagina) {
     this.queryParams.set('page', pagina);
@@ -170,11 +167,12 @@ export class ListaInvitadoComponent implements OnInit {
       let key = this.availableFields[i];
       queryParamsObj[key] = this.queryParams.get(key);
     }
-    this._router.navigate(['/lista'], { queryParams: queryParamsObj });
+    this._router.navigate(['/lista/codigo'], { queryParams: queryParamsObj });
   }
 
   public cargarItems(availableFields, items, queryParams, records) {
     console.log('cargar items');
+    this.items = new Array<Item>();
     this.items = items;
     this.availableFields = availableFields;
     this.queryParams = queryParams;
@@ -185,24 +183,31 @@ export class ListaInvitadoComponent implements OnInit {
         this.itemsXPag = 'Todos';
       } else {
         this.itemsXPag = this.queryParams.get('pageSize') + ' x pag';
+
       }
+
     }
     if (this.queryParams.has('orderBy')) {
       switch (this.queryParams.get('orderBy')) {
         case 'price':
           this.orderByStr = 'Precio: <span class="glyphicon glyphicon-sort-by-order"></span> ';
+
           break;
         case '-price':
           this.orderByStr = 'Precio: <span class="glyphicon glyphicon-sort-by-order-alt"></span> ';
+
           break;
         case 'itemname':
           this.orderByStr = 'Nombre: <span class="glyphicon glyphicon-sort-by-alphabet"></span> ';
+
           break;
         case '-itemname':
           this.orderByStr = 'Nombre: <span class="glyphicon glyphicon-sort-by-alphabet-alt"></span> ';
+
           break;
         default:
           this.orderByStr = 'Similares';
+
       }
     } else {
       this.orderByStr = 'Similares';
@@ -227,39 +232,131 @@ export class ListaInvitadoComponent implements OnInit {
     for (let i = initialPage; i <= totalPages && i - initialPage < 5; i++) {
       this.pages.push(i);
     }
+
+
   }
 
+
+
   private cargarItems0() {
+    console.log('entro en cargarItems0');
     this.items = new Array<Item>();
+    this.inicializarParamsConsulta();
+
     this._route.queryParams.forEach((params: Params) => {
       this.inicializarMapa(params);
-      this._itemService.filter(this.queryString).subscribe(
-        response => {
-          this.items = response.result;
-          this.totalItems=response.records;
-          for (let i = 0; i < this.items.length; i++) {
-            //validar si el ítem tiene descuentos
-            // this._descuentosService.findDiscount(this.items[i].itemcode).subscribe(
-            //   response => {
-            //     if (this.items[i].priceaftervat === response.precio) {
-            //       if (response.descuentos && response.descuentos.length > 0) {
-            //         this.items[i].descuento = response.descuentos[0].porcentaje;
-            //         this.items[i].priceafterdiscount = this.items[i].priceaftervat - ((this.items[i].priceaftervat / 100) * this.items[i].descuento);
-            //       }
-            //     }
-            //   },
-            //   error => {
-            //     console.error(error);
-            //   }
-            // );
-          }
-          this.cargarItems(this.availableFields, this.items, this.queryParams, response.records);
-          //this.filtrosComponent.inicializarFiltros(this.availableFields, this.queryParams, this.queryString, response.records);
-        },
-        error => {
-          console.error(error);
+
+      if (this.queryParams.has('pageSize')) {
+
+        this.paramsConsulta.registrosPagina=this.queryParams.get('pageSize');
+      }
+
+      if (this.queryParams.has('orderBy')) {
+        switch (this.queryParams.get('orderBy')) {
+          case 'price':
+
+            this.paramsConsulta.orderBy='precio';
+            break;
+          case '-price':
+
+            this.paramsConsulta.orderBy='precio asc';
+            break;
+          case 'itemname':
+
+            this.paramsConsulta.orderBy='referencia';
+            break;
+          case '-itemname':
+
+            this.paramsConsulta.orderBy='referencia asc';
+            break;
+          default:
+
+            this.paramsConsulta.orderBy='';
         }
+      }
+      if(this.queryParams.has('page')){
+        this.paramsConsulta.pagina=this.queryParams.get('page');
+      }
+      console.log('paramsConsulta---'+this.paramsConsulta.registrosPagina);
+
+      this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
+          response => {
+            this.totalLista=response;
+            console.log('totalLista--'+this.totalLista)
+          },
+          error =>{
+            console.log("error servicio bcs"+error);
+          }
+
+
       );
+
+      console.log('antes de ir al servicio llevo');
+      console.log(this.paramsConsulta.registrosPagina);
+      console.log(this.paramsConsulta.idLista);
+      console.log(this.paramsConsulta.pagina);
+      console.log(this.paramsConsulta.orderBy);
+      this._listaService.consultarListaPaginada(this.paramsConsulta).subscribe(
+          response => {
+            console.log("servicio bcs"+response.data);
+            this.itemsListaBcs=response;
+            console.log('variable'+this.itemsListaBcs.length);
+            this.items=new Array<Item>();
+            for (let i = 0; i < this.itemsListaBcs.length; i++) {
+               this.itemsListaBcs[i].referencia;
+               console.log(this.itemsListaBcs[i].referencia);
+               let cadena1=this.itemsListaBcs[i].referencia.substring(0,3);
+               let cadena2=this.itemsListaBcs[i].referencia.substring(16,20);
+               console.log('cadena1'+cadena1+cadena2);
+               this._itemService.find(cadena1+cadena2).subscribe( // Item 1
+                 response => {
+                   response.result[0].cantidadElegida=this.itemsListaBcs[i].cantidadElegida;
+                   response.result[0].cantidadComprada=this.itemsListaBcs[i].cantidadComprada;
+                   console.log('despues de setearrr'+response.result[0].cantidadElegida);
+                   this.items.push(response.result[0]);
+                },
+                error=>{
+
+                }
+
+              );
+            }
+            this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalLista);
+          },
+          error =>{
+            console.log("error servicio bcs"+error);
+          }
+
+
+      );
+
+      // this._itemService.filter(this.queryString).subscribe(
+      //   response => {
+      //     //this.items = response.result;
+      //     //this.totalItems=response.records;
+      //     for (let i = 0; i < this.items.length; i++) {
+      //       //validar si el ítem tiene descuentos
+      //       // this._descuentosService.findDiscount(this.items[i].itemcode).subscribe(
+      //       //   response => {
+      //       //     if (this.items[i].priceaftervat === response.precio) {
+      //       //       if (response.descuentos && response.descuentos.length > 0) {
+      //       //         this.items[i].descuento = response.descuentos[0].porcentaje;
+      //       //         this.items[i].priceafterdiscount = this.items[i].priceaftervat - ((this.items[i].priceaftervat / 100) * this.items[i].descuento);
+      //       //       }
+      //       //     }
+      //       //   },
+      //       //   error => {
+      //       //     console.error(error);
+      //       //   }
+      //       // );
+      //     }
+      //     //this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalLista);
+      //     //this.filtrosComponent.inicializarFiltros(this.availableFields, this.queryParams, this.queryString, response.records);
+      //   },
+      //   error => {
+      //     console.error(error);
+      //   }
+      // );
     });
   }
 
@@ -282,7 +379,7 @@ export class ListaInvitadoComponent implements OnInit {
   public search() {
     if (this.keywords && this.keywords.length > 0) {
       let queryParamsObj = { keywords: this.keywords.replace(/ /g, ",") };
-      this._router.navigate(['/lista'], { queryParams: queryParamsObj });
+      this._router.navigate(['/lista/codigo'], { queryParams: queryParamsObj });
     }
   }
 
@@ -348,5 +445,200 @@ export class ListaInvitadoComponent implements OnInit {
        }
      );
    }
+
+   //carrito de compras ListaRegalos
+   public agregarCarrito(item: Item) {
+     console.log('agregarCarrito');
+     item.selectedQuantity = item.selectedQuantity;
+     this.procesarItem(item);
+   }
+
+   public procesarItem(item: Item) {
+     console.log('procesarItem en carrito simple');
+     item.selectedQuantity = parseInt(item.selectedQuantity.toString());
+     if (item.selectedQuantity > 0) {
+       let items = new Array<Item>();
+       items.push(item);
+
+       this._itemService.validarItems(items).subscribe(
+         response => {
+           if (response[0].sinSaldo) {
+             //modal sin saldo
+             item.availablestock = response[0].availablestock;
+             localStorage.setItem('matisses.lastAddedItem', JSON.stringify(item));
+             $('#modalSinSaldo').modal('show');
+           } else {
+             this.cambiarItem(item);
+           }
+         },
+         error => {
+           console.log(error);
+         }
+       );
+     } else {
+       this.cambiarItem(item);
+     }
+   }
+
+   private cambiarItem(item: Item) {
+     //0. Cargar contenido de localStorage
+     this.cargarCarrito();
+     //1. validar contenido
+     let encontrado = false;
+     for (let i = 0; i < this.shoppingCart.items.length; i++) {
+       if (this.shoppingCart.items[i].itemcode === item.itemcode) {
+         encontrado = true;
+         if (item.selectedQuantity === 0) {
+           //eliminar item
+           this.shoppingCart.items.splice(i, 1);
+         } else {
+           //modificar el item
+           this.shoppingCart.items[i].selectedQuantity = item.selectedQuantity;
+         }
+         break;
+       }
+     }
+     //2. agregar
+     if (!encontrado) {
+       this.shoppingCart.items.push(item);
+     }
+     //3. guardar
+     localStorage.setItem('matisses.shoppingCart', JSON.stringify(this.shoppingCart));
+     //4. Actualizar contenido HTML
+     this.procesarCarrito();
+
+     let components = document.getElementsByClassName("total-items-carrito-badge");
+     for (let i = 0; i < components.length; i++) {
+       components[i].innerHTML = this.totalItems.toString();
+     }
+
+     if (!encontrado && this.mostrar) {
+       localStorage.setItem('matisses.lastAddedItem', JSON.stringify(item));
+       $('#carritoModal').modal('show');
+     }
+   }
+
+   public cargarCarrito() {
+     //consultar localstorage
+     console.log('entra en el cargar');
+     let localSC = JSON.parse(localStorage.getItem('matisses.shoppingCart'));
+     if (!localSC) {
+       this.inicializarShoppingCart();
+     } else {
+       this.shoppingCart = localSC;
+     }
+     //TODO: validar si el carrito esta vigente
+     //TODO: validar el saldo y los precios de los items en el carrito si la fecha de creacion es del dia anterior
+
+     if (this.shoppingCart.items === null) {
+       this.shoppingCart.items = new Array<Item>();
+     }
+     this.procesarCarrito();
+   }
+
+   private procesarCarrito() {
+     this.totalItemsCarrito = 0;
+     this.totalCarrito = 0;
+     this.totalImpuestos = 0;
+     this.totalDescuentos = 0;
+     let totalSinIVA = 0;
+     for (let i = 0; i < this.shoppingCart.items.length; i++) {
+       let selectedQuantity = this.shoppingCart.items[i].selectedQuantity ? this.shoppingCart.items[i].selectedQuantity : 0;
+       let price = this.shoppingCart.items[i].priceaftervat ? this.shoppingCart.items[i].priceaftervat : 0;
+       this.totalItemsCarrito += selectedQuantity;
+       this.totalCarrito += (price * selectedQuantity);
+       if (this.shoppingCart.items[i].priceafterdiscount && this.shoppingCart.items[i].priceafterdiscount > 0) {
+         let valorIVA = this.shoppingCart.items[i].priceafterdiscount * this.shoppingCart.items[i].taxpercent / 100;
+         totalSinIVA += ((this.shoppingCart.items[i].priceafterdiscount - valorIVA) * selectedQuantity);
+         this.totalDescuentos += ((this.shoppingCart.items[i].priceaftervat / 100) * this.shoppingCart.items[i].descuento) * selectedQuantity;
+       } else {
+         totalSinIVA += (this.shoppingCart.items[i].pricebeforevat ? this.shoppingCart.items[i].pricebeforevat : 0) * selectedQuantity;
+       }
+     }
+     this.totalImpuestos = (this.totalCarrito - this.totalDescuentos - totalSinIVA) | 0;
+   }
+
+   private inicializarShoppingCart(){
+   console.log('entra en el inicializarShoppingCart');
+     this.shoppingCart = {
+       _id: null,
+       metodoEnvio: null,
+       fechacreacion: new Date(),
+       items: new Array<Item>()
+     };
+   }
+
+   public eliminarItem(item: Item) {
+     item.selectedQuantity = 0;
+     this.procesarItem(item);
+   }
+
+   public mostrarBotonEliminar() {
+     return this.url && !this.url.includes('pago') && !this.url.includes('carrito');
+   }
+
+   public toggleResumen() {
+     if (this.resumenMobileVisible || this.resumenDesktopVisible) {
+       //ocultar mobile
+       this.closeResumen();
+     } else {
+       //mostrar mobile/desktop
+       this.openResumen();
+     }
+   }
+
+   private openResumen() {
+     if (this.viewportWidth <= 991) {
+       //mostrar mobile
+       const divs = document.getElementById("carrito1").getElementsByTagName("div");
+       for (let i = 0; i < divs.length; i++) {
+         if (divs[i].id === 'resumen') {
+           divs[i].style.height = "315px";
+           divs[i].style.boxShadow = "0px 5px 16px 0px rgba(0, 0, 0, 0.75)";
+           this.resumenMobileVisible = true;
+           break;
+         }
+       }
+     } else {
+       //mostrar desktop
+       const divs = document.getElementById("carrito2").getElementsByTagName("div");
+       for (let i = 0; i < divs.length; i++) {
+         if (divs[i].id === 'resumen') {
+           divs[i].style.height = "315px";
+           divs[i].style.boxShadow = "0px 5px 16px 0px rgba(0, 0, 0, 0.75)";
+           this.resumenDesktopVisible = true;
+           break;
+         }
+       }
+     }
+     this.cargarCarrito();
+   }
+
+   public closeResumen() {
+     if (this.viewportWidth <= 991) {
+       //mostrar mobile
+       const divs = document.getElementById("carrito1").getElementsByTagName("div");
+       for (let i = 0; i < divs.length; i++) {
+         if (divs[i].id === 'resumen') {
+           divs[i].style.height = "0px";
+           divs[i].style.boxShadow = "0px 5px 16px 0px rgba(0, 0, 0, 0)";
+           this.resumenMobileVisible = false;
+           break;
+         }
+       }
+     } else {
+       //mostrar desktop
+       const divs = document.getElementById("carrito2").getElementsByTagName("div");
+       for (let i = 0; i < divs.length; i++) {
+         if (divs[i].id === 'resumen') {
+           divs[i].style.height = "0px";
+           divs[i].style.boxShadow = "0px 5px 16px 0px rgba(0, 0, 0, 0)";
+           this.resumenDesktopVisible = false;
+           break;
+         }
+       }
+     }
+   }
+
 
   }

@@ -76,7 +76,7 @@ const appRoutes: Routes = [
       { path: 'mi-lista', component: MiListaComponent },
       { path: 'mi-lista/agregar-productos', component: AgregarProductosComponent },
       { path: 'lista-de-regalos/resultado-busqueda', component: ResultadoBusquedaListasComponent },
-      { path: 'lista', component: ListaInvitadoComponent } //imprimir el codigo de la lista en la url
+      { path: 'lista/:codigoLista', component: ListaInvitadoComponent } //imprimir el codigo de la lista en la url
     ]
   },
 
