@@ -29,7 +29,6 @@ export class CrearListaComponent implements OnInit {
   public celebracion: string;
   public lugar: string;
   public tiendaContacto: string;
-  public link: string;
   public notificacionInmediataMailCreador: boolean;
   public notificacionDiariaMailCreador: boolean;
   public notificacionSemanalMailCreador: boolean;
@@ -58,6 +57,8 @@ export class CrearListaComponent implements OnInit {
   public usarDatosCreador: boolean = true;
   public usarDatosCocreador: boolean = false;
   public aceptaTerminos: boolean = false;
+  public existeCreador: boolean = false;
+  public existeCocreador: boolean = false;
   public dayEvent: Array<number>;
   public yearEvent: Array<number>;
   public monthEvent: Array<number>;
@@ -78,7 +79,6 @@ export class CrearListaComponent implements OnInit {
     this.celebracion = '';
     this.lugar = '';
     this.tiendaContacto = '';
-    this.link = '';
     this.messageError = '';
     this.messageExit = '';
   }
@@ -167,9 +167,11 @@ export class CrearListaComponent implements OnInit {
             this.checkedCreadorM = false;
           }
           this.customerCreador = response;
+          this.existeCreador = true;
           this.disabledCreador = true;
         },
         error => {
+          this.existeCreador = false;
           console.error(error);
         }
       );
@@ -199,9 +201,11 @@ export class CrearListaComponent implements OnInit {
             this.checkedCocreadorM = false;
           }
           this.customerCocreador = response;
+          this.existeCocreador = true;
           this.disabledCocreador = true;
         },
         error => {
+          this.existeCocreador = false;
           console.error(error);
         }
       );
@@ -276,6 +280,16 @@ export class CrearListaComponent implements OnInit {
   }
 
   public crearLista() {
+    let apellidosCreador = '';
+    let apellidosCocreador = '';
+    apellidosCreador += this.customerCreador.lastName1;
+    apellidosCocreador += this.customerCocreador.lastName1;
+    if (this.customerCreador.lastName2 != null && this.customerCreador.lastName2.length > 0) {
+      apellidosCreador += ' ' + this.customerCreador.lastName2;
+    }
+    if (this.customerCocreador.lastName2 != null && this.customerCocreador.lastName2.length > 0) {
+      apellidosCocreador += ' ' + this.customerCocreador.lastName2;
+    }
     if (this.aceptaTerminos) {
       let listGift = {
         idLista: null,
@@ -297,7 +311,7 @@ export class CrearListaComponent implements OnInit {
         lugar: this.lugar,
         cedulaCreador: this.customerCreador.fiscalID,
         nombreCreador: this.customerCreador.firstName.toUpperCase(),
-        apellidoCreador: this.customerCreador.lastName1.toUpperCase() + ' ' + this.customerCreador.lastName2.toUpperCase(),
+        apellidoCreador: apellidosCreador.toUpperCase(),
         telefonoCreador: this.customerCreador.addresses[0].cellphone,
         direccionCreador: this.customerCreador.addresses[0].address.toUpperCase(),
         ciudadCreador: this.customerCreador.addresses[0].cityCode,
@@ -311,7 +325,7 @@ export class CrearListaComponent implements OnInit {
         notificacionCambioCategoriaCreador: "",
         cedulaCocreador: this.customerCocreador.fiscalID,
         nombreCocreador: this.customerCocreador.firstName.toUpperCase(),
-        apellidoCocreador: this.customerCocreador.lastName1.toUpperCase() + ' ' + this.customerCocreador.lastName2.toUpperCase(),
+        apellidoCocreador: apellidosCocreador.toUpperCase(),
         telefonoCocreador: this.customerCocreador.addresses[0].cellphone,
         direccionCocreador: this.customerCocreador.addresses[0].address.toUpperCase(),
         ciudadCocreador: this.customerCocreador.addresses[0].cityCode,
@@ -345,8 +359,14 @@ export class CrearListaComponent implements OnInit {
       }
       this._listGiftService.createListaRegalo(listGift).subscribe(
         response => {
-          this.messageExit = 'Creación de lista de regalo exitosa.';
-          this.link = '[/mi-lista]';
+          //TODO: crear como cliente SAP
+          if (!this.existeCreador) {
+            this.crearClienteCreador();
+          }
+          if (!this.existeCocreador) {
+            this.crearClienteCocreador();
+          }
+          this._router.navigate(['/mi-lista']);
         },
         error => {
           this.messageError = 'Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.';
@@ -356,6 +376,168 @@ export class CrearListaComponent implements OnInit {
     } else {
       this.messageError = "Debe aceptar los terminos y condiciones.";
     }
+  }
+
+  public crearClienteCreador() {
+    let sexo = '';
+    let apellidos = '';
+    let nacionalidad = '';
+    apellidos += this.customerCreador.lastName1;
+    if (this.customerCreador.lastName2 != null && this.customerCreador.lastName2.length > 0) {
+      apellidos += ' ' + this.customerCreador.lastName2;
+    }
+    if (this.customerCreador.fiscalIdType === '22') {
+      nacionalidad = 'FOREIGN';
+    } else {
+      nacionalidad = 'NATIONAL';
+    }
+    if (this.checkedCreadorF) {
+      sexo = 'FEMENINO';
+    } else {
+      sexo = 'MASCULINO';
+    }
+    let businesspartner = {
+      birthDate: '1900-01-01',
+      cardCode: this.customerCreador.fiscalID + 'CL',
+      cardName: this.customerCreador.firstName.toUpperCase() + ' ' + apellidos.toUpperCase(),
+      defaultBillingAddress: 'FACTURACIÓN',
+      defaultShippingAddress: 'FACTURACIÓN',
+      firstName: this.customerCreador.firstName.toUpperCase(),
+      lastName1: this.customerCreador.lastName1.toUpperCase(),
+      lastName2: this.customerCreador.lastName2.toUpperCase(),
+      fiscalID: this.customerCreador.fiscalID,
+      selfRetainer: 'N',
+      salesPersonCode: '98',
+      cardType: 'CUSTOMER',
+      fiscalIdType: this.customerCreador.fiscalIdType,
+      foreignType: 'CON_CLAVE',
+      gender: sexo,
+      nationality: nacionalidad,
+      personType: 'NATURAL',
+      taxRegime: 'REGIMEN_SIMPLIFICADO',
+      addresses: []
+    }
+    let billAddress = {
+      stateCode: this.customerCreador.addresses[0].cityCode.toString().substring(0, 2),
+      stateName: '',
+      cityCode: this.customerCreador.addresses[0].cityCode,
+      cityName: null,
+      addressName: 'FACTURACIÓN',
+      addressType: 'BILLING',
+      address: this.customerCreador.addresses[0].address,
+      landLine: this.customerCreador.addresses[0].cellphone,
+      cellphone: this.customerCreador.addresses[0].cellphone,
+      email: this.customerCreador.addresses[0].email.toUpperCase(),
+      country: 'CO',
+      taxCode: ''
+    }
+    let shipAddress = {
+      stateCode: this.customerCreador.addresses[0].cityCode.toString().substring(0, 2),
+      stateName: '',
+      cityCode: this.customerCreador.addresses[0].cityCode,
+      cityName: null,
+      addressName: 'FACTURACIÓN',
+      addressType: 'SHIPPING',
+      address: this.customerCreador.addresses[0].address,
+      landLine: this.customerCreador.addresses[0].cellphone,
+      cellphone: this.customerCreador.addresses[0].cellphone,
+      email: this.customerCreador.addresses[0].email.toUpperCase(),
+      country: 'CO',
+      taxCode: ''
+    }
+    businesspartner.addresses.push(billAddress);
+    businesspartner.addresses.push(shipAddress);
+
+    this._customerService.createCustomer(businesspartner).subscribe(
+      response => {
+        console.log('Creador de la lista, registrado como cliente SAP');
+      },
+      error => {
+        this.messageError = 'Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.'
+        console.error(error);
+      }
+    );
+  }
+
+  public crearClienteCocreador() {
+    let sexo = '';
+    let apellidos = '';
+    let nacionalidad = '';
+    apellidos += this.customerCocreador.lastName1;
+    if (this.customerCocreador.lastName2 != null && this.customerCocreador.lastName2.length > 0) {
+      apellidos += ' ' + this.customerCocreador.lastName2;
+    }
+    if (this.customerCocreador.fiscalIdType === '22') {
+      nacionalidad = 'FOREIGN';
+    } else {
+      nacionalidad = 'NATIONAL';
+    }
+    if (this.checkedCocreadorF) {
+      sexo = 'FEMENINO';
+    } else {
+      sexo = 'MASCULINO';
+    }
+    let businesspartner = {
+      birthDate: '1900-01-01',
+      cardCode: this.customerCocreador.fiscalID + 'CL',
+      cardName: this.customerCocreador.firstName.toUpperCase() + ' ' + apellidos.toUpperCase(),
+      defaultBillingAddress: 'FACTURACIÓN',
+      defaultShippingAddress: 'FACTURACIÓN',
+      firstName: this.customerCocreador.firstName.toUpperCase(),
+      lastName1: this.customerCocreador.lastName1.toUpperCase(),
+      lastName2: this.customerCocreador.lastName2.toUpperCase(),
+      fiscalID: this.customerCocreador.fiscalID,
+      selfRetainer: 'N',
+      salesPersonCode: '98',
+      cardType: 'CUSTOMER',
+      fiscalIdType: this.customerCocreador.fiscalIdType,
+      foreignType: 'CON_CLAVE',
+      gender: sexo,
+      nationality: nacionalidad,
+      personType: 'NATURAL',
+      taxRegime: 'REGIMEN_SIMPLIFICADO',
+      addresses: []
+    }
+    let billAddress = {
+      stateCode: this.customerCocreador.addresses[0].cityCode.toString().substring(0, 2),
+      stateName: '',
+      cityCode: this.customerCocreador.addresses[0].cityCode,
+      cityName: null,
+      addressName: 'FACTURACIÓN',
+      addressType: 'BILLING',
+      address: this.customerCocreador.addresses[0].address,
+      landLine: this.customerCocreador.addresses[0].cellphone,
+      cellphone: this.customerCocreador.addresses[0].cellphone,
+      email: this.customerCocreador.addresses[0].email.toUpperCase(),
+      country: 'CO',
+      taxCode: ''
+    }
+    let shipAddress = {
+      stateCode: this.customerCocreador.addresses[0].cityCode.toString().substring(0, 2),
+      stateName: '',
+      cityCode: this.customerCocreador.addresses[0].cityCode,
+      cityName: null,
+      addressName: 'FACTURACIÓN',
+      addressType: 'SHIPPING',
+      address: this.customerCocreador.addresses[0].address,
+      landLine: this.customerCocreador.addresses[0].cellphone,
+      cellphone: this.customerCocreador.addresses[0].cellphone,
+      email: this.customerCocreador.addresses[0].email.toUpperCase(),
+      country: 'CO',
+      taxCode: ''
+    }
+    businesspartner.addresses.push(billAddress);
+    businesspartner.addresses.push(shipAddress);
+
+    this._customerService.createCustomer(businesspartner).subscribe(
+      response => {
+        console.log('Cocreador de la lista, registrado como cliente SAP');
+      },
+      error => {
+        this.messageError = 'Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.'
+        console.error(error);
+      }
+    );
   }
 
   public obtenerSiguientePaso() {
