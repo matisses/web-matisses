@@ -40,6 +40,9 @@ export class Item {
   public priceafterdiscount: number;
   public taxpercent: number;
   public precioVisible: boolean;
+  public agregadoLista:boolean;
+  public cantidadElegida:number;
+  public cantidadComprada:number;
 
   constructor() {
 

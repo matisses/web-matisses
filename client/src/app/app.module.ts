@@ -86,7 +86,10 @@ import { MiListaComponent } from './components/lista-de-regalos/mi-lista/mi-list
 import { AgregarProductosComponent } from './components/lista-de-regalos/mi-lista/agregar-productos/agregar-productos.component';
 import { ResultadoBusquedaListasComponent } from './components/lista-de-regalos/listas-encontradas/listas-encontradas.component';
 import { ListaInvitadoComponent } from './components/lista-de-regalos/lista/lista-invitado.component';
-
+import { ResumenRegalosComponent } from './components/lista-de-regalos/lista/resumen-regalos/resumen-regalos.component';
+import { CarritoRegalosComponent } from './components/lista-de-regalos/lista/carrito-regalos/carrito-regalos.component';
+import { CarritoRegalosSimpleComponent } from './components/lista-de-regalos/lista/carrito-regalos/carrito-regalos-simple.component';
+import { InfoPagoRegalosComponent } from './components/lista-de-regalos/lista/info-pago-regalos/info-pago-regalos.component';
 //Directivas
 import { StickyMenuDirective } from './directives/sticky.directive';
 import { StickyBodyDirective } from './directives/sticky-body.directive';
@@ -161,7 +164,12 @@ import { MetaModule } from '@ngx-meta/core';
     MiListaComponent,
     AgregarProductosComponent,
     ResultadoBusquedaListasComponent,
-    ListaInvitadoComponent
+
+    ListaInvitadoComponent,
+    CarritoRegalosComponent,
+    CarritoRegalosSimpleComponent,
+    ResumenRegalosComponent,
+    InfoPagoRegalosComponent
 
   ],
   imports: [

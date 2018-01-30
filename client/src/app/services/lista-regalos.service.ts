@@ -58,5 +58,36 @@ export class ListaRegalosService {
       .map(res => res.json());
   }
 
+  agregarProducto(productoDTO) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'listaregalos/agregarproducto/', JSON.stringify(productoDTO), { headers: headers })
+      .map(res => res.json());
+  }
+
+  consultarListaPaginada(paramsConsulta){
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'listaregalos/consultarproductos/', JSON.stringify(paramsConsulta), { headers: headers })
+      .map(res => res.json());
+
+
+  }
+
+  consultarTotalLista(idLista) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'listaregalos/consultartotalproductos/' + idLista, { headers: headers })
+      .map(res => res.json());
+  }
+
+
+
 
 }

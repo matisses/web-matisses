@@ -1,0 +1,148 @@
+.margin-top-scroll {
+  margin-top: 130px;
+}
+
+.container {
+  color: #5B5B5B;
+  min-height: 430px;
+}
+
+.title {
+  background-color: #EDEDED;
+  padding: 10px;
+}
+
+.title h4 {
+  margin: 0;
+}
+
+.producto {
+  padding: 10px 0px;
+  border-bottom: 1px solid #EDEDED;
+}
+
+.producto img {
+  margin-top: 25px;
+}
+
+.item-name {
+  margin: 15px 0;
+  font-size: 15px;
+}
+
+.padding-right-0 {
+  padding-right: 0;
+}
+
+.trash {
+  margin-top: 15%;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.trash:hover {
+  color: #D1D1D1;
+}
+
+input {
+  width: 50%;
+  text-align: center;
+}
+
+.total {
+  background-color: #EDEDED;
+}
+
+h5, h4 {
+  padding-left: 10px;
+}
+
+hr {
+  margin: 5px 0;
+}
+
+.btn-seguir-comprando {
+  background-color: #EDEDED;
+  padding: 5px;
+  margin-top: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.btn-seguir-comprando:hover {
+  font-weight: 700;
+}
+
+.btn-continuar {
+  background-color: #DB7D7D;
+  padding: 10px 0px;
+  color: #FFF;
+  text-align: center;
+  cursor: pointer;
+}
+
+.arrow {
+  position: absolute;
+  top: 27%;
+  margin-left: 5px;
+  transition: 0.5s;
+}
+
+.btn-continuar:hover > .arrow {
+  margin-left: 15px;
+}
+
+.btn-continuar:hover {
+  background-color: #7C7C7C;
+}
+
+.saldo-insuficiente {
+  position: absolute;
+  display: block;
+  background-color: rgba(59, 59, 59, 0.91);
+  z-index: 5;
+  width: 100%;
+  height: 132px;
+  text-align: center;
+  color: #FFF;
+}
+
+.saldo-insuficiente p {
+  margin-top: 50px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.saldo-insuficiente .glyphicon {
+  margin-right: 55px;
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 991px) {
+  .stuck-body {
+    margin-top: 0px;
+  }
+  .breadcrumb {
+    margin-top: 50px;
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  input {
+    width: 60%;
+    font-size: 10px
+  }
+  .info p {
+    font-size: 10px;
+  }
+  .btn-carrito {
+    font-size: 10px;
+  }
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
