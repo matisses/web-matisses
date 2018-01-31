@@ -358,12 +358,9 @@ export class CrearListaComponent implements OnInit {
         productos: [],
         fechaEventoUTC: ""
       }
-      console.log('*******************************************');
-      console.log(listGiftDTO);
-      console.log('*******************************************');
       this._listaRegalosService.crearLista(listGiftDTO).subscribe(
         response => {
-          if (response.length > 0) {
+          if (response.codigo === 0) {
             //crear como cliente SAP
             if (!this.existeCreador) {
               this.crearClienteCreador();
