@@ -2,6 +2,27 @@
   margin-top: 125px;
 }
 
+.show {
+  display: none !important;
+}
+
+.leer-mas {
+  position: fixed;
+  left: 40%;
+  background-color: #444243;
+  color: #FFF;
+  padding: 5px 20px;
+  border-radius: 5px 5px 0 0;
+  bottom: 0;
+  z-index: 500;
+  display: block;
+  text-align: center;
+}
+
+.leer-mas p {
+  margin: 0;
+}
+
 .title h3 {
   width: 100%;
   background: #EDEDED;
@@ -37,25 +58,7 @@
   padding-top: 10px;
   background-attachment: relative;
   background-position: center top;
-  min-height: 300px;
-  width: 100%;
-  -webkit-background-size: 100%;
-  -moz-background-size: 100%;
-  -o-background-size: 100%;
-  background-size: 100%;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-
-.bogota {
-  background: url(../../../assets/images/bogota.jpg) no-repeat center top;
-  margin-top: 0px;
-  padding-top: 10px;
-  background-attachment: relative;
-  background-position: center top;
-  min-height: 300px;
+  min-height: 510px;
   width: 100%;
   -webkit-background-size: 100%;
   -moz-background-size: 100%;
@@ -72,7 +75,7 @@
 }
 
 .mapa {
-  height: 300px;
+  height: 415px;
 }
 
 .info {
@@ -96,7 +99,7 @@
   .content {
     margin-top: 25px;
   }
-  .medellin, .bogota {
+  .medellin {
     min-height: 400px;
   }
   .mapa {
@@ -117,10 +120,27 @@
 }
 
 @media screen and (max-width: 500px) {
-  .medellin, .bogota {
-    min-height: 200px;
+  .medellin {
+    min-height: 515px;
+  }
+  .mapa {
+    height: 300px;
+  }
+  .leer-mas {
+    left: 38%;
+    padding: 5px 20px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .medellin {
+    min-height: 442px;
   }
   .mapa {
     height: 200px;
+  }
+  .leer-mas {
+    left: 35%;
+    padding: 5px 20px;
   }
 }
