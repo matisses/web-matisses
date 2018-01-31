@@ -6,7 +6,7 @@ import { City } from '../../../models/city';
 
 import { CustomerService } from '../../../services/customer.service';
 import { CityService } from '../../../services/city.service';
-import { ListGiftService } from '../../../services/listGift.service';
+import { ListaRegalosService } from '../../../services/lista-regalos.service';
 
 //declare var jQuery: any;
 declare var $: any;
@@ -14,7 +14,7 @@ declare var $: any;
 @Component({
   templateUrl: 'crear-lista.html',
   styleUrls: ['crear-lista.component.css'],
-  providers: [CustomerService, CityService, ListGiftService]
+  providers: [CustomerService, CityService, ListaRegalosService]
 })
 
 export class CrearListaComponent implements OnInit {
@@ -68,7 +68,7 @@ export class CrearListaComponent implements OnInit {
   public customerCocreador: Customer;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService,
-    private _cityService: CityService, private _listGiftService: ListGiftService) {
+    private _cityService: CityService, private _listaRegalosService: ListaRegalosService) {
     this.customerCreador = new Customer();
     this.customerCocreador = new Customer();
     this.dayEvent = new Array<number>();
@@ -291,7 +291,7 @@ export class CrearListaComponent implements OnInit {
       apellidosCocreador += ' ' + this.customerCocreador.lastName2;
     }
     if (this.aceptaTerminos) {
-      let listGift = {
+      let listGiftDTO = {
         idLista: null,
         invitados: this.invitados,
         valorMinimoBono: 0,
@@ -357,7 +357,7 @@ export class CrearListaComponent implements OnInit {
         productos: [],
         fechaEventoUTC: ""
       }
-      this._listGiftService.createListaRegalo(listGift).subscribe(
+      this._listaRegalosService.crearLista(listGiftDTO).subscribe(
         response => {
           //TODO: crear como cliente SAP
           if (!this.existeCreador) {

@@ -1,0 +1,161 @@
+<menu-lista></menu-lista>
+
+<div class="container">
+  <div class="contenedor">
+    <!-- esperando validacion de transacción -->
+
+    <div class="bg" *ngIf="!transaccion && (!errorMessage || errorMessage.length <= 0)">
+      <div class="container">
+        <div class="caption">
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <img src="assets/images/gif-cargando.gif" alt="">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 text-center">
+              <hr/>
+              <p><b>Estamos validando tu transacción</b></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="errorMessage != null && errorMessage.length > 0">
+      <div class="container">
+        <div class="col-xs-12">
+          <div class="alert alert-danger" role="alert">
+            <p>{{errorMessage}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- resultado de transacción -->
+    <div class="container" *ngIf="transaccion">
+      <div class="fondo-gris">
+        <div class="fondo-blanco">
+          <div class="row">
+            <div class="col-xs-12 text-center">
+              <h1><b>Transacción {{transaccion.status.reason}}</b></h1>
+            </div>
+            <div class="col-xs-12 text-center">
+              <h2>{{transaccion.status.message}}</h2>
+            </div>
+          </div>
+        </div>
+        <br/>
+        <div class="fondo-blanco">
+          <div class="row">
+            <div class="col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+              <table class="table table-responsive">
+                <tr>
+                  <th style="border-top:0">
+                    NIT
+                  </th>
+                  <td style="border-top:0">
+                    900060329-9
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    Razón Social
+                  </th>
+                  <td>
+                    Distribuciones Bar&uacute; S.A.
+                  </td>
+                </tr>
+                <tr *ngIf="transaccion.factura">
+                  <th>
+                    Factura No.
+                  </th>
+                  <td>
+                    {{transaccion.factura}}
+                  </td>
+                </tr>
+                <tr *ngIf="transaccion.referenciaPago">
+                  <th>
+                    Referencia
+                  </th>
+                  <td>
+                    {{transaccion.referenciaPago}}
+                  </td>
+                </tr>
+                <tr *ngIf="transaccion.descripcionPago">
+                  <th>
+                    Descripción Del Pago
+                  </th>
+                  <td>
+                    {{transaccion.descripcionPago}}
+                  </td>
+                </tr>
+                <tr *ngIf="transaccion.nombrePagador">
+                  <th>
+                    Nombre Del Pagador
+                  </th>
+                  <td>
+                    {{transaccion.nombrePagador}}
+                  </td>
+                </tr>
+                <tr *ngIf="transaccion.email">
+                  <th>
+                    E-Mail Del Pagador
+                  </th>
+                  <td>
+                    {{transaccion.email}}
+                  </td>
+                </tr>
+                <tr *ngIf="transaccion.ip">
+                  <th>
+                    Dirección IP
+                  </th>
+                  <td>
+                    {{transaccion.ip}}
+                  </td>
+                </tr>
+                <tr *ngIf="transaccion.fecha">
+                  <th>
+                    Fecha Transacción
+                  </th>
+                  <td>
+                    {{transaccion.fecha}}
+                  </td>
+                </tr>
+                <tr *ngIf="transaccion.valorTotal">
+                  <th>
+                    Valor Total
+                  </th>
+                  <td>
+                    {{transaccion.valorTotal | number}}
+                  </td>
+                </tr>
+                <tr *ngIf="transaccion.impuestos">
+                  <th>
+                    IVA
+                  </th>
+                  <td>
+                    {{transaccion.impuestos | number}}
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br/>
+      <div class="row">
+        <div class="col-sm-3 col-sm-offset-9 col-xs-8 col-xs-offset-2 text-right">
+          <p class="btn-volver" [routerLink]="['/resumen-carrito']">Volver al carrito</p>
+        </div>
+      </div>
+      <div class="frame">
+        <div class="row">
+          <div class="col-xs-12 text-center">
+            <p>Si tienes alguna inquietud por favor contáctanos en nuestro teléfono <b><span class="glyphicon glyphicon-earphone"> </span> 018000 410 044</b><br/> o a nuestro email <b><span class="icon-mail"> </span> info@matisses.co</b></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
