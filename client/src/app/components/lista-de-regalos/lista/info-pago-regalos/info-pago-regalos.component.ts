@@ -60,17 +60,19 @@ export class InfoPagoRegalosComponent implements OnInit {
   private viewportWidth: number = 0;
   public resumenMobileVisible: boolean = false;
   public resumenDesktopVisible: boolean = false;
+  public codigoLista: string;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService, private _cityService: CityService,
     private _shippingMethodService: ShippingMethodService, private _placetopayService: PlacetoPayService, private _shoppingCartService: ShoppingCartService,
     private _itemService: ItemService, private _coordinadoraService: CoordinadoraService, private _shoppingCartValidatorService: ShoppingCartValidatorService,
     private _descuentosService: DescuentosService) {
     this.messageError = '';
-    this.urlReturn = GLOBAL.urlTransactionResult;
+    this.urlReturn = GLOBAL.urlTransactionResultList;
     this.limpiar();
     this.ciudadesPrincipales = new Array<City>();
     this.otrasCiudades = new Array<City>();
     this.metodosEnvio = new Array<ShippingMethod>();
+    this.codigoLista=localStorage.getItem('codigo-lista');
   }
 
   ngOnInit() {
@@ -300,7 +302,7 @@ export class InfoPagoRegalosComponent implements OnInit {
 
         if (itemsSinSaldo) {
           //Devolver a la vista de carrito para notificarle al usuario que los items no tienen saldo
-          localStorage.setItem('matisses.shoppingCart', JSON.stringify(this.carrito.shoppingCart));
+          localStorage.setItem('matisses.shoppingCart.List', JSON.stringify(this.carrito.shoppingCart));
           this._router.navigate(['/resumen-regalos']);
         } else {
           //Se mapean los datos para guardar el carrito en mongo DB
@@ -316,7 +318,7 @@ export class InfoPagoRegalosComponent implements OnInit {
             response => {
               //Se guarda en el localStorage el carrito
               this.carrito.shoppingCart._id = response.shoppingCart._id;
-              localStorage.setItem('matisses.shoppingCart', JSON.stringify(this.carrito.shoppingCart));
+              localStorage.setItem('matisses.shoppingCart.List', JSON.stringify(this.carrito.shoppingCart));
               this.validarCliente(this.carrito.shoppingCart._id);
             },
             error => {
@@ -430,7 +432,8 @@ export class InfoPagoRegalosComponent implements OnInit {
     console.log('enviarPlaceToPay');
     let datosCompraWeb = {
       idCarrito: '00000000000000000',
-      items: this.carrito.shoppingCart.items
+      items: this.carrito.shoppingCart.items,
+      idLista:localStorage.getItem('id-lista')
     }
 
     console.log(datosCompraWeb);
@@ -474,7 +477,7 @@ export class InfoPagoRegalosComponent implements OnInit {
             }
           }
 
-          this.datosPago = new DatosPagoPlaceToPay().newDatosPagoPlaceToPay(buyer, null, navigator.userAgent, payment, null, null, this.urlReturn + _id, '');
+          this.datosPago = new DatosPagoPlaceToPay().newDatosPagoPlaceToPayLista(buyer, null, navigator.userAgent, payment, null, null, this.urlReturn + _id, '',this.codigoLista);
 
           this._placetopayService.redirect(this.datosPago).subscribe(
             response => {
@@ -738,7 +741,7 @@ export class InfoPagoRegalosComponent implements OnInit {
   public cargarCarrito() {
     //consultar localstorage
     console.log('entra en el cargar resumen');
-    let localSC = JSON.parse(localStorage.getItem('matisses.shoppingCart'));
+    let localSC = JSON.parse(localStorage.getItem('matisses.shoppingCart.List'));
     if (!localSC) {
       this.carrito.inicializarShoppingCart();
     } else {

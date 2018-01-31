@@ -94,7 +94,7 @@ export class ResumenRegalosComponent implements OnInit {
   public cargarCarrito() {
     //consultar localstorage
     console.log('entra en el cargar resumen');
-    let localSC = JSON.parse(localStorage.getItem('matisses.shoppingCart'));
+    let localSC = JSON.parse(localStorage.getItem('matisses.shoppingCart.List'));
     if (!localSC) {
       this.carrito.inicializarShoppingCart();
     } else {

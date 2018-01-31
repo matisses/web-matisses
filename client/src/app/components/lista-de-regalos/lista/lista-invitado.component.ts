@@ -66,6 +66,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public totalDescuentos: number = 0;
   public mostrar: boolean = true;
 
+
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista= localStorage.getItem('codigo-lista');
@@ -79,6 +80,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     this.items = new Array<Item>();
     this.url = this._router.url;
     this.itemsListaBcs=new Array<any>();
+
 
     //carrito de COMPRAS
     this.inicializarShoppingCart();
@@ -450,6 +452,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
      console.log('agregarCarrito');
      item.selectedQuantity = item.selectedQuantity;
      this.procesarItem(item);
+
    }
 
    public procesarItem(item: Item) {
@@ -502,7 +505,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
        this.shoppingCart.items.push(item);
      }
      //3. guardar
-     localStorage.setItem('matisses.shoppingCart', JSON.stringify(this.shoppingCart));
+     localStorage.setItem('matisses.shoppingCart.List', JSON.stringify(this.shoppingCart));
      //4. Actualizar contenido HTML
      this.procesarCarrito();
 
@@ -520,7 +523,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
    public cargarCarrito() {
      //consultar localstorage
      console.log('entra en el cargar');
-     let localSC = JSON.parse(localStorage.getItem('matisses.shoppingCart'));
+     let localSC = JSON.parse(localStorage.getItem('matisses.shoppingCart.List'));
      if (!localSC) {
        this.inicializarShoppingCart();
      } else {
@@ -636,6 +639,28 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
            break;
          }
        }
+     }
+   }
+
+
+   public aumentarCantidad(item: Item) {
+
+     if(item.cantidadElegida > item.selectedQuantity){
+       if(item.selectedQuantity<=(item.cantidadElegida-item.cantidadComprada)){
+          item.selectedQuantity += 1;
+       }
+
+     }
+
+
+     this.procesarItem(item);
+
+
+   }
+
+   public reducirCantidad(item:Item) {
+     if (item.selectedQuantity > 1) {
+       item.selectedQuantity -= 1;
      }
    }
 
