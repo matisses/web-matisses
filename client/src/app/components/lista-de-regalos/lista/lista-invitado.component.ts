@@ -25,8 +25,7 @@ declare var $: any;
 export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   // @ViewChild(CarritoRegalosComponent)
   // public carrito: CarritoRegalosComponent;
-  @ViewChild(CarritoRegalosSimpleComponent)
-  public carrito: CarritoRegalosSimpleComponent;
+  @ViewChild(CarritoRegalosSimpleComponent) carrito: CarritoRegalosSimpleComponent;
   public lastAddedItem: Item;
   public itemsSinSaldo: Array<Item>;
   public nombreUsuario: string;
@@ -104,7 +103,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   this.codigoLista= localStorage.getItem('codigo-lista');
   this.fechaEvento=localStorage.getItem('fecha-evento');
   this.idListaUsuario=localStorage.getItem('id-lista');
-  this.inicializarShoppingCart();
+  this.cargarCarrito();
   this.cargarItems0();
   }
 
@@ -123,7 +122,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     $(window).scroll(function() {
       var scroll = $(window).scrollTop();
       if (scroll >= 30) {
-        
+
         $(".contenedor").addClass("margin-top-scroll");
       } else {
         $(".contenedor").removeClass("margin-top-scroll")
@@ -536,7 +535,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
      this.procesarCarrito();
    }
 
-   private procesarCarrito() {
+   public procesarCarrito() {
      this.totalItemsCarrito = 0;
      this.totalCarrito = 0;
      this.totalImpuestos = 0;
@@ -558,7 +557,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
      this.totalImpuestos = (this.totalCarrito - this.totalDescuentos - totalSinIVA) | 0;
    }
 
-   private inicializarShoppingCart(){
+   public inicializarShoppingCart(){
    console.log('entra en el inicializarShoppingCart');
      this.shoppingCart = {
        _id: null,
@@ -587,7 +586,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
      }
    }
 
-   private openResumen() {
+   public openResumen() {
      if (this.viewportWidth <= 991) {
        //mostrar mobile
        const divs = document.getElementById("carrito1").getElementsByTagName("div");

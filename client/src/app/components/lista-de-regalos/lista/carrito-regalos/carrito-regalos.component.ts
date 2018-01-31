@@ -13,8 +13,7 @@ declare var $: any;
   styleUrls: ['carrito-regalos.component.css']
 })
 export class CarritoRegalosComponent implements OnInit, AfterViewInit {
-  @ViewChild(CarritoRegalosSimpleComponent)
-  public carrito: CarritoRegalosSimpleComponent;
+  @ViewChild(CarritoRegalosSimpleComponent) carrito: CarritoRegalosSimpleComponent;
   private viewportWidth: number = 0;
   public url: string;
   public resumenMobileVisible: boolean = false;

@@ -29,7 +29,7 @@ export class CarritoRegalosSimpleComponent {
     this.inicializarShoppingCart();
   }
 
-  private inicializarShoppingCart(){
+  public inicializarShoppingCart(){
   console.log('entra en el inicializarShoppingCart');
     this.shoppingCart = {
       _id: null,
@@ -94,7 +94,7 @@ export class CarritoRegalosSimpleComponent {
     }
   }
 
-  private cambiarItem(item: Item) {
+  public cambiarItem(item: Item) {
     //0. Cargar contenido de localStorage
     this.cargarCarrito();
     //1. validar contenido
@@ -132,7 +132,7 @@ export class CarritoRegalosSimpleComponent {
     }
   }
 
-  private procesarCarrito() {
+  public procesarCarrito() {
     this.totalItems = 0;
     this.totalCarrito = 0;
     this.totalImpuestos = 0;
