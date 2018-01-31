@@ -117,6 +117,10 @@ export class ListaRegalosComponent implements OnInit {
       }
       this._listaRegalosService.consultarLista(consultaDTO).subscribe(
         response => {
+          sessionStorage.setItem('nombresNovios', JSON.stringify(this.nombresNovios));
+          sessionStorage.setItem('apellidosNovios', JSON.stringify(this.apellidosNovios));
+          sessionStorage.setItem('codigoLista', JSON.stringify(this.codigoLista));
+          sessionStorage.setItem('resultados', JSON.stringify(response));
           this._router.navigate(['/lista-de-regalos/resultado-busqueda']);
         },
         error => {
