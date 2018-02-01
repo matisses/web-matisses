@@ -82,7 +82,7 @@ const appRoutes: Routes = [
       { path: 'lista/:codigoLista', component: ListaInvitadoComponent },//imprimir el codigo de la lista en la url
       { path: 'resumen-regalos', component: ResumenRegalosComponent },
       { path: 'info-pago-regalos', component: InfoPagoRegalosComponent },
-      { path: 'resultado-transaccion-regalos', component: ResultadoTransaccionListaComponent }
+      { path: 'resultado-transaccion-regalos/:idCarrito', component: ResultadoTransaccionListaComponent }
     ]
   },
 

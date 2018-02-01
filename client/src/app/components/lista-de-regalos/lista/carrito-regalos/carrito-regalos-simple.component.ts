@@ -30,7 +30,7 @@ export class CarritoRegalosSimpleComponent {
   }
 
   public inicializarShoppingCart(){
-  console.log('entra en el inicializarShoppingCart');
+
     this.shoppingCart = {
       _id: null,
       metodoEnvio: null,
@@ -41,8 +41,8 @@ export class CarritoRegalosSimpleComponent {
 
   public cargarCarrito() {
     //consultar localstorage
-    console.log('entra en el cargar');
-    let localSC = JSON.parse(localStorage.getItem('matisses.shoppingCart'));
+
+    let localSC = JSON.parse(localStorage.getItem('matisses.shoppingCart.List'));
     if (!localSC) {
       this.inicializarShoppingCart();
     } else {
@@ -58,7 +58,7 @@ export class CarritoRegalosSimpleComponent {
   }
 
   public procesarItem(item: Item) {
-    console.log('procesarItem en carrito simple');
+
     item.selectedQuantity = parseInt(item.selectedQuantity.toString());
     if (item.selectedQuantity > 0) {
       let items = new Array<Item>();
@@ -117,7 +117,7 @@ export class CarritoRegalosSimpleComponent {
       this.shoppingCart.items.push(item);
     }
     //3. guardar
-    localStorage.setItem('matisses.shoppingCart', JSON.stringify(this.shoppingCart));
+    localStorage.setItem('matisses.shoppingCart.List', JSON.stringify(this.shoppingCart));
     //4. Actualizar contenido HTML
     this.procesarCarrito();
 

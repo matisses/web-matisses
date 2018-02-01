@@ -1,43 +1,94 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { ItemService } from '../../../../services/item.service';
-import { Item } from '../../../../models/item';
+import { PlacetoPayService } from '../../../../services/placetopay.service';
+import { ShoppingCartService } from '../../../../services/shopping-cart.service';
 
-import {SessionUsuarioService } from '../../../../services/session-usuario.service';
-import {ListaRegalosService } from '../../../../services/lista-regalos.service';
-
-declare var jquery: any;
-declare var $: any;
-
+import { CarritoRegalosComponent } from '../carrito-regalos/carrito-regalos.component';
+import { CarritoRegalosSimpleComponent } from '../carrito-regalos/carrito-regalos-simple.component';
 @Component({
   templateUrl: 'resultados-transaccion-lista.html',
   styleUrls: ['resultados-transaccion-lista.component.css'],
-  providers: [ItemService, SessionUsuarioService,ListaRegalosService]
+    providers: [PlacetoPayService, ShoppingCartService]
 })
 
 export class ResultadoTransaccionListaComponent implements OnInit {
 
-  constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
+  @ViewChild(CarritoRegalosSimpleComponent) carrito: CarritoRegalosSimpleComponent;
 
+  public errorMessage: string = '';
+  public transaccion: {
+    status: {
+      message: string,
+      status: string,
+      reason: string
+    },
+    factura: number,
+    referenciaPago: string,
+    descripcionPago: string,
+    nombrePagador: string,
+    email: string,
+    ip: string,
+    fecha: string,
+    valorTotal: number,
+    impuestos: number
+  }
+
+  constructor(private _route: ActivatedRoute, private _router: Router, private _placetopayService: PlacetoPayService, private _shoppingCartService: ShoppingCartService) {
   }
 
   ngOnInit() {
-
+    this.carrito.cargarCarrito();
+    this.consultarEstadoPlaceToPay();
   }
 
+  consultarEstadoPlaceToPay() {
+    this.errorMessage = '';
+    this._route.params.forEach((params: Params) => {
+      let idCarrito: string = params['idCarrito'];
 
-  ngAfterViewInit() {
-    $(window).scroll(function() {
-      var scroll = $(window).scrollTop();
-      if (scroll >= 30) {
-        console.log(scroll);
-        $(".contenedor").addClass("margin-top-scroll");
-      } else {
-        $(".contenedor").removeClass("margin-top-scroll")
-      }
+      this._shoppingCartService.findShoppingCart(idCarrito).subscribe(
+        response => {
+          let datosCompraWeb = {
+            metodoEnvio: response.shoppingCart[0].metodoEnvio,
+            tiendaRecoge: response.shoppingCart[0].tiendaRecoge,
+            idCarrito: idCarrito,
+            items: response.shoppingCart[0].items,
+            idLista:sessionStorage.getItem('id-lista')
+          }
+
+          if (datosCompraWeb.items) {
+            this._placetopayService.consultar(datosCompraWeb).subscribe(
+              response => {
+                if (response.codigo && response.codigo == -1) {
+                  this.errorMessage = response.mensaje;
+                } else {
+                  this.transaccion = response;
+
+                  if (this.transaccion.status.status === 'REJECTED') {
+                    this.transaccion.status.reason = 'rechazada';
+                  } else if (this.transaccion.status.status === 'PENDING') {
+                    this.transaccion.status.reason = 'pendiente';
+                  } else {
+                    this.transaccion.status.reason = 'aprobada';
+
+
+                  }
+                }
+              },
+              error => {
+                this.errorMessage = 'No se pudo conectar con el servidor';
+                console.error(error);
+              }
+            );
+          }
+        },
+        error => {
+          console.error(error);
+        }
+      );
     });
   }
 
-  
+
 }

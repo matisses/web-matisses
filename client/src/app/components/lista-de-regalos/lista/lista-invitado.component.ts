@@ -66,12 +66,13 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public totalDescuentos: number = 0;
   public mostrar: boolean = true;
 
+
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista= localStorage.getItem('codigo-lista');
     this.fechaEvento=localStorage.getItem('fecha-evento');
     //this.idListaUsuario=localStorage.getItem('id-lista');cambiar a esta al tener la consulta
-    this.idListaUsuario='2056';
+    this.idListaUsuario=sessionStorage.getItem('id-lista');
     this.queryParams = new Map<string, string>();
     this.itemsXPag = '12 x pag';
     this.orderByStr = 'Similares';
@@ -80,13 +81,14 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     this.url = this._router.url;
     this.itemsListaBcs=new Array<any>();
 
+
     //carrito de COMPRAS
     this.inicializarShoppingCart();
   }
 
   private inicializarParamsConsulta() {
     this.paramsConsulta = {
-    idLista:localStorage.getItem('id-lista'),
+    idLista:sessionStorage.getItem('id-lista'),
     pagina:'1',
     registrosPagina:'12',
     orderBy:'referencia asc',
@@ -102,7 +104,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   this.nombreUsuario = localStorage.getItem('username-lista');
   this.codigoLista= localStorage.getItem('codigo-lista');
   this.fechaEvento=localStorage.getItem('fecha-evento');
-  this.idListaUsuario=localStorage.getItem('id-lista');
+  this.idListaUsuario=sessionStorage.getItem('id-lista');
   this.cargarCarrito();
   this.cargarItems0();
   }
@@ -114,7 +116,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
       this.nombreUsuario = localStorage.getItem('username-lista');
       this.codigoLista= localStorage.getItem('codigo-lista');
       this.fechaEvento=localStorage.getItem('fecha-evento');
-      this.idListaUsuario=localStorage.getItem('id-lista');
+      this.idListaUsuario=sessionStorage.getItem('id-lista');
 
       //this.cargarItems0();
 
@@ -170,7 +172,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   public cargarItems(availableFields, items, queryParams, records) {
-    console.log('cargar items');
+
     this.items = new Array<Item>();
     this.items = items;
     this.availableFields = availableFields;
@@ -238,7 +240,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
 
   private cargarItems0() {
-    console.log('entro en cargarItems0');
+
     this.items = new Array<Item>();
     this.inicializarParamsConsulta();
 
@@ -276,12 +278,12 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
       if(this.queryParams.has('page')){
         this.paramsConsulta.pagina=this.queryParams.get('page');
       }
-      console.log('paramsConsulta---'+this.paramsConsulta.registrosPagina);
+
 
       this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
           response => {
             this.totalLista=response;
-            console.log('totalLista--'+this.totalLista)
+
           },
           error =>{
             console.log("error servicio bcs"+error);
@@ -290,28 +292,24 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
       );
 
-      console.log('antes de ir al servicio llevo');
-      console.log(this.paramsConsulta.registrosPagina);
-      console.log(this.paramsConsulta.idLista);
-      console.log(this.paramsConsulta.pagina);
-      console.log(this.paramsConsulta.orderBy);
+
       this._listaService.consultarListaPaginada(this.paramsConsulta).subscribe(
           response => {
-            console.log("servicio bcs"+response.data);
+
             this.itemsListaBcs=response;
-            console.log('variable'+this.itemsListaBcs.length);
+
             this.items=new Array<Item>();
             for (let i = 0; i < this.itemsListaBcs.length; i++) {
                this.itemsListaBcs[i].referencia;
-               console.log(this.itemsListaBcs[i].referencia);
+
                let cadena1=this.itemsListaBcs[i].referencia.substring(0,3);
                let cadena2=this.itemsListaBcs[i].referencia.substring(16,20);
-               console.log('cadena1'+cadena1+cadena2);
+
                this._itemService.find(cadena1+cadena2).subscribe( // Item 1
                  response => {
                    response.result[0].cantidadElegida=this.itemsListaBcs[i].cantidadElegida;
                    response.result[0].cantidadComprada=this.itemsListaBcs[i].cantidadComprada;
-                   console.log('despues de setearrr'+response.result[0].cantidadElegida);
+
                    this.items.push(response.result[0]);
                 },
                 error=>{
@@ -329,33 +327,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
       );
 
-      // this._itemService.filter(this.queryString).subscribe(
-      //   response => {
-      //     //this.items = response.result;
-      //     //this.totalItems=response.records;
-      //     for (let i = 0; i < this.items.length; i++) {
-      //       //validar si el ítem tiene descuentos
-      //       // this._descuentosService.findDiscount(this.items[i].itemcode).subscribe(
-      //       //   response => {
-      //       //     if (this.items[i].priceaftervat === response.precio) {
-      //       //       if (response.descuentos && response.descuentos.length > 0) {
-      //       //         this.items[i].descuento = response.descuentos[0].porcentaje;
-      //       //         this.items[i].priceafterdiscount = this.items[i].priceaftervat - ((this.items[i].priceaftervat / 100) * this.items[i].descuento);
-      //       //       }
-      //       //     }
-      //       //   },
-      //       //   error => {
-      //       //     console.error(error);
-      //       //   }
-      //       // );
-      //     }
-      //     //this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalLista);
-      //     //this.filtrosComponent.inicializarFiltros(this.availableFields, this.queryParams, this.queryString, response.records);
-      //   },
-      //   error => {
-      //     console.error(error);
-      //   }
-      // );
+
     });
   }
 
@@ -447,13 +419,14 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
    //carrito de compras ListaRegalos
    public agregarCarrito(item: Item) {
-     console.log('agregarCarrito');
+
      item.selectedQuantity = item.selectedQuantity;
      this.procesarItem(item);
+
    }
 
    public procesarItem(item: Item) {
-     console.log('procesarItem en carrito simple');
+
      item.selectedQuantity = parseInt(item.selectedQuantity.toString());
      if (item.selectedQuantity > 0) {
        let items = new Array<Item>();
@@ -502,7 +475,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
        this.shoppingCart.items.push(item);
      }
      //3. guardar
-     localStorage.setItem('matisses.shoppingCart', JSON.stringify(this.shoppingCart));
+     localStorage.setItem('matisses.shoppingCart.List', JSON.stringify(this.shoppingCart));
      //4. Actualizar contenido HTML
      this.procesarCarrito();
 
@@ -519,8 +492,8 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
    public cargarCarrito() {
      //consultar localstorage
-     console.log('entra en el cargar');
-     let localSC = JSON.parse(localStorage.getItem('matisses.shoppingCart'));
+
+     let localSC = JSON.parse(localStorage.getItem('matisses.shoppingCart.List'));
      if (!localSC) {
        this.inicializarShoppingCart();
      } else {
@@ -558,7 +531,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
    }
 
    public inicializarShoppingCart(){
-   console.log('entra en el inicializarShoppingCart');
+
      this.shoppingCart = {
        _id: null,
        metodoEnvio: null,
@@ -636,6 +609,28 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
            break;
          }
        }
+     }
+   }
+
+
+   public aumentarCantidad(item: Item) {
+
+     if(item.cantidadElegida > item.selectedQuantity){
+       if(item.selectedQuantity<=(item.cantidadElegida-item.cantidadComprada)){
+          item.selectedQuantity += 1;
+       }
+
+     }
+
+
+     this.procesarItem(item);
+
+
+   }
+
+   public reducirCantidad(item:Item) {
+     if (item.selectedQuantity > 1) {
+       item.selectedQuantity -= 1;
      }
    }
 
