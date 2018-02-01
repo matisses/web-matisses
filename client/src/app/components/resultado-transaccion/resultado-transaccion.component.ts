@@ -53,7 +53,8 @@ export class ResultadoTransacciComponent implements OnInit {
             metodoEnvio: response.shoppingCart[0].metodoEnvio,
             tiendaRecoge: response.shoppingCart[0].tiendaRecoge,
             idCarrito: idCarrito,
-            items: response.shoppingCart[0].items
+            items: response.shoppingCart[0].items,
+            idLista:localStorage.getItem('id-lista')
           }
 
           if (datosCompraWeb.items) {

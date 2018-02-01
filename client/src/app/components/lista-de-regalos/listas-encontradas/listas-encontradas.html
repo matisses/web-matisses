@@ -63,7 +63,7 @@
               <td class="nombres-novios">{{novios.novios}}</td>
               <td class="hidden-xs">{{novios.fecha}}</td>
               <td class="hidden-xs">
-                <button type="button" name="verLista" class="btn btn-listas" (click)="removeSession()" [routerLink]="['/lista/codigo']">Ver lista</button>
+                <button type="button" name="verLista" class="btn btn-listas" (click)="removeSession(novios.idLista)" [routerLink]="['/lista', novios.codigo]">Ver lista</button>
               </td>
             </tr>
           </tbody>

@@ -44,7 +44,10 @@ export class ResultadoBusquedaListasComponent implements OnInit {
     });
   }
 
-  public removeSession() {
+  public removeSession(idLista:string) {
+    console.log(idLista);
+    localStorage.removeItem('id-lista');
+    localStorage.setItem('id-lista',idLista);
     sessionStorage.removeItem('nombresNovios');
     sessionStorage.removeItem('apellidosNovios');
     sessionStorage.removeItem('codigoLista');
@@ -74,6 +77,7 @@ export class ResultadoBusquedaListasComponent implements OnInit {
     for (let j = 0; j < respuesta.length; j++) {
       this.pruebaListas.push(
         {
+          idLista:respuesta[j].idLista,
           codigo: respuesta[j].codigo,
           novios: respuesta[j].nombreCreador.toLowerCase() + ' ' + respuesta[j].apellidoCreador.toLowerCase() + ' & ' + respuesta[j].nombreCocreador.toLowerCase() + ' ' + respuesta[j].apellidoCocreador.toLowerCase(),
           fecha: respuesta[j].formatoFechaEvento
@@ -104,6 +108,7 @@ export class ResultadoBusquedaListasComponent implements OnInit {
             for (let j = 0; j < response.length; j++) {
               this.pruebaListas.push(
                 {
+                  idLista:response[j].idLista,
                   codigo: response[j].codigo,
                   novios: response[j].nombreCreador.toLowerCase() + ' ' + response[j].apellidoCreador.toLowerCase() + ' & ' + response[j].nombreCocreador.toLowerCase() + ' ' + response[j].apellidoCocreador.toLowerCase(),
                   fecha: response[j].formatoFechaEvento

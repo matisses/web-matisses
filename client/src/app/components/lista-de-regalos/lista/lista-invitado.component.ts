@@ -72,7 +72,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     this.codigoLista= localStorage.getItem('codigo-lista');
     this.fechaEvento=localStorage.getItem('fecha-evento');
     //this.idListaUsuario=localStorage.getItem('id-lista');cambiar a esta al tener la consulta
-    this.idListaUsuario='2056';
+    this.idListaUsuario=localStorage.getItem('id-lista');
     this.queryParams = new Map<string, string>();
     this.itemsXPag = '12 x pag';
     this.orderByStr = 'Similares';
@@ -105,6 +105,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   this.codigoLista= localStorage.getItem('codigo-lista');
   this.fechaEvento=localStorage.getItem('fecha-evento');
   this.idListaUsuario=localStorage.getItem('id-lista');
+  console.log(this.codigoLista);
   this.cargarCarrito();
   this.cargarItems0();
   }

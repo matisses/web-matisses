@@ -89,16 +89,13 @@ export class MiListaComponent implements OnInit {
 
 //consultarListaPaginada
   ngOnInit() {
-    console.log('entra por aca');
-    // if (localStorage.getItem('cambio-clave') == 'si') {
-    //   $('#cambioContraseña').modal('show');
-    // }
-    //this.inicializarParamsConsulta();
+
+  
   this.nombreUsuario = localStorage.getItem('username-lista');
   this.codigoLista= localStorage.getItem('codigo-lista');
   this.fechaEvento=localStorage.getItem('fecha-evento');
   this.idListaUsuario=localStorage.getItem('id-lista');
-console.log('id de la lista'+this.idListaUsuario);
+
     this.cargarItems0();
 
 

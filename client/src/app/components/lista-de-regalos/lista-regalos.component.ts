@@ -104,6 +104,11 @@ export class ListaRegalosComponent implements OnInit {
   }
 
   public buscarLista() {
+    localStorage.removeItem('id-lista');
+    localStorage.removeItem('username-lista');
+    localStorage.removeItem('codigo-lista');
+    localStorage.removeItem('fecha-evento');
+
     this.messageErrorSearch = '';
     if ((this.nombresNovios != null && this.nombresNovios.length > 0)
       || (this.apellidosNovios != null && this.apellidosNovios.length > 0)
@@ -117,6 +122,7 @@ export class ListaRegalosComponent implements OnInit {
       }
       this._listaRegalosService.consultarLista(consultaDTO).subscribe(
         response => {
+
           sessionStorage.setItem('nombresNovios', JSON.stringify(this.nombresNovios));
           sessionStorage.setItem('apellidosNovios', JSON.stringify(this.apellidosNovios));
           sessionStorage.setItem('codigoLista', JSON.stringify(this.codigoLista));
