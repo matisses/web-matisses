@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,AfterViewInit} from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { ItemService } from '../../../services/item.service';
@@ -19,7 +19,7 @@ declare var $: any;
   providers: [ItemService, SessionUsuarioService,ListaRegalosService]
 })
 
-export class MiListaComponent implements OnInit {
+export class MiListaComponent implements OnInit, AfterViewInit {
   public nombreUsuario: string;
   public claveNueva: string;
   public claveConfirmacion: string;
@@ -49,7 +49,7 @@ export class MiListaComponent implements OnInit {
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista= localStorage.getItem('codigo-lista');
     this.fechaEvento=localStorage.getItem('fecha-evento');
-    this.idListaUsuario=localStorage.getItem('id-lista');
+    this.idListaUsuario=sessionStorage.getItem('id-lista');
     this.queryParams = new Map<string, string>();
     this.itemsXPag = '12 x pag';
     this.orderByStr = 'Similares';
@@ -62,7 +62,7 @@ export class MiListaComponent implements OnInit {
 
   private inicializarParamsConsulta() {
     this.paramsConsulta = {
-    idLista:localStorage.getItem('id-lista'),
+    idLista:sessionStorage.getItem('id-lista'),
     pagina:'1',
     registrosPagina:'12',
     orderBy:'referencia asc',
@@ -70,31 +70,14 @@ export class MiListaComponent implements OnInit {
     };
   }
 
-  // private inicializarListaBcs() {
-  //   this.itemsListaBcs = {
-  //     idLista: '',
-  //       idProductoLista:'',
-  //       cantidadSeleccionadaFactura: null,
-  //       cantidadElegida: null,
-  //       cantidadComprada: null,
-  //       cantidadEntregada: null,
-  //       referencia: '',
-  //       descripcionProducto:'',
-  //       mensajeAgradecimiento:'',
-  //       favorito: false,
-  //       active: null
-  //   };
-  // }
 
-
-//consultarListaPaginada
   ngOnInit() {
 
-  
+
   this.nombreUsuario = localStorage.getItem('username-lista');
   this.codigoLista= localStorage.getItem('codigo-lista');
   this.fechaEvento=localStorage.getItem('fecha-evento');
-  this.idListaUsuario=localStorage.getItem('id-lista');
+  this.idListaUsuario=sessionStorage.getItem('id-lista');
 
     this.cargarItems0();
 
@@ -102,23 +85,21 @@ export class MiListaComponent implements OnInit {
   }
 
 
-  AfterViewInit() {
-    console.log('noooo, entra por aca');
-      //this.inicializarItems();
-      //this.inicializarParamsConsulta();
+ngAfterViewInit() {
+
       this.nombreUsuario = localStorage.getItem('username-lista');
       this.codigoLista= localStorage.getItem('codigo-lista');
       this.fechaEvento=localStorage.getItem('fecha-evento');
-      this.idListaUsuario=localStorage.getItem('id-lista');
+      this.idListaUsuario=sessionStorage.getItem('id-lista');
 
 
-      this.cargarItems0();
+      //this.cargarItems0();
 
 
     $(window).scroll(function() {
       var scroll = $(window).scrollTop();
       if (scroll >= 30) {
-        console.log(scroll);
+
         $(".contenedor").addClass("margin-top-scroll");
       } else {
         $(".contenedor").removeClass("margin-top-scroll")
@@ -215,7 +196,7 @@ export class MiListaComponent implements OnInit {
   }
 
   public cargarItems(availableFields, items, queryParams, records) {
-    console.log('cargar items');
+
     this.items = new Array<Item>();
     this.items = items;
     this.availableFields = availableFields;
@@ -281,7 +262,7 @@ export class MiListaComponent implements OnInit {
   }
 
   private cargarItems0() {
-    console.log('entro en cargarItems0');
+
     this.items = new Array<Item>();
     this.inicializarParamsConsulta();
 
@@ -319,12 +300,12 @@ export class MiListaComponent implements OnInit {
       if(this.queryParams.has('page')){
         this.paramsConsulta.pagina=this.queryParams.get('page');
       }
-      console.log('paramsConsulta---'+this.paramsConsulta.registrosPagina);
+
 
       this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
           response => {
             this.totalLista=response;
-            console.log('totalLista--'+this.totalLista)
+
           },
           error =>{
             console.log("error servicio bcs"+error);
@@ -333,23 +314,19 @@ export class MiListaComponent implements OnInit {
 
       );
 
-      console.log('antes de ir al servicio llevo');
-      console.log(this.paramsConsulta.registrosPagina);
-      console.log(this.paramsConsulta.idLista);
-      console.log(this.paramsConsulta.pagina);
-      console.log(this.paramsConsulta.orderBy);
+
       this._listaService.consultarListaPaginada(this.paramsConsulta).subscribe(
           response => {
-            console.log("servicio bcs"+response.data);
+
             this.itemsListaBcs=response;
-            console.log('variable'+this.itemsListaBcs.length);
+
             this.items=new Array<Item>();
             for (let i = 0; i < this.itemsListaBcs.length; i++) {
                this.itemsListaBcs[i].referencia;
-               console.log(this.itemsListaBcs[i].referencia);
+
                let cadena1=this.itemsListaBcs[i].referencia.substring(0,3);
                let cadena2=this.itemsListaBcs[i].referencia.substring(16,20);
-               console.log('cadena1'+cadena1+cadena2);
+
                this._itemService.find(cadena1+cadena2).subscribe( // Item 1
                  response => {
                    this.items.push(response.result[0]);
@@ -369,33 +346,7 @@ export class MiListaComponent implements OnInit {
 
       );
 
-      // this._itemService.filter(this.queryString).subscribe(
-      //   response => {
-      //     //this.items = response.result;
-      //     //this.totalItems=response.records;
-      //     for (let i = 0; i < this.items.length; i++) {
-      //       //validar si el ítem tiene descuentos
-      //       // this._descuentosService.findDiscount(this.items[i].itemcode).subscribe(
-      //       //   response => {
-      //       //     if (this.items[i].priceaftervat === response.precio) {
-      //       //       if (response.descuentos && response.descuentos.length > 0) {
-      //       //         this.items[i].descuento = response.descuentos[0].porcentaje;
-      //       //         this.items[i].priceafterdiscount = this.items[i].priceaftervat - ((this.items[i].priceaftervat / 100) * this.items[i].descuento);
-      //       //       }
-      //       //     }
-      //       //   },
-      //       //   error => {
-      //       //     console.error(error);
-      //       //   }
-      //       // );
-      //     }
-      //     //this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalLista);
-      //     //this.filtrosComponent.inicializarFiltros(this.availableFields, this.queryParams, this.queryString, response.records);
-      //   },
-      //   error => {
-      //     console.error(error);
-      //   }
-      // );
+
     });
   }
 
@@ -424,35 +375,6 @@ export class MiListaComponent implements OnInit {
 
   public eliminarProducto(itemCode) {
 
-
-
-    // this.messageError = '';
-    // if (this.claveNueva == null || this.claveNueva.length <= 0) {
-    //
-    //   this.messageError = 'Ingresa la contraseña';
-    //     this.valid = false;
-    //     this.successMessage = '';
-    //     return;
-    // }
-    //
-    // if (this.claveConfirmacion == null || this.claveConfirmacion.length <= 0 || this.claveConfirmacion == 'undefined') {
-    //   this.messageError = 'Ingresa la confirmación de la contraseña.';
-    //       this.valid = false;
-    //       this.successMessage = '';
-    //     return;
-    // }
-    // if (this.claveNueva !=this.claveConfirmacion ) {
-    //   this.messageError = 'Ambas contraseñas deben ser iguales.';
-    //   this.successMessage = '';
-    //     return;
-    // }
-    // let usuarioDTO = {
-    //   nombreUsuario: this.nombreUsuario,
-    //   password: this.claveNueva,
-    //   usuarioId:localStorage.getItem('usuario-id')
-    //
-    // }
-    //
      this._listaService.eliminarProducto(itemCode, this.idListaUsuario).subscribe(
        response => {
 
@@ -483,6 +405,19 @@ export class MiListaComponent implements OnInit {
          this.messageError="ocurrio un error en el servicio de eliminacion";
        }
      );
+   }
+
+   public cerrarSession(){
+     console.log('cerrar sesion');
+     localStorage.removeItem('matisses.lista-token');
+     localStorage.removeItem('username-lista');
+     localStorage.removeItem('usuario-id');
+     localStorage.removeItem('cambio-clave');
+     sessionStorage.removeItem('id-lista');
+     localStorage.removeItem('codigo-lista');
+     localStorage.removeItem('fecha-evento');
+
+     this._router.navigate(['/lista-de-regalos']);
    }
 
   }

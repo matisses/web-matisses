@@ -81,19 +81,21 @@ export class ListaRegalosComponent implements OnInit {
         }
         this._jwt.validateToken(this.token).subscribe(
           response => {
-            localStorage.setItem('matisses.lista-token', this.token);
-            localStorage.setItem('username-lista', this.nombreSession);
-            localStorage.setItem('usuario-id', this.idUsuario);
-            localStorage.setItem('cambio-clave', this.cambioContrasena);
-            localStorage.setItem('id-lista', this.idListaUsuario);
-            localStorage.setItem('codigo-lista', this.codigoLista);
-            localStorage.setItem('fecha-evento', this.fechaEvento);
+              console.log('token validado');
 
           }, error => {
             console.error(error);
             localStorage.removeItem('matisses.lista-token');
           }
         );
+        localStorage.setItem('matisses.lista-token', this.token);
+        localStorage.setItem('username-lista', this.nombreSession);
+        localStorage.setItem('usuario-id', this.idUsuario);
+        localStorage.setItem('cambio-clave', this.cambioContrasena);
+        sessionStorage.setItem('id-lista', this.idListaUsuario);
+        localStorage.setItem('codigo-lista', this.codigoLista);
+        localStorage.setItem('fecha-evento', this.fechaEvento);
+
         this._router.navigate(['/mi-lista']);
       },
       error => {

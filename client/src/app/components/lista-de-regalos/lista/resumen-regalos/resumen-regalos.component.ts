@@ -34,7 +34,7 @@ export class ResumenRegalosComponent implements OnInit {
 
   ngOnInit() {
     //this.cargarCarrito();
-    console.log('this.carrito '+this.carrito);
+
     // for (let i = 0; i < this.carrito.shoppingCart.items.length; i++) {
     //   if (this.carrito.shoppingCart.items[i].sinSaldo) {
     //     this.messajeError = 'No se pudo continuar con el proceso de compra, debido a que uno o varios ítems ya no tienen saldo disponible';
@@ -93,7 +93,7 @@ export class ResumenRegalosComponent implements OnInit {
 
   public cargarCarrito() {
     //consultar localstorage
-    console.log('entra en el cargar resumen');
+  
     let localSC = JSON.parse(localStorage.getItem('matisses.shoppingCart.List'));
     if (!localSC) {
       this.carrito.inicializarShoppingCart();

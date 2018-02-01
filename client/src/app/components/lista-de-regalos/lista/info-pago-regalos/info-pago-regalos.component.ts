@@ -126,7 +126,7 @@ export class InfoPagoRegalosComponent implements OnInit {
             this.metodosEnvio.push(response[i]);
           }
         }
-        console.log(this.metodosEnvio);
+
       },
       error => {
         console.error(error);
@@ -152,8 +152,7 @@ export class InfoPagoRegalosComponent implements OnInit {
   }
 
   public buscarCliente() {
-    console.log('buscar cliente');
-    console.log(this.customer.fiscalID);
+
     this.disabled = false;
     this.customer.fiscalID = this.customer.fiscalID.trim();
     this.messageError = '';
@@ -168,7 +167,7 @@ export class InfoPagoRegalosComponent implements OnInit {
           }
           this.customer = response;
           this.disabled = true;
-          console.log('Consultando costo de envio');
+
           this.consultarCostoEnvio();
         },
         error => {
@@ -199,7 +198,7 @@ export class InfoPagoRegalosComponent implements OnInit {
         for (let i = 0; i < this.metodosEnvio.length; i++) {
           if (this.metodosEnvio[i].code === 3) {
             this.costoEnvio = response.valor;
-            console.log(this.costoEnvio);
+
             break;
           }
         }
@@ -257,7 +256,7 @@ export class InfoPagoRegalosComponent implements OnInit {
   }
 
   public pagar() {
-    console.log('entra a pagar');
+
     this.valid = true;
     this.messageError = '';
     // if (this.metodoEnvioSeleccionado == null || this.metodoEnvioSeleccionado.code == 0) {
@@ -286,7 +285,7 @@ export class InfoPagoRegalosComponent implements OnInit {
 
     this._itemService.validarItems(this.carrito.shoppingCart.items).subscribe(
       response => {
-        console.log('validarItems');
+
         let itemsSinSaldo = false;
         let items: Array<Item> = response;
 
@@ -429,18 +428,18 @@ export class InfoPagoRegalosComponent implements OnInit {
 
   private enviarPlaceToPay(_id) {
     //Se valida el estado de los items como primera medida
-    console.log('enviarPlaceToPay');
+
     let datosCompraWeb = {
       idCarrito: '00000000000000000',
       items: this.carrito.shoppingCart.items,
       idLista:localStorage.getItem('id-lista')
     }
 
-    console.log(datosCompraWeb);
+
 
     this._shoppingCartValidatorService.validate(datosCompraWeb).subscribe(
       response => {
-        console.log(response);
+
         if (response.mensaje === 'true') {
           //Se mapean los datos que se le enviaran a PlacetoPay
           let apellidos = '';
