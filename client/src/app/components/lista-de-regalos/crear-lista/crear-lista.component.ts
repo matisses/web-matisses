@@ -66,6 +66,9 @@ export class CrearListaComponent implements OnInit {
   public otrasCiudades: Array<City>;
   public customerCreador: Customer;
   public customerCocreador: Customer;
+  public mostrarDatosNovia: boolean = true;
+  public mostrarDatosNovio: boolean = true;
+  private viewportWidth: number = 0;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService,
     private _cityService: CityService, private _listaRegalosService: ListaRegalosService) {
@@ -84,14 +87,14 @@ export class CrearListaComponent implements OnInit {
   }
 
   ngOnInit() {
-    $(window).scroll(function() {
-      var scroll = $(window).scrollTop();
-      if (scroll >= 30) {
-        $(".contenedor-formulario").addClass("margin-top-scroll");
-      } else {
-        $(".contenedor-formulario").removeClass("margin-top-scroll")
-      }
-    });
+    // $(window).scroll(function() {
+    //   var scroll = $(window).scrollTop();
+    //   if (scroll >= 30) {
+    //     $(".contenedor-formulario").addClass("margin-top-scroll");
+    //   } else {
+    //     $(".contenedor-formulario").removeClass("margin-top-scroll")
+    //   }
+    // });
 
     //Bloqueo del botón ir atras, no deja al usuario ir atras.
     window.onload = function() {
@@ -119,7 +122,28 @@ export class CrearListaComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    // this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    // if (this.viewportWidth <= 767) {
+    //   this.showDatos(-1);
+    // } else {
+    // }
   }
+
+  // public showDatos(option:number) {
+  //   if (this.viewportWidth <= 768) {
+  //     if ((option === 0 || option === 1) && !this.mostrarDatosNovia) {
+  //       this.mostrarDatosNovia = true;
+  //     } else {
+  //       this.mostrarDatosNovia = false;
+  //     }
+  //     if ((option === 0 || option === 2) && !this.mostrarDatosNovio) {
+  //       this.mostrarDatosNovio = true;
+  //     } else {
+  //       this.mostrarDatosNovio = false;
+  //     }
+  //   } else {
+  //   }
+  // }
 
   public seleccionarEvento(id) {
     this.tipoEvento = id;

@@ -19,14 +19,14 @@ export class MenuListaComponent implements OnInit {
   }
 
   ngOnInit() {
-    $(window).scroll(function() {
-      var scroll = $(window).scrollTop();
-      if (scroll >= 30) {
-        $(".menu-lista").addClass("fixed");
-      } else {
-        $(".menu-lista").removeClass("fixed")
-      }
-    });
+    // $(window).scroll(function() {
+    //   var scroll = $(window).scrollTop();
+    //   if (scroll >= 30) {
+    //     $(".menu-lista").addClass("fixed");
+    //   } else {
+    //     $(".menu-lista").removeClass("fixed")
+    //   }
+    // });
   }
 
 

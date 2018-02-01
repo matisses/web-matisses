@@ -61,6 +61,13 @@ input:focus, button:focus, span:focus, p:focus, li:focus, div:focus, textarea:fo
   visibility: hidden;
 }
 
+.no-selector {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -ms-user-select: none;
+}
+
 @media screen and (max-width: 991px) {
   .padding-top {
     padding-top: 60px;

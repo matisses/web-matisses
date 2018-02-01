@@ -1,3 +1,7 @@
+.container-title {
+  margin-top: 110px;
+}
+
 li {
   display: inline-block;
   list-style: none;
@@ -6,8 +10,48 @@ li {
   cursor: pointer;
 }
 
+.jpg-responsive {
+  width: 100%;
+  height: 100%;
+}
+
+.baskerville {
+  font-family: Baskerville, "Baskerville Old Face", "Hoefler Text";
+}
+
+.novios p {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.novios:hover {
+  color: #D77D7D;
+}
+
+.pasos {
+  font-size: 40px;
+  padding: 0;
+}
+
+.pasos p {
+  font-size: 10px;
+  margin-top: -10px;
+}
+
+.title-form {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-control {
+  border-radius: 0;
+  margin-bottom: 10px;
+}
+
 .seleccionado {
-  color: red;
+  color: #D77D7D;
 }
 
 .contenedor-formulario {
@@ -82,4 +126,27 @@ li {
 
 .btn-grey:hover {
   background-color: #5B5B5B;
+}
+
+/* .info-pie-crear {
+  margin-top: 25px;
+  z-index: -1;
+} */
+
+@media screen and (max-width: 767px) {
+  .container-title {
+    margin-top: 90px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .pasos {
+    font-size: 30px;
+  }
+  .pasos p {
+    font-size: 0px;
+  }
+  li {
+    margin: 0 5px;
+  }
 }

@@ -13,18 +13,18 @@
         </div>
         <div class="row">
           <form #ContactForm="ngForm" (submit)="actualizarClave()">
-          <div class="col-xs-4 col-xs-offset-4">
-            <label class="label-lista" for="contraseña">Nueva contraseña</label>
-            <input type="text" class="form-lista-regalos" id="contraseña" name="claveNueva" [(ngModel)]="claveNueva" required>
-            <label class="label-lista" for="confirmar-contraseña">Confirmar contraseña</label>
-            <input type="text" class="form-lista-regalos" id="confirmar-contraseña" name="claveConfirmacion" [(ngModel)]="claveConfirmacion" required>
-          </div>
+            <div class="col-xs-4 col-xs-offset-4">
+              <label class="label-lista" for="contraseña">Nueva contraseña</label>
+              <input type="text" class="form-lista-regalos" id="contraseña" name="claveNueva" [(ngModel)]="claveNueva" required>
+              <label class="label-lista" for="confirmar-contraseña">Confirmar contraseña</label>
+              <input type="text" class="form-lista-regalos" id="confirmar-contraseña" name="claveConfirmacion" [(ngModel)]="claveConfirmacion" required>
+            </div>
           </form>
         </div>
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-buscar"  (click)="actualizarClave()" *ngIf="successMessage == null || successMessage.length <= 0">Guardar</button>
+        <button type="button" class="btn btn-buscar" (click)="actualizarClave()" *ngIf="successMessage == null || successMessage.length <= 0">Guardar</button>
       </div>
     </div>
   </div>
@@ -40,51 +40,71 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-xs-6 text-left">
-        <p>Hola {{nombreUsuario}}</p>
-      </div>
-      <div class="col-xs-6">
-        <div class="row">
-          <div class="col-xs-4 text-center">
-            <p>Lista de regalos</p>
-          </div>
-          <div class="col-xs-4 text-center">
-            <p>Regalos recibidos</p>
-          </div>
-          <div class="col-xs-4 text-center">
-            <p>Lista de invitados</p>
+      <div class="menu1 no-selector">
+        <div class="col-xs-6 text-left">
+          <p>Hola {{nombreUsuario}}</p>
+        </div>
+        <div class="col-xs-6">
+          <div class="row">
+            <div class="col-xs-4 text-center cursor-pointer seleccionado">
+              <span class="icon-paso-01 icono"></span>
+              <p>Lista de regalos</p>
+            </div>
+            <div class="col-xs-4 text-center cursor-pointer">
+              <span class="icon-regalo-01 icono"></span>
+              <p>Regalos recibidos</p>
+            </div>
+            <div class="col-xs-4 text-center cursor-pointer">
+              <span class="icon-invitados icono"></span>
+              <p>Lista de invitados</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-xs-6 text-right">
-        <p>Codigo de novios: {{codigoLista}}</p>
-      </div>
-      <div class="col-xs-6 text-left">
-        <p>Fecha celebracion {{fechaEvento}}</p>
+      <div class="codigo-fecha">
+        <div class="col-xs-6 text-right">
+          <p>Codigo de novios: {{codigoLista}}</p>
+        </div>
+        <div class="col-xs-6 text-left">
+          <span class="icon-fecha icono-fecha"></span>
+          <p class="fecha">Fecha celebracion: {{fechaEvento}}</p>
+        </div>
       </div>
     </div>
+    <hr class="rosa" />
     <div class="row">
       <div class="col-xs-12 text-center">
-        <h1>MI LISTA E REGALOS</h1>
-        <p>Agrega, edita o elimina productos de tu lista de regalos</p>
+        <h1 class="title-mi-lista">MI LISTA DE REGALOS</h1>
+        <p style="margin:0; color#CCC">Agrega, edita o elimina productos de tu lista de regalos</p>
       </div>
     </div>
     <div class="row">
-      <div class="col-xs-3 text-center">
-        <p><b>#</b></p>
+      <div class="col-sm-2 col-sm-offset-5 col-xs-6 col-xs-offset-3 text-center">
+        <img src="../../../../assets/images/deco_01.png" class="jpg-responsive" alt="">
+      </div>
+    </div>
+    <div class="row text-center">
+      <div class="col-xs-3 text-center regalos-agregados no-selector">
+        <span>totalItems.carrito</span>
         <p>Regalos agregados</p>
       </div>
-      <div class="col-xs-3">
-        <p class="cursor-pointer" [routerLink]="['/mi-lista/agregar-productos']">Agregar regalos</p>
+      <div class="col-xs-3 agregar-regalo no-selector">
+        <span class="icon-agregar-regalo"></span>
+        <p [routerLink]="['/mi-lista/agregar-productos']">Agregar regalos</p>
       </div>
-      <div class="col-xs-3">
-        <p class="cursor-pointer">compartir lista</p>
+      <div class="col-xs-3 compartir-lista cursor-pointer no-selector">
+        <span class="icon-compartir"></span>
+        <p class="cursor-pointer">Compartir lista</p>
       </div>
       <div class="col-xs-3">
         <form (submit)="search()">
-          <input id="searchField" [(ngModel)]="keywords" name="keywords" type="text" class="search-bar" placeholder="Busca productos en tu lista">
+          <div class="input-group">
+            <input id="searchField" [(ngModel)]="keywords" name="keywords" type="text" class="form-control" placeholder="Busca productos en tu lista">
+            <span class="input-group-addon icon-lupa" id="basic-addon1"></span>
+          </div>
+
         </form>
         <!--<input type="text" name="search" class="form-control" value="Busca productos en tu lista">-->
       </div>
@@ -92,13 +112,18 @@
     <!-- Informacion cuando no hay prodcutos -->
     <div class="row" *ngIf="items && items.length <=0">
       <div class="col-xs-12 text-center">
-        <h3>Aun no hay regalos en tu lista</h3>
-        <p><b>Elige lo mejor para tu hogar. Empieza a crear tu lista</b></p>
-        <span class="glyphicon glyphicon-plus cursor-pointer" [routerLink]="['/mi-lista/agregar-productos']"> Agregar regalos</span>
+        <div class="box-sin-regalos">
+          <p>Aun no hay regalos en tu lista</p>
+          <p><b>Elige lo mejor para tu hogar. Empieza a crear tu lista</b></p>
+          <div class="agregar-regalo no-selector plus-regalo">
+            <span class="icon-plus-regalo"></span>
+            <p [routerLink]="['/mi-lista/agregar-productos']">Agregar regalos</p>
+          </div>
+        </div>
       </div>
     </div>
     <!-- botones como mostrar los productos -->
-    <div class="row">
+    <div class="row" *ngIf="items.length > 0">
       <div class="col-md-4 text-center">
         <div class="mostrar">
           <div class="btn-group">
@@ -121,13 +146,13 @@
                     <span [innerHTML]="orderByStr">
                     </span><span class="caret"></span>
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="ordenar">
-                  <li><a href="javascript:void(0);" (click)="changeOrder('price')">Precio: más bajos primero</a></li>
-                  <li><a href="javascript:void(0);" (click)="changeOrder('-price')">Precio: más altos primero</a></li>
-                  <li><a href="javascript:void(0);" (click)="changeOrder('itemname')">Nombre: de A a Z</a></li>
-                  <li><a href="javascript:void(0);" (click)="changeOrder('-itemname')">Nombre: de Z a A</a></li>
-                  <li><a href="javascript:void(0);" (click)="changeOrder('model')">Similares</a></li>
-                </ul>
+            <ul class="dropdown-menu" aria-labelledby="ordenar">
+              <li><a href="javascript:void(0);" (click)="changeOrder('price')">Precio: más bajos primero</a></li>
+              <li><a href="javascript:void(0);" (click)="changeOrder('-price')">Precio: más altos primero</a></li>
+              <li><a href="javascript:void(0);" (click)="changeOrder('itemname')">Nombre: de A a Z</a></li>
+              <li><a href="javascript:void(0);" (click)="changeOrder('-itemname')">Nombre: de Z a A</a></li>
+              <li><a href="javascript:void(0);" (click)="changeOrder('model')">Similares</a></li>
+            </ul>
           </div>
         </div>
       </div>
@@ -156,7 +181,7 @@
         <p class="precio"><b>$ {{items[i].priceaftervat | number}}</b></p>
         <p class="cantidad">Cantidad: <b>#</b></p>
         <p class="detalle">Ver Detalle</p>
-          <button type="button" class="btn btn-default"  (click)=eliminarProducto(items[i].shortitemcode)>Eliminar</button>
+        <button type="button" class="btn btn-default" (click)=eliminarProducto(items[i].shortitemcode)>Eliminar</button>
       </div>
     </div>
     <!-- botones como mostrar los productos -->
@@ -183,13 +208,13 @@
                     <span [innerHTML]="orderByStr">
                     </span><span class="caret"></span>
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="ordenar">
-                  <li><a href="javascript:void(0);" (click)="changeOrder('price')">Precio: más bajos primero</a></li>
-                  <li><a href="javascript:void(0);" (click)="changeOrder('-price')">Precio: más altos primero</a></li>
-                  <li><a href="javascript:void(0);" (click)="changeOrder('itemname')">Nombre: de A a Z</a></li>
-                  <li><a href="javascript:void(0);" (click)="changeOrder('-itemname')">Nombre: de Z a A</a></li>
-                  <li><a href="javascript:void(0);" (click)="changeOrder('model')">Similares</a></li>
-                </ul>
+            <ul class="dropdown-menu" aria-labelledby="ordenar">
+              <li><a href="javascript:void(0);" (click)="changeOrder('price')">Precio: más bajos primero</a></li>
+              <li><a href="javascript:void(0);" (click)="changeOrder('-price')">Precio: más altos primero</a></li>
+              <li><a href="javascript:void(0);" (click)="changeOrder('itemname')">Nombre: de A a Z</a></li>
+              <li><a href="javascript:void(0);" (click)="changeOrder('-itemname')">Nombre: de Z a A</a></li>
+              <li><a href="javascript:void(0);" (click)="changeOrder('model')">Similares</a></li>
+            </ul>
           </div>
         </div>
       </div>
