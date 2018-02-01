@@ -346,10 +346,10 @@
               <div class="col-xs-10 col-xs-offset-1 text-center">
                 <p><b>Usar datos de envío de:</b>
                   <label class="radio-inline">
-                    <input type="radio" name="usarDatos" [checked]="usarDatosCreador">Novia(o)
+                    <input type="radio" name="usarDatosCreador" value="CREADOR" [(ngModel)]="usarDatos">Novia(o)
                   </label>
                   <label class="radio-inline">
-                    <input type="radio" name="usarDatos" [checked]="usarDatosCocreador">Novio(a)
+                    <input type="radio" name="usarDatosCreador" value="COCREADOR" [(ngModel)]="usarDatos">Novio(a)
                   </label>
                 </p>
               </div>
