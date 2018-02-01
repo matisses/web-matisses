@@ -48,8 +48,9 @@ export class ResultadoBusquedaListasComponent implements OnInit {
 
   public removeSession(idLista:string) {
     console.log(idLista);
+
     localStorage.removeItem('id-lista');
-    localStorage.setItem('id-lista',idLista);
+    sessionStorage.setItem('id-lista',idLista);
     sessionStorage.removeItem('nombresNovios');
     sessionStorage.removeItem('apellidosNovios');
     sessionStorage.removeItem('codigoLista');

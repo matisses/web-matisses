@@ -66,6 +66,9 @@ export class CrearListaComponent implements OnInit {
   public otrasCiudades: Array<City>;
   public customerCreador: Customer;
   public customerCocreador: Customer;
+  public idListaCreada:string;
+  public nombreCreadorLista:string;
+  public fechaEventoLista: string;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService,
     private _cityService: CityService, private _listaRegalosService: ListaRegalosService) {
@@ -361,6 +364,7 @@ export class CrearListaComponent implements OnInit {
       this._listaRegalosService.crearLista(listGiftDTO).subscribe(
         response => {
           if (response.codigo === 0) {
+            this.buscarLista(response.mensaje);
             //crear como cliente SAP
             if (!this.existeCreador) {
               this.crearClienteCreador();
@@ -624,4 +628,38 @@ export class CrearListaComponent implements OnInit {
       this.yearEvent.push(i);
     }
   }
+
+  public buscarLista(codigo:string) {
+
+    this.messageError = '';
+
+      //TODO: Asignar datos para enviarlos a WS
+      let consultaDTO = {
+        nombre: null,
+        apellido: null,
+        codigo: codigo
+      }
+      this._listaRegalosService.consultarLista(consultaDTO).subscribe(
+        response => {
+          if (response.length > 0) {
+             this.idListaCreada=response[0].idLista;
+             this.nombreCreadorLista=response[0].nombreCreador.toLowerCase() + ' ' + response[0].apellidoCreador.toLowerCase() + ' & ' + response[0].nombreCocreador.toLowerCase() + ' ' + response[0].apellidoCocreador.toLowerCase();
+              this.fechaEventoLista=response[0].formatoFechaEvento;
+
+          }
+        },
+        error => {
+          console.error(error);
+        }
+
+      );
+      sessionStorage.setItem('id-lista',this.idListaCreada);
+      localStorage.setItem('username-lista',this.nombreCreadorLista);
+      localStorage.setItem('codigo-lista',codigo);
+      localStorage.setItem('fecha-evento',this.fechaEventoLista);
+
+  }
+
+
+
 }

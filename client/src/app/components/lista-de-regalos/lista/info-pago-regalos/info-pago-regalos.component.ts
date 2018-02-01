@@ -76,6 +76,7 @@ export class InfoPagoRegalosComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.codigoLista=localStorage.getItem('codigo-lista');
     this.cargarCarrito();
     this.obtenerMetodosEnvio();
     this.obtenerCiudades();
@@ -428,11 +429,11 @@ export class InfoPagoRegalosComponent implements OnInit {
 
   private enviarPlaceToPay(_id) {
     //Se valida el estado de los items como primera medida
-
+   this.codigoLista=localStorage.getItem('codigo-lista');
     let datosCompraWeb = {
       idCarrito: '00000000000000000',
       items: this.carrito.shoppingCart.items,
-      idLista:localStorage.getItem('id-lista')
+      idLista:sessionStorage.getItem('id-lista')
     }
 
 
@@ -475,7 +476,7 @@ export class InfoPagoRegalosComponent implements OnInit {
               }
             }
           }
-
+          console.log('codigo de la lista '+this.codigoLista);
           this.datosPago = new DatosPagoPlaceToPay().newDatosPagoPlaceToPayLista(buyer, null, navigator.userAgent, payment, null, null, this.urlReturn + _id, '',this.codigoLista);
 
           this._placetopayService.redirect(this.datosPago).subscribe(
@@ -484,7 +485,7 @@ export class InfoPagoRegalosComponent implements OnInit {
                 this.procesandoP2P = false;
                 return;
               }
-              localStorage.removeItem('matisses.shoppingCart');
+              localStorage.removeItem('matisses.shoppingCart.List');
               window.location.href = response.respuestaPlaceToPay.processUrl;
             },
             error => {

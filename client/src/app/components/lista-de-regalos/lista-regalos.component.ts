@@ -128,6 +128,7 @@ if (response.length > 0) {
           sessionStorage.setItem('nombresNovios', JSON.stringify(this.nombresNovios));
           sessionStorage.setItem('apellidosNovios', JSON.stringify(this.apellidosNovios));
           sessionStorage.setItem('codigoLista', JSON.stringify(this.codigoLista));
+          localStorage.setItem('codigo-lista',this.codigoLista);
           sessionStorage.setItem('resultados', JSON.stringify(response));
           this._router.navigate(['/lista-de-regalos/resultado-busqueda']);
 
