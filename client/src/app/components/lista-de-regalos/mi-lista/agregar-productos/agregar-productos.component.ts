@@ -478,7 +478,7 @@ export class AgregarProductosComponent implements OnInit {
         idLista:this.idListaUsuario,
         cantidadElegida:this.formAgregar.cantidad,
         referencia:this.formAgregar.itemcode,
-        descripcionProducto:this.formAgregar.description,
+        descripcionProducto:this.formAgregar.name,
         mensajeAgradecimiento:this.formAgregar.msjagradecimiento,
         favorito:0,
         active:1

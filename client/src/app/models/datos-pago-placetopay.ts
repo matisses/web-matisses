@@ -37,6 +37,7 @@ export class DatosPagoPlaceToPay {
   public returnUrl: string;
   public ipAddress: string;
   public codigoLista: string;
+  public message:string;
 
   constructor() {
   }
@@ -49,7 +50,7 @@ export class DatosPagoPlaceToPay {
     auth: { login: string, seed: string, nonce: string, tranKey: string },
     expiration: string,
     returnUrl: string,
-    ipAddress: string,codigoLista:string) {
+    ipAddress: string,codigoLista:string,messageNovios:string) {
     this.buyer = buyer;
     if (locale != null) {
       this.locale = locale;
@@ -61,7 +62,7 @@ export class DatosPagoPlaceToPay {
     this.returnUrl = returnUrl;
     this.ipAddress = ipAddress;
     this.codigoLista=codigoLista;
-
+    this.message=messageNovios;
     return this;
   }
 

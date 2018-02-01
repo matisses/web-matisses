@@ -61,6 +61,7 @@ export class InfoPagoRegalosComponent implements OnInit {
   public resumenMobileVisible: boolean = false;
   public resumenDesktopVisible: boolean = false;
   public codigoLista: string;
+  public messageNovios:string;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService, private _cityService: CityService,
     private _shippingMethodService: ShippingMethodService, private _placetopayService: PlacetoPayService, private _shoppingCartService: ShoppingCartService,
@@ -73,6 +74,7 @@ export class InfoPagoRegalosComponent implements OnInit {
     this.otrasCiudades = new Array<City>();
     this.metodosEnvio = new Array<ShippingMethod>();
     this.codigoLista=localStorage.getItem('codigo-lista');
+    this.messageNovios='';
   }
 
   ngOnInit() {
@@ -477,7 +479,7 @@ export class InfoPagoRegalosComponent implements OnInit {
             }
           }
           console.log('codigo de la lista '+this.codigoLista);
-          this.datosPago = new DatosPagoPlaceToPay().newDatosPagoPlaceToPayLista(buyer, null, navigator.userAgent, payment, null, null, this.urlReturn + _id, '',this.codigoLista);
+          this.datosPago = new DatosPagoPlaceToPay().newDatosPagoPlaceToPayLista(buyer, null, navigator.userAgent, payment, null, null, this.urlReturn + _id, '',this.codigoLista,this.messageNovios);
 
           this._placetopayService.redirect(this.datosPago).subscribe(
             response => {

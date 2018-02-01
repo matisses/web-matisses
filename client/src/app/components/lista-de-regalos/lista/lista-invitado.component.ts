@@ -307,6 +307,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
                this._itemService.find(cadena1+cadena2).subscribe( // Item 1
                  response => {
+                   response.result[0].selectedQuantity=0;
                    response.result[0].cantidadElegida=this.itemsListaBcs[i].cantidadElegida;
                    response.result[0].cantidadComprada=this.itemsListaBcs[i].cantidadComprada;
 
@@ -356,35 +357,6 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
   public eliminarProducto(itemCode) {
 
-
-
-    // this.messageError = '';
-    // if (this.claveNueva == null || this.claveNueva.length <= 0) {
-    //
-    //   this.messageError = 'Ingresa la contraseña';
-    //     this.valid = false;
-    //     this.successMessage = '';
-    //     return;
-    // }
-    //
-    // if (this.claveConfirmacion == null || this.claveConfirmacion.length <= 0 || this.claveConfirmacion == 'undefined') {
-    //   this.messageError = 'Ingresa la confirmación de la contraseña.';
-    //       this.valid = false;
-    //       this.successMessage = '';
-    //     return;
-    // }
-    // if (this.claveNueva !=this.claveConfirmacion ) {
-    //   this.messageError = 'Ambas contraseñas deben ser iguales.';
-    //   this.successMessage = '';
-    //     return;
-    // }
-    // let usuarioDTO = {
-    //   nombreUsuario: this.nombreUsuario,
-    //   password: this.claveNueva,
-    //   usuarioId:localStorage.getItem('usuario-id')
-    //
-    // }
-    //
      this._listaService.eliminarProducto(itemCode, this.idListaUsuario).subscribe(
        response => {
 
@@ -614,9 +586,10 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
 
    public aumentarCantidad(item: Item) {
-
+     console.log('diferencia '+(item.cantidadElegida-item.cantidadComprada));
+     console.log('seleccionada '+item.cantidadElegida);
      if(item.cantidadElegida > item.selectedQuantity){
-       if(item.selectedQuantity<=(item.cantidadElegida-item.cantidadComprada)){
+       if(item.selectedQuantity<(item.cantidadElegida-item.cantidadComprada)){
           item.selectedQuantity += 1;
        }
 

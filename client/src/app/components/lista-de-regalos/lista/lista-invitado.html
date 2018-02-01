@@ -166,7 +166,7 @@
                   <span class="input-group-addon span-cantidad" (click)="reducirCantidad(items[i])">
                     <button type="button" class="icon-minus btn-cantidad" name="button"></button>
                   </span>
-                  <input class="input-cantidad form-control" type="tel" name="items[i].selectedQuantity" min="1" max="items[i].cantidadElegida" [(ngModel)]="items[i].selectedQuantity" />
+                  <input class="input-cantidad form-control" type="tel" name="items[i].selectedQuantity" min="1" max="items[i].cantidadElegida" [(ngModel)]="items[i].selectedQuantity" readonly="readonly"/>
                   <span class="input-group-addon span-cantidad" (click)="aumentarCantidad(items[i])">
                     <button type="button" class="icon-plus btn-cantidad" name="button"></button>
                   </span>
