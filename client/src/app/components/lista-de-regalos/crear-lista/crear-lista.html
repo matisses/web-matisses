@@ -240,12 +240,14 @@
                 <p class="label-lista">Fecha del evento*</p>
                 <div class="row">
                   <div class="col-xs-4">
+                    <label class="label-lista" for="t-celebracion">Año</label>
                     <select id="yearEvent" name="anoEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2" [(ngModel)]="anoInicio" (change)="cargarDias(mesInicio,anoInicio)" required>
                     <option style="display:none" disabled selected value>Año</option>
                     <option *ngFor="let year of yearEvent" [ngValue]="year">{{year}}</option>
                   </select>
                   </div>
                   <div class="col-xs-4">
+                    <label class="label-lista" for="t-celebracion">Mes</label>
                     <select id="monthEvent" name="mesEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2" [(ngModel)]="mesInicio" (change)="cargarDias(mesInicio,anoInicio)" required>
                     <option style="display:none" disabled selected value>Mes</option>
                     <option value="01">Enero</option>
@@ -263,6 +265,7 @@
                   </select>
                   </div>
                   <div class="col-xs-4">
+                    <label class="label-lista" for="t-celebracion">Día</label>
                     <select id="dayEvent" name="diaEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2" [(ngModel)]="diaInicio" required>
                       <option style="display:none" disabled selected value>Día</option>
                       <option *ngFor="let day of dayEvent" [ngValue]="day">{{day}}</option>

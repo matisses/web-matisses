@@ -16,6 +16,7 @@ export class ResultadoBusquedaListasComponent implements OnInit {
   public nombresNovios: string;
   public apellidosNovios: string;
   public codigoLista: string;
+  public messageError: string;
   public mostrarFiltros: boolean = true;
   public pruebaListas: Array<any>;
 
@@ -25,6 +26,7 @@ export class ResultadoBusquedaListasComponent implements OnInit {
     this.apellidosNovios = JSON.parse(sessionStorage.getItem('apellidosNovios'));
     this.codigoLista = JSON.parse(sessionStorage.getItem('codigoLista'));
     this.resultados = JSON.parse(sessionStorage.getItem('resultados')).length;
+    this.messageError = '';
   }
 
   ngOnInit() {
@@ -88,7 +90,7 @@ export class ResultadoBusquedaListasComponent implements OnInit {
 
   public buscarLista() {
     this.pruebaListas = new Array<any>();
-    //this.messageErrorSearch = '';
+    this.messageError = '';
     if ((this.nombresNovios != null && this.nombresNovios.length > 0)
       || (this.apellidosNovios != null && this.apellidosNovios.length > 0)
       || (this.codigoLista != null && this.codigoLista.length > 0)
@@ -101,9 +103,6 @@ export class ResultadoBusquedaListasComponent implements OnInit {
       }
       this._listaRegalosService.consultarLista(consultaDTO).subscribe(
         response => {
-          console.log('***********');
-          //console.log(JSON.stringify(response));
-          console.log(response);
           if (response.length > 0) {
             for (let j = 0; j < response.length; j++) {
               this.pruebaListas.push(
@@ -116,21 +115,13 @@ export class ResultadoBusquedaListasComponent implements OnInit {
               );
             }
           }
-
-          //this.nombresNovios =
-
-          // sessionStorage.setItem('nombresNovios', JSON.stringify(this.nombresNovios));
-          // sessionStorage.setItem('apellidosNovios', JSON.stringify(this.apellidosNovios));
-          // sessionStorage.setItem('codigoLista', JSON.stringify(this.codigoLista));
-          // sessionStorage.setItem('resultados', JSON.stringify(response));
-          // this._router.navigate(['/lista-de-regalos/resultado-busqueda']);
         },
         error => {
           console.error(error);
         }
       );
     } else {
-      //  this.messageErrorSearch = 'Debe ingresar un dato.'
+      this.messageError = 'Debe ingresar el nombre, apellido o código.'
     }
   }
 }

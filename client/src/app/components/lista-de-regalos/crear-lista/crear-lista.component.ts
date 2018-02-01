@@ -20,8 +20,8 @@ declare var $: any;
 export class CrearListaComponent implements OnInit {
   public tipoEvento: number = 0;
   public paso: number = 1;
-  public mesInicio: number;
-  public anoInicio: number;
+  public mesInicio: string;
+  public anoInicio: string;
   public invitados: number;
   public diaInicio: string;
   public messageError: string;
@@ -81,6 +81,7 @@ export class CrearListaComponent implements OnInit {
     this.tiendaContacto = '';
     this.messageError = '';
     this.messageExit = '';
+    this.notificacionInmediataMailCreador = true;
   }
 
   ngOnInit() {
@@ -248,7 +249,7 @@ export class CrearListaComponent implements OnInit {
   }
 
   public llenarDatosEvento() {
-    if ((this.anoInicio == null || this.anoInicio <= 0) || (this.mesInicio == null || this.mesInicio <= 0)
+    if ((this.anoInicio == null || this.anoInicio.length < 0) || (this.mesInicio == null || this.mesInicio.length < 0)
       || (this.diaInicio == null)) {
       this.messageError = 'Debes llenar todos los campos obligatorios para poder continuar con el Paso #3.';
       this.validForm2 = false;
@@ -306,7 +307,7 @@ export class CrearListaComponent implements OnInit {
         permitirEntregaPersonal: false,
         activa: true,
         fechaCreacion: null,
-        fechaEvento: this.anoInicio + '-' + this.mesInicio + '-' + this.diaInicio,
+        formatoFechaEvento: this.anoInicio + '-' + this.mesInicio + '-' + this.diaInicio,
         celebracion: this.celebracion,
         lugar: this.lugar,
         cedulaCreador: this.customerCreador.fiscalID,
@@ -359,14 +360,19 @@ export class CrearListaComponent implements OnInit {
       }
       this._listaRegalosService.crearLista(listGiftDTO).subscribe(
         response => {
-          //TODO: crear como cliente SAP
-          if (!this.existeCreador) {
-            this.crearClienteCreador();
+          if (response.codigo === 0) {
+            //crear como cliente SAP
+            if (!this.existeCreador) {
+              this.crearClienteCreador();
+            }
+            if (!this.existeCocreador) {
+              this.crearClienteCocreador();
+            }
+            this._router.navigate(['/mi-lista']);
+          } else {
+            this.messageError = response.mensaje;
+            console.log(response);
           }
-          if (!this.existeCocreador) {
-            this.crearClienteCocreador();
-          }
-          this._router.navigate(['/mi-lista']);
         },
         error => {
           this.messageError = 'Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.';
@@ -567,6 +573,11 @@ export class CrearListaComponent implements OnInit {
   public limpiarCampos() {
     this.messageError = '';
     this.messageExit = '';
+    this.validForm2 = true;
+    this.validForm3 = true;
+    this.validForm4 = true;
+    this.validCreador = true;
+    this.validCocreador = true;
   }
 
   public cargarDias(mes: string, ano: number) {
@@ -606,8 +617,10 @@ export class CrearListaComponent implements OnInit {
   }
 
   public cargarAnos() {
+    var date = new Date();
+    var year = date.getFullYear();
     this.yearEvent = new Array<number>();
-    for (let i = 2018; i <= 2024; i++) {
+    for (let i = year; i <= year + 1; i++) {
       this.yearEvent.push(i);
     }
   }
