@@ -71,7 +71,7 @@
               <p class="boton" [routerLink]="['/resumen-regalos']">ir al carrito</p>
             </div>
             <div class="col-xs-6 text-center btn-der">
-              <p class="boton" [routerLink]="['/info-pago']">Ir a pagar</p>
+              <p class="boton" [routerLink]="['/info-pago-regalos']">Ir a pagar</p>
             </div>
           </div>
         </div>
@@ -145,11 +145,12 @@
         <p class="nombre"><b>{{items[i].itemname}}</b></p>
         <p class="precio"><b>$ {{items[i].priceaftervat | number}}</b></p>
         <p class="solicitados">Solicitados: <b>{{items[i].cantidadElegida}}</b></p>
+        <p class="solicitados">Comprados: <b>{{items[i].cantidadComprada}}</b></p>
         <br>
         <div class="row">
           <div class="col-xs-12">
             <div class="cantidad">
-              <form>
+              <!-- <form>
                 <div class="input-group">
                   <span class="input-group-addon span-cantidad">
              <button type="button" class="icon-minus btn-cantidad" name="button"></button>
@@ -159,9 +160,20 @@
              <button type="button" class="icon-plus btn-cantidad" name="button"></button>
            </span>
                 </div>
+              </form> -->
+              <form>
+                <div class="input-group" *ngIf="items[i].cantidadElegida > items[i].cantidadComprada">
+                  <span class="input-group-addon span-cantidad" (click)="reducirCantidad(items[i])">
+                    <button type="button" class="icon-minus btn-cantidad" name="button"></button>
+                  </span>
+                  <input class="input-cantidad form-control" type="tel" name="items[i].selectedQuantity" min="1" max="items[i].cantidadElegida" [(ngModel)]="items[i].selectedQuantity" />
+                  <span class="input-group-addon span-cantidad" (click)="aumentarCantidad(items[i])">
+                    <button type="button" class="icon-plus btn-cantidad" name="button"></button>
+                  </span>
+                </div>
               </form>
             </div>
-            <button type="button" class="btn btn-regalar" (click)="agregarCarrito(items[i])">
+            <button type="button" class="btn btn-regalar" (click)="agregarCarrito(items[i])" *ngIf="items[i].cantidadElegida > items[i].cantidadComprada">
               <span class="icon-regalar_1"></span>
               Regalar
             </button>
@@ -220,4 +232,7 @@
       </div>
     </div>
   </div>
+</div>
+<div class="hidden-lg hidden-md hidden-sm hidden-xs">
+  <matisses-carrito-regalos-simple></matisses-carrito-regalos-simple>
 </div>

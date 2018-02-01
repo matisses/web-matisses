@@ -9,40 +9,49 @@
         <p>Resultado de búsqueda</p>
       </div>
     </div>
-    <div class="row text-center">
-      <div class="buscar-lista">
-        <div class="col-sm-3" *ngIf="mostrarFiltros">
-          <h4>Busca una lista</h4>
-        </div>
-        <div class="col-sm-3" *ngIf="!mostrarFiltros">
-          <h4 role="button" (click)="showFiltros()">Busca una lista <span class="glyphicon glyphicon-chevron-down"></span></h4>
-        </div>
-        <div class="collapse" id="collapseExample" [ngClass]="{'in' : mostrarFiltros}">
-          <div class="col-sm-2 text-left">
-            <label style="display: block" for="nombre">Nombre</label>
-            <input style="display: block" id="nombre" type="text">
-          </div>
-          <div class="col-sm-2 text-left">
-            <label style="display: block" for="apellido">Apellido</label>
-            <input style="display: block" id="apellido" type="text">
-          </div>
-          <div class="col-sm-2 text-left">
-            <label style="display: block" for="codigo">Código</label>
-            <input style="display: block" id="codigo" type="text">
-          </div>
-          <div class="col-sm-3">
-            <button class="btn btn-listas">Buscar</button>
-          </div>
+    <div class="row" *ngIf="messageError != null && messageError.length > 0">
+      <div class="col-xs-12">
+        <div class="alert alert-danger" role="alert">
+          <p>{{messageError}}</p>
         </div>
       </div>
     </div>
+    <form id="buscarLista">
+      <div class="row text-center">
+        <div class="buscar-lista">
+          <div class="col-sm-3" *ngIf="mostrarFiltros">
+            <h4>Busca una lista</h4>
+          </div>
+          <div class="col-sm-3" *ngIf="!mostrarFiltros">
+            <h4 role="button" (click)="showFiltros()">Busca una lista <span class="glyphicon glyphicon-chevron-down"></span></h4>
+          </div>
+          <div class="collapse" id="collapseExample" [ngClass]="{'in' : mostrarFiltros}">
+            <div class="col-sm-2 text-left">
+              <label style="display: block" for="nombre">Nombre</label>
+              <input id="nombre" type="text" style="display: block" class="form-control" name="nombresNovios" [(ngModel)]="nombresNovios">
+            </div>
+            <div class="col-sm-2 text-left">
+              <label style="display: block" for="apellido">Apellido</label>
+              <input id="apellido" type="text" style="display: block" class="form-control" name="apellidosNovios" [(ngModel)]="apellidosNovios">
+            </div>
+            <div class="col-sm-2 text-left">
+              <label style="display: block" for="codigo">Código</label>
+              <input id="codigo" type="text" style="display: block" class="form-control" name="codigoLista" [(ngModel)]="codigoLista">
+            </div>
+            <div class="col-sm-3">
+              <button type="button" name="buscar" class="btn btn-listas" (click)="buscarLista()">Buscar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
     <br>
     <!-- Tabla con listas encontradas -->
     <div class="row">
       <div class="row">
         <div class="col-xs-12 text-center">
           <hr class="linea-bottom">
-          <p>Se encontraron # resultados</p>
+          <p>Se encontraron {{pruebaListas.length}} resultados</p>
         </div>
       </div>
       <div class="col-xs-12">
@@ -58,10 +67,10 @@
           <tbody>
             <tr *ngFor="let novios of pruebaListas">
               <th scope="row">{{novios.codigo}}</th>
-              <td>{{novios.novios}}</td>
+              <td class="nombres-novios">{{novios.novios}}</td>
               <td class="hidden-xs">{{novios.fecha}}</td>
               <td class="hidden-xs">
-                <button class="btn btn-listas">Ver lista</button>
+                <button type="button" name="verLista" class="btn btn-listas" (click)="removeSession(novios.idLista)" [routerLink]="['/lista', novios.codigo]">Ver lista</button>
               </td>
             </tr>
           </tbody>
