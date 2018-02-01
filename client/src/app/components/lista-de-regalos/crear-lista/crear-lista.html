@@ -231,6 +231,59 @@
                 <hr/>
               </div>
             </div>
+<<<<<<< HEAD
+          </div>
+        </form>
+        <!-- Paso para la información de la celebración -->
+        <form id="form_paso2">
+          <div class="row" *ngIf="paso === 2">
+            <div class="info-evento">
+              <div class="col-xs-12 text-center">
+                <p class="label-lista">Fecha del evento*</p>
+                <div class="row">
+                  <div class="col-xs-4">
+                    <label class="label-lista" for="t-celebracion">Año</label>
+                    <select id="yearEvent" name="anoEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2" [(ngModel)]="anoInicio" (change)="cargarDias(mesInicio,anoInicio)" required>
+                    <option style="display:none" disabled selected value>Año</option>
+                    <option *ngFor="let year of yearEvent" [ngValue]="year">{{year}}</option>
+                  </select>
+                  </div>
+                  <div class="col-xs-4">
+                    <label class="label-lista" for="t-celebracion">Mes</label>
+                    <select id="monthEvent" name="mesEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2" [(ngModel)]="mesInicio" (change)="cargarDias(mesInicio,anoInicio)" required>
+                    <option style="display:none" disabled selected value>Mes</option>
+                    <option value="01">Enero</option>
+                    <option value="02">Febrero</option>
+                    <option value="03">Marzo</option>
+                    <option value="04">Abril</option>
+                    <option value="05">Mayo</option>
+                    <option value="06">Junio</option>
+                    <option value="07">Julio</option>
+                    <option value="08">Agosto</option>
+                    <option value="09">Septiembre</option>
+                    <option value="10">Octubre</option>
+                    <option value="11">Noviembre</option>
+                    <option value="12">Diciembre</option>
+                  </select>
+                  </div>
+                  <div class="col-xs-4">
+                    <label class="label-lista" for="t-celebracion">Día</label>
+                    <select id="dayEvent" name="diaEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2" [(ngModel)]="diaInicio" required>
+                      <option style="display:none" disabled selected value>Día</option>
+                      <option *ngFor="let day of dayEvent" [ngValue]="day">{{day}}</option>
+                    </select>
+                  </div>
+                </div>
+                <br/>
+                <div class="row">
+                  <div class="col-xs-4">
+                    <label class="label-lista" for="t-celebracion">Tipo de celebración</label>
+                    <select id="celebracion" name="celebracion" class="form-control height-40" [(ngModel)]="celebracion">
+                      <option style="display:none" disabled selected value>Seleccione uno</option>
+                      <option value="RELIGIOSO">Religioso</option>
+                      <option value="CIVIL">Civil</option>
+                      <option value="OTRO">Otro</option>
+=======
           </form>
         </div>
       </div>
@@ -247,6 +300,7 @@
                       <select id="yearEvent" name="anoEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2" [(ngModel)]="anoInicio" (change)="cargarDias(mesInicio,anoInicio)" required>
                       <option style="display:none" disabled selected value>Año</option>
                       <option *ngFor="let year of yearEvent" [ngValue]="year">{{year}}</option>
+>>>>>>> Estilos lista de regalos
                     </select>
                     </div>
                     <div class="col-sm-4">
@@ -350,10 +404,10 @@
               <div class="col-xs-10 col-xs-offset-1 text-center">
                 <p><b>Usar datos de envío de:</b>
                   <label class="radio-inline">
-                    <input type="radio" name="usarDatos" [checked]="usarDatosCreador">Novia(o)
+                    <input type="radio" name="usarDatosCreador" value="CREADOR" [(ngModel)]="usarDatos">Novia(o)
                   </label>
                   <label class="radio-inline">
-                    <input type="radio" name="usarDatos" [checked]="usarDatosCocreador">Novio(a)
+                    <input type="radio" name="usarDatosCreador" value="COCREADOR" [(ngModel)]="usarDatos">Novio(a)
                   </label>
                 </p>
               </div>
