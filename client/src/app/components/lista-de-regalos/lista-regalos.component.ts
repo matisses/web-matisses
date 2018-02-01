@@ -111,29 +111,36 @@ export class ListaRegalosComponent implements OnInit {
         }
         this._jwt.validateToken(this.token).subscribe(
           response => {
-            localStorage.setItem('matisses.lista-token', this.token);
-            localStorage.setItem('username-lista', this.nombreSession);
-            localStorage.setItem('usuario-id', this.idUsuario);
-            localStorage.setItem('cambio-clave', this.cambioContrasena);
-            localStorage.setItem('id-lista', this.idListaUsuario);
-            localStorage.setItem('codigo-lista', this.codigoLista);
-            localStorage.setItem('fecha-evento', this.fechaEvento);
+              console.log('token validado');
 
           }, error => {
             console.error(error);
             localStorage.removeItem('matisses.lista-token');
           }
         );
+        localStorage.setItem('matisses.lista-token', this.token);
+        localStorage.setItem('username-lista', this.nombreSession);
+        localStorage.setItem('usuario-id', this.idUsuario);
+        localStorage.setItem('cambio-clave', this.cambioContrasena);
+        sessionStorage.setItem('id-lista', this.idListaUsuario);
+        localStorage.setItem('codigo-lista', this.codigoLista);
+        localStorage.setItem('fecha-evento', this.fechaEvento);
+
         this._router.navigate(['/mi-lista']);
       },
       error => {
         console.error(error);
-        this.messageError = "ocurrio un error en el servicio";
+        this.messageError = "Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.";
       }
     );
   }
 
   public buscarLista() {
+    localStorage.removeItem('id-lista');
+    localStorage.removeItem('username-lista');
+    localStorage.removeItem('codigo-lista');
+    localStorage.removeItem('fecha-evento');
+
     this.messageErrorSearch = '';
     if ((this.nombresNovios != null && this.nombresNovios.length > 0)
       || (this.apellidosNovios != null && this.apellidosNovios.length > 0)
@@ -147,8 +154,15 @@ export class ListaRegalosComponent implements OnInit {
       }
       this._listaRegalosService.consultarLista(consultaDTO).subscribe(
         response => {
+if (response.length > 0) {
+          sessionStorage.setItem('nombresNovios', JSON.stringify(this.nombresNovios));
+          sessionStorage.setItem('apellidosNovios', JSON.stringify(this.apellidosNovios));
+          sessionStorage.setItem('codigoLista', JSON.stringify(this.codigoLista));
+          localStorage.setItem('codigo-lista',this.codigoLista);
+          sessionStorage.setItem('resultados', JSON.stringify(response));
           this._router.navigate(['/lista-de-regalos/resultado-busqueda']);
-        },
+
+}        },
         error => {
           console.error(error);
         }

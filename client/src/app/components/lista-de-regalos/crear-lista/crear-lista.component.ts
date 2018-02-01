@@ -20,8 +20,8 @@ declare var $: any;
 export class CrearListaComponent implements OnInit {
   public tipoEvento: number = 0;
   public paso: number = 1;
-  public mesInicio: number;
-  public anoInicio: number;
+  public mesInicio: string;
+  public anoInicio: string;
   public invitados: number;
   public diaInicio: string;
   public messageError: string;
@@ -29,18 +29,19 @@ export class CrearListaComponent implements OnInit {
   public celebracion: string;
   public lugar: string;
   public tiendaContacto: string;
-  public notificacionInmediataMailCreador: boolean;
-  public notificacionDiariaMailCreador: boolean;
-  public notificacionSemanalMailCreador: boolean;
-  public notificacionInmediataSmsCreador: boolean;
-  public notificacionDiariaSmsCreador: boolean;
-  public notificacionSemanalSmsCreador: boolean;
-  public notificacionInmediataMailCocreador: boolean;
-  public notificacionDiariaMailCocreador: boolean;
-  public notificacionSemanalMailCocreador: boolean;
-  public notificacionInmediataSmsCocreador: boolean;
-  public notificacionDiariaSmsCocreador: boolean;
-  public notificacionSemanalSmsCocreador: boolean;
+  public usarDatos: string;
+  public notificacionInmediataMailCreador: boolean = false;
+  public notificacionDiariaMailCreador: boolean = false;
+  public notificacionSemanalMailCreador: boolean = false;
+  public notificacionInmediataSmsCreador: boolean = false;
+  public notificacionDiariaSmsCreador: boolean = false;
+  public notificacionSemanalSmsCreador: boolean = false;
+  public notificacionInmediataMailCocreador: boolean = false;
+  public notificacionDiariaMailCocreador: boolean = false;
+  public notificacionSemanalMailCocreador: boolean = false;
+  public notificacionInmediataSmsCocreador: boolean = false;
+  public notificacionDiariaSmsCocreador: boolean = false;
+  public notificacionSemanalSmsCocreador: boolean = false;
   public checkedCreadorF: boolean = true;
   public checkedCreadorM: boolean = false;
   public checkedCocreadorF: boolean = false;
@@ -54,8 +55,8 @@ export class CrearListaComponent implements OnInit {
   public validForm4: boolean = true;
   public disabledForm3: boolean = false;
   public disabledForm4: boolean = false;
-  public usarDatosCreador: boolean = true;
-  public usarDatosCocreador: boolean = false;
+  //public usarDatosCreador: boolean;
+  //public usarDatosCocreador: boolean;
   public aceptaTerminos: boolean = false;
   public existeCreador: boolean = false;
   public existeCocreador: boolean = false;
@@ -66,6 +67,9 @@ export class CrearListaComponent implements OnInit {
   public otrasCiudades: Array<City>;
   public customerCreador: Customer;
   public customerCocreador: Customer;
+  public idListaCreada:string;
+  public nombreCreadorLista:string;
+  public fechaEventoLista: string;
   public mostrarDatosNovia: boolean = true;
   public mostrarDatosNovio: boolean = true;
   private viewportWidth: number = 0;
@@ -84,6 +88,8 @@ export class CrearListaComponent implements OnInit {
     this.tiendaContacto = '';
     this.messageError = '';
     this.messageExit = '';
+    this.usarDatos = 'CREADOR'
+    this.notificacionInmediataMailCreador = true;
   }
 
   ngOnInit() {
@@ -272,7 +278,7 @@ export class CrearListaComponent implements OnInit {
   }
 
   public llenarDatosEvento() {
-    if ((this.anoInicio == null || this.anoInicio <= 0) || (this.mesInicio == null || this.mesInicio <= 0)
+    if ((this.anoInicio == null || this.anoInicio.length < 0) || (this.mesInicio == null || this.mesInicio.length < 0)
       || (this.diaInicio == null)) {
       this.messageError = 'Debes llenar todos los campos obligatorios para poder continuar con el Paso #3.';
       this.validForm2 = false;
@@ -306,6 +312,8 @@ export class CrearListaComponent implements OnInit {
   public crearLista() {
     let apellidosCreador = '';
     let apellidosCocreador = '';
+    let usarDatosCreador;
+    let usarDatosCocreador;
     apellidosCreador += this.customerCreador.lastName1;
     apellidosCocreador += this.customerCocreador.lastName1;
     if (this.customerCreador.lastName2 != null && this.customerCreador.lastName2.length > 0) {
@@ -314,6 +322,18 @@ export class CrearListaComponent implements OnInit {
     if (this.customerCocreador.lastName2 != null && this.customerCocreador.lastName2.length > 0) {
       apellidosCocreador += ' ' + this.customerCocreador.lastName2;
     }
+    if (this.usarDatos == 'CREADOR') {
+      usarDatosCreador = true;
+    } else {
+      usarDatosCreador = false;
+    }
+    if (this.usarDatos == 'COCREADOR') {
+      usarDatosCocreador = true;
+    } else {
+      usarDatosCocreador = false;
+    }
+    console.log(usarDatosCreador);
+    console.log(usarDatosCocreador);
     if (this.aceptaTerminos) {
       let listGiftDTO = {
         idLista: null,
@@ -330,7 +350,7 @@ export class CrearListaComponent implements OnInit {
         permitirEntregaPersonal: false,
         activa: true,
         fechaCreacion: null,
-        fechaEvento: this.anoInicio + '-' + this.mesInicio + '-' + this.diaInicio,
+        formatoFechaEvento: this.anoInicio + '-' + this.mesInicio + '-' + this.diaInicio,
         celebracion: this.celebracion,
         lugar: this.lugar,
         cedulaCreador: this.customerCreador.fiscalID,
@@ -362,8 +382,8 @@ export class CrearListaComponent implements OnInit {
         notificacionSemanalSmsCocreador: this.notificacionSemanalSmsCocreador,
         notificacionCambioCategoriaCocreador: "",
         tiendaContacto: this.tiendaContacto,
-        usarDatosCreador: true,
-        usarDatosCocreador: false,
+        usarDatosCreador: usarDatosCreador,
+        usarDatosCocreador: usarDatosCocreador,
         aceptaTerminos: this.aceptaTerminos,
         estado: {
           idEstado: null,
@@ -383,14 +403,20 @@ export class CrearListaComponent implements OnInit {
       }
       this._listaRegalosService.crearLista(listGiftDTO).subscribe(
         response => {
-          //TODO: crear como cliente SAP
-          if (!this.existeCreador) {
-            this.crearClienteCreador();
+          if (response.codigo === 0) {
+            this.buscarLista(response.mensaje);
+            //crear como cliente SAP
+            if (!this.existeCreador) {
+              this.crearClienteCreador();
+            }
+            if (!this.existeCocreador) {
+              this.crearClienteCocreador();
+            }
+            this._router.navigate(['/mi-lista']);
+          } else {
+            this.messageError = response.mensaje;
+            console.log(response);
           }
-          if (!this.existeCocreador) {
-            this.crearClienteCocreador();
-          }
-          this._router.navigate(['/mi-lista']);
         },
         error => {
           this.messageError = 'Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.';
@@ -591,6 +617,11 @@ export class CrearListaComponent implements OnInit {
   public limpiarCampos() {
     this.messageError = '';
     this.messageExit = '';
+    this.validForm2 = true;
+    this.validForm3 = true;
+    this.validForm4 = true;
+    this.validCreador = true;
+    this.validCocreador = true;
   }
 
   public cargarDias(mes: string, ano: number) {
@@ -630,9 +661,45 @@ export class CrearListaComponent implements OnInit {
   }
 
   public cargarAnos() {
+    var date = new Date();
+    var year = date.getFullYear();
     this.yearEvent = new Array<number>();
-    for (let i = 2018; i <= 2024; i++) {
+    for (let i = year; i <= year + 1; i++) {
       this.yearEvent.push(i);
     }
   }
+
+  public buscarLista(codigo:string) {
+
+    this.messageError = '';
+
+      //TODO: Asignar datos para enviarlos a WS
+      let consultaDTO = {
+        nombre: null,
+        apellido: null,
+        codigo: codigo
+      }
+      this._listaRegalosService.consultarLista(consultaDTO).subscribe(
+        response => {
+          if (response.length > 0) {
+             this.idListaCreada=response[0].idLista;
+             this.nombreCreadorLista=response[0].nombreCreador.toLowerCase() + ' ' + response[0].apellidoCreador.toLowerCase() + ' & ' + response[0].nombreCocreador.toLowerCase() + ' ' + response[0].apellidoCocreador.toLowerCase();
+              this.fechaEventoLista=response[0].formatoFechaEvento;
+
+          }
+        },
+        error => {
+          console.error(error);
+        }
+
+      );
+      sessionStorage.setItem('id-lista',this.idListaCreada);
+      localStorage.setItem('username-lista',this.nombreCreadorLista);
+      localStorage.setItem('codigo-lista',codigo);
+      localStorage.setItem('fecha-evento',this.fechaEventoLista);
+
+  }
+
+
+
 }
