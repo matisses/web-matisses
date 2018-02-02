@@ -45,15 +45,15 @@
       </div>
       <div class="col-sm-6 text-center">
         <p class="titulo-listas">LISTA DE REGALOS DE</p>
-        <h2 class="nombres">{{nombreUsuario}} <span style="color:#D77D7D;">&</span> ALEJANDRO GUERRA</h2>
-        <p class="codigo-lista">Código de novios: </p>
+        <h2 class="nombres">{{nombreUsuario}} <!--<span style="color:#D77D7D;">&</span> ALEJANDRO GUERRA--></h2>
+        <p class="codigo-lista">Código de novios: {{codigoLista}}</p>
         <div class="row">
           <div class="col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3">
             <img src="../../../../assets/images/deco_01.png" class="jpg-responsive" alt="">
           </div>
         </div>
         <div class="fecha-dias">
-          <p>Fecha de celebración: </p>
+          <p>Fecha de celebración: {{fechaEvento}}</p>
           <span class="icon-fecha icono-fecha"></span>
           <p class="dias"> dias</p>
         </div>
@@ -65,7 +65,7 @@
     <div class="row">
       <div class="col-sm-6 col-sm-offset-6 text-right" id="carrito1">
         <div class="carrito" (click)="toggleResumen()">
-          <span [ngClass]="{'icon-shopping-cart': (!resumenMobileVisible && !resumenDesktopVisible), 'icon-cerrar': (resumenMobileVisible || resumenDesktopVisible)}"></span>
+          <span [ngClass]="{'icon-shopping-cart': (!resumenMobileVisible && !resumenDesktopVisible), 'icon-cerrar': (resumenMobileVisible || resumenDesktopVisible)}">{{totalItemsCarrito}}</span>
           <!--<span class="badge total-items-carrito-badge">{{total}}</span>-->
           <span class="bolsa-text">Bolsa de regalos</span>
         </div>

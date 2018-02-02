@@ -55,6 +55,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   private paramsConsulta: any;
   private itemsListaBcs:Array<any>;
   private totalLista:number;
+  private nombreLista:string;
 
   //campos carrito carrito simple
   public shoppingCart: any;
@@ -68,9 +69,10 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
-    this.nombreUsuario = localStorage.getItem('username-lista');
+    this.nombreUsuario = localStorage.getItem('nombreLista');
     this.codigoLista= localStorage.getItem('codigo-lista');
     this.fechaEvento=localStorage.getItem('fecha-evento');
+
     //this.idListaUsuario=localStorage.getItem('id-lista');cambiar a esta al tener la consulta
     this.idListaUsuario=sessionStorage.getItem('id-lista');
     this.queryParams = new Map<string, string>();
@@ -101,7 +103,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     //   $('#cambioContraseña').modal('show');
     // }
 
-  this.nombreUsuario = localStorage.getItem('username-lista');
+  this.nombreUsuario = localStorage.getItem('nombreLista');
   this.codigoLista= localStorage.getItem('codigo-lista');
   this.fechaEvento=localStorage.getItem('fecha-evento');
   this.idListaUsuario=sessionStorage.getItem('id-lista');
@@ -113,14 +115,14 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
       //this.inicializarItems();
       // this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-      this.nombreUsuario = localStorage.getItem('username-lista');
+      this.nombreUsuario = localStorage.getItem('nombreLista');
       this.codigoLista= localStorage.getItem('codigo-lista');
       this.fechaEvento=localStorage.getItem('fecha-evento');
       this.idListaUsuario=sessionStorage.getItem('id-lista');
 
       //this.cargarItems0();
 
-    this.nombreUsuario = localStorage.getItem('username-lista');
+
     setTimeout(function() {
       if(localStorage.getItem('cambio-clave')=='si'){
         $('#cambioContrasena').modal('show');
