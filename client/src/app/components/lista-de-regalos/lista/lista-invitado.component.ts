@@ -248,19 +248,19 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
       if (this.queryParams.has('orderBy')) {
         switch (this.queryParams.get('orderBy')) {
-          case 'price':
+          case '-price':
 
             this.paramsConsulta.orderBy='precio';
             break;
-          case '-price':
+          case 'price':
 
             this.paramsConsulta.orderBy='precio asc';
             break;
-          case 'itemname':
+          case '-itemname':
 
             this.paramsConsulta.orderBy='referencia';
             break;
-          case '-itemname':
+          case 'itemname':
 
             this.paramsConsulta.orderBy='referencia asc';
             break;
@@ -295,12 +295,13 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
             this.items=new Array<Item>();
             for (let i = 0; i < this.itemsListaBcs.length; i++) {
                this.itemsListaBcs[i].referencia;
-
+               console.log('viene del servicio '+this.itemsListaBcs[i].descripcionProducto);
                let cadena1=this.itemsListaBcs[i].referencia.substring(0,3);
                let cadena2=this.itemsListaBcs[i].referencia.substring(16,20);
 
                this._itemService.find(cadena1+cadena2).subscribe( // Item 1
                  response => {
+                   console.log('dentro de angular '+response.result[0].itemname);
                    response.result[0].selectedQuantity=0;
                    response.result[0].cantidadElegida=this.itemsListaBcs[i].cantidadElegida;
                    response.result[0].cantidadComprada=this.itemsListaBcs[i].cantidadComprada;
