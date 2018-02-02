@@ -299,6 +299,14 @@
                       <input id="n-invitados" type="number" name="nInvitados" class="form-control height-40" min="0" [(ngModel)]="invitados">
                     </div>
                   </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="contenido">
+                        <textarea name="messageAgadecimiento" class="form-control" rows="8" cols="80" [(ngModel)]="messageAgadecimiento" placeholder="Déjale un mensaje de agradecimiento a tus invitados."></textarea>
+                        <br>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -404,7 +412,7 @@
   <!-- botones de siguiente -->
   <div class="row" *ngIf="tipoEvento === 4">
     <div class="col-sm-4 text-center">* Información requerida</div>
-    <div class="col-sm-4 text-center">Conoce terminos y condiciones <u><b>aquí</b></u></div>
+    <div class="col-sm-4 text-center">Conoce términos y condiciones <u><b>aquí</b></u></div>
     <div class="col-sm-4 text-center" *ngIf="paso === 1 || paso === 2 || paso === 3">
       <button type="button" name="button" class="btn-formulario btn-grey" (click)="obtenerPasoAnterior()" *ngIf="paso === 2 || paso === 3">Atras</button>
       <!-- No dejar seguir si la información requerida no esta completa -->

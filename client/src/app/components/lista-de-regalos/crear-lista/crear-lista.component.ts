@@ -34,6 +34,7 @@ export class CrearListaComponent implements OnInit {
   public idListaCreada: string;
   public nombreCreadorLista: string;
   public fechaEventoLista: string;
+  public messageAgadecimiento: string;
   public mostrarDatosNovia: boolean = true;
   public mostrarDatosNovio: boolean = true;
   public notificacionInmediataMailCreador: boolean = false;
@@ -87,6 +88,7 @@ export class CrearListaComponent implements OnInit {
     this.messageError = '';
     this.messageExit = '';
     this.usarDatos = 'CREADOR'
+    this.messageAgadecimiento = '';
     this.notificacionInmediataMailCreador = true;
   }
 
@@ -282,6 +284,9 @@ export class CrearListaComponent implements OnInit {
       this.validForm2 = false;
     } else {
       this.limpiarCampos();
+      console.log("**************");
+      console.log(this.messageAgadecimiento);
+      console.log("**************");
       //pasar al siguiente paso
       if (this.paso < 4) {
         this.paso++;
@@ -342,7 +347,7 @@ export class CrearListaComponent implements OnInit {
         rutaImagenPerfil: null,
         rutaImagenPortada: null,
         mensajeBienvenida: null,
-        mensajeAgradecimiento: "",
+        mensajeAgradecimiento: this.messageAgadecimiento,
         listaPrivada: false,
         aceptaBonos: true,
         permitirEntregaPersonal: false,
