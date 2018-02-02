@@ -401,12 +401,10 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
           console.log(error);
         }
       );
-<<<<<<< HEAD
     } else {
       this.cambiarItem(item);
     }
   }
-=======
          return;
        },
        error => {
@@ -634,7 +632,6 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
        item.selectedQuantity -= 1;
      }
    }
->>>>>>> 6be5af3b119dd071a8783ee0300d5e03d69c0ad4
 
   private cambiarItem(item: Item) {
     //0. Cargar contenido de localStorage
