@@ -55,7 +55,7 @@ export class ListaRegalosComponent implements OnInit {
     }
   }
 
-  public showCampos(option:number) {
+  public showCampos(option: number) {
     if (this.viewportWidth <= 768) {
       if ((option === 0 || option === 1) && !this.mostrarBuscar) {
         this.mostrarBuscar = true;
@@ -114,8 +114,7 @@ export class ListaRegalosComponent implements OnInit {
         }
         this._jwt.validateToken(this.token).subscribe(
           response => {
-              console.log('token validado');
-
+            console.log('token validado');
           }, error => {
             console.error(error);
             localStorage.removeItem('matisses.lista-token');
@@ -149,7 +148,7 @@ export class ListaRegalosComponent implements OnInit {
       || (this.apellidosNovios != null && this.apellidosNovios.length > 0)
       || (this.codigoLista != null && this.codigoLista.length > 0)
     ) {
-      //TODO: Asignar datos para enviarlos a WS
+      //Asignar datos para enviarlos a WS
       let consultaDTO = {
         nombre: this.nombresNovios,
         apellido: this.apellidosNovios,
@@ -157,15 +156,18 @@ export class ListaRegalosComponent implements OnInit {
       }
       this._listaRegalosService.consultarLista(consultaDTO).subscribe(
         response => {
-if (response.length > 0) {
-          sessionStorage.setItem('nombresNovios', JSON.stringify(this.nombresNovios));
-          sessionStorage.setItem('apellidosNovios', JSON.stringify(this.apellidosNovios));
-          sessionStorage.setItem('codigoLista', JSON.stringify(this.codigoLista));
-          localStorage.setItem('codigo-lista',this.codigoLista);
-          sessionStorage.setItem('resultados', JSON.stringify(response));
-          this._router.navigate(['/lista-de-regalos/resultado-busqueda']);
+          if (response.length > 0) {
+            sessionStorage.setItem('nombresNovios', JSON.stringify(this.nombresNovios));
+            sessionStorage.setItem('apellidosNovios', JSON.stringify(this.apellidosNovios));
+            sessionStorage.setItem('codigoLista', JSON.stringify(this.codigoLista));
+            localStorage.setItem('codigo-lista', this.codigoLista);
+            sessionStorage.setItem('resultados', JSON.stringify(response));
 
-}        },
+            this._router.navigate(['/lista-de-regalos/resultado-busqueda']);
+          } else {
+            this.messageErrorSearch = 'No se encontro la lista.'
+          }
+        },
         error => {
           console.error(error);
         }

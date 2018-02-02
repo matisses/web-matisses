@@ -38,7 +38,8 @@
 
 .rosa {
   border-color: #D77D7D;
-  margin: 2px 0px 25px;
+  opacity: 0.6;
+  margin: 2px;
 }
 
 .codigo-fecha {
