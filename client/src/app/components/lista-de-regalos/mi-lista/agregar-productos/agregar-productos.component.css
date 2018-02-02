@@ -2,6 +2,46 @@
   margin-top: 110px;
 }
 
+
+/* boton de cantidad */
+
+ .cantidad .input-group .form-control, .cantidad .input-group-addon {
+  background-color: #FFF;
+  border: 1px solid #ccc;
+}
+
+.input-cantidad {
+  border-radius: 0;
+  border-color: #D1D1D1;
+  text-align: center;
+  z-index: 0;
+  padding: 0;
+  height: 36px;
+}
+
+.span-cantidad {
+  padding: 0px;
+  border-radius: 0;
+  background-color: transparent;
+}
+
+.span-cantidad:hover {
+  background-color: #ECECEC;
+}
+
+.btn-cantidad {
+  font-size: 10px;
+  background-color: transparent;
+  border: none;
+  color: #5b5b5b;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 0;
+}
+
+
+/* menu */
+
 .menu1 {
   background-color: #F8F8F8;
   height: 30px;
@@ -99,6 +139,7 @@
   font-weight: bold;
 }
 
+
 /* menu */
 
 .menu-productos {
@@ -122,6 +163,7 @@
 .menu-productos .active {
   border-bottom: 2px solid #5B5B5B;
 }
+
 
 /* producto */
 
@@ -161,7 +203,7 @@
 
 .producto-agregado {
   position: absolute;
-  background-color: rgba(0,0,0,0.3);
+  background-color: rgba(0, 0, 0, 0.3);
   color: #FFF;
   font-weight: bold;
   text-transform: capitalize;
@@ -174,6 +216,7 @@
 .producto-agregado p {
   margin-top: 50%;
 }
+
 
 /* paginador */
 
@@ -406,6 +449,21 @@ li.filter-option:hover {
 .btn-carrito:hover {
   background-color: #DB7D7D;
   color: #FFF;
+}
+
+.btn-agregar {
+  font-size: 12px;
+  padding: 10px 40px;
+  border-radius: 0;
+  border: 1px solid #DB7D7D;
+  background-color: #DB7D7D;
+  margin-left: 5px !important;
+  margin-top: 10px;
+  color: #FFF;
+}
+
+.btn-agregar:hover {
+  background-color: #AB4646;
 }
 
 @media screen and (max-width: 1200px) {
