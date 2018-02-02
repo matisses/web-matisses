@@ -25,6 +25,12 @@
   display: none;
 }
 
+.anpersan {
+  color: #D77D7D !important;
+  font-family: Baskerville, "Baskerville Old Face", "Hoefler Text";
+  font-weight: bold;
+}
+
 input:focus, button:focus, span:focus, p:focus, li:focus, div:focus, textarea:focus, img:focus {
   outline: none !important;
   box-shadow: none !important;

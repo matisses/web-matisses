@@ -40,6 +40,11 @@
   font-size: 25px;
   margin-top: 0;
   margin-bottom: 0px;
+  text-transform: uppercase;
+}
+
+.nombres p {
+  color: #D77D7D !important;
 }
 
 .codigo-lista {

@@ -18,11 +18,11 @@ export class ResultadoBusquedaListasComponent implements OnInit {
   public codigoLista: string;
   public messageError: string;
   public mostrarFiltros: boolean = true;
-  public pruebaListas: Array<any>;
+  public listas: Array<any>;
 
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _listaRegalosService: ListaRegalosService) {
-    this.pruebaListas = new Array<any>();
+    this.listas = new Array<any>();
     this.nombresNovios = JSON.parse(sessionStorage.getItem('nombresNovios'));
     this.apellidosNovios = JSON.parse(sessionStorage.getItem('apellidosNovios'));
     this.codigoLista = JSON.parse(sessionStorage.getItem('codigoLista'));
@@ -47,11 +47,11 @@ export class ResultadoBusquedaListasComponent implements OnInit {
     });
   }
 
-  public removeSession(idLista:string, codigolista:string) {
-    console.log('remove session'+this.codigoLista);
-    localStorage.setItem('codigo-lista',codigolista);
+  public removeSession(idLista: string, codigolista: string) {
+    localStorage.setItem('codigo-lista', codigolista);
     localStorage.removeItem('id-lista');
-    sessionStorage.setItem('id-lista',idLista);
+
+    sessionStorage.setItem('id-lista', idLista);
     sessionStorage.removeItem('nombresNovios');
     sessionStorage.removeItem('apellidosNovios');
     sessionStorage.removeItem('codigoLista');
@@ -79,19 +79,21 @@ export class ResultadoBusquedaListasComponent implements OnInit {
   public cargarListas() {
     let respuesta = JSON.parse(sessionStorage.getItem('resultados'));
     for (let j = 0; j < respuesta.length; j++) {
-      this.pruebaListas.push(
+      this.listas.push(
         {
-          idLista:respuesta[j].idLista,
+          idLista: respuesta[j].idLista,
           codigo: respuesta[j].codigo,
-          novios: respuesta[j].nombreCreador.toLowerCase() + ' ' + respuesta[j].apellidoCreador.toLowerCase() + ' & ' + respuesta[j].nombreCocreador.toLowerCase() + ' ' + respuesta[j].apellidoCocreador.toLowerCase(),
+          novios: respuesta[j].nombreCreador.toLowerCase() + ' ' + respuesta[j].apellidoCreador.toLowerCase() + '<span class="anpersan"> & </span>' + respuesta[j].nombreCocreador.toLowerCase() + ' ' + respuesta[j].apellidoCocreador.toLowerCase(),
           fecha: respuesta[j].formatoFechaEvento
         }
       );
+      sessionStorage.setItem('novios', this.listas[j].novios);
+      sessionStorage.setItem('formatoFechaEvento', this.listas[j].fecha);
     }
   }
 
   public buscarLista() {
-    this.pruebaListas = new Array<any>();
+    this.listas = new Array<any>();
     this.messageError = '';
     if ((this.nombresNovios != null && this.nombresNovios.length > 0)
       || (this.apellidosNovios != null && this.apellidosNovios.length > 0)
@@ -107,9 +109,9 @@ export class ResultadoBusquedaListasComponent implements OnInit {
         response => {
           if (response.length > 0) {
             for (let j = 0; j < response.length; j++) {
-              this.pruebaListas.push(
+              this.listas.push(
                 {
-                  idLista:response[j].idLista,
+                  idLista: response[j].idLista,
                   codigo: response[j].codigo,
                   novios: response[j].nombreCreador.toLowerCase() + ' ' + response[j].apellidoCreador.toLowerCase() + ' & ' + response[j].nombreCocreador.toLowerCase() + ' ' + response[j].apellidoCocreador.toLowerCase(),
                   fecha: response[j].formatoFechaEvento

@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild,AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { ItemService } from '../../../services/item.service';
 import { Item } from '../../../models/item';
 
-import {SessionUsuarioService } from '../../../services/session-usuario.service';
-import {ListaRegalosService } from '../../../services/lista-regalos.service';
+import { SessionUsuarioService } from '../../../services/session-usuario.service';
+import { ListaRegalosService } from '../../../services/lista-regalos.service';
 
 import { CarritoRegalosComponent } from '././carrito-regalos/carrito-regalos.component';
 import { CarritoRegalosSimpleComponent } from '././carrito-regalos/carrito-regalos-simple.component';
@@ -19,7 +19,7 @@ declare var $: any;
 @Component({
   templateUrl: 'lista-invitado.html',
   styleUrls: ['lista-invitado.component.css'],
-  providers: [ItemService, SessionUsuarioService,ListaRegalosService]
+  providers: [ItemService, SessionUsuarioService, ListaRegalosService]
 })
 
 export class ListaInvitadoComponent implements OnInit, AfterViewInit {
@@ -32,6 +32,8 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public claveNueva: string;
   public claveConfirmacion: string;
   public messageError: string;
+  public novios: string;
+  public formatoFechaEvento: string;
   public items: Array<Item>;
   public queryParams: Map<string, string>;
   public queryString: string;
@@ -39,7 +41,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public successMessage: string;
   public totalItems: number;
   public activePage: number;
-  public url:string;
+  public url: string;
   private viewportWidth: number = 0;
   public itemsXPag: string;
   public orderByStr: string;
@@ -48,19 +50,19 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   private availableFields: string[] = ['page', 'pageSize', 'orderBy', 'department', 'group', 'subgroup', 'color', 'minPrice', 'maxPrice', 'brand', 'material', 'collection', 'keywords', 'discount'];
   private idListaUsuario: string;
   private codigoLista: string;
-  private fechaEvento:string;
+  private fechaEvento: string;
   public resumenMobileVisible: boolean = false;
   public resumenDesktopVisible: boolean = false;
 
   private paramsConsulta: any;
-  private itemsListaBcs:Array<any>;
-  private totalLista:number;
+  private itemsListaBcs: Array<any>;
+  private totalLista: number;
 
   //campos carrito carrito simple
   public shoppingCart: any;
   public item: Item;
   private idCarrito: string;
- public totalItemsCarrito: number;
+  public totalItemsCarrito: number;
   public totalCarrito: number = 0;
   public totalImpuestos: number = 0;
   public totalDescuentos: number = 0;
@@ -69,18 +71,19 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
-    this.codigoLista= localStorage.getItem('codigo-lista');
-    this.fechaEvento=localStorage.getItem('fecha-evento');
-    //this.idListaUsuario=localStorage.getItem('id-lista');cambiar a esta al tener la consulta
-    this.idListaUsuario=sessionStorage.getItem('id-lista');
+    this.codigoLista = localStorage.getItem('codigo-lista');
+    this.fechaEvento = localStorage.getItem('fecha-evento');
+    //this.idListaUsuario = localStorage.getItem('id-lista');cambiar a esta al tener la consulta
+    this.idListaUsuario = sessionStorage.getItem('id-lista');
+    this.novios = sessionStorage.getItem('novios');
+    this.formatoFechaEvento = sessionStorage.getItem('formatoFechaEvento');
     this.queryParams = new Map<string, string>();
     this.itemsXPag = '12 x pag';
     this.orderByStr = 'Similares';
     this.pages = new Array<number>();
     this.items = new Array<Item>();
     this.url = this._router.url;
-    this.itemsListaBcs=new Array<any>();
-
+    this.itemsListaBcs = new Array<any>();
 
     //carrito de COMPRAS
     this.inicializarShoppingCart();
@@ -88,11 +91,11 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
   private inicializarParamsConsulta() {
     this.paramsConsulta = {
-    idLista:sessionStorage.getItem('id-lista'),
-    pagina:'1',
-    registrosPagina:'12',
-    orderBy:'referencia asc',
-    sortOrder:''
+      idLista: sessionStorage.getItem('id-lista'),
+      pagina: '1',
+      registrosPagina: '12',
+      orderBy: 'referencia asc',
+      sortOrder: ''
     };
   }
 
@@ -101,28 +104,28 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     //   $('#cambioContraseña').modal('show');
     // }
 
-  this.nombreUsuario = localStorage.getItem('username-lista');
-  this.codigoLista= localStorage.getItem('codigo-lista');
-  this.fechaEvento=localStorage.getItem('fecha-evento');
-  this.idListaUsuario=sessionStorage.getItem('id-lista');
-  this.cargarCarrito();
-  this.cargarItems0();
+    this.nombreUsuario = localStorage.getItem('username-lista');
+    this.codigoLista = localStorage.getItem('codigo-lista');
+    this.fechaEvento = localStorage.getItem('fecha-evento');
+    this.idListaUsuario = sessionStorage.getItem('id-lista');
+    this.cargarCarrito();
+    this.cargarItems0();
   }
 
 
   ngAfterViewInit() {
-      //this.inicializarItems();
-      // this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-      this.nombreUsuario = localStorage.getItem('username-lista');
-      this.codigoLista= localStorage.getItem('codigo-lista');
-      this.fechaEvento=localStorage.getItem('fecha-evento');
-      this.idListaUsuario=sessionStorage.getItem('id-lista');
+    //this.inicializarItems();
+    // this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    this.nombreUsuario = localStorage.getItem('username-lista');
+    this.codigoLista = localStorage.getItem('codigo-lista');
+    this.fechaEvento = localStorage.getItem('fecha-evento');
+    this.idListaUsuario = sessionStorage.getItem('id-lista');
 
-      //this.cargarItems0();
+    //this.cargarItems0();
 
     this.nombreUsuario = localStorage.getItem('username-lista');
     setTimeout(function() {
-      if(localStorage.getItem('cambio-clave')=='si'){
+      if (localStorage.getItem('cambio-clave') == 'si') {
         $('#cambioContrasena').modal('show');
       }
     }, 500);
@@ -132,7 +135,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
 
 
-// PRODUCTOS
+  // PRODUCTOS
 
 
   public irAPagina(pagina) {
@@ -242,88 +245,71 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
       this.inicializarMapa(params);
 
       if (this.queryParams.has('pageSize')) {
-
-        this.paramsConsulta.registrosPagina=this.queryParams.get('pageSize');
+        this.paramsConsulta.registrosPagina = this.queryParams.get('pageSize');
       }
 
       if (this.queryParams.has('orderBy')) {
         switch (this.queryParams.get('orderBy')) {
           case '-price':
-
-            this.paramsConsulta.orderBy='precio';
+            this.paramsConsulta.orderBy = 'precio';
             break;
           case 'price':
-
-            this.paramsConsulta.orderBy='precio asc';
+            this.paramsConsulta.orderBy = 'precio asc';
             break;
           case '-itemname':
-
-            this.paramsConsulta.orderBy='referencia';
+            this.paramsConsulta.orderBy = 'referencia';
             break;
           case 'itemname':
-
-            this.paramsConsulta.orderBy='referencia asc';
+            this.paramsConsulta.orderBy = 'referencia asc';
             break;
           default:
 
-            this.paramsConsulta.orderBy='';
+            this.paramsConsulta.orderBy = '';
         }
       }
-      if(this.queryParams.has('page')){
-        this.paramsConsulta.pagina=this.queryParams.get('page');
+      if (this.queryParams.has('page')) {
+        this.paramsConsulta.pagina = this.queryParams.get('page');
       }
-
-
       this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
-          response => {
-            this.totalLista=response;
-
-          },
-          error =>{
-            console.log("error servicio bcs"+error);
-          }
-
-
+        response => {
+          this.totalLista = response;
+        },
+        error => {
+          console.log("error servicio bcs" + error);
+        }
       );
 
 
       this._listaService.consultarListaPaginada(this.paramsConsulta).subscribe(
-          response => {
+        response => {
+          this.itemsListaBcs = response;
+          this.items = new Array<Item>();
+          for (let i = 0; i < this.itemsListaBcs.length; i++) {
+            this.itemsListaBcs[i].referencia;
+            console.log('viene del servicio ' + this.itemsListaBcs[i].descripcionProducto);
+            let cadena1 = this.itemsListaBcs[i].referencia.substring(0, 3);
+            let cadena2 = this.itemsListaBcs[i].referencia.substring(16, 20);
 
-            this.itemsListaBcs=response;
+            this._itemService.find(cadena1 + cadena2).subscribe( // Item 1
+              response => {
+                console.log('dentro de angular ' + response.result[0].itemname);
+                response.result[0].selectedQuantity = 0;
+                response.result[0].cantidadElegida = this.itemsListaBcs[i].cantidadElegida;
+                response.result[0].cantidadComprada = this.itemsListaBcs[i].cantidadComprada;
 
-            this.items=new Array<Item>();
-            for (let i = 0; i < this.itemsListaBcs.length; i++) {
-               this.itemsListaBcs[i].referencia;
-               console.log('viene del servicio '+this.itemsListaBcs[i].descripcionProducto);
-               let cadena1=this.itemsListaBcs[i].referencia.substring(0,3);
-               let cadena2=this.itemsListaBcs[i].referencia.substring(16,20);
-
-               this._itemService.find(cadena1+cadena2).subscribe( // Item 1
-                 response => {
-                   console.log('dentro de angular '+response.result[0].itemname);
-                   response.result[0].selectedQuantity=0;
-                   response.result[0].cantidadElegida=this.itemsListaBcs[i].cantidadElegida;
-                   response.result[0].cantidadComprada=this.itemsListaBcs[i].cantidadComprada;
-
-                   this.items.push(response.result[0]);
-                },
-                error=>{
-
-                }
-
-              );
-            }
-            this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalLista);
-          },
-          error =>{
-            console.log("error servicio bcs"+error);
+                this.items.push(response.result[0]);
+              },
+              error => {
+                console.error(error);
+              }
+            );
           }
-
-
+          this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalLista);
+        },
+        error => {
+          console.error(error);
+        }
       );
-
-
     });
   }
 
@@ -352,255 +338,255 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
   public eliminarProducto(itemCode) {
 
-     this._listaService.eliminarProducto(itemCode, this.idListaUsuario).subscribe(
-       response => {
+    this._listaService.eliminarProducto(itemCode, this.idListaUsuario).subscribe(
+      response => {
 
-       this._itemService.find(itemCode).subscribe( // Item 1
-         response => {
+        this._itemService.find(itemCode).subscribe( // Item 1
+          response => {
 
-           var index=-1;
-           for (var i = 0; i < this.items.length; i++) {
+            var index = -1;
+            for (var i = 0; i < this.items.length; i++) {
 
-               if (this.items[i]['shortitemcode'] === itemCode) {
-                   index=i;
-                   this.totalItems=this.totalItems-1;
-               }
-           }
+              if (this.items[i]['shortitemcode'] === itemCode) {
+                index = i;
+                this.totalItems = this.totalItems - 1;
+              }
+            }
 
-           if (index > -1) {
-            this.items.splice(index, 1);
-            this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalItems);
-            return;
+            if (index > -1) {
+              this.items.splice(index, 1);
+              this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalItems);
+              return;
+            }
+          }, error => { console.error(); }
+        );
+        return;
+      },
+      error => {
+
+
+        this.messageError = "ocurrio un error en el servicio de eliminacion";
+      }
+    );
+  }
+
+  //carrito de compras ListaRegalos
+  public agregarCarrito(item: Item) {
+    if (item.selectedQuantity > 0) {
+      item.selectedQuantity = item.selectedQuantity;
+      this.procesarItem(item);
+    }
+  }
+
+  public procesarItem(item: Item) {
+
+    item.selectedQuantity = parseInt(item.selectedQuantity.toString());
+    if (item.selectedQuantity > 0) {
+      let items = new Array<Item>();
+      items.push(item);
+
+      this._itemService.validarItems(items).subscribe(
+        response => {
+          if (response[0].sinSaldo) {
+            //modal sin saldo
+            item.availablestock = response[0].availablestock;
+            localStorage.setItem('matisses.lastAddedItem', JSON.stringify(item));
+            $('#modalSinSaldo').modal('show');
+          } else {
+            this.cambiarItem(item);
           }
-        }, error => { console.error(); }
+        },
+        error => {
+          console.log(error);
+        }
       );
-         return;
-       },
-       error => {
+    } else {
+      this.cambiarItem(item);
+    }
+  }
+
+  private cambiarItem(item: Item) {
+    //0. Cargar contenido de localStorage
+    this.cargarCarrito();
+    //1. validar contenido
+    let encontrado = false;
+    for (let i = 0; i < this.shoppingCart.items.length; i++) {
+      if (this.shoppingCart.items[i].itemcode === item.itemcode) {
+        encontrado = true;
+        if (item.selectedQuantity === 0) {
+          //eliminar item
+          this.shoppingCart.items.splice(i, 1);
+        } else {
+          //modificar el item
+          this.shoppingCart.items[i].selectedQuantity = item.selectedQuantity;
+        }
+        break;
+      }
+    }
+    //2. agregar
+    if (!encontrado) {
+      this.shoppingCart.items.push(item);
+    }
+    //3. guardar
+    localStorage.setItem('matisses.shoppingCart.List', JSON.stringify(this.shoppingCart));
+    //4. Actualizar contenido HTML
+    this.procesarCarrito();
+
+    let components = document.getElementsByClassName("total-items-carrito-badge");
+    for (let i = 0; i < components.length; i++) {
+      components[i].innerHTML = this.totalItems.toString();
+    }
+
+    if (!encontrado && this.mostrar) {
+      localStorage.setItem('matisses.lastAddedItem', JSON.stringify(item));
+      $('#carritoModal').modal('show');
+    }
+  }
+
+  public cargarCarrito() {
+    //consultar localstorage
+
+    let localSC = JSON.parse(localStorage.getItem('matisses.shoppingCart.List'));
+    if (!localSC) {
+      this.inicializarShoppingCart();
+    } else {
+      this.shoppingCart = localSC;
+    }
+    //TODO: validar si el carrito esta vigente
+    //TODO: validar el saldo y los precios de los items en el carrito si la fecha de creacion es del dia anterior
+
+    if (this.shoppingCart.items === null) {
+      this.shoppingCart.items = new Array<Item>();
+    }
+    this.procesarCarrito();
+  }
+
+  public procesarCarrito() {
+    this.totalItemsCarrito = 0;
+    this.totalCarrito = 0;
+    this.totalImpuestos = 0;
+    this.totalDescuentos = 0;
+    let totalSinIVA = 0;
+    for (let i = 0; i < this.shoppingCart.items.length; i++) {
+      let selectedQuantity = this.shoppingCart.items[i].selectedQuantity ? this.shoppingCart.items[i].selectedQuantity : 0;
+      let price = this.shoppingCart.items[i].priceaftervat ? this.shoppingCart.items[i].priceaftervat : 0;
+      this.totalItemsCarrito += selectedQuantity;
+      this.totalCarrito += (price * selectedQuantity);
+      if (this.shoppingCart.items[i].priceafterdiscount && this.shoppingCart.items[i].priceafterdiscount > 0) {
+        let valorIVA = this.shoppingCart.items[i].priceafterdiscount * this.shoppingCart.items[i].taxpercent / 100;
+        totalSinIVA += ((this.shoppingCart.items[i].priceafterdiscount - valorIVA) * selectedQuantity);
+        this.totalDescuentos += ((this.shoppingCart.items[i].priceaftervat / 100) * this.shoppingCart.items[i].descuento) * selectedQuantity;
+      } else {
+        totalSinIVA += (this.shoppingCart.items[i].pricebeforevat ? this.shoppingCart.items[i].pricebeforevat : 0) * selectedQuantity;
+      }
+    }
+    this.totalImpuestos = (this.totalCarrito - this.totalDescuentos - totalSinIVA) | 0;
+  }
+
+  public inicializarShoppingCart() {
+
+    this.shoppingCart = {
+      _id: null,
+      metodoEnvio: null,
+      fechacreacion: new Date(),
+      items: new Array<Item>()
+    };
+  }
+
+  public eliminarItem(item: Item) {
+    item.selectedQuantity = 0;
+    this.procesarItem(item);
+  }
+
+  public mostrarBotonEliminar() {
+    return this.url && !this.url.includes('pago') && !this.url.includes('carrito');
+  }
+
+  public toggleResumen() {
+    if (this.resumenMobileVisible || this.resumenDesktopVisible) {
+      //ocultar mobile
+      this.closeResumen();
+    } else {
+      //mostrar mobile/desktop
+      this.openResumen();
+    }
+  }
+
+  public openResumen() {
+    if (this.viewportWidth <= 991) {
+      //mostrar mobile
+      const divs = document.getElementById("carrito1").getElementsByTagName("div");
+      for (let i = 0; i < divs.length; i++) {
+        if (divs[i].id === 'resumen') {
+          divs[i].style.height = "315px";
+          divs[i].style.boxShadow = "0px 5px 16px 0px rgba(0, 0, 0, 0.75)";
+          this.resumenMobileVisible = true;
+          break;
+        }
+      }
+    } else {
+      //mostrar desktop
+      const divs = document.getElementById("carrito2").getElementsByTagName("div");
+      for (let i = 0; i < divs.length; i++) {
+        if (divs[i].id === 'resumen') {
+          divs[i].style.height = "315px";
+          divs[i].style.boxShadow = "0px 5px 16px 0px rgba(0, 0, 0, 0.75)";
+          this.resumenDesktopVisible = true;
+          break;
+        }
+      }
+    }
+    this.cargarCarrito();
+  }
+
+  public closeResumen() {
+    if (this.viewportWidth <= 991) {
+      //mostrar mobile
+      const divs = document.getElementById("carrito1").getElementsByTagName("div");
+      for (let i = 0; i < divs.length; i++) {
+        if (divs[i].id === 'resumen') {
+          divs[i].style.height = "0px";
+          divs[i].style.boxShadow = "0px 5px 16px 0px rgba(0, 0, 0, 0)";
+          this.resumenMobileVisible = false;
+          break;
+        }
+      }
+    } else {
+      //mostrar desktop
+      const divs = document.getElementById("carrito2").getElementsByTagName("div");
+      for (let i = 0; i < divs.length; i++) {
+        if (divs[i].id === 'resumen') {
+          divs[i].style.height = "0px";
+          divs[i].style.boxShadow = "0px 5px 16px 0px rgba(0, 0, 0, 0)";
+          this.resumenDesktopVisible = false;
+          break;
+        }
+      }
+    }
+  }
 
 
-         this.messageError="ocurrio un error en el servicio de eliminacion";
-       }
-     );
-   }
+  public aumentarCantidad(item: Item) {
+    console.log('diferencia ' + (item.cantidadElegida - item.cantidadComprada));
+    console.log('seleccionada ' + item.cantidadElegida);
+    if (item.cantidadElegida > item.selectedQuantity) {
+      if (item.selectedQuantity < (item.cantidadElegida - item.cantidadComprada)) {
+        item.selectedQuantity += 1;
+      }
 
-   //carrito de compras ListaRegalos
-   public agregarCarrito(item: Item) {
-     if(item.selectedQuantity>0){
-     item.selectedQuantity = item.selectedQuantity;
-     this.procesarItem(item);
-     }
-   }
-
-   public procesarItem(item: Item) {
-
-     item.selectedQuantity = parseInt(item.selectedQuantity.toString());
-     if (item.selectedQuantity > 0) {
-       let items = new Array<Item>();
-       items.push(item);
-
-       this._itemService.validarItems(items).subscribe(
-         response => {
-           if (response[0].sinSaldo) {
-             //modal sin saldo
-             item.availablestock = response[0].availablestock;
-             localStorage.setItem('matisses.lastAddedItem', JSON.stringify(item));
-             $('#modalSinSaldo').modal('show');
-           } else {
-             this.cambiarItem(item);
-           }
-         },
-         error => {
-           console.log(error);
-         }
-       );
-     } else {
-       this.cambiarItem(item);
-     }
-   }
-
-   private cambiarItem(item: Item) {
-     //0. Cargar contenido de localStorage
-     this.cargarCarrito();
-     //1. validar contenido
-     let encontrado = false;
-     for (let i = 0; i < this.shoppingCart.items.length; i++) {
-       if (this.shoppingCart.items[i].itemcode === item.itemcode) {
-         encontrado = true;
-         if (item.selectedQuantity === 0) {
-           //eliminar item
-           this.shoppingCart.items.splice(i, 1);
-         } else {
-           //modificar el item
-           this.shoppingCart.items[i].selectedQuantity = item.selectedQuantity;
-         }
-         break;
-       }
-     }
-     //2. agregar
-     if (!encontrado) {
-       this.shoppingCart.items.push(item);
-     }
-     //3. guardar
-     localStorage.setItem('matisses.shoppingCart.List', JSON.stringify(this.shoppingCart));
-     //4. Actualizar contenido HTML
-     this.procesarCarrito();
-
-     let components = document.getElementsByClassName("total-items-carrito-badge");
-     for (let i = 0; i < components.length; i++) {
-       components[i].innerHTML = this.totalItems.toString();
-     }
-
-     if (!encontrado && this.mostrar) {
-       localStorage.setItem('matisses.lastAddedItem', JSON.stringify(item));
-       $('#carritoModal').modal('show');
-     }
-   }
-
-   public cargarCarrito() {
-     //consultar localstorage
-
-     let localSC = JSON.parse(localStorage.getItem('matisses.shoppingCart.List'));
-     if (!localSC) {
-       this.inicializarShoppingCart();
-     } else {
-       this.shoppingCart = localSC;
-     }
-     //TODO: validar si el carrito esta vigente
-     //TODO: validar el saldo y los precios de los items en el carrito si la fecha de creacion es del dia anterior
-
-     if (this.shoppingCart.items === null) {
-       this.shoppingCart.items = new Array<Item>();
-     }
-     this.procesarCarrito();
-   }
-
-   public procesarCarrito() {
-     this.totalItemsCarrito = 0;
-     this.totalCarrito = 0;
-     this.totalImpuestos = 0;
-     this.totalDescuentos = 0;
-     let totalSinIVA = 0;
-     for (let i = 0; i < this.shoppingCart.items.length; i++) {
-       let selectedQuantity = this.shoppingCart.items[i].selectedQuantity ? this.shoppingCart.items[i].selectedQuantity : 0;
-       let price = this.shoppingCart.items[i].priceaftervat ? this.shoppingCart.items[i].priceaftervat : 0;
-       this.totalItemsCarrito += selectedQuantity;
-       this.totalCarrito += (price * selectedQuantity);
-       if (this.shoppingCart.items[i].priceafterdiscount && this.shoppingCart.items[i].priceafterdiscount > 0) {
-         let valorIVA = this.shoppingCart.items[i].priceafterdiscount * this.shoppingCart.items[i].taxpercent / 100;
-         totalSinIVA += ((this.shoppingCart.items[i].priceafterdiscount - valorIVA) * selectedQuantity);
-         this.totalDescuentos += ((this.shoppingCart.items[i].priceaftervat / 100) * this.shoppingCart.items[i].descuento) * selectedQuantity;
-       } else {
-         totalSinIVA += (this.shoppingCart.items[i].pricebeforevat ? this.shoppingCart.items[i].pricebeforevat : 0) * selectedQuantity;
-       }
-     }
-     this.totalImpuestos = (this.totalCarrito - this.totalDescuentos - totalSinIVA) | 0;
-   }
-
-   public inicializarShoppingCart(){
-
-     this.shoppingCart = {
-       _id: null,
-       metodoEnvio: null,
-       fechacreacion: new Date(),
-       items: new Array<Item>()
-     };
-   }
-
-   public eliminarItem(item: Item) {
-     item.selectedQuantity = 0;
-     this.procesarItem(item);
-   }
-
-   public mostrarBotonEliminar() {
-     return this.url && !this.url.includes('pago') && !this.url.includes('carrito');
-   }
-
-   public toggleResumen() {
-     if (this.resumenMobileVisible || this.resumenDesktopVisible) {
-       //ocultar mobile
-       this.closeResumen();
-     } else {
-       //mostrar mobile/desktop
-       this.openResumen();
-     }
-   }
-
-   public openResumen() {
-     if (this.viewportWidth <= 991) {
-       //mostrar mobile
-       const divs = document.getElementById("carrito1").getElementsByTagName("div");
-       for (let i = 0; i < divs.length; i++) {
-         if (divs[i].id === 'resumen') {
-           divs[i].style.height = "315px";
-           divs[i].style.boxShadow = "0px 5px 16px 0px rgba(0, 0, 0, 0.75)";
-           this.resumenMobileVisible = true;
-           break;
-         }
-       }
-     } else {
-       //mostrar desktop
-       const divs = document.getElementById("carrito2").getElementsByTagName("div");
-       for (let i = 0; i < divs.length; i++) {
-         if (divs[i].id === 'resumen') {
-           divs[i].style.height = "315px";
-           divs[i].style.boxShadow = "0px 5px 16px 0px rgba(0, 0, 0, 0.75)";
-           this.resumenDesktopVisible = true;
-           break;
-         }
-       }
-     }
-     this.cargarCarrito();
-   }
-
-   public closeResumen() {
-     if (this.viewportWidth <= 991) {
-       //mostrar mobile
-       const divs = document.getElementById("carrito1").getElementsByTagName("div");
-       for (let i = 0; i < divs.length; i++) {
-         if (divs[i].id === 'resumen') {
-           divs[i].style.height = "0px";
-           divs[i].style.boxShadow = "0px 5px 16px 0px rgba(0, 0, 0, 0)";
-           this.resumenMobileVisible = false;
-           break;
-         }
-       }
-     } else {
-       //mostrar desktop
-       const divs = document.getElementById("carrito2").getElementsByTagName("div");
-       for (let i = 0; i < divs.length; i++) {
-         if (divs[i].id === 'resumen') {
-           divs[i].style.height = "0px";
-           divs[i].style.boxShadow = "0px 5px 16px 0px rgba(0, 0, 0, 0)";
-           this.resumenDesktopVisible = false;
-           break;
-         }
-       }
-     }
-   }
+    }
 
 
-   public aumentarCantidad(item: Item) {
-     console.log('diferencia '+(item.cantidadElegida-item.cantidadComprada));
-     console.log('seleccionada '+item.cantidadElegida);
-     if(item.cantidadElegida > item.selectedQuantity){
-       if(item.selectedQuantity<(item.cantidadElegida-item.cantidadComprada)){
-          item.selectedQuantity += 1;
-       }
-
-     }
-
-
-     this.procesarItem(item);
-
-
-   }
-
-   public reducirCantidad(item:Item) {
-     if (item.selectedQuantity > 1) {
-       item.selectedQuantity -= 1;
-     }
-   }
+    this.procesarItem(item);
 
 
   }
+
+  public reducirCantidad(item: Item) {
+    if (item.selectedQuantity > 1) {
+      item.selectedQuantity -= 1;
+    }
+  }
+
+
+}
