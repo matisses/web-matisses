@@ -97,43 +97,64 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-xs-6 text-left">
-        <p>Hola {{nombreUsuario}}</p>
-      </div>
-      <div class="col-xs-6">
-        <div class="row">
-          <div class="col-xs-4 text-center">
-            <p>Lista de regalos</p>
-          </div>
-          <div class="col-xs-4 text-center">
-            <p>Regalos recibidos</p>
-          </div>
-          <div class="col-xs-4 text-center">
-            <p>Lista de invitados</p>
+      <div class="menu1 no-selector">
+        <div class="col-xs-6 text-left">
+          <p>Hola {{nombreUsuario}}</p>
+        </div>
+        <div class="col-xs-6">
+          <div class="row">
+            <div class="col-xs-4 text-center cursor-pointer seleccionado">
+              <span class="icon-paso-01 icono"></span>
+              <p>Lista de regalos</p>
+            </div>
+            <div class="col-xs-4 text-center cursor-pointer">
+              <span class="icon-regalo-01 icono"></span>
+              <p>Regalos recibidos</p>
+            </div>
+            <div class="col-xs-4 text-center cursor-pointer">
+              <span class="icon-invitados icono"></span>
+              <p>Lista de invitados</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-xs-6 text-right">
-        <p>Codigo de novios: {{codigoLista}}</p>
-      </div>
-      <div class="col-xs-6 text-left">
-        <p>Fecha celebración:  {{fechaEvento}} </p>
+      <div class="codigo-fecha">
+        <div class="col-xs-6 text-right">
+          <p>Codigo de novios: {{codigoLista}}</p>
+        </div>
+        <div class="col-xs-6 text-left">
+          <span class="icon-fecha icono-fecha"></span>
+          <p class="fecha">Fecha celebracion: {{fechaEvento}}</p>
+        </div>
       </div>
     </div>
+    <hr class="rosa" />
     <div class="row">
-      <div class="col-xs-6">
-        <p>Logo agregar regalos</p>
+      <div class="col-xs-6 text-center">
+        <h1 class="title-mi-lista">AGREGAR REGALOS</h1>
+        <div class="row">
+          <div class="col-xs-4 col-xs-offset-4">
+            <img src="../../../../../assets/images/deco_01.png" class="jpg-responsive" alt="">
+          </div>
+        </div>
       </div>
-      <div class="col-xs-6">
-        <p [routerLink]="['/mi-lista']">Volver a mi lista</p>
-
+      <div class="col-sm-4 col-sm-offset-1 text-right">
+        <div class="btn-volver no-selector">
+          <span class="icon-volver"></span>
+          <p [routerLink]="['/mi-lista']">Volver a mi lista</p>
+        </div>
         <form (submit)="search()">
-          <input id="searchField" [(ngModel)]="keywords" name="keywords" type="text" class="form-control" placeholder="Busca productos para agregar">
+          <div class="input-group">
+            <input id="searchField" [(ngModel)]="keywords" name="keywords" type="text" class="form-control" placeholder="Busca productos para agregar">
+            <span class="input-group-addon icon-lupa" id="basic-addon1"></span>
+          </div>
         </form>
       </div>
     </div>
+    <br>
+    <hr>
     <!-- menu -->
     <div class="row hidden-xs">
       <div class="col-xs-12">
@@ -363,9 +384,13 @@
             </ul>
           </div>
         </div>
+        <hr style="margin: 5px 0px;">
         <!-- Informacón productos para agregar -->
         <div class="row" *ngIf="items && items.length > 0">
           <div class="col-sm-4 col-xs-6 producto" *ngFor="let item of items; let i = index">
+            <div class="producto-agregado">
+              <p>producto agregado</p>
+            </div>
             <img src="https://img.matisses.co/{{items[i].itemcode}}/parrilla/{{items[i].itemcode}}_01.jpg" class="jpg-responsive" alt="{{items[i].itemname}}">
             <p class="nombre">{{items[i].itemname}}</p>
             <p class="precio"><b>$ {{items[i].priceaftervat | number}}</b></p>
@@ -383,6 +408,7 @@
             </div>
           </div>
         </div>
+        <hr>
         <!-- botones como mostrar los productos -->
         <div class="row">
           <div class="col-md-4 text-center">
