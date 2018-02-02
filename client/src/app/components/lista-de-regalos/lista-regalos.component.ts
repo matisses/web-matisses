@@ -45,6 +45,9 @@ export class ListaRegalosComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+
+    
+      localStorage.clear();
     this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     if (this.viewportWidth <= 767) {
       this.showCampos(-1);
@@ -125,7 +128,7 @@ export class ListaRegalosComponent implements OnInit {
         sessionStorage.setItem('id-lista', this.idListaUsuario);
         localStorage.setItem('codigo-lista', this.codigoLista);
         localStorage.setItem('fecha-evento', this.fechaEvento);
-
+        console.log('token '+localStorage.getItem('matisses.lista-token'));
         this._router.navigate(['/mi-lista']);
       },
       error => {

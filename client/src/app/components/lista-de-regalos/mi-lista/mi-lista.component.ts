@@ -79,7 +79,7 @@ export class MiListaComponent implements OnInit, AfterViewInit {
   this.fechaEvento=localStorage.getItem('fecha-evento');
   this.idListaUsuario=sessionStorage.getItem('id-lista');
 
-    this.cargarItems0();
+  this.cargarItems0();
 
 
   }
@@ -147,12 +147,19 @@ ngAfterViewInit() {
 
     this._userService.updateUser(usuarioDTO).subscribe(
       response => {
+        if(response=='OK'){
 
+
+        console.log('actualizo el usuario');
         this.successMessage = '1';
         localStorage.removeItem('cambio-clave');
         localStorage.setItem('cambio-clave','no');
           $('#cambioContrasena').modal('hide');
         return;
+        }
+        else{
+          this.messageError='Ocurrio un error al actualizar el usuario';
+        }
       },
       error => {
 

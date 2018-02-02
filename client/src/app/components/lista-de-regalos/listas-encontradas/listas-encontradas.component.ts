@@ -20,6 +20,7 @@ export class ResultadoBusquedaListasComponent implements OnInit {
   public mostrarFiltros: boolean = true;
   public pruebaListas: Array<any>;
 
+
   constructor(private _route: ActivatedRoute, private _router: Router, private _listaRegalosService: ListaRegalosService) {
     this.pruebaListas = new Array<any>();
     this.nombresNovios = JSON.parse(sessionStorage.getItem('nombresNovios'));
@@ -46,9 +47,9 @@ export class ResultadoBusquedaListasComponent implements OnInit {
     });
   }
 
-  public removeSession(idLista:string) {
-    console.log(idLista);
-
+  public removeSession(idLista:string, codigolista:string) {
+    console.log('remove session'+this.codigoLista);
+    localStorage.setItem('codigo-lista',codigolista);
     localStorage.removeItem('id-lista');
     sessionStorage.setItem('id-lista',idLista);
     sessionStorage.removeItem('nombresNovios');

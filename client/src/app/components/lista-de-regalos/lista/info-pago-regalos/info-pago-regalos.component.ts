@@ -477,10 +477,10 @@ export class InfoPagoRegalosComponent implements OnInit {
                 amount: this.carrito.totalImpuestos
               }
             }
-          }
-          console.log('codigo de la lista '+this.codigoLista);
-          this.datosPago = new DatosPagoPlaceToPay().newDatosPagoPlaceToPayLista(buyer, null, navigator.userAgent, payment, null, null, this.urlReturn + _id, '',this.codigoLista,this.messageNovios);
+          };
 
+          this.datosPago = new DatosPagoPlaceToPay().newDatosPagoPlaceToPayLista(buyer, null, navigator.userAgent, payment, null, null, this.urlReturn + _id, '',this.codigoLista,this.messageNovios);
+          console.log('codigo antes de ir al redirect'+this.datosPago.codigoLista);
           this._placetopayService.redirect(this.datosPago).subscribe(
             response => {
               if (response.codigo === -1) {

@@ -525,4 +525,17 @@ public reducirCantidad() {
   }
 }
 
+public cerrarSession(){
+  console.log('cerrar sesion');
+  localStorage.removeItem('matisses.lista-token');
+  localStorage.removeItem('username-lista');
+  localStorage.removeItem('usuario-id');
+  localStorage.removeItem('cambio-clave');
+  sessionStorage.removeItem('id-lista');
+  localStorage.removeItem('codigo-lista');
+  localStorage.removeItem('fecha-evento');
+
+  this._router.navigate(['/lista-de-regalos']);
+}
+
 }
