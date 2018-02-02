@@ -1,3 +1,7 @@
+.container {
+  margin-top: 110px;
+}
+
 .campos {
   background: url(../../../assets/images/fondo-lista-regalos-01.jpg) no-repeat center center;
   margin-top: 0px;
@@ -78,4 +82,26 @@
 
 .btn-buscar:hover {
   background-color: #AB4646;
+}
+
+@media screen and (max-width: 767px) {
+  .container {
+    margin-top: 105px;
+  }
+  .campos {
+    padding-top: 10px;
+    background-position: -157px center;
+    min-height: 430px;
+    margin-bottom: 30px;
+  }
+  .crear {
+    margin-top: 0px;
+    border-top: 1px dotted #5B5B5B;
+    border-bottom: 1px dotted #5B5B5B;
+  }
+  .buscar, .crear, .administrar {
+    padding: 5px 25px 10px;
+    width: 80%;
+    margin: 0 auto;
+  }
 }

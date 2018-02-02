@@ -28,6 +28,10 @@ export class ListaRegalosComponent implements OnInit {
   public apellidosNovios: string;
   public messageErrorSearch: string;
   public valid: boolean = true;
+  public mostrarBuscar: boolean = true;
+  public mostrarCrear: boolean = true;
+  public mostrarManage: boolean = true;
+  private viewportWidth: number = 0;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _userService: SessionUsuarioService, private _jwt: JWTService,
     private _listaRegalosService: ListaRegalosService) {
@@ -41,6 +45,32 @@ export class ListaRegalosComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    if (this.viewportWidth <= 767) {
+      this.showCampos(-1);
+    } else {
+    }
+  }
+
+  public showCampos(option:number) {
+    if (this.viewportWidth <= 768) {
+      if ((option === 0 || option === 1) && !this.mostrarBuscar) {
+        this.mostrarBuscar = true;
+      } else {
+        this.mostrarBuscar = false;
+      }
+      if ((option === 0 || option === 2) && !this.mostrarCrear) {
+        this.mostrarCrear = true;
+      } else {
+        this.mostrarCrear = false;
+      }
+      if ((option === 0 || option === 3) && !this.mostrarManage) {
+        this.mostrarManage = true;
+      } else {
+        this.mostrarManage = false;
+      }
+    } else {
+    }
   }
 
   public login() {

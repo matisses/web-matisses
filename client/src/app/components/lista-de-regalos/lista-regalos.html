@@ -4,10 +4,10 @@
     <div class="col-xs-12">
       <div class="campos">
         <div class="row">
-          <div class="col-sm-6"></div>
-          <div class="col-sm-6">
+          <div class="col-md-6"></div>
+          <div class="col-md-6">
             <div class="row">
-              <div class="col-xs-6">
+              <div class="col-sm-6">
                 <div class="buscar">
                   <div class="row">
                     <div class="alert alert-danger" role="alert" *ngIf="messageErrorSearch != null && messageErrorSearch.length > 0">
@@ -15,22 +15,34 @@
                     </div>
                   </div>
                   <form id="buscarLista">
-                    <h4>Buscar una lista</h4>
-                    <label class="label-lista" for="name">Nombre</label>
-                    <input id="name" type="text" class="form-lista-regalos" name="nombresNovios" [(ngModel)]="nombresNovios">
-                    <label class="label-lista" for="lastname">Apellido</label>
-                    <input id="lastname" type="text" class="form-lista-regalos" name="apellidosNovios" [(ngModel)]="apellidosNovios">
-                    <label class="label-lista" for="code">Código</label>
-                    <input id="code" type="text" class="form-lista-regalos" name="codigoLista" [(ngModel)]="codigoLista">
-                    <button type="button" name="buscar" class="btn-buscar" (click)="buscarLista()">Buscar</button>
+                    <div class="row">
+                      <div class="col-xs-12" role="button" (click)="showCampos(1)">
+                        <h4><b>Buscar</b> una lista</h4>
+                      </div>
+                    </div>
+                    <div class="collapse" id="collapseBuscar" [ngClass]="{'in' : mostrarBuscar}">
+                      <label class="label-lista" for="name">Nombre</label>
+                      <input id="name" type="text" class="form-lista-regalos" name="nombresNovios" [(ngModel)]="nombresNovios">
+                      <label class="label-lista" for="lastname">Apellido</label>
+                      <input id="lastname" type="text" class="form-lista-regalos" name="apellidosNovios" [(ngModel)]="apellidosNovios">
+                      <label class="label-lista" for="code">Código</label>
+                      <input id="code" type="text" class="form-lista-regalos" name="codigoLista" [(ngModel)]="codigoLista">
+                      <button type="button" name="buscar" class="btn-buscar" (click)="buscarLista()">Buscar</button>
+                    </div>
                   </form>
                 </div>
                 <div class="crear">
-                  <h4>Crea una lista</h4>
-                  <button type="button" name="buscar" class="btn-buscar" [routerLink]="['crear-lista']">Inscríbete</button>
+                  <div class="row">
+                    <div class="col-xs-12" role="button" (click)="showCampos(2)">
+                      <h4><b>Crea</b> una lista</h4>
+                    </div>
+                  </div>
+                  <div class="collapse" id="collapseCrear" [ngClass]="{'in' : mostrarCrear}">
+                    <button type="button" name="buscar" class="btn-buscar" [routerLink]="['crear-lista']">Inscríbete</button>
+                  </div>
                 </div>
               </div>
-              <div class="col-xs-6">
+              <div class="col-sm-6">
                 <div class="administrar">
                   <div class="row" *ngIf="messageError != null && messageError.length > 0">
                     <div class="col-xs-12">
@@ -40,13 +52,19 @@
                     </div>
                   </div>
                   <form #ContactForm="ngForm" (submit)="login()">
-                    <h4>Iniciar sesión</h4>
-                    <p>Administra tu lista, edita cantidades, estilos y mensajes</p>
-                    <label class="label-lista" for="e-mail">Correo electrónico</label>
-                    <input id="e-mail" type="email" class="form-lista-regalos" [class.required-field]="!valid" name="nombreUsuario" [(ngModel)]="nombreUsuario" required>
-                    <label class="label-lista" for="password">Contraseña</label>
-                    <input id="password" type="password" class="form-lista-regalos" [class.required-field]="!valid" name="password" [(ngModel)]="password" required>
-                    <button type="button" name="buscar" (click)="login()" class="btn-buscar">Ingresar</button>
+                    <div class="row">
+                      <div class="col-xs-12" role="button" (click)="showCampos(3)">
+                        <h4><b>Iniciar</b> sesión</h4>
+                      </div>
+                    </div>
+                    <div class="collapse" id="collapseManage" [ngClass]="{'in' : mostrarManage}">
+                      <p>Administra tu lista, edita cantidades, estilos y mensajes</p>
+                      <label class="label-lista" for="e-mail">Correo electrónico</label>
+                      <input id="e-mail" type="email" class="form-lista-regalos" [class.required-field]="!valid" name="nombreUsuario" [(ngModel)]="nombreUsuario" required>
+                      <label class="label-lista" for="password">Contraseña</label>
+                      <input id="password" type="password" class="form-lista-regalos" [class.required-field]="!valid" name="password" [(ngModel)]="password" required>
+                      <button type="button" name="buscar" (click)="login()" class="btn-buscar">Ingresar</button>
+                    </div>
                   </form>
                 </div>
               </div>

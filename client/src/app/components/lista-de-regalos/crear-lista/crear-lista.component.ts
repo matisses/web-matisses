@@ -29,6 +29,7 @@ export class CrearListaComponent implements OnInit {
   public celebracion: string;
   public lugar: string;
   public tiendaContacto: string;
+  public usarDatos: string;
   public notificacionInmediataMailCreador: boolean = false;
   public notificacionDiariaMailCreador: boolean = false;
   public notificacionSemanalMailCreador: boolean = false;
@@ -54,8 +55,8 @@ export class CrearListaComponent implements OnInit {
   public validForm4: boolean = true;
   public disabledForm3: boolean = false;
   public disabledForm4: boolean = false;
-  public usarDatosCreador: boolean = true;
-  public usarDatosCocreador: boolean = false;
+  //public usarDatosCreador: boolean;
+  //public usarDatosCocreador: boolean;
   public aceptaTerminos: boolean = false;
   public existeCreador: boolean = false;
   public existeCocreador: boolean = false;
@@ -69,6 +70,9 @@ export class CrearListaComponent implements OnInit {
   public idListaCreada:string;
   public nombreCreadorLista:string;
   public fechaEventoLista: string;
+  public mostrarDatosNovia: boolean = true;
+  public mostrarDatosNovio: boolean = true;
+  private viewportWidth: number = 0;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService,
     private _cityService: CityService, private _listaRegalosService: ListaRegalosService) {
@@ -84,18 +88,19 @@ export class CrearListaComponent implements OnInit {
     this.tiendaContacto = '';
     this.messageError = '';
     this.messageExit = '';
+    this.usarDatos = 'CREADOR'
     this.notificacionInmediataMailCreador = true;
   }
 
   ngOnInit() {
-    $(window).scroll(function() {
-      var scroll = $(window).scrollTop();
-      if (scroll >= 30) {
-        $(".contenedor-formulario").addClass("margin-top-scroll");
-      } else {
-        $(".contenedor-formulario").removeClass("margin-top-scroll")
-      }
-    });
+    // $(window).scroll(function() {
+    //   var scroll = $(window).scrollTop();
+    //   if (scroll >= 30) {
+    //     $(".contenedor-formulario").addClass("margin-top-scroll");
+    //   } else {
+    //     $(".contenedor-formulario").removeClass("margin-top-scroll")
+    //   }
+    // });
 
     //Bloqueo del botón ir atras, no deja al usuario ir atras.
     window.onload = function() {
@@ -123,7 +128,28 @@ export class CrearListaComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    // this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    // if (this.viewportWidth <= 767) {
+    //   this.showDatos(-1);
+    // } else {
+    // }
   }
+
+  // public showDatos(option:number) {
+  //   if (this.viewportWidth <= 768) {
+  //     if ((option === 0 || option === 1) && !this.mostrarDatosNovia) {
+  //       this.mostrarDatosNovia = true;
+  //     } else {
+  //       this.mostrarDatosNovia = false;
+  //     }
+  //     if ((option === 0 || option === 2) && !this.mostrarDatosNovio) {
+  //       this.mostrarDatosNovio = true;
+  //     } else {
+  //       this.mostrarDatosNovio = false;
+  //     }
+  //   } else {
+  //   }
+  // }
 
   public seleccionarEvento(id) {
     this.tipoEvento = id;
@@ -286,6 +312,8 @@ export class CrearListaComponent implements OnInit {
   public crearLista() {
     let apellidosCreador = '';
     let apellidosCocreador = '';
+    let usarDatosCreador;
+    let usarDatosCocreador;
     apellidosCreador += this.customerCreador.lastName1;
     apellidosCocreador += this.customerCocreador.lastName1;
     if (this.customerCreador.lastName2 != null && this.customerCreador.lastName2.length > 0) {
@@ -294,6 +322,18 @@ export class CrearListaComponent implements OnInit {
     if (this.customerCocreador.lastName2 != null && this.customerCocreador.lastName2.length > 0) {
       apellidosCocreador += ' ' + this.customerCocreador.lastName2;
     }
+    if (this.usarDatos == 'CREADOR') {
+      usarDatosCreador = true;
+    } else {
+      usarDatosCreador = false;
+    }
+    if (this.usarDatos == 'COCREADOR') {
+      usarDatosCocreador = true;
+    } else {
+      usarDatosCocreador = false;
+    }
+    console.log(usarDatosCreador);
+    console.log(usarDatosCocreador);
     if (this.aceptaTerminos) {
       let listGiftDTO = {
         idLista: null,
@@ -342,8 +382,8 @@ export class CrearListaComponent implements OnInit {
         notificacionSemanalSmsCocreador: this.notificacionSemanalSmsCocreador,
         notificacionCambioCategoriaCocreador: "",
         tiendaContacto: this.tiendaContacto,
-        usarDatosCreador: true,
-        usarDatosCocreador: false,
+        usarDatosCreador: usarDatosCreador,
+        usarDatosCocreador: usarDatosCocreador,
         aceptaTerminos: this.aceptaTerminos,
         estado: {
           idEstado: null,
