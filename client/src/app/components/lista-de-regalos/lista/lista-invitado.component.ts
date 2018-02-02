@@ -386,10 +386,10 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
    //carrito de compras ListaRegalos
    public agregarCarrito(item: Item) {
-
+     if(item.selectedQuantity>0){
      item.selectedQuantity = item.selectedQuantity;
      this.procesarItem(item);
-
+     }
    }
 
    public procesarItem(item: Item) {
