@@ -55,8 +55,9 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public resumenDesktopVisible: boolean = false;
 
   private paramsConsulta: any;
-  private itemsListaBcs: Array<any>;
-  private totalLista: number;
+  private itemsListaBcs:Array<any>;
+  private totalLista:number;
+  private nombreLista:string;
 
   //campos carrito carrito simple
   public shoppingCart: any;
@@ -123,7 +124,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
     //this.cargarItems0();
 
-    this.nombreUsuario = localStorage.getItem('username-lista');
+
     setTimeout(function() {
       if (localStorage.getItem('cambio-clave') == 'si') {
         $('#cambioContrasena').modal('show');
@@ -400,10 +401,240 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
           console.log(error);
         }
       );
+<<<<<<< HEAD
     } else {
       this.cambiarItem(item);
     }
   }
+=======
+         return;
+       },
+       error => {
+
+
+         this.messageError="ocurrio un error en el servicio de eliminacion";
+       }
+     );
+   }
+
+   //carrito de compras ListaRegalos
+   public agregarCarrito(item: Item) {
+     if(item.selectedQuantity>0){
+     item.selectedQuantity = item.selectedQuantity;
+     this.procesarItem(item);
+     }
+   }
+
+   public procesarItem(item: Item) {
+
+     item.selectedQuantity = parseInt(item.selectedQuantity.toString());
+     if (item.selectedQuantity > 0) {
+       let items = new Array<Item>();
+       items.push(item);
+
+       this._itemService.validarItems(items).subscribe(
+         response => {
+           if (response[0].sinSaldo) {
+             //modal sin saldo
+             item.availablestock = response[0].availablestock;
+             localStorage.setItem('matisses.lastAddedItem', JSON.stringify(item));
+             $('#modalSinSaldo').modal('show');
+           } else {
+             this.cambiarItem(item);
+           }
+         },
+         error => {
+           console.log(error);
+         }
+       );
+     } else {
+       this.cambiarItem(item);
+     }
+   }
+
+   private cambiarItem(item: Item) {
+     //0. Cargar contenido de localStorage
+     this.cargarCarrito();
+     //1. validar contenido
+     let encontrado = false;
+     for (let i = 0; i < this.shoppingCart.items.length; i++) {
+       if (this.shoppingCart.items[i].itemcode === item.itemcode) {
+         encontrado = true;
+         if (item.selectedQuantity === 0) {
+           //eliminar item
+           this.shoppingCart.items.splice(i, 1);
+         } else {
+           //modificar el item
+           this.shoppingCart.items[i].selectedQuantity = item.selectedQuantity;
+         }
+         break;
+       }
+     }
+     //2. agregar
+     if (!encontrado) {
+       this.shoppingCart.items.push(item);
+     }
+     //3. guardar
+     localStorage.setItem('matisses.shoppingCart.List', JSON.stringify(this.shoppingCart));
+     //4. Actualizar contenido HTML
+     this.procesarCarrito();
+
+     let components = document.getElementsByClassName("total-items-carrito-badge");
+     for (let i = 0; i < components.length; i++) {
+       components[i].innerHTML = this.totalItems.toString();
+     }
+
+     if (!encontrado && this.mostrar) {
+       localStorage.setItem('matisses.lastAddedItem', JSON.stringify(item));
+       $('#carritoModal').modal('show');
+     }
+   }
+
+   public cargarCarrito() {
+     //consultar localstorage
+
+     let localSC = JSON.parse(localStorage.getItem('matisses.shoppingCart.List'));
+     if (!localSC) {
+       this.inicializarShoppingCart();
+     } else {
+       this.shoppingCart = localSC;
+     }
+     //TODO: validar si el carrito esta vigente
+     //TODO: validar el saldo y los precios de los items en el carrito si la fecha de creacion es del dia anterior
+
+     if (this.shoppingCart.items === null) {
+       this.shoppingCart.items = new Array<Item>();
+     }
+     this.procesarCarrito();
+   }
+
+   public procesarCarrito() {
+     this.totalItemsCarrito = 0;
+     this.totalCarrito = 0;
+     this.totalImpuestos = 0;
+     this.totalDescuentos = 0;
+     let totalSinIVA = 0;
+     for (let i = 0; i < this.shoppingCart.items.length; i++) {
+       let selectedQuantity = this.shoppingCart.items[i].selectedQuantity ? this.shoppingCart.items[i].selectedQuantity : 0;
+       let price = this.shoppingCart.items[i].priceaftervat ? this.shoppingCart.items[i].priceaftervat : 0;
+       this.totalItemsCarrito += selectedQuantity;
+       this.totalCarrito += (price * selectedQuantity);
+       if (this.shoppingCart.items[i].priceafterdiscount && this.shoppingCart.items[i].priceafterdiscount > 0) {
+         let valorIVA = this.shoppingCart.items[i].priceafterdiscount * this.shoppingCart.items[i].taxpercent / 100;
+         totalSinIVA += ((this.shoppingCart.items[i].priceafterdiscount - valorIVA) * selectedQuantity);
+         this.totalDescuentos += ((this.shoppingCart.items[i].priceaftervat / 100) * this.shoppingCart.items[i].descuento) * selectedQuantity;
+       } else {
+         totalSinIVA += (this.shoppingCart.items[i].pricebeforevat ? this.shoppingCart.items[i].pricebeforevat : 0) * selectedQuantity;
+       }
+     }
+     this.totalImpuestos = (this.totalCarrito - this.totalDescuentos - totalSinIVA) | 0;
+   }
+
+   public inicializarShoppingCart(){
+
+     this.shoppingCart = {
+       _id: null,
+       metodoEnvio: null,
+       fechacreacion: new Date(),
+       items: new Array<Item>()
+     };
+   }
+
+   public eliminarItem(item: Item) {
+     item.selectedQuantity = 0;
+     this.procesarItem(item);
+   }
+
+   public mostrarBotonEliminar() {
+     return this.url && !this.url.includes('pago') && !this.url.includes('carrito');
+   }
+
+   public toggleResumen() {
+     if (this.resumenMobileVisible || this.resumenDesktopVisible) {
+       //ocultar mobile
+       this.closeResumen();
+     } else {
+       //mostrar mobile/desktop
+       this.openResumen();
+     }
+   }
+
+   public openResumen() {
+     if (this.viewportWidth <= 991) {
+       //mostrar mobile
+       const divs = document.getElementById("carrito1").getElementsByTagName("div");
+       for (let i = 0; i < divs.length; i++) {
+         if (divs[i].id === 'resumen') {
+           divs[i].style.height = "315px";
+           divs[i].style.boxShadow = "0px 5px 16px 0px rgba(0, 0, 0, 0.75)";
+           this.resumenMobileVisible = true;
+           break;
+         }
+       }
+     } else {
+       //mostrar desktop
+       const divs = document.getElementById("carrito2").getElementsByTagName("div");
+       for (let i = 0; i < divs.length; i++) {
+         if (divs[i].id === 'resumen') {
+           divs[i].style.height = "315px";
+           divs[i].style.boxShadow = "0px 5px 16px 0px rgba(0, 0, 0, 0.75)";
+           this.resumenDesktopVisible = true;
+           break;
+         }
+       }
+     }
+     this.cargarCarrito();
+   }
+
+   public closeResumen() {
+     if (this.viewportWidth <= 991) {
+       //mostrar mobile
+       const divs = document.getElementById("carrito1").getElementsByTagName("div");
+       for (let i = 0; i < divs.length; i++) {
+         if (divs[i].id === 'resumen') {
+           divs[i].style.height = "0px";
+           divs[i].style.boxShadow = "0px 5px 16px 0px rgba(0, 0, 0, 0)";
+           this.resumenMobileVisible = false;
+           break;
+         }
+       }
+     } else {
+       //mostrar desktop
+       const divs = document.getElementById("carrito2").getElementsByTagName("div");
+       for (let i = 0; i < divs.length; i++) {
+         if (divs[i].id === 'resumen') {
+           divs[i].style.height = "0px";
+           divs[i].style.boxShadow = "0px 5px 16px 0px rgba(0, 0, 0, 0)";
+           this.resumenDesktopVisible = false;
+           break;
+         }
+       }
+     }
+   }
+
+
+   public aumentarCantidad(item: Item) {
+     console.log('diferencia '+(item.cantidadElegida-item.cantidadComprada));
+     console.log('seleccionada '+item.cantidadElegida);
+     if(item.cantidadElegida > item.selectedQuantity){
+       if(item.selectedQuantity<(item.cantidadElegida-item.cantidadComprada)){
+          item.selectedQuantity += 1;
+       }
+
+     }
+
+
+     this.procesarItem(item);
+
+
+   }
+
+   public reducirCantidad(item:Item) {
+     if (item.selectedQuantity > 0) {
+       item.selectedQuantity -= 1;
+     }
+   }
+>>>>>>> 6be5af3b119dd071a8783ee0300d5e03d69c0ad4
 
   private cambiarItem(item: Item) {
     //0. Cargar contenido de localStorage

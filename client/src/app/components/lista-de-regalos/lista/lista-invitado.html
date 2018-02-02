@@ -1,5 +1,39 @@
 <menu-lista></menu-lista>
+<div id="modalSinSaldo" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document" *ngIf="lastAddedItem">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-center">Cantidad insuficiente</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-7">
+              <div class="row">
+                <div class="col-sm-10 col-sm-offset-1 col-xs-12 col-xs-offset-0 resumen-carrito">
+                  <p>No se encontró cantidad suficiente para el ítem seleccionado:</p>
+                  <br/>
+                  <p>Cantidad disponible: <b>{{lastAddedItem.availablestock}}</b></p>
+                  <p>Cantidad solicitada: <b>{{lastAddedItem.selectedQuantity}}</b></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-5 border-left">
 
+              <div class="row">
+                <div class="col-xs-12">
+                  <button type="button" class="btn btn-seguir" data-dismiss="modal" aria-label="Close">
+                    Seguir comprando
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="container">
   <div class="contenedor">
@@ -34,7 +68,7 @@
     <div class="row">
       <div class="col-sm-6 col-sm-offset-6 text-right" id="carrito1">
         <div class="carrito" (click)="toggleResumen()">
-          <span [ngClass]="{'icon-shopping-cart': (!resumenMobileVisible && !resumenDesktopVisible), 'icon-cerrar': (resumenMobileVisible || resumenDesktopVisible)}"></span>
+          <span [ngClass]="{'icon-shopping-cart': (!resumenMobileVisible && !resumenDesktopVisible), 'icon-cerrar': (resumenMobileVisible || resumenDesktopVisible)}">{{totalItemsCarrito}}</span>
           <!--<span class="badge total-items-carrito-badge">{{total}}</span>-->
           <span class="bolsa-text">Bolsa de regalos</span>
         </div>
