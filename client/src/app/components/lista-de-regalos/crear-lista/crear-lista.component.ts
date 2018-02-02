@@ -20,6 +20,7 @@ declare var $: any;
 export class CrearListaComponent implements OnInit {
   public tipoEvento: number = 0;
   public paso: number = 1;
+  private viewportWidth: number = 0;
   public mesInicio: string;
   public anoInicio: string;
   public invitados: number;
@@ -30,6 +31,11 @@ export class CrearListaComponent implements OnInit {
   public lugar: string;
   public tiendaContacto: string;
   public usarDatos: string;
+  public idListaCreada: string;
+  public nombreCreadorLista: string;
+  public fechaEventoLista: string;
+  public mostrarDatosNovia: boolean = true;
+  public mostrarDatosNovio: boolean = true;
   public notificacionInmediataMailCreador: boolean = false;
   public notificacionDiariaMailCreador: boolean = false;
   public notificacionSemanalMailCreador: boolean = false;
@@ -55,8 +61,6 @@ export class CrearListaComponent implements OnInit {
   public validForm4: boolean = true;
   public disabledForm3: boolean = false;
   public disabledForm4: boolean = false;
-  //public usarDatosCreador: boolean;
-  //public usarDatosCocreador: boolean;
   public aceptaTerminos: boolean = false;
   public existeCreador: boolean = false;
   public existeCocreador: boolean = false;
@@ -67,12 +71,6 @@ export class CrearListaComponent implements OnInit {
   public otrasCiudades: Array<City>;
   public customerCreador: Customer;
   public customerCocreador: Customer;
-  public idListaCreada:string;
-  public nombreCreadorLista:string;
-  public fechaEventoLista: string;
-  public mostrarDatosNovia: boolean = true;
-  public mostrarDatosNovio: boolean = true;
-  private viewportWidth: number = 0;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService,
     private _cityService: CityService, private _listaRegalosService: ListaRegalosService) {
@@ -269,7 +267,7 @@ export class CrearListaComponent implements OnInit {
         this.disabledCocreador = false;
       } else {
         this.limpiarCampos();
-        //TODO: pasar al siguiente paso
+        //pasar al siguiente paso
         if (this.paso < 4) {
           this.paso++;
         }
@@ -284,7 +282,7 @@ export class CrearListaComponent implements OnInit {
       this.validForm2 = false;
     } else {
       this.limpiarCampos();
-      //TODO: pasar al siguiente paso
+      //pasar al siguiente paso
       if (this.paso < 4) {
         this.paso++;
       }
@@ -302,7 +300,7 @@ export class CrearListaComponent implements OnInit {
       this.validForm3 = false;
     } else {
       this.limpiarCampos();
-      //TODO: pasar al siguiente paso
+      //pasar al siguiente paso
       if (this.paso < 4) {
         this.paso++;
       }
@@ -669,37 +667,29 @@ export class CrearListaComponent implements OnInit {
     }
   }
 
-  public buscarLista(codigo:string) {
-
+  public buscarLista(codigo: string) {
     this.messageError = '';
-
-      //TODO: Asignar datos para enviarlos a WS
-      let consultaDTO = {
-        nombre: null,
-        apellido: null,
-        codigo: codigo
-      }
-      this._listaRegalosService.consultarLista(consultaDTO).subscribe(
-        response => {
-          if (response.length > 0) {
-             this.idListaCreada=response[0].idLista;
-             this.nombreCreadorLista=response[0].nombreCreador.toLowerCase() + ' ' + response[0].apellidoCreador.toLowerCase() + ' & ' + response[0].nombreCocreador.toLowerCase() + ' ' + response[0].apellidoCocreador.toLowerCase();
-              this.fechaEventoLista=response[0].formatoFechaEvento;
-
-          }
-        },
-        error => {
-          console.error(error);
+    //Asignar datos para enviarlos a WS
+    let consultaDTO = {
+      nombre: null,
+      apellido: null,
+      codigo: codigo
+    }
+    this._listaRegalosService.consultarLista(consultaDTO).subscribe(
+      response => {
+        if (response.length > 0) {
+          this.idListaCreada = response[0].idLista;
+          this.nombreCreadorLista = response[0].nombreCreador.toLowerCase() + ' ' + response[0].apellidoCreador.toLowerCase() + ' & ' + response[0].nombreCocreador.toLowerCase() + ' ' + response[0].apellidoCocreador.toLowerCase();
+          this.fechaEventoLista = response[0].formatoFechaEvento;
         }
-
-      );
-      sessionStorage.setItem('id-lista',this.idListaCreada);
-      localStorage.setItem('username-lista',this.nombreCreadorLista);
-      localStorage.setItem('codigo-lista',codigo);
-      localStorage.setItem('fecha-evento',this.fechaEventoLista);
-
+      },
+      error => {
+        console.error(error);
+      }
+    );
+    sessionStorage.setItem('id-lista', this.idListaCreada);
+    localStorage.setItem('username-lista', this.nombreCreadorLista);
+    localStorage.setItem('codigo-lista', codigo);
+    localStorage.setItem('fecha-evento', this.fechaEventoLista);
   }
-
-
-
 }
