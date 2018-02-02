@@ -85,15 +85,15 @@ export class AgregarProductosComponent implements OnInit {
 
     this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 
-    $(window).scroll(function() {
-      var scroll = $(window).scrollTop();
-      if (scroll >= 30) {
-        console.log(scroll);
-        $(".contenedor").addClass("margin-top-scroll");
-      } else {
-        $(".contenedor").removeClass("margin-top-scroll")
-      }
-    });
+    // $(window).scroll(function() {
+    //   var scroll = $(window).scrollTop();
+    //   if (scroll >= 30) {
+    //     console.log(scroll);
+    //     $(".contenedor").addClass("margin-top-scroll");
+    //   } else {
+    //     $(".contenedor").removeClass("margin-top-scroll")
+    //   }
+    // });
   }
 
   public showFiltros() {
