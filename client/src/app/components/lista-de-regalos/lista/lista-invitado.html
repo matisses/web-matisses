@@ -4,92 +4,107 @@
 <div class="container">
   <div class="contenedor">
     <!-- Información de la lista -->
+    <hr class="rosa">
     <div class="row">
-      <div class="col-xs-4">
-        <p>foto</p>
+      <div class="col-sm-4 col-sm-offset-1 text-center">
+        <img class="img-responsive img-circle img-thumbnail img-perfil" alt="imagen de perfil" src="../../../../assets/images/img-perfil/h7NSjMmR.jpg">
       </div>
-      <div class="col-xs-8">
-        <p>informacion de la lista</p>
+      <div class="col-sm-6 text-center">
+        <p class="titulo-listas">LISTA DE REGALOS DE</p>
+        <h2 class="nombres">JOHANNA MONSALVE <span style="color:#D77D7D;">&</span> ALEJANDRO GUERRA</h2>
+        <p class="codigo-lista">Código de novios: </p>
+        <div class="row">
+          <div class="col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3">
+            <img src="../../../../assets/images/deco_01.png" class="jpg-responsive" alt="">
+          </div>
+        </div>
+        <div class="fecha-dias">
+          <p>Fecha de celebración: </p>
+          <span class="icon-fecha icono-fecha"></span>
+          <p class="dias"> dias</p>
+        </div>
       </div>
     </div>
+    <br>
+    <hr>
     <!-- carrito -->
     <div class="row">
-
-
-    <div class="col-xs-6 btn-bolsa text-left" id="carrito1">
-      <div class="carrito" (click)="toggleResumen()">
-        <span [ngClass]="{'icon-shopping-cart': (!resumenMobileVisible && !resumenDesktopVisible), 'icon-cerrar': (resumenMobileVisible || resumenDesktopVisible)}"></span>
-        <!--<span class="badge total-items-carrito-badge">{{total}}</span>-->
-        <span class="bolsa-text">BOLSA DE COMPRAS</span>
-      </div>
-      <div id="resumen" class="resumen resumenmobile">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-xs-12 text-center">
-            <br/>
-            <p>Tu carrito contiene <b id="totalItemsCarrito">({{totalItemsCarrito}})</b> productos</p>
-          </div>
+      <div class="col-sm-6 col-sm-offset-6 text-right" id="carrito1">
+        <div class="carrito" (click)="toggleResumen()">
+          <span [ngClass]="{'icon-shopping-cart': (!resumenMobileVisible && !resumenDesktopVisible), 'icon-cerrar': (resumenMobileVisible || resumenDesktopVisible)}"></span>
+          <!--<span class="badge total-items-carrito-badge">{{total}}</span>-->
+          <span class="bolsa-text">Bolsa de regalos</span>
         </div>
-          <div class="productos">
-            <div class="row border" *ngFor="let item of shoppingCart.items">
-              <div class="col-xs-3 text-center">
-                <img class="img-responsive imagen" src="https://img.matisses.co/{{item.itemcode}}/mini/{{item.itemcode}}_01.jpg" alt="{{item.itemname}}">
-              </div>
-              <div class="col-xs-9">
-                <div class="row">
-                  <div class="col-xs-7">
-                    <p class="nombre"><b>{{item.itemname}}</b></p>
-                  </div>
-                  <div class="col-xs-5 text-right precio" *ngIf="!item.priceafterdiscount || item.priceafterdiscount === 0 || item.priceafterdiscount === item.pricebeforediscount">
-                    <p>$ {{item.priceaftervat | number}}</p>
-                  </div>
-                  <div class="precio-discount" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0">
-                    <h5>$ {{item.priceaftervat | number:0}}</h5>
-                    <h4>$ {{item.priceafterdiscount | number:0}}</h4>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-xs-7">
-                    <p class="cantidad"><b>Cantidad</b></p>
-                    <p class="numero">{{item.selectedQuantity}}</p>
-                  </div>
-                  <div class="col-xs-5 text-right">
-                    <span *ngIf="mostrarBotonEliminar()" class="glyphicon glyphicon-trash trash" (click)="eliminarItem(item)"></span>
-                  </div>
-                </div>
+        <div id="resumen" class="resumen resumenmobile">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-xs-12 text-center">
+                <br/>
+                <p>Tu carrito contiene <b id="totalItemsCarrito">({{totalItemsCarrito}})</b> productos</p>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12 text-right">
-              <hr/>
-              <p class="subtotal">Subtotal <b>$ {{(totalCarrito -totalDescuentos) | number}}</b></p>
+            <div class="productos">
+              <div class="row border" *ngFor="let item of shoppingCart.items">
+                <div class="col-xs-3 text-center">
+                  <img class="img-responsive imagen" src="https://img.matisses.co/{{item.itemcode}}/mini/{{item.itemcode}}_01.jpg" alt="{{item.itemname}}">
+                </div>
+                <div class="col-xs-9">
+                  <div class="row">
+                    <div class="col-xs-7">
+                      <p class="nombre"><b>{{item.itemname}}</b></p>
+                    </div>
+                    <div class="col-xs-5 text-right precio" *ngIf="!item.priceafterdiscount || item.priceafterdiscount === 0 || item.priceafterdiscount === item.pricebeforediscount">
+                      <p>$ {{item.priceaftervat | number}}</p>
+                    </div>
+                    <div class="precio-discount" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0">
+                      <h5>$ {{item.priceaftervat | number:0}}</h5>
+                      <h4>$ {{item.priceafterdiscount | number:0}}</h4>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-7">
+                      <p class="cantidad"><b>Cantidad</b></p>
+                      <p class="numero">{{item.selectedQuantity}}</p>
+                    </div>
+                    <div class="col-xs-5 text-right">
+                      <span *ngIf="mostrarBotonEliminar()" class="glyphicon glyphicon-trash trash" (click)="eliminarItem(item)"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-6 text-center btn-izq">
-              <p class="boton" [routerLink]="['/resumen-regalos']">ir al carrito</p>
+            <div class="row">
+              <div class="col-xs-12 text-right">
+                <hr/>
+                <p class="subtotal">Subtotal <b>$ {{(totalCarrito -totalDescuentos) | number}}</b></p>
+              </div>
             </div>
-            <div class="col-xs-6 text-center btn-der">
-              <p class="boton" [routerLink]="['/info-pago-regalos']">Ir a pagar</p>
+            <div class="row">
+              <div class="col-xs-6 text-center btn-izq">
+                <p class="boton" [routerLink]="['/resumen-regalos']">ir al carrito</p>
+              </div>
+              <div class="col-xs-6 text-center btn-der">
+                <p class="boton" [routerLink]="['/info-pago-regalos']">Ir a pagar</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-  </div>
-
+    <br>
     <!-- campo buscar -->
     <div class="row">
-      <div class="col-xs-12 text-right">
+      <div class="col-sm-4 col-sm-offset-8 text-right">
         <form (submit)="search()">
-          <input id="searchField" [(ngModel)]="keywords" name="keywords" type="text" class="search-bar" placeholder="Busca productos en tu lista">
+          <div class="input-group">
+            <input id="searchField" [(ngModel)]="keywords" name="keywords" type="text" class="form-control" placeholder="Busca productos en tu lista">
+            <span class="input-group-addon icon-lupa" id="basic-addon1"></span>
+          </div>
         </form>
       </div>
     </div>
     <!-- botones como mostrar los productos -->
-    <div class="row">
+    <div class="row" *ngIf="items.length > 0">
       <div class="col-md-4 text-center">
         <div class="mostrar">
           <div class="btn-group">
@@ -166,7 +181,7 @@
                   <span class="input-group-addon span-cantidad" (click)="reducirCantidad(items[i])">
                     <button type="button" class="icon-minus btn-cantidad" name="button"></button>
                   </span>
-                  <input class="input-cantidad form-control" type="tel" name="items[i].selectedQuantity" min="1" max="items[i].cantidadElegida" [(ngModel)]="items[i].selectedQuantity" readonly="readonly"/>
+                  <input class="input-cantidad form-control" type="tel" name="items[i].selectedQuantity" min="1" max="items[i].cantidadElegida" [(ngModel)]="items[i].selectedQuantity" readonly="readonly" />
                   <span class="input-group-addon span-cantidad" (click)="aumentarCantidad(items[i])">
                     <button type="button" class="icon-plus btn-cantidad" name="button"></button>
                   </span>

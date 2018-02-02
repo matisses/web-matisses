@@ -112,24 +112,13 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
       //this.inicializarItems();
-      //this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+      // this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
       this.nombreUsuario = localStorage.getItem('username-lista');
       this.codigoLista= localStorage.getItem('codigo-lista');
       this.fechaEvento=localStorage.getItem('fecha-evento');
       this.idListaUsuario=sessionStorage.getItem('id-lista');
 
       //this.cargarItems0();
-
-
-    $(window).scroll(function() {
-      var scroll = $(window).scrollTop();
-      if (scroll >= 30) {
-
-        $(".contenedor").addClass("margin-top-scroll");
-      } else {
-        $(".contenedor").removeClass("margin-top-scroll")
-      }
-    });
 
     this.nombreUsuario = localStorage.getItem('username-lista');
     setTimeout(function() {
@@ -139,6 +128,11 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     }, 500);
   }
 
+  // CARRITO
+
+
+
+// PRODUCTOS
 
 
   public irAPagina(pagina) {
