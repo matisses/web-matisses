@@ -599,7 +599,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
    }
 
    public reducirCantidad(item:Item) {
-     if (item.selectedQuantity > 1) {
+     if (item.selectedQuantity > 0) {
        item.selectedQuantity -= 1;
      }
    }
