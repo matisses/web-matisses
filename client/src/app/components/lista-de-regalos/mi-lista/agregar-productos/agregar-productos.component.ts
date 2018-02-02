@@ -499,10 +499,12 @@ export class AgregarProductosComponent implements OnInit {
 
             }
             this.successMessage="el producto fue agregado a tu lista corrrectamente";
+            return;
           }
           else{
 
             this.messageError="ocurrio un error agregando el producto a tu lista"+response.mensaje;
+            return;
           }
 
         },

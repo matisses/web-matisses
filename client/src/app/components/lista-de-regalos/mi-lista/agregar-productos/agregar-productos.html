@@ -43,17 +43,14 @@
                 </div>
               </div>
               <div class="row">
-                <!--<div class="col-xs-12">
-                  <label for="name">Cantidad*</label>
-                  <input id="cantidad" type="text" class="form-control" [class.required-field]="!valid" name="formAgregar.cantidad" [(ngModel)]="formAgregar.cantidad" required>
-                </div>-->
+
                   <div class="cantidad">
                     <form>
                       <div class="input-group">
                         <span class="input-group-addon span-cantidad" (click)="reducirCantidad()">
                           <button type="button" class="icon-minus btn-cantidad" name="button"></button>
                         </span>
-                        <input class="input-cantidad form-control" type="tel" name="formAgregar.cantidad" min="1" max="" [(ngModel)]="formAgregar.cantidad" />
+                        <input class="input-cantidad form-control" type="tel" name="formAgregar.cantidad" min="1" max="" [(ngModel)]="formAgregar.cantidad" readonly="readonly" />
                         <span class="input-group-addon span-cantidad" (click)="aumentarCantidad()">
                           <button type="button" class="icon-plus btn-cantidad" name="button"></button>
                         </span>
@@ -84,12 +81,6 @@
 </div>
 
 <!--modal-->
-
-
-
-
-
-
 
     <div class="row">
       <div class="col-xs-12 text-right">
@@ -388,7 +379,7 @@
         <!-- Informacón productos para agregar -->
         <div class="row" *ngIf="items && items.length > 0">
           <div class="col-sm-4 col-xs-6 producto" *ngFor="let item of items; let i = index">
-            <div class="producto-agregado">
+            <div class="producto-agregado" *ngIf="items[i].agregadoLista">
               <p>producto agregado</p>
             </div>
             <img src="https://img.matisses.co/{{items[i].itemcode}}/parrilla/{{items[i].itemcode}}_01.jpg" class="jpg-responsive" alt="{{items[i].itemname}}">
