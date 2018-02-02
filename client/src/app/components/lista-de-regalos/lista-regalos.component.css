@@ -84,6 +84,79 @@
   background-color: #AB4646;
 }
 
+.personal-shopper {
+  background-image: url(../../../assets/images/personal-shopper-bg.jpg);
+  background-position: center;
+  padding: 15px;
+}
+
+.personal-shopper h5, .personal-shopper p {
+  margin: 0;
+}
+
+.personal-shopper span {
+  color: #D77D7D;
+  position: relative;
+  top: 3px;
+  font-size: 16px;
+}
+
+.que-es {
+  background-image: url(../../../assets/images/que-es-lista-regalos.jpg);
+  background-position: center;
+  text-align: center;
+  padding: 50px 80px;
+}
+
+.que-es::after {
+  content: '';
+  position: absolute;
+  border: 2px solid #FFF;
+  width: 95%;
+  height: 90%;
+  top: 11px;
+  left: 30px;
+}
+
+.que-es h1, .baskerville {
+  font-family: Baskerville, "Baskerville Old Face", "Hoefler Text";
+  font-size: 25px;
+  margin-bottom: 0px;
+}
+
+.text-como-funciona {
+  padding: 10px 80px;
+  border: 1px solid #FFF;
+}
+
+.border-right {
+  border-right: 1px solid #D77D7D !important;
+  border-bottom: 1px solid #D77D7D !important;
+}
+
+.border-left {
+  border-left: 1px solid #D77D7D !important;
+  border-top: 1px solid #D77D7D !important;
+}
+
+@media screen and (max-width: 1024px) {
+  .text-como-funciona h5 {
+    font-size: 20px;
+  }
+  .que-es::after {
+    width: 94%;
+  }
+}
+
+@media screen and (max-width: 986px) {
+  .text-como-funciona {
+    padding: 10px 40px;
+  }
+  .que-es::after {
+    width: 92%;
+  }
+}
+
 @media screen and (max-width: 767px) {
   .container {
     margin-top: 105px;
@@ -103,5 +176,33 @@
     padding: 5px 25px 10px;
     width: 80%;
     margin: 0 auto;
+  }
+  .que-es {
+    padding: 50px 25px;
+  }
+  .que-es::after {
+    width: 86%;
+    height: 92%;
+  }
+  .text-como-funciona {
+    padding: 10px 40px;
+  }
+  .border-right {
+    border-right: 1px solid #FFF !important;
+    border-bottom: 1px solid #D77D7D !important;
+  }
+  .border-left {
+    border-left: 1px solid #FFF !important;
+    border-top: 1px solid #D77D7D !important;
+  }
+  .border-bottom {
+    border-bottom: 1px solid #D77D7D !important;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .que-es::after {
+    width: 82%;
+    height: 94%;
   }
 }
