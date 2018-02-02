@@ -87,7 +87,7 @@
     </div>
     <div class="row text-center">
       <div class="col-xs-3 text-center regalos-agregados no-selector">
-        <span>totalItems.carrito</span>
+        <span>{{totalLista}}</span>
         <p>Regalos agregados</p>
       </div>
       <div class="col-xs-3 agregar-regalo no-selector">
@@ -179,7 +179,8 @@
         <p class="nombre"><b>{{items[i].itemname}}</b></p>
         <p class="referencia"><b>Ref:</b> {{items[i].shortitemcode}}</p>
         <p class="precio"><b>$ {{items[i].priceaftervat | number}}</b></p>
-        <p class="cantidad">Cantidad: <b>#</b></p>
+        <p class="cantidad">Cantidad Elegida: <b>{{items[i].cantidadElegida}}</b></p>
+        <p class="cantidad">Cantidad Comprada: <b>{{items[i].cantidadComprada}}</b></p>
         <p class="detalle">Ver Detalle</p>
         <button type="button" class="btn btn-default" (click)=eliminarProducto(items[i].shortitemcode)>Eliminar</button>
       </div>

@@ -276,19 +276,19 @@ ngAfterViewInit() {
 
       if (this.queryParams.has('orderBy')) {
         switch (this.queryParams.get('orderBy')) {
-          case 'price':
+          case '-price':
 
             this.paramsConsulta.orderBy='precio';
             break;
-          case '-price':
+          case 'price':
 
             this.paramsConsulta.orderBy='precio asc';
             break;
-          case 'itemname':
+          case '-itemname':
 
             this.paramsConsulta.orderBy='referencia';
             break;
-          case '-itemname':
+          case 'itemname':
 
             this.paramsConsulta.orderBy='referencia asc';
             break;
@@ -329,6 +329,8 @@ ngAfterViewInit() {
 
                this._itemService.find(cadena1+cadena2).subscribe( // Item 1
                  response => {
+                   response.result[0].cantidadElegida=this.itemsListaBcs[i].cantidadElegida;
+                   response.result[0].cantidadComprada=this.itemsListaBcs[i].cantidadComprada;
                    this.items.push(response.result[0]);
                 },
                 error=>{
