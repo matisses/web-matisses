@@ -26,6 +26,7 @@ import { PoliticaPrivacidadComponent } from './components/politica-privacidad/po
 import { PreguntasFrecuentesComponent } from './components/preguntas-frecuentes/preguntas-frecuentes.component';
 import { SinInteresComponent } from './components/sin-interes/sin-interes.component';
 import { HotSaleComponent } from './components/hot-sale/hot-sale.component';
+
 // Lista de Regalos
 import { ListaRegalosComponent } from './components/lista-de-regalos/lista-regalos.component';
 import { CrearListaComponent } from './components/lista-de-regalos/crear-lista/crear-lista.component';
@@ -36,6 +37,9 @@ import { ListaInvitadoComponent } from './components/lista-de-regalos/lista/list
 import { ResumenRegalosComponent } from './components/lista-de-regalos/lista/resumen-regalos/resumen-regalos.component';
 import { InfoPagoRegalosComponent } from './components/lista-de-regalos/lista/info-pago-regalos/info-pago-regalos.component';
 import { ResultadoTransaccionListaComponent } from './components/lista-de-regalos/lista/resultados-transaccion-lista/resultados-transaccion-lista.component';
+
+import { InfoBogotaComponent } from './components/info-bogota/info-bogota.component';
+import { PromocionAlfComponent } from './components/promocion-alf/promocion-alf.component';
 
 const appRoutes: Routes = [
   //{path: '', component: HomeComponent},
@@ -59,7 +63,18 @@ const appRoutes: Routes = [
         data: {
           meta: {
             title: 'Matisses',
-            description: ''
+            description: 'Compra online todos nuestros artículos y disfruta de lo mejor en mobiliario y accesorios para tu hogar.'
+          }
+        }
+      },
+      {
+        path: 'categoria',
+        component: CategoryComponent,
+        data: {
+          meta: {
+            title: 'Matisses',
+            description: 'Compra online todos nuestros artículos y disfruta de lo mejor en mobiliario y accesorios para tu hogar. -- 2',
+            keywords: 'categoria, sofas, mesas, casas'
           }
         }
       },
@@ -85,14 +100,17 @@ const appRoutes: Routes = [
       { path: 'resultado-transaccion-regalos/:idCarrito', component: ResultadoTransaccionListaComponent }
     ]
   },
-
   // { path: '92-consola', redirectTo: 'categoria?group=002' },
+  { path: 'blog', redirectTo: '/', pathMatch: 'full' },
+
   // { path: 'categoria', component: CategoryComponent, pathMatch: 'full' },
   { path: 'quienes', component: QuienesComponent },
   { path: 'tiendas', component: TiendasComponent },
   { path: 'sin-intereses', component: SinInteresComponent },
   { path: 'trabaja-con-nosotros', component: TrabajaComponent },
   // { path: 'hot-sale', component: HotSaleComponent },
+  { path: 'info', component: InfoBogotaComponent },
+  { path: 'promocion-enero', component: PromocionAlfComponent },
   { path: 'garantias', component: GarantiasComponent },
   { path: 'envios', component: EnviosComponent },
   { path: 'info-envios', component: InfoEnviosComponent },

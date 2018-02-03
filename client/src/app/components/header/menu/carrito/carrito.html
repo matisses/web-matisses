@@ -4,13 +4,13 @@
   <span class="bolsa-text">BOLSA DE COMPRAS</span>
 </div>
 <div id="resumen" class="resumen resumenmobile">
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-xs-12 text-center">
-      <br/>
-      <p>Tu carrito contiene <b id="totalItemsCarrito">({{carrito.totalItems}})</b> productos</p>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <br/>
+        <p>Tu carrito contiene <b id="totalItemsCarrito">({{carrito.totalItems}})</b> productos</p>
+      </div>
     </div>
-  </div>
     <div class="productos">
       <div class="row border" *ngFor="let item of carrito.shoppingCart.items">
         <div class="col-xs-3 text-center">
@@ -21,10 +21,10 @@
             <div class="col-xs-7">
               <p class="nombre"><b>{{item.itemname}}</b></p>
             </div>
-            <div class="col-xs-5 text-right precio" *ngIf="!item.priceafterdiscount || item.priceafterdiscount === 0 || item.priceafterdiscount === item.pricebeforediscount">
+            <div class="col-xs-5 text-right precio" *ngIf="!item.priceafterdiscount || item.priceafterdiscount === 0 || item.priceafterdiscount === item.pricebeforediscount || !carrito.validarItem(item.itemcode)">
               <p>$ {{item.priceaftervat | number}}</p>
             </div>
-            <div class="precio-discount" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0">
+            <div class="precio-discount" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0 && carrito.validarItem(item.itemcode)">
               <h5>$ {{item.priceaftervat | number:0}}</h5>
               <h4>$ {{item.priceafterdiscount | number:0}}</h4>
             </div>

@@ -62,6 +62,7 @@ import { PreguntasFrecuentesComponent } from './components/preguntas-frecuentes/
 import { SinInteresComponent } from './components/sin-interes/sin-interes.component';
 import { RecomendadosComponent } from './components/sin-interes/recomendados/recomendados.component';
 import { HotSaleComponent } from './components/hot-sale/hot-sale.component';
+import { InfoBogotaComponent } from './components/info-bogota/info-bogota.component';
 
 //Componenete pagina de error
 import { ErrorComponent } from './components/error/error.component';
@@ -91,6 +92,10 @@ import { CarritoRegalosComponent } from './components/lista-de-regalos/lista/car
 import { CarritoRegalosSimpleComponent } from './components/lista-de-regalos/lista/carrito-regalos/carrito-regalos-simple.component';
 import { InfoPagoRegalosComponent } from './components/lista-de-regalos/lista/info-pago-regalos/info-pago-regalos.component';
 import { ResultadoTransaccionListaComponent } from './components/lista-de-regalos/lista/resultados-transaccion-lista/resultados-transaccion-lista.component';
+
+// Promocion alf
+import { PromocionAlfComponent } from './components/promocion-alf/promocion-alf.component';
+
 //Directivas
 import { StickyMenuDirective } from './directives/sticky.directive';
 import { StickyBodyDirective } from './directives/sticky-body.directive';
@@ -165,14 +170,14 @@ import { MetaModule } from '@ngx-meta/core';
     MiListaComponent,
     AgregarProductosComponent,
     ResultadoBusquedaListasComponent,
-
     ListaInvitadoComponent,
     CarritoRegalosComponent,
     CarritoRegalosSimpleComponent,
     ResumenRegalosComponent,
     InfoPagoRegalosComponent,
     ResultadoTransaccionListaComponent
-
+    InfoBogotaComponent,
+    PromocionAlfComponent
   ],
   imports: [
     BrowserModule,

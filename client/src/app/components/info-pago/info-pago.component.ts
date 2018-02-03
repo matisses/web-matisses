@@ -78,6 +78,12 @@ export class InfoPagoComponent implements OnInit {
     $(document).ready(function() {
       $("html, body").animate({ scrollTop: 0 }, 1000);
     });
+
+    setTimeout(function() {
+      $(document).ready(function() {
+        $('#modalVacaiones').modal('show')
+      });
+    }, 500); // Modal Vacaiones
   }
 
   public obtenerCiudades() {
@@ -202,8 +208,8 @@ export class InfoPagoComponent implements OnInit {
 
   private validarEnvioGratis() {
     //TODO: parametrizacion de ciudades para envios gratis.
-    //Antioquia: valle de Aburra
     let ciudadesEnvioGratis = [
+      //Antioquia: valle de Aburra
       "Medellín05001",
       "Bello05088",
       "Itagui05360",
@@ -298,9 +304,22 @@ export class InfoPagoComponent implements OnInit {
             metodoEnvio: this.metodoEnvioSeleccionado.code,
             tiendaRecoge: this.tiendaSeleccionada,
             fechacreacion: null,
+            precioNuevo: false,
             items: this.carrito.shoppingCart.items
           }
 
+          for (let i = 0; i < shoppingCart.items.length; i++) {
+            if (shoppingCart.items[i].itemcode == '24400000000000000121') {
+              if (this.carrito.validarItem(shoppingCart.items[i].itemcode)) {
+                shoppingCart.precioNuevo = true;
+              }
+            }
+            if (!shoppingCart.items[i].descuento || shoppingCart.items[i].descuento > 0) {
+              shoppingCart.items[i].nuevoPrecio = shoppingCart.items[i].priceafterdiscount;
+            } else {
+              shoppingCart.items[i].nuevoPrecio = shoppingCart.items[i].priceaftervat;
+            }
+          }
           this._shoppingCartService.saveShoppingCart(shoppingCart).subscribe(
             response => {
               //Se guarda en el localStorage el carrito
@@ -722,11 +741,4 @@ export class InfoPagoComponent implements OnInit {
       }
     }
   }
-
-
-
-
-
-
-
 }

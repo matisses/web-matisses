@@ -35,6 +35,13 @@ export class ResumenCarritoComponent implements OnInit {
     $(document).ready(function() {
       $("html, body").animate({ scrollTop: 0 }, 1000);
     });
+
+    setTimeout(function() {
+      $(document).ready(function() {
+        $('#modalVacaiones').modal('show')
+      });
+    }, 500); // Modal Vacaiones
+    
   }
 
   public openResumen() {

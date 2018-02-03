@@ -59,7 +59,7 @@
   padding-top: 10px;
   background-attachment: relative;
   background-position: center center;
-  min-height: 450px;
+  min-height: 500px;
   width: 100%;
   -webkit-background-size: 100%;
   -moz-background-size: 100%;
@@ -75,41 +75,43 @@
 
 .text-01 {
   color: #FFF;
+  padding: 15px;
+  margin: 0 auto;
+  text-align: center;
+  width: 550px;
   position: relative;
-  padding-top: 15px;
-  top: 200px;
-  left: 0%;
-  background-color: rgba(0, 0, 0, 0.5);
-  width: 280px;
+  top: -115px;
+  height: 5px;
+}
+
+.text-01 .logo {
+  width: 100%;
+}
+
+.text-01 h1 {
+  font-size: 40px;
+  font-weight: bold;
 }
 
 .text-01 p {
   font-size: 20px;
-  margin: 0;
-  margin-bottom: 5px
-}
-
-.text-01 h2 {
-  font-size: 50px;
-  margin: 0;
+  font-weight: 400;
 }
 
 .text-01 .btn-banner01 {
   padding: 5px 10px;
   font-size: 15px;
-  background-color: #c7a05f;
-  margin: 0;
-  margin-top: 15px;
-  width: 46%;
-  margin-left: 27%;
+  background-color: #481416;
+  margin: 0 auto;
+  text-align: center;
   cursor: pointer;
+  font-weight: normal;
+  width: 40%;
 }
 
 .text-01 .precio {
   font-size: 12px;
 }
-
-
 /* Estilos banner 02 */
 
 .recomendaciones {
@@ -153,17 +155,6 @@
   line-height: 25px;
 }
 
-.sub-banner p {
-  position: absolute;
-  color: #FFF;
-  padding: 5px 30px;
-  margin-left: 24%;
-  background-color: rgba(0, 0, 0, 0.7);
-  margin-top: 10px;
-  font-size: 20px;
-  bottom: 150px;
-}
-
 .sub-banner .mensaje p, .sub-banner .mensaje img {
   display: inline-block;
 }
@@ -193,9 +184,6 @@
 }
 
 @media screen and (max-width: 1200px) {
-  .text-01 {
-    left: 0%;
-  }
   .recomendaciones .precio {
     margin-top: 15px;
   }
@@ -210,11 +198,7 @@
     min-height: 300px;
   }
   .text-01 {
-    left: 13%;
-    top: 50px;
-  }
-  .text-01 .btn-banner01 {
-    font-size: 10px;
+    margin-top: 55px;
   }
   .recomendaciones .name {
     font-size: 15px;
@@ -225,52 +209,57 @@
   .sub-banner .mensaje {
     display: none;
   }
-}
-
-@media screen and (max-width: 767px) {
-  .principal-01 {
-    min-height: 300px;
-  }
-  .text-01 {
-    width: 216px;
-    left: 33%;
-  }
-  .text-01 img {
-    width: 30%;
+  .text-01 h1 {
+    font-size: 25px;
   }
   .text-01 p {
     font-size: 15px;
   }
-  .text-01 h2 {
-    font-size: 30px;
+  .sub-banner-footer p {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 769px) {
+  .principal-01 {
+    min-height: 300px;
+  }
+  .text-01 h1 {
+    font-size: 20px;
   }
   .text-01 .btn-banner01 {
-    font-size: 10px;
+    font-size: 12px;
+  }
+  .sub-banner-footer p {
+    color: #5B5B5B;
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .text-01 {
+    margin: 0 auto;
+    width: 290px;
+    margin-top: 50px;
+  }
+  .text-01 p {
+    font-weight: normal;
   }
 }
 
 @media screen and (max-width: 414px) {
   .principal-01 {
     min-height: 250px;
-    background-position: center 50px;
+    background-position: center -16px;
   }
   .text-01 {
-    left: 21%;
-    bottom: -80px;
-    width: 200px;
+    margin: 10px auto;
   }
-  .text-01 p {
-    font-size: 15px;
+  .text-01 h1 {
+    font-size: 20px;
   }
-  .text-01 h2 {
-    font-size: 40px;
-  }
-  .text-01 .precio {
-    font-size: 10px;
-  }
-  .text-01 p::before {
-    top: 40px;
-    left: 40%;
+  .text-01 .btn-banner01 {
+    font-size: 12px;
   }
   .recomendaciones .precio {
     font-size: 15px;
@@ -289,15 +278,14 @@
 @media screen and (max-width: 375px) {
   .principal-01 {
     min-height: 270px;
+    margin-top: 40px;
   }
 }
 
 @media screen and (max-width: 320px) {
   .principal-01 {
     min-height: 240px;
-  }
-  .text-01 {
-    left: 15%;
+    margin-top: 40px;
   }
   .recomendaciones .name {
     font-size: 12px;

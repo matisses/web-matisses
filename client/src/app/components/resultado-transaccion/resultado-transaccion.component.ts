@@ -6,6 +6,9 @@ import { ShoppingCartService } from '../../services/shopping-cart.service';
 
 import { CarritoSimpleComponent } from '../header/menu/carrito/carrito-simple.component';
 
+//declare var jquery: any;
+declare var $: any;
+
 @Component({
   templateUrl: 'resultado-transaccion.html',
   styleUrls: ['resultado-transaccion.component.css'],
@@ -42,6 +45,14 @@ export class ResultadoTransacciComponent implements OnInit {
     this.consultarEstadoPlaceToPay();
   }
 
+  ngAfterViewInit() {
+    setTimeout(function() {
+      $(document).ready(function() {
+        $('#modalVacaiones').modal('show')
+      });
+    }, 500); // Modal Vacaiones
+  }
+
   consultarEstadoPlaceToPay() {
     this.errorMessage = '';
     this._route.params.forEach((params: Params) => {
@@ -53,8 +64,8 @@ export class ResultadoTransacciComponent implements OnInit {
             metodoEnvio: response.shoppingCart[0].metodoEnvio,
             tiendaRecoge: response.shoppingCart[0].tiendaRecoge,
             idCarrito: idCarrito,
-            items: response.shoppingCart[0].items,
-            idLista:localStorage.getItem('id-lista')
+            precioNuevo: response.shoppingCart[0].precioNuevo,
+            items: response.shoppingCart[0].items
           }
 
           if (datosCompraWeb.items) {

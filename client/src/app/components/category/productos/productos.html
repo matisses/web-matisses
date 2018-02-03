@@ -60,7 +60,7 @@
 <div class="row" *ngIf="items.length > 0">
   <div class="col-sm-4 col-xs-6" *ngFor="let item of items">
     <div class="producto">
-      <div class="porcentaje" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0">
+      <div class="porcentaje" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0 && item.itemcode != '24400000000000000121'">
         <p>-{{item.descuento | number}}%</p>
       </div>
       <div class="row">
@@ -71,10 +71,10 @@
       <div class="row" *ngIf="item.showprice === 'true' || item.showprice">
         <div class="col-xs-12 text-center">
           <p class="medium nombre-producto">{{item.itemname}}</p>
-          <div class="precio-full" *ngIf="!item.priceafterdiscount || item.priceafterdiscount === 0 || item.priceafterdiscount === item.pricebeforediscount">
+          <div class="precio-full" *ngIf="!item.priceafterdiscount || item.priceafterdiscount === 0 || item.priceafterdiscount === item.pricebeforediscount || (!carrito.validarItem(item.itemcode) && item.itemcode === '24400000000000000121')">
             <h4>$ {{item.priceaftervat | number:0}}</h4>
           </div>
-          <div class="precio-discount" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0">
+          <div class="precio-discount" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0 && item.itemcode != '24400000000000000121'">
             <h5>$ {{item.priceaftervat | number:0}}</h5>
             <h4>$ {{item.priceafterdiscount | number:0}}</h4>
           </div>
@@ -102,7 +102,7 @@
         <div class="botones">
           <div class="col-xs-12 text-center">
             <div class="btn-group" role="group">
-              <button type="button" class="btn btn-carrito"  [routerLink]="['/producto', item.shortitemcode]">
+              <button type="button" class="btn btn-carrito" [routerLink]="['/producto', item.shortitemcode]">
                 VER PRODUCTO
               </button>
             </div>

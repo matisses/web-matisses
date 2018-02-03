@@ -7,10 +7,12 @@ var ShoppingCartSchema = Schema({
   metodoEnvio: Number,
   tiendaRecoge: String,
   fechacreacion: Date,
+  precioNuevo: Boolean,
   items: [{
     _id: String,
     itemcode: String,
-    selectedQuantity: Number
+    selectedQuantity: Number,
+    nuevoPrecio: Number
   }]
 });
 
