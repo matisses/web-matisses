@@ -35,14 +35,13 @@ export class MiListaComponent implements OnInit, AfterViewInit {
   public orderByStr: string;
   public pages: Array<number>;
   public keywords: string = '';
-  private availableFields: string[] = ['page', 'pageSize', 'orderBy', 'department', 'group', 'subgroup', 'color', 'minPrice', 'maxPrice', 'brand', 'material', 'collection', 'keywords', 'discount'];
-  private idListaUsuario: string;
-  private codigoLista: string;
-  private fechaEvento:string;
-  private paramsConsulta: any;
-  private itemsListaBcs:Array<any>;
-  private totalLista:number;
-
+  public availableFields: string[] = ['page', 'pageSize', 'orderBy', 'department', 'group', 'subgroup', 'color', 'minPrice', 'maxPrice', 'brand', 'material', 'collection', 'keywords', 'discount'];
+  public idListaUsuario: string;
+  public codigoLista: string;
+  public fechaEvento:string;
+  public paramsConsulta: any;
+  public itemsListaBcs:Array<any>;
+  public totalLista:number;
 
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {

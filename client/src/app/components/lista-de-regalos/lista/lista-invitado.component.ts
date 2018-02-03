@@ -43,15 +43,15 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public totalItems: number;
   public activePage: number;
   public url:string;
-  private viewportWidth: number = 0;
+  public viewportWidth: number = 0;
   public itemsXPag: string;
   public orderByStr: string;
   public pages: Array<number>;
   public keywords: string = '';
-  private availableFields: string[] = ['page', 'pageSize', 'orderBy', 'department', 'group', 'subgroup', 'color', 'minPrice', 'maxPrice', 'brand', 'material', 'collection', 'keywords', 'discount'];
-  private idListaUsuario: string;
-  private codigoLista: string;
-  private fechaEvento:string;
+  public availableFields: string[] = ['page', 'pageSize', 'orderBy', 'department', 'group', 'subgroup', 'color', 'minPrice', 'maxPrice', 'brand', 'material', 'collection', 'keywords', 'discount'];
+  public idListaUsuario: string;
+  public codigoLista: string;
+  public fechaEvento:string;
   public resumenMobileVisible: boolean = false;
   public resumenDesktopVisible: boolean = false;
 

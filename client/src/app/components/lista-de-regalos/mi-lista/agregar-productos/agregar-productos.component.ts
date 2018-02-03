@@ -18,7 +18,7 @@ export class AgregarProductosComponent implements OnInit {
   public items: Array<Item>;
   public itemsAgregados: Array<Item>;
   public mostrarFiltros: boolean = true;
-  private viewportWidth: number = 0;
+  public viewportWidth: number = 0;
   public filtrosDisponibles: Map<String, Array<any>>;
   public filtrosAplicados: Array<string[]>;
   public queryParams: Map<string, string>;
@@ -31,7 +31,7 @@ export class AgregarProductosComponent implements OnInit {
   public orderByStr: string;
   public pages: Array<number>;
   public keywords: string = '';
-  private availableFields: string[] = ['page', 'pageSize', 'orderBy', 'department', 'group', 'subgroup', 'color', 'minPrice', 'maxPrice', 'brand', 'material', 'collection', 'keywords', 'discount'];
+  public availableFields: string[] = ['page', 'pageSize', 'orderBy', 'department', 'group', 'subgroup', 'color', 'minPrice', 'maxPrice', 'brand', 'material', 'collection', 'keywords', 'discount'];
   public minPrice: number;
   public maxPrice: number;
   public viewHasLoaded: boolean = false;

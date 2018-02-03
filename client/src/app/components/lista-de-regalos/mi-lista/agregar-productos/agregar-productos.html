@@ -13,7 +13,7 @@
       <form #AgregarForm="ngForm" >
         <div class="modal-body">
           <!-- mensaje de error -->
-          <div class="row" *ngIf="errorMessage != null && errorMessage.length > 0">
+          <div class="row" *ngIf="messageError != null && messageError.length > 0">
             <div class="col-xs-12">
               <div class="alert alert-danger" role="alert">
                 <p>{{messageError}}</p>
