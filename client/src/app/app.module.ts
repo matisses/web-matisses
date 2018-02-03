@@ -175,7 +175,7 @@ import { MetaModule } from '@ngx-meta/core';
     CarritoRegalosSimpleComponent,
     ResumenRegalosComponent,
     InfoPagoRegalosComponent,
-    ResultadoTransaccionListaComponent
+    ResultadoTransaccionListaComponent,
     InfoBogotaComponent,
     PromocionAlfComponent
   ],
