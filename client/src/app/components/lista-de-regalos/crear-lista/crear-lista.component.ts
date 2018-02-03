@@ -692,7 +692,7 @@ export class CrearListaComponent implements OnInit {
         console.error(error);
       }
     );
-    sessionStorage.setItem('id-lista', this.idListaCreada);
+    localStorage.setItem('id-lista', this.idListaCreada);
     localStorage.setItem('username-lista', this.nombreCreadorLista);
     localStorage.setItem('codigo-lista', codigo);
     localStorage.setItem('fecha-evento', this.fechaEventoLista);

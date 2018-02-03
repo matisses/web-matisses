@@ -49,7 +49,7 @@ export class MiListaComponent implements OnInit, AfterViewInit {
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista= localStorage.getItem('codigo-lista');
     this.fechaEvento=localStorage.getItem('fecha-evento');
-    this.idListaUsuario=sessionStorage.getItem('id-lista');
+    this.idListaUsuario=localStorage.getItem('id-lista');
     this.queryParams = new Map<string, string>();
     this.itemsXPag = '12 x pag';
     this.orderByStr = 'Similares';
@@ -62,7 +62,7 @@ export class MiListaComponent implements OnInit, AfterViewInit {
 
   private inicializarParamsConsulta() {
     this.paramsConsulta = {
-    idLista:sessionStorage.getItem('id-lista'),
+    idLista:localStorage.getItem('id-lista'),
     pagina:'1',
     registrosPagina:'12',
     orderBy:'referencia asc',
@@ -77,7 +77,7 @@ export class MiListaComponent implements OnInit, AfterViewInit {
   this.nombreUsuario = localStorage.getItem('username-lista');
   this.codigoLista= localStorage.getItem('codigo-lista');
   this.fechaEvento=localStorage.getItem('fecha-evento');
-  this.idListaUsuario=sessionStorage.getItem('id-lista');
+  this.idListaUsuario=localStorage.getItem('id-lista');
 
   this.cargarItems0();
 
@@ -90,7 +90,7 @@ ngAfterViewInit() {
       this.nombreUsuario = localStorage.getItem('username-lista');
       this.codigoLista= localStorage.getItem('codigo-lista');
       this.fechaEvento=localStorage.getItem('fecha-evento');
-      this.idListaUsuario=sessionStorage.getItem('id-lista');
+      this.idListaUsuario=localStorage.getItem('id-lista');
 
 
       //this.cargarItems0();
@@ -422,7 +422,7 @@ ngAfterViewInit() {
      localStorage.removeItem('username-lista');
      localStorage.removeItem('usuario-id');
      localStorage.removeItem('cambio-clave');
-     sessionStorage.removeItem('id-lista');
+     localStorage.removeItem('id-lista');
      localStorage.removeItem('codigo-lista');
      localStorage.removeItem('fecha-evento');
 

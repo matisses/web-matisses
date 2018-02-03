@@ -76,7 +76,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     this.formatoFechaEvento =sessionStorage.getItem('formatoFechaEvento');
     this.novios = sessionStorage.getItem('novios');
     //this.idListaUsuario=localStorage.getItem('id-lista');cambiar a esta al tener la consulta
-    this.idListaUsuario='2056';
+    this.idListaUsuario=localStorage.getItem('id-lista');
     this.queryParams = new Map<string, string>();
     this.itemsXPag = '12 x pag';
     this.orderByStr = 'Similares';
@@ -103,7 +103,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     // if (localStorage.getItem('cambio-clave') == 'si') {
     //   $('#cambioContraseña').modal('show');
     // }
-
+ console.log('id lista'+localStorage.getItem('id-lista'));
   this.nombreUsuario = localStorage.getItem('username-lista');
   this.codigoLista= localStorage.getItem('codigo-lista');
   this.fechaEvento=localStorage.getItem('fecha-evento');
@@ -114,6 +114,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit() {
+     console.log('id lista'+localStorage.getItem('id-lista'));
       //this.inicializarItems();
       //this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
       this.nombreUsuario = localStorage.getItem('username-lista');
@@ -334,33 +335,8 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
       );
 
-      // this._itemService.filter(this.queryString).subscribe(
-      //   response => {
-      //     //this.items = response.result;
-      //     //this.totalItems=response.records;
-      //     for (let i = 0; i < this.items.length; i++) {
-      //       //validar si el ítem tiene descuentos
-      //       // this._descuentosService.findDiscount(this.items[i].itemcode).subscribe(
-      //       //   response => {
-      //       //     if (this.items[i].priceaftervat === response.precio) {
-      //       //       if (response.descuentos && response.descuentos.length > 0) {
-      //       //         this.items[i].descuento = response.descuentos[0].porcentaje;
-      //       //         this.items[i].priceafterdiscount = this.items[i].priceaftervat - ((this.items[i].priceaftervat / 100) * this.items[i].descuento);
-      //       //       }
-      //       //     }
-      //       //   },
-      //       //   error => {
-      //       //     console.error(error);
-      //       //   }
-      //       // );
-      //     }
-      //     //this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalLista);
-      //     //this.filtrosComponent.inicializarFiltros(this.availableFields, this.queryParams, this.queryString, response.records);
-      //   },
-      //   error => {
-      //     console.error(error);
-      //   }
-      // );
+
+
     });
   }
 
@@ -391,33 +367,6 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
 
 
-    // this.messageError = '';
-    // if (this.claveNueva == null || this.claveNueva.length <= 0) {
-    //
-    //   this.messageError = 'Ingresa la contraseña';
-    //     this.valid = false;
-    //     this.successMessage = '';
-    //     return;
-    // }
-    //
-    // if (this.claveConfirmacion == null || this.claveConfirmacion.length <= 0 || this.claveConfirmacion == 'undefined') {
-    //   this.messageError = 'Ingresa la confirmación de la contraseña.';
-    //       this.valid = false;
-    //       this.successMessage = '';
-    //     return;
-    // }
-    // if (this.claveNueva !=this.claveConfirmacion ) {
-    //   this.messageError = 'Ambas contraseñas deben ser iguales.';
-    //   this.successMessage = '';
-    //     return;
-    // }
-    // let usuarioDTO = {
-    //   nombreUsuario: this.nombreUsuario,
-    //   password: this.claveNueva,
-    //   usuarioId:localStorage.getItem('usuario-id')
-    //
-    // }
-    //
      this._listaService.eliminarProducto(itemCode, this.idListaUsuario).subscribe(
        response => {
 

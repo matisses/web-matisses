@@ -46,7 +46,7 @@ export class ListaRegalosComponent implements OnInit {
 
   ngAfterViewInit() {
 
-    
+
       localStorage.clear();
     this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     if (this.viewportWidth <= 767) {
@@ -124,7 +124,7 @@ export class ListaRegalosComponent implements OnInit {
         localStorage.setItem('username-lista', this.nombreSession);
         localStorage.setItem('usuario-id', this.idUsuario);
         localStorage.setItem('cambio-clave', this.cambioContrasena);
-        sessionStorage.setItem('id-lista', this.idListaUsuario);
+        localStorage.setItem('id-lista', this.idListaUsuario);
         localStorage.setItem('codigo-lista', this.codigoLista);
         localStorage.setItem('fecha-evento', this.fechaEvento);
         console.log('token '+localStorage.getItem('matisses.lista-token'));

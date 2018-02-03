@@ -54,7 +54,7 @@ export class ResultadoTransaccionListaComponent implements OnInit {
             tiendaRecoge: response.shoppingCart[0].tiendaRecoge,
             idCarrito: idCarrito,
             items: response.shoppingCart[0].items,
-            idLista:sessionStorage.getItem('id-lista')
+            idLista:localStorage.getItem('id-lista')
           }
 
           if (datosCompraWeb.items) {

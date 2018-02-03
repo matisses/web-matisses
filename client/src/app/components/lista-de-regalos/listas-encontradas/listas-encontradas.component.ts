@@ -52,9 +52,7 @@ export class ResultadoBusquedaListasComponent implements OnInit {
     localStorage.setItem('codigo-lista',codigolista);
     localStorage.setItem('nombreLista',nombreLista);
     localStorage.setItem('fecha-evento',fechaEvento);
-    localStorage.removeItem('id-lista');
-
-    sessionStorage.setItem('id-lista', idLista);
+    localStorage.setItem('id-lista', idLista);
     sessionStorage.removeItem('nombresNovios');
     sessionStorage.removeItem('apellidosNovios');
     sessionStorage.removeItem('codigoLista');

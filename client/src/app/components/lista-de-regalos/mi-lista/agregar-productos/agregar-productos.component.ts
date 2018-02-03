@@ -48,7 +48,7 @@ export class AgregarProductosComponent implements OnInit {
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista= localStorage.getItem('codigo-lista');
     this.fechaEvento=localStorage.getItem('fecha-evento');
-    this.idListaUsuario=sessionStorage.getItem('id-lista');
+    this.idListaUsuario=localStorage.getItem('id-lista');
     this.filtrosDisponibles = new Map<String, Array<any>>();
     this.filtrosAplicados = new Array<string[]>();
     this.queryParams = new Map<string, string>();
@@ -76,7 +76,7 @@ export class AgregarProductosComponent implements OnInit {
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista= localStorage.getItem('codigo-lista');
     this.fechaEvento=localStorage.getItem('fecha-evento');
-    this.idListaUsuario=sessionStorage.getItem('id-lista');
+    this.idListaUsuario=localStorage.getItem('id-lista');
      this.cargarItems0();
   }
 
@@ -533,7 +533,7 @@ public cerrarSession(){
   localStorage.removeItem('username-lista');
   localStorage.removeItem('usuario-id');
   localStorage.removeItem('cambio-clave');
-  sessionStorage.removeItem('id-lista');
+  localStorage.removeItem('id-lista');
   localStorage.removeItem('codigo-lista');
   localStorage.removeItem('fecha-evento');
 

@@ -435,7 +435,7 @@ export class InfoPagoRegalosComponent implements OnInit {
     let datosCompraWeb = {
       idCarrito: '00000000000000000',
       items: this.carrito.shoppingCart.items,
-      idLista:sessionStorage.getItem('id-lista')
+      idLista:localStorage.getItem('id-lista')
     }
 
 
