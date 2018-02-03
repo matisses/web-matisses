@@ -1,0 +1,212 @@
+.contenedor {
+  margin-top: 110px;
+}
+
+.menu1 {
+  background-color: #F8F8F8;
+  height: 30px;
+  padding: 5px;
+}
+
+.icono {
+  font-weight: bold;
+  display: inline-block;
+}
+
+.menu1 p {
+  display: inline-block;
+}
+
+.icono-fecha {
+  display: inline-block;
+  color: #D77D7D;
+}
+
+.regalos-agregados span {
+  font-weight: bold;
+}
+
+.agregar-regalo {
+  border-left: 1px solid #CCC;
+  border-right: 1px solid #CCC;
+  cursor: pointer;
+  padding-top: 10px;
+}
+
+.compartir-lista {
+  padding-top: 10px;
+}
+
+.agregar-regalo span, .compartir-lista span {
+  font-size: 30px;
+  color: #D77D7D;
+}
+
+.agregar-regalo p, .compartir-lista p, .regalos-agregados p {
+  display: inline-block;
+  position: relative;
+  top: -5px;
+  left: 5px;
+  font-size: 20px;
+}
+
+.fecha {
+  display: inline-block;
+}
+
+.rosa {
+  border-color: #D77D7D;
+  margin: 0;
+}
+
+.codigo-fecha {
+  margin-top: 5px;
+}
+
+.jpg-responsive {
+  width: 100%;
+}
+
+.title-mi-lista {
+  font-family: Baskerville, "Baskerville Old Face", "Hoefler Text";
+  font-size: 25px;
+  margin-bottom: 0px;
+}
+
+.seleccionado::before {
+  content: '';
+  width: 20%;
+  position: absolute;
+  bottom: 5px;
+  background-color: #D77D7D;
+  height: 2px;
+  right: 80px;
+}
+
+.input-group {
+  margin-top: 10px;
+}
+
+.input-group .form-control, .input-group-addon {
+  border-radius: 0;
+  background-color: #F8F8F8;
+  border: 1px solid #F8F8F8;
+  box-shadow: none;
+}
+
+.input-group-addon {
+  color: #D77D7D;
+}
+
+.box-sin-regalos {
+  margin-top: 20px;
+  color: #5B5B5B;
+  width: 100%;
+  padding: 100px 0px;
+  background-color: #F8F8F8;
+}
+
+.box-sin-regalos p {
+  margin: 0;
+  font-size: 20px;
+}
+
+.box-sin-regalos .plus-regalo {
+  margin-top: 20px !important;
+  background-color: #FFF;
+  border: none;
+  width: 20%;
+  margin: 0 auto;
+  padding: 5px;
+}
+
+.producto {
+  border: 1px solid #FFF;
+  padding: 5px;
+}
+
+.producto:hover {
+  border: 1px solid #EDEDED;
+}
+
+.producto p {
+  margin-bottom: 0;
+}
+
+.producto .nombre {
+  height: 40px;
+}
+
+.producto .detalle {
+  font-style: italic;
+  cursor: pointer;
+}
+
+.producto .detalle:hover {
+  font-style: italic;
+  text-decoration: underline;
+}
+
+.jpg-responsive {
+  width: 100%;
+  height: 100%;
+}
+
+
+/* paginador */
+
+.pagination {
+  margin: 0;
+}
+
+.pagination li a {
+  color: #5B5B5B;
+  padding: 6px 8px;
+  border-color: transparent;
+}
+
+.pagination li a.active {
+  background-color: #eee;
+}
+
+.btn-matisses {
+  color: #5B5B5B;
+  background-color: #FFF;
+  border-color: #EDEDED;
+  border-radius: 0;
+}
+
+
+/* mostrar por */
+
+.mostrar:before {
+  content: "Mostrar";
+  margin: 0 5px;
+  display: inline-block;
+  border-right: 1px solid #626262;
+  padding: 0 10px;
+}
+
+
+/* Order por */
+
+.ordenar:before {
+  content: "Ordenar";
+  margin: 0 5px;
+  display: inline-block;
+  border-right: 1px solid #626262;
+  padding: 0 10px;
+}
+
+@media screen and (max-width: 1200px) {
+  .pagination li a {
+    padding: 10px 7px;
+    font-size: 11px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .ordenar {
+    margin: 10px;
+  }
+}

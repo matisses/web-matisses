@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?lfsaab');
-  src:  url('fonts/icomoon.eot?lfsaab#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?lfsaab') format('truetype'),
-    url('fonts/icomoon.woff?lfsaab') format('woff'),
-    url('fonts/icomoon.svg?lfsaab#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?ia5nn7');
+  src:  url('fonts/icomoon.eot?ia5nn7#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?ia5nn7') format('truetype'),
+    url('fonts/icomoon.woff?ia5nn7') format('woff'),
+    url('fonts/icomoon.svg?ia5nn7#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,46 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-regalo_1:before {
+  content: "\e91e";
+  color: #e17678;
+}
+.icon-telefono:before {
+  content: "\e92a";
+}
+.icon-volver:before {
+  content: "\e929";
+}
+.icon-plus-regalo:before {
+  content: "\e928";
+}
+.icon-fecha:before {
+  content: "\e926";
+}
+.icon-invitados:before {
+  content: "\e927";
+}
+.icon-regalo-01:before {
+  content: "\e923";
+}
+.icon-agregar-regalo:before {
+  content: "\e924";
+}
+.icon-compartir:before {
+  content: "\e925";
+}
+.icon-paso-01:before {
+  content: "\e91f";
+}
+.icon-paso-02:before {
+  content: "\e920";
+}
+.icon-paso-03:before {
+  content: "\e921";
+}
+.icon-paso-04:before {
+  content: "\e922";
+}
 .icon-chat:before {
   content: "\e91b";
   color: #559791;
@@ -125,6 +165,9 @@
 }
 .icon-user:before {
   content: "\e971";
+}
+.icon-lupa:before {
+  content: "\e986";
 }
 .icon-info:before {
   content: "\ea0c";

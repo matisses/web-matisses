@@ -79,6 +79,20 @@ import { WishListComponent } from './components/wish-list/wish-list.component';
 // Componenete modal prueba
 import { ModalComponent } from './components/modal/modal.component';
 
+//Lista de regalos
+import { ListaRegalosComponent } from './components/lista-de-regalos/lista-regalos.component';
+import { MenuListaComponent } from './components/lista-de-regalos/menu-lista/menu-lista.component';
+import { CrearListaComponent } from './components/lista-de-regalos/crear-lista/crear-lista.component';
+import { MiListaComponent } from './components/lista-de-regalos/mi-lista/mi-lista.component';
+import { AgregarProductosComponent } from './components/lista-de-regalos/mi-lista/agregar-productos/agregar-productos.component';
+import { ResultadoBusquedaListasComponent } from './components/lista-de-regalos/listas-encontradas/listas-encontradas.component';
+import { ListaInvitadoComponent } from './components/lista-de-regalos/lista/lista-invitado.component';
+import { ResumenRegalosComponent } from './components/lista-de-regalos/lista/resumen-regalos/resumen-regalos.component';
+import { CarritoRegalosComponent } from './components/lista-de-regalos/lista/carrito-regalos/carrito-regalos.component';
+import { CarritoRegalosSimpleComponent } from './components/lista-de-regalos/lista/carrito-regalos/carrito-regalos-simple.component';
+import { InfoPagoRegalosComponent } from './components/lista-de-regalos/lista/info-pago-regalos/info-pago-regalos.component';
+import { ResultadoTransaccionListaComponent } from './components/lista-de-regalos/lista/resultados-transaccion-lista/resultados-transaccion-lista.component';
+
 // Promocion alf
 import { PromocionAlfComponent } from './components/promocion-alf/promocion-alf.component';
 
@@ -149,6 +163,19 @@ import { MetaModule } from '@ngx-meta/core';
     SinInteresComponent,
     RecomendadosComponent,
     HotSaleComponent,
+    //Lista de Regalos
+    ListaRegalosComponent,
+    MenuListaComponent,
+    CrearListaComponent,
+    MiListaComponent,
+    AgregarProductosComponent,
+    ResultadoBusquedaListasComponent,
+    ListaInvitadoComponent,
+    CarritoRegalosComponent,
+    CarritoRegalosSimpleComponent,
+    ResumenRegalosComponent,
+    InfoPagoRegalosComponent,
+    ResultadoTransaccionListaComponent
     InfoBogotaComponent,
     PromocionAlfComponent
   ],

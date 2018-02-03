@@ -1,0 +1,152 @@
+.container-title {
+  margin-top: 110px;
+}
+
+li {
+  display: inline-block;
+  list-style: none;
+  padding: 10px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.jpg-responsive {
+  width: 100%;
+  height: 100%;
+}
+
+.baskerville {
+  font-family: Baskerville, "Baskerville Old Face", "Hoefler Text";
+}
+
+.novios p {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.novios:hover {
+  color: #D77D7D;
+}
+
+.pasos {
+  font-size: 40px;
+  padding: 0;
+}
+
+.pasos p {
+  font-size: 10px;
+  margin-top: -10px;
+}
+
+.title-form {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-control {
+  border-radius: 0;
+  margin-bottom: 10px;
+}
+
+.seleccionado {
+  color: #D77D7D;
+}
+
+.contenedor-formulario {
+  max-width: 900px !important;
+  margin: 0 auto;
+  min-height: 600px;
+}
+
+.form-lista-regalos {
+  display: block;
+  width: 100%;
+  height: 30px;
+  padding: 0px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #5B5B5B;
+  background-color: #FFF;
+  background-image: none;
+  border: 1px solid #CECECE;
+  margin-bottom: 5px;
+}
+
+.ng-valid[required], .ng-valid.required {
+  border-left: 5px solid #6D9197;
+  /* green */
+}
+
+.ng-touched.ng-invalid[required], .ng-untouched.ng-pristine.ng-invalid[required].required-field {
+  border-left: 5px solid #65092D;
+  /* red */
+}
+
+.label-lista {
+  color: #5B5B5B;
+  font-weight: normal;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.notificaciones {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.margin-top-scroll {
+  margin-top: 135px;
+}
+
+.btn-formulario {
+  background-color: #F77E7E;
+  border: none;
+  padding: 10px 30px;
+  color: #FFF;
+  margin-top: 13px;
+}
+
+.btn-formulario:hover {
+  background-color: #AB4646;
+}
+
+.info-evento {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.height-40 {
+  height: 40px;
+}
+
+.btn-grey {
+  background-color: #CECECE;
+}
+
+.btn-grey:hover {
+  background-color: #5B5B5B;
+}
+
+/* .info-pie-crear {
+  margin-top: 25px;
+  z-index: -1;
+} */
+
+@media screen and (max-width: 767px) {
+  .container-title {
+    margin-top: 90px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .pasos {
+    font-size: 30px;
+  }
+  .pasos p {
+    font-size: 0px;
+  }
+  li {
+    margin: 0 5px;
+  }
+}

@@ -1,0 +1,81 @@
+<menu-lista></menu-lista>
+
+<div class="container">
+  <div class="contenedor">
+    <!-- Campos para nueva lista -->
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <hr class="linea-top">
+        <p>Resultado de búsqueda</p>
+      </div>
+    </div>
+    <div class="row" *ngIf="messageError != null && messageError.length > 0">
+      <div class="col-xs-12">
+        <div class="alert alert-danger" role="alert">
+          <p>{{messageError}}</p>
+        </div>
+      </div>
+    </div>
+    <form id="buscarLista">
+      <div class="row text-center">
+        <div class="buscar-lista">
+          <div class="col-sm-3" *ngIf="mostrarFiltros">
+            <h4>Busca una lista</h4>
+          </div>
+          <div class="col-sm-3" *ngIf="!mostrarFiltros">
+            <h4 role="button" (click)="showFiltros()">Busca una lista <span class="glyphicon glyphicon-chevron-down"></span></h4>
+          </div>
+          <div class="collapse" id="collapseExample" [ngClass]="{'in' : mostrarFiltros}">
+            <div class="col-sm-2 text-left">
+              <label style="display: block" for="nombre">Nombre</label>
+              <input id="nombre" type="text" style="display: block" class="form-control" name="nombresNovios" [(ngModel)]="nombresNovios">
+            </div>
+            <div class="col-sm-2 text-left">
+              <label style="display: block" for="apellido">Apellido</label>
+              <input id="apellido" type="text" style="display: block" class="form-control" name="apellidosNovios" [(ngModel)]="apellidosNovios">
+            </div>
+            <div class="col-sm-2 text-left">
+              <label style="display: block" for="codigo">Código</label>
+              <input id="codigo" type="text" style="display: block" class="form-control" name="codigoLista" [(ngModel)]="codigoLista">
+            </div>
+            <div class="col-sm-3">
+              <button type="button" name="buscar" class="btn btn-listas" (click)="buscarLista()">Buscar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <br>
+    <!-- Tabla con listas encontradas -->
+    <div class="row">
+      <div class="row">
+        <div class="col-xs-12 text-center">
+          <hr class="linea-bottom">
+          <p>Se encontraron {{pruebaListas.length}} resultados</p>
+        </div>
+      </div>
+      <div class="col-xs-12">
+        <table class="table table-striped table-hover table-listas">
+          <thead>
+            <tr class="table-title">
+              <th>Código</th>
+              <th>Novios</th>
+              <th class="hidden-xs">Fecha de boda</th>
+              <th class="hidden-xs">Lista de regalos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let novios of listas">
+              <th scope="row">{{novios.codigo}}</th>
+              <td class="nombres-novios" [innerHTML]="novios.novios"></td>
+              <td class="hidden-xs">{{novios.fecha}}</td>
+              <td class="hidden-xs">
+                <button type="button" name="verLista" class="btn btn-listas" (click)="removeSession(novios.idLista,novios.codigo,novios.novios,novios.fecha)" [routerLink]="['/lista', novios.codigo]">Ver lista</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
