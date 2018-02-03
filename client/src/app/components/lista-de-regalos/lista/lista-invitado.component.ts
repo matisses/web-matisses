@@ -33,6 +33,8 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public claveNueva: string;
   public claveConfirmacion: string;
   public messageError: string;
+  public formatoFechaEvento: string;
+  public novios: string;
   public items: Array<Item>;
   public queryParams: Map<string, string>;
   public queryString: string;
@@ -61,7 +63,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public shoppingCart: any;
   public item: Item;
   private idCarrito: string;
- public totalItemsCarrito: number;
+  public totalItemsCarrito: number;
   public totalCarrito: number = 0;
   public totalImpuestos: number = 0;
   public totalDescuentos: number = 0;
@@ -71,6 +73,8 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista= localStorage.getItem('codigo-lista');
     this.fechaEvento=localStorage.getItem('fecha-evento');
+    this.formatoFechaEvento =sessionStorage.getItem('formatoFechaEvento');
+    this.novios = sessionStorage.getItem('novios');
     //this.idListaUsuario=localStorage.getItem('id-lista');cambiar a esta al tener la consulta
     this.idListaUsuario='2056';
     this.queryParams = new Map<string, string>();
