@@ -10,11 +10,11 @@
         <span class="glyphicon glyphicon-menu-right"></span>
         <span class="sr-only">Next</span>
       </a>
-      <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{keywords: 'DaFre', pageSize: '10000'}">
+      <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{keywords: 'bellagio'}">
         <div class="principal-01">
           <div class="container">
             <div class="row">
-              <div class="col-xs-12">
+              <!-- <div class="col-xs-12">
                 <div class="text-01">
                   <img src="assets/images/banner/slide-1/logo_alfdafre.png" class="logo" alt="">
                   <p>El verdadero<br/>Diseño<br/>Italiano
@@ -23,7 +23,7 @@
                     IR A COMPRAR
                   </p>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -37,7 +37,7 @@
   <div class="row" *ngIf="items && items.length > 0">
     <div class="col-sm-3 col-xs-6 text-center">
       <div class="recomendaciones">
-        <p class="name">MESA AUXILIAR<br><b>TUFT</b></p>
+        <p class="name">BUFFET<br><b>BELLAGIO</b></p>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[0].shortitemcode]">
           <img src="https://img.matisses.co/{{items[0].itemcode}}/parrilla/{{items[0].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[0].itemname}}">
         </a>
@@ -47,7 +47,7 @@
     </div>
     <div class="col-sm-3 col-xs-6 text-center" *ngIf="items && items.length >= 2">
       <div class="recomendaciones">
-        <p class="name">MESA DE CENTRO<br><b>MOCA</b></p>
+        <p class="name">MESA TOCADOR<br><b>BELLAGIO</b></p>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[1].shortitemcode]">
           <img src="https://img.matisses.co/{{items[1].itemcode}}/parrilla/{{items[1].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[1].itemname}}">
         </a>
@@ -58,16 +58,16 @@
 
     <div class="col-sm-6 col-xs-12" *ngIf="items && items.length >= 3">
       <div class="sub-banner text-center">
-        <a href="javascript:void(0)">
+        <a href="javascript:void(0)" [routerLink]="['/producto/2440096']">
           <!--  [routerLink]="['/producto', items[2].shortitemcode]" -->
           <img src="assets/images/banner/slide-1/banner-03.jpg" class="img-responsive" alt="">
         </a>
       </div>
       <div class="row">
-        <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{ keywords: 'denny' }">
+        <a href="javascript:void(0)" [routerLink]="['/producto/2440096']">
           <div class="col-xs-12">
             <div class="sub-banner-footer">
-              <p><b>PUFF DENNY DESDE $ {{items[2].priceaftervat | number}}</b></p>
+              <p><b>CAMA DOBLE BELLAGIO $ {{items[2].priceaftervat | number}}</b></p>
               <button type="submit" class="ir-comprar" name="comprar-ya">Ir a comprar</button>
             </div>
           </div>
