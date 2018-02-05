@@ -47,11 +47,10 @@ export class ResultadoBusquedaListasComponent implements OnInit {
     });
   }
 
-  public removeSession(idLista:string, codigolista:string, nombreLista:string, fechaEvento:string) {
-    console.log('remove session'+this.codigoLista);
-    localStorage.setItem('codigo-lista',codigolista);
-    localStorage.setItem('nombreLista',nombreLista);
-    localStorage.setItem('fecha-evento',fechaEvento);
+  public removeSession(idLista: string, codigolista: string, nombreLista: string, fechaEvento: string) {
+    localStorage.setItem('codigo-lista', codigolista);
+    localStorage.setItem('nombreLista', nombreLista);
+    localStorage.setItem('fecha-evento', fechaEvento);
     localStorage.setItem('id-lista', idLista);
     sessionStorage.removeItem('nombresNovios');
     sessionStorage.removeItem('apellidosNovios');

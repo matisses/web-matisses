@@ -52,13 +52,12 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public fechaEvento: string;
   public resumenMobileVisible: boolean = false;
   public resumenDesktopVisible: boolean = false;
-
   private paramsConsulta: any;
   private itemsListaBcs: Array<any>;
   private totalLista: number;
-
   //campos carrito carrito simple
   public shoppingCart: any;
+  private resultados: any;
   public item: Item;
   private idCarrito: string;
   public totalItemsCarrito: number;
@@ -71,9 +70,8 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('fecha-evento');
-    this.formatoFechaEvento = sessionStorage.getItem('formatoFechaEvento');
     this.novios = sessionStorage.getItem('novios');
-    //this.idListaUsuario=localStorage.getItem('id-lista');cambiar a esta al tener la consulta
+    this.resultados = sessionStorage.getItem('resultados');
     this.idListaUsuario = localStorage.getItem('id-lista');
     this.queryParams = new Map<string, string>();
     this.itemsXPag = '12 x pag';
@@ -82,7 +80,6 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     this.items = new Array<Item>();
     this.url = this._router.url;
     this.itemsListaBcs = new Array<any>();
-
     //carrito de COMPRAS
     this.inicializarShoppingCart();
   }
@@ -98,30 +95,21 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    // if (localStorage.getItem('cambio-clave') == 'si') {
-    //   $('#cambioContraseña').modal('show');
-    // }
-    console.log('id lista' + localStorage.getItem('id-lista'));
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('fecha-evento');
     this.idListaUsuario = localStorage.getItem('id-lista');
     this.inicializarShoppingCart();
     this.cargarItems0();
+    this.cargarFechaEvento();
   }
 
 
   ngAfterViewInit() {
-    console.log('id lista' + localStorage.getItem('id-lista'));
-    //this.inicializarItems();
-    //this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('fecha-evento');
     this.idListaUsuario = localStorage.getItem('id-lista');
-
-    //this.cargarItems0();
-
 
     $(window).scroll(function() {
       var scroll = $(window).scrollTop();
@@ -139,6 +127,24 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
         $('#cambioContrasena').modal('show');
       }
     }, 500);
+  }
+
+  public cargarFechaEvento() {
+    if (this.codigoLista != null && this.codigoLista.length > 0) {
+      let consultaDTO = {
+        nombre: '',
+        apellido: '',
+        codigo: this.codigoLista
+      }
+      this._listaService.consultarLista(consultaDTO).subscribe(
+        response => {
+          if (response.length > 0) {
+            this.formatoFechaEvento = response[0].formatoFechaEvento;
+          }
+        },
+        error => { console.error(error); }
+      );
+    }
   }
 
   public irAPagina(pagina) {
