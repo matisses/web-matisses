@@ -30,6 +30,37 @@
   </div>
 </div>
 
+<!-- Modal compartir -->
+<div class="modal fade" id="modalCompartir" tabindex="-1" role="dialog" aria-labelledby="modalCompartirLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center" id="modalCompartirLabel">
+          <div class="compartir-lista cursor-pointer no-selector">
+            <span class="icon-compartir"></span>
+            <p class="cursor-pointer">Compartir lista</p>
+          </div>
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-5 col-sm-offset-0 col-xs-6 col-xs-offset-3 text-center">
+            <img src="../../../assets/images/codigo-qr.png" class="jpg-responsive" alt="">
+            <button type="button" name="descargar-qr" class="btn btn-qr">Descargar QR</button>
+          </div>
+          <div class="col-sm-7 col-sm-offset-0 col-xs-12 text-center">
+            <p class="text-justify">
+              Envía este código a todos tus invitados y así pueden acceder a tu lista para hacer las compras en línea.
+            </p>
+            <h1 class="codigo-lista">{{codigoLista}}</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <menu-lista></menu-lista>
 
 <div class="container">
@@ -91,14 +122,17 @@
         <span>{{totalLista}}</span>
         <p>Regalos agregados</p>
       </div>
+      <!-- boton agregar -->
       <div class="col-xs-3 agregar-regalo no-selector">
         <span class="icon-agregar-regalo"></span>
         <p [routerLink]="['/mi-lista/agregar-productos']">Agregar regalos</p>
       </div>
-      <div class="col-xs-3 compartir-lista cursor-pointer no-selector">
+      <!-- boton compartir -->
+      <div class="col-xs-3 compartir-lista cursor-pointer no-selector" data-toggle="modal" data-target="#modalCompartir">
         <span class="icon-compartir"></span>
         <p class="cursor-pointer">Compartir lista</p>
       </div>
+      <!-- boton buscar -->
       <div class="col-xs-3">
         <form (submit)="search()">
           <div class="input-group">
@@ -106,7 +140,6 @@
             <span class="input-group-addon icon-lupa" id="basic-addon1"></span>
           </div>
         </form>
-        <!--<input type="text" name="search" class="form-control" value="Busca productos en tu lista">-->
       </div>
     </div>
     <br>

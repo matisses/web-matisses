@@ -2,6 +2,20 @@
   margin-top: 110px;
 }
 
+.codigo-lista {
+  color: #D77D7D;
+}
+
+.btn-qr {
+  border-radius: 0;
+  background-color: #D77D7D;
+  color: #FFF;
+}
+
+.btn-qr:hover {
+  background-color: #AB4646;
+}
+
 .menu1 {
   background-color: #F8F8F8;
   height: 30px;
@@ -208,5 +222,11 @@
 @media screen and (max-width: 991px) {
   .ordenar {
     margin: 10px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .btn-qr {
+    margin-bottom: 20px;
   }
 }
