@@ -31,6 +31,7 @@ export class CrearListaComponent implements OnInit {
   public lugar: string;
   public tiendaContacto: string;
   public usarDatos: string;
+  public tipoLista: string;
   public idListaCreada: string;
   public nombreCreadorLista: string;
   public fechaEventoLista: string;
@@ -65,6 +66,8 @@ export class CrearListaComponent implements OnInit {
   public aceptaTerminos: boolean = false;
   public existeCreador: boolean = false;
   public existeCocreador: boolean = false;
+  public aceptaBonos: boolean = false;
+  public permitirEntregaPersonal: boolean = false;
   public dayEvent: Array<number>;
   public yearEvent: Array<number>;
   public monthEvent: Array<number>;
@@ -87,21 +90,13 @@ export class CrearListaComponent implements OnInit {
     this.tiendaContacto = '';
     this.messageError = '';
     this.messageExit = '';
-    this.usarDatos = 'CREADOR'
+    this.usarDatos = 'CREADOR';
+    this.tipoLista = 'PUBLICA';
     this.messageAgadecimiento = '';
     this.notificacionInmediataMailCreador = true;
   }
 
   ngOnInit() {
-    // $(window).scroll(function() {
-    //   var scroll = $(window).scrollTop();
-    //   if (scroll >= 30) {
-    //     $(".contenedor-formulario").addClass("margin-top-scroll");
-    //   } else {
-    //     $(".contenedor-formulario").removeClass("margin-top-scroll")
-    //   }
-    // });
-
     //Bloqueo del botón ir atras, no deja al usuario ir atras.
     window.onload = function() {
       if (typeof history.pushState === "function") {
@@ -128,28 +123,7 @@ export class CrearListaComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    // this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    // if (this.viewportWidth <= 767) {
-    //   this.showDatos(-1);
-    // } else {
-    // }
   }
-
-  // public showDatos(option:number) {
-  //   if (this.viewportWidth <= 768) {
-  //     if ((option === 0 || option === 1) && !this.mostrarDatosNovia) {
-  //       this.mostrarDatosNovia = true;
-  //     } else {
-  //       this.mostrarDatosNovia = false;
-  //     }
-  //     if ((option === 0 || option === 2) && !this.mostrarDatosNovio) {
-  //       this.mostrarDatosNovio = true;
-  //     } else {
-  //       this.mostrarDatosNovio = false;
-  //     }
-  //   } else {
-  //   }
-  // }
 
   public seleccionarEvento(id) {
     this.tipoEvento = id;
@@ -330,6 +304,7 @@ export class CrearListaComponent implements OnInit {
     let apellidosCocreador = '';
     let usarDatosCreador;
     let usarDatosCocreador;
+    let tipoLista;
     apellidosCreador += this.customerCreador.lastName1;
     apellidosCocreador += this.customerCocreador.lastName1;
     if (this.customerCreador.lastName2 != null && this.customerCreador.lastName2.length > 0) {
@@ -348,6 +323,11 @@ export class CrearListaComponent implements OnInit {
     } else {
       usarDatosCocreador = false;
     }
+    if (this.tipoLista == 'PRIVADA') {
+      tipoLista = true;
+    } else {
+      tipoLista = false;
+    }
 
     if (this.aceptaTerminos) {
       let listGiftDTO = {
@@ -360,9 +340,9 @@ export class CrearListaComponent implements OnInit {
         rutaImagenPortada: null,
         mensajeBienvenida: null,
         mensajeAgradecimiento: this.messageAgadecimiento,
-        listaPrivada: false,
-        aceptaBonos: true,
-        permitirEntregaPersonal: false,
+        listaPrivada: tipoLista,
+        aceptaBonos: this.aceptaBonos,
+        permitirEntregaPersonal: this.permitirEntregaPersonal,
         activa: true,
         fechaCreacion: null,
         formatoFechaEvento: this.anoInicio + '-' + this.mesInicio + '-' + this.diaInicio,
