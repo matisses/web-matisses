@@ -132,9 +132,9 @@
         </div>
       </div>
       <div class="col-sm-4 col-sm-offset-1 text-right">
-        <div class="btn-volver no-selector">
+        <div class="btn-volver cursor-pointer no-selector" [routerLink]="['/mi-lista']">
           <span class="icon-volver"></span>
-          <p [routerLink]="['/mi-lista']">Volver a mi lista</p>
+          <p>Volver a mi lista</p>
         </div>
         <form (submit)="search()">
           <div class="input-group">
@@ -387,8 +387,7 @@
             <p class="precio"><b>$ {{items[i].priceaftervat | number}}</b></p>
             <div class="botones">
               <div class="col-xs-12 text-center">
-                <div class="btn-group" role="group"  *ngIf="!items[i].agregadoLista">
-
+                <div class="btn-group" role="group" [ngClass]="{'hide-this' : items[i].agregadoLista}">
                   <button type="button" class="btn btn-carrito" (click)="abrirModal(items[i].shortitemcode)">
 <!--aca hay conflicto revisar-->
                     <!-- <span class="icon-regalo_1"></span> -->

@@ -2,6 +2,10 @@
   margin-top: 110px;
 }
 
+.hide-this {
+  visibility: hidden;
+}
+
 
 /* boton de cantidad */
 
