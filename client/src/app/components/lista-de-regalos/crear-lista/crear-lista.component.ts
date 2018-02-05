@@ -201,6 +201,14 @@ export class CrearListaComponent implements OnInit {
           this.disabledCreador = true;
         },
         error => {
+          this.customerCreador.fiscalIdType = '';
+          this.customerCreador.firstName = '';
+          this.customerCreador.lastName1 = '';
+          this.customerCreador.lastName2 = '';
+          this.customerCreador.addresses[0].email = '';
+          this.customerCreador.addresses[0].cityCode = null;
+          this.customerCreador.addresses[0].address = '';
+          this.customerCreador.addresses[0].cellphone = '';
           this.existeCreador = false;
           console.error(error);
         }
@@ -235,6 +243,14 @@ export class CrearListaComponent implements OnInit {
           this.disabledCocreador = true;
         },
         error => {
+          this.customerCocreador.fiscalIdType = '';
+          this.customerCocreador.firstName = '';
+          this.customerCocreador.lastName1 = '';
+          this.customerCocreador.lastName2 = '';
+          this.customerCocreador.addresses[0].email = '';
+          this.customerCocreador.addresses[0].cityCode = null;
+          this.customerCocreador.addresses[0].address = '';
+          this.customerCocreador.addresses[0].cellphone = '';
           this.existeCocreador = false;
           console.error(error);
         }
@@ -284,9 +300,6 @@ export class CrearListaComponent implements OnInit {
       this.validForm2 = false;
     } else {
       this.limpiarCampos();
-      console.log("**************");
-      console.log(this.messageAgadecimiento);
-      console.log("**************");
       //pasar al siguiente paso
       if (this.paso < 4) {
         this.paso++;
@@ -335,8 +348,7 @@ export class CrearListaComponent implements OnInit {
     } else {
       usarDatosCocreador = false;
     }
-    console.log(usarDatosCreador);
-    console.log(usarDatosCocreador);
+
     if (this.aceptaTerminos) {
       let listGiftDTO = {
         idLista: null,
@@ -418,7 +430,6 @@ export class CrearListaComponent implements OnInit {
             this._router.navigate(['/mi-lista']);
           } else {
             this.messageError = response.mensaje;
-            console.log(response);
           }
         },
         error => {
@@ -427,7 +438,7 @@ export class CrearListaComponent implements OnInit {
         }
       );
     } else {
-      this.messageError = "Debe aceptar los terminos y condiciones.";
+      this.messageError = "Debe aceptar los términos y condiciones.";
     }
   }
 
@@ -503,7 +514,7 @@ export class CrearListaComponent implements OnInit {
 
     this._customerService.createCustomer(businesspartner).subscribe(
       response => {
-        console.log('Creador de la lista, registrado como cliente SAP');
+        console.log('Creador de la lista, registrado como cliente');
       },
       error => {
         this.messageError = 'Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.'
@@ -584,7 +595,7 @@ export class CrearListaComponent implements OnInit {
 
     this._customerService.createCustomer(businesspartner).subscribe(
       response => {
-        console.log('Cocreador de la lista, registrado como cliente SAP');
+        console.log('Cocreador de la lista, registrado como cliente');
       },
       error => {
         this.messageError = 'Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.'
