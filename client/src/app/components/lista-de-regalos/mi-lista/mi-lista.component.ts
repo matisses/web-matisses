@@ -1,11 +1,11 @@
-import { Component, OnInit,AfterViewInit} from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { ItemService } from '../../../services/item.service';
 import { Item } from '../../../models/item';
 
-import {SessionUsuarioService } from '../../../services/session-usuario.service';
-import {ListaRegalosService } from '../../../services/lista-regalos.service';
+import { SessionUsuarioService } from '../../../services/session-usuario.service';
+import { ListaRegalosService } from '../../../services/lista-regalos.service';
 
 
 
@@ -16,7 +16,7 @@ declare var $: any;
 @Component({
   templateUrl: 'mi-lista.html',
   styleUrls: ['mi-lista.component.css'],
-  providers: [ItemService, SessionUsuarioService,ListaRegalosService]
+  providers: [ItemService, SessionUsuarioService, ListaRegalosService]
 })
 
 export class MiListaComponent implements OnInit, AfterViewInit {
@@ -38,34 +38,34 @@ export class MiListaComponent implements OnInit, AfterViewInit {
   public availableFields: string[] = ['page', 'pageSize', 'orderBy', 'department', 'group', 'subgroup', 'color', 'minPrice', 'maxPrice', 'brand', 'material', 'collection', 'keywords', 'discount'];
   public idListaUsuario: string;
   public codigoLista: string;
-  public fechaEvento:string;
+  public fechaEvento: string;
   public paramsConsulta: any;
-  public itemsListaBcs:Array<any>;
-  public totalLista:number;
+  public itemsListaBcs: Array<any>;
+  public totalLista: number;
 
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
-    this.codigoLista= localStorage.getItem('codigo-lista');
-    this.fechaEvento=localStorage.getItem('fecha-evento');
-    this.idListaUsuario=localStorage.getItem('id-lista');
+    this.codigoLista = localStorage.getItem('codigo-lista');
+    this.fechaEvento = localStorage.getItem('fecha-evento');
+    this.idListaUsuario = localStorage.getItem('id-lista');
     this.queryParams = new Map<string, string>();
     this.itemsXPag = '12 x pag';
     this.orderByStr = 'Similares';
     this.pages = new Array<number>();
     this.items = new Array<Item>();
-    this.itemsListaBcs=new Array<any>();
+    this.itemsListaBcs = new Array<any>();
     //this.inicializarParamsConsulta();
     //this.inicializarListaBcs();
   }
 
   private inicializarParamsConsulta() {
     this.paramsConsulta = {
-    idLista:localStorage.getItem('id-lista'),
-    pagina:'1',
-    registrosPagina:'12',
-    orderBy:'referencia asc',
-    sortOrder:''
+      idLista: localStorage.getItem('id-lista'),
+      pagina: '1',
+      registrosPagina: '12',
+      orderBy: 'referencia asc',
+      sortOrder: ''
     };
   }
 
@@ -73,26 +73,26 @@ export class MiListaComponent implements OnInit, AfterViewInit {
   ngOnInit() {
 
 
-  this.nombreUsuario = localStorage.getItem('username-lista');
-  this.codigoLista= localStorage.getItem('codigo-lista');
-  this.fechaEvento=localStorage.getItem('fecha-evento');
-  this.idListaUsuario=localStorage.getItem('id-lista');
+    this.nombreUsuario = localStorage.getItem('username-lista');
+    this.codigoLista = localStorage.getItem('codigo-lista');
+    this.fechaEvento = localStorage.getItem('fecha-evento');
+    this.idListaUsuario = localStorage.getItem('id-lista');
 
-  this.cargarItems0();
+    this.cargarItems0();
 
 
   }
 
 
-ngAfterViewInit() {
+  ngAfterViewInit() {
 
-      this.nombreUsuario = localStorage.getItem('username-lista');
-      this.codigoLista= localStorage.getItem('codigo-lista');
-      this.fechaEvento=localStorage.getItem('fecha-evento');
-      this.idListaUsuario=localStorage.getItem('id-lista');
+    this.nombreUsuario = localStorage.getItem('username-lista');
+    this.codigoLista = localStorage.getItem('codigo-lista');
+    this.fechaEvento = localStorage.getItem('fecha-evento');
+    this.idListaUsuario = localStorage.getItem('id-lista');
 
 
-      //this.cargarItems0();
+    //this.cargarItems0();
 
 
     $(window).scroll(function() {
@@ -107,7 +107,7 @@ ngAfterViewInit() {
 
     this.nombreUsuario = localStorage.getItem('username-lista');
     setTimeout(function() {
-      if(localStorage.getItem('cambio-clave')=='si'){
+      if (localStorage.getItem('cambio-clave') == 'si') {
         $('#cambioContrasena').modal('show');
       }
     }, 500);
@@ -121,49 +121,49 @@ ngAfterViewInit() {
     if (this.claveNueva == null || this.claveNueva.length <= 0) {
 
       this.messageError = 'Ingresa la contraseña';
-        this.valid = false;
-        this.successMessage = '';
-        return;
+      this.valid = false;
+      this.successMessage = '';
+      return;
     }
 
     if (this.claveConfirmacion == null || this.claveConfirmacion.length <= 0 || this.claveConfirmacion == 'undefined') {
       this.messageError = 'Ingresa la confirmación de la contraseña.';
-          this.valid = false;
-          this.successMessage = '';
-        return;
+      this.valid = false;
+      this.successMessage = '';
+      return;
     }
-    if (this.claveNueva !=this.claveConfirmacion ) {
+    if (this.claveNueva != this.claveConfirmacion) {
       this.messageError = 'Ambas contraseñas deben ser iguales.';
       this.successMessage = '';
-        return;
+      return;
     }
     let usuarioDTO = {
       nombreUsuario: this.nombreUsuario,
       password: this.claveNueva,
-      usuarioId:localStorage.getItem('usuario-id')
+      usuarioId: localStorage.getItem('usuario-id')
 
     }
 
     this._userService.updateUser(usuarioDTO).subscribe(
       response => {
-        if(response=='OK'){
+        if (response == 'OK') {
 
 
-        console.log('actualizo el usuario');
-        this.successMessage = '1';
-        localStorage.removeItem('cambio-clave');
-        localStorage.setItem('cambio-clave','no');
+          console.log('actualizo el usuario');
+          this.successMessage = '1';
+          localStorage.removeItem('cambio-clave');
+          localStorage.setItem('cambio-clave', 'no');
           $('#cambioContrasena').modal('hide');
-        return;
+          return;
         }
-        else{
-          this.messageError='Ocurrio un error al actualizar el usuario';
+        else {
+          this.messageError = 'Ocurrio un error al actualizar el usuario';
         }
       },
       error => {
 
 
-        this.messageError="ocurrio un error en el servicio";
+        this.messageError = "ocurrio un error en el servicio";
       }
     );
 
@@ -277,79 +277,79 @@ ngAfterViewInit() {
 
       if (this.queryParams.has('pageSize')) {
 
-        this.paramsConsulta.registrosPagina=this.queryParams.get('pageSize');
+        this.paramsConsulta.registrosPagina = this.queryParams.get('pageSize');
       }
 
       if (this.queryParams.has('orderBy')) {
         switch (this.queryParams.get('orderBy')) {
           case '-price':
 
-            this.paramsConsulta.orderBy='precio';
+            this.paramsConsulta.orderBy = 'precio';
             break;
           case 'price':
 
-            this.paramsConsulta.orderBy='precio asc';
+            this.paramsConsulta.orderBy = 'precio asc';
             break;
           case '-itemname':
 
-            this.paramsConsulta.orderBy='referencia';
+            this.paramsConsulta.orderBy = 'referencia';
             break;
           case 'itemname':
 
-            this.paramsConsulta.orderBy='referencia asc';
+            this.paramsConsulta.orderBy = 'referencia asc';
             break;
           default:
 
-            this.paramsConsulta.orderBy='';
+            this.paramsConsulta.orderBy = '';
         }
       }
-      if(this.queryParams.has('page')){
-        this.paramsConsulta.pagina=this.queryParams.get('page');
+      if (this.queryParams.has('page')) {
+        this.paramsConsulta.pagina = this.queryParams.get('page');
       }
 
 
       this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
-          response => {
-            this.totalLista=response;
+        response => {
+          this.totalLista = response;
 
-          },
-          error =>{
-            console.log("error servicio bcs"+error);
-          }
+        },
+        error => {
+          console.log("error servicio bcs" + error);
+        }
 
 
       );
 
 
       this._listaService.consultarListaPaginada(this.paramsConsulta).subscribe(
-          response => {
+        response => {
 
-            this.itemsListaBcs=response;
+          this.itemsListaBcs = response;
 
-            this.items=new Array<Item>();
-            for (let i = 0; i < this.itemsListaBcs.length; i++) {
-               this.itemsListaBcs[i].referencia;
+          this.items = new Array<Item>();
+          for (let i = 0; i < this.itemsListaBcs.length; i++) {
+            this.itemsListaBcs[i].referencia;
 
-               let cadena1=this.itemsListaBcs[i].referencia.substring(0,3);
-               let cadena2=this.itemsListaBcs[i].referencia.substring(16,20);
+            let cadena1 = this.itemsListaBcs[i].referencia.substring(0, 3);
+            let cadena2 = this.itemsListaBcs[i].referencia.substring(16, 20);
 
-               this._itemService.find(cadena1+cadena2).subscribe( // Item 1
-                 response => {
-                   response.result[0].cantidadElegida=this.itemsListaBcs[i].cantidadElegida;
-                   response.result[0].cantidadComprada=this.itemsListaBcs[i].cantidadComprada;
-                   this.items.push(response.result[0]);
-                },
-                error=>{
+            this._itemService.find(cadena1 + cadena2).subscribe( // Item 1
+              response => {
+                response.result[0].cantidadElegida = this.itemsListaBcs[i].cantidadElegida;
+                response.result[0].cantidadComprada = this.itemsListaBcs[i].cantidadComprada;
+                this.items.push(response.result[0]);
+              },
+              error => {
 
-                }
+              }
 
-              );
-            }
-            this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalLista);
-          },
-          error =>{
-            console.log("error servicio bcs"+error);
+            );
           }
+          this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalLista);
+        },
+        error => {
+          console.log("error servicio bcs" + error);
+        }
 
 
       );
@@ -383,49 +383,58 @@ ngAfterViewInit() {
 
   public eliminarProducto(itemCode) {
 
-     this._listaService.eliminarProducto(itemCode, this.idListaUsuario).subscribe(
-       response => {
+    this._listaService.eliminarProducto(itemCode, this.idListaUsuario).subscribe(
+      response => {
 
-       this._itemService.find(itemCode).subscribe( // Item 1
-         response => {
+        this._itemService.find(itemCode).subscribe( // Item 1
+          response => {
 
-           var index=-1;
-           for (var i = 0; i < this.items.length; i++) {
+            var index = -1;
+            for (var i = 0; i < this.items.length; i++) {
 
-               if (this.items[i]['shortitemcode'] === itemCode) {
-                   index=i;
-                   this.totalItems=this.totalItems-1;
-               }
-           }
+              if (this.items[i]['shortitemcode'] === itemCode) {
+                index = i;
+                this.totalItems = this.totalItems - 1;
+              }
+            }
 
-           if (index > -1) {
-            this.items.splice(index, 1);
-            this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalItems);
-            return;
+            if (index > -1) {
+              this.items.splice(index, 1);
+              this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalItems);
+              return;
+            }
+          }, error => { console.error(); }
+        );
+        this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
+          response => {
+            this.totalLista = response;
+          },
+          error => {
+            console.log("error servicio bcs" + error);
           }
-        }, error => { console.error(); }
-      );
-         return;
-       },
-       error => {
+        );
+        console.log(this.totalLista);
+        return;
+      },
+      error => {
 
 
-         this.messageError="ocurrio un error en el servicio de eliminacion";
-       }
-     );
-   }
-
-   public cerrarSession(){
-     console.log('cerrar sesion');
-     localStorage.removeItem('matisses.lista-token');
-     localStorage.removeItem('username-lista');
-     localStorage.removeItem('usuario-id');
-     localStorage.removeItem('cambio-clave');
-     localStorage.removeItem('id-lista');
-     localStorage.removeItem('codigo-lista');
-     localStorage.removeItem('fecha-evento');
-
-     this._router.navigate(['/lista-de-regalos']);
-   }
-
+        this.messageError = "Ocurrio un error en el servicio de eliminacion";
+      }
+    );
   }
+
+  public cerrarSession() {
+    console.log('cerrar sesion');
+    localStorage.removeItem('matisses.lista-token');
+    localStorage.removeItem('username-lista');
+    localStorage.removeItem('usuario-id');
+    localStorage.removeItem('cambio-clave');
+    localStorage.removeItem('id-lista');
+    localStorage.removeItem('codigo-lista');
+    localStorage.removeItem('fecha-evento');
+
+    this._router.navigate(['/lista-de-regalos']);
+  }
+
+}

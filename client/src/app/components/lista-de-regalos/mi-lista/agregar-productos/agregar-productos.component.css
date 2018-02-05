@@ -221,6 +221,15 @@
   margin-top: 50%;
 }
 
+.btn-carrito span {
+  color: #D77D7D;
+  font-size: 20px;
+}
+
+.btn-carrito:hover > span {
+  color: #FFF;
+}
+
 
 /* paginador */
 

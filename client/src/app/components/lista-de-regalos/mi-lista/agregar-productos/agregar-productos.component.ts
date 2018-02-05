@@ -498,19 +498,19 @@ export class AgregarProductosComponent implements OnInit {
 
 
             }
-            this.successMessage="el producto fue agregado a tu lista corrrectamente";
+            this.successMessage="El producto fue agregado a tu lista corrrectamente";
             $('#modalAgregar').modal('hide')
             return;
           }
           else{
 
-            this.messageError="ocurrio un error agregando el producto a tu lista."+' '+response.mensaje;
+            this.messageError="Ocurrio un error agregando el producto a tu lista."+' '+response.mensaje;
             return;
           }
 
         },
         error => {
-              this.messageError="ocurrio un error agregando el producto a tu lista"+error;
+              this.messageError="Ocurrio un error agregando el producto a tu lista."+' '+error;
 
         }
       );
