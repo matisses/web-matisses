@@ -37,7 +37,7 @@
               <!-- Descripcion -->
               <br>
               <br>
-              <p class="text-justify">{{formAgregar.description}}</p>
+              <p class="text-justify" [innerHTML]="formAgregar.description"></p>
               <!-- btn cantidad -->
               <br>
               <div class="row">
@@ -390,7 +390,7 @@
                 <div class="btn-group" role="group" [ngClass]="{'hide-this' : items[i].agregadoLista}">
                   <button type="button" class="btn btn-carrito" (click)="abrirModal(items[i].shortitemcode)">
 <!--aca hay conflicto revisar-->
-                    <!-- <span class="icon-regalo_1"></span> -->
+                    <span class="icon-agregar-regalo"></span>
                     AGREGAR REGALO
                   </button>
                 </div>
