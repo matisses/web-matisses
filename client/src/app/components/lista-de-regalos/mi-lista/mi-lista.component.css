@@ -22,10 +22,6 @@
   color: #D77D7D;
 }
 
-.regalos-agregados span {
-  font-weight: bold;
-}
-
 .agregar-regalo {
   border-left: 1px solid #CCC;
   border-right: 1px solid #CCC;
@@ -33,11 +29,15 @@
   padding-top: 10px;
 }
 
+.regalos-agregados {
+  padding-top: 10px;
+}
+
 .compartir-lista {
   padding-top: 10px;
 }
 
-.agregar-regalo span, .compartir-lista span {
+.agregar-regalo span, .compartir-lista span, .regalos-agregados span {
   font-size: 30px;
   color: #D77D7D;
 }
