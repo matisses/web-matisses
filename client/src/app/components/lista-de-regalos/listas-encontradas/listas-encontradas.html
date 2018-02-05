@@ -16,35 +16,39 @@
         </div>
       </div>
     </div>
-    <form id="buscarLista">
-      <div class="row text-center">
-        <div class="buscar-lista">
-          <div class="col-sm-3" *ngIf="mostrarFiltros">
-            <h4>Busca una lista</h4>
-          </div>
-          <div class="col-sm-3" *ngIf="!mostrarFiltros">
-            <h4 role="button" (click)="showFiltros()">Busca una lista <span class="glyphicon glyphicon-chevron-down"></span></h4>
-          </div>
-          <div class="collapse" id="collapseExample" [ngClass]="{'in' : mostrarFiltros}">
-            <div class="col-sm-2 text-left">
-              <label style="display: block" for="nombre">Nombre</label>
+    <div class="row text-center">
+      <div class="buscar-lista">
+        <div class="col-sm-3" *ngIf="mostrarFiltros">
+          <h4>Busca una lista</h4>
+        </div>
+        <div class="col-sm-3" *ngIf="!mostrarFiltros">
+          <h4 role="button" (click)="showFiltros()">Busca una lista <span class="glyphicon glyphicon-chevron-down"></span></h4>
+        </div>
+        <div class="collapse" id="collapseExample" [ngClass]="{'in' : mostrarFiltros}">
+          <div class="col-sm-2 text-left">
+            <label style="display: block" for="nombre">Nombre</label>
+            <form (submit)="buscarLista()">
               <input id="nombre" type="text" style="display: block" class="form-control" name="nombresNovios" [(ngModel)]="nombresNovios">
-            </div>
-            <div class="col-sm-2 text-left">
-              <label style="display: block" for="apellido">Apellido</label>
+            </form>
+          </div>
+          <div class="col-sm-2 text-left">
+            <label style="display: block" for="apellido">Apellido</label>
+            <form (submit)="buscarLista()">
               <input id="apellido" type="text" style="display: block" class="form-control" name="apellidosNovios" [(ngModel)]="apellidosNovios">
-            </div>
-            <div class="col-sm-2 text-left">
-              <label style="display: block" for="codigo">Código</label>
+            </form>
+          </div>
+          <div class="col-sm-2 text-left">
+            <label style="display: block" for="codigo">Código</label>
+            <form (submit)="buscarLista()">
               <input id="codigo" type="text" style="display: block" class="form-control" name="codigoLista" [(ngModel)]="codigoLista">
-            </div>
-            <div class="col-sm-3">
-              <button type="button" name="buscar" class="btn btn-listas" (click)="buscarLista()">Buscar</button>
-            </div>
+            </form>
+          </div>
+          <div class="col-sm-3">
+            <button type="button" name="buscar" class="btn btn-listas" (click)="buscarLista()">Buscar</button>
           </div>
         </div>
       </div>
-    </form>
+    </div>
     <br>
     <!-- Tabla con listas encontradas -->
     <div class="row">
