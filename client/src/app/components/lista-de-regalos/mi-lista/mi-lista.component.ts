@@ -389,7 +389,7 @@ export class MiListaComponent implements OnInit {
 
   public eliminarProducto(itemCode) {
 
-    this._listaService.eliminarProducto(itemCode, this.idListaUsuario1).subscribe(
+    this._listaService.eliminarProducto(itemCode, this.idListaUsuario).subscribe(
       response => {
 
         this._itemService.find(itemCode).subscribe( // Item 1
@@ -411,7 +411,7 @@ export class MiListaComponent implements OnInit {
             }
           }, error => { console.error(); }
         );
-        this._listaService.consultarTotalLista(this.idListaUsuario1).subscribe(
+        this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
           response => {
             this.totalLista = response;
           },
