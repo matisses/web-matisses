@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { ItemService } from '../../../../services/item.service';
 import { Item } from '../../../../models/item';
-import {ListaRegalosService } from '../../../../services/lista-regalos.service';
+import { ListaRegalosService } from '../../../../services/lista-regalos.service';
 
 declare var jquery: any;
 declare var $: any;
@@ -11,14 +11,12 @@ declare var $: any;
 @Component({
   templateUrl: 'agregar-productos.html',
   styleUrls: ['agregar-productos.component.css'],
-  providers: [ItemService,ListaRegalosService]
+  providers: [ItemService, ListaRegalosService]
 })
 
 export class AgregarProductosComponent implements OnInit {
   public items: Array<Item>;
   public itemsAgregados: Array<Item>;
-  public mostrarFiltros: boolean = true;
-  public viewportWidth: number = 0;
   public filtrosDisponibles: Map<String, Array<any>>;
   public filtrosAplicados: Array<string[]>;
   public queryParams: Map<string, string>;
@@ -36,19 +34,22 @@ export class AgregarProductosComponent implements OnInit {
   public maxPrice: number;
   public viewHasLoaded: boolean = false;
   public formAgregar: any;
-  public idListaUsuario:string;
+  public idListaUsuario: string;
   public messageError: string;
-  public nombreUsuario:string;
-  public codigoLista:string;
-  public fechaEvento:string;
+  public nombreUsuario: string;
+  public codigoLista: string;
+  public fechaEvento: string;
+  public mostrarFiltro: boolean = true;
+  public mostrarCategoria: boolean = true;
+  private viewportWidth: number = 0;
 
- //public shoppingCart: any;
+  //public shoppingCart: any;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
-    this.codigoLista= localStorage.getItem('codigo-lista');
-    this.fechaEvento=localStorage.getItem('fecha-evento');
-    this.idListaUsuario=localStorage.getItem('id-lista');
+    this.codigoLista = localStorage.getItem('codigo-lista');
+    this.fechaEvento = localStorage.getItem('fecha-evento');
+    this.idListaUsuario = localStorage.getItem('id-lista');
     this.filtrosDisponibles = new Map<String, Array<any>>();
     this.filtrosAplicados = new Array<string[]>();
     this.queryParams = new Map<string, string>();
@@ -62,49 +63,48 @@ export class AgregarProductosComponent implements OnInit {
 
   private inicializarForm() {
     this.formAgregar = {
-      itemcode:'',
+      itemcode: '',
       name: '',
-      description:'',
-      cantidad:0,
-      msjagradecimiento:'',
-      image:''
+      description: '',
+      cantidad: 0,
+      msjagradecimiento: '',
+      image: ''
     };
   }
 
   ngOnInit() {
     //this.inicializarItems();
     this.nombreUsuario = localStorage.getItem('username-lista');
-    this.codigoLista= localStorage.getItem('codigo-lista');
-    this.fechaEvento=localStorage.getItem('fecha-evento');
-    this.idListaUsuario=localStorage.getItem('id-lista');
-     this.cargarItems0();
+    this.codigoLista = localStorage.getItem('codigo-lista');
+    this.fechaEvento = localStorage.getItem('fecha-evento');
+    this.idListaUsuario = localStorage.getItem('id-lista');
+    this.cargarItems0();
+
   }
 
 
   ngAfterViewInit() {
-
     this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 
-    // $(window).scroll(function() {
-    //   var scroll = $(window).scrollTop();
-    //   if (scroll >= 30) {
-    //     console.log(scroll);
-    //     $(".contenedor").addClass("margin-top-scroll");
-    //   } else {
-    //     $(".contenedor").removeClass("margin-top-scroll")
-    //   }
-    // });
+      if (this.viewportWidth <= 768) {
+        this.mostrarFiltro = true;
+        this.mostrarCategoria = false;
+      } else {
+        this.mostrarFiltro = false;
+        this.mostrarCategoria = true;
+      }
+
   }
 
   public showFiltros() {
-    if (this.mostrarFiltros) {
-      this.mostrarFiltros = false;
+    if (this.mostrarFiltro) {
+      this.mostrarFiltro = false;
+      console.log(this.mostrarFiltro);
     } else {
-      this.mostrarFiltros = true;
+      this.mostrarFiltro = true;
+      console.log(this.mostrarFiltro);
     }
   }
-
-
 
   private scrollAfterFiter() {
     if (this.viewportWidth <= 768) {
@@ -206,7 +206,7 @@ export class AgregarProductosComponent implements OnInit {
       this._itemService.filter(this.queryString).subscribe(
         response => {
           this.items = response.result;
-          this.totalItems=response.records;
+          this.totalItems = response.records;
           for (let i = 0; i < this.items.length; i++) {
             //validar si el ítem tiene descuentos
             // this._descuentosService.findDiscount(this.items[i].itemcode).subscribe(
@@ -451,17 +451,17 @@ export class AgregarProductosComponent implements OnInit {
   public abrirModal(itemcode) {
 
     this.inicializarForm();
-    this.messageError='';
-    this.successMessage='';
+    this.messageError = '';
+    this.successMessage = '';
     this.valid = true;
     this._itemService.find(itemcode).subscribe( // Item 1
       response => {
 
-        this.formAgregar.itemcode=response.result[0].itemcode;
-        this.formAgregar.name=response.result[0].itemname;
-        this.formAgregar.image='https://img.matisses.co/'+response.result[0].itemcode+'/parrilla/'+response.result[0].itemcode+'_01.jpg';
-        this.formAgregar.description=response.result[0].description;
-        this.formAgregar.cantidad=0;
+        this.formAgregar.itemcode = response.result[0].itemcode;
+        this.formAgregar.name = response.result[0].itemname;
+        this.formAgregar.image = 'https://img.matisses.co/' + response.result[0].itemcode + '/parrilla/' + response.result[0].itemcode + '_01.jpg';
+        this.formAgregar.description = response.result[0].description;
+        this.formAgregar.cantidad = 0;
       }
     );
 
@@ -470,75 +470,75 @@ export class AgregarProductosComponent implements OnInit {
 
   public agregarProducto(agregarForm) {
 
-      console.log('entra en el agregarProducto');
-      console.log(this.formAgregar);
-      console.log(this.idListaUsuario);
+    console.log('entra en el agregarProducto');
+    console.log(this.formAgregar);
+    console.log(this.idListaUsuario);
 
-      let productoAgregar={
-        idLista:this.idListaUsuario,
-        cantidadElegida:this.formAgregar.cantidad,
-        referencia:this.formAgregar.itemcode,
-        descripcionProducto:this.formAgregar.name,
-        mensajeAgradecimiento:this.formAgregar.msjagradecimiento,
-        favorito:0,
-        active:1
-      };
-      this._listaService.agregarProducto(productoAgregar).subscribe( // Item 1
-        response => {
-
-
-          if(response.codigo =="0"){
-            for (let i = 0; i < this.items.length; i++) {
-              //validar si el ítem tiene descuentos
-
-                  if (this.items[i].itemcode === productoAgregar.referencia) {
-                    console.log(productoAgregar.referencia);
-                    this.items[i].agregadoLista=true;
-                  }
+    let productoAgregar = {
+      idLista: this.idListaUsuario,
+      cantidadElegida: this.formAgregar.cantidad,
+      referencia: this.formAgregar.itemcode,
+      descripcionProducto: this.formAgregar.name,
+      mensajeAgradecimiento: this.formAgregar.msjagradecimiento,
+      favorito: 0,
+      active: 1
+    };
+    this._listaService.agregarProducto(productoAgregar).subscribe( // Item 1
+      response => {
 
 
+        if (response.codigo == "0") {
+          for (let i = 0; i < this.items.length; i++) {
+            //validar si el ítem tiene descuentos
+
+            if (this.items[i].itemcode === productoAgregar.referencia) {
+              console.log(productoAgregar.referencia);
+              this.items[i].agregadoLista = true;
             }
-            this.successMessage="El producto fue agregado a tu lista corrrectamente";
-            $('#modalAgregar').modal('hide')
-            return;
+
+
           }
-          else{
-
-            this.messageError="Ocurrio un error agregando el producto a tu lista."+' '+response.mensaje;
-            return;
-          }
-
-        },
-        error => {
-              this.messageError="Ocurrio un error agregando el producto a tu lista."+' '+error;
-
+          this.successMessage = "El producto fue agregado a tu lista corrrectamente";
+          $('#modalAgregar').modal('hide')
+          return;
         }
-      );
-}
+        else {
 
-public aumentarCantidad() {
+          this.messageError = "Ocurrio un error agregando el producto a tu lista." + ' ' + response.mensaje;
+          return;
+        }
+
+      },
+      error => {
+        this.messageError = "Ocurrio un error agregando el producto a tu lista." + ' ' + error;
+
+      }
+    );
+  }
+
+  public aumentarCantidad() {
 
     this.formAgregar.cantidad += 1;
 
-}
-
-public reducirCantidad() {
-  if (this.formAgregar.cantidad > 1) {
-    this.formAgregar.cantidad -= 1;
   }
-}
 
-public cerrarSession(){
-  console.log('cerrar sesion');
-  localStorage.removeItem('matisses.lista-token');
-  localStorage.removeItem('username-lista');
-  localStorage.removeItem('usuario-id');
-  localStorage.removeItem('cambio-clave');
-  localStorage.removeItem('id-lista');
-  localStorage.removeItem('codigo-lista');
-  localStorage.removeItem('fecha-evento');
+  public reducirCantidad() {
+    if (this.formAgregar.cantidad > 1) {
+      this.formAgregar.cantidad -= 1;
+    }
+  }
 
-  this._router.navigate(['/lista-de-regalos']);
-}
+  public cerrarSession() {
+    console.log('cerrar sesion');
+    localStorage.removeItem('matisses.lista-token');
+    localStorage.removeItem('username-lista');
+    localStorage.removeItem('usuario-id');
+    localStorage.removeItem('cambio-clave');
+    localStorage.removeItem('id-lista');
+    localStorage.removeItem('codigo-lista');
+    localStorage.removeItem('fecha-evento');
+
+    this._router.navigate(['/lista-de-regalos']);
+  }
 
 }

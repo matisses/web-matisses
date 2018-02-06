@@ -1,66 +1,3 @@
-<!-- Modal cambio de contraseña -->
-<div class="modal fade" id="cambioContrasena" tabindex="-1" role="dialog" aria-labelledby="cambioContraseñaLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-body">
-        <p>Por motivos de seguridad debes asignar una contraseña nueva para el ingreso a tu lista de regalos.</p>
-        <div class="row" *ngIf="messageError != null && messageError.length > 0">
-          <div class="col-xs-12">
-            <div class="alert alert-danger" role="alert">
-              <p>{{messageError}}</p>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <form #ContactForm="ngForm" (submit)="actualizarClave()">
-            <div class="col-xs-4 col-xs-offset-4">
-              <label class="label-lista" for="contraseña">Nueva contraseña</label>
-              <input type="text" class="form-lista-regalos" id="contraseña" name="claveNueva" [(ngModel)]="claveNueva" required>
-              <label class="label-lista" for="confirmar-contraseña">Confirmar contraseña</label>
-              <input type="text" class="form-lista-regalos" id="confirmar-contraseña" name="claveConfirmacion" [(ngModel)]="claveConfirmacion" required>
-            </div>
-          </form>
-        </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-buscar" (click)="actualizarClave()" *ngIf="successMessage == null || successMessage.length <= 0">Guardar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal compartir -->
-<div class="modal fade" id="modalCompartir" tabindex="-1" role="dialog" aria-labelledby="modalCompartirLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title text-center" id="modalCompartirLabel">
-          <div class="compartir-lista cursor-pointer no-selector">
-            <span class="icon-compartir"></span>
-            <p class="cursor-pointer">Compartir lista</p>
-          </div>
-        </h4>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-sm-5 col-sm-offset-0 col-xs-6 col-xs-offset-3 text-center">
-            <img src="../../../assets/images/codigo-qr.png" class="jpg-responsive" alt="">
-            <button type="button" name="descargar-qr" class="btn btn-qr">Descargar QR</button>
-          </div>
-          <div class="col-sm-7 col-sm-offset-0 col-xs-12 text-center">
-            <p class="text-justify">
-              Envía este código a todos tus invitados y así pueden acceder a tu lista para hacer las compras en línea.
-            </p>
-            <h1 class="codigo-lista">{{codigoLista}}</h1>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- Modal Detalle -->
 <div class="modal fade" id="modalDetalle" tabindex="-1" role="dialog" aria-labelledby="modalDetalleLabel">
   <div class="modal-dialog" role="document" *ngIf="verDetalle && verDetalle != null">
@@ -96,11 +33,11 @@
         </div>
         <div class="col-md-6">
           <div class="row">
-            <div class="col-xs-4 text-center cursor-pointer seleccionado">
-              <span class="icon-paso-01 icono"></span>
-              <p>Lista de regalos</p>
-            </div>
             <div class="col-xs-4 text-center cursor-pointer">
+              <span class="icon-paso-01 icono"></span>
+              <p [routerLink]="['/mi-lista']">Lista de regalos</p>
+            </div>
+            <div class="col-xs-4 text-center cursor-pointer seleccionado">
               <span class="icon-regalo-01 icono"></span>
               <p>Regalos recibidos</p>
             </div>
@@ -126,8 +63,8 @@
     <hr class="rosa" />
     <div class="row">
       <div class="col-xs-12 text-center">
-        <h1 class="title-mi-lista">MI LISTA DE REGALOS</h1>
-        <p style="margin:0; color#CCC">Agrega, edita o elimina productos de tu lista de regalos</p>
+        <h1 class="title-mi-lista">REGALOS RECIBIDOS</h1>
+        <p style="margin:0; color#CCC">Supervisa quienes te han dado tu regalo</p>
       </div>
     </div>
     <div class="row">
@@ -137,28 +74,20 @@
     </div>
     <br class="hidden-xs">
     <div class="row text-center">
-      <div class="col-sm-3 text-center regalos-agregados no-selector cursor-pointer" [routerLink]="['/mi-lista/regalos-recibidos']">
+      <div class="col-sm-4 text-center regalos-recibidos no-selector">
         <span>{{totalLista}}</span>
-        <p>Regalos agregados</p>
+        <p>Regalos recibidos</p>
       </div>
       <!-- boton agregar -->
-      <div class="col-sm-3 agregar-regalo no-selector">
+      <div class="col-sm-4 monto-regalado no-selector">
+        <span class="icon-regalo-01"></span>
+        <p>Monto en regalos</p>
+        <span>$ {{totalLista}}</span>
+      </div>
+      <!-- boton fecha entrega -->
+      <div class="col-sm-4 agendar-fecha no-selector">
         <span class="icon-agregar-regalo"></span>
-        <p [routerLink]="['/mi-lista/agregar-productos']">Agregar regalos</p>
-      </div>
-      <!-- boton compartir -->
-      <div class="col-sm-3 compartir-lista cursor-pointer no-selector" data-toggle="modal" data-target="#modalCompartir">
-        <span class="icon-compartir"></span>
-        <p class="cursor-pointer">Compartir lista</p>
-      </div>
-      <!-- boton buscar -->
-      <div class="col-sm-3">
-        <form (submit)="search()">
-          <div class="input-group">
-            <input id="searchField" [(ngModel)]="keywords" name="keywords" type="text" class="form-control" placeholder="Busca productos en tu lista">
-            <span class="input-group-addon icon-lupa" id="basic-addon1"></span>
-          </div>
-        </form>
+        <p>Agendar fecha de entrega</p>
       </div>
     </div>
     <br>
@@ -166,12 +95,7 @@
     <div class="row" *ngIf="items && items.length <=0">
       <div class="col-xs-12 text-center">
         <div class="box-sin-regalos">
-          <p>Aun no hay regalos en tu lista</p>
-          <p><b>Elige lo mejor para tu hogar. Empieza a crear tu lista</b></p>
-          <div class="agregar-regalo no-selector plus-regalo">
-            <span class="icon-plus-regalo"></span>
-            <p [routerLink]="['/mi-lista/agregar-productos']">Agregar regalos</p>
-          </div>
+          <p>Aun no tienes regalos recibidos</p>
         </div>
       </div>
     </div>
@@ -236,7 +160,6 @@
         <p class="cantidad">Cantidad Elegida: <b>{{items[i].cantidadElegida}}</b></p>
         <p class="cantidad">Cantidad Comprada: <b>{{items[i].cantidadComprada}}</b></p>
         <p class="detalle" (click)="abrirModalDetalle(items[i])">Ver Detalle</p>
-        <button type="button" class="btn btn-default" (click)=eliminarProducto(items[i].shortitemcode)>Eliminar</button>
       </div>
     </div>
     <br>

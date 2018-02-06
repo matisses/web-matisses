@@ -9,7 +9,7 @@
 
 /* boton de cantidad */
 
- .cantidad .input-group .form-control, .cantidad .input-group-addon {
+.cantidad .input-group .form-control, .cantidad .input-group-addon {
   background-color: #FFF;
   border: 1px solid #ccc;
 }
@@ -219,15 +219,6 @@
 
 .producto-agregado p {
   margin-top: 50%;
-}
-
-.btn-carrito span {
-  color: #D77D7D;
-  font-size: 20px;
-}
-
-.btn-carrito:hover > span {
-  color: #FFF;
 }
 
 
@@ -479,6 +470,15 @@ li.filter-option:hover {
   background-color: #AB4646;
 }
 
+.btn-carrito span {
+  color: #D77D7D;
+  font-size: 20px;
+}
+
+.btn-carrito:hover>span {
+  color: #FFF;
+}
+
 @media screen and (max-width: 1200px) {
   .pagination li a {
     padding: 10px 7px;
@@ -501,5 +501,25 @@ li.filter-option:hover {
 @media screen and (max-width: 425px) {
   .producto .nombre {
     height: 60px;
+  }
+  .menu1 .saludo {
+    display: block;
+    text-align: center;
+  }
+  .codigo-fecha .codigo, .text-center-fecha {
+    text-align: center;
+  }
+  .seleccionado::before {
+    display: none;
+  }
+  .seleccionado {
+    color: #D77D7D;
+  }
+  .btn-carrito {
+    padding: 10px 5px;
+  }
+  .btn-carrito span {
+    color: #D77D7D;
+    font-size: 0px;
   }
 }

@@ -92,6 +92,7 @@ import { CarritoRegalosComponent } from './components/lista-de-regalos/lista/car
 import { CarritoRegalosSimpleComponent } from './components/lista-de-regalos/lista/carrito-regalos/carrito-regalos-simple.component';
 import { InfoPagoRegalosComponent } from './components/lista-de-regalos/lista/info-pago-regalos/info-pago-regalos.component';
 import { ResultadoTransaccionListaComponent } from './components/lista-de-regalos/lista/resultados-transaccion-lista/resultados-transaccion-lista.component';
+import { RegalosRecibidosComponent } from './components/lista-de-regalos/mi-lista/regalos-recibidos/regalos-recibidos.component';
 
 // Promocion alf
 import { PromocionAlfComponent } from './components/promocion-alf/promocion-alf.component';
@@ -177,7 +178,8 @@ import { MetaModule } from '@ngx-meta/core';
     InfoPagoRegalosComponent,
     ResultadoTransaccionListaComponent,
     InfoBogotaComponent,
-    PromocionAlfComponent
+    PromocionAlfComponent,
+    RegalosRecibidosComponent
   ],
   imports: [
     BrowserModule,

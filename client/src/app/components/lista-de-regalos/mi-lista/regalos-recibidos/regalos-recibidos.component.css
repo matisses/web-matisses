@@ -36,14 +36,14 @@
   color: #D77D7D;
 }
 
-.agregar-regalo {
+.monto-regalado {
   border-left: 1px solid #CCC;
   border-right: 1px solid #CCC;
   cursor: pointer;
   padding-top: 10px;
 }
 
-.regalos-agregados {
+.regalos-recibidos, .agendar-fecha {
   padding-top: 10px;
 }
 
@@ -51,12 +51,12 @@
   padding-top: 10px;
 }
 
-.agregar-regalo span, .compartir-lista span, .regalos-agregados span {
+.monto-regalado span, .agendar-fecha span, .regalos-recibidos span {
   font-size: 30px;
   color: #D77D7D;
 }
 
-.agregar-regalo p, .compartir-lista p, .regalos-agregados p {
+.monto-regalado p, .agendar-fecha p, .regalos-recibidos p {
   display: inline-block;
   position: relative;
   top: -5px;
