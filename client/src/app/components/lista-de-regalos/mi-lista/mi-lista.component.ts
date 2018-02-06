@@ -19,7 +19,7 @@ declare var $: any;
   providers: [ItemService, SessionUsuarioService, ListaRegalosService]
 })
 
-export class MiListaComponent implements OnInit, AfterViewInit {
+export class MiListaComponent implements OnInit {
   public nombreUsuario: string;
   public claveNueva: string;
   public claveConfirmacion: string;
@@ -43,7 +43,7 @@ export class MiListaComponent implements OnInit, AfterViewInit {
   public itemsListaBcs: Array<any>;
   public totalLista: number;
   public verDetalle: any;
-
+  public idListaUsuario1:number;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -56,6 +56,7 @@ export class MiListaComponent implements OnInit, AfterViewInit {
     this.pages = new Array<number>();
     this.items = new Array<Item>();
     this.itemsListaBcs = new Array<any>();
+
     //this.inicializarParamsConsulta();
     //this.inicializarListaBcs();
   }
@@ -75,11 +76,14 @@ export class MiListaComponent implements OnInit, AfterViewInit {
 
 
     this.nombreUsuario = localStorage.getItem('username-lista');
-    this.codigoLista = localStorage.getItem('codigo-lista');
-    this.fechaEvento = localStorage.getItem('fecha-evento');
-    this.idListaUsuario = localStorage.getItem('id-lista');
-
+      this.codigoLista = localStorage.getItem('codigo-lista');
+      this.fechaEvento = localStorage.getItem('fecha-evento');
+      this.idListaUsuario = localStorage.getItem('id-lista');
+     this.buscarLista(this.codigoLista);
+    localStorage.setItem('fecha-evento',this.fechaEvento);
+    localStorage.setItem('username-lista',this.nombreUsuario);
     this.cargarItems0();
+
 
 
   }
@@ -87,10 +91,10 @@ export class MiListaComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
 
-    this.nombreUsuario = localStorage.getItem('username-lista');
-    this.codigoLista = localStorage.getItem('codigo-lista');
-    this.fechaEvento = localStorage.getItem('fecha-evento');
-    this.idListaUsuario = localStorage.getItem('id-lista');
+    // this.nombreUsuario = localStorage.getItem('username-lista');
+    // this.codigoLista = localStorage.getItem('codigo-lista');
+    // this.fechaEvento = localStorage.getItem('fecha-evento');
+    // this.idListaUsuario = localStorage.getItem('id-lista');
 
 
     //this.cargarItems0();
@@ -274,6 +278,7 @@ export class MiListaComponent implements OnInit, AfterViewInit {
     this.inicializarParamsConsulta();
 
     this._route.queryParams.forEach((params: Params) => {
+    console.log('entra acaaaaaaaa');
       this.inicializarMapa(params);
 
       if (this.queryParams.has('pageSize')) {
@@ -308,7 +313,7 @@ export class MiListaComponent implements OnInit, AfterViewInit {
         this.paramsConsulta.pagina = this.queryParams.get('page');
       }
 
-
+      console.log('entra aca antes de consultar total lista');
       this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
         response => {
           this.totalLista = response;
@@ -384,7 +389,7 @@ export class MiListaComponent implements OnInit, AfterViewInit {
 
   public eliminarProducto(itemCode) {
 
-    this._listaService.eliminarProducto(itemCode, this.idListaUsuario).subscribe(
+    this._listaService.eliminarProducto(itemCode, this.idListaUsuario1).subscribe(
       response => {
 
         this._itemService.find(itemCode).subscribe( // Item 1
@@ -406,7 +411,7 @@ export class MiListaComponent implements OnInit, AfterViewInit {
             }
           }, error => { console.error(); }
         );
-        this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
+        this._listaService.consultarTotalLista(this.idListaUsuario1).subscribe(
           response => {
             this.totalLista = response;
           },
@@ -441,6 +446,36 @@ export class MiListaComponent implements OnInit, AfterViewInit {
     localStorage.removeItem('fecha-evento');
 
     this._router.navigate(['/lista-de-regalos']);
+  }
+
+
+  public buscarLista(codigo: string) {
+    this.messageError = '';
+    //Asignar datos para enviarlos a WS
+    let consultaDTO = {
+      nombre: null,
+      apellido: null,
+      codigo: codigo
+    }
+    this._listaService.consultarLista(consultaDTO).subscribe(
+      response => {
+
+        let respuesta = JSON.parse(JSON.stringify(response));
+        if (respuesta.length > 0) {
+          console.log('id de la lista '+ respuesta[0].idLista);
+          this.nombreUsuario = respuesta[0].nombreCreador;
+
+          this.fechaEvento = respuesta[0].formatoFechaEvento;
+          //this.idListaUsuario =respuesta[0].idLista;
+
+
+        }
+      },
+      error => {
+        console.error(error);
+      }
+    );
+
   }
 
 }

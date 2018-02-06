@@ -404,7 +404,11 @@ export class CrearListaComponent implements OnInit {
       this._listaRegalosService.crearLista(listGiftDTO).subscribe(
         response => {
           if (response.codigo === 0) {
-            this.buscarLista(response.mensaje);
+            //this.buscarLista(response.mensaje);
+            console.log('despues de crear '+ response.idLista);
+            localStorage.setItem('codigo-lista', response.mensaje);
+            localStorage.setItem('id-lista', response.idLista);
+
             //crear como cliente SAP
             if (!this.existeCreador) {
               this.crearClienteCreador();
@@ -683,15 +687,17 @@ export class CrearListaComponent implements OnInit {
           this.idListaCreada = response[0].idLista;
           this.nombreCreadorLista = response[0].nombreCreador.toLowerCase() + ' ' + response[0].apellidoCreador.toLowerCase() + ' & ' + response[0].nombreCocreador.toLowerCase() + ' ' + response[0].apellidoCocreador.toLowerCase();
           this.fechaEventoLista = response[0].formatoFechaEvento;
+          localStorage.setItem('username-lista', this.nombreCreadorLista);
+
+          localStorage.setItem('fecha-evento', this.fechaEventoLista);
+
         }
       },
       error => {
         console.error(error);
       }
     );
-    localStorage.setItem('id-lista', this.idListaCreada);
-    localStorage.setItem('username-lista', this.nombreCreadorLista);
-    localStorage.setItem('codigo-lista', codigo);
-    localStorage.setItem('fecha-evento', this.fechaEventoLista);
+
+
   }
 }

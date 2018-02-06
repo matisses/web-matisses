@@ -285,6 +285,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
             let cadena2 = this.itemsListaBcs[i].referencia.substring(16, 20);
             this._itemService.find(cadena1 + cadena2).subscribe( // Item 1
               response => {
+                response.result[0].selectedQuantity=0;
                 response.result[0].cantidadElegida = this.itemsListaBcs[i].cantidadElegida;
                 response.result[0].cantidadComprada = this.itemsListaBcs[i].cantidadComprada;
                 this.items.push(response.result[0]);
@@ -409,7 +410,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
       this.shoppingCart.items.push(item);
     }
     //3. guardar
-    localStorage.setItem('matisses.shoppingCart', JSON.stringify(this.shoppingCart));
+    localStorage.setItem('matisses.shoppingCart.List', JSON.stringify(this.shoppingCart));
     //4. Actualizar contenido HTML
     this.procesarCarrito();
 
@@ -427,7 +428,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public cargarCarrito() {
     //consultar localstorage
     console.log('entra en el cargar');
-    let localSC = JSON.parse(localStorage.getItem('matisses.shoppingCart'));
+    let localSC = JSON.parse(localStorage.getItem('matisses.shoppingCart.List'));
     if (!localSC) {
       this.inicializarShoppingCart();
     } else {
@@ -543,6 +544,26 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
           break;
         }
       }
+    }
+  }
+
+  public aumentarCantidad(item: Item) {
+    console.log('diferencia '+(item.cantidadElegida-item.cantidadComprada));
+    console.log('seleccionada '+item.cantidadElegida);
+    if(item.cantidadElegida > item.selectedQuantity){
+      if(item.selectedQuantity<(item.cantidadElegida-item.cantidadComprada)){
+         item.selectedQuantity += 1;
+      }
+
+    }
+
+    //this.procesarItem(item);
+
+  }
+
+  public reducirCantidad(item:Item) {
+    if (item.selectedQuantity > 0) {
+      item.selectedQuantity -= 1;
     }
   }
 }
