@@ -18,12 +18,13 @@ declare var $: any;
 })
 
 export class CrearListaComponent implements OnInit {
+  private viewportWidth: number = 0;
   public tipoEvento: number = 0;
   public paso: number = 1;
-  private viewportWidth: number = 0;
+  public montoBono: number;
+  public invitados: number;
   public mesInicio: string;
   public anoInicio: string;
-  public invitados: number;
   public diaInicio: string;
   public messageError: string;
   public messageExit: string;
@@ -61,6 +62,7 @@ export class CrearListaComponent implements OnInit {
   public validForm2: boolean = true;
   public validForm3: boolean = true;
   public validForm4: boolean = true;
+  public validMonto: boolean = true;
   public disabledForm3: boolean = false;
   public disabledForm4: boolean = false;
   public aceptaTerminos: boolean = false;
@@ -272,6 +274,9 @@ export class CrearListaComponent implements OnInit {
       || (this.diaInicio == null)) {
       this.messageError = 'Debes llenar todos los campos obligatorios para poder continuar con el Paso #3.';
       this.validForm2 = false;
+    } else if (this.aceptaBonos && (!this.montoBono || this.montoBono < 10000)) {
+      this.messageError = 'Monto mínimo para el bono es de $10.000';
+      this.validMonto = false;
     } else {
       this.limpiarCampos();
       //pasar al siguiente paso
@@ -333,7 +338,7 @@ export class CrearListaComponent implements OnInit {
       let listGiftDTO = {
         idLista: null,
         invitados: this.invitados,
-        valorMinimoBono: 0,
+        valorMinimoBono: this.montoBono,
         codigo: "",
         nombre: null,
         rutaImagenPerfil: null,
@@ -614,6 +619,7 @@ export class CrearListaComponent implements OnInit {
     this.validForm2 = true;
     this.validForm3 = true;
     this.validForm4 = true;
+    this.validMonto = true;
     this.validCreador = true;
     this.validCocreador = true;
   }

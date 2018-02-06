@@ -304,7 +304,7 @@
                       <input type="checkbox" name="gift-cards" [(ngModel)]="aceptaBonos"><b class="notificaciones">¿Aceptas Gift-Cards?</b>
                     </div>
                     <div class="col-sm-4">
-                      <input id="montoBono" type="number" [disabled]="!aceptaBonos" class="form-control" maxlength="30" name="montoBono" [(ngModel)]="montoBono" placeholder="$100.000">
+                      <input id="montoBono" type="number" [disabled]="!aceptaBonos" class="form-control" maxlength="30" [class.required-field]="!validMonto" name="montoBono" [(ngModel)]="montoBono" placeholder="$10.000" required>
                     </div>
                   </div>
                   <div class="row">
