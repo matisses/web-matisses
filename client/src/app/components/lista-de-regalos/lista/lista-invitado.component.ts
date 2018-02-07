@@ -174,7 +174,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   public cargarItems(availableFields, items, queryParams, records) {
-    console.log('cargar items');
+
     this.items = new Array<Item>();
     this.items = items;
     this.availableFields = availableFields;
@@ -231,7 +231,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   private cargarItems0() {
-    console.log('entro en cargarItems0');
+
     this.items = new Array<Item>();
     this.inicializarParamsConsulta();
 
@@ -263,12 +263,12 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
       if (this.queryParams.has('page')) {
         this.paramsConsulta.pagina = this.queryParams.get('page');
       }
-      console.log('paramsConsulta---' + this.paramsConsulta.registrosPagina);
+
 
       this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
         response => {
           this.totalLista = response;
-          console.log('totalLista--' + this.totalLista)
+
         },
         error => {
           console.log("error servicio bcs" + error);
@@ -356,7 +356,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
   //carrito de compras ListaRegalos
   public agregarCarrito(item: Item) {
-    console.log('agregarCarrito');
+
     item.selectedQuantity = item.selectedQuantity;
     this.procesarItem(item);
   }
@@ -426,8 +426,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   public cargarCarrito() {
-    //consultar localstorage
-    console.log('entra en el cargar');
+
     let localSC = JSON.parse(localStorage.getItem('matisses.shoppingCart.List'));
     if (!localSC) {
       this.inicializarShoppingCart();
@@ -466,7 +465,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   private inicializarShoppingCart() {
-    console.log('entra en el inicializarShoppingCart');
+
     this.shoppingCart = {
       _id: null,
       metodoEnvio: null,
@@ -548,8 +547,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   public aumentarCantidad(item: Item) {
-    console.log('diferencia '+(item.cantidadElegida-item.cantidadComprada));
-    console.log('seleccionada '+item.cantidadElegida);
+
     if(item.cantidadElegida > item.selectedQuantity){
       if(item.selectedQuantity<(item.cantidadElegida-item.cantidadComprada)){
          item.selectedQuantity += 1;
