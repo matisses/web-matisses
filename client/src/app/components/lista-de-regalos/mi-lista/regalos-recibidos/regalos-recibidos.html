@@ -1,18 +1,122 @@
-<!-- Modal Detalle -->
-<div class="modal fade" id="modalDetalle" tabindex="-1" role="dialog" aria-labelledby="modalDetalleLabel">
-  <div class="modal-dialog" role="document" *ngIf="verDetalle && verDetalle != null">
+<!-- Modal agendar fecha -->
+<div class="modal fade" id="modalFechaEntrega" tabindex="-1" role="dialog" aria-labelledby="modalFechaEntregaLabel">
+  <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="modalDetalleLabel">Detalle de {{verDetalle.itemname}}</h4>
+        <h4 class="modal-title text-center" id="modalFechaEntregaLabel">PROGRAMA LA FECHA DE ENTREGA DE TUS REGALOS</h4>
       </div>
       <div class="modal-body">
+        <form>
+          <div class="row">
+            <div class="col-sm-4">
+              <select id="yearEvent" name="anoEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2" [(ngModel)]="anoInicio" (change)="cargarDias(mesInicio,anoInicio)" required>
+              <option style="display:none" disabled selected value="">Año</option>
+              <option *ngFor="let year of yearEvent" [ngValue]="year">{{year}}</option>
+            </select>
+            </div>
+            <div class="col-sm-4">
+              <select id="monthEvent" name="mesEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2" [(ngModel)]="mesInicio" (change)="cargarDias(mesInicio,anoInicio)" required>
+              <option style="display:none" disabled selected value>Mes</option>
+              <option value="01">Enero</option>
+              <option value="02">Febrero</option>
+              <option value="03">Marzo</option>
+              <option value="04">Abril</option>
+              <option value="05">Mayo</option>
+              <option value="06">Junio</option>
+              <option value="07">Julio</option>
+              <option value="08">Agosto</option>
+              <option value="09">Septiembre</option>
+              <option value="10">Octubre</option>
+              <option value="11">Noviembre</option>
+              <option value="12">Diciembre</option>
+            </select>
+            </div>
+            <div class="col-sm-4">
+              <select id="dayEvent" name="diaEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2" [(ngModel)]="diaInicio" required>
+                <option style="display:none" disabled selected value>Día</option>
+                <option *ngFor="let day of dayEvent" [ngValue]="day">{{day}}</option>
+              </select>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-xs-12 text-center">
+              <button type="button" class="btn btn-programar">Programar</button>
+            </div>
+          </div>
+          <br>
+        </form>
+        <div class="row">
+          <div class="col-xs-12">
+            <p>*Los envíos solo se podrán programar con 2 días habiles de anticipación a la fecha de entrega.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
+<!-- Modal Detalle -->
+<div class="modal fade" id="modalDetalle" tabindex="-1" role="dialog" aria-labelledby="modalDetalleLabel">
+  <div class="modal-dialog modal-lg" role="document" *ngIf="verDetalle && verDetalle != null">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center">{{verDetalle.itemname}}</h4>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+      <form>
+        <div class="modal-body">
+          <!-- mensaje de error -->
+          <div class="row" *ngIf="messageError != null && messageError.length > 0">
+            <div class="col-xs-12">
+              <div class="alert alert-danger" role="alert">
+                <p>{{messageError}}</p>
+              </div>
+            </div>
+          </div>
+          <!-- mensaje sucess -->
+          <div class="row" *ngIf="successMessage != null && successMessage.length > 0">
+            <div class="col-xs-12">
+              <div class="alert alert-info" role="alert">
+                <p>{{successMessage}}</p>
+              </div>
+            </div>
+          </div>
+          <!-- info producto -->
+          <div class="row">
+            <div class="col-sm-3 col-xs-6">
+              <img src="https://img.matisses.co/{{verDetalle.itemcode}}/parrilla/{{verDetalle.itemcode}}_01.jpg" class="jpg-responsive" alt="{{verDetalle.itemcode}}">
+            </div>
+            <div class="col-sm-4 col-sm-offset-1 col-xs-offset-0">
+              <!-- Descripcion -->
+              <div class="info-item">
+                <p class="factura"><b>Fv:</b> 70000800</p>
+                <p class="referencia"><b>Ref:</b> {{verDetalle.shortitemcode}}</p>
+                <p class="precio"><b>$ {{verDetalle.priceaftervat | number}}</b></p>
+                <p class="cantidad">Cantidad comprada: <b>{{verDetalle.cantidadComprada}}</b></p>
+                <button type="button" class="btn btn-devolver" (click)=confirmEliminarItem()>Devolver regalo</button>
+              </div>
+              <br>
+              <div class="row" *ngIf="confirmEliminar">
+                <div class="col-xs-12 text-center">
+                  <br>
+                  <p>¿Seguro deseas eliminar este producto de tu lista?</p>
+                  <button type="button" class="btn btn-danger btn-radius-0" (click)=eliminarProducto(verDetalle.shortitemcode)>Si</button>
+                  <button type="button" class="btn btn-default btn-radius-0" (click)=confirmEliminarItem()>No</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="info-item">
+                <p>Regalo hecho por:</p>
+                <p><span class="icon-invitado-01"></span><b>nombre comprador</b></p>
+                <p class="mensaje-invitado">Felicidades en su matrimonio</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -84,7 +188,7 @@
         <p><b>$ {{totalLista}}</b></p>
       </div>
       <!-- boton fecha entrega -->
-      <div class="col-sm-4 agendar-fecha no-selector">
+      <div class="col-sm-4 agendar-fecha cursor-pointer no-selector" data-toggle="modal" data-target="#modalFechaEntrega">
         <span class="icon-agenda-entrega"></span>
         <p>Agendar fecha de entrega</p>
       </div>

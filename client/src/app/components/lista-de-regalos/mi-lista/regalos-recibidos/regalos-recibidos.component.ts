@@ -43,6 +43,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
   public itemsListaBcs: Array<any>;
   public totalLista: number;
   public verDetalle: any;
+  public confirmEliminar: boolean = false;
 
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
@@ -93,6 +94,14 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
         $('#cambioContrasena').modal('show');
       }
     }, 500);
+  }
+
+  public confirmEliminarItem(){
+    if(this.confirmEliminar){
+      this.confirmEliminar = false;
+    }else{
+      this.confirmEliminar = true;
+    }
   }
 
   public actualizarClave() {
