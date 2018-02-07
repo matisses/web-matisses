@@ -346,7 +346,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
             console.log("error servicio bcs" + error);
           }
         );
-        console.log(this.totalLista);
+        
         return;
       },
       error => {
