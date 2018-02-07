@@ -171,6 +171,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   public cargarItems(availableFields, items, queryParams, records) {
+
     this.items = new Array<Item>();
     this.items = items;
     this.availableFields = availableFields;
@@ -227,6 +228,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   private cargarItems0() {
+
     this.items = new Array<Item>();
     this.inicializarParamsConsulta();
 
@@ -259,9 +261,11 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
         this.paramsConsulta.pagina = this.queryParams.get('page');
       }
 
+
       this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
         response => {
           this.totalLista = response;
+
         },
         error => { console.error(error); }
       );
@@ -345,6 +349,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
   //carrito de compras ListaRegalos
   public agregarCarrito(item: Item) {
+
     item.selectedQuantity = item.selectedQuantity;
     this.procesarItem(item);
   }
@@ -412,7 +417,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   public cargarCarrito() {
-    //consultar localstorage
+
     let localSC = JSON.parse(localStorage.getItem('matisses.shoppingCart.List'));
     if (!localSC) {
       this.inicializarShoppingCart();
@@ -450,6 +455,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   private inicializarShoppingCart() {
+
     this.shoppingCart = {
       _id: null,
       metodoEnvio: null,
@@ -531,9 +537,10 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   public aumentarCantidad(item: Item) {
-    if (item.cantidadElegida > item.selectedQuantity) {
-      if (item.selectedQuantity < (item.cantidadElegida - item.cantidadComprada)) {
-        item.selectedQuantity += 1;
+
+    if(item.cantidadElegida > item.selectedQuantity){
+      if(item.selectedQuantity<(item.cantidadElegida-item.cantidadComprada)){
+         item.selectedQuantity += 1;
       }
     }
   }

@@ -43,6 +43,7 @@ export class AgregarProductosComponent implements OnInit {
   public mostrarCategoria: boolean = true;
   private viewportWidth: number = 0;
 
+
   //public shoppingCart: any;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _listaService: ListaRegalosService) {
@@ -57,6 +58,7 @@ export class AgregarProductosComponent implements OnInit {
     this.orderByStr = 'Similares';
     this.pages = new Array<number>();
     this.items = new Array<Item>();
+    this.itemsAgregados = new Array<Item>();
     this.inicializarForm();
 
   }
@@ -78,6 +80,7 @@ export class AgregarProductosComponent implements OnInit {
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('fecha-evento');
     this.idListaUsuario = localStorage.getItem('id-lista');
+    this.itemsAgregados = new Array<Item>();
     this.cargarItems0();
 
   }
@@ -99,10 +102,10 @@ export class AgregarProductosComponent implements OnInit {
   public showFiltros() {
     if (this.mostrarFiltro) {
       this.mostrarFiltro = false;
-      console.log(this.mostrarFiltro);
+
     } else {
       this.mostrarFiltro = true;
-      console.log(this.mostrarFiltro);
+
     }
   }
 
@@ -144,7 +147,7 @@ export class AgregarProductosComponent implements OnInit {
   }
 
   public cargarItems(availableFields, items, queryParams, records) {
-    console.log('cargar items');
+
     this.items = items;
     this.availableFields = availableFields;
     this.queryParams = queryParams;
@@ -470,9 +473,7 @@ export class AgregarProductosComponent implements OnInit {
 
   public agregarProducto(agregarForm) {
 
-    console.log('entra en el agregarProducto');
-    console.log(this.formAgregar);
-    console.log(this.idListaUsuario);
+
 
     let productoAgregar = {
       idLista: this.idListaUsuario,
@@ -492,14 +493,16 @@ export class AgregarProductosComponent implements OnInit {
             //validar si el ítem tiene descuentos
 
             if (this.items[i].itemcode === productoAgregar.referencia) {
-              console.log(productoAgregar.referencia);
+
               this.items[i].agregadoLista = true;
+
+
             }
 
 
           }
           this.successMessage = "El producto fue agregado a tu lista corrrectamente";
-          $('#modalAgregar').modal('hide')
+          $('#modalAgregar').modal('hide');
           return;
         }
         else {
@@ -529,7 +532,7 @@ export class AgregarProductosComponent implements OnInit {
   }
 
   public cerrarSession() {
-    console.log('cerrar sesion');
+
     localStorage.removeItem('matisses.lista-token');
     localStorage.removeItem('username-lista');
     localStorage.removeItem('usuario-id');
