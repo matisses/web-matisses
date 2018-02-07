@@ -7,10 +7,7 @@ import { Item } from '../../../models/item';
 import { SessionUsuarioService } from '../../../services/session-usuario.service';
 import { ListaRegalosService } from '../../../services/lista-regalos.service';
 
-
-
-
-declare var jquery: any;
+//declare var jquery: any;
 declare var $: any;
 
 @Component({
@@ -43,7 +40,7 @@ export class MiListaComponent implements OnInit {
   public itemsListaBcs: Array<any>;
   public totalLista: number;
   public verDetalle: any;
-  public idListaUsuario1:number;
+  public idListaUsuario1: number;
   public confirmEliminar: boolean = false;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
@@ -72,35 +69,24 @@ export class MiListaComponent implements OnInit {
     };
   }
 
-
   ngOnInit() {
-
-
     this.nombreUsuario = localStorage.getItem('username-lista');
-      this.codigoLista = localStorage.getItem('codigo-lista');
-      this.fechaEvento = localStorage.getItem('fecha-evento');
-      this.idListaUsuario = localStorage.getItem('id-lista');
-     this.buscarLista(this.codigoLista);
-    localStorage.setItem('fecha-evento',this.fechaEvento);
-    localStorage.setItem('username-lista',this.nombreUsuario);
+    this.codigoLista = localStorage.getItem('codigo-lista');
+    this.fechaEvento = localStorage.getItem('fecha-evento');
+    this.idListaUsuario = localStorage.getItem('id-lista');
+    this.buscarLista(this.codigoLista);
+    localStorage.setItem('fecha-evento', this.fechaEvento);
+    localStorage.setItem('username-lista', this.nombreUsuario);
     this.cargarItems0();
-
-
-
   }
 
-
   ngAfterViewInit() {
-
     // this.nombreUsuario = localStorage.getItem('username-lista');
     // this.codigoLista = localStorage.getItem('codigo-lista');
     // this.fechaEvento = localStorage.getItem('fecha-evento');
     // this.idListaUsuario = localStorage.getItem('id-lista');
 
-
     //this.cargarItems0();
-
-
     $(window).scroll(function() {
       var scroll = $(window).scrollTop();
       if (scroll >= 30) {
@@ -119,10 +105,10 @@ export class MiListaComponent implements OnInit {
     }, 500);
   }
 
-  public confirmEliminarItem(){
-    if(this.confirmEliminar){
+  public confirmEliminarItem() {
+    if (this.confirmEliminar) {
       this.confirmEliminar = false;
-    }else{
+    } else {
       this.confirmEliminar = true;
     }
   }
@@ -287,7 +273,7 @@ export class MiListaComponent implements OnInit {
     this.inicializarParamsConsulta();
 
     this._route.queryParams.forEach((params: Params) => {
-    console.log('entra acaaaaaaaa');
+      console.log('entra acaaaaaaaa');
       this.inicializarMapa(params);
 
       if (this.queryParams.has('pageSize')) {
@@ -473,7 +459,7 @@ export class MiListaComponent implements OnInit {
 
         let respuesta = JSON.parse(JSON.stringify(response));
         if (respuesta.length > 0) {
-          console.log('id de la lista '+ respuesta[0].idLista);
+          console.log('id de la lista ' + respuesta[0].idLista);
           this.nombreUsuario = respuesta[0].nombreCreador;
 
           this.fechaEvento = respuesta[0].formatoFechaEvento;
