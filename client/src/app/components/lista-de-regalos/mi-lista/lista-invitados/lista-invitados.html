@@ -74,9 +74,9 @@
     </div>
     <br class="hidden-xs">
     <div class="row text-center">
-      <div class="col-sm-4 text-center regalos-recibidos no-selector">
-        <span>{{totalLista}}</span>
-        <p>Invitados</p>
+      <div class="col-sm-4 agendar-fecha no-selector">
+        <span class="icon-invitado-02"></span>
+        <p><b>{{totalLista}}</b> Invitados</p>
       </div>
       <!-- boton agregar -->
       <div class="col-sm-4 monto-regalado no-selector">
@@ -84,14 +84,14 @@
         <p>Agregar invitados</p>
       </div>
       <!-- boton fecha entrega -->
-      <div class="col-sm-4 agendar-fecha no-selector">
-        <span class="icon-agenda-entrega"></span>
+      <div class="col-sm-4 agendar-fecha no-selector cursor-pointer">
+        <span class="icon-imprimir"></span>
         <p>Imprimir lista</p>
       </div>
     </div>
     <br>
     <!-- Informacion cuando no hay invitados -->
-    <div class="row" *ngIf="items && items.length > 0">
+    <div class="row" *ngIf="invitados && invitados.length <= 0">
       <div class="col-xs-12 text-center">
         <div class="box-sin-regalos">
           <p>Aun no has agregado invitados</p>
@@ -104,11 +104,28 @@
     </div>
     <br>
     <!-- Informacón cuando hay invitados agregados -->
-    <div class="row" *ngIf="items && items.length < 0">
+    <div class="row" *ngIf="invitados && invitados.length > 0">
       <div class="col-xs-12">
-
+        <table class="table table-striped table-hover table-listas no-selector">
+          <thead>
+            <tr class="table-title">
+              <th>Nombre</th>
+              <th>Correo</th>
+              <th>Celular</th>
+              <th>Asistencia</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let invitado of invitados">
+              <td>{{invitado.nombre}}</td>
+              <td class="nombres-novios">{{invitado.correo}}</td>
+              <td class="hidden-xs">{{invitado.celular}}</td>
+              <td class="hidden-xs">{{invitado.asistencia}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-    <br>
   </div>
+  <br>
 </div>
