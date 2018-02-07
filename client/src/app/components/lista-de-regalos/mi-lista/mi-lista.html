@@ -63,7 +63,7 @@
 
 <!-- Modal Detalle -->
 <div class="modal fade" id="modalDetalle" tabindex="-1" role="dialog" aria-labelledby="modalDetalleLabel">
-  <div class="modal-dialog" role="document" *ngIf="verDetalle && verDetalle != null">
+  <div class="modal-dialog modal-lg" role="document" *ngIf="verDetalle && verDetalle != null">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -114,6 +114,20 @@
                       </div>
                     </form>
                   </div>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-xs-12">
+                  <button type="button" class="btn btn-eliminar" (click)=confirmEliminarItem()>Eliminar</button>
+                </div>
+              </div>
+              <div class="row" *ngIf="confirmEliminar">
+                <div class="col-xs-12 text-center">
+                  <br>
+                  <p>¿Seguro deseas eliminar este producto de tu lista?</p>
+                  <button type="button" class="btn btn-danger btn-radius-0" (click)=eliminarProducto(verDetalle.shortitemcode)>Si</button>
+                  <button type="button" class="btn btn-default btn-radius-0" (click)=confirmEliminarItem()>No</button>
                 </div>
               </div>
             </div>
@@ -280,15 +294,14 @@
     <br>
     <!-- Informacón cuando hay productos agregados -->
     <div class="row" *ngIf="items && items.length > 0">
-      <div class="col-sm-3 col-xs-6 producto" *ngFor="let item of items; let i = index">
+      <div class="col-sm-3 col-xs-6 producto" *ngFor="let item of items; let i = index" (click)="abrirModalDetalle(items[i])">
         <img src="https://img.matisses.co/{{items[i].itemcode}}/parrilla/{{items[i].itemcode}}_01.jpg" class="jpg-responsive" alt="{{items[i].itemname}}">
         <p class="nombre"><b>{{items[i].itemname}}</b></p>
         <p class="referencia"><b>Ref:</b> {{items[i].shortitemcode}}</p>
         <p class="precio"><b>$ {{items[i].priceaftervat | number}}</b></p>
         <p class="cantidad">Cantidad Elegida: <b>{{items[i].cantidadElegida}}</b></p>
         <p class="cantidad">Cantidad Comprada: <b>{{items[i].cantidadComprada}}</b></p>
-        <p class="detalle" (click)="abrirModalDetalle(items[i])">Ver Detalle</p>
-        <button type="button" class="btn btn-default" (click)=eliminarProducto(items[i].shortitemcode)>Eliminar</button>
+        <p class="detalle">Ver Detalle</p>
       </div>
     </div>
     <br>

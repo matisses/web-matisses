@@ -44,6 +44,7 @@ export class MiListaComponent implements OnInit {
   public totalLista: number;
   public verDetalle: any;
   public idListaUsuario1:number;
+  public confirmEliminar: boolean = false;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -116,6 +117,14 @@ export class MiListaComponent implements OnInit {
         $('#cambioContrasena').modal('show');
       }
     }, 500);
+  }
+
+  public confirmEliminarItem(){
+    if(this.confirmEliminar){
+      this.confirmEliminar = false;
+    }else{
+      this.confirmEliminar = true;
+    }
   }
 
   public actualizarClave() {
@@ -420,6 +429,8 @@ export class MiListaComponent implements OnInit {
           }
         );
         console.log(this.totalLista);
+        $('#modalDetalle').modal('hide');
+        this.confirmEliminar = false;
         return;
       },
       error => {

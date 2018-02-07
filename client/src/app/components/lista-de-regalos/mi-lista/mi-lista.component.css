@@ -7,6 +7,26 @@
   max-height: 250px;
 }
 
+.btn-eliminar {
+  border-radius: 0;
+  background-color: #FFF;
+  border: 1px solid #CCC;
+}
+
+.btn-radius-0 {
+  border-radius: 0;
+}
+
+.btn-guardar {
+  background-color: #D77D7D;
+  color: #FFF;
+  border-radius: 0;
+}
+
+.btn-guardar:hover {
+  background-color: #AB4646
+}
+
 .codigo-lista {
   color: #D77D7D;
 }
@@ -142,6 +162,7 @@
 .producto {
   border: 1px solid #FFF;
   padding: 5px;
+  cursor: pointer;
 }
 
 .producto:hover {
@@ -170,6 +191,7 @@
   width: 100%;
   height: 100%;
 }
+
 
 /* boton de cantidad */
 
