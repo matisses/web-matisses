@@ -140,7 +140,7 @@
                 <div class="col-xs-12 text-center">
                   <br>
                   <p>¿Seguro deseas eliminar este producto de tu lista?</p>
-                  <button type="button" class="btn btn-danger btn-radius-0" (click)=eliminarProducto(verDetalle.shortitemcode)>Si</button>
+                  <button type="button" class="btn btn-danger btn-radius-0" (click)=eliminarProducto(formAgregar.itemcode)>Si</button>
                   <button type="button" class="btn btn-default btn-radius-0" (click)=confirmEliminarItem()>No</button>
                 </div>
               </div>
@@ -316,7 +316,7 @@
         <p class="cantidad">Cantidad Elegida: <b>{{item.cantidadElegida}}</b></p>
         <p class="cantidad">Cantidad Comprada: <b>{{item.cantidadComprada}}</b></p>
         <p class="detalle" (click)="abrirModalDetalle(item.referencia,item.cantidadElegida)">Ver Detalle</p>
-        <button type="button" class="btn btn-default" (click)=eliminarProducto(item.referencia)>Eliminar</button>
+      
       </div>
     </div>
     <br>

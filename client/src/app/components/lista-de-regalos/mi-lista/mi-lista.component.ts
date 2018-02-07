@@ -399,7 +399,22 @@ export class MiListaComponent implements OnInit {
         console.log(this.totalLista);
         $('#modalDetalle').modal('hide');
         this.confirmEliminar = false;
-        return;
+
+        this._listaService.consultarListaPaginada(this.paramsConsulta).subscribe(
+          response => {
+
+            this.itemsListaBcs = response;
+
+
+            this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.totalLista);
+          },
+          error => {
+            console.log("error servicio bcs" + error);
+          }
+
+
+        );
+      //  return;
       },
       error => {
 
