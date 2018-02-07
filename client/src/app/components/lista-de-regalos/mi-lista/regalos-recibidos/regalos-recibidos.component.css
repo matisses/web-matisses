@@ -2,6 +2,52 @@
   margin-top: 110px;
 }
 
+
+/* modal detalle regalo */
+
+.info-item p {
+  margin: 0 0 5px 0;
+}
+
+.mensaje-invitado {
+  border: 1px solid #CCC;
+  padding: 10px;
+}
+
+.info-item .icon-invitado-01 {
+  font-size: 20px;
+  position: relative;
+  top: 1px;
+}
+
+.btn-devolver {
+  background-color: #FFF;
+  border-radius: 0;
+  border: 1px solid #CCC;
+}
+
+/* modal agendar fecha */
+
+.height-40 {
+  height: 40px;
+  border-radius: 0;
+  margin-bottom: 10px;
+}
+
+.margin-0 {
+  margin: 0;
+}
+
+.btn-programar {
+  background-color: #D77D7D;
+  color: #FFF;
+  border-radius: 0;
+}
+
+.btn-programar:hover {
+  background-color: #AB4646
+}
+
 .codigo-lista {
   color: #D77D7D;
 }
@@ -39,7 +85,6 @@
 .monto-regalado {
   border-left: 1px solid #CCC;
   border-right: 1px solid #CCC;
-  cursor: pointer;
   padding-top: 10px;
 }
 
@@ -137,6 +182,7 @@
 .producto {
   border: 1px solid #FFF;
   padding: 5px;
+  cursor: pointer;
 }
 
 .producto:hover {
