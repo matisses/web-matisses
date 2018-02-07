@@ -278,8 +278,9 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
             this.itemsListaBcs[i].referencia;
             let cadena1 = this.itemsListaBcs[i].referencia.substring(0, 3);
             let cadena2 = this.itemsListaBcs[i].referencia.substring(16, 20);
-            this._itemService.find(cadena1 + cadena2).subscribe( // Item 1
+            this._itemService.find(this.itemsListaBcs[i].referencia).subscribe( // Item 1
               response => {
+
                 response.result[0].selectedQuantity = 0;
                 response.result[0].cantidadElegida = this.itemsListaBcs[i].cantidadElegida;
                 response.result[0].cantidadComprada = this.itemsListaBcs[i].cantidadComprada;
@@ -290,6 +291,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
               error => { console.error(error); }
             );
           }
+        
           this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalLista);
         },
         error => { console.error(error); }

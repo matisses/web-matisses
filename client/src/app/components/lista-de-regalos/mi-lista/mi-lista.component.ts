@@ -411,7 +411,7 @@ export class MiListaComponent implements OnInit {
           error => {
             console.log("error servicio bcs" + error);
           }
-
+          //arreglos en el eliminar
 
         );
       //  return;
