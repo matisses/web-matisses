@@ -2,31 +2,6 @@
   margin-top: 110px;
 }
 
-.descripcion {
-  overflow: hidden;
-  max-height: 250px;
-}
-
-.btn-eliminar {
-  border-radius: 0;
-  background-color: #FFF;
-  border: 1px solid #CCC;
-}
-
-.btn-radius-0 {
-  border-radius: 0;
-}
-
-.btn-guardar {
-  background-color: #D77D7D;
-  color: #FFF;
-  border-radius: 0;
-}
-
-.btn-guardar:hover {
-  background-color: #AB4646
-}
-
 .codigo-lista {
   color: #D77D7D;
 }
@@ -61,14 +36,14 @@
   color: #D77D7D;
 }
 
-.agregar-regalo {
+.monto-regalado {
   border-left: 1px solid #CCC;
   border-right: 1px solid #CCC;
   cursor: pointer;
   padding-top: 10px;
 }
 
-.regalos-agregados {
+.regalos-recibidos, .agendar-fecha {
   padding-top: 10px;
 }
 
@@ -76,12 +51,12 @@
   padding-top: 10px;
 }
 
-.agregar-regalo span, .compartir-lista span, .regalos-agregados span {
+.monto-regalado span, .agendar-fecha span, .regalos-recibidos span {
   font-size: 30px;
   color: #D77D7D;
 }
 
-.agregar-regalo p, .compartir-lista p, .regalos-agregados p {
+.monto-regalado p, .agendar-fecha p, .regalos-recibidos p {
   display: inline-block;
   position: relative;
   top: -5px;
@@ -137,32 +112,9 @@
   color: #D77D7D;
 }
 
-.box-sin-regalos {
-  margin-top: 20px;
-  color: #5B5B5B;
-  width: 100%;
-  padding: 100px 0px;
-  background-color: #F8F8F8;
-}
-
-.box-sin-regalos p {
-  margin: 0;
-  font-size: 20px;
-}
-
-.box-sin-regalos .plus-regalo {
-  margin-top: 20px !important;
-  background-color: #FFF;
-  border: none;
-  width: 20%;
-  margin: 0 auto;
-  padding: 5px;
-}
-
 .producto {
   border: 1px solid #FFF;
   padding: 5px;
-  cursor: pointer;
 }
 
 .producto:hover {
@@ -193,40 +145,28 @@
 }
 
 
-/* boton de cantidad */
+/* cuando no hay invitados */
 
-.cantidad .input-group .form-control, .cantidad .input-group-addon {
+.box-sin-regalos {
+  margin-top: 20px;
+  color: #5B5B5B;
+  width: 100%;
+  padding: 100px 0px;
+  background-color: #F8F8F8;
+}
+
+.box-sin-regalos p {
+  margin: 0;
+  font-size: 20px;
+}
+
+.box-sin-regalos .plus-regalo {
+  margin-top: 20px !important;
   background-color: #FFF;
-  border: 1px solid #ccc;
-}
-
-.input-cantidad {
-  border-radius: 0;
-  border-color: #D1D1D1;
-  text-align: center;
-  z-index: 0;
-  padding: 0;
-  height: 36px;
-}
-
-.span-cantidad {
-  padding: 0px;
-  border-radius: 0;
-  background-color: transparent;
-}
-
-.span-cantidad:hover {
-  background-color: #ECECEC;
-}
-
-.btn-cantidad {
-  font-size: 10px;
-  background-color: transparent;
   border: none;
-  color: #5b5b5b;
-  font-weight: bold;
+  width: 20%;
+  margin: 0 auto;
   padding: 5px;
-  border-radius: 0;
 }
 
 

@@ -1,22 +1,25 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { ItemService } from '../../../services/item.service';
-import { Item } from '../../../models/item';
+import { ItemService } from '../../../../services/item.service';
+import { Item } from '../../../../models/item';
 
-import { SessionUsuarioService } from '../../../services/session-usuario.service';
-import { ListaRegalosService } from '../../../services/lista-regalos.service';
+import { SessionUsuarioService } from '../../../../services/session-usuario.service';
+import { ListaRegalosService } from '../../../../services/lista-regalos.service';
 
-//declare var jquery: any;
+
+
+
+declare var jquery: any;
 declare var $: any;
 
 @Component({
-  templateUrl: 'mi-lista.html',
-  styleUrls: ['mi-lista.component.css'],
+  templateUrl: 'lista-invitados.html',
+  styleUrls: ['lista-invitados.component.css'],
   providers: [ItemService, SessionUsuarioService, ListaRegalosService]
 })
 
-export class MiListaComponent implements OnInit {
+export class ListaInvitadosComponent implements OnInit, AfterViewInit {
   public nombreUsuario: string;
   public claveNueva: string;
   public claveConfirmacion: string;
@@ -40,9 +43,7 @@ export class MiListaComponent implements OnInit {
   public itemsListaBcs: Array<any>;
   public totalLista: number;
   public verDetalle: any;
-  public idListaUsuario1: number;
-  public confirmEliminar: boolean = false;
-  public formAgregar: any;
+
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -55,8 +56,6 @@ export class MiListaComponent implements OnInit {
     this.pages = new Array<number>();
     this.items = new Array<Item>();
     this.itemsListaBcs = new Array<any>();
-    this.inicializarForm();
-
     //this.inicializarParamsConsulta();
     //this.inicializarListaBcs();
   }
@@ -71,30 +70,22 @@ export class MiListaComponent implements OnInit {
     };
   }
 
+
   ngOnInit() {
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('fecha-evento');
     this.idListaUsuario = localStorage.getItem('id-lista');
-    this.buscarLista(this.codigoLista);
-    localStorage.setItem('fecha-evento', this.fechaEvento);
-    localStorage.setItem('username-lista', this.nombreUsuario);
+
     this.cargarItems0();
   }
 
+
   ngAfterViewInit() {
-
-
-
-    $(window).scroll(function() {
-      var scroll = $(window).scrollTop();
-      if (scroll >= 30) {
-
-        $(".contenedor").addClass("margin-top-scroll");
-      } else {
-        $(".contenedor").removeClass("margin-top-scroll")
-      }
-    });
+    this.nombreUsuario = localStorage.getItem('username-lista');
+    this.codigoLista = localStorage.getItem('codigo-lista');
+    this.fechaEvento = localStorage.getItem('fecha-evento');
+    this.idListaUsuario = localStorage.getItem('id-lista');
 
     this.nombreUsuario = localStorage.getItem('username-lista');
     setTimeout(function() {
@@ -104,27 +95,14 @@ export class MiListaComponent implements OnInit {
     }, 500);
   }
 
-  public confirmEliminarItem() {
-    if (this.confirmEliminar) {
-      this.confirmEliminar = false;
-    } else {
-      this.confirmEliminar = true;
-    }
-  }
-
   public actualizarClave() {
-
-
-
     this.messageError = '';
     if (this.claveNueva == null || this.claveNueva.length <= 0) {
-
       this.messageError = 'Ingresa la contraseña';
       this.valid = false;
       this.successMessage = '';
       return;
     }
-
     if (this.claveConfirmacion == null || this.claveConfirmacion.length <= 0 || this.claveConfirmacion == 'undefined') {
       this.messageError = 'Ingresa la confirmación de la contraseña.';
       this.valid = false;
@@ -140,15 +118,12 @@ export class MiListaComponent implements OnInit {
       nombreUsuario: this.nombreUsuario,
       password: this.claveNueva,
       usuarioId: localStorage.getItem('usuario-id')
-
     }
 
     this._userService.updateUser(usuarioDTO).subscribe(
       response => {
-        if (response.codigo == "0") {
-
-
-
+        if (response == 'OK') {
+          console.log('actualizo el usuario');
           this.successMessage = '1';
           localStorage.removeItem('cambio-clave');
           localStorage.setItem('cambio-clave', 'no');
@@ -160,22 +135,15 @@ export class MiListaComponent implements OnInit {
         }
       },
       error => {
-
-
         this.messageError = "ocurrio un error en el servicio";
       }
     );
-
   }
-
-
 
   public irAPagina(pagina) {
     this.queryParams.set('page', pagina);
     this.navigate();
   }
-
-
 
   public changeOrder(orderkey) {
     this.queryParams.set('orderBy', orderkey);
@@ -184,27 +152,24 @@ export class MiListaComponent implements OnInit {
   }
 
   public cambiarTamanoPagina(tamano) {
-
     this.queryParams.set('pageSize', tamano);
     this.queryParams.set('page', '1');
     this.navigate();
   }
 
   private navigate() {
-
     let queryParamsObj = {};
     for (let i = 0; i < this.availableFields.length; i++) {
       let key = this.availableFields[i];
       queryParamsObj[key] = this.queryParams.get(key);
     }
-    this._router.navigate(['/mi-lista'], { queryParams: queryParamsObj });
+    this._router.navigate(['/mi-lista/regalos-recibidos'], { queryParams: queryParamsObj });
   }
 
   public cargarItems(availableFields, items, queryParams, records) {
 
     this.items = new Array<Item>();
     this.items = items;
-    this.itemsListaBcs = items;
     this.availableFields = availableFields;
     this.queryParams = queryParams;
     this.totalItems = records;
@@ -214,31 +179,24 @@ export class MiListaComponent implements OnInit {
         this.itemsXPag = 'Todos';
       } else {
         this.itemsXPag = this.queryParams.get('pageSize') + ' x pag';
-
       }
-
     }
     if (this.queryParams.has('orderBy')) {
       switch (this.queryParams.get('orderBy')) {
         case 'price':
           this.orderByStr = 'Precio: <span class="glyphicon glyphicon-sort-by-order"></span> ';
-
           break;
         case '-price':
           this.orderByStr = 'Precio: <span class="glyphicon glyphicon-sort-by-order-alt"></span> ';
-
           break;
         case 'itemname':
           this.orderByStr = 'Nombre: <span class="glyphicon glyphicon-sort-by-alphabet"></span> ';
-
           break;
         case '-itemname':
           this.orderByStr = 'Nombre: <span class="glyphicon glyphicon-sort-by-alphabet-alt"></span> ';
-
           break;
         default:
           this.orderByStr = 'Similares';
-
       }
     } else {
       this.orderByStr = 'Similares';
@@ -249,7 +207,6 @@ export class MiListaComponent implements OnInit {
     if (this.activePage > totalPages || this.activePage <= 0) {
       this.activePage = 1;
     }
-
     let initialPage;
     if (this.activePage > 3) {
       if (this.activePage + 2 <= totalPages) {
@@ -263,81 +220,70 @@ export class MiListaComponent implements OnInit {
     for (let i = initialPage; i <= totalPages && i - initialPage < 5; i++) {
       this.pages.push(i);
     }
-
-
   }
 
   private cargarItems0() {
-
     this.items = new Array<Item>();
     this.inicializarParamsConsulta();
-
     this._route.queryParams.forEach((params: Params) => {
-
       this.inicializarMapa(params);
-
       if (this.queryParams.has('pageSize')) {
-
         this.paramsConsulta.registrosPagina = this.queryParams.get('pageSize');
       }
-
       if (this.queryParams.has('orderBy')) {
         switch (this.queryParams.get('orderBy')) {
           case '-price':
-
             this.paramsConsulta.orderBy = 'precio';
             break;
           case 'price':
-
             this.paramsConsulta.orderBy = 'precio asc';
             break;
           case '-itemname':
-
             this.paramsConsulta.orderBy = 'referencia';
             break;
           case 'itemname':
-
             this.paramsConsulta.orderBy = 'referencia asc';
             break;
           default:
-
             this.paramsConsulta.orderBy = '';
         }
       }
       if (this.queryParams.has('page')) {
         this.paramsConsulta.pagina = this.queryParams.get('page');
       }
-
-
       this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
         response => {
           this.totalLista = response;
-
         },
         error => {
           console.log("error servicio bcs" + error);
         }
-
-
       );
-
 
       this._listaService.consultarListaPaginada(this.paramsConsulta).subscribe(
         response => {
-
           this.itemsListaBcs = response;
-
-
-          this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.totalLista);
+          this.items = new Array<Item>();
+          for (let i = 0; i < this.itemsListaBcs.length; i++) {
+            this.itemsListaBcs[i].referencia;
+            let cadena1 = this.itemsListaBcs[i].referencia.substring(0, 3);
+            let cadena2 = this.itemsListaBcs[i].referencia.substring(16, 20);
+            this._itemService.find(cadena1 + cadena2).subscribe( // Item 1
+              response => {
+                response.result[0].cantidadElegida = this.itemsListaBcs[i].cantidadElegida;
+                response.result[0].cantidadComprada = this.itemsListaBcs[i].cantidadComprada;
+                this.items.push(response.result[0]);
+              },
+              error => {
+              }
+            );
+          }
+          this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalLista);
         },
         error => {
           console.log("error servicio bcs" + error);
         }
-
-
       );
-
-
     });
   }
 
@@ -365,25 +311,20 @@ export class MiListaComponent implements OnInit {
   }
 
   public eliminarProducto(itemCode) {
-
     this._listaService.eliminarProducto(itemCode, this.idListaUsuario).subscribe(
       response => {
-
         this._itemService.find(itemCode).subscribe( // Item 1
           response => {
-
             var index = -1;
-            for (var i = 0; i < this.itemsListaBcs.length; i++) {
-
-              if (this.itemsListaBcs[i]['referencia'] === itemCode) {
+            for (var i = 0; i < this.items.length; i++) {
+              if (this.items[i]['shortitemcode'] === itemCode) {
                 index = i;
                 this.totalItems = this.totalItems - 1;
               }
             }
-
             if (index > -1) {
-              this.itemsListaBcs.splice(index, 1);
-              this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.totalItems);
+              this.items.splice(index, 1);
+              this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalItems);
               return;
             }
           }, error => { console.error(); }
@@ -397,41 +338,21 @@ export class MiListaComponent implements OnInit {
           }
         );
         console.log(this.totalLista);
-        $('#modalDetalle').modal('hide');
-        this.confirmEliminar = false;
         return;
       },
       error => {
-
-
         this.messageError = "Ocurrio un error en el servicio de eliminacion";
       }
     );
   }
 
-  public abrirModalDetalle(itemcode:string, cantidadElegida:number) {
-
-    this.inicializarForm();
-    this.messageError = '';
-    this.successMessage = '';
-    this.valid = true;
-    this._itemService.find(itemcode).subscribe( // Item 1
-      response => {
-
-        this.formAgregar.itemcode = response.result[0].itemcode;
-        this.formAgregar.name = response.result[0].itemname;
-        this.formAgregar.image = 'https://img.matisses.co/' + response.result[0].itemcode + '/parrilla/' + response.result[0].itemcode + '_01.jpg';
-        this.formAgregar.description = response.result[0].description;
-        this.formAgregar.cantidad = 0;
-        this.formAgregar.precio=response.result[0].priceaftervat;
-        this.formAgregar.cantidadmaxima=cantidadElegida;
-      }
-    );
+  public abrirModalDetalle(item) {
+    this.verDetalle = item;
     $('#modalDetalle').modal('show');
   }
 
   public cerrarSession() {
-
+    console.log('cerrar sesion');
     localStorage.removeItem('matisses.lista-token');
     localStorage.removeItem('username-lista');
     localStorage.removeItem('usuario-id');
@@ -443,58 +364,4 @@ export class MiListaComponent implements OnInit {
     this._router.navigate(['/lista-de-regalos']);
   }
 
-
-  public buscarLista(codigo: string) {
-    this.messageError = '';
-    //Asignar datos para enviarlos a WS
-    let consultaDTO = {
-      nombre: null,
-      apellido: null,
-      codigo: codigo
-    }
-    this._listaService.consultarLista(consultaDTO).subscribe(
-      response => {
-
-        let respuesta = JSON.parse(JSON.stringify(response));
-        if (respuesta.length > 0) {
-
-          this.nombreUsuario = respuesta[0].nombreCreador;
-
-          this.fechaEvento = respuesta[0].formatoFechaEvento;
-          //this.idListaUsuario =respuesta[0].idLista;
-
-
-        }
-      },
-      error => {
-        console.error(error);
-      }
-    );
-
-  }
-
-  public aumentarCantidad() {
-     if(this.formAgregar.cantidad<this.formAgregar.cantidadmaxima){
-        this.formAgregar.cantidad += 1;
-    }
-  }
-
-  public reducirCantidad() {
-    if (this.formAgregar.cantidad > 1) {
-      this.formAgregar.cantidad -= 1;
-    }
-  }
-
-  private inicializarForm() {
-    this.formAgregar = {
-      itemcode: '',
-      name: '',
-      description: '',
-      cantidad: 0,
-      msjagradecimiento: '',
-      image: '',
-      precio:0,
-      cantidadmaxima:0
-    };
-  }
 }

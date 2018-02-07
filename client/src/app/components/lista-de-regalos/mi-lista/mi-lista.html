@@ -46,8 +46,9 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-sm-5 col-sm-offset-0 col-xs-6 col-xs-offset-3 text-center">
-            <img src="../../../assets/images/codigo-qr.png" class="jpg-responsive" alt="">
-            <button type="button" name="descargar-qr" class="btn btn-qr">Descargar QR</button>
+            <img src="https://img.matisses.co/listaRegalos/qr/{{codigoLista}}.png" class="jpg-responsive" alt="codigoQR">
+            <br/>
+            <a href="https://img.matisses.co/listaRegalos/qr/{{codigoLista}}.png" download="output.png" class="btn btn-qr">Descargar QR</a>
           </div>
           <div class="col-sm-7 col-sm-offset-0 col-xs-12 text-center">
             <p class="text-justify">
@@ -129,6 +130,20 @@
                   </div>
                 </div>
               </div>
+              <br>
+              <div class="row">
+                <div class="col-xs-12">
+                  <button type="button" class="btn btn-eliminar" (click)=confirmEliminarItem()>Eliminar</button>
+                </div>
+              </div>
+              <div class="row" *ngIf="confirmEliminar">
+                <div class="col-xs-12 text-center">
+                  <br>
+                  <p>¿Seguro deseas eliminar este producto de tu lista?</p>
+                  <button type="button" class="btn btn-danger btn-radius-0" (click)=eliminarProducto(verDetalle.shortitemcode)>Si</button>
+                  <button type="button" class="btn btn-default btn-radius-0" (click)=confirmEliminarItem()>No</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -165,11 +180,11 @@
               <span class="icon-paso-01 icono"></span>
               <p>Lista de regalos</p>
             </div>
-            <div class="col-xs-4 text-center cursor-pointer">
+            <div class="col-xs-4 text-center cursor-pointer" [routerLink]="['/mi-lista/regalos-recibidos']">
               <span class="icon-regalo-01 icono"></span>
               <p>Regalos recibidos</p>
             </div>
-            <div class="col-xs-4 text-center cursor-pointer">
+            <div class="col-xs-4 text-center cursor-pointer" [routerLink]="['/mi-lista/lista-invitados']">
               <span class="icon-invitados icono"></span>
               <p>Lista de invitados</p>
             </div>
