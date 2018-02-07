@@ -21,8 +21,6 @@ declare var $: any;
 })
 
 export class ListaInvitadoComponent implements OnInit, AfterViewInit {
-  // @ViewChild(CarritoRegalosComponent)
-  // public carrito: CarritoRegalosComponent;
   @ViewChild(CarritoRegalosSimpleComponent)
   public carrito: CarritoRegalosSimpleComponent;
   public lastAddedItem: Item;
@@ -52,14 +50,14 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public fechaEvento: string;
   public resumenMobileVisible: boolean = false;
   public resumenDesktopVisible: boolean = false;
-  private paramsConsulta: any;
-  private itemsListaBcs: Array<any>;
-  private totalLista: number;
+  public paramsConsulta: any;
+  public itemsListaBcs: Array<any>;
+  public totalLista: number;
   //campos carrito carrito simple
   public shoppingCart: any;
   private resultados: any;
   public item: Item;
-  private idCarrito: string;
+  public idCarrito: string;
   public totalItemsCarrito: number;
   public totalCarrito: number = 0;
   public totalImpuestos: number = 0;
@@ -103,7 +101,6 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     this.cargarItems0();
     this.cargarFechaEvento();
   }
-
 
   ngAfterViewInit() {
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -174,7 +171,6 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   public cargarItems(availableFields, items, queryParams, records) {
-    console.log('cargar items');
     this.items = new Array<Item>();
     this.items = items;
     this.availableFields = availableFields;
@@ -231,7 +227,6 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   private cargarItems0() {
-    console.log('entro en cargarItems0');
     this.items = new Array<Item>();
     this.inicializarParamsConsulta();
 
@@ -263,16 +258,12 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
       if (this.queryParams.has('page')) {
         this.paramsConsulta.pagina = this.queryParams.get('page');
       }
-      console.log('paramsConsulta---' + this.paramsConsulta.registrosPagina);
 
       this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
         response => {
           this.totalLista = response;
-          console.log('totalLista--' + this.totalLista)
         },
-        error => {
-          console.log("error servicio bcs" + error);
-        }
+        error => { console.error(error); }
       );
 
       this._listaService.consultarListaPaginada(this.paramsConsulta).subscribe(
@@ -285,21 +276,19 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
             let cadena2 = this.itemsListaBcs[i].referencia.substring(16, 20);
             this._itemService.find(cadena1 + cadena2).subscribe( // Item 1
               response => {
-                response.result[0].selectedQuantity=0;
+                response.result[0].selectedQuantity = 0;
                 response.result[0].cantidadElegida = this.itemsListaBcs[i].cantidadElegida;
                 response.result[0].cantidadComprada = this.itemsListaBcs[i].cantidadComprada;
-                this.items.push(response.result[0]);
+                if (response.result[0].cantidadElegida > response.result[0].cantidadComprada) {
+                  this.items.push(response.result[0]);
+                }
               },
-              error => {
-                console.error(error);
-              }
+              error => { console.error(error); }
             );
           }
           this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalLista);
         },
-        error => {
-          console.error(error);
-        }
+        error => { console.error(error); }
       );
     });
   }
@@ -344,7 +333,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
               this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalItems);
               return;
             }
-          }, error => { console.error(); }
+          }, error => { console.error(error); }
         );
         return;
       },
@@ -356,7 +345,6 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
   //carrito de compras ListaRegalos
   public agregarCarrito(item: Item) {
-    console.log('agregarCarrito');
     item.selectedQuantity = item.selectedQuantity;
     this.procesarItem(item);
   }
@@ -378,9 +366,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
             this.cambiarItem(item);
           }
         },
-        error => {
-          console.log(error);
-        }
+        error => { console.error(error); }
       );
     } else {
       this.cambiarItem(item);
@@ -427,16 +413,14 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
   public cargarCarrito() {
     //consultar localstorage
-    console.log('entra en el cargar');
     let localSC = JSON.parse(localStorage.getItem('matisses.shoppingCart.List'));
     if (!localSC) {
       this.inicializarShoppingCart();
     } else {
       this.shoppingCart = localSC;
     }
-    //TODO: validar si el carrito esta vigente
-    //TODO: validar el saldo y los precios de los items en el carrito si la fecha de creacion es del dia anterior
-
+    //validar si el carrito esta vigente
+    //validar el saldo y los precios de los items en el carrito si la fecha de creacion es del dia anterior
     if (this.shoppingCart.items === null) {
       this.shoppingCart.items = new Array<Item>();
     }
@@ -466,7 +450,6 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   private inicializarShoppingCart() {
-    console.log('entra en el inicializarShoppingCart');
     this.shoppingCart = {
       _id: null,
       metodoEnvio: null,
@@ -548,20 +531,14 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   public aumentarCantidad(item: Item) {
-    console.log('diferencia '+(item.cantidadElegida-item.cantidadComprada));
-    console.log('seleccionada '+item.cantidadElegida);
-    if(item.cantidadElegida > item.selectedQuantity){
-      if(item.selectedQuantity<(item.cantidadElegida-item.cantidadComprada)){
-         item.selectedQuantity += 1;
+    if (item.cantidadElegida > item.selectedQuantity) {
+      if (item.selectedQuantity < (item.cantidadElegida - item.cantidadComprada)) {
+        item.selectedQuantity += 1;
       }
-
     }
-
-    //this.procesarItem(item);
-
   }
 
-  public reducirCantidad(item:Item) {
+  public reducirCantidad(item: Item) {
     if (item.selectedQuantity > 0) {
       item.selectedQuantity -= 1;
     }
