@@ -64,7 +64,7 @@
 
 <!-- Modal Detalle -->
 <div class="modal fade" id="modalDetalle" tabindex="-1" role="dialog" aria-labelledby="modalDetalleLabel">
-  <div class="modal-dialog" role="document" *ngIf="formAgregar && formAgregar != null">
+  <div class="modal-dialog modal-lg" role="document" *ngIf="formAgregar && formAgregar != null">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -308,7 +308,16 @@
     <br>
     <!-- Informacón cuando hay productos agregados -->
     <div class="row" *ngIf="itemsListaBcs && itemsListaBcs.length > 0">
-      <div class="col-sm-3 col-xs-6 producto" *ngFor="let item of itemsListaBcs">
+      <div class="col-sm-3 col-xs-6 producto bono-regalo">
+        <img src="../../assets/images/bono.jpg" class="jpg-responsive" alt="">
+        <p class="nombre"><b>BONO DE REGALO</b></p>
+        <p class="referencia">Monto minimo</p>
+        <input type="number" name="" placeholder="$ 10.000" class="precio" value="">
+        <p class="cantidad">Bono de regalo matisses</p>
+        <p class="cantidad">Bono de regalo matisses</p>
+        <p class="detalle">Bono de regalo matisses</p>
+      </div>
+      <div class="col-sm-3 col-xs-6 producto" *ngFor="let item of itemsListaBcs" (click)="abrirModalDetalle(item.referencia,item.cantidadElegida)">
         <img src="https://img.matisses.co/{{item.referencia.substring(0,3)+'00000000000000'+item.referencia.substring(4)}}/parrilla/{{item.referencia.substring(0,3)+'00000000000000'+item.referencia.substring(4)}}_01.jpg" class="jpg-responsive" alt="{{item.descripcionProducto}}">
         <p class="nombre"><b>{{item.descripcionProducto}}</b></p>
         <p class="referencia"><b>Ref:</b> {{item.referencia}}</p>
@@ -316,7 +325,6 @@
         <p class="cantidad">Cantidad Elegida: <b>{{item.cantidadElegida}}</b></p>
         <p class="cantidad">Cantidad Comprada: <b>{{item.cantidadComprada}}</b></p>
         <p class="detalle" (click)="abrirModalDetalle(item.referencia,item.cantidadElegida)">Ver Detalle</p>
-
       </div>
     </div>
     <br>
