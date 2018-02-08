@@ -36,6 +36,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
   public idListaUsuario: string;
   public codigoLista: string;
   public fechaEvento: string;
+  public formatoFechaEvento: string;
   public paramsConsulta: any;
   public itemsListaBcs: Array<any>;
   public totalLista: number;
@@ -71,6 +72,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('fecha-evento');
     this.idListaUsuario = localStorage.getItem('id-lista');
+    this.formatoFechaEvento = sessionStorage.getItem('formatoFechaEvento');
 
     this.cargarItems0();
   }
@@ -262,13 +264,15 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
             let cadena2 = this.itemsListaBcs[i].referencia.substring(16, 20);
             this._itemService.find(cadena1 + cadena2).subscribe( // Item 1
               response => {
-                response.result[0].cantidadElegida = this.itemsListaBcs[i].cantidadElegida;
-                response.result[0].cantidadComprada = this.itemsListaBcs[i].cantidadComprada;
-                if (response.result[0].cantidadComprada > 0) {
-                  //Setear datos correspondientes a Regalos recibidos
-                  this.items.push(response.result[0]);
-                  this.totalLista = this.items.length;
-                  console.log(this.items[0]);
+                if (response.length > 0) {
+                  response.result[0].cantidadElegida = this.itemsListaBcs[i].cantidadElegida;
+                  response.result[0].cantidadComprada = this.itemsListaBcs[i].cantidadComprada;
+                  if (response.result[0].cantidadComprada > 0) {
+                    //Setear datos correspondientes a Regalos recibidos
+                    this.items.push(response.result[0]);
+                    this.totalLista = this.items.length;
+                    console.log(this.items[0]);
+                  }
                 }
               },
               error => { console.error(error); }
