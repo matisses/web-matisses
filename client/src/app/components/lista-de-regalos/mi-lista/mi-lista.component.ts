@@ -85,7 +85,6 @@ export class MiListaComponent implements OnInit {
   ngAfterViewInit() {
 
 
-
     $(window).scroll(function() {
       var scroll = $(window).scrollTop();
       if (scroll >= 30) {
@@ -329,6 +328,7 @@ export class MiListaComponent implements OnInit {
 
 
           this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.totalLista);
+          console.log(this.itemsListaBcs);
         },
         error => {
           console.log("error servicio bcs" + error);

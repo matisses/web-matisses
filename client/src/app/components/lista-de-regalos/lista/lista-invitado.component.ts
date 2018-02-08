@@ -53,6 +53,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public paramsConsulta: any;
   public itemsListaBcs: Array<any>;
   public totalLista: number;
+  public agregarCarritoModal: any;
   //campos carrito carrito simple
   public shoppingCart: any;
   private resultados: any;
@@ -124,6 +125,11 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
         $('#cambioContrasena').modal('show');
       }
     }, 500);
+  }
+
+  public abrirModalAgregarRegalo(item) {
+    this.agregarCarritoModal = item;
+    $('#agregarRegaloCarritoModal').modal('show');
   }
 
   public cargarFechaEvento() {
@@ -291,7 +297,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
               error => { console.error(error); }
             );
           }
-        
+
           this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalLista);
         },
         error => { console.error(error); }
@@ -354,6 +360,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
     item.selectedQuantity = item.selectedQuantity;
     this.procesarItem(item);
+    this.abrirModalAgregarRegalo(item);
   }
 
   public procesarItem(item: Item) {
