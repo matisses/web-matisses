@@ -11,13 +11,14 @@ declare var $: any;
 })
 
 export class ResultadoBusquedaListasComponent implements OnInit {
-  private viewportWidth: number = 0;
   public resultados: number;
   public nombresNovios: string;
   public apellidosNovios: string;
   public codigoLista: string;
   public messageError: string;
-  public mostrarFiltros: boolean = true;
+  public mostrarBuscar: boolean = true;
+  public mostrarBtnBuscar: boolean = true;
+  private viewportWidth: number = 0;
   public listas: Array<any>;
 
 
@@ -36,15 +37,25 @@ export class ResultadoBusquedaListasComponent implements OnInit {
 
   ngAfterViewInit() {
     this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    $(window).scroll(function() {
-      var scroll = $(window).scrollTop();
-      if (scroll >= 30) {
-        console.log(scroll);
-        $(".contenedor").addClass("margin-top-scroll");
-      } else {
-        $(".contenedor").removeClass("margin-top-scroll")
-      }
-    });
+
+    if (this.viewportWidth <= 768) {
+      this.mostrarBtnBuscar = false;
+      this.mostrarBuscar = false;
+    } else {
+      this.mostrarBuscar = true;
+    }
+  }
+
+  public showBuscar() {
+    if (this.mostrarBuscar) {
+      this.mostrarBuscar = false;
+    } else {
+      this.mostrarBuscar = true;
+    }
+  }
+
+  public toggleClass(idComponent) {
+    $(idComponent).toggleClass("glyphicon-menu-down glyphicon-menu-up");
   }
 
   public removeSession(idLista: string, codigolista: string, nombreLista: string, fechaEvento: string) {
@@ -59,18 +70,12 @@ export class ResultadoBusquedaListasComponent implements OnInit {
     // sessionStorage.clear();
   }
 
-  public showFiltros() {
-    if (this.mostrarFiltros) {
-      this.mostrarFiltros = false;
-    } else {
-      this.mostrarFiltros = true;
-    }
-  }
+
 
   private scrollAfterFiter() {
     if (this.viewportWidth <= 768) {
       $("html, body").animate({ scrollTop: 400 }, 1000);
-      this.showFiltros();
+      this.showBuscar();
     } else {
       console.log('no hay que hacer scroll')
     }

@@ -53,7 +53,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public paramsConsulta: any;
   public itemsListaBcs: Array<any>;
   public totalLista: number;
-  public agregarCarritoModal: any;
+  public showBadge: boolean = true;
   //campos carrito carrito simple
   public shoppingCart: any;
   private resultados: any;
@@ -101,6 +101,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     this.inicializarShoppingCart();
     this.cargarItems0();
     this.cargarFechaEvento();
+    this.showBadge = true;
   }
 
   ngAfterViewInit() {
@@ -109,27 +110,6 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     this.fechaEvento = localStorage.getItem('fecha-evento');
     this.idListaUsuario = localStorage.getItem('id-lista');
 
-    $(window).scroll(function() {
-      var scroll = $(window).scrollTop();
-      if (scroll >= 30) {
-
-        $(".contenedor").addClass("margin-top-scroll");
-      } else {
-        $(".contenedor").removeClass("margin-top-scroll")
-      }
-    });
-
-    this.nombreUsuario = localStorage.getItem('username-lista');
-    setTimeout(function() {
-      if (localStorage.getItem('cambio-clave') == 'si') {
-        $('#cambioContrasena').modal('show');
-      }
-    }, 500);
-  }
-
-  public abrirModalAgregarRegalo(item) {
-    this.agregarCarritoModal = item;
-    $('#agregarRegaloCarritoModal').modal('show');
   }
 
   public cargarFechaEvento() {
@@ -364,7 +344,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
     item.selectedQuantity = item.selectedQuantity;
     this.procesarItem(item);
-    this.abrirModalAgregarRegalo(item);
+    this.toggleResumen();
   }
 
   public procesarItem(item: Item) {

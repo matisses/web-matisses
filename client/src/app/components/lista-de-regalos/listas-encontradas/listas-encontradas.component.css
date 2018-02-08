@@ -1,4 +1,4 @@
-.margin-top-scroll {
+.contenedor {
   margin-top: 130px;
 }
 
@@ -33,7 +33,25 @@
   background-color: #F9F9F9;
   width: 100%;
   height: 150px;
-  padding: 50px;
+  padding: 40px 50px;
+}
+
+.btn-buscar-lista {
+  border-radius: 0;
+  background-color: #F77E7E;
+  color: #FFF;
+  margin-top: 25px;
+  width: 60%;
+}
+
+.title-buscar-lista {
+  margin-top: 25px;
+  font-size: 25px;
+  font-weight: 100;
+}
+
+.title-buscar-lista span {
+  color: #fdd8d9;
 }
 
 .btn-listas {
@@ -57,5 +75,13 @@
 @media screen and (max-width: 425px) {
   .table-listas th, .table-listas td {
     font-size: 12px;
+  }
+  .buscar-lista {
+    height: auto;
+    padding: 10px 40px;
+  }
+  .title-buscar-lista {
+    margin-top: 5px;
+    font-size: 20px;
   }
 }
