@@ -326,7 +326,6 @@ export class MiListaComponent implements OnInit {
 
           this.itemsListaBcs = response;
 
-
           this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.totalLista);
           console.log(this.itemsListaBcs);
         },
@@ -414,7 +413,7 @@ export class MiListaComponent implements OnInit {
           //arreglos en el eliminar
 
         );
-      //  return;
+        //  return;
       },
       error => {
 
@@ -424,7 +423,7 @@ export class MiListaComponent implements OnInit {
     );
   }
 
-  public abrirModalDetalle(itemcode:string, cantidadElegida:number) {
+  public abrirModalDetalle(itemcode: string, cantidadElegida: number) {
 
     this.inicializarForm();
     this.messageError = '';
@@ -438,8 +437,8 @@ export class MiListaComponent implements OnInit {
         this.formAgregar.image = 'https://img.matisses.co/' + response.result[0].itemcode + '/parrilla/' + response.result[0].itemcode + '_01.jpg';
         this.formAgregar.description = response.result[0].description;
         this.formAgregar.cantidad = 0;
-        this.formAgregar.precio=response.result[0].priceaftervat;
-        this.formAgregar.cantidadmaxima=cantidadElegida;
+        this.formAgregar.precio = response.result[0].priceaftervat;
+        this.formAgregar.cantidadmaxima = cantidadElegida;
       }
     );
     $('#modalDetalle').modal('show');
@@ -489,8 +488,8 @@ export class MiListaComponent implements OnInit {
   }
 
   public aumentarCantidad() {
-     if(this.formAgregar.cantidad<this.formAgregar.cantidadmaxima){
-        this.formAgregar.cantidad += 1;
+    if (this.formAgregar.cantidad < this.formAgregar.cantidadmaxima) {
+      this.formAgregar.cantidad += 1;
     }
   }
 
@@ -508,8 +507,8 @@ export class MiListaComponent implements OnInit {
       cantidad: 0,
       msjagradecimiento: '',
       image: '',
-      precio:0,
-      cantidadmaxima:0
+      precio: 0,
+      cantidadmaxima: 0
     };
   }
 }

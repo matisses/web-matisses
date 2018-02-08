@@ -7,10 +7,7 @@ import { Item } from '../../../../models/item';
 import { SessionUsuarioService } from '../../../../services/session-usuario.service';
 import { ListaRegalosService } from '../../../../services/lista-regalos.service';
 
-
-
-
-declare var jquery: any;
+//declare var jquery: any;
 declare var $: any;
 
 @Component({
@@ -42,9 +39,9 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
   public paramsConsulta: any;
   public itemsListaBcs: Array<any>;
   public totalLista: number;
+  public totalAcomulado: number;
   public verDetalle: any;
   public confirmEliminar: boolean = false;
-
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -57,8 +54,6 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     this.pages = new Array<number>();
     this.items = new Array<Item>();
     this.itemsListaBcs = new Array<any>();
-    //this.inicializarParamsConsulta();
-    //this.inicializarListaBcs();
   }
 
   private inicializarParamsConsulta() {
@@ -71,7 +66,6 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     };
   }
 
-
   ngOnInit() {
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
@@ -80,7 +74,6 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
 
     this.cargarItems0();
   }
-
 
   ngAfterViewInit() {
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -96,10 +89,10 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     }, 500);
   }
 
-  public confirmEliminarItem(){
-    if(this.confirmEliminar){
+  public confirmEliminarItem() {
+    if (this.confirmEliminar) {
       this.confirmEliminar = false;
-    }else{
+    } else {
       this.confirmEliminar = true;
     }
   }
@@ -132,7 +125,6 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     this._userService.updateUser(usuarioDTO).subscribe(
       response => {
         if (response == 'OK') {
-          console.log('actualizo el usuario');
           this.successMessage = '1';
           localStorage.removeItem('cambio-clave');
           localStorage.setItem('cambio-clave', 'no');
@@ -176,7 +168,6 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
   }
 
   public cargarItems(availableFields, items, queryParams, records) {
-
     this.items = new Array<Item>();
     this.items = items;
     this.availableFields = availableFields;
@@ -260,14 +251,6 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
       if (this.queryParams.has('page')) {
         this.paramsConsulta.pagina = this.queryParams.get('page');
       }
-      this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
-        response => {
-          this.totalLista = response;
-        },
-        error => {
-          console.log("error servicio bcs" + error);
-        }
-      );
 
       this._listaService.consultarListaPaginada(this.paramsConsulta).subscribe(
         response => {
@@ -281,17 +264,19 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
               response => {
                 response.result[0].cantidadElegida = this.itemsListaBcs[i].cantidadElegida;
                 response.result[0].cantidadComprada = this.itemsListaBcs[i].cantidadComprada;
-                this.items.push(response.result[0]);
+                if (response.result[0].cantidadComprada > 0) {
+                  //Setear datos correspondientes a Regalos recibidos
+                  this.items.push(response.result[0]);
+                  this.totalLista = this.items.length;
+                  console.log(this.items[0]);
+                }
               },
-              error => {
-              }
+              error => { console.error(error); }
             );
           }
           this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalLista);
         },
-        error => {
-          console.log("error servicio bcs" + error);
-        }
+        error => { console.error(error); }
       );
     });
   }
@@ -342,11 +327,8 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
           response => {
             this.totalLista = response;
           },
-          error => {
-            console.log("error servicio bcs" + error);
-          }
+          error => { console.error(error); }
         );
-        
         return;
       },
       error => {
@@ -361,7 +343,6 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
   }
 
   public cerrarSession() {
-    console.log('cerrar sesion');
     localStorage.removeItem('matisses.lista-token');
     localStorage.removeItem('username-lista');
     localStorage.removeItem('usuario-id');
@@ -372,5 +353,4 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
 
     this._router.navigate(['/lista-de-regalos']);
   }
-
 }

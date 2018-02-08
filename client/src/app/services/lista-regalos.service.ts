@@ -67,15 +67,13 @@ export class ListaRegalosService {
       .map(res => res.json());
   }
 
-  consultarListaPaginada(paramsConsulta){
+  consultarListaPaginada(paramsConsulta) {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
 
     return this._http.post(this.urlBCS + 'listaregalos/consultarproductos/', JSON.stringify(paramsConsulta), { headers: headers })
       .map(res => res.json());
-
-
   }
 
   consultarTotalLista(idLista) {
@@ -86,8 +84,4 @@ export class ListaRegalosService {
     return this._http.get(this.urlBCS + 'listaregalos/consultartotalproductos/' + idLista, { headers: headers })
       .map(res => res.json());
   }
-
-
-
-
 }

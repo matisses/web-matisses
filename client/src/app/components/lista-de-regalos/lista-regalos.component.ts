@@ -168,6 +168,7 @@ export class ListaRegalosComponent implements OnInit {
         },
         error => {
           console.error(error);
+          this.messageErrorSearch = 'Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.'
         }
       );
     } else {

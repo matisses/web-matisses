@@ -173,7 +173,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
       let key = this.availableFields[i];
       queryParamsObj[key] = this.queryParams.get(key);
     }
-    this._router.navigate(['/lista/codigo'], { queryParams: queryParamsObj });
+    this._router.navigate(['/lista/'+this.codigoLista], { queryParams: queryParamsObj });
   }
 
   public cargarItems(availableFields, items, queryParams, records) {
@@ -240,26 +240,31 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
     this._route.queryParams.forEach((params: Params) => {
       this.inicializarMapa(params);
-
       if (this.queryParams.has('pageSize')) {
+
         this.paramsConsulta.registrosPagina = this.queryParams.get('pageSize');
       }
 
       if (this.queryParams.has('orderBy')) {
         switch (this.queryParams.get('orderBy')) {
-          case 'price':
+          case '-price':
+
             this.paramsConsulta.orderBy = 'precio';
             break;
-          case '-price':
+          case 'price':
+
             this.paramsConsulta.orderBy = 'precio asc';
             break;
-          case 'itemname':
+          case '-itemname':
+
             this.paramsConsulta.orderBy = 'referencia';
             break;
-          case '-itemname':
+          case 'itemname':
+
             this.paramsConsulta.orderBy = 'referencia asc';
             break;
           default:
+
             this.paramsConsulta.orderBy = '';
         }
       }
@@ -281,12 +286,11 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
           this.itemsListaBcs = response;
           this.items = new Array<Item>();
           for (let i = 0; i < this.itemsListaBcs.length; i++) {
-            this.itemsListaBcs[i].referencia;
-            let cadena1 = this.itemsListaBcs[i].referencia.substring(0, 3);
-            let cadena2 = this.itemsListaBcs[i].referencia.substring(16, 20);
+            console.log(this.itemsListaBcs[i].descripcionProducto);
+
             this._itemService.find(this.itemsListaBcs[i].referencia).subscribe( // Item 1
               response => {
-
+                console.log(response.result[0].itemname);
                 response.result[0].selectedQuantity = 0;
                 response.result[0].cantidadElegida = this.itemsListaBcs[i].cantidadElegida;
                 response.result[0].cantidadComprada = this.itemsListaBcs[i].cantidadComprada;
@@ -323,7 +327,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public search() {
     if (this.keywords && this.keywords.length > 0) {
       let queryParamsObj = { keywords: this.keywords.replace(/ /g, ",") };
-      this._router.navigate(['/lista/codigo'], { queryParams: queryParamsObj });
+      this._router.navigate(['/lista/'+this.codigoLista], { queryParams: queryParamsObj });
     }
   }
 
