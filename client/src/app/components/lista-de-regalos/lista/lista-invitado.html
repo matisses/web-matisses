@@ -1,3 +1,22 @@
+<!-- modal agregar regalo -->
+<div class="modal fade" id="agregarRegaloCarritoModal" tabindex="-1" role="dialog" aria-labelledby="agregarRegaloCarritoModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="agregarRegaloCarritoModalLabel">Has añadido un regalo al carrito</h4>
+      </div>
+      <div class="modal-body">
+        {{agregarCarritoModal.itemname}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <menu-lista></menu-lista>
 <div id="modalSinSaldo" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-lg" role="document" *ngIf="lastAddedItem">
@@ -215,7 +234,7 @@
                 </div>
               </form>
             </div>
-            <button type="button" class="btn btn-regalar" (click)="agregarCarrito(items[i])" *ngIf="items[i].cantidadElegida > items[i].cantidadComprada">
+            <button type="button" class="btn btn-regalar" data-toggle="modal" (click)="agregarCarrito(items[i])" *ngIf="items[i].cantidadElegida > items[i].cantidadComprada">
               <span class="icon-regalar_1"></span>
               Regalar
             </button>
