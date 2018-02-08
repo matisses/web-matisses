@@ -475,6 +475,7 @@ export class MiListaComponent implements OnInit {
           this.nombreUsuario = respuesta[0].nombreCreador;
 
           this.fechaEvento = respuesta[0].formatoFechaEvento;
+          sessionStorage.setItem('formatoFechaEvento', respuesta[0].formatoFechaEvento);
           //this.idListaUsuario =respuesta[0].idLista;
 
 
