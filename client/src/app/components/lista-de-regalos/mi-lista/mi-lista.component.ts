@@ -57,7 +57,7 @@ export class MiListaComponent implements OnInit {
     this.itemsListaBcs = new Array<any>();
     this.inicializarForm();
 
-    //this.inicializarParamsConsulta();
+    this.inicializarParamsConsulta();
     //this.inicializarListaBcs();
   }
 
@@ -304,6 +304,7 @@ export class MiListaComponent implements OnInit {
             this.paramsConsulta.orderBy = '';
         }
       }
+      console.log('actualiza la pagina '+this.queryParams.get('page'));
       if (this.queryParams.has('page')) {
         this.paramsConsulta.pagina = this.queryParams.get('page');
       }
@@ -405,8 +406,16 @@ export class MiListaComponent implements OnInit {
 
             this.itemsListaBcs = response;
 
+            if (this.queryParams.has('page')) {
+              console.log(this.queryParams.get('page'));
+              if(this.queryParams.get('page')!='1' && (this.totalLista-1) <= parseInt(this.queryParams.get('pageSize'))){
 
-            this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.totalLista);
+                this.queryParams.clear();
+              }
+
+            }
+            //this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.totalLista);
+            this.cargarItems0();
           },
           error => {
             console.log("error servicio bcs" + error);
