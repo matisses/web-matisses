@@ -2,6 +2,37 @@
   margin-top: 110px;
 }
 
+
+/* bono regalo */
+
+.bono-regalo {
+  cursor: default !important;
+  text-align: center;
+}
+
+.bono-regalo .precio {
+  height: 20px;
+  border: none;
+  border-bottom: 1px solid;
+  text-align: center;
+}
+
+.bono-regalo .cantidad, .bono-regalo .detalle {
+  visibility: hidden;
+}
+
+.bono-regalo input[type=number]::-webkit-inner-spin-button, .bono-regalo input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.bono-regalo input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+/* fin bono regalo */
+
 .descripcion {
   overflow: hidden;
   max-height: 250px;

@@ -2,6 +2,106 @@
   margin-top: 110px;
 }
 
+/* estilos modal agregar regalo */
+
+/* Estilos modal */
+
+.modal-body img {
+  margin-top: 10%;
+}
+
+.modal-body .nombre-producto {
+  margin-bottom: 0;
+}
+
+.modal-body .precio-producto {
+  margin: 10px 0px;
+}
+
+.modal-body .cantidad-agregada {
+  margin: 10px 0px;
+}
+
+.modal-body .border-left {
+  border-left: 1px solid #D1D1D1;
+}
+
+.modal-body .resumen-carrito {
+  padding: 0;
+}
+
+.modal-body .resumen-carrito hr {
+  border: 1px dotted #D1D1D1;
+  margin: 15px 0px;
+}
+
+.modal-body .total-items {
+  margin: 0;
+}
+
+.modal-body .total-precio {
+  margin-top: 15px;
+}
+
+.modal-body .btn-carrito, .modal-body .btn-seguir  {
+  width:100%;
+  margin-top:20px;
+  border-radius: 0;
+}
+
+.modal-body .btn-carrito {
+  background-color: #6D9197;
+  color: #FFF;
+}
+
+.modal-body .btn-seguir {
+  background-color: #EDEDED;
+  color: #5B5B5B;
+}
+
+.modal-body .btn-carrito:hover {
+  background-color: #425E63;
+}
+
+.modal-body .btn-seguir:hover {
+  background-color: #D1D1D1;
+}
+
+.old-price, .percentage {
+  display: inline-block;
+  margin-bottom: 1px;
+}
+
+.old-price {
+  text-decoration: line-through;
+}
+
+.percentage {
+  color: #B20404;
+  margin-left: 5px;
+}
+
+.new-price {
+  margin-top: 0;
+}
+
+@media screen and (max-width: 991px) {
+  .modal-body .border-left {
+    border-left: 0px;
+    border-top: 1px solid #D1D1D1;
+    padding-top: 15px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .modal-body .total-precio {
+    font-size: 11px;
+  }
+  .modal-body .resumen-carrito {
+    padding: 0 15px;
+  }
+}
+
 
 /* header */
 
