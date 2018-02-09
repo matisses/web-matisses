@@ -22,13 +22,14 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
   public claveNueva: string;
   public claveConfirmacion: string;
   public messageError: string;
+  public messageExit: string;
   public queryString: string;
   public successMessage: string;
   public idListaUsuario: string;
   public codigoLista: string;
   public fechaEvento: string;
   public nombreInvitado: string;
-  public apellidoInvitado: string;
+  public apellidosInvitado: string;
   public correoInvitado: string;
   public telefonoInvitado: string;
   public asistencia: boolean = true;
@@ -48,10 +49,11 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
     this.invitados = new Array<any>();
 
     this.nombreInvitado = '';
-    this.apellidoInvitado = '';
+    this.apellidosInvitado = '';
     this.correoInvitado = '';
     this.telefonoInvitado = '';
     this.messageError = '';
+    this.messageExit = '';
   }
 
   ngOnInit() {
@@ -70,49 +72,69 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
     this.idListaUsuario = localStorage.getItem('id-lista');
   }
 
-  public cargarInvitados() {
+  public registrarInvitado() {
     if (this.nombreInvitado == null || this.nombreInvitado.length <= 0
-      || this.apellidoInvitado == null || this.apellidoInvitado.length <= 0
+      || this.apellidosInvitado == null || this.apellidosInvitado.length <= 0
       || this.correoInvitado == null || this.correoInvitado.length <= 0
-      || this.telefonoInvitado == null) {
+      || this.telefonoInvitado == null || this.telefonoInvitado.length <= 0) {
       this.messageError = 'Debes llenar todos los campos obligatorios.';
       this.valid = false;
     } else {
       let invitadoDTO = {
-        idInvitado: "",
-        idLista: 3240,
+        idLista: this.idListaUsuario,
         nombreInvitado: this.nombreInvitado.toUpperCase(),
-        apellidosInvitado: this.apellidoInvitado.toUpperCase(),
+        apellidosInvitado: this.apellidosInvitado.toUpperCase(),
         correoInvitado: this.correoInvitado.toUpperCase(),
         telefonoInvitado: this.telefonoInvitado.toUpperCase(),
         asistencia: false
       }
       this._listaService.crearInvitado(invitadoDTO).subscribe(
         response => {
-          console.log(response);
+          if (response.codigo == 0) {
+            this.messageExit = 'Invitación enviada satisfatoriamente.';
+            console.log(this.messageExit);
+            this.limpiarCampos();
+            this.cargarInvitados();
+            $("#modalInvitado").modal("hide");
+          } else {
+            this.messageError = ('Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.');
+          }
         },
-        error => { console.error(error); }
+        error => {
+          console.error(error);
+          this.messageError = ('Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.');
+        }
       );
-
-      this.invitados.push({
-        nombre: "Rodrigo Guerra",
-        correo: "jrgt7465@hotmail.com",
-        celular: "3104462964",
-        asistencia: "Por confirmar"
-      });
-      this.invitados.push({
-        nombre: "Adriana Pareja",
-        correo: "apl1127@hotmail.com",
-        celular: "3218515320",
-        asistencia: "Por confirmar"
-      });
-      this.invitados.push({
-        nombre: "Jhordan Castrillon",
-        correo: "jcastrillon@hotmail.com",
-        celular: "3155326895",
-        asistencia: "Por confirmar"
-      });
     }
+  }
+
+  public cargarInvitados() {
+    this.invitados.push({
+      nombre: "Rodrigo Guerra",
+      correo: "jrgt7465@hotmail.com",
+      celular: "3104462964",
+      asistencia: "Por confirmar"
+    });
+    this.invitados.push({
+      nombre: "Adriana Pareja",
+      correo: "apl1127@hotmail.com",
+      celular: "3218515320",
+      asistencia: "Por confirmar"
+    });
+    this.invitados.push({
+      nombre: "Jhordan Castrillon",
+      correo: "jcastrillon@hotmail.com",
+      celular: "3155326895",
+      asistencia: "Por confirmar"
+    });
+  }
+
+  public limpiarCampos() {
+    this.messageError = '';
+    this.nombreInvitado = null;
+    this.apellidosInvitado = null;
+    this.correoInvitado = null;
+    this.telefonoInvitado = null;
   }
 
   public cerrarSession() {
