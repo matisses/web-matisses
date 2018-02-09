@@ -39,28 +39,28 @@ export class RecomendadosComponent implements OnInit {
 
   private inicializarItems() {
     this.items = new Array<Item>();
-    this._itemService.find('2090044').subscribe(
+    this._itemService.find('2440096').subscribe(
       response => {
         this.items.push(response.result[0]);
-        this._itemService.find('2190016').subscribe(
+        this._itemService.find('2440101').subscribe(
           response => {
             this.items.push(response.result[0]);
-            this._itemService.find('2210050').subscribe(
+            this._itemService.find('2440095').subscribe(
               response => {
                 this.items.push(response.result[0]);
-                this._itemService.find('2420002').subscribe(
+                this._itemService.find('2440098').subscribe(
                   response => {
                     this.items.push(response.result[0]);
-                    this._itemService.find('1051744').subscribe(
+                    this._itemService.find('2440104').subscribe(
                       response => {
                         this.items.push(response.result[0]);
-                        this._itemService.find('2410069').subscribe(
+                        this._itemService.find('2440099').subscribe(
                           response => {
                             this.items.push(response.result[0]);
-                            this._itemService.find('2310654').subscribe(
+                            this._itemService.find('2440102').subscribe(
                               response => {
                                 this.items.push(response.result[0]);
-                                this._itemService.find('2210031').subscribe(
+                                this._itemService.find('2440105').subscribe(
                                   response => {
                                     this.items.push(response.result[0]);
                                   }, error => { console.error(); }
