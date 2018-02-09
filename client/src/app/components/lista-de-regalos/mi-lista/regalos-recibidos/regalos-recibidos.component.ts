@@ -44,7 +44,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
   public confirmEliminar: boolean = false;
   public formAgregar: any;
   public mesInicio: string;
-  public anoInicio: string;
+  public anoInicio: number;
   public diaInicio: string;
   public dayEvent: Array<number>;
   public yearEvent: Array<number>;
@@ -465,7 +465,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
 
   public programar() {
     let listaDatos = {
-      formatoFechaEntrega: this.anoInicio + '-' + this.mesInicio + '-' + this.diaInicio,
+      formatoFechaEntrega: this.anoInicio.toString() + '-' + this.mesInicio + '-' + this.diaInicio,
       idLista: this.idListaUsuario
     }
 
