@@ -44,7 +44,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
   public confirmEliminar: boolean = false;
   public formAgregar: any;
   public mesInicio: string;
-  public anoInicio: number;
+  public anoInicio: string;
   public diaInicio: string;
   public dayEvent: Array<number>;
   public yearEvent: Array<number>;
