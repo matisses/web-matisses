@@ -407,6 +407,13 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
   public idListaUsuario1: number;
   public confirmEliminar: boolean = false;
   public formAgregar: any;
+  public mesInicio: string;
+  public anoInicio: string;
+  public diaInicio: string;
+  public dayEvent: Array<number>;
+  public yearEvent: Array<number>;
+  public monthEvent: Array<number>;
+  public validForm2: boolean = true;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -419,6 +426,9 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     this.pages = new Array<number>();
     this.items = new Array<Item>();
     this.itemsListaBcs = new Array<any>();
+    this.dayEvent = new Array<number>();
+    this.monthEvent = new Array<number>();
+    this.yearEvent = new Array<number>();
     this.inicializarForm();
 
     this.inicializarParamsConsulta();
@@ -443,6 +453,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     this.buscarLista(this.codigoLista);
     localStorage.setItem('fecha-evento', this.fechaEvento);
     localStorage.setItem('username-lista', this.nombreUsuario);
+    this.cargarAnos();
     this.cargarItems0();
   }
 
@@ -473,62 +484,6 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     } else {
       this.confirmEliminar = true;
     }
-  }
-
-  public actualizarClave() {
-
-
-
-    this.messageError = '';
-    if (this.claveNueva == null || this.claveNueva.length <= 0) {
-
-      this.messageError = 'Ingresa la contraseña';
-      this.valid = false;
-      this.successMessage = '';
-      return;
-    }
-
-    if (this.claveConfirmacion == null || this.claveConfirmacion.length <= 0 || this.claveConfirmacion == 'undefined') {
-      this.messageError = 'Ingresa la confirmación de la contraseña.';
-      this.valid = false;
-      this.successMessage = '';
-      return;
-    }
-    if (this.claveNueva != this.claveConfirmacion) {
-      this.messageError = 'Ambas contraseñas deben ser iguales.';
-      this.successMessage = '';
-      return;
-    }
-    let usuarioDTO = {
-      nombreUsuario: this.nombreUsuario,
-      password: this.claveNueva,
-      usuarioId: localStorage.getItem('usuario-id')
-
-    }
-
-    this._userService.updateUser(usuarioDTO).subscribe(
-      response => {
-        if (response.codigo == "0") {
-
-
-
-          this.successMessage = '1';
-          localStorage.removeItem('cambio-clave');
-          localStorage.setItem('cambio-clave', 'no');
-          $('#cambioContrasena').modal('hide');
-          return;
-        }
-        else {
-          this.messageError = 'Ocurrio un error al actualizar el usuario';
-        }
-      },
-      error => {
-
-
-        this.messageError = "ocurrio un error en el servicio";
-      }
-    );
-
   }
 
 
@@ -875,5 +830,74 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
       precio: 0,
       cantidadmaxima: 0
     };
+  }
+
+  public cargarDias(mes: string, ano: number) {
+    this.dayEvent = new Array<number>();
+    switch (mes) {
+      case '01':  // Enero
+      case '03':  // Marzo
+      case '05':  // Mayo
+      case '07':  // Julio
+      case '08':  // Agosto
+      case '10':  // Octubre
+      case '12': // Diciembre
+        for (let i = 1; i <= 31; i++) {
+          this.dayEvent.push(i);
+        }
+        break;
+      case '04':  // Abril
+      case '06':  // Junio
+      case '09':  // Septiembre
+      case '11': // Noviembre
+        for (let i = 1; i <= 30; i++) {
+          this.dayEvent.push(i);
+        }
+        break;
+      case '02':  // Febrero
+        if (((ano % 100 == 0) && (ano % 400 == 0) || (ano % 100 != 0) && (ano % 4 == 0))) {
+          for (let i = 1; i <= 29; i++) {
+            this.dayEvent.push(i);
+          }
+        } else {
+          for (let i = 1; i <= 28; i++) {
+            this.dayEvent.push(i);
+          }
+        }
+        break;
+    }
+  }
+
+  public cargarAnos() {
+    var date = new Date();
+    var year = date.getFullYear();
+    this.yearEvent = new Array<number>();
+    for (let i = year; i <= year + 1; i++) {
+      this.yearEvent.push(i);
+    }
+  }
+
+  public programar(){
+    console.log('entra aca');
+    console.log('ano '+this.anoInicio);
+    let listaDatos={
+      formatoFechaEntrega: this.anoInicio + '-' + this.mesInicio + '-' + this.diaInicio,
+      idLista:this.idListaUsuario
+    }
+
+    this._listaService.updateFechaEntrega(listaDatos).subscribe(
+            response => {
+
+              console.log(response);
+              this.successMessage='se actualizo correctamente la fecha de entrega';
+              return;
+            },
+            error => {
+              console.log("error servicio bcs" + error);
+              this.messageError='error en la actualización de la fecha de entrega';
+              return;
+            }
+          );
+
   }
 }
