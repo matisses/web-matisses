@@ -308,6 +308,7 @@
     <br>
     <!-- Informacón cuando hay productos agregados -->
     <div class="row" *ngIf="itemsListaBcs && itemsListaBcs.length > 0">
+      <!-- Bono regalo -->
       <div class="col-sm-3 col-xs-6 producto bono-regalo">
         <img src="../../assets/images/bono.jpg" class="jpg-responsive" alt="">
         <p class="nombre"><b>BONO DE REGALO</b></p>
@@ -317,6 +318,7 @@
         <p class="cantidad">Bono de regalo matisses</p>
         <p class="detalle">Bono de regalo matisses</p>
       </div>
+      <!-- productos -->
       <div class="col-sm-3 col-xs-6 producto" *ngFor="let item of itemsListaBcs" (click)="abrirModalDetalle(item.referencia,item.cantidadElegida)">
         <img src="https://img.matisses.co/{{item.referencia.substring(0,3)+'00000000000000'+item.referencia.substring(4)}}/parrilla/{{item.referencia.substring(0,3)+'00000000000000'+item.referencia.substring(4)}}_01.jpg" class="jpg-responsive" alt="{{item.descripcionProducto}}">
         <p class="nombre"><b>{{item.descripcionProducto}}</b></p>
