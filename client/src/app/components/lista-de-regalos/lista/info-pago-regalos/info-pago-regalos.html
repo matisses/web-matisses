@@ -22,9 +22,9 @@
                   <label for="tipo-D">Tipo de documento*</label>
                   <select name="typeDoc" id="tipo-D" [disabled]="disabled" class="form-control" [class.ng-reflect-model]="!31" [class.required-field]="!valid" [(ngModel)]="customer.fiscalIdType" required>
                     <option style="display:none" disabled selected value>Seleccione uno</option>
-                    <option [selected]="customer.fiscalIdType == 13" value="13">Cedula</option>
-                    <option [selected]="customer.fiscalIdType == 22" value="22">Cedula extranjería</option>
-                    <option [selected]="customer.fiscalIdType == 41" value="41">Pasaporte</option>
+                    <option [selected]="customer.fiscalIdType == '13'" value="13">Cedula</option>
+                    <option [selected]="customer.fiscalIdType == '22'" value="22">Cedula extranjería</option>
+                    <option [selected]="customer.fiscalIdType == '41'" value="41">Pasaporte</option>
                   </select>
                 </div>
                 <div class="col-md-6">

@@ -26,14 +26,14 @@
         <form>
           <div class="row">
             <div class="col-sm-4">
-              <select id="yearEvent" name="anoEvento"  class="form-control height-40" [class.required-field]="!validForm2" [(ngModel)]="anoInicio" (change)="cargarDias(mesInicio,anoInicio)" required>
-              <option style="display:none" disabled selected value>Año</option>
+              <select id="yearEvent" name="anoEvento" class="form-control height-40" [class.required-field]="!validForm2" [(ngModel)]="anoInicio" (change)="cargarDias(mesInicio,anoInicio)" required>
+              <option style="display:none" disabled selected value="0">Año</option>
               <option *ngFor="let year of yearEvent" [ngValue]="year">{{year}}</option>
             </select>
             </div>
             <div class="col-sm-4">
-              <select id="monthEvent" name="mesEvento"  class="form-control height-40" [class.required-field]="!validForm2" [(ngModel)]="mesInicio" (change)="cargarDias(mesInicio,anoInicio)" required>
-              <option style="display:none" disabled selected value>Mes</option>
+              <select id="monthEvent" name="mesEvento" class="form-control height-40" [class.required-field]="!validForm2" [(ngModel)]="mesInicio" (change)="cargarDias(mesInicio,anoInicio)" required>
+              <option style="display:none" disabled selected value="0">Mes</option>
               <option value="01">Enero</option>
               <option value="02">Febrero</option>
               <option value="03">Marzo</option>
@@ -49,7 +49,7 @@
             </select>
             </div>
             <div class="col-sm-4">
-              <select id="dayEvent" name="diaEvento"  class="form-control height-40" [class.required-field]="validForm2" [(ngModel)]="diaInicio" required>
+              <select id="dayEvent" name="diaEvento" class="form-control height-40" [class.required-field]="validForm2" [(ngModel)]="diaInicio" required>
                 <option style="display:none" disabled selected value>Día</option>
                 <option *ngFor="let day of dayEvent" [ngValue]="day">{{day}}</option>
               </select>
@@ -101,8 +101,9 @@
           </div>
           <!-- info producto -->
           <div class="row">
-            <div class="col-xs-12"  *ngFor="let item of itemsListaCompra"><!--proddd-->
-              <div class="row" >
+            <div class="col-xs-12" *ngFor="let item of itemsListaCompra">
+              <!--proddd-->
+              <div class="row">
                 <div class="col-sm-3 col-xs-6">
                   <img src="https://img.matisses.co/{{item.formAgregar.itemcode}}/images/{{item.formAgregar.itemcode}}_01.jpg" class="jpg-responsive" alt="{{item.formAgregar.itemcode}}">
                 </div>
@@ -185,7 +186,7 @@
         </div>
         <div class="col-sm-6 text-left text-center-fecha">
           <span class="icon-fecha icono-fecha"></span>
-          <p class="fecha">Fecha celebración: <b>{{formatoFechaEvento}}</b></p>
+          <p class="fecha">Fecha celebración: <b>{{fechaEvento}}</b></p>
         </div>
       </div>
     </div>

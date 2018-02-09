@@ -11,9 +11,9 @@ import { ListaRegalosService } from '../../../../services/lista-regalos.service'
 declare var $: any;
 
 @Component({
-   templateUrl: 'regalos-recibidos.html',
-   styleUrls: ['regalos-recibidos.component.css'],
-   providers: [ItemService, SessionUsuarioService, ListaRegalosService]
+  templateUrl: 'regalos-recibidos.html',
+  styleUrls: ['regalos-recibidos.component.css'],
+  providers: [ItemService, SessionUsuarioService, ListaRegalosService]
 })
 
 export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
@@ -69,11 +69,8 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     this.monthEvent = new Array<number>();
     this.yearEvent = new Array<number>();
     this.itemsListaCompra = new Array<any>();
-
     this.inicializarForm();
-
     this.inicializarParamsConsulta();
-    //this.inicializarListaBcs();
   }
 
   private inicializarParamsConsulta() {
@@ -99,8 +96,6 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-
-
     $(window).scroll(function() {
       var scroll = $(window).scrollTop();
       if (scroll >= 30) {
@@ -127,14 +122,10 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     }
   }
 
-
-
   public irAPagina(pagina) {
     this.queryParams.set('page', pagina);
     this.navigate();
   }
-
-
 
   public changeOrder(orderkey) {
     this.queryParams.set('orderBy', orderkey);
@@ -143,14 +134,12 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
   }
 
   public cambiarTamanoPagina(tamano) {
-
     this.queryParams.set('pageSize', tamano);
     this.queryParams.set('page', '1');
     this.navigate();
   }
 
   private navigate() {
-
     let queryParamsObj = {};
     for (let i = 0; i < this.availableFields.length; i++) {
       let key = this.availableFields[i];
@@ -160,7 +149,6 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
   }
 
   public cargarItems(availableFields, items, queryParams, records) {
-
     this.items = new Array<Item>();
     this.items = items;
     this.itemsListaBcs = items;
@@ -173,31 +161,24 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
         this.itemsXPag = 'Todos';
       } else {
         this.itemsXPag = this.queryParams.get('pageSize') + ' x pag';
-
       }
-
     }
     if (this.queryParams.has('orderBy')) {
       switch (this.queryParams.get('orderBy')) {
         case 'price':
           this.orderByStr = 'Precio: <span class="glyphicon glyphicon-sort-by-order"></span> ';
-
           break;
         case '-price':
           this.orderByStr = 'Precio: <span class="glyphicon glyphicon-sort-by-order-alt"></span> ';
-
           break;
         case 'itemname':
           this.orderByStr = 'Nombre: <span class="glyphicon glyphicon-sort-by-alphabet"></span> ';
-
           break;
         case '-itemname':
           this.orderByStr = 'Nombre: <span class="glyphicon glyphicon-sort-by-alphabet-alt"></span> ';
-
           break;
         default:
           this.orderByStr = 'Similares';
-
       }
     } else {
       this.orderByStr = 'Similares';
@@ -222,44 +203,33 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     for (let i = initialPage; i <= totalPages && i - initialPage < 5; i++) {
       this.pages.push(i);
     }
-
-
   }
 
   private cargarItems0() {
-
     this.items = new Array<Item>();
     this.inicializarParamsConsulta();
-
     this._route.queryParams.forEach((params: Params) => {
-
       this.inicializarMapa(params);
 
       if (this.queryParams.has('pageSize')) {
-
         this.paramsConsulta.registrosPagina = this.queryParams.get('pageSize');
       }
 
       if (this.queryParams.has('orderBy')) {
         switch (this.queryParams.get('orderBy')) {
           case '-price':
-
             this.paramsConsulta.orderBy = 'precio';
             break;
           case 'price':
-
             this.paramsConsulta.orderBy = 'precio asc';
             break;
           case '-itemname':
-
             this.paramsConsulta.orderBy = 'referencia';
             break;
           case 'itemname':
-
             this.paramsConsulta.orderBy = 'referencia asc';
             break;
           default:
-
             this.paramsConsulta.orderBy = '';
         }
       }
@@ -268,32 +238,17 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
         this.paramsConsulta.pagina = this.queryParams.get('page');
       }
 
-
-
-
-
       this._listaService.consultarListaComprados(this.paramsConsulta).subscribe(
         response => {
-
           this.itemsListaBcs = response;
-          this.totalLista=this.itemsListaBcs.length;
-          this.totalAcumulado=0;
+          this.totalLista = this.itemsListaBcs.length;
+          this.totalAcumulado = 0;
           for (var i = 0; i < this.itemsListaBcs.length; i++) {
-
-            this.totalAcumulado=this.totalAcumulado + this.itemsListaBcs[i]['precio'];
+            this.totalAcumulado = this.totalAcumulado + this.itemsListaBcs[i]['precio'];
           }
-
           this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.totalLista);
-          console.log(this.itemsListaBcs);
         },
-        error => {
-          console.log("error servicio bcs" + error);
-        }
-
-
-      );
-
-
+        error => { console.error(error); });
     });
   }
 
@@ -310,7 +265,6 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
         this.queryString += key + '=' + this.queryParams.get(key);
       }
     }
-
   }
 
   public search() {
@@ -321,13 +275,10 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
   }
 
   public eliminarProducto(itemCode) {
-
     this._listaService.eliminarProducto(itemCode, this.idListaUsuario).subscribe(
       response => {
-
         this._itemService.find(itemCode).subscribe( // Item 1
           response => {
-
             var index = -1;
             for (var i = 0; i < this.itemsListaBcs.length; i++) {
 
@@ -348,48 +299,35 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
           response => {
             this.totalLista = response;
           },
-          error => {
-            console.log("error servicio bcs" + error);
-          }
-        );
-        console.log(this.totalLista);
+          error => { console.error(error); });
         $('#modalDetalle').modal('hide');
         this.confirmEliminar = false;
 
         this._listaService.consultarListaComprados(this.paramsConsulta).subscribe(
           response => {
-
             this.itemsListaBcs = response;
 
             if (this.queryParams.has('page')) {
-              console.log(this.queryParams.get('page'));
-              if(this.queryParams.get('page')!='1' && (this.totalLista-1) <= parseInt(this.queryParams.get('pageSize'))){
-
+              if (this.queryParams.get('page') != '1' && (this.totalLista - 1) <= parseInt(this.queryParams.get('pageSize'))) {
                 this.queryParams.clear();
               }
-
             }
-            //this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.totalLista);
             this.cargarItems0();
           },
           error => {
-            console.log("error servicio bcs" + error);
+            console.error(error);
           }
           //arreglos en el eliminar
-
         );
         //  return;
       },
       error => {
-
-
         this.messageError = "Ocurrio un error en el servicio de eliminacion";
       }
     );
   }
 
   public abrirModalDetalle(itemcode: string, cantidadElegida: number) {
-
     this.inicializarForm();
     this.messageError = '';
     this.successMessage = '';
@@ -397,7 +335,6 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     this.itemsListaCompra = new Array<any>();
     this._itemService.find(itemcode).subscribe( // Item 1
       response => {
-
         this.formAgregar.itemcode = response.result[0].itemcode;
         this.formAgregar.name = response.result[0].itemname;
         this.formAgregar.image = 'https://img.matisses.co/' + response.result[0].itemcode + '/parrilla/' + response.result[0].itemcode + '_01.jpg';
@@ -406,40 +343,24 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
         this.formAgregar.precio = response.result[0].priceaftervat;
         this.formAgregar.cantidadmaxima = cantidadElegida;
 
-        let datosCompra={
-          idLista:this.idListaUsuario,
-          referencia:response.result[0].itemcode
+        let datosCompra = {
+          idLista: this.idListaUsuario,
+          referencia: response.result[0].itemcode
         }
 
-    this._listaService.consultarDetalleCompra(datosCompra).subscribe(
-        response => {
-           console.log('encontro la info de la compra');
-           this.itemsListaCompra=response;
-           for (var i = 0; i < this.itemsListaCompra.length; i++) {
-
-             this.itemsListaCompra[i]['formAgregar']=this.formAgregar;
-             this.itemsListaCompra[i]['shortitemcode']=response.result[0].shortitemcode;
-
-           }
-        },
-        error =>{
-
-        }
-
-
-
-    );
-
-
-
-
-      }
-    );
+        this._listaService.consultarDetalleCompra(datosCompra).subscribe(
+          response => {
+            this.itemsListaCompra = response;
+            for (var i = 0; i < this.itemsListaCompra.length; i++) {
+              this.itemsListaCompra[i]['formAgregar'] = this.formAgregar;
+              this.itemsListaCompra[i]['shortitemcode'] = response.result[0].shortitemcode;
+            }
+          }, error => { console.error(error); });
+      });
     $('#modalDetalle').modal('show');
   }
 
   public cerrarSession() {
-
     localStorage.removeItem('matisses.lista-token');
     localStorage.removeItem('username-lista');
     localStorage.removeItem('usuario-id');
@@ -462,24 +383,14 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     }
     this._listaService.consultarLista(consultaDTO).subscribe(
       response => {
-
         let respuesta = JSON.parse(JSON.stringify(response));
         if (respuesta.length > 0) {
-
           this.nombreUsuario = respuesta[0].nombreCreador;
-
           this.fechaEvento = respuesta[0].formatoFechaEvento;
           sessionStorage.setItem('formatoFechaEvento', respuesta[0].formatoFechaEvento);
-          //this.idListaUsuario =respuesta[0].idLista;
-
-
         }
       },
-      error => {
-        console.error(error);
-      }
-    );
-
+      error => { console.error(error); });
   }
 
   public aumentarCantidad() {
@@ -552,27 +463,22 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public programar(){
-    console.log('entra aca');
-    console.log('ano '+this.anoInicio);
-    let listaDatos={
+  public programar() {
+    let listaDatos = {
       formatoFechaEntrega: this.anoInicio + '-' + this.mesInicio + '-' + this.diaInicio,
-      idLista:this.idListaUsuario
+      idLista: this.idListaUsuario
     }
 
     this._listaService.updateFechaEntrega(listaDatos).subscribe(
-            response => {
-
-              console.log(response);
-              this.successMessage='se actualizo correctamente la fecha de entrega';
-              return;
-            },
-            error => {
-              console.log("error servicio bcs" + error);
-              this.messageError='error en la actualización de la fecha de entrega';
-              return;
-            }
-          );
-
+      response => {
+        this.successMessage = 'se actualizo correctamente la fecha de entrega';
+        return;
+      },
+      error => {
+        console.error(error);
+        this.messageError = 'error en la actualización de la fecha de entrega';
+        return;
+      }
+    );
   }
 }
