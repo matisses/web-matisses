@@ -85,12 +85,31 @@ export class ListaRegalosService {
       .map(res => res.json());
   }
 
-  crearInvitado(invitadoDTO){
+  crearInvitado(invitadoDTO) {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
 
     return this._http.post(this.urlBCS + 'listaregalos/crearinvitado/', JSON.stringify(invitadoDTO), { headers: headers })
+      .map(res => res.json());
+
+  }
+
+  consultarListaComprados(paramsConsulta) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'listaregalos/consultarcomprados/', JSON.stringify(paramsConsulta), { headers: headers })
+      .map(res => res.json());
+  }
+
+  updateFechaEntrega(datosConsulta) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'listaregalos/updatefechaentrega/', JSON.stringify(datosConsulta), { headers: headers })
       .map(res => res.json());
   }
 }

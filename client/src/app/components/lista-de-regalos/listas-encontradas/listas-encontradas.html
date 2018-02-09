@@ -18,13 +18,13 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-3" *ngIf="mostrarFiltros">
-          <h4>Busca una lista</h4>
+        <div class="col-sm-3" *ngIf="mostrarBtnBuscar">
+          <h4 class="title-buscar-lista">Busca una lista</h4>
         </div>
-        <div class="col-sm-3" *ngIf="!mostrarFiltros">
-          <h4 role="button" (click)="showFiltros()">Busca una lista <span class="glyphicon glyphicon-chevron-down"></span></h4>
+        <div class="col-sm-3" *ngIf="!mostrarBtnBuscar">
+          <h4 role="button" (click)="showBuscar()" class="title-buscar-lista" (click)="toggleClass('#caret')">Busca una lista <span id="caret" class="glyphicon glyphicon-menu-down"></span></h4>
         </div>
-        <div class="collapse" id="collapseExample" [ngClass]="{'in' : mostrarFiltros}">
+        <div class="collapse" id="collapseExample" [ngClass]="{'in' : mostrarBuscar}">
           <div class="col-sm-2 text-left">
             <label style="display: block" for="nombre">Nombre</label>
             <form (submit)="buscarLista()">
@@ -44,7 +44,7 @@
             </form>
           </div>
           <div class="col-sm-3">
-            <button type="button" name="buscar" class="btn btn-listas" (click)="buscarLista()">Buscar</button>
+            <button type="button" name="buscar" class="btn btn-buscar-lista" (click)="buscarLista()">Buscar</button>
           </div>
         </div>
       </div>

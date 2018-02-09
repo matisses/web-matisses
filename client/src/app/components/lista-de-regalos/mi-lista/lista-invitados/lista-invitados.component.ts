@@ -76,7 +76,7 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
       || this.correoInvitado == null || this.correoInvitado.length <= 0
       || this.telefonoInvitado == null) {
       this.messageError = 'Debes llenar todos los campos obligatorios.';
-      this.valid = true;
+      this.valid = false;
     } else {
       let invitadoDTO = {
         idInvitado: "",

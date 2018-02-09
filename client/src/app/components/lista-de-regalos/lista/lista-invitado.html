@@ -1,22 +1,3 @@
-<!-- modal agregar regalo -->
-<div class="modal fade" id="agregarRegaloCarritoModal" tabindex="-1" role="dialog" aria-labelledby="agregarRegaloCarritoModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="agregarRegaloCarritoModalLabel">Has añadido un regalo al carrito</h4>
-      </div>
-      <div class="modal-body">
-        {{agregarCarritoModal.itemname}}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <menu-lista></menu-lista>
 <div id="modalSinSaldo" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-lg" role="document" *ngIf="lastAddedItem">
@@ -86,12 +67,12 @@
     <!-- carrito -->
     <div class="row">
       <div class="col-sm-6 col-sm-offset-6 text-right" id="carrito1">
-        <div class="carrito" (click)="toggleResumen()">
-          <span [ngClass]="{'icon-shopping-cart': (!resumenMobileVisible && !resumenDesktopVisible), 'icon-cerrar': (resumenMobileVisible || resumenDesktopVisible)}">{{totalItemsCarrito}}</span>
-          <!--<span class="badge total-items-carrito-badge">{{total}}</span>-->
+        <div class="carrito" (click)="toggleResumen()" (mouseenter)="openResumen()">
+          <span [ngClass]="{'icon-shopping-cart': (!resumenMobileVisible && !resumenDesktopVisible), 'icon-cerrar': (resumenMobileVisible || resumenDesktopVisible)}"></span>
+          <span class="badge total-items-carrito-badge" *ngIf="showBadge && !resumenMobileVisible && !resumenDesktopVisible">{{totalItemsCarrito}}</span>
           <span class="bolsa-text">Bolsa de regalos</span>
         </div>
-        <div id="resumen" class="resumen resumenmobile">
+        <div id="resumen" class="resumen resumenmobile" (mouseleave)="closeResumen()">
           <div class="container-fluid">
             <div class="row">
               <div class="col-xs-12 text-center">
@@ -152,7 +133,7 @@
     <div class="row">
       <div class="col-sm-4 col-sm-offset-8 text-right">
         <form (submit)="search()">
-          <div class="input-group">
+          <div class="input-group buscador">
             <input id="searchField" [(ngModel)]="keywords" name="keywords" type="text" class="form-control" placeholder="Busca productos en tu lista">
             <span class="input-group-addon icon-lupa" id="basic-addon1"></span>
           </div>
@@ -209,6 +190,7 @@
         </ul>
       </div>
     </div>
+    <br>
     <!-- Informacón cuando hay productos agregados -->
     <div class="row" *ngIf="items && items.length > 0">
       <div class="col-sm-3 col-xs-6 producto" *ngFor="let item of items; let i = index">
@@ -219,22 +201,21 @@
         <p class="solicitados">Comprados: <b>{{items[i].cantidadComprada}}</b></p>
         <br>
         <div class="row">
-          <div class="col-xs-12">
-            <div class="cantidad">
-
-              <form>
-                <div class="input-group" *ngIf="items[i].cantidadElegida > items[i].cantidadComprada">
-                  <span class="input-group-addon span-cantidad" (click)="reducirCantidad(items[i])">
-                    <button type="button" class="icon-minus btn-cantidad" name="button"></button>
-                  </span>
-                  <input class="input-cantidad form-control" type="tel" name="items[i].selectedQuantity" min="1" max="items[i].cantidadElegida" [(ngModel)]="items[i].selectedQuantity" readonly="readonly" />
-                  <span class="input-group-addon span-cantidad" (click)="aumentarCantidad(items[i])">
-                    <button type="button" class="icon-plus btn-cantidad" name="button"></button>
-                  </span>
-                </div>
-              </form>
-            </div>
-            <button type="button" class="btn btn-regalar" data-toggle="modal" (click)="agregarCarrito(items[i])" *ngIf="items[i].cantidadElegida > items[i].cantidadComprada">
+          <div class="col-sm-5 col-xs-6 col-xs-offset-3 col-sm-offset-0 padding-right-0">
+            <form>
+              <div class="input-group" *ngIf="items[i].cantidadElegida > items[i].cantidadComprada">
+                <span class="input-group-addon span-cantidad" (click)="reducirCantidad(items[i])">
+                  <button type="button" class="icon-minus btn-cantidad" name="button"></button>
+                </span>
+                <input class="input-cantidad form-control" type="tel" name="items[i].selectedQuantity" min="1" max="items[i].cantidadElegida" [(ngModel)]="items[i].selectedQuantity" readonly="readonly" />
+                <span class="input-group-addon span-cantidad" (click)="aumentarCantidad(items[i])">
+                  <button type="button" class="icon-plus btn-cantidad" name="button"></button>
+                </span>
+              </div>
+            </form>
+          </div>
+          <div class="col-sm-7 col-xs-8 col-xs-offset-2 col-sm-offset-0">
+            <button type="button" class="btn btn-regalar" (click)="agregarCarrito(items[i])" *ngIf="items[i].cantidadElegida > items[i].cantidadComprada">
               <span class="icon-regalar_1"></span>
               Regalar
             </button>
@@ -242,6 +223,7 @@
         </div>
       </div>
     </div>
+    <br>
     <!-- botones como mostrar los productos -->
     <div class="row" *ngIf="items.length > 0">
       <div class="col-md-4 text-center">
