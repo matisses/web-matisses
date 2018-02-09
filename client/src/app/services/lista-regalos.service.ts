@@ -84,4 +84,13 @@ export class ListaRegalosService {
     return this._http.get(this.urlBCS + 'listaregalos/consultartotalproductos/' + idLista, { headers: headers })
       .map(res => res.json());
   }
+
+  crearInvitado(invitadoDTO){
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'listaregalos/crearinvitado/', JSON.stringify(invitadoDTO), { headers: headers })
+      .map(res => res.json());
+  }
 }

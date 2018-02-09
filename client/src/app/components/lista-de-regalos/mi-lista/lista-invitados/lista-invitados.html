@@ -6,18 +6,25 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title text-center" id="modalInvitadoLabel">Agregar invitado</h4>
       </div>
+      <div class="row" *ngIf="messageError != null && messageError.length > 0">
+        <div class="col-xs-12">
+          <div class="alert alert-danger" role="alert">
+            <p>{{messageError}}</p>
+          </div>
+        </div>
+      </div>
       <div class="modal-body">
         <div class="row">
           <div class="col-sm-8 col-sm-offset-2">
             <form>
               <label for="name">Nombre*</label>
-              <input type="text" id="name" class="input-agregar">
+              <input type="text" id="name" class="input-agregar" maxlength="30" [class.required-field]="!valid" name="nombreInvitado" [(ngModel)]="nombreInvitado" required>
               <label for="apellido">Apellidos*</label>
-              <input type="text" id="apellido" class="input-agregar">
+              <input type="text" id="apellido" class="input-agregar" maxlength="30" [class.required-field]="!valid" name="apellidosInvitado" [(ngModel)]="apellidosInvitado" required>
               <label for="correo">Email*</label>
-              <input type="text" id="correo" class="input-agregar">
+              <input type="email" id="correo" class="input-agregar" maxlength="30" [class.required-field]="!valid" [email]="true" name="correoInvitado" [(ngModel)]="correoInvitado" required>
               <label for="celular">Celular*</label>
-              <input type="text" id="celular" class="input-agregar">
+              <input type="text" id="celular" class="input-agregar" maxlength="30" [class.required-field]="!valid" name="telefonoInvitado" [(ngModel)]="telefonoInvitado" required>
             </form>
             <p>*Información requerida</p>
           </div>
@@ -25,7 +32,7 @@
         <br>
         <div class="row">
           <div class="col-xs-12 text-center">
-            <button type="button" class="btn btn-agregar">Envíar invitación</button>
+            <button type="button" class="btn btn-agregar" (click)="cargarInvitados()">Envíar invitación</button>
           </div>
         </div>
       </div>
