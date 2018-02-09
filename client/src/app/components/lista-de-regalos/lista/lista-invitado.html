@@ -67,7 +67,7 @@
     <!-- carrito -->
     <div class="row">
       <div class="col-sm-6 col-sm-offset-6 text-right" id="carrito1">
-        <div class="carrito" (click)="toggleResumen()" (mouseenter)="openResumen()">
+        <div class="carrito" (click)="toggleResumen()">
           <span [ngClass]="{'icon-shopping-cart': (!resumenMobileVisible && !resumenDesktopVisible), 'icon-cerrar': (resumenMobileVisible || resumenDesktopVisible)}"></span>
           <span class="badge total-items-carrito-badge" *ngIf="showBadge && !resumenMobileVisible && !resumenDesktopVisible">{{totalItemsCarrito}}</span>
           <span class="bolsa-text">Bolsa de regalos</span>
@@ -193,6 +193,37 @@
     <br>
     <!-- Informacón cuando hay productos agregados -->
     <div class="row" *ngIf="items && items.length > 0">
+      <!-- Bono regalo -->
+      <div class="col-sm-3 col-xs-6 producto bono-regalo">
+        <img src="../../assets/images/bono.jpg" class="jpg-responsive" alt="">
+        <p class="nombre"><b>BONO REGALO</b></p>
+        <input type="number" class="precio" placeholder="Ingrese monto">
+        <p class="solicitados">Minimo $ 400.000</p>
+        <p class="solicitados oculto">Comprados:</p>
+        <br>
+        <div class="row">
+          <div class="col-sm-5 col-xs-6 col-xs-offset-3 col-sm-offset-0 padding-right-0 visible-xs oculto">
+            <form>
+              <div class="input-group">
+                <span class="input-group-addon span-cantidad">
+                  <button type="button" class="icon-minus btn-cantidad" name="button"></button>
+                </span>
+                <input class="input-cantidad form-control" type="tel" />
+                <span class="input-group-addon span-cantidad">
+                  <button type="button" class="icon-plus btn-cantidad" name="button"></button>
+                </span>
+              </div>
+            </form>
+          </div>
+          <div class="col-xs-10 col-xs-offset-1">
+            <button type="button" class="btn btn-regalar">
+              <span class="icon-regalar_1"></span>
+              Regalar bono
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- productos -->
       <div class="col-sm-3 col-xs-6 producto" *ngFor="let item of items; let i = index">
         <img src="https://img.matisses.co/{{items[i].itemcode}}/parrilla/{{items[i].itemcode}}_01.jpg" class="jpg-responsive" alt="{{items[i].itemname}}">
         <p class="nombre"><b>{{items[i].itemname}}</b></p>
@@ -201,7 +232,7 @@
         <p class="solicitados">Comprados: <b>{{items[i].cantidadComprada}}</b></p>
         <br>
         <div class="row">
-          <div class="col-sm-5 col-xs-6 col-xs-offset-3 col-sm-offset-0 padding-right-0">
+          <div class="col-sm-5 col-xs-8 col-xs-offset-2 col-sm-offset-0 padding-right-0">
             <form>
               <div class="input-group" *ngIf="items[i].cantidadElegida > items[i].cantidadComprada">
                 <span class="input-group-addon span-cantidad" (click)="reducirCantidad(items[i])">
@@ -214,7 +245,7 @@
               </div>
             </form>
           </div>
-          <div class="col-sm-7 col-xs-8 col-xs-offset-2 col-sm-offset-0">
+          <div class="col-sm-7 col-xs-10 col-xs-offset-1 col-sm-offset-0">
             <button type="button" class="btn btn-regalar" (click)="agregarCarrito(items[i])" *ngIf="items[i].cantidadElegida > items[i].cantidadComprada">
               <span class="icon-regalar_1"></span>
               Regalar
