@@ -37,6 +37,8 @@ import { ListaInvitadoComponent } from './components/lista-de-regalos/lista/list
 import { ResumenRegalosComponent } from './components/lista-de-regalos/lista/resumen-regalos/resumen-regalos.component';
 import { InfoPagoRegalosComponent } from './components/lista-de-regalos/lista/info-pago-regalos/info-pago-regalos.component';
 import { ResultadoTransaccionListaComponent } from './components/lista-de-regalos/lista/resultados-transaccion-lista/resultados-transaccion-lista.component';
+import { RegalosRecibidosComponent } from './components/lista-de-regalos/mi-lista/regalos-recibidos/regalos-recibidos.component';
+import { ListaInvitadosComponent } from './components/lista-de-regalos/mi-lista/lista-invitados/lista-invitados.component';
 
 import { InfoBogotaComponent } from './components/info-bogota/info-bogota.component';
 import { PromocionAlfComponent } from './components/promocion-alf/promocion-alf.component';
@@ -97,7 +99,9 @@ const appRoutes: Routes = [
       { path: 'lista/:codigoLista', component: ListaInvitadoComponent },//imprimir el codigo de la lista en la url
       { path: 'resumen-regalos', component: ResumenRegalosComponent },
       { path: 'info-pago-regalos', component: InfoPagoRegalosComponent },
-      { path: 'resultado-transaccion-regalos/:idCarrito', component: ResultadoTransaccionListaComponent }
+      { path: 'resultado-transaccion-regalos/:idCarrito', component: ResultadoTransaccionListaComponent },
+      { path: 'mi-lista/regalos-recibidos', component: RegalosRecibidosComponent },
+      { path: 'mi-lista/lista-invitados', component: ListaInvitadosComponent }
     ]
   },
   // { path: '92-consola', redirectTo: 'categoria?group=002' },

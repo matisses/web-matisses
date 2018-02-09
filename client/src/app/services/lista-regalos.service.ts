@@ -67,15 +67,13 @@ export class ListaRegalosService {
       .map(res => res.json());
   }
 
-  consultarListaPaginada(paramsConsulta){
+  consultarListaPaginada(paramsConsulta) {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
 
     return this._http.post(this.urlBCS + 'listaregalos/consultarproductos/', JSON.stringify(paramsConsulta), { headers: headers })
       .map(res => res.json());
-
-
   }
 
   consultarTotalLista(idLista) {
@@ -87,7 +85,40 @@ export class ListaRegalosService {
       .map(res => res.json());
   }
 
+  crearInvitado(invitadoDTO) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
 
+    return this._http.post(this.urlBCS + 'listaregalos/crearinvitado/', JSON.stringify(invitadoDTO), { headers: headers })
+      .map(res => res.json());
 
+  }
 
+  consultarListaComprados(paramsConsulta) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'listaregalos/consultarcomprados/', JSON.stringify(paramsConsulta), { headers: headers })
+      .map(res => res.json());
+  }
+
+  updateFechaEntrega(datosConsulta) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'listaregalos/updatefechaentrega/', JSON.stringify(datosConsulta), { headers: headers })
+      .map(res => res.json());
+  }
+
+  consultarDetalleCompra(datosConsulta) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'listaregalos/consultarcomprap/', JSON.stringify(datosConsulta), { headers: headers })
+      .map(res => res.json());
+  }
 }

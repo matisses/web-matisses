@@ -18,12 +18,13 @@ declare var $: any;
 })
 
 export class CrearListaComponent implements OnInit {
+  private viewportWidth: number = 0;
   public tipoEvento: number = 0;
   public paso: number = 1;
-  private viewportWidth: number = 0;
+  public montoBono: number;
+  public invitados: number;
   public mesInicio: string;
   public anoInicio: string;
-  public invitados: number;
   public diaInicio: string;
   public messageError: string;
   public messageExit: string;
@@ -31,6 +32,7 @@ export class CrearListaComponent implements OnInit {
   public lugar: string;
   public tiendaContacto: string;
   public usarDatos: string;
+  public tipoLista: string;
   public idListaCreada: string;
   public nombreCreadorLista: string;
   public fechaEventoLista: string;
@@ -60,11 +62,14 @@ export class CrearListaComponent implements OnInit {
   public validForm2: boolean = true;
   public validForm3: boolean = true;
   public validForm4: boolean = true;
+  public validMonto: boolean = true;
   public disabledForm3: boolean = false;
   public disabledForm4: boolean = false;
   public aceptaTerminos: boolean = false;
   public existeCreador: boolean = false;
   public existeCocreador: boolean = false;
+  public aceptaBonos: boolean = false;
+  public permitirEntregaPersonal: boolean = false;
   public dayEvent: Array<number>;
   public yearEvent: Array<number>;
   public monthEvent: Array<number>;
@@ -87,21 +92,13 @@ export class CrearListaComponent implements OnInit {
     this.tiendaContacto = '';
     this.messageError = '';
     this.messageExit = '';
-    this.usarDatos = 'CREADOR'
+    this.usarDatos = 'CREADOR';
+    this.tipoLista = 'PUBLICA';
     this.messageAgadecimiento = '';
     this.notificacionInmediataMailCreador = true;
   }
 
   ngOnInit() {
-    // $(window).scroll(function() {
-    //   var scroll = $(window).scrollTop();
-    //   if (scroll >= 30) {
-    //     $(".contenedor-formulario").addClass("margin-top-scroll");
-    //   } else {
-    //     $(".contenedor-formulario").removeClass("margin-top-scroll")
-    //   }
-    // });
-
     //Bloqueo del botón ir atras, no deja al usuario ir atras.
     window.onload = function() {
       if (typeof history.pushState === "function") {
@@ -128,28 +125,7 @@ export class CrearListaComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    // this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    // if (this.viewportWidth <= 767) {
-    //   this.showDatos(-1);
-    // } else {
-    // }
   }
-
-  // public showDatos(option:number) {
-  //   if (this.viewportWidth <= 768) {
-  //     if ((option === 0 || option === 1) && !this.mostrarDatosNovia) {
-  //       this.mostrarDatosNovia = true;
-  //     } else {
-  //       this.mostrarDatosNovia = false;
-  //     }
-  //     if ((option === 0 || option === 2) && !this.mostrarDatosNovio) {
-  //       this.mostrarDatosNovio = true;
-  //     } else {
-  //       this.mostrarDatosNovio = false;
-  //     }
-  //   } else {
-  //   }
-  // }
 
   public seleccionarEvento(id) {
     this.tipoEvento = id;
@@ -201,6 +177,14 @@ export class CrearListaComponent implements OnInit {
           this.disabledCreador = true;
         },
         error => {
+          this.customerCreador.fiscalIdType = '';
+          this.customerCreador.firstName = '';
+          this.customerCreador.lastName1 = '';
+          this.customerCreador.lastName2 = '';
+          this.customerCreador.addresses[0].email = '';
+          this.customerCreador.addresses[0].cityCode = null;
+          this.customerCreador.addresses[0].address = '';
+          this.customerCreador.addresses[0].cellphone = '';
           this.existeCreador = false;
           console.error(error);
         }
@@ -235,6 +219,14 @@ export class CrearListaComponent implements OnInit {
           this.disabledCocreador = true;
         },
         error => {
+          this.customerCocreador.fiscalIdType = '';
+          this.customerCocreador.firstName = '';
+          this.customerCocreador.lastName1 = '';
+          this.customerCocreador.lastName2 = '';
+          this.customerCocreador.addresses[0].email = '';
+          this.customerCocreador.addresses[0].cityCode = null;
+          this.customerCocreador.addresses[0].address = '';
+          this.customerCocreador.addresses[0].cellphone = '';
           this.existeCocreador = false;
           console.error(error);
         }
@@ -282,11 +274,11 @@ export class CrearListaComponent implements OnInit {
       || (this.diaInicio == null)) {
       this.messageError = 'Debes llenar todos los campos obligatorios para poder continuar con el Paso #3.';
       this.validForm2 = false;
+    } else if (this.aceptaBonos && (!this.montoBono || this.montoBono < 10000)) {
+      this.messageError = 'Monto mínimo para el bono es de $10.000';
+      this.validMonto = false;
     } else {
       this.limpiarCampos();
-      console.log("**************");
-      console.log(this.messageAgadecimiento);
-      console.log("**************");
       //pasar al siguiente paso
       if (this.paso < 4) {
         this.paso++;
@@ -317,6 +309,7 @@ export class CrearListaComponent implements OnInit {
     let apellidosCocreador = '';
     let usarDatosCreador;
     let usarDatosCocreador;
+    let tipoLista;
     apellidosCreador += this.customerCreador.lastName1;
     apellidosCocreador += this.customerCocreador.lastName1;
     if (this.customerCreador.lastName2 != null && this.customerCreador.lastName2.length > 0) {
@@ -335,22 +328,26 @@ export class CrearListaComponent implements OnInit {
     } else {
       usarDatosCocreador = false;
     }
-    console.log(usarDatosCreador);
-    console.log(usarDatosCocreador);
+    if (this.tipoLista == 'PRIVADA') {
+      tipoLista = true;
+    } else {
+      tipoLista = false;
+    }
+
     if (this.aceptaTerminos) {
       let listGiftDTO = {
         idLista: null,
         invitados: this.invitados,
-        valorMinimoBono: 0,
+        valorMinimoBono: this.montoBono,
         codigo: "",
         nombre: null,
         rutaImagenPerfil: null,
         rutaImagenPortada: null,
         mensajeBienvenida: null,
         mensajeAgradecimiento: this.messageAgadecimiento,
-        listaPrivada: false,
-        aceptaBonos: true,
-        permitirEntregaPersonal: false,
+        listaPrivada: tipoLista,
+        aceptaBonos: this.aceptaBonos,
+        permitirEntregaPersonal: this.permitirEntregaPersonal,
         activa: true,
         fechaCreacion: null,
         formatoFechaEvento: this.anoInicio + '-' + this.mesInicio + '-' + this.diaInicio,
@@ -407,7 +404,11 @@ export class CrearListaComponent implements OnInit {
       this._listaRegalosService.crearLista(listGiftDTO).subscribe(
         response => {
           if (response.codigo === 0) {
-            this.buscarLista(response.mensaje);
+            //this.buscarLista(response.mensaje);
+            console.log('despues de crear '+ response.idLista);
+            localStorage.setItem('codigo-lista', response.mensaje);
+            localStorage.setItem('id-lista', response.idLista);
+
             //crear como cliente SAP
             if (!this.existeCreador) {
               this.crearClienteCreador();
@@ -418,7 +419,6 @@ export class CrearListaComponent implements OnInit {
             this._router.navigate(['/mi-lista']);
           } else {
             this.messageError = response.mensaje;
-            console.log(response);
           }
         },
         error => {
@@ -427,7 +427,7 @@ export class CrearListaComponent implements OnInit {
         }
       );
     } else {
-      this.messageError = "Debe aceptar los terminos y condiciones.";
+      this.messageError = "Debe aceptar los términos y condiciones.";
     }
   }
 
@@ -503,7 +503,7 @@ export class CrearListaComponent implements OnInit {
 
     this._customerService.createCustomer(businesspartner).subscribe(
       response => {
-        console.log('Creador de la lista, registrado como cliente SAP');
+        console.log('Creador de la lista, registrado como cliente');
       },
       error => {
         this.messageError = 'Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.'
@@ -584,7 +584,7 @@ export class CrearListaComponent implements OnInit {
 
     this._customerService.createCustomer(businesspartner).subscribe(
       response => {
-        console.log('Cocreador de la lista, registrado como cliente SAP');
+        console.log('Cocreador de la lista, registrado como cliente');
       },
       error => {
         this.messageError = 'Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.'
@@ -623,6 +623,7 @@ export class CrearListaComponent implements OnInit {
     this.validForm2 = true;
     this.validForm3 = true;
     this.validForm4 = true;
+    this.validMonto = true;
     this.validCreador = true;
     this.validCocreador = true;
   }
@@ -686,15 +687,17 @@ export class CrearListaComponent implements OnInit {
           this.idListaCreada = response[0].idLista;
           this.nombreCreadorLista = response[0].nombreCreador.toLowerCase() + ' ' + response[0].apellidoCreador.toLowerCase() + ' & ' + response[0].nombreCocreador.toLowerCase() + ' ' + response[0].apellidoCocreador.toLowerCase();
           this.fechaEventoLista = response[0].formatoFechaEvento;
+          localStorage.setItem('username-lista', this.nombreCreadorLista);
+
+          localStorage.setItem('fecha-evento', this.fechaEventoLista);
+
         }
       },
       error => {
         console.error(error);
       }
     );
-    localStorage.setItem('id-lista', this.idListaCreada);
-    localStorage.setItem('username-lista', this.nombreCreadorLista);
-    localStorage.setItem('codigo-lista', codigo);
-    localStorage.setItem('fecha-evento', this.fechaEventoLista);
+
+
   }
 }

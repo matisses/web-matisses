@@ -35,6 +35,7 @@ export class FiltrosComponent {
 
   ngAfterViewInit() {
     this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    console.log(this.viewportWidth);
   }
 
   public inicializarFiltros(availableFields, queryParams, queryString, totalItems) {

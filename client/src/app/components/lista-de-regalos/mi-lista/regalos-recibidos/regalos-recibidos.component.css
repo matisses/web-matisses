@@ -3,58 +3,48 @@
 }
 
 
-/* bono regalo */
+/* modal detalle regalo */
 
-.bono-regalo {
-  cursor: default !important;
-  text-align: center;
+.info-item p {
+  margin: 0 0 5px 0;
 }
 
-.bono-regalo .precio {
-  height: 20px;
-  border: none;
-  border-bottom: 1px solid;
-  text-align: center;
+.mensaje-invitado {
+  border: 1px solid #CCC;
+  padding: 10px;
 }
 
-.bono-regalo .cantidad, .bono-regalo .detalle {
-  visibility: hidden;
+.info-item .icon-invitado-01 {
+  font-size: 20px;
+  position: relative;
+  top: 1px;
 }
 
-.bono-regalo input[type=number]::-webkit-inner-spin-button, .bono-regalo input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.bono-regalo input[type=number] {
-  -moz-appearance: textfield;
-}
-
-
-/* fin bono regalo */
-
-.descripcion {
-  overflow: hidden;
-  max-height: 250px;
-}
-
-.btn-eliminar {
-  border-radius: 0;
+.btn-devolver {
   background-color: #FFF;
+  border-radius: 0;
   border: 1px solid #CCC;
 }
 
-.btn-radius-0 {
+/* modal agendar fecha */
+
+.height-40 {
+  height: 40px;
   border-radius: 0;
+  margin-bottom: 10px;
 }
 
-.btn-guardar {
+.margin-0 {
+  margin: 0;
+}
+
+.btn-programar {
   background-color: #D77D7D;
   color: #FFF;
   border-radius: 0;
 }
 
-.btn-guardar:hover {
+.btn-programar:hover {
   background-color: #AB4646
 }
 
@@ -92,14 +82,13 @@
   color: #D77D7D;
 }
 
-.agregar-regalo {
+.monto-regalado {
   border-left: 1px solid #CCC;
   border-right: 1px solid #CCC;
-  cursor: pointer;
   padding-top: 10px;
 }
 
-.regalos-agregados {
+.regalos-recibidos, .agendar-fecha {
   padding-top: 10px;
 }
 
@@ -107,12 +96,12 @@
   padding-top: 10px;
 }
 
-.agregar-regalo span, .compartir-lista span, .regalos-agregados span {
+.monto-regalado span, .agendar-fecha span, .regalos-recibidos span {
   font-size: 30px;
   color: #D77D7D;
 }
 
-.agregar-regalo p, .compartir-lista p, .regalos-agregados p {
+.monto-regalado p, .agendar-fecha p, .regalos-recibidos p {
   display: inline-block;
   position: relative;
   top: -5px;
@@ -221,43 +210,6 @@
 .jpg-responsive {
   width: 100%;
   height: 100%;
-}
-
-
-/* boton de cantidad */
-
-.cantidad .input-group .form-control, .cantidad .input-group-addon {
-  background-color: #FFF;
-  border: 1px solid #ccc;
-}
-
-.input-cantidad {
-  border-radius: 0;
-  border-color: #D1D1D1;
-  text-align: center;
-  z-index: 0;
-  padding: 0;
-  height: 36px;
-}
-
-.span-cantidad {
-  padding: 0px;
-  border-radius: 0;
-  background-color: transparent;
-}
-
-.span-cantidad:hover {
-  background-color: #ECECEC;
-}
-
-.btn-cantidad {
-  font-size: 10px;
-  background-color: transparent;
-  border: none;
-  color: #5b5b5b;
-  font-weight: bold;
-  padding: 5px;
-  border-radius: 0;
 }
 
 

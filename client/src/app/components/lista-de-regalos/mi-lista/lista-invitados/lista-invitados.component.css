@@ -1,0 +1,186 @@
+.contenedor {
+  margin-top: 110px;
+}
+
+
+/* modal agregar invitado */
+
+.input-agregar {
+  width: 100%;
+  height: 40px;
+  border-radius: 0;
+  padding: 0 15px;
+  margin-bottom: 10px;
+}
+
+.btn-agregar {
+  background-color: #D77D7D;
+  color: #FFF;
+  border-radius: 0;
+}
+
+.modal-content {
+  border-radius: 0;
+  color: #5b5b5b;
+}
+
+.modal-body label {
+  font-weight: normal;
+}
+
+.ng-valid[required], .ng-valid.required {
+  border-left: 5px solid #6D9197;
+  /* green */
+}
+
+.ng-touched.ng-invalid[required], .ng-untouched.ng-pristine.ng-invalid[required].required-field {
+  border-left: 5px solid #65092D;
+  /* red */
+}
+
+/* tabla invitados */
+
+.table-listas .table-title {
+  background-color: #7D7D7D;
+  color: #FFF;
+  text-align: center;
+}
+
+.table-listas th, .table-listas td {
+  text-align: center;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+
+/* header */
+
+.codigo-lista {
+  color: #D77D7D;
+}
+
+.menu1 {
+  background-color: #F8F8F8;
+  height: 30px;
+  padding: 5px;
+}
+
+.icono {
+  font-weight: bold;
+  display: inline-block;
+}
+
+.menu1 p {
+  display: inline-block;
+}
+
+.icono-fecha {
+  display: inline-block;
+  color: #D77D7D;
+}
+
+.monto-regalado {
+  border-left: 1px solid #CCC;
+  border-right: 1px solid #CCC;
+  cursor: pointer;
+  padding-top: 10px;
+}
+
+.regalos-recibidos, .agendar-fecha {
+  padding-top: 10px;
+}
+
+.compartir-lista {
+  padding-top: 10px;
+}
+
+.monto-regalado span, .agendar-fecha span, .regalos-recibidos span {
+  font-size: 30px;
+  color: #D77D7D;
+}
+
+.monto-regalado p, .agendar-fecha p, .regalos-recibidos p {
+  display: inline-block;
+  position: relative;
+  top: -5px;
+  left: 5px;
+  font-size: 20px;
+}
+
+.fecha {
+  display: inline-block;
+}
+
+.rosa {
+  border-color: #D77D7D;
+  margin: 0;
+}
+
+.codigo-fecha {
+  margin-top: 5px;
+}
+
+.jpg-responsive {
+  width: 100%;
+}
+
+.title-mi-lista {
+  font-family: Baskerville, "Baskerville Old Face", "Hoefler Text";
+  font-size: 25px;
+  margin-bottom: 0px;
+}
+
+.seleccionado::before {
+  content: '';
+  width: 20%;
+  position: absolute;
+  bottom: 5px;
+  background-color: #D77D7D;
+  height: 2px;
+  right: 80px;
+}
+
+
+/* cuando no hay invitados */
+
+.box-sin-regalos {
+  margin-top: 20px;
+  color: #5B5B5B;
+  width: 100%;
+  padding: 100px 0px;
+  background-color: #F8F8F8;
+}
+
+.box-sin-regalos p {
+  margin: 0;
+  font-size: 20px;
+}
+
+.box-sin-regalos .plus-regalo {
+  margin-top: 20px !important;
+  background-color: #FFF;
+  border: none;
+  width: 20%;
+  margin: 0 auto;
+  padding: 5px;
+}
+
+@media screen and (max-width: 1200px) {}
+
+@media screen and (max-width: 991px) {}
+
+@media screen and (max-width: 425px) {
+  .menu1 .saludo {
+    display: block;
+    text-align: center;
+  }
+  .codigo-fecha .codigo, .text-center-fecha {
+    text-align: center;
+  }
+  .seleccionado::before {
+    display: none;
+  }
+  .seleccionado {
+    color: #D77D7D;
+  }
+}

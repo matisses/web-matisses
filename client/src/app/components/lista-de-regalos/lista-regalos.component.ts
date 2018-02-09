@@ -45,9 +45,7 @@ export class ListaRegalosComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-
-
-      localStorage.clear();
+    localStorage.clear();
     this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     if (this.viewportWidth <= 767) {
       this.showCampos(-1);
@@ -127,7 +125,7 @@ export class ListaRegalosComponent implements OnInit {
         localStorage.setItem('id-lista', this.idListaUsuario);
         localStorage.setItem('codigo-lista', this.codigoLista);
         localStorage.setItem('fecha-evento', this.fechaEvento);
-        console.log('token '+localStorage.getItem('matisses.lista-token'));
+        console.log('token ' + localStorage.getItem('matisses.lista-token'));
         this._router.navigate(['/mi-lista']);
       },
       error => {
@@ -170,6 +168,7 @@ export class ListaRegalosComponent implements OnInit {
         },
         error => {
           console.error(error);
+          this.messageErrorSearch = 'Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.'
         }
       );
     } else {

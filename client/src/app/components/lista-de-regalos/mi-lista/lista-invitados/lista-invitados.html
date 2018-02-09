@@ -1,0 +1,167 @@
+<!-- Modal agregar invitado -->
+<div class="modal fade" id="modalInvitado" tabindex="-1" role="dialog" aria-labelledby="modalInvitadoLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="limpiarCampos()"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center" id="modalInvitadoLabel">Agregar invitado</h4>
+      </div>
+      <div class="row" *ngIf="messageError != null && messageError.length > 0">
+        <div class="col-xs-12">
+          <div class="alert alert-danger" role="alert">
+            <p>{{messageError}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2">
+            <label for="name">Nombres*</label>
+            <form (submit)="registrarInvitado()">
+              <input type="text" id="name" class="form-control height-40" maxlength="30" [class.required-field]="!valid" name="nombreInvitado" [(ngModel)]="nombreInvitado" required>
+            </form>
+            <label for="apellido">Apellidos*</label>
+            <form (submit)="registrarInvitado()">
+              <input type="text" id="apellido" class="form-control height-40" maxlength="30" [class.required-field]="!valid" name="apellidosInvitado" [(ngModel)]="apellidosInvitado" required>
+            </form>
+            <label for="correo">Email*</label>
+            <form (submit)="registrarInvitado()">
+              <input type="email" id="correo" class="form-control height-40" maxlength="30" [class.required-field]="!valid" [email]="true" name="correoInvitado" [(ngModel)]="correoInvitado" required>
+            </form>
+            <label for="celular">Celular*</label>
+            <form (submit)="registrarInvitado()">
+              <input type="text" id="celular" class="form-control height-40" maxlength="30" [class.required-field]="!valid" name="telefonoInvitado" [(ngModel)]="telefonoInvitado" required>
+            </form>
+            <p>*Información requerida</p>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-xs-12 text-center">
+            <button type="button" class="btn btn-agregar" (click)="registrarInvitado()">Envíar invitación</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<menu-lista></menu-lista>
+
+<div class="container">
+  <div class="contenedor">
+    <div class="row">
+      <div class="col-xs-12 text-right">
+        <p class="cursor-pointer" (click)="cerrarSession()">(Cerrar sesión)</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="menu1 no-selector">
+        <div class="col-md-6">
+          <p class="saludo">Hola {{nombreUsuario}}</p>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-xs-4 text-center cursor-pointer" [routerLink]="['/mi-lista']">
+              <span class="icon-paso-01 icono"></span>
+              <p [routerLink]="['/mi-lista']">Lista de regalos</p>
+            </div>
+            <div class="col-xs-4 text-center cursor-pointer" [routerLink]="['/mi-lista/regalos-recibidos']">
+              <span class="icon-regalo-01 icono"></span>
+              <p>Regalos recibidos</p>
+            </div>
+            <div class="col-xs-4 text-center cursor-pointer seleccionado">
+              <span class="icon-invitados icono"></span>
+              <p>Lista de invitados</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="codigo-fecha">
+        <div class="col-sm-6 text-right">
+          <p class="codigo">Codigo de novios: <b>{{codigoLista}}</b></p>
+        </div>
+        <div class="col-sm-6 text-left text-center-fecha">
+          <span class="icon-fecha icono-fecha"></span>
+          <p class="fecha">Fecha celebración: <b>{{fechaEvento}}</b></p>
+        </div>
+      </div>
+    </div>
+    <hr class="rosa" />
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <h1 class="title-mi-lista">MI LISTA DE INVITADOS</h1>
+        <p style="margin:0; color#CCC">Crea tu lista de invitados, confirma asistencia y compate tu lista de regalos.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2 col-sm-offset-5 col-xs-8 col-xs-offset-2 text-center">
+        <img src="../../../../assets/images/deco_01.png" class="jpg-responsive" alt="">
+      </div>
+    </div>
+    <br class="hidden-xs">
+    <div class="row text-center">
+      <div class="col-sm-4 agendar-fecha no-selector">
+        <span class="icon-invitado-02"></span>
+        <p><b>{{totalLista}}</b> Invitados</p>
+      </div>
+      <!-- boton agregar -->
+      <div class="col-sm-4 monto-regalado no-selector" data-toggle="modal" data-target="#modalInvitado">
+        <span class="icon-plus-regalo"></span>
+        <p>Agregar invitados</p>
+      </div>
+      <!-- boton fecha entrega -->
+      <div class="col-sm-4 agendar-fecha no-selector cursor-pointer">
+        <span class="icon-imprimir"></span>
+        <p>Imprimir lista</p>
+      </div>
+    </div>
+    <br>
+    <!-- Informacion cuando no hay invitados -->
+    <div class="row" *ngIf="invitados && invitados.length <= 0">
+      <div class="col-xs-12 text-center">
+        <div class="box-sin-regalos">
+          <p>Aun no has agregado invitados</p>
+          <div class="monto-regalado no-selector plus-regalo" data-toggle="modal" data-target="#modalInvitado">
+            <span class="icon-plus-regalo"></span>
+            <p>Agregar invitados</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row" *ngIf="messageExit != null && messageExit.length > 0">
+      <div class="col-xs-12">
+        <div class="alert alert-success" role="alert">
+          <p>{{messageExit}}</p>
+        </div>
+      </div>
+    </div>
+    <!-- Informacón cuando hay invitados agregados -->
+    <div class="row" *ngIf="invitados && invitados.length > 0">
+      <div class="col-xs-12">
+        <table class="table table-striped table-hover table-listas no-selector">
+          <thead>
+            <tr class="table-title">
+              <th>Nombre</th>
+              <th>Correo</th>
+              <th>Celular</th>
+              <th>Asistencia</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let invitado of invitados">
+              <td>{{invitado.nombre}}</td>
+              <td class="nombres-novios">{{invitado.correo}}</td>
+              <td class="hidden-xs">{{invitado.celular}}</td>
+              <td class="hidden-xs">{{invitado.asistencia}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <br>
+</div>

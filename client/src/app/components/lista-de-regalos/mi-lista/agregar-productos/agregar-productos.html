@@ -37,7 +37,7 @@
               <!-- Descripcion -->
               <br>
               <br>
-              <p class="text-justify">{{formAgregar.description}}</p>
+              <p class="text-justify" [innerHTML]="formAgregar.description"></p>
               <!-- btn cantidad -->
               <br>
               <div class="row">
@@ -60,7 +60,6 @@
                 </div>
               </div>
               <!-- boton de agregar -->
-              <!-- <button type="button" class="btn btn-default" data-dismiss="modal" (click)=limpiar()>Cerrar</button> -->
               <div class="row">
                 <div class="col-xs-12 text-center">
                   <button type="button" class="btn btn-agregar" (click)="agregarProducto(AgregarForm)" *ngIf="successMessage == null || successMessage.length <= 0">Agregar</button>
@@ -89,10 +88,10 @@
     </div>
     <div class="row">
       <div class="menu1 no-selector">
-        <div class="col-xs-6 text-left">
-          <p>Hola {{nombreUsuario}}</p>
+        <div class="col-md-6">
+          <p class="saludo">Hola {{nombreUsuario}}</p>
         </div>
-        <div class="col-xs-6">
+        <div class="col-md-6">
           <div class="row">
             <div class="col-xs-4 text-center cursor-pointer seleccionado">
               <span class="icon-paso-01 icono"></span>
@@ -112,29 +111,29 @@
     </div>
     <div class="row">
       <div class="codigo-fecha">
-        <div class="col-xs-6 text-right">
-          <p>Codigo de novios: {{codigoLista}}</p>
+        <div class="col-sm-6 text-right">
+          <p class="codigo">Codigo de novios: <b>{{codigoLista}}</b></p>
         </div>
-        <div class="col-xs-6 text-left">
+        <div class="col-sm-6 text-left text-center-fecha">
           <span class="icon-fecha icono-fecha"></span>
-          <p class="fecha">Fecha celebracion: {{fechaEvento}}</p>
+          <p class="fecha">Fecha celebración: <b>{{fechaEvento}}</b></p>
         </div>
       </div>
     </div>
     <hr class="rosa" />
     <div class="row">
-      <div class="col-xs-6 text-center">
+      <div class="col-sm-6 text-center">
         <h1 class="title-mi-lista">AGREGAR REGALOS</h1>
         <div class="row">
-          <div class="col-xs-4 col-xs-offset-4">
+          <div class="col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2">
             <img src="../../../../../assets/images/deco_01.png" class="jpg-responsive" alt="">
           </div>
         </div>
       </div>
-      <div class="col-sm-4 col-sm-offset-1 text-right">
-        <div class="btn-volver no-selector">
+      <div class="col-sm-4 col-sm-offset-1 text-center">
+        <div class="btn-volver cursor-pointer no-selector" [routerLink]="['/mi-lista']">
           <span class="icon-volver"></span>
-          <p [routerLink]="['/mi-lista']">Volver a mi lista</p>
+          <p>Volver a mi lista</p>
         </div>
         <form (submit)="search()">
           <div class="input-group">
@@ -171,16 +170,16 @@
             <!-- boton abrir filtros -->
             <a data-parent="#accordion" (click)="showFiltros()">
               <div class="panel-heading visible-sm visible-xs" role="tab" id="headingOne">
-                <h4 class="panel-title text-center" *ngIf="mostrarFiltros">
+                <h4 class="panel-title text-center" *ngIf="!mostrarFiltro">
                     Ocultar filtros
                   </h4>
-                <h4 class="panel-title text-center" *ngIf="!mostrarFiltros">
+                <h4 class="panel-title text-center" *ngIf="mostrarFiltro">
                     Mostrar filtros
                   </h4>
               </div>
             </a>
             <!-- body filtros -->
-            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" [ngClass]="{'in' : mostrarFiltros}">
+            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" [ngClass]="{'in' : !mostrarFiltro}">
               <div class="panel-body">
                 <div *ngIf="filtrosAplicados && filtrosAplicados.length > 0">
                   <div class="row">
@@ -208,7 +207,7 @@
                       <div class="filter-collapse" (click)="toggleClass('#group')" data-toggle="collapse" href="#collapseGroups" aria-expanded="false" aria-controls="collapseGroups">
                         <p>Categorías <span id="group" class="icon-plus pull-right"></span></p>
                       </div>
-                      <div class="collapse" [ngClass]="{'in' : queryParams.has('discount')}" id="collapseGroups">
+                      <div class="collapse" [ngClass]="{'in' : mostrarCategoria}" id="collapseGroups">
                         <ul>
                           <div *ngFor="let menuItem of filtrosDisponibles['groups']">
                             <li class="filter-option" *ngIf="showCategoryOption(menuItem)" (click)="toggleSelection('group',menuItem.code); scrollAfterFiter()">
@@ -387,11 +386,9 @@
             <p class="precio"><b>$ {{items[i].priceaftervat | number}}</b></p>
             <div class="botones">
               <div class="col-xs-12 text-center">
-                <div class="btn-group" role="group"  *ngIf="!items[i].agregadoLista">
-
+                <div class="btn-group" role="group" [ngClass]="{'hide-this' : items[i].agregadoLista}">
                   <button type="button" class="btn btn-carrito" (click)="abrirModal(items[i].shortitemcode)">
-<!--aca hay conflicto revisar-->
-                    <!-- <span class="icon-regalo_1"></span> -->
+                    <span class="icon-agregar-regalo"></span>
                     AGREGAR REGALO
                   </button>
                 </div>

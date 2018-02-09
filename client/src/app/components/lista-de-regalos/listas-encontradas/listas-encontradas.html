@@ -9,42 +9,46 @@
         <p>Resultado de búsqueda</p>
       </div>
     </div>
-    <div class="row" *ngIf="messageError != null && messageError.length > 0">
-      <div class="col-xs-12">
-        <div class="alert alert-danger" role="alert">
-          <p>{{messageError}}</p>
+    <div class="row text-center">
+      <div class="buscar-lista">
+        <div class="row" *ngIf="messageError != null && messageError.length > 0">
+          <div class="col-xs-12">
+            <div class="alert alert-danger" role="alert">
+              <p>{{messageError}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3" *ngIf="mostrarBtnBuscar">
+          <h4 class="title-buscar-lista">Busca una lista</h4>
+        </div>
+        <div class="col-sm-3" *ngIf="!mostrarBtnBuscar">
+          <h4 role="button" (click)="showBuscar()" class="title-buscar-lista" (click)="toggleClass('#caret')">Busca una lista <span id="caret" class="glyphicon glyphicon-menu-down"></span></h4>
+        </div>
+        <div class="collapse" id="collapseExample" [ngClass]="{'in' : mostrarBuscar}">
+          <div class="col-sm-2 text-left">
+            <label style="display: block" for="nombre">Nombre</label>
+            <form (submit)="buscarLista()">
+              <input id="nombre" type="text" style="display: block" class="form-control" name="nombresNovios" [(ngModel)]="nombresNovios">
+            </form>
+          </div>
+          <div class="col-sm-2 text-left">
+            <label style="display: block" for="apellido">Apellido</label>
+            <form (submit)="buscarLista()">
+              <input id="apellido" type="text" style="display: block" class="form-control" name="apellidosNovios" [(ngModel)]="apellidosNovios">
+            </form>
+          </div>
+          <div class="col-sm-2 text-left">
+            <label style="display: block" for="codigo">Código</label>
+            <form (submit)="buscarLista()">
+              <input id="codigo" type="text" style="display: block" class="form-control" name="codigoLista" [(ngModel)]="codigoLista">
+            </form>
+          </div>
+          <div class="col-sm-3">
+            <button type="button" name="buscar" class="btn btn-buscar-lista" (click)="buscarLista()">Buscar</button>
+          </div>
         </div>
       </div>
     </div>
-    <form id="buscarLista">
-      <div class="row text-center">
-        <div class="buscar-lista">
-          <div class="col-sm-3" *ngIf="mostrarFiltros">
-            <h4>Busca una lista</h4>
-          </div>
-          <div class="col-sm-3" *ngIf="!mostrarFiltros">
-            <h4 role="button" (click)="showFiltros()">Busca una lista <span class="glyphicon glyphicon-chevron-down"></span></h4>
-          </div>
-          <div class="collapse" id="collapseExample" [ngClass]="{'in' : mostrarFiltros}">
-            <div class="col-sm-2 text-left">
-              <label style="display: block" for="nombre">Nombre</label>
-              <input id="nombre" type="text" style="display: block" class="form-control" name="nombresNovios" [(ngModel)]="nombresNovios">
-            </div>
-            <div class="col-sm-2 text-left">
-              <label style="display: block" for="apellido">Apellido</label>
-              <input id="apellido" type="text" style="display: block" class="form-control" name="apellidosNovios" [(ngModel)]="apellidosNovios">
-            </div>
-            <div class="col-sm-2 text-left">
-              <label style="display: block" for="codigo">Código</label>
-              <input id="codigo" type="text" style="display: block" class="form-control" name="codigoLista" [(ngModel)]="codigoLista">
-            </div>
-            <div class="col-sm-3">
-              <button type="button" name="buscar" class="btn btn-listas" (click)="buscarLista()">Buscar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </form>
     <br>
     <!-- Tabla con listas encontradas -->
     <div class="row">
@@ -55,7 +59,7 @@
         </div>
       </div>
       <div class="col-xs-12">
-        <table class="table table-striped table-hover table-listas">
+        <table class="table table-striped table-hover table-listas no-selector">
           <thead>
             <tr class="table-title">
               <th>Código</th>
@@ -66,8 +70,8 @@
           </thead>
           <tbody>
             <tr *ngFor="let novios of listas">
-              <th scope="row">{{novios.codigo}}</th>
-              <td class="nombres-novios" [innerHTML]="novios.novios"></td>
+              <th scope="row" (click)="removeSession(novios.idLista,novios.codigo,novios.novios,novios.fecha)" [routerLink]="['/lista', novios.codigo]">{{novios.codigo}}</th>
+              <td class="nombres-novios" (click)="removeSession(novios.idLista,novios.codigo,novios.novios,novios.fecha)" [routerLink]="['/lista', novios.codigo]" [innerHTML]="novios.novios"></td>
               <td class="hidden-xs">{{novios.fecha}}</td>
               <td class="hidden-xs">
                 <button type="button" name="verLista" class="btn btn-listas" (click)="removeSession(novios.idLista,novios.codigo,novios.novios,novios.fecha)" [routerLink]="['/lista', novios.codigo]">Ver lista</button>
