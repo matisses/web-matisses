@@ -94,10 +94,14 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    console.log('novios'+ this.novios);
+    this.novios = sessionStorage.getItem('novios');
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('fecha-evento');
     this.idListaUsuario = localStorage.getItem('id-lista');
+    console.log('novios'+ this.novios);
+    console.log('codigoLista'+ this.codigoLista);
     this.inicializarShoppingCart();
     this.cargarItems0();
     this.cargarFechaEvento();
@@ -361,10 +365,11 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
   //carrito de compras ListaRegalos
   public agregarCarrito(item: Item) {
-
-    item.selectedQuantity = item.selectedQuantity;
-    this.procesarItem(item);
-    this.abrirModalAgregarRegalo(item);
+    if(item.selectedQuantity > 0){
+      item.selectedQuantity = item.selectedQuantity;
+      this.procesarItem(item);
+      this.abrirModalAgregarRegalo(item);
+    }
   }
 
   public procesarItem(item: Item) {
@@ -548,7 +553,6 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
       }
     }
   }
-
   public aumentarCantidad(item: Item) {
 
     if(item.cantidadElegida > item.selectedQuantity){
@@ -556,6 +560,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
          item.selectedQuantity += 1;
       }
     }
+
   }
 
   public reducirCantidad(item: Item) {
