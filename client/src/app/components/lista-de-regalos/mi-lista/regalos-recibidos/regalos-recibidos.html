@@ -101,18 +101,18 @@
           </div>
           <!-- info producto -->
           <div class="row">
-            <div class="col-xs-12">
-              <div class="row">
+            <div class="col-xs-12"  *ngFor="let item of itemsListaCompra"><!--proddd-->
+              <div class="row" >
                 <div class="col-sm-3 col-xs-6">
-                  <img src="https://img.matisses.co/{{formAgregar.itemcode}}/images/{{formAgregar.itemcode}}_01.jpg" class="jpg-responsive" alt="{{formAgregar.itemcode}}">
+                  <img src="https://img.matisses.co/{{item.formAgregar.itemcode}}/images/{{item.formAgregar.itemcode}}_01.jpg" class="jpg-responsive" alt="{{item.formAgregar.itemcode}}">
                 </div>
                 <div class="col-sm-4 col-sm-offset-1 col-xs-offset-0">
                   <!-- Descripcion -->
                   <div class="info-item">
-                    <p class="factura"><b>Fv:</b> 70000800</p>
-                    <p class="referencia"><b>Ref:</b> {{formAgregar.shortitemcode}}</p>
-                    <p class="precio"><b>$ {{formAgregar.priceaftervat | number}}</b></p>
-                    <p class="cantidad">Cantidad comprada: <b>{{formAgregar.cantidadComprada}}</b></p>
+                    <p class="factura"><b>Fv:</b> {{item.factura}}</p>
+                    <p class="referencia"><b>Ref:</b> {{item.formAgregar.itemcode}}</p>
+                    <p class="precio"><b>$ {{item.formAgregar.precio | number}}</b></p>
+                    <p class="cantidad">Cantidad comprada: <b>{{item.formAgregar.cantidad}}</b></p>
                     <button type="button" class="btn btn-devolver" (click)=confirmEliminarItem()>Devolver regalo</button>
                   </div>
                   <br>
@@ -128,8 +128,8 @@
                 <div class="col-sm-4">
                   <div class="info-item">
                     <p>Regalo hecho por:</p>
-                    <p><span class="icon-invitado-01"></span><b>nombre comprador</b></p>
-                    <p class="mensaje-invitado">Felicidades en su matrimonio</p>
+                    <p><span class="icon-invitado-01"></span><b>{{item.quienCompra}}</b></p>
+                    <p class="mensaje-invitado">{{item.mensaje}}</p>
                   </div>
                 </div>
               </div>

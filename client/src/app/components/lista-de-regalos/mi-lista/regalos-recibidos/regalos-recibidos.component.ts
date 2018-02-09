@@ -414,6 +414,8 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
   public yearEvent: Array<number>;
   public monthEvent: Array<number>;
   public validForm2: boolean = true;
+  public itemsListaCompra: Array<any>;
+
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -429,6 +431,8 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     this.dayEvent = new Array<number>();
     this.monthEvent = new Array<number>();
     this.yearEvent = new Array<number>();
+    this.itemsListaCompra = new Array<any>();
+
     this.inicializarForm();
 
     this.inicializarParamsConsulta();
@@ -748,6 +752,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     this.messageError = '';
     this.successMessage = '';
     this.valid = true;
+    this.itemsListaCompra = new Array<any>();
     this._itemService.find(itemcode).subscribe( // Item 1
       response => {
 
@@ -758,6 +763,34 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
         this.formAgregar.cantidad = 0;
         this.formAgregar.precio = response.result[0].priceaftervat;
         this.formAgregar.cantidadmaxima = cantidadElegida;
+
+        let datosCompra={
+          idLista:this.idListaUsuario,
+          referencia:response.result[0].itemcode
+        }
+
+    this._listaService.consultarDetalleCompra(datosCompra).subscribe(
+        response => {
+           console.log('encontro la info de la compra');
+           this.itemsListaCompra=response;
+           for (var i = 0; i < this.itemsListaCompra.length; i++) {
+
+             this.itemsListaCompra[i]['formAgregar']=this.formAgregar;
+             this.itemsListaCompra[i]['shortitemcode']=response.result[0].shortitemcode;
+             console.log('agregooo '+this.itemsListaCompra[i]['formAgregar'].name);
+           }
+        },
+        error =>{
+
+        }
+
+
+
+    );
+
+
+
+
       }
     );
     $('#modalDetalle').modal('show');
