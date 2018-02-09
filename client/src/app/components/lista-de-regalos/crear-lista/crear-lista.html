@@ -299,6 +299,7 @@
                       <input id="n-invitados" type="number" name="nInvitados" class="form-control height-40" min="0" [(ngModel)]="invitados">
                     </div>
                   </div>
+                  <br>
                   <div class="row">
                     <div class="col-sm-4">
                       <input type="checkbox" name="gift-cards" [(ngModel)]="aceptaBonos"><b class="notificaciones">¿Aceptas Gift-Cards?</b>
@@ -307,10 +308,11 @@
                       <input id="montoBono" type="number" [disabled]="!aceptaBonos" class="form-control" maxlength="30" [class.required-field]="!validMonto" name="montoBono" [(ngModel)]="montoBono" placeholder="$10.000" required>
                     </div>
                   </div>
+                  <br>
                   <div class="row">
                     <div class="col-sm-12">
                       <div class="contenido">
-                        <textarea name="messageAgadecimiento" class="form-control" rows="8" cols="80" [(ngModel)]="messageAgadecimiento" placeholder="Déjale un mensaje de agradecimiento a tus invitados."></textarea>
+                        <textarea name="messageAgadecimiento" class="form-control" rows="8" cols="80" [(ngModel)]="messageAgadecimiento" placeholder="Déjale un mensaje de agradecimiento a los invitados que te hagan compras en tu lista."></textarea>
                         <br>
                       </div>
                     </div>
