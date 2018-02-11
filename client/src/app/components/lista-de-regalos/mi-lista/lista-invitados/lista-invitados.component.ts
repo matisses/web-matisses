@@ -17,7 +17,7 @@ declare var $: any;
 })
 
 export class ListaInvitadosComponent implements OnInit, AfterViewInit {
-  public totalLista: number;
+  public totalInvitados: number;
   public nombreUsuario: string;
   public claveNueva: string;
   public claveConfirmacion: string;
@@ -48,6 +48,7 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
     this.queryParams = new Map<string, string>();
     this.invitados = new Array<any>();
 
+    this.totalInvitados = 0;
     this.nombreInvitado = '';
     this.apellidosInvitado = '';
     this.correoInvitado = '';
@@ -92,10 +93,9 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
         response => {
           if (response.codigo == 0) {
             this.messageExit = 'Invitación enviada satisfatoriamente.';
-            console.log(this.messageExit);
+            $("#modalInvitado").modal("hide");
             this.limpiarCampos();
             this.cargarInvitados();
-            $("#modalInvitado").modal("hide");
           } else {
             this.messageError = ('Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.');
           }
@@ -109,24 +109,22 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
   }
 
   public cargarInvitados() {
-    this.invitados.push({
-      nombre: "Rodrigo Guerra",
-      correo: "jrgt7465@hotmail.com",
-      celular: "3104462964",
-      asistencia: "Por confirmar"
-    });
-    this.invitados.push({
-      nombre: "Adriana Pareja",
-      correo: "apl1127@hotmail.com",
-      celular: "3218515320",
-      asistencia: "Por confirmar"
-    });
-    this.invitados.push({
-      nombre: "Jhordan Castrillon",
-      correo: "jcastrillon@hotmail.com",
-      celular: "3155326895",
-      asistencia: "Por confirmar"
-    });
+    this.invitados = new Array<any>();
+    this._listaService.consultarInvitados(this.idListaUsuario).subscribe(
+      response => {
+        if (response.length > 0) {
+          this.totalInvitados = response.length;
+          for (let i = 0; i < response.length; i++) {
+            this.invitados.push({
+              nombre: response[i].nombreInvitado + ' ' + response[i].apellidosInvitado,
+              correo: response[i].correoInvitado,
+              celular: response[i].telefonoInvitado,
+              asistencia: "Por confirmar"
+            });
+          }
+        }
+      }, error => { console.error(error); }
+    );
   }
 
   public limpiarCampos() {

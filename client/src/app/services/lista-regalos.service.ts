@@ -92,7 +92,15 @@ export class ListaRegalosService {
 
     return this._http.post(this.urlBCS + 'listaregalos/crearinvitado/', JSON.stringify(invitadoDTO), { headers: headers })
       .map(res => res.json());
+  }
 
+  consultarInvitados(idLista) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'listaregalos/consultarinvitados/' + idLista, { headers: headers })
+      .map(res => res.json());
   }
 
   consultarListaComprados(paramsConsulta) {
