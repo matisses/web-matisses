@@ -15,9 +15,9 @@
           <form #ContactForm="ngForm" (submit)="actualizarClave()">
             <div class="col-xs-4 col-xs-offset-4">
               <label class="label-lista" for="contraseña">Nueva contraseña</label>
-              <input type="text" class="form-lista-regalos" id="contraseña" name="claveNueva" [(ngModel)]="claveNueva" required>
+              <input type="password" class="form-lista-regalos" id="contraseña" name="claveNueva" [(ngModel)]="claveNueva" required>
               <label class="label-lista" for="confirmar-contraseña">Confirmar contraseña</label>
-              <input type="text" class="form-lista-regalos" id="confirmar-contraseña" name="claveConfirmacion" [(ngModel)]="claveConfirmacion" required>
+              <input type="password" class="form-lista-regalos" id="confirmar-contraseña" name="claveConfirmacion" [(ngModel)]="claveConfirmacion" required>
             </div>
           </form>
         </div>
