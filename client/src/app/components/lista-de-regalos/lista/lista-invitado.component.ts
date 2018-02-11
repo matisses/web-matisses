@@ -71,7 +71,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     this.fechaEvento = localStorage.getItem('fecha-evento');
     this.novios = sessionStorage.getItem('novios');
     this.resultados = sessionStorage.getItem('resultados');
-    this.idListaUsuario = localStorage.getItem('id-lista');
+    //this.idListaUsuario = localStorage.getItem('id-lista');
     this.queryParams = new Map<string, string>();
     this.itemsXPag = '12 x pag';
     this.orderByStr = 'Similares';
@@ -94,25 +94,54 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    console.log('novios'+ this.novios);
     this.novios = sessionStorage.getItem('novios');
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('fecha-evento');
     this.idListaUsuario = localStorage.getItem('id-lista');
-    console.log('novios'+ this.novios);
-    console.log('codigoLista'+ this.codigoLista);
+
+
+
     this.inicializarShoppingCart();
-    this.cargarItems0();
     this.cargarFechaEvento();
+    this.cargarItems0();
+
     this.showBadge = true;
   }
 
   ngAfterViewInit() {
-    this.nombreUsuario = localStorage.getItem('username-lista');
-    this.codigoLista = localStorage.getItem('codigo-lista');
-    this.fechaEvento = localStorage.getItem('fecha-evento');
-    this.idListaUsuario = localStorage.getItem('id-lista');
+    // this.nombreUsuario = localStorage.getItem('username-lista');
+    // this.codigoLista = localStorage.getItem('codigo-lista');
+    // this.fechaEvento = localStorage.getItem('fecha-evento');
+    // this.idListaUsuario = localStorage.getItem('id-lista');
+
+          if(this.codigoLista==null){
+
+              this._route.queryParams.subscribe(params => {
+              this.codigoLista = params['codigoLista'];
+              console.log('param '+ this.codigoLista);
+            });
+
+                  let consultaDTO = {
+                    nombre: null,
+                    apellido:null,
+                    codigo: this.codigoLista
+                  }
+                  this._listaService.consultarLista(consultaDTO).subscribe(
+                    response => {
+                      if (response.length > 0) {
+
+                        this.idListaUsuario=response[0].idLista;
+                        this.fechaEvento=response[0].formatoFechaEvento;
+
+                      }
+                    },
+                    error => {
+                      console.error(error);
+                      this.messageError = 'Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.';
+                    }
+                  );
+                }
 
   }
 
@@ -127,6 +156,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
         response => {
           if (response.length > 0) {
             this.formatoFechaEvento = response[0].formatoFechaEvento;
+            this.idListaUsuario=response[0].idLista;
           }
         },
         error => { console.error(error); }
@@ -161,6 +191,36 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   public cargarItems(availableFields, items, queryParams, records) {
+    if(this.codigoLista==null){
+
+        this._route.queryParams.subscribe(params => {
+        this.codigoLista = params['codigoLista'];
+      });
+
+            let consultaDTO = {
+              nombre: null,
+              apellido:null,
+              codigo: this.codigoLista
+            }
+            this._listaService.consultarLista(consultaDTO).subscribe(
+              response => {
+                if (response.length > 0) {
+
+                  this.idListaUsuario=response[0].idLista;
+                  this.fechaEvento=response[0].formatoFechaEvento;
+                  console.log('idLista '+this.idListaUsuario);
+                  localStorage.setItem('id-lista',this.idListaUsuario);
+                  localStorage.setItem('fecha-evento',this.fechaEvento);
+                }
+              },
+              error => {
+                console.error(error);
+                this.messageError = 'Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.';
+              }
+            );
+          }
+
+
 
     this.items = new Array<Item>();
     this.items = items;
@@ -223,6 +283,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     this.inicializarParamsConsulta();
 
     this._route.queryParams.forEach((params: Params) => {
+
       this.inicializarMapa(params);
       if (this.queryParams.has('pageSize')) {
 
@@ -257,13 +318,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
       }
 
 
-      this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
-        response => {
-          this.totalLista = response;
 
-        },
-        error => { console.error(error); }
-      );
 
       this._listaService.consultarListaPaginada(this.paramsConsulta).subscribe(
         response => {
@@ -287,6 +342,14 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
           }
 
           this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalLista);
+        },
+        error => { console.error(error); }
+      );
+
+      this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
+        response => {
+          this.totalLista = response;
+
         },
         error => { console.error(error); }
       );
