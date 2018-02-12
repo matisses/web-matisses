@@ -15,9 +15,13 @@
           <form #ContactForm="ngForm" (submit)="actualizarClave()">
             <div class="col-xs-4 col-xs-offset-4">
               <label class="label-lista" for="contraseña">Nueva contraseña</label>
-              <input type="password" class="form-lista-regalos" id="contraseña" name="claveNueva" [(ngModel)]="claveNueva" required>
+              <form (submit)="actualizarClave()">
+                <input type="password" class="form-lista-regalos" id="contraseña" name="claveNueva" [(ngModel)]="claveNueva" required>
+              </form>
               <label class="label-lista" for="confirmar-contraseña">Confirmar contraseña</label>
-              <input type="password" class="form-lista-regalos" id="confirmar-contraseña" name="claveConfirmacion" [(ngModel)]="claveConfirmacion" required>
+              <form (submit)="actualizarClave()">
+                <input type="password" class="form-lista-regalos" id="confirmar-contraseña" name="claveConfirmacion" [(ngModel)]="claveConfirmacion" required>
+              </form>
             </div>
           </form>
         </div>
@@ -91,7 +95,7 @@
           <!-- info producto -->
           <div class="row">
             <div class="col-sm-6">
-                <img src="https://img.matisses.co/{{formAgregar.itemcode}}/images/{{formAgregar.itemcode}}_01.jpg" class="jpg-responsive" alt="{{formAgregar.itemcode}}">
+              <img src="https://img.matisses.co/{{formAgregar.itemcode}}/images/{{formAgregar.itemcode}}_01.jpg" class="jpg-responsive" alt="{{formAgregar.itemcode}}">
             </div>
             <div class="col-sm-6">
               <!-- Descripcion -->
