@@ -1,0 +1,90 @@
+<menu-lista></menu-lista>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <hr/>
+      <h1 class="baskerville text-center">TIPS PARA HACER TU LISTA</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2 col-sm-offset-5 col-xs-4 col-xs-offset-4 text-center">
+      <img src="../../../../assets/images/deco_01.png" class="jpg-responsive" alt="">
+    </div>
+  </div>
+  <br>
+  <div class="row" *ngIf="tipoEvento === 0">
+      <div class="col-sm-4 col-sm-offset-0 col-xs-6 col-xs-offset-3">
+      <img src="../../../../assets/images/tip-novios.jpg" class="jpg-responsive" alt="">
+    </div>
+    <div class="col-sm-8 col-xs-12">
+      <div class="tip-text">
+        <h1 class="baskerville">LISTA DE NOVIOS</h1>
+        <p class="text-justify">Sin duda elegir la lista de regalos para tu nueva vida es uno de los momentos que casi todas esperamos, es acercarnos más al hogar de nuestros sueños...</p>
+        <button type="button" name="button" class="btn btn-tips"  (click)="seleccionarEvento(1)">Leer más</button>
+      </div>
+      <br>
+    </div>
+  </div>
+  <div class="row" *ngIf="tipoEvento === 0">
+      <div class="col-sm-4 col-sm-offset-0 col-xs-6 col-xs-offset-3">
+      <img src="../../../../assets/images/tip-home.jpg" class="jpg-responsive" alt="">
+    </div>
+    <div class="col-sm-8 col-xs-12">
+      <div class="tip-text">
+        <h1 class="baskerville">HOME SHOWER</h1>
+        <p class="text-justify">¡Una lista de regalos para adecuar tu primer hogar! Esta es una dinámica que se está practicando en el mundo entero, y es que no nos digamos mentiras, todos quieren...</p>
+        <button type="button" name="button" class="btn btn-tips">Leer más</button>
+      </div>
+      <br>
+    </div>
+  </div>
+  <div class="row" *ngIf="tipoEvento === 0">
+      <div class="col-sm-4 col-sm-offset-0 col-xs-6 col-xs-offset-3">
+      <img src="../../../../assets/images/tip-cumple.jpg" class="jpg-responsive" alt="">
+    </div>
+    <div class="col-sm-8 col-xs-12">
+      <div class="tip-text">
+        <h1 class="baskerville">CUMPLEAÑOS</h1>
+        <p class="text-justify">Es tu cumpleaños y amas las cosas de hogar, esta es una gran opción para evitar que te regalen ropa o cosas que definitivamente sente que no van con tus gustos...</p>
+        <button type="button" name="button" class="btn btn-tips">Leer más</button>
+      </div>
+      <br>
+    </div>
+  </div>
+  <div class="row" *ngIf="tipoEvento === 0">
+      <div class="col-sm-4 col-sm-offset-0 col-xs-6 col-xs-offset-3">
+      <img src="../../../../assets/images/tip-aniversario.jpg" class="jpg-responsive" alt="">
+    </div>
+    <div class="col-sm-8 col-xs-12">
+      <div class="tip-text">
+        <h1 class="baskerville">ANIVERSARIO</h1>
+        <p class="text-justify">Tu aniversario es otro gran momento para darle un aire a tu hogar, inciar un nuevo ciclo en una vida en pareja y renovar los espacios...</p>
+        <button type="button" name="button" class="btn btn-tips">Leer más</button>
+      </div>
+    </div>
+  </div>
+  <!-- Tipo de evento #1 -->
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <h1 class="baskerville">LISTA DE NOVIOS</h1>
+    </div>
+  </div>
+  <!-- Tipo de evento #2 -->
+  <div class="row">
+    <div class="col-xs-12">
+
+    </div>
+  </div>
+  <!-- Tipo de evento #3 -->
+  <div class="row">
+    <div class="col-xs-12">
+
+    </div>
+  </div>
+  <!-- Tipo de evento #4 -->
+  <div class="row">
+    <div class="col-xs-12">
+
+    </div>
+  </div>
+</div>
