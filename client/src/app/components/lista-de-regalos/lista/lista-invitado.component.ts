@@ -137,8 +137,8 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
                       }
                     },
                     error => {
+                      this.messageError = 'Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.';
                       console.error(error);
-                      this.messageError = 'Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.';
                     }
                   );
                 }
@@ -214,8 +214,8 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
                 }
               },
               error => {
+                this.messageError = 'Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.';
                 console.error(error);
-                this.messageError = 'Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.';
               }
             );
           }

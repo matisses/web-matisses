@@ -422,7 +422,7 @@ export class CrearListaComponent implements OnInit {
           }
         },
         error => {
-          this.messageError = 'Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.';
+          this.messageError = 'Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.';
           console.error(error);
         }
       );
@@ -506,7 +506,7 @@ export class CrearListaComponent implements OnInit {
         console.log('Creador de la lista, registrado como cliente');
       },
       error => {
-        this.messageError = 'Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.'
+        this.messageError = 'Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.'
         console.error(error);
       }
     );
@@ -587,7 +587,7 @@ export class CrearListaComponent implements OnInit {
         console.log('Cocreador de la lista, registrado como cliente');
       },
       error => {
-        this.messageError = 'Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.'
+        this.messageError = 'Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.'
         console.error(error);
       }
     );

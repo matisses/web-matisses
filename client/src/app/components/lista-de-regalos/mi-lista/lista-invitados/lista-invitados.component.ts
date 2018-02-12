@@ -97,12 +97,12 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
             this.limpiarCampos();
             this.cargarInvitados();
           } else {
-            this.messageError = ('Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.');
+            this.messageError = ('Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.');
           }
         },
         error => {
+          this.messageError = ('Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.');
           console.error(error);
-          this.messageError = ('Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.');
         }
       );
     }

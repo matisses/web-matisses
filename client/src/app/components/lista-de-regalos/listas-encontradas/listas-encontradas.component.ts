@@ -126,8 +126,8 @@ export class ResultadoBusquedaListasComponent implements OnInit {
           }
         },
         error => {
+          this.messageError = 'Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.';
           console.error(error);
-          this.messageError = 'Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.';
         }
       );
     } else {
