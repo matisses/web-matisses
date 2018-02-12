@@ -114,15 +114,15 @@
                     <p class="referencia"><b>Ref:</b> {{item.formAgregar.itemcode}}</p>
                     <p class="precio"><b>$ {{item.formAgregar.precio | number}}</b></p>
                     <p class="cantidad">Cantidad comprada: <b>{{item.formAgregar.cantidad}}</b></p>
-                    <button type="button" class="btn btn-devolver" (click)=confirmEliminarItem()>Devolver regalo</button>
+                    <button type="button" class="btn btn-devolver" (click)=confirmDevolver()>Devolver regalo</button>
                   </div>
                   <br>
-                  <div class="row" *ngIf="confirmEliminar">
+                  <div class="row" *ngIf="confirmDevolver">
                     <div class="col-xs-12 text-center">
                       <br>
                       <p>¿Seguro deseas devolver este regalo?. <br>El valor sera cargado en una tarjeta regalo <b>Matisses</b> especial para ti.</p>
-                      <button type="button" class="btn btn-danger btn-radius-0" (click)=eliminarProducto(formAgregar.shortitemcode)>Si</button>
-                      <button type="button" class="btn btn-default btn-radius-0" (click)=confirmEliminarItem()>No</button>
+                      <button type="button" class="btn btn-danger btn-radius-0" (click)=eliminarProducto(formAgregar.shortitemcode)>No</button>
+                      <button type="button" class="btn btn-default btn-radius-0" (click)=confirmDevolverItem()>Si</button>
                     </div>
                   </div>
                 </div>

@@ -41,7 +41,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
   public totalLista: number;
   public verDetalle: any;
   public idListaUsuario1: number;
-  public confirmEliminar: boolean = false;
+  public confirmDevolver: boolean = false;
   public formAgregar: any;
   public mesInicio: string;
   public anoInicio: number;
@@ -114,11 +114,11 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     }, 500);
   }
 
-  public confirmEliminarItem() {
-    if (this.confirmEliminar) {
-      this.confirmEliminar = false;
+  public confirmDevolverItem() {
+    if (this.confirmDevolver) {
+      this.confirmDevolver = false;
     } else {
-      this.confirmEliminar = true;
+      this.confirmDevolver = true;
     }
   }
 
@@ -301,7 +301,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
           },
           error => { console.error(error); });
         $('#modalDetalle').modal('hide');
-        this.confirmEliminar = false;
+        this.confirmDevolver = false;
 
         this._listaService.consultarListaComprados(this.paramsConsulta).subscribe(
           response => {
