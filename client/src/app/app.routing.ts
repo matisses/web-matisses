@@ -103,7 +103,7 @@ const appRoutes: Routes = [
       { path: 'resultado-transaccion-regalos/:idCarrito', component: ResultadoTransaccionListaComponent },
       { path: 'mi-lista/regalos-recibidos', component: RegalosRecibidosComponent },
       { path: 'mi-lista/lista-invitados', component: ListaInvitadosComponent },
-      { path: 'lista', component: ListaInvitadosComponent },
+      { path: 'lista', component: ListaInvitadoComponent },
       { path: 'lista-de-regalos/tips', component: TipsComponent }
 
     ]
