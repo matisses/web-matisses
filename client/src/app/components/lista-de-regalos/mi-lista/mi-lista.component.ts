@@ -66,7 +66,7 @@ export class MiListaComponent implements OnInit {
     this.paramsConsulta = {
       idLista: localStorage.getItem('id-lista'),
       pagina: '1',
-      registrosPagina: '12',
+      registrosPagina: '11',
       orderBy: 'referencia asc',
       sortOrder: ''
     };
@@ -217,7 +217,7 @@ export class MiListaComponent implements OnInit {
       this.orderByStr = 'Similares';
     }
     this.activePage = parseInt(this.queryParams.has('page') ? this.queryParams.get('page') : '1');
-    let pageSize = parseInt(this.queryParams.has('pageSize') ? this.queryParams.get('pageSize') : '12');
+    let pageSize = parseInt(this.queryParams.has('pageSize') ? this.queryParams.get('pageSize') : '11');
     let totalPages = Math.ceil(this.totalItems / pageSize);
     if (this.activePage > totalPages || this.activePage <= 0) {
       this.activePage = 1;
@@ -280,6 +280,7 @@ export class MiListaComponent implements OnInit {
       this._listaService.consultarListaPaginada(this.paramsConsulta).subscribe(
         response => {
           this.itemsListaBcs = response;
+          
           this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.totalLista);
         },
         error => { console.error(error); }

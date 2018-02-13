@@ -46,6 +46,7 @@ export class ListaRegalosComponent implements OnInit {
 
   ngAfterViewInit() {
     localStorage.clear();
+    sessionStorage.clear();
     this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     if (this.viewportWidth <= 767) {
       this.showCampos(-1);
