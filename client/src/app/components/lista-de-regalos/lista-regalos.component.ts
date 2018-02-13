@@ -130,8 +130,8 @@ export class ListaRegalosComponent implements OnInit {
         this._router.navigate(['/mi-lista']);
       },
       error => {
+        this.messageError = "Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.";
         console.error(error);
-        this.messageError = "Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.";
       }
     );
   }
@@ -168,8 +168,8 @@ export class ListaRegalosComponent implements OnInit {
           }
         },
         error => {
+          this.messageErrorSearch = 'Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.'
           console.error(error);
-          this.messageErrorSearch = 'Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.'
         }
       );
     } else {
