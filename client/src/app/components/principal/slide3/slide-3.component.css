@@ -56,7 +56,7 @@
 .principal-01 {
   background: url(../../../../assets/images/banner/slide-3/banner-01.jpg) no-repeat center center;
   margin-top: 0px;
-  padding-top: 10px;
+  padding-top: 100px;
   background-attachment: relative;
   background-position: center center;
   min-height: 500px;
@@ -245,12 +245,16 @@
   .text-01 p {
     font-weight: normal;
   }
+  .principal-01 {
+    /* background: url(../../../../assets/images/banner/slide-2/banner-01-mobile.gif) no-repeat center; */
+    background-position: center;
+  }
 }
 
 @media screen and (max-width: 414px) {
   .principal-01 {
     min-height: 250px;
-    background-position: center -16px;
+    background-position: center 15px;
   }
   .text-01 {
     margin: 10px auto;
