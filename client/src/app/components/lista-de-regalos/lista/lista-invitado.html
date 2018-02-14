@@ -224,34 +224,29 @@
         </div>
       </div>
       <!-- productos -->
-      <div class="col-sm-3 col-xs-6 producto" *ngFor="let item of itemsListaBcs">
-        <!-- <img src="https://img.matisses.co/{{items[i].itemcode}}/parrilla/{{items[i].itemcode}}_01.jpg" class="jpg-responsive" alt="{{items[i].itemname}}">
+      <div class="col-sm-3 col-xs-6 producto" *ngFor="let item of items; let i = index">
+        <img src="https://img.matisses.co/{{items[i].itemcode}}/parrilla/{{items[i].itemcode}}_01.jpg" class="jpg-responsive" alt="{{items[i].itemname}}">
         <p class="nombre"><b>{{items[i].itemname}}</b></p>
         <p class="precio"><b>$ {{items[i].priceaftervat | number}}</b></p>
         <p class="solicitados">Solicitados: <b>{{items[i].cantidadElegida}}</b></p>
-        <p class="solicitados">Comprados: <b>{{items[i].cantidadComprada}}</b></p> -->
-        <img src="https://img.matisses.co/{{item.referencia.substring(0,3)+'00000000000000'+item.referencia.substring(4)}}/parrilla/{{item.referencia.substring(0,3)+'00000000000000'+item.referencia.substring(4)}}_01.jpg" class="jpg-responsive" alt="{{item.descripcionProducto}}">
-        <p class="nombre"><b>{{item.descripcionProducto}}</b></p>
-        <p class="precio"><b>$ {{item.precio | number}}</b></p>
-        <p class="cantidad">Cantidad Elegida: <b>{{item.cantidadElegida}}</b></p>
-        <p class="cantidad">Cantidad Comprada: <b>{{item.cantidadComprada}}</b></p>
+        <p class="solicitados">Comprados: <b>{{items[i].cantidadComprada}}</b></p>
         <br>
         <div class="row">
           <div class="col-sm-5 col-xs-8 col-xs-offset-2 col-sm-offset-0 padding-right-0">
             <form>
-              <div class="input-group" *ngIf="item.cantidadElegida > item.cantidadComprada">
-                <span class="input-group-addon span-cantidad" (click)="reducirCantidad(item)">
+              <div class="input-group" *ngIf="items[i].cantidadElegida > items[i].cantidadComprada">
+                <span class="input-group-addon span-cantidad" (click)="reducirCantidad(items[i])">
                   <button type="button" class="icon-minus btn-cantidad" name="button"></button>
                 </span>
-                <input class="input-cantidad form-control" type="tel" name="item.selectedQuantity" min="1" max="item.cantidadElegida" [(ngModel)]="item.selectedQuantity" readonly="readonly" />
-                <span class="input-group-addon span-cantidad" (click)="aumentarCantidad(item)">
+                <input class="input-cantidad form-control" type="tel" name="items[i].selectedQuantity" min="1" max="items[i].cantidadElegida" [(ngModel)]="items[i].selectedQuantity" readonly="readonly" />
+                <span class="input-group-addon span-cantidad" (click)="aumentarCantidad(items[i])">
                   <button type="button" class="icon-plus btn-cantidad" name="button"></button>
                 </span>
               </div>
             </form>
           </div>
           <div class="col-sm-7 col-xs-10 col-xs-offset-1 col-sm-offset-0">
-            <button type="button" class="btn btn-regalar" (click)="agregarCarrito(item)" *ngIf="item.cantidadElegida > item.cantidadComprada">
+            <button type="button" class="btn btn-regalar" (click)="agregarCarrito(items[i])" *ngIf="items[i].cantidadElegida > items[i].cantidadComprada">
               <span class="icon-regalar_1"></span>
               Regalar
             </button>

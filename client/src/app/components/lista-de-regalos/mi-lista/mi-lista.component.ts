@@ -280,7 +280,7 @@ export class MiListaComponent implements OnInit {
       this._listaService.consultarListaPaginada(this.paramsConsulta).subscribe(
         response => {
           this.itemsListaBcs = response;
-          
+
           this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.totalLista);
         },
         error => { console.error(error); }
@@ -435,4 +435,5 @@ export class MiListaComponent implements OnInit {
       cantidadmaxima: 0
     };
   }
+
 }

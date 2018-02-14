@@ -259,7 +259,7 @@ export class InfoPagoRegalosComponent implements OnInit {
   }
 
   public pagar() {
-
+    console.log('entra a pagar');
     this.valid = true;
     this.messageError = '';
     // if (this.metodoEnvioSeleccionado == null || this.metodoEnvioSeleccionado.code == 0) {
