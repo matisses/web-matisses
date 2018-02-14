@@ -11,22 +11,21 @@
       <img src="../../../../assets/images/deco_01.png" class="jpg-responsive" alt="">
     </div>
   </div>
-  <br>
+  <br *ngIf="tipoEvento === 0">
   <div class="row" *ngIf="tipoEvento === 0">
-      <div class="col-sm-4 col-sm-offset-0 col-xs-6 col-xs-offset-3">
+    <div class="col-sm-4 col-sm-offset-0 col-xs-6 col-xs-offset-3">
       <img src="../../../../assets/images/tip-novios.jpg" class="jpg-responsive" alt="">
     </div>
     <div class="col-sm-8 col-xs-12">
       <div class="tip-text">
         <h1 class="baskerville">LISTA DE NOVIOS</h1>
         <p class="text-justify">Sin duda elegir la lista de regalos para tu nueva vida es uno de los momentos que casi todas esperamos, es acercarnos más al hogar de nuestros sueños...</p>
-        <button type="button" name="button" class="btn btn-tips"  (click)="seleccionarEvento(1)">Leer más</button>
+        <button type="button" name="button" class="btn btn-tips" (click)="seleccionarEvento(1)">Leer más</button>
       </div>
-      <br>
     </div>
   </div>
   <div class="row" *ngIf="tipoEvento === 0">
-      <div class="col-sm-4 col-sm-offset-0 col-xs-6 col-xs-offset-3">
+    <div class="col-sm-4 col-sm-offset-0 col-xs-6 col-xs-offset-3">
       <img src="../../../../assets/images/tip-home.jpg" class="jpg-responsive" alt="">
     </div>
     <div class="col-sm-8 col-xs-12">
@@ -35,11 +34,10 @@
         <p class="text-justify">¡Una lista de regalos para adecuar tu primer hogar! Esta es una dinámica que se está practicando en el mundo entero, y es que no nos digamos mentiras, todos quieren...</p>
         <button type="button" name="button" class="btn btn-tips">Leer más</button>
       </div>
-      <br>
     </div>
   </div>
   <div class="row" *ngIf="tipoEvento === 0">
-      <div class="col-sm-4 col-sm-offset-0 col-xs-6 col-xs-offset-3">
+    <div class="col-sm-4 col-sm-offset-0 col-xs-6 col-xs-offset-3">
       <img src="../../../../assets/images/tip-cumple.jpg" class="jpg-responsive" alt="">
     </div>
     <div class="col-sm-8 col-xs-12">
@@ -48,11 +46,10 @@
         <p class="text-justify">Es tu cumpleaños y amas las cosas de hogar, esta es una gran opción para evitar que te regalen ropa o cosas que definitivamente sente que no van con tus gustos...</p>
         <button type="button" name="button" class="btn btn-tips">Leer más</button>
       </div>
-      <br>
     </div>
   </div>
   <div class="row" *ngIf="tipoEvento === 0">
-      <div class="col-sm-4 col-sm-offset-0 col-xs-6 col-xs-offset-3">
+    <div class="col-sm-4 col-sm-offset-0 col-xs-6 col-xs-offset-3">
       <img src="../../../../assets/images/tip-aniversario.jpg" class="jpg-responsive" alt="">
     </div>
     <div class="col-sm-8 col-xs-12">
@@ -64,9 +61,59 @@
     </div>
   </div>
   <!-- Tipo de evento #1 -->
-  <div class="row">
-    <div class="col-xs-12 text-center">
-      <h1 class="baskerville">LISTA DE NOVIOS</h1>
+  <div class="novios" *ngIf="tipoEvento === 1">
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <h1 class="baskerville">LISTA DE NOVIOS</h1>
+        <br>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-5 col-sm-offset-1">
+        <p class="text-justify">Sin duda elegir la lista de regalos para tu nueva vida es uno de los momentos que casi todas esperamos, es acercarnos más al hogar de nuestros sueños.</p>
+        <p class="text-justify">Este momento, que claro está, se debe vivir con tu pareja, será inolvidable, pero sobretodo deberá hacerse de manera consiente y de acuerdo a los estilos de vida de ambos, esto hará que su espacio en creación compenetre lo mejor de ambas personalidades.</p>
+        <p class="text-justify">Las listas de novia se han convertido en la opción aliada para administrar lo que quieres recibir, dejando atrás los regalos repetidos o los productos que no tenían nada que ver con los deseos y estilos de la pareja. Estas listas deben verse como
+          una guía para tus invitados, ellos quieren sorprenderte y que mejor que saber que se está obsequiando algo que realmente se eligió.</p>
+        <p class="text-justify">Decidir cuales elementos poner y cuales no puede ser muy tortuoso si no se hace de manera organizada, el resultado puede ser una cantidad de productos innecesarios o que no hacen juego entre sí. Por eso te damos algunos tips:</p>
+      </div>
+      <div class="col-sm-5">
+        <img src="../../../../assets/images/tip-novios.jpg" class="jpg-responsive" alt="">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-sm-5 col-sm-offset-1">
+        <ul>
+          <li>Haz una elección de objetos pensando en todos los presupuestos, debe existir un rango de valores que permita a los invitados maniobrar según lo que tengan estimado invertir.</li>
+          <li>Recuerda con cuantos cuartos dispones y cuál es la medida. Por ejemplo:
+            <ul>
+              <li><b>Habitación</b> = 30mts2</li>
+              <li><b>Sala</b> = 20mts2</li>
+              <li><b>Estudio</b> = 15 mts2</li>
+            </ul> Esto te ayudará a tener claro el espacio con el que se cuenta y la distribución deseada</li>
+          <li>Elige primero los básicos del hogar, luego busca los objetos de tendencia y moda.</li>
+          <li>Piensa en las necesidades por espacio:
+            <ul>
+              <li><b>Habitación:</b> Cama, Ropa de cama, Mesas de noche, Lámparas, Velas…</li>
+              <li><b>Cocina:</b> Juego de ollas, Cuchillos, Bowls, Utensilios, Superficie de corte…</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="col-sm-5">
+        <ul>
+          <li>Imagínate los momentos en tu hogar, una cena románticas, una noche de películas, un desayuno saludable, una media mañana con waffles, un baño de relajación; en fin todo es posible, en lo que te ayudará este punto es en no olvidar lo que necesitarías
+            para estas ocasiones.</li>
+          <li>Intenta mantener un estilo coherente, ya sea en concepto, materiales o paleta de color, es necesario pensar en el espacio total, esto evitará tener una mezcla de elementos que no coordinen entre sí.</li>
+          <li>Asegúrate de preferir objetos que sean fáciles de reponer o que su mantenimiento, es decir, que sus piezas y repuestos sean comerciales.</li>
+          <li>Piensen en los dos, no es momento de imponer el estilo de ninguno, es un nuevo hogar, una nueva vida, es el resultado de la mezcla de dos personalidades, lleguen a acuerdos y elijan lo mejor para ambos.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 text-right">
+        <button type="button" name="button" (click)="seleccionarEvento(0)" class="btn btn-tips">Volver</button>
+      </div>
     </div>
   </div>
   <!-- Tipo de evento #2 -->
