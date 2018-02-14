@@ -19,7 +19,7 @@ declare var $: any;
 
 export class CrearListaComponent implements OnInit {
   private viewportWidth: number = 0;
-  public tipoEvento: number = 0;
+  public tipoEvento: number = 4;
   public paso: number = 1;
   public montoBono: number;
   public invitados: number;
@@ -129,6 +129,25 @@ export class CrearListaComponent implements OnInit {
 
   public seleccionarEvento(id) {
     this.tipoEvento = id;
+  }
+
+  public irPaso(paso) {
+    console.log(paso);
+    if (this.paso === 1) {
+      if (!this.llenarDatosNovios()) {
+        return;
+      }
+    } else if (this.paso === 2) {
+      if (!this.llenarDatosEvento()) {
+        return;
+      }
+    } else if (this.paso === 3) {
+      if (!this.validarDireccionEvento()) {
+        return;
+      }
+    }
+
+    this.paso = paso;
   }
 
   public obtenerCiudades() {
@@ -252,13 +271,14 @@ export class CrearListaComponent implements OnInit {
       this.messageError = 'Debes llenar todos los campos obligatorios para poder continuar con el Paso #2.';
       this.validCreador = false;
       this.validCocreador = false;
-      return;
+      return false;
     } else {
       this.limpiarCampos();
       if (this.customerCreador.fiscalID == this.customerCocreador.fiscalID) {
         this.messageError = 'Los novios no pueden ser el mismo.';
         this.validCocreador = true;
         this.disabledCocreador = false;
+        return false;
       } else {
         this.limpiarCampos();
         //pasar al siguiente paso
@@ -267,6 +287,7 @@ export class CrearListaComponent implements OnInit {
         }
       }
     }
+    return true;
   }
 
   public llenarDatosEvento() {
@@ -274,9 +295,11 @@ export class CrearListaComponent implements OnInit {
       || (this.diaInicio == null)) {
       this.messageError = 'Debes llenar todos los campos obligatorios para poder continuar con el Paso #3.';
       this.validForm2 = false;
+      return false;
     } else if (this.aceptaBonos && (!this.montoBono || this.montoBono < 10000)) {
       this.messageError = 'Monto mínimo para el bono es de $10.000';
       this.validMonto = false;
+      return false;
     } else {
       this.limpiarCampos();
       //pasar al siguiente paso
@@ -284,6 +307,7 @@ export class CrearListaComponent implements OnInit {
         this.paso++;
       }
     }
+    return true;
   }
 
   public validarDireccionEvento() {
@@ -295,6 +319,7 @@ export class CrearListaComponent implements OnInit {
         || this.customerCocreador.addresses[0].cityCode == null || this.customerCocreador.addresses[0].cityCode <= 0)) {
       this.messageError = 'Debes llenar todos los campos obligatorios para poder continuar con el Paso #4.';
       this.validForm3 = false;
+      return false;
     } else {
       this.limpiarCampos();
       //pasar al siguiente paso
@@ -302,6 +327,7 @@ export class CrearListaComponent implements OnInit {
         this.paso++;
       }
     }
+    return true;
   }
 
   public crearLista() {
@@ -405,7 +431,7 @@ export class CrearListaComponent implements OnInit {
         response => {
           if (response.codigo === 0) {
             //this.buscarLista(response.mensaje);
-            console.log('despues de crear '+ response.idLista);
+            console.log('despues de crear ' + response.idLista);
             localStorage.setItem('codigo-lista', response.mensaje);
             localStorage.setItem('id-lista', response.idLista);
 
