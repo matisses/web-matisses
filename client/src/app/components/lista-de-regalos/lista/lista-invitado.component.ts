@@ -1,4 +1,3 @@
-
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
@@ -86,7 +85,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
   private inicializarParamsConsulta() {
     this.paramsConsulta = {
-      idLista: this.idListaUsuario,
+      idLista: localStorage.getItem('id-lista'),
       pagina: '1',
       registrosPagina: '11',
       orderBy: 'referencia asc',
@@ -100,6 +99,9 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('fecha-evento');
     this.idListaUsuario = localStorage.getItem('id-lista');
+
+
+
     this.inicializarShoppingCart();
     this.cargarFechaEvento();
     this.cargarItems0();
@@ -108,7 +110,12 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-      if(this.codigoLista==null){
+    // this.nombreUsuario = localStorage.getItem('username-lista');
+    // this.codigoLista = localStorage.getItem('codigo-lista');
+    // this.fechaEvento = localStorage.getItem('fecha-evento');
+    // this.idListaUsuario = localStorage.getItem('id-lista');
+
+          if(this.codigoLista==null){
 
               this._route.queryParams.subscribe(params => {
               this.codigoLista = params['codigoLista'];
@@ -126,20 +133,15 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
                         this.idListaUsuario=response[0].idLista;
                         this.fechaEvento=response[0].formatoFechaEvento;
-                        localStorage.setItem('id-lista',this.idListaUsuario);
-                        localStorage.setItem('fecha-evento',this.fechaEvento);
-                        this.novios=response[0].nombreCreador.toLowerCase() + ' ' + response[0].apellidoCreador.toLowerCase() + '<span class="anpersan"> & </span>' + response[0].nombreCocreador.toLowerCase() + ' ' + response[0].apellidoCocreador.toLowerCase();
-                        sessionStorage.setItem('novios',this.novios);
 
                       }
                     },
                     error => {
-                      this.messageError = 'Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.';
                       console.error(error);
+                      this.messageError = 'Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.';
                     }
                   );
                 }
-
 
   }
 
@@ -154,7 +156,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
         response => {
           if (response.length > 0) {
             this.formatoFechaEvento = response[0].formatoFechaEvento;
-            //this.idListaUsuario=response[0].idLista;
+            this.idListaUsuario=response[0].idLista;
           }
         },
         error => { console.error(error); }
@@ -207,15 +209,14 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
                   this.idListaUsuario=response[0].idLista;
                   this.fechaEvento=response[0].formatoFechaEvento;
+
                   localStorage.setItem('id-lista',this.idListaUsuario);
                   localStorage.setItem('fecha-evento',this.fechaEvento);
-                  this.novios=response[0].nombreCreador.toLowerCase() + ' ' + response[0].apellidoCreador.toLowerCase() + '<span class="anpersan"> & </span>' + response[0].nombreCocreador.toLowerCase() + ' ' + response[0].apellidoCocreador.toLowerCase();
-                  localStorage.setItem('novios',this.novios);
                 }
               },
               error => {
-                this.messageError = 'Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.';
                 console.error(error);
+                this.messageError = 'Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.';
               }
             );
           }
@@ -223,7 +224,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
 
     this.items = new Array<Item>();
-    this.itemsListaBcs = items;
+    this.items = items;
     this.availableFields = availableFields;
     this.queryParams = queryParams;
     this.totalItems = records;
@@ -325,11 +326,23 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
           this.itemsListaBcs = response;
           this.items = new Array<Item>();
           for (let i = 0; i < this.itemsListaBcs.length; i++) {
-            this.itemsListaBcs[i]['selectedQuantity']=0;
 
 
+            this._itemService.find(this.itemsListaBcs[i].referencia).subscribe( // Item 1
+              response => {
+
+                response.result[0].selectedQuantity = 0;
+                response.result[0].cantidadElegida = this.itemsListaBcs[i].cantidadElegida;
+                response.result[0].cantidadComprada = this.itemsListaBcs[i].cantidadComprada;
+                if (response.result[0].cantidadElegida > response.result[0].cantidadComprada) {
+                  this.items.push(response.result[0]);
+                }
+              },
+              error => { console.error(error); }
+            );
           }
-          this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.totalLista);
+
+          this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalLista);
         },
         error => { console.error(error); }
       );
@@ -372,8 +385,8 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
         this._itemService.find(itemCode).subscribe( // Item 1
           response => {
             var index = -1;
-            for (var i = 0; i < this.itemsListaBcs.length; i++) {
-              if (this.itemsListaBcs[i]['referencia'] === itemCode) {
+            for (var i = 0; i < this.items.length; i++) {
+              if (this.items[i]['shortitemcode'] === itemCode) {
                 index = i;
                 this.totalItems = this.totalItems - 1;
               }
@@ -381,7 +394,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
             if (index > -1) {
               this.items.splice(index, 1);
-              this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.totalItems);
+              this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalItems);
               return;
             }
           }, error => { console.error(error); }
@@ -398,7 +411,6 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public agregarCarrito(item: Item) {
     if(item.selectedQuantity > 0){
       item.selectedQuantity = item.selectedQuantity;
-
       this.procesarItem(item);
       this.toggleResumen();
       //this.abrirModalAgregarRegalo(item);
