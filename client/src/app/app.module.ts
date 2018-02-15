@@ -98,6 +98,9 @@ import { ListaInvitadosComponent } from './components/lista-de-regalos/mi-lista/
 // Promocion alf
 import { PromocionAlfComponent } from './components/promocion-alf/promocion-alf.component';
 
+// NovedadesComponent
+import { NovedadesComponent } from './components/novedades/novedades.component';
+
 //Directivas
 import { StickyMenuDirective } from './directives/sticky.directive';
 import { StickyBodyDirective } from './directives/sticky-body.directive';
@@ -165,6 +168,7 @@ import { MetaModule } from '@ngx-meta/core';
     SinInteresComponent,
     RecomendadosComponent,
     HotSaleComponent,
+    NovedadesComponent,
     //Lista de Regalos
     ListaRegalosComponent,
     MenuListaComponent,
