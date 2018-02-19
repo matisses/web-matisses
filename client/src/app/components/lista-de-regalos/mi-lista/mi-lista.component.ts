@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
+import { GLOBAL } from '../../../services/global';
 import { ItemService } from '../../../services/item.service';
 import { Item } from '../../../models/item';
 
@@ -36,6 +37,7 @@ export class MiListaComponent implements OnInit {
   public idListaUsuario: string;
   public codigoLista: string;
   public fechaEvento: string;
+  public urlQr: string;
   public paramsConsulta: any;
   public itemsListaBcs: Array<any>;
   public totalLista: number;
@@ -51,6 +53,7 @@ export class MiListaComponent implements OnInit {
     this.idListaUsuario = localStorage.getItem('id-lista');
 
     this.totalLista = 0;
+    this.urlQr = GLOBAL.urlShared + 'qr/';
     this.queryParams = new Map<string, string>();
     this.itemsXPag = '12 x pag';
     this.orderByStr = 'Similares';
@@ -280,7 +283,7 @@ export class MiListaComponent implements OnInit {
       this._listaService.consultarListaPaginada(this.paramsConsulta).subscribe(
         response => {
           this.itemsListaBcs = response;
-          
+
           this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.totalLista);
         },
         error => { console.error(error); }

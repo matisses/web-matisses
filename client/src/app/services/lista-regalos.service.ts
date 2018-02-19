@@ -112,6 +112,15 @@ export class ListaRegalosService {
       .map(res => res.json());
   }
 
+  generarDocumento(documento, codigoLista){
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'listaregalos/generardocumento/' + documento + "/" + codigoLista, { headers: headers })
+      .map(res => res.json());
+  }
+
   consultarListaComprados(paramsConsulta) {
     const headers = new Headers({
       'Content-Type': 'application/json'
