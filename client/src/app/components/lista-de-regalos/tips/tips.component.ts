@@ -17,6 +17,14 @@ export class TipsComponent implements OnInit {
   }
 
   ngOnInit() {
+    window.onload = function() {
+      if (typeof history.pushState === "function") {
+        history.pushState(null, null, null);
+        window.onpopstate = function() {
+          history.pushState(null, null, null);
+        };
+      }
+    }
   }
 
   ngAfterViewInit() {

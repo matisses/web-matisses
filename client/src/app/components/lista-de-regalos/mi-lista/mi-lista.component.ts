@@ -438,4 +438,5 @@ export class MiListaComponent implements OnInit {
       cantidadmaxima: 0
     };
   }
+
 }
