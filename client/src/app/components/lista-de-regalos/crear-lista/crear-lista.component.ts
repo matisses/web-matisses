@@ -431,7 +431,6 @@ export class CrearListaComponent implements OnInit {
         response => {
           if (response.codigo === 0) {
             //this.buscarLista(response.mensaje);
-            console.log('despues de crear ' + response.idLista);
             localStorage.setItem('codigo-lista', response.mensaje);
             localStorage.setItem('id-lista', response.idLista);
 
@@ -714,16 +713,9 @@ export class CrearListaComponent implements OnInit {
           this.nombreCreadorLista = response[0].nombreCreador.toLowerCase() + ' ' + response[0].apellidoCreador.toLowerCase() + ' & ' + response[0].nombreCocreador.toLowerCase() + ' ' + response[0].apellidoCocreador.toLowerCase();
           this.fechaEventoLista = response[0].formatoFechaEvento;
           localStorage.setItem('username-lista', this.nombreCreadorLista);
-
           localStorage.setItem('fecha-evento', this.fechaEventoLista);
-
         }
       },
-      error => {
-        console.error(error);
-      }
-    );
-
-
+      error => { console.error(error); });
   }
 }
