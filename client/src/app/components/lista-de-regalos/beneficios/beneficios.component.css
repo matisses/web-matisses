@@ -1,0 +1,172 @@
+.container {
+  margin-top: 110px;
+  overflow-x: hidden;
+  color: #5B5B5B;
+}
+
+.baskerville {
+  font-family: Baskerville, "Baskerville Old Face", "Hoefler Text";
+  font-size: 25px;
+  margin-bottom: 0px;
+}
+
+.jpg-responsive {
+  width: 100%;
+  height: 100%;
+}
+
+.header-img {
+  background-image: url(../../../../assets/images/beneficios-header.jpg);
+  background-position: center;
+  text-align: center;
+  height: 520px;
+}
+
+.header-img::after {
+  content: '';
+  position: absolute;
+  border: 3px solid #FFF;
+  width: 95%;
+  height: 95%;
+  top: 11px;
+  left: 30px;
+}
+
+.beneficios-text {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #FFF;
+  padding: 5px 35px;
+  position: absolute;
+  top: 200px;
+  left: 60px;
+  width: 360px;
+  font-weight: 100;
+}
+
+.beneficios-internos span {
+  text-align: center;
+  color: #D77D7D;
+  font-size: 50px;
+}
+
+.beneficios-internos h1 {
+  font-size: 20px;
+  font-family: baskerville;
+  text-align: center;
+  margin: 5px 0px;
+}
+
+.beneficios-internos p {
+  text-align: justify;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.como-obtener {
+  background-image: url(../../../../assets/images/personal-shopper-bg.jpg);
+  background-position: center;
+  padding: 15px;
+}
+
+.como-obtener h5, .como-obtener p {
+  margin: 0;
+}
+
+.bronce {
+  color: #CD7F32;
+  font-size: 25px;
+  font-family: baskerville;
+  text-align: center;
+}
+
+.plata {
+  color: #696E6A;
+  font-size: 25px;
+  font-family: baskerville;
+  text-align: center;
+}
+
+.oro {
+  color: #BC9B1B;
+  font-size: 25px;
+  font-family: baskerville;
+  text-align: center;
+}
+
+.table th, .table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.bronze {
+  color: #CD7F32;
+}
+
+.silver {
+  color: #696E6A;
+}
+
+.gold {
+  color: #BC9B1B;
+}
+
+@media screen and (max-width: 1024px) {
+  .header-img {
+    height: 400px;
+    background-position: top;
+  }
+  .header-img::after {
+    width: 94%;
+  }
+}
+
+@media screen and (max-width: 986px) {}
+
+@media screen and (max-width: 768px) {
+  .container {
+    margin-top: 70px;
+  }
+  .header-img {
+    height: 370px;
+    margin-top: 35px;
+  }
+  .header-img::after {
+    height: 84%;
+    width: 92%;
+    top: 50px;
+  }
+  .beneficios-text {
+    top: 100px;
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .header-img::after {
+    width: 85%;
+  }
+  .beneficios-text {
+    left: 30px;
+    width: 352px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .beneficios-text {
+    width: 318px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .beneficios-text {
+    width: 305px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .header-img::after {
+    width: 82%;
+  }
+  .beneficios-text {
+    width: 261px;
+  }
+}
