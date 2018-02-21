@@ -490,6 +490,9 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
       this.toggleResumen();
       //this.abrirModalAgregarRegalo(item);
     }
+    else{
+      this.messageError='Debe seleccionar al menos un producto para regalar';
+    }
     }
     else{
         $('#modalBono').modal('show');
@@ -614,7 +617,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   private procesarCarrito() {
-  
+
     this.totalItemsCarrito = 0;
     this.totalCarrito = 0;
     this.totalImpuestos = 0;

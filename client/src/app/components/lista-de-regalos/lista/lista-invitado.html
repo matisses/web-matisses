@@ -330,6 +330,13 @@
         <br>
         <div class="row">
           <div class="col-sm-5 col-xs-8 col-xs-offset-2 col-sm-offset-0 padding-right-0">
+            <div class="row" *ngIf="messageError != null && messageError.length > 0">
+              <div class="col-xs-12">
+                <div class="alert alert-danger" role="alert">
+                  <p>{{messageError}}</p>
+                </div>
+              </div>
+            </div>
             <form>
               <div class="input-group" *ngIf="items[i].cantidadElegida > items[i].cantidadComprada">
                 <span class="input-group-addon span-cantidad" (click)="reducirCantidad(items[i])">

@@ -137,9 +137,10 @@ export class MiListaComponent implements OnInit {
     let usuarioDTO = {
       nombreUsuario: this.nombreUsuario,
       password: this.claveNueva,
-      idListaRegalos:this.idListaUsuario,
+      idListaRegalos:parseInt(his.idListaUsuario),
       usuarioId: localStorage.getItem('usuario-id')
     }
+
 
     this._userService.updateUser(usuarioDTO).subscribe(
       response => {
