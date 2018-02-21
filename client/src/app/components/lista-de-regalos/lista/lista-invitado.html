@@ -19,7 +19,6 @@
               </div>
             </div>
             <div class="col-md-5 border-left">
-
               <div class="row">
                 <div class="col-xs-12">
                   <button type="button" class="btn btn-seguir" data-dismiss="modal" aria-label="Close">
@@ -47,7 +46,7 @@
             <div class="col-md-7">
               <div class="row">
                 <div class="col-sm-10 col-sm-offset-1 col-xs-12 col-xs-offset-0 resumen-carrito">
-                  <p>No puede seleccionar productos en el mismo proceso de compra de un bono de regalo</p>
+                  <p>No puede seleccionar productos en el mismo proceso de compra de un bono de regalo.</p>
                 </div>
               </div>
             </div>
@@ -79,7 +78,7 @@
             <div class="col-md-7">
               <div class="row">
                 <div class="col-sm-10 col-sm-offset-1 col-xs-12 col-xs-offset-0 resumen-carrito">
-                  <p>El monto mínimo del bono de regalo es $ {{minimoBono | number}}</p>
+                  <p>El monto mínimo del bono de regalo es $ {{minimoBono | number}}.</p>
                 </div>
               </div>
             </div>
@@ -98,7 +97,37 @@
     </div>
   </div>
 </div>
-
+<div id="modalProductosValidar" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-center">Ud ha seleccionado productos de la lista</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-7">
+              <div class="row">
+                <div class="col-sm-10 col-sm-offset-1 col-xs-12 col-xs-offset-0 resumen-carrito">
+                  <p>No puede seleccionar un bono de regalo en el mismo proceso de compra de productos.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-5 border-left">
+              <div class="row">
+                <div class="col-xs-12">
+                  <button type="button" class="btn btn-seguir" data-dismiss="modal" aria-label="Close">
+                    Seguir comprando
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <!---->
 <div class="container">
   <div class="contenedor">

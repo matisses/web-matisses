@@ -474,32 +474,32 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   public agregarBono(valor: number) {
-    if (valor < this.minimoBono) {
-      $('#modalBonoValidar').modal('show');
-
-    }
-    else {
-      if (valor > 0 && valor >= this.minimoBono) {
-        this.shoppingCart.bono.isBono = true;
-        this.shoppingCart.bono.valor = valor;
-        if (this.totalItemsCarrito > 0) {
-          this.totalItemsCarrito = this.totalItemsCarrito + 1;
-
+    if (this.totalItemsCarrito > 0) {
+      $('#modalProductosValidar').modal('show');
+    } else {
+      if (valor < this.minimoBono) {
+        console.log('entro al modalBonoValidar');
+        $('#modalBonoValidar').modal('show');
+      }
+      else {
+        if (valor > 0 && valor >= this.minimoBono) {
+          this.shoppingCart.bono.isBono = true;
+          this.shoppingCart.bono.valor = valor;
+          if (this.totalItemsCarrito > 0) {
+            this.totalItemsCarrito = this.totalItemsCarrito + 1;
+          }
+          else {
+            this.totalItemsCarrito = 1;
+          }
+          if (this.totalCarrito > 0) {
+            this.totalCarrito = this.totalCarrito + valor;
+          }
+          else {
+            this.totalCarrito = valor;
+          }
+          this.openResumen();
+          localStorage.setItem('matisses.shoppingCart.bono', JSON.stringify(this.shoppingCart.bono.valor));
         }
-        else {
-          this.totalItemsCarrito = 1;
-        }
-        if (this.totalCarrito > 0) {
-          this.totalCarrito = this.totalCarrito + valor;
-        }
-        else {
-          this.totalCarrito = valor;
-        }
-        //  this.procesarItem(item);
-        //this.toggleResumen();
-        this.openResumen();
-        localStorage.setItem('matisses.shoppingCart.bono', JSON.stringify(this.shoppingCart.bono.valor));
-        //this.abrirModalAgregarRegalo(item);
       }
     }
   }
