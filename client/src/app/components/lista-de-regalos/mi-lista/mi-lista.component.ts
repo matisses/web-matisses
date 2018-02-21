@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
+import { GLOBAL } from '../../../services/global';
 import { ItemService } from '../../../services/item.service';
 import { Item } from '../../../models/item';
 
@@ -36,6 +37,7 @@ export class MiListaComponent implements OnInit {
   public idListaUsuario: string;
   public codigoLista: string;
   public fechaEvento: string;
+  public urlQr: string;
   public paramsConsulta: any;
   public itemsListaBcs: Array<any>;
   public totalLista: number;
@@ -53,6 +55,7 @@ export class MiListaComponent implements OnInit {
     this.idListaUsuario = localStorage.getItem('id-lista');
 
     this.totalLista = 0;
+    this.urlQr = GLOBAL.urlShared + 'qr/';
     this.queryParams = new Map<string, string>();
     this.itemsXPag = '12 x pag';
     this.orderByStr = 'Similares';
@@ -350,9 +353,7 @@ export class MiListaComponent implements OnInit {
               }
             }
             this.cargarItems0();
-          },
-          error => { console.error(error); }
-        );
+          }, error => { console.error(error); });
       },
       error => {
         this.messageError = "Lo sentimos. Ocurrió un error inesperado, por favor inténtelo más tarde.";
@@ -372,12 +373,19 @@ export class MiListaComponent implements OnInit {
         this.formAgregar.name = response.result[0].itemname;
         this.formAgregar.image = 'https://img.matisses.co/' + response.result[0].itemcode + '/parrilla/' + response.result[0].itemcode + '_01.jpg';
         this.formAgregar.description = response.result[0].description;
-        this.formAgregar.cantidad = 0;
+        this.formAgregar.cantidad = cantidadElegida;
         this.formAgregar.precio = response.result[0].priceaftervat;
-        this.formAgregar.cantidadmaxima = cantidadElegida;
+        this.formAgregar.cantidadmaxima = response.result[0].availablestock;
       }
     );
     $('#modalDetalle').modal('show');
+  }
+
+  public guardarCambios() {
+    console.log('metodo de guardarCambios');
+
+
+    $('#modalDetalle').modal('hide');
   }
 
   public cerrarSession() {
@@ -439,5 +447,4 @@ export class MiListaComponent implements OnInit {
       cantidadmaxima: 0
     };
   }
-
 }
