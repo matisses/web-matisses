@@ -113,7 +113,7 @@ export class ListaRegalosComponent implements OnInit {
         }
         this._jwt.validateToken(this.token).subscribe(
           response => {
-            console.log('token validado');
+
           }, error => {
             console.error(error);
             localStorage.removeItem('matisses.lista-token');
@@ -126,7 +126,6 @@ export class ListaRegalosComponent implements OnInit {
         localStorage.setItem('id-lista', this.idListaUsuario);
         localStorage.setItem('codigo-lista', this.codigoLista);
         localStorage.setItem('fecha-evento', this.fechaEvento);
-        console.log('token ' + localStorage.getItem('matisses.lista-token'));
         this._router.navigate(['/mi-lista']);
       },
       error => {

@@ -405,7 +405,7 @@ export class CrearListaComponent implements OnInit {
         response => {
           if (response.codigo === 0) {
             //this.buscarLista(response.mensaje);
-            console.log('despues de crear '+ response.idLista);
+            
             localStorage.setItem('codigo-lista', response.mensaje);
             localStorage.setItem('id-lista', response.idLista);
 

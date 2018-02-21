@@ -313,14 +313,13 @@
     <!-- Informacón cuando hay productos agregados -->
     <div class="row" *ngIf="itemsListaBcs && itemsListaBcs.length > 0">
       <!-- Bono regalo -->
-      <div class="col-sm-3 col-xs-6 producto bono-regalo">
+      <div class="col-sm-3 col-xs-6 producto bono-regalo" *ngIf="aceptaBono">
         <img src="../../assets/images/bono.jpg" class="jpg-responsive" alt="">
         <p class="nombre"><b>BONO DE REGALO</b></p>
-        <p class="referencia">Monto minimo</p>
-        <input type="number" name="" placeholder="$ 10.000" class="precio" value="">
+        <p class="referencia">Monto minimo {{minimoBono}}</p>
+        <input type="number" name="" placeholder="" class="precio" value="minimoBono">
         <p class="cantidad">Bono de regalo matisses</p>
-        <p class="cantidad">Bono de regalo matisses</p>
-        <p class="detalle">Bono de regalo matisses</p>
+
       </div>
       <!-- productos -->
       <div class="col-sm-3 col-xs-6 producto" *ngFor="let item of itemsListaBcs" (click)="abrirModalDetalle(item.referencia,item.cantidadElegida)">

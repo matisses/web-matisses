@@ -64,6 +64,9 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public totalImpuestos: number = 0;
   public totalDescuentos: number = 0;
   public mostrar: boolean = true;
+  public montoBono: number=0;
+  public aceptaBono:boolean=true;
+  public minimoBono: number=0;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -100,13 +103,77 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     this.fechaEvento = localStorage.getItem('fecha-evento');
     this.idListaUsuario = localStorage.getItem('id-lista');
 
+    if(this.codigoLista==null){
+
+        this._route.queryParams.subscribe(params => {
+        this.codigoLista = params['codigoLista'];
+
+      });
+
+            let consultaDTO = {
+              nombre: null,
+              apellido:null,
+              codigo: this.codigoLista
+            }
+            this._listaService.consultarLista(consultaDTO).subscribe(
+              response => {
+                if (response.length > 0) {
+
+                  this.idListaUsuario=response[0].idLista;
+                  this.fechaEvento=response[0].formatoFechaEvento;
+                  this.aceptaBono=response[0].aceptaBonos;
+                  this.minimoBono=response[0].valorMinimoBono;
+                  localStorage.setItem('id-lista',this.idListaUsuario);
+                  localStorage.setItem('codigo-lista',this.codigoLista);
+                  this.inicializarShoppingCart();
+                  this.cargarItems0();
+                  this.cargarFechaEvento();
 
 
-    this.inicializarShoppingCart();
-    this.cargarFechaEvento();
-    this.cargarItems0();
+                  this.showBadge = true;
+                }
+              },
+              error => {
+                console.error(error);
+                this.messageError = 'Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.';
+              }
+            );
+          }
+          else{
+            let consultaDTO = {
+              nombre: null,
+              apellido:null,
+              codigo: this.codigoLista
+            }
+            this._listaService.consultarLista(consultaDTO).subscribe(
+              response => {
+                if (response.length > 0) {
 
-    this.showBadge = true;
+                  this.idListaUsuario=response[0].idLista;
+                  this.fechaEvento=response[0].formatoFechaEvento;
+                  this.aceptaBono=response[0].aceptaBonos;
+                  this.minimoBono=response[0].valorMinimoBono;
+                  localStorage.setItem('id-lista',this.idListaUsuario);
+                  localStorage.setItem('codigo-lista',this.codigoLista);
+                  this.montoBono=this.minimoBono;
+                  this.inicializarShoppingCart();
+                  this.cargarItems0();
+                  this.cargarFechaEvento();
+
+
+                  this.showBadge = true;
+                }
+              },
+              error => {
+                console.error(error);
+                this.messageError = 'Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.';
+              }
+            );
+
+          }
+
+
+
   }
 
   ngAfterViewInit() {
@@ -133,7 +200,8 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
                         this.idListaUsuario=response[0].idLista;
                         this.fechaEvento=response[0].formatoFechaEvento;
-
+                        this.aceptaBono=response[0].aceptaBonos;
+                        this.minimoBono=response[0].valorMinimoBono;
                       }
                     },
                     error => {
@@ -142,6 +210,8 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
                     }
                   );
                 }
+
+
 
   }
 
@@ -157,6 +227,8 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
           if (response.length > 0) {
             this.formatoFechaEvento = response[0].formatoFechaEvento;
             this.idListaUsuario=response[0].idLista;
+            this.aceptaBono=response[0].aceptaBonos;
+            this.minimoBono=response[0].valorMinimoBono;
           }
         },
         error => { console.error(error); }
@@ -209,9 +281,11 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
                   this.idListaUsuario=response[0].idLista;
                   this.fechaEvento=response[0].formatoFechaEvento;
-
+                  this.aceptaBono=response[0].aceptaBonos;
+                  this.minimoBono=response[0].valorMinimoBono;
                   localStorage.setItem('id-lista',this.idListaUsuario);
                   localStorage.setItem('fecha-evento',this.fechaEvento);
+
                 }
               },
               error => {
@@ -409,15 +483,53 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
   //carrito de compras ListaRegalos
   public agregarCarrito(item: Item) {
+    if(this.shoppingCart.bono.valor==0){
     if(item.selectedQuantity > 0){
       item.selectedQuantity = item.selectedQuantity;
       this.procesarItem(item);
       this.toggleResumen();
       //this.abrirModalAgregarRegalo(item);
     }
+    }
+    else{
+        $('#modalBono').modal('show');
+    }
+  }
+
+  public agregarBono(valor: number) {
+    if(valor < this.minimoBono){
+      $('#modalBonoValidar').modal('show');
+
+    }
+    else{
+    if(valor > 0 && valor >=this.minimoBono ){
+      this.shoppingCart.bono.isBono=true;
+      this.shoppingCart.bono.valor=valor;
+      if(this.totalItemsCarrito>0){
+        this.totalItemsCarrito=this.totalItemsCarrito+1;
+
+      }
+      else{
+        this.totalItemsCarrito=1;
+      }
+      if(this.totalCarrito>0){
+        this.totalCarrito= this.totalCarrito+valor;
+      }
+      else{
+        this.totalCarrito=valor;
+      }
+    //  this.procesarItem(item);
+      //this.toggleResumen();
+      this.openResumen();
+      localStorage.setItem('matisses.shoppingCart.bono', JSON.stringify(this.shoppingCart.bono.valor));
+      //this.abrirModalAgregarRegalo(item);
+    }
+  }
   }
 
   public procesarItem(item: Item) {
+    if(this.shoppingCart.bono.isBono==false){
+
     item.selectedQuantity = parseInt(item.selectedQuantity.toString());
     if (item.selectedQuantity > 0) {
       let items = new Array<Item>();
@@ -438,6 +550,10 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
       );
     } else {
       this.cambiarItem(item);
+    }
+    }
+    else{
+
     }
   }
 
@@ -480,12 +596,14 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   public cargarCarrito() {
-
     let localSC = JSON.parse(localStorage.getItem('matisses.shoppingCart.List'));
     if (!localSC) {
       this.inicializarShoppingCart();
     } else {
       this.shoppingCart = localSC;
+    }
+    if(this.shoppingCart.bono.isBono){
+
     }
     //validar si el carrito esta vigente
     //validar el saldo y los precios de los items en el carrito si la fecha de creacion es del dia anterior
@@ -496,6 +614,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   private procesarCarrito() {
+  
     this.totalItemsCarrito = 0;
     this.totalCarrito = 0;
     this.totalImpuestos = 0;
@@ -523,13 +642,30 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
       _id: null,
       metodoEnvio: null,
       fechacreacion: new Date(),
-      items: new Array<Item>()
+      items: new Array<Item>(),
+      bono: {
+        valor:0,
+        isBono:false
+      }
     };
   }
 
   public eliminarItem(item: Item) {
     item.selectedQuantity = 0;
     this.procesarItem(item);
+  }
+
+  public eliminarBono() {
+    if(this.totalCarrito>0){
+      this.totalCarrito=this.totalCarrito-this.shoppingCart.bono.valor;
+    }
+    if(this.totalItemsCarrito>0){
+      this.totalItemsCarrito=this.totalItemsCarrito-1;
+    }
+    this.shoppingCart.bono.isBono=false;
+    this.shoppingCart.bono.valor=0;
+    this.montoBono=0;
+    localStorage.removeItem('matisses.shoppingCart.bono');
   }
 
   public mostrarBotonEliminar() {
@@ -570,7 +706,13 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
         }
       }
     }
-    this.cargarCarrito();
+    if(this.shoppingCart.bono.valor==0){
+        this.cargarCarrito();
+    }
+    else{
+
+    }
+
   }
 
   public closeResumen() {

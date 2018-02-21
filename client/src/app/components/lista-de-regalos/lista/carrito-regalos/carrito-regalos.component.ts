@@ -34,7 +34,6 @@ export class CarritoRegalosComponent implements OnInit, AfterViewInit {
   public clickCarrito(){
     setTimeout(function() {
         $('.carrito').click()
-        console.log('desplegando resumen de carrito')
     }, 1000);
   }
 

@@ -77,7 +77,7 @@ export class ResultadoBusquedaListasComponent implements OnInit {
       $("html, body").animate({ scrollTop: 400 }, 1000);
       this.showBuscar();
     } else {
-      console.log('no hay que hacer scroll')
+      
     }
   }
 
