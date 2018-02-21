@@ -5,5 +5,5 @@ export let GLOBAL = {
   toMail: 'info@matisses.co',
   urlTransactionResult: 'https://www.matisses.co/resultado-transaccion/',
   urlTransactionResultList: 'https://www.matisses.co/resultado-transaccion-regalos/',
-  urlShared: 'http://192.168.5.22:8080/shared/lista-regalos/'
+  urlShared: 'https://360.matisses.co:8443/shared/lista-regalos/'
 };
