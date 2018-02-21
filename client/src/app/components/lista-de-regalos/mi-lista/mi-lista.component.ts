@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
+import { GLOBAL } from '../../../services/global';
 import { ItemService } from '../../../services/item.service';
 import { Item } from '../../../models/item';
 
@@ -36,6 +37,7 @@ export class MiListaComponent implements OnInit {
   public idListaUsuario: string;
   public codigoLista: string;
   public fechaEvento: string;
+  public urlQr: string;
   public paramsConsulta: any;
   public itemsListaBcs: Array<any>;
   public totalLista: number;
@@ -43,12 +45,17 @@ export class MiListaComponent implements OnInit {
   public idListaUsuario1: number;
   public confirmEliminar: boolean = false;
   public formAgregar: any;
+  public aceptaBono:boolean=true;
+  public minimoBono: number=0;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('fecha-evento');
     this.idListaUsuario = localStorage.getItem('id-lista');
+
+    this.totalLista = 0;
+    this.urlQr = GLOBAL.urlShared + 'qr/';
     this.queryParams = new Map<string, string>();
     this.itemsXPag = '12 x pag';
     this.orderByStr = 'Similares';
@@ -58,14 +65,13 @@ export class MiListaComponent implements OnInit {
     this.inicializarForm();
 
     this.inicializarParamsConsulta();
-    //this.inicializarListaBcs();
   }
 
   private inicializarParamsConsulta() {
     this.paramsConsulta = {
       idLista: localStorage.getItem('id-lista'),
       pagina: '1',
-      registrosPagina: '12',
+      registrosPagina: '11',
       orderBy: 'referencia asc',
       sortOrder: ''
     };
@@ -83,12 +89,9 @@ export class MiListaComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-
-
     $(window).scroll(function() {
       var scroll = $(window).scrollTop();
       if (scroll >= 30) {
-
         $(".contenedor").addClass("margin-top-scroll");
       } else {
         $(".contenedor").removeClass("margin-top-scroll")
@@ -112,12 +115,8 @@ export class MiListaComponent implements OnInit {
   }
 
   public actualizarClave() {
-
-
-
     this.messageError = '';
     if (this.claveNueva == null || this.claveNueva.length <= 0) {
-
       this.messageError = 'Ingresa la contraseña';
       this.valid = false;
       this.successMessage = '';
@@ -138,16 +137,13 @@ export class MiListaComponent implements OnInit {
     let usuarioDTO = {
       nombreUsuario: this.nombreUsuario,
       password: this.claveNueva,
+      idListaRegalos:this.idListaUsuario,
       usuarioId: localStorage.getItem('usuario-id')
-
     }
 
     this._userService.updateUser(usuarioDTO).subscribe(
       response => {
         if (response.codigo == "0") {
-
-
-
           this.successMessage = '1';
           localStorage.removeItem('cambio-clave');
           localStorage.setItem('cambio-clave', 'no');
@@ -159,22 +155,16 @@ export class MiListaComponent implements OnInit {
         }
       },
       error => {
-
-
-        this.messageError = "ocurrio un error en el servicio";
+        this.messageError = "Lo sentimos. Ocurrió un error inesperado, por favor inténtelo más tarde.";
+        console.error(error);
       }
     );
-
   }
-
-
 
   public irAPagina(pagina) {
     this.queryParams.set('page', pagina);
     this.navigate();
   }
-
-
 
   public changeOrder(orderkey) {
     this.queryParams.set('orderBy', orderkey);
@@ -183,14 +173,12 @@ export class MiListaComponent implements OnInit {
   }
 
   public cambiarTamanoPagina(tamano) {
-
     this.queryParams.set('pageSize', tamano);
     this.queryParams.set('page', '1');
     this.navigate();
   }
 
   private navigate() {
-
     let queryParamsObj = {};
     for (let i = 0; i < this.availableFields.length; i++) {
       let key = this.availableFields[i];
@@ -200,7 +188,6 @@ export class MiListaComponent implements OnInit {
   }
 
   public cargarItems(availableFields, items, queryParams, records) {
-
     this.items = new Array<Item>();
     this.items = items;
     this.itemsListaBcs = items;
@@ -213,37 +200,30 @@ export class MiListaComponent implements OnInit {
         this.itemsXPag = 'Todos';
       } else {
         this.itemsXPag = this.queryParams.get('pageSize') + ' x pag';
-
       }
-
     }
     if (this.queryParams.has('orderBy')) {
       switch (this.queryParams.get('orderBy')) {
         case 'price':
           this.orderByStr = 'Precio: <span class="glyphicon glyphicon-sort-by-order"></span> ';
-
           break;
         case '-price':
           this.orderByStr = 'Precio: <span class="glyphicon glyphicon-sort-by-order-alt"></span> ';
-
           break;
         case 'itemname':
           this.orderByStr = 'Nombre: <span class="glyphicon glyphicon-sort-by-alphabet"></span> ';
-
           break;
         case '-itemname':
           this.orderByStr = 'Nombre: <span class="glyphicon glyphicon-sort-by-alphabet-alt"></span> ';
-
           break;
         default:
           this.orderByStr = 'Similares';
-
       }
     } else {
       this.orderByStr = 'Similares';
     }
     this.activePage = parseInt(this.queryParams.has('page') ? this.queryParams.get('page') : '1');
-    let pageSize = parseInt(this.queryParams.has('pageSize') ? this.queryParams.get('pageSize') : '12');
+    let pageSize = parseInt(this.queryParams.has('pageSize') ? this.queryParams.get('pageSize') : '11');
     let totalPages = Math.ceil(this.totalItems / pageSize);
     if (this.activePage > totalPages || this.activePage <= 0) {
       this.activePage = 1;
@@ -262,82 +242,55 @@ export class MiListaComponent implements OnInit {
     for (let i = initialPage; i <= totalPages && i - initialPage < 5; i++) {
       this.pages.push(i);
     }
-
-
   }
 
   private cargarItems0() {
-
     this.items = new Array<Item>();
     this.inicializarParamsConsulta();
 
     this._route.queryParams.forEach((params: Params) => {
-
       this.inicializarMapa(params);
-
       if (this.queryParams.has('pageSize')) {
-
         this.paramsConsulta.registrosPagina = this.queryParams.get('pageSize');
       }
 
       if (this.queryParams.has('orderBy')) {
         switch (this.queryParams.get('orderBy')) {
           case '-price':
-
             this.paramsConsulta.orderBy = 'precio';
             break;
           case 'price':
-
             this.paramsConsulta.orderBy = 'precio asc';
             break;
           case '-itemname':
-
             this.paramsConsulta.orderBy = 'referencia';
             break;
           case 'itemname':
-
             this.paramsConsulta.orderBy = 'referencia asc';
             break;
           default:
-
             this.paramsConsulta.orderBy = '';
         }
       }
-      console.log('actualiza la pagina '+this.queryParams.get('page'));
       if (this.queryParams.has('page')) {
         this.paramsConsulta.pagina = this.queryParams.get('page');
       }
 
-
       this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
         response => {
           this.totalLista = response;
-
         },
-        error => {
-          console.log("error servicio bcs" + error);
-        }
-
-
+        error => { console.error(error); }
       );
-
 
       this._listaService.consultarListaPaginada(this.paramsConsulta).subscribe(
         response => {
-
           this.itemsListaBcs = response;
 
           this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.totalLista);
-          console.log(this.itemsListaBcs);
         },
-        error => {
-          console.log("error servicio bcs" + error);
-        }
-
-
+        error => { console.error(error); }
       );
-
-
     });
   }
 
@@ -354,7 +307,6 @@ export class MiListaComponent implements OnInit {
         this.queryString += key + '=' + this.queryParams.get(key);
       }
     }
-
   }
 
   public search() {
@@ -365,16 +317,12 @@ export class MiListaComponent implements OnInit {
   }
 
   public eliminarProducto(itemCode) {
-
     this._listaService.eliminarProducto(itemCode, this.idListaUsuario).subscribe(
       response => {
-
         this._itemService.find(itemCode).subscribe( // Item 1
           response => {
-
             var index = -1;
             for (var i = 0; i < this.itemsListaBcs.length; i++) {
-
               if (this.itemsListaBcs[i]['referencia'] === itemCode) {
                 index = i;
                 this.totalItems = this.totalItems - 1;
@@ -386,75 +334,62 @@ export class MiListaComponent implements OnInit {
               this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.totalItems);
               return;
             }
-          }, error => { console.error(); }
+          }, error => { console.error(error); }
         );
         this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
           response => {
             this.totalLista = response;
           },
-          error => {
-            console.log("error servicio bcs" + error);
-          }
+          error => { console.error(error); }
         );
-        console.log(this.totalLista);
         $('#modalDetalle').modal('hide');
         this.confirmEliminar = false;
 
         this._listaService.consultarListaPaginada(this.paramsConsulta).subscribe(
           response => {
-
             this.itemsListaBcs = response;
-
             if (this.queryParams.has('page')) {
-              console.log(this.queryParams.get('page'));
-              if(this.queryParams.get('page')!='1' && (this.totalLista-1) <= parseInt(this.queryParams.get('pageSize'))){
-
+              if (this.queryParams.get('page') != '1' && (this.totalLista - 1) <= parseInt(this.queryParams.get('pageSize'))) {
                 this.queryParams.clear();
               }
-
             }
-            //this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.totalLista);
             this.cargarItems0();
-          },
-          error => {
-            console.log("error servicio bcs" + error);
-          }
-          //arreglos en el eliminar
-
-        );
-        //  return;
+          }, error => { console.error(error); });
       },
       error => {
-
-
-        this.messageError = "Ocurrio un error en el servicio de eliminacion";
+        this.messageError = "Lo sentimos. Ocurrió un error inesperado, por favor inténtelo más tarde.";
+        console.error(error);
       }
     );
   }
 
   public abrirModalDetalle(itemcode: string, cantidadElegida: number) {
-
     this.inicializarForm();
     this.messageError = '';
     this.successMessage = '';
     this.valid = true;
     this._itemService.find(itemcode).subscribe( // Item 1
       response => {
-
         this.formAgregar.itemcode = response.result[0].itemcode;
         this.formAgregar.name = response.result[0].itemname;
         this.formAgregar.image = 'https://img.matisses.co/' + response.result[0].itemcode + '/parrilla/' + response.result[0].itemcode + '_01.jpg';
         this.formAgregar.description = response.result[0].description;
-        this.formAgregar.cantidad = 0;
+        this.formAgregar.cantidad = cantidadElegida;
         this.formAgregar.precio = response.result[0].priceaftervat;
-        this.formAgregar.cantidadmaxima = cantidadElegida;
+        this.formAgregar.cantidadmaxima = response.result[0].availablestock;
       }
     );
     $('#modalDetalle').modal('show');
   }
 
-  public cerrarSession() {
+  public guardarCambios() {
+    console.log('metodo de guardarCambios');
 
+
+    $('#modalDetalle').modal('hide');
+  }
+
+  public cerrarSession() {
     localStorage.removeItem('matisses.lista-token');
     localStorage.removeItem('username-lista');
     localStorage.removeItem('usuario-id');
@@ -466,7 +401,6 @@ export class MiListaComponent implements OnInit {
     this._router.navigate(['/lista-de-regalos']);
   }
 
-
   public buscarLista(codigo: string) {
     this.messageError = '';
     //Asignar datos para enviarlos a WS
@@ -477,24 +411,17 @@ export class MiListaComponent implements OnInit {
     }
     this._listaService.consultarLista(consultaDTO).subscribe(
       response => {
-
         let respuesta = JSON.parse(JSON.stringify(response));
         if (respuesta.length > 0) {
-
           this.nombreUsuario = respuesta[0].nombreCreador;
-
           this.fechaEvento = respuesta[0].formatoFechaEvento;
+          this.aceptaBono=response[0].aceptaBonos;
+          this.minimoBono=response[0].valorMinimoBono;
           sessionStorage.setItem('formatoFechaEvento', respuesta[0].formatoFechaEvento);
-          //this.idListaUsuario =respuesta[0].idLista;
-
-
         }
       },
-      error => {
-        console.error(error);
-      }
+      error => { console.error(error); }
     );
-
   }
 
   public aumentarCantidad() {
