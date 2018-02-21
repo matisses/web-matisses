@@ -79,7 +79,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title text-center">{{formAgregar.itemname}}</h4>
+        <h4 class="modal-title text-center">{{formAgregar.name}}</h4>
       </div>
       <form>
         <div class="modal-body">
@@ -111,7 +111,7 @@
                   <!-- Descripcion -->
                   <div class="info-item">
                     <p class="factura"><b>Fv:</b> {{item.factura}}</p>
-                    <p class="referencia"><b>Ref:</b> {{item.formAgregar.itemcode}}</p>
+                    <p class="referencia"><b>Ref:</b> {{item.formAgregar.shortcode}}</p>
                     <p class="precio"><b>$ {{item.formAgregar.precio | number}}</b></p>
                     <p class="cantidad">Cantidad comprada: <b>{{item.formAgregar.cantidad}}</b></p>
                     <button type="button" *ngIf="item.formAgregar.cantidad> 0" class="btn btn-devolver" (click)=confirmDevolverItem()>Devolver regalo</button>
