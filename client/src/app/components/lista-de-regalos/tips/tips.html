@@ -32,7 +32,7 @@
       <div class="tip-text">
         <h1 class="baskerville">HOME SHOWER</h1>
         <p class="text-justify">¡Una lista de regalos para adecuar tu primer hogar! Esta es una dinámica que se está practicando en el mundo entero, y es que no nos digamos mentiras, todos quieren...</p>
-        <button type="button" name="button" class="btn btn-tips">Leer más</button>
+        <button type="button" name="button" class="btn btn-tips" (click)="seleccionarEvento(2)">Leer más</button>
       </div>
     </div>
   </div>
@@ -117,9 +117,16 @@
     </div>
   </div>
   <!-- Tipo de evento #2 -->
-  <div class="row">
-    <div class="col-xs-12">
+  <div class="shower" *ngIf="tipoEvento === 2">
+    <div class="row">
+      <div class="col-xs-12">
 
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 text-right">
+        <button type="button" name="button" (click)="seleccionarEvento(0)" class="btn btn-tips">Volver</button>
+      </div>
     </div>
   </div>
   <!-- Tipo de evento #3 -->

@@ -63,6 +63,7 @@ form label {
 
 textarea {
   max-width: 452px;
+  resize: none;
 }
 
 .btn-enviar {
