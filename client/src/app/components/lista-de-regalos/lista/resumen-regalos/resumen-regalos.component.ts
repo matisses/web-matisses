@@ -27,12 +27,14 @@ export class ResumenRegalosComponent implements OnInit {
 
 
   public messajeError: String = '';
+    public infoBono:string=null;
 
   constructor(private _route: ActivatedRoute, private _router: Router) {
 
   }
 
   ngOnInit() {
+    this.infoBono=localStorage.getItem('matisses.shoppingCart.bono');
     //this.cargarCarrito();
 
     // for (let i = 0; i < this.carrito.shoppingCart.items.length; i++) {
@@ -44,8 +46,10 @@ export class ResumenRegalosComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-
-    this.cargarCarrito();
+    this.infoBono=localStorage.getItem('matisses.shoppingCart.bono');
+    if(this.infoBono==null){
+      this.cargarCarrito();
+    }
     $(document).ready(function() {
       $("html, body").animate({ scrollTop: 0 }, 1000);
     });

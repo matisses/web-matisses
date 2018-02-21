@@ -77,7 +77,7 @@ export class ResultadoBusquedaListasComponent implements OnInit {
       $("html, body").animate({ scrollTop: 400 }, 1000);
       this.showBuscar();
     } else {
-      console.log('no hay que hacer scroll')
+      
     }
   }
 
@@ -126,8 +126,8 @@ export class ResultadoBusquedaListasComponent implements OnInit {
           }
         },
         error => {
+          this.messageError = 'Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.';
           console.error(error);
-          this.messageError = 'Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.';
         }
       );
     } else {

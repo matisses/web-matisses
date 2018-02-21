@@ -15,9 +15,13 @@
           <form #ContactForm="ngForm" (submit)="actualizarClave()">
             <div class="col-xs-4 col-xs-offset-4">
               <label class="label-lista" for="contraseña">Nueva contraseña</label>
-              <input type="password" class="form-lista-regalos" id="contraseña" name="claveNueva" [(ngModel)]="claveNueva" required>
+              <form (submit)="actualizarClave()">
+                <input type="password" class="form-lista-regalos" id="contraseña" name="claveNueva" [(ngModel)]="claveNueva" required>
+              </form>
               <label class="label-lista" for="confirmar-contraseña">Confirmar contraseña</label>
-              <input type="password" class="form-lista-regalos" id="confirmar-contraseña" name="claveConfirmacion" [(ngModel)]="claveConfirmacion" required>
+              <form (submit)="actualizarClave()">
+                <input type="password" class="form-lista-regalos" id="confirmar-contraseña" name="claveConfirmacion" [(ngModel)]="claveConfirmacion" required>
+              </form>
             </div>
           </form>
         </div>
@@ -46,9 +50,9 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-sm-5 col-sm-offset-0 col-xs-6 col-xs-offset-3 text-center">
-            <img src="https://360.matisses.co:8443/shared/lista-regalos/qr/{{codigoLista}}.png" class="jpg-responsive" alt="codigoQR">
+            <img src="{{this.urlQr}}{{codigoLista}}.png" class="jpg-responsive" alt="codigoQR">
             <br/>
-            <a href="https://360.matisses.co:8443/shared/lista-regalos/qr/{{codigoLista}}.png" download="output.png" class="btn btn-qr">Descargar QR</a>
+            <a href="{{this.urlQr}}{{codigoLista}}.png" download="output.png" class="btn btn-qr">Descargar QR</a>
           </div>
           <div class="col-sm-7 col-sm-offset-0 col-xs-12 text-center">
             <p class="text-justify">
@@ -91,7 +95,7 @@
           <!-- info producto -->
           <div class="row">
             <div class="col-sm-6">
-                <img src="https://img.matisses.co/{{formAgregar.itemcode}}/images/{{formAgregar.itemcode}}_01.jpg" class="jpg-responsive" alt="{{formAgregar.itemcode}}">
+              <img src="https://img.matisses.co/{{formAgregar.itemcode}}/images/{{formAgregar.itemcode}}_01.jpg" class="jpg-responsive" alt="{{formAgregar.itemcode}}">
             </div>
             <div class="col-sm-6">
               <!-- Descripcion -->
@@ -151,7 +155,7 @@
           <!-- boton de agregar -->
           <div class="row">
             <div class="col-xs-12 text-center">
-              <button type="button" class="btn btn-guardar">Guardar Cambios</button>
+              <button type="button" class="btn btn-guardar" (click)="guardarCambios()">Guardar Cambios</button>
             </div>
           </div>
         </div>
@@ -265,8 +269,8 @@
             </button>
             <ul class="dropdown-menu">
               <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(11)">12 x pag</a></li>
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(24)">24 x pag</a></li>
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(36)">36 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(23)">24 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(35)">36 x pag</a></li>
               <li *ngIf="totalItems < 100"><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
             </ul>
           </div>
@@ -309,14 +313,13 @@
     <!-- Informacón cuando hay productos agregados -->
     <div class="row" *ngIf="itemsListaBcs && itemsListaBcs.length > 0">
       <!-- Bono regalo -->
-      <div class="col-sm-3 col-xs-6 producto bono-regalo">
+      <div class="col-sm-3 col-xs-6 producto bono-regalo" *ngIf="aceptaBono">
         <img src="../../assets/images/bono.jpg" class="jpg-responsive" alt="">
         <p class="nombre"><b>BONO DE REGALO</b></p>
-        <p class="referencia">Monto minimo</p>
-        <input type="number" name="" placeholder="$ 10.000" class="precio" value="">
+        <p class="referencia">Monto minimo {{minimoBono}}</p>
+        <input type="number" name="" placeholder="" class="precio" value="minimoBono">
         <p class="cantidad">Bono de regalo matisses</p>
-        <p class="cantidad">Bono de regalo matisses</p>
-        <p class="detalle">Bono de regalo matisses</p>
+
       </div>
       <!-- productos -->
       <div class="col-sm-3 col-xs-6 producto" *ngFor="let item of itemsListaBcs" (click)="abrirModalDetalle(item.referencia,item.cantidadElegida)">
@@ -340,8 +343,8 @@
             </button>
             <ul class="dropdown-menu">
               <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(11)">12 x pag</a></li>
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(24)">24 x pag</a></li>
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(36)">36 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(23)">24 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(35)">36 x pag</a></li>
               <li *ngIf="totalItems < 100"><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
             </ul>
           </div>

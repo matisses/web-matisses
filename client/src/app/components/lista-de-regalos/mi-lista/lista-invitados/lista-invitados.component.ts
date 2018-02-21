@@ -87,7 +87,7 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
         apellidosInvitado: this.apellidosInvitado.toUpperCase(),
         correoInvitado: this.correoInvitado.toUpperCase(),
         telefonoInvitado: this.telefonoInvitado.toUpperCase(),
-        asistencia: false
+        asistencia: false//Se inserta false hasta que el invitado confirme asistencia via mail
       }
       this._listaService.crearInvitado(invitadoDTO).subscribe(
         response => {
@@ -97,15 +97,34 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
             this.limpiarCampos();
             this.cargarInvitados();
           } else {
-            this.messageError = ('Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.');
+            this.messageError = ('Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.');
           }
         },
         error => {
+          this.messageError = ('Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.');
           console.error(error);
-          this.messageError = ('Lo sentimos. Se produjo un error inesperado, intentelo mas tarde.');
         }
       );
     }
+  }
+
+  public generar(link: string) {
+    setTimeout(function() {
+      window.open(link);
+    }, 1000);
+  }
+
+  public imprimirLista() {
+    let documento = 'invitados';
+    this._listaService.generarDocumento(documento, this.codigoLista).subscribe(
+      response => {
+        if (response != "false"){
+          this.generar(response);
+        }else{
+          this.messageError = 'Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.';
+        }
+      },
+      error => { console.error(error) });
   }
 
   public cargarInvitados() {
@@ -115,11 +134,18 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
         if (response.length > 0) {
           this.totalInvitados = response.length;
           for (let i = 0; i < response.length; i++) {
+            let assistance;
+            if (!response[i].asistencia) {
+              assistance = 'Por confirmar';
+            } else {
+              assistance = 'Confirmado';
+            }
+
             this.invitados.push({
               nombre: response[i].nombreInvitado + ' ' + response[i].apellidosInvitado,
               correo: response[i].correoInvitado,
               celular: response[i].telefonoInvitado,
-              asistencia: "Por confirmar"
+              asistencia: assistance
             });
           }
         }
@@ -136,7 +162,6 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
   }
 
   public cerrarSession() {
-    console.log('cerrar sesion');
     localStorage.removeItem('matisses.lista-token');
     localStorage.removeItem('username-lista');
     localStorage.removeItem('usuario-id');

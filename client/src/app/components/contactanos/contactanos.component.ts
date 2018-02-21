@@ -89,7 +89,7 @@ export class ContactanosComponent implements OnInit {
           return;
         },
         error => {
-          console.log(error);
+          console.error(error);
           this.messageError = 'Se produjo un error interno enviando el mensaje. Por favor inténtalo más tarde.';
         }
       );

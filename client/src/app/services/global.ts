@@ -4,5 +4,6 @@ export let GLOBAL = {
   recaptchaSiteKey: '6LekJy0UAAAAANoeggt1-X3VqaROvs97RZI8g3Co',
   toMail: 'info@matisses.co',
   urlTransactionResult: 'https://www.matisses.co/resultado-transaccion/',
-  urlTransactionResultList: 'https://www.matisses.co/resultado-transaccion-regalos/'
+  urlTransactionResultList: 'https://www.matisses.co/resultado-transaccion-regalos/',
+  urlShared: 'http://192.168.5.22:8080/shared/lista-regalos/'
 };

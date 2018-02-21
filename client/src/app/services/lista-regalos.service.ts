@@ -103,6 +103,24 @@ export class ListaRegalosService {
       .map(res => res.json());
   }
 
+  actualizarConfirmarAsistencia(codigoLista, idInvitado) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'listaregalos/updateasistenciainvitado/' + codigoLista + "/" + idInvitado, { headers: headers })
+      .map(res => res.json());
+  }
+
+  generarDocumento(documento, codigoLista){
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'listaregalos/generardocumento/' + documento + "/" + codigoLista, { headers: headers })
+      .map(res => res.json());
+  }
+
   consultarListaComprados(paramsConsulta) {
     const headers = new Headers({
       'Content-Type': 'application/json'
@@ -127,6 +145,17 @@ export class ListaRegalosService {
     });
 
     return this._http.post(this.urlBCS + 'listaregalos/consultarcomprap/', JSON.stringify(datosConsulta), { headers: headers })
+      .map(res => res.json());
+  }
+
+  //devolucion/{idLista}/{factura}
+
+  devolverItemsFactura(idLista, factura, salesDocumentLineDTO) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'listaregalos/devolucion/' + idLista + '/' + factura, JSON.stringify(salesDocumentLineDTO), { headers: headers })
       .map(res => res.json());
   }
 }

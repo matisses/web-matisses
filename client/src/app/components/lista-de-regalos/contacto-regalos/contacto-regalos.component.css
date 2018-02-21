@@ -1,0 +1,97 @@
+.container {
+  margin-top: 110px;
+  overflow-x: hidden;
+}
+
+.border-left {
+  border-left: 1px solid #EDEDED;
+}
+
+.iconchat {
+  color: #D77D7D;
+  font-size: 30px;
+  background-color: #EDEDED;
+  padding: 15px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.title {
+  margin-left: 10px;
+  margin-top: 10px;
+  text-align: left;
+  display: inline-block;
+}
+
+.info {
+  margin-top: 30%;
+}
+
+.info span {
+  color: #D77D7D;
+}
+
+.info hr {
+  border-color: #EDEDED;
+}
+
+form label {
+  font-weight: normal;
+}
+
+.input-matisses {
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid #7C7C7C;
+}
+
+.ng-valid[required], .ng-valid.required {
+  border-left: 5px solid #6D9197;
+  /* green */
+}
+
+.ng-touched.ng-invalid[required], .ng-untouched.ng-pristine.ng-invalid[required].required-field {
+  border-left: 5px solid #65092D;
+  /* red */
+}
+
+textarea {
+  max-width: 452px;
+  resize: none;
+}
+
+.btn-enviar {
+  width: 100%;
+  background-color: #D77D7D;
+  color: #FFF;
+  border: none;
+  font-weight: bold;
+  padding: 5px 0;
+}
+
+.btn-enviar:hover {
+  background-color: #AB4646;
+}
+
+@media screen and (max-width: 1024px) {}
+
+@media screen and (max-width: 986px) {}
+
+@media screen and (max-width: 767px) {
+  .container {
+    margin-top: 105px;
+  }
+  .border-left {
+    border-top: 1px solid #EDEDED;
+    border-left: 0px;
+    padding-top: 20px;
+    margin-top: 20px;
+  }
+  .info {
+    margin-top: 10%;
+  }
+}
+
+@media screen and (max-width: 320px) {}

@@ -33,11 +33,13 @@ export class ResultadoTransaccionListaComponent implements OnInit {
     valorTotal: number,
     impuestos: number
   }
+  public codigoLista:string;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _placetopayService: PlacetoPayService, private _shoppingCartService: ShoppingCartService) {
   }
 
   ngOnInit() {
+    this.codigoLista=localStorage.getItem('codigo-lista');
     this.carrito.cargarCarrito();
     this.consultarEstadoPlaceToPay();
   }
@@ -57,8 +59,34 @@ export class ResultadoTransaccionListaComponent implements OnInit {
             idLista:localStorage.getItem('id-lista')
           }
 
-          if (datosCompraWeb.items) {
+          if (datosCompraWeb.items.length>0) {
             this._placetopayService.consultar(datosCompraWeb).subscribe(
+              response => {
+                if (response.codigo && response.codigo == -1) {
+                  this.errorMessage = response.mensaje;
+                } else {
+                  this.transaccion = response;
+
+                  if (this.transaccion.status.status === 'REJECTED') {
+                    this.transaccion.status.reason = 'rechazada';
+                  } else if (this.transaccion.status.status === 'PENDING') {
+                    this.transaccion.status.reason = 'pendiente';
+                  } else {
+                    this.transaccion.status.reason = 'aprobada';
+
+
+                  }
+                }
+              },
+              error => {
+                this.errorMessage = 'No se pudo conectar con el servidor';
+                console.error(error);
+              }
+            );
+          }
+          else{
+            console.log('entro por el else a validar transaccion');
+            this._placetopayService.consultarBono(datosCompraWeb).subscribe(
               response => {
                 if (response.codigo && response.codigo == -1) {
                   this.errorMessage = response.mensaje;
