@@ -183,7 +183,6 @@
               <div class="row border" *ngIf="shoppingCart.bono.valor > 0">
                 <div class="col-xs-3 text-center">
                   <img src="../../assets/images/bono.jpg" class="jpg-responsive" alt="Bono de Regalo">
-                  <!-- <img class="img-responsive imagen" src="https://img.matisses.co/{{item.itemcode}}/mini/{{item.itemcode}}_01.jpg" alt="{{item.itemname}}"> -->
                 </div>
                 <div class="col-xs-9">
                   <div class="row">
@@ -193,7 +192,6 @@
                     <div class="col-xs-5 text-right precio" >
                       <p>$ {{shoppingCart.bono.valor | number}}</p>
                     </div>
-
                   </div>
                   <div class="row">
                     <div class="col-xs-7">
@@ -245,10 +243,16 @@
             <button type="button" class="btn btn-matisses dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{itemsXPag}} <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu" *ngIf="aceptaBono">
               <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(11)">12 x pag</a></li>
               <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(23)">24 x pag</a></li>
               <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(35)">36 x pag</a></li>
+              <li *ngIf="totalItems < 100"><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
+            </ul>
+            <ul class="dropdown-menu" *ngIf="!aceptaBono">
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(12)">12 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(24)">24 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(36)">36 x pag</a></li>
               <li *ngIf="totalItems < 100"><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
             </ul>
           </div>
@@ -291,12 +295,12 @@
     <!-- Informacón cuando hay productos agregados -->
     <div class="row" *ngIf="itemsListaBcs && itemsListaBcs.length > 0">
       <!-- Bono regalo -->
-      <div class="col-sm-3 col-xs-6 producto bono-regalo">
+      <div class="col-sm-3 col-xs-6 producto bono-regalo" *ngIf="aceptaBono">
         <img src="../../assets/images/bono.jpg" class="jpg-responsive" alt="">
         <p class="nombre"><b>BONO REGALO</b></p>
-        <input type="number" class="precio" placeholder="Ingrese monto"  [(ngModel)]="montoBono" *ngIf="aceptaBono">
-        <!-- <p class="solicitados">Minimo $ 400.000</p>
-        <p class="solicitados oculto">Comprados:</p> -->
+        <input type="number" class="precio" placeholder="Ingrese monto">
+        <p class="solicitados">Mínimo $ {{montoBono | number}}</p>
+        <p class="solicitados oculto">Comprados:</p>
         <br>
         <div class="row">
           <div class="col-sm-5 col-xs-6 col-xs-offset-3 col-sm-offset-0 padding-right-0 visible-xs oculto">
@@ -313,7 +317,7 @@
             </form>
           </div>
           <div class="col-xs-10 col-xs-offset-1">
-            <button type="button" class="btn btn-regalar" *ngIf="aceptaBono" (click)="agregarBono(montoBono)">
+            <button type="button" class="btn btn-regalar" (click)="agregarBono(montoBono)">
               <span class="icon-regalar_1"></span>
               Regalar bono
             </button>
@@ -367,10 +371,16 @@
             <button type="button" class="btn btn-matisses dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{itemsXPag}} <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu" *ngIf="aceptaBono">
               <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(11)">12 x pag</a></li>
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(22)">24 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(23)">24 x pag</a></li>
               <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(35)">36 x pag</a></li>
+              <li *ngIf="totalItems < 100"><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
+            </ul>
+            <ul class="dropdown-menu" *ngIf="!aceptaBono">
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(12)">12 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(24)">24 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(36)">36 x pag</a></li>
               <li *ngIf="totalItems < 100"><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
             </ul>
           </div>
