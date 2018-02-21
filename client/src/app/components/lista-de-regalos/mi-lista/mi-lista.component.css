@@ -30,6 +30,10 @@
   -moz-appearance: textfield;
 }
 
+.bono-regalo .oculto {
+  visibility: hidden;
+}
+
 
 /* fin bono regalo */
 
