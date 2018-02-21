@@ -48,7 +48,6 @@
               <div class="row">
                 <div class="col-sm-10 col-sm-offset-1 col-xs-12 col-xs-offset-0 resumen-carrito">
                   <p>No puede seleccionar productos en el mismo proceso de compra de un bono de regalo</p>
-
                 </div>
               </div>
             </div>
@@ -80,13 +79,11 @@
             <div class="col-md-7">
               <div class="row">
                 <div class="col-sm-10 col-sm-offset-1 col-xs-12 col-xs-offset-0 resumen-carrito">
-                  <p>El monto mínimo del bono de regalo es {{minimoBono}}</p>
-
+                  <p>El monto mínimo del bono de regalo es $ {{minimoBono | number}}</p>
                 </div>
               </div>
             </div>
             <div class="col-md-5 border-left">
-
               <div class="row">
                 <div class="col-xs-12">
                   <button type="button" class="btn btn-seguir" data-dismiss="modal" aria-label="Close">
@@ -102,9 +99,7 @@
   </div>
 </div>
 
-
 <!---->
-
 <div class="container">
   <div class="contenedor">
     <!-- Información de la lista -->
@@ -298,8 +293,8 @@
       <div class="col-sm-3 col-xs-6 producto bono-regalo" *ngIf="aceptaBono">
         <img src="../../assets/images/bono.jpg" class="jpg-responsive" alt="">
         <p class="nombre"><b>BONO REGALO</b></p>
-        <input type="number" class="precio" placeholder="Ingrese monto">
-        <p class="solicitados">Mínimo $ {{montoBono | number}}</p>
+        <input type="number" class="precio" placeholder="Ingrese monto" [(ngModel)]="montoBono" >
+        <p class="solicitados">Mínimo $ {{minimoBono | number}}</p>
         <p class="solicitados oculto">Comprados:</p>
         <br>
         <div class="row">

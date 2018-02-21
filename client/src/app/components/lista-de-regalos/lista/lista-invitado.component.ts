@@ -64,7 +64,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public totalImpuestos: number = 0;
   public totalDescuentos: number = 0;
   public mostrar: boolean = true;
-  public montoBono: number = 0;
+  public montoBono: number;
   public aceptaBono: boolean = true;
   public minimoBono: number = 0;
 
@@ -156,7 +156,6 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
             this.minimoBono = response[0].valorMinimoBono;
             localStorage.setItem('id-lista', this.idListaUsuario);
             localStorage.setItem('codigo-lista', this.codigoLista);
-            this.montoBono = this.minimoBono;
             this.inicializarShoppingCart();
             this.cargarItems0();
             this.cargarFechaEvento();
