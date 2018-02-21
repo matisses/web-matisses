@@ -56,7 +56,7 @@
 .principal-01 {
   background: url(../../../../assets/images/banner/slide-1/banner-01.jpg) no-repeat center center;
   margin-top: 0px;
-  padding-top: 10px;
+  padding-top: 100px;
   background-attachment: relative;
   background-position: center center;
   min-height: 500px;
@@ -76,35 +76,42 @@
 .text-01 {
   color: #FFF;
   padding: 15px;
-  top: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  width: 250px;
+  margin: 0 auto;
+  text-align: center;
+  width: 550px;
+  position: relative;
+  top: -115px;
+  height: 5px;
 }
 
 .text-01 .logo {
   width: 100%;
 }
 
+.text-01 h1 {
+  font-size: 40px;
+  font-weight: bold;
+}
+
 .text-01 p {
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 400;
 }
 
 .text-01 .btn-banner01 {
   padding: 5px 10px;
   font-size: 15px;
-  background-color: #6395B8;
-  margin: 0;
+  background-color: #481416;
+  margin: 0 auto;
   text-align: center;
   cursor: pointer;
   font-weight: normal;
+  width: 40%;
 }
 
 .text-01 .precio {
   font-size: 12px;
 }
-
-
 /* Estilos banner 02 */
 
 .recomendaciones {
@@ -192,7 +199,6 @@
   }
   .text-01 {
     margin-top: 55px;
-    width: 180px;
   }
   .recomendaciones .name {
     font-size: 15px;
@@ -203,14 +209,26 @@
   .sub-banner .mensaje {
     display: none;
   }
+  .text-01 h1 {
+    font-size: 25px;
+  }
+  .text-01 p {
+    font-size: 15px;
+  }
+  .sub-banner-footer p {
+    font-size: 15px;
+  }
 }
 
 @media screen and (max-width: 769px) {
   .principal-01 {
     min-height: 300px;
   }
-  .text-01 {
-    width: 200px;
+  .text-01 h1 {
+    font-size: 20px;
+  }
+  .text-01 .btn-banner01 {
+    font-size: 12px;
   }
   .sub-banner-footer p {
     color: #5B5B5B;
@@ -221,22 +239,31 @@
 @media screen and (max-width: 425px) {
   .text-01 {
     margin: 0 auto;
-    width: 200px;
+    width: 290px;
     margin-top: 50px;
   }
   .text-01 p {
     font-weight: normal;
+  }
+  .principal-01 {
+    /* background: url(../../../../assets/images/banner/slide-2/banner-01-mobile.gif) no-repeat center; */
+    background-position: center;
   }
 }
 
 @media screen and (max-width: 414px) {
   .principal-01 {
     min-height: 250px;
-    background-position: center -16px;
+    background-position: center 15px;
   }
   .text-01 {
     margin: 10px auto;
-    width: 200px;
+  }
+  .text-01 h1 {
+    font-size: 20px;
+  }
+  .text-01 .btn-banner01 {
+    font-size: 12px;
   }
   .recomendaciones .precio {
     font-size: 15px;
