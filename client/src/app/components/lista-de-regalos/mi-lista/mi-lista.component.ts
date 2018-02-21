@@ -351,9 +351,7 @@ export class MiListaComponent implements OnInit {
               }
             }
             this.cargarItems0();
-          },
-          error => { console.error(error); }
-        );
+          }, error => { console.error(error); });
       },
       error => {
         this.messageError = "Lo sentimos. Ocurrió un error inesperado, por favor inténtelo más tarde.";
@@ -373,12 +371,19 @@ export class MiListaComponent implements OnInit {
         this.formAgregar.name = response.result[0].itemname;
         this.formAgregar.image = 'https://img.matisses.co/' + response.result[0].itemcode + '/parrilla/' + response.result[0].itemcode + '_01.jpg';
         this.formAgregar.description = response.result[0].description;
-        this.formAgregar.cantidad = 0;
+        this.formAgregar.cantidad = cantidadElegida;
         this.formAgregar.precio = response.result[0].priceaftervat;
-        this.formAgregar.cantidadmaxima = cantidadElegida;
+        this.formAgregar.cantidadmaxima = response.result[0].availablestock;
       }
     );
     $('#modalDetalle').modal('show');
+  }
+
+  public guardarCambios() {
+    console.log('metodo de guardarCambios');
+
+
+    $('#modalDetalle').modal('hide');
   }
 
   public cerrarSession() {
@@ -438,5 +443,4 @@ export class MiListaComponent implements OnInit {
       cantidadmaxima: 0
     };
   }
-
 }
