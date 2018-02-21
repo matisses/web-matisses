@@ -137,6 +137,7 @@ export class MiListaComponent implements OnInit {
     let usuarioDTO = {
       nombreUsuario: this.nombreUsuario,
       password: this.claveNueva,
+      idListaRegalos:this.idListaUsuario,
       usuarioId: localStorage.getItem('usuario-id')
     }
 
