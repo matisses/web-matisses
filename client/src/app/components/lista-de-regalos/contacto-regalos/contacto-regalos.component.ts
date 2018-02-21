@@ -98,7 +98,7 @@ export class ContactoRegalosComponent implements OnInit {
    this.phone = '';
    this.subject = '';
    this.message = '';
-   grecaptcha.reset();
+   //grecaptcha.reset();
    this._router.navigate(['/contactanos']);
  }
 }
