@@ -336,6 +336,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     this._itemService.find(itemcode).subscribe( // Item 1
       response => {
         this.formAgregar.shortcode = response.result[0].shortitemcode;
+        this.formAgregar.itemcode = response.result[0].itemcode;
         this.formAgregar.name = response.result[0].itemname;
         this.formAgregar.image = 'https://img.matisses.co/' + response.result[0].itemcode + '/parrilla/' + response.result[0].itemcode + '_01.jpg';
         this.formAgregar.description = response.result[0].description;
