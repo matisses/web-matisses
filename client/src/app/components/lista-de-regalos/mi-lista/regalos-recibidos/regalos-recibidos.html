@@ -114,15 +114,15 @@
                     <p class="referencia"><b>Ref:</b> {{item.formAgregar.itemcode}}</p>
                     <p class="precio"><b>$ {{item.formAgregar.precio | number}}</b></p>
                     <p class="cantidad">Cantidad comprada: <b>{{item.formAgregar.cantidad}}</b></p>
-                    <button type="button" class="btn btn-devolver" (click)=confirmEliminarItem()>Devolver regalo</button>
+                    <button type="button" *ngIf="item.formAgregar.cantidad> 0" class="btn btn-devolver" (click)=confirmDevolverItem()>Devolver regalo</button>
                   </div>
                   <br>
-                  <div class="row" *ngIf="confirmEliminar">
+                  <div class="row" *ngIf="confirmDevolver">
                     <div class="col-xs-12 text-center">
                       <br>
                       <p>¿Seguro deseas devolver este regalo?. <br>El valor sera cargado en una tarjeta regalo <b>Matisses</b> especial para ti.</p>
-                      <button type="button" class="btn btn-danger btn-radius-0" (click)=eliminarProducto(formAgregar.shortitemcode)>Si</button>
-                      <button type="button" class="btn btn-default btn-radius-0" (click)=confirmEliminarItem()>No</button>
+                      <button type="button" class="btn btn-danger btn-radius-0" (click)=devolverProducto(item.formAgregar.itemcode,item.factura,item.formAgregar.cantidad)>Si</button>
+                      <button type="button" class="btn btn-default btn-radius-0" (click)=confirmDevolverItem()>No</button>
                     </div>
                   </div>
                 </div>
@@ -282,7 +282,7 @@
     <br>
     <!-- Informacón cuando hay productos agregados -->
     <div class="row" *ngIf="itemsListaBcs && itemsListaBcs.length > 0">
-      <div class="col-sm-3 col-xs-6 producto" *ngFor="let item of itemsListaBcs" (click)="abrirModalDetalle(item.referencia,item.cantidadElegida)">
+      <div class="col-sm-3 col-xs-6 producto" *ngFor="let item of itemsListaBcs" (click)="abrirModalDetalle(item.referencia,item.cantidadElegida,item.cantidadComprada)">
         <img src="https://img.matisses.co/{{item.referencia.substring(0,3)+'00000000000000'+item.referencia.substring(4)}}/parrilla/{{item.referencia.substring(0,3)+'00000000000000'+item.referencia.substring(4)}}_01.jpg" class="jpg-responsive" alt="{{item.descripcionProducto}}">
         <p class="nombre"><b>{{item.descripcionProducto}}</b></p>
         <p class="referencia"><b>Ref:</b> {{item.referencia}}</p>

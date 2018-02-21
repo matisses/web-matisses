@@ -94,9 +94,16 @@ import { InfoPagoRegalosComponent } from './components/lista-de-regalos/lista/in
 import { ResultadoTransaccionListaComponent } from './components/lista-de-regalos/lista/resultados-transaccion-lista/resultados-transaccion-lista.component';
 import { RegalosRecibidosComponent } from './components/lista-de-regalos/mi-lista/regalos-recibidos/regalos-recibidos.component';
 import { ListaInvitadosComponent } from './components/lista-de-regalos/mi-lista/lista-invitados/lista-invitados.component';
+import { TipsComponent } from './components/lista-de-regalos/tips/tips.component';
+import { BeneficiosComponent } from './components/lista-de-regalos/beneficios/beneficios.component';
+import { AsistenciaComponent } from './components/lista-de-regalos/lista/confirmar/asistencia.component';
+import { ContactoRegalosComponent } from './components/lista-de-regalos/contacto-regalos/contacto-regalos.component';
 
 // Promocion alf
 import { PromocionAlfComponent } from './components/promocion-alf/promocion-alf.component';
+
+// NovedadesComponent
+import { NovedadesComponent } from './components/novedades/novedades.component';
 
 //Directivas
 import { StickyMenuDirective } from './directives/sticky.directive';
@@ -165,6 +172,7 @@ import { MetaModule } from '@ngx-meta/core';
     SinInteresComponent,
     RecomendadosComponent,
     HotSaleComponent,
+    NovedadesComponent,
     //Lista de Regalos
     ListaRegalosComponent,
     MenuListaComponent,
@@ -181,7 +189,11 @@ import { MetaModule } from '@ngx-meta/core';
     InfoBogotaComponent,
     PromocionAlfComponent,
     RegalosRecibidosComponent,
-    ListaInvitadosComponent
+    ListaInvitadosComponent,
+    TipsComponent,
+    BeneficiosComponent,
+    AsistenciaComponent,
+    ContactoRegalosComponent
   ],
   imports: [
     BrowserModule,

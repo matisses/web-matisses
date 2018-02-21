@@ -31,4 +31,13 @@ export class PlacetoPayService {
     return this._http.post(this.urlBCS + 'placetopay/consultar', JSON.stringify(datosCompraWeb), { headers: headers })
       .map(res => res.json());
   }
+
+  consultarBono(datosCompraWeb) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'placetopay/consultarbono', JSON.stringify(datosCompraWeb), { headers: headers })
+      .map(res => res.json());
+  }
 }

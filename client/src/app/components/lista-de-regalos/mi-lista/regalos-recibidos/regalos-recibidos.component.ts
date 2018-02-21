@@ -41,7 +41,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
   public totalLista: number;
   public verDetalle: any;
   public idListaUsuario1: number;
-  public confirmEliminar: boolean = false;
+  public confirmDevolver: boolean = false;
   public formAgregar: any;
   public mesInicio: string;
   public anoInicio: number;
@@ -114,11 +114,11 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     }, 500);
   }
 
-  public confirmEliminarItem() {
-    if (this.confirmEliminar) {
-      this.confirmEliminar = false;
+  public confirmDevolverItem() {
+    if (this.confirmDevolver) {
+      this.confirmDevolver = false;
     } else {
-      this.confirmEliminar = true;
+      this.confirmDevolver = true;
     }
   }
 
@@ -301,7 +301,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
           },
           error => { console.error(error); });
         $('#modalDetalle').modal('hide');
-        this.confirmEliminar = false;
+        this.confirmDevolver = false;
 
         this._listaService.consultarListaComprados(this.paramsConsulta).subscribe(
           response => {
@@ -327,7 +327,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     );
   }
 
-  public abrirModalDetalle(itemcode: string, cantidadElegida: number) {
+  public abrirModalDetalle(itemcode: string, cantidadElegida: number,cantidadComprada:number) {
     this.inicializarForm();
     this.messageError = '';
     this.successMessage = '';
@@ -339,7 +339,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
         this.formAgregar.name = response.result[0].itemname;
         this.formAgregar.image = 'https://img.matisses.co/' + response.result[0].itemcode + '/parrilla/' + response.result[0].itemcode + '_01.jpg';
         this.formAgregar.description = response.result[0].description;
-        this.formAgregar.cantidad = 0;
+        this.formAgregar.cantidad =cantidadComprada;
         this.formAgregar.precio = response.result[0].priceaftervat;
         this.formAgregar.cantidadmaxima = cantidadElegida;
 
@@ -353,7 +353,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
             this.itemsListaCompra = response;
             for (var i = 0; i < this.itemsListaCompra.length; i++) {
               this.itemsListaCompra[i]['formAgregar'] = this.formAgregar;
-              this.itemsListaCompra[i]['shortitemcode'] = response.result[0].shortitemcode;
+
             }
           }, error => { console.error(error); });
       });
@@ -414,7 +414,8 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
       msjagradecimiento: '',
       image: '',
       precio: 0,
-      cantidadmaxima: 0
+      cantidadmaxima: 0,
+      devuelto:0
     };
   }
 
@@ -478,6 +479,36 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
         console.error(error);
         this.messageError = 'error en la actualización de la fecha de entrega';
         return;
+      }
+    );
+  }
+
+  public devolverProducto(itemCode, factura, cantidad) {
+
+    let salesDocumentLineDTO={
+      itemCode:itemCode,
+      quantity:cantidad
+    }
+    console.log('itemCode '+itemCode);
+    console.log('factura '+factura);
+    console.log('cantidad '+cantidad);
+    this._listaService.devolverItemsFactura(this.idListaUsuario, factura,salesDocumentLineDTO).subscribe(
+      response => {
+
+        if(response>0){
+          
+          this.successMessage = 'se realizo la devolucion correctamente';
+          return;
+        }
+        else{
+          this.messageError = "Lo sentimos. Ocurrió un error inesperado, por favor inténtelo más tarde.";
+            return;
+        }
+
+      },
+      error => {
+        this.messageError = "Lo sentimos. Ocurrió un error inesperado, por favor inténtelo más tarde.";
+        console.error(error);
       }
     );
   }

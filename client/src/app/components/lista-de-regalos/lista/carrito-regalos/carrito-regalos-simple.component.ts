@@ -35,7 +35,11 @@ export class CarritoRegalosSimpleComponent {
       _id: null,
       metodoEnvio: null,
       fechacreacion: new Date(),
-      items: new Array<Item>()
+      items: new Array<Item>(),
+      bono: {
+        valor:0,
+        isBono:false
+      }
     };
   }
 

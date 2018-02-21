@@ -62,6 +62,8 @@ export class InfoPagoRegalosComponent implements OnInit {
   public resumenDesktopVisible: boolean = false;
   public codigoLista: string;
   public messageNovios:string;
+  public infoBono:string=null;
+
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService, private _cityService: CityService,
     private _shippingMethodService: ShippingMethodService, private _placetopayService: PlacetoPayService, private _shoppingCartService: ShoppingCartService,
@@ -75,12 +77,19 @@ export class InfoPagoRegalosComponent implements OnInit {
     this.metodosEnvio = new Array<ShippingMethod>();
     this.codigoLista=localStorage.getItem('codigo-lista');
     this.messageNovios='';
+
   }
 
   ngOnInit() {
     this.codigoLista=localStorage.getItem('codigo-lista');
+    this.infoBono=localStorage.getItem('matisses.shoppingCart.bono');
+
+    this.carrito.totalCarrito=parseInt(this.infoBono);
+    if(this.infoBono==null){
     this.cargarCarrito();
     this.obtenerMetodosEnvio();
+
+    }
     this.obtenerCiudades();
   }
 
@@ -259,7 +268,7 @@ export class InfoPagoRegalosComponent implements OnInit {
   }
 
   public pagar() {
-
+    if(this.infoBono==null){
     this.valid = true;
     this.messageError = '';
     // if (this.metodoEnvioSeleccionado == null || this.metodoEnvioSeleccionado.code == 0) {
@@ -334,6 +343,45 @@ export class InfoPagoRegalosComponent implements OnInit {
         this.procesandoP2P = false;
       }
     );
+    }
+    else{
+
+      if (this.customer.fiscalID == null || this.customer.fiscalID.length <= 0
+        || this.customer.firstName == null || this.customer.firstName.length <= 0
+        || this.customer.lastName1 == null || this.customer.lastName1.length <= 0
+        || this.customer.fiscalIdType == null || this.customer.fiscalIdType.length <= 0
+        || this.customer.addresses[0].address == null || this.customer.addresses[0].address.length <= 0
+        || this.customer.addresses[0].cellphone == null || this.customer.addresses[0].cellphone.length <= 0
+        || this.customer.addresses[0].cityCode == null || this.customer.addresses[0].cityCode == 0
+        || this.customer.addresses[0].email == null || this.customer.addresses[0].email.length <= 0) {
+        this.messageError = 'Debes llenar todos los campos obligatorios para poder proceder con el pago.';
+        this.valid = false;
+        return;
+      }
+      this.procesandoP2P = true;
+
+      let shoppingCartB = {
+        metodoEnvio: 2,
+        tiendaRecoge: this.tiendaSeleccionada,
+        fechacreacion: null,
+        items: new Array<Item>(),
+        precioNuevo:this.infoBono
+      }
+
+      this._shoppingCartService.saveShoppingCart(shoppingCartB).subscribe(
+        response => {
+          //Se guarda en el localStorage el carrito
+          this.carrito.shoppingCart._id = response.shoppingCart._id;
+          //localStorage.setItem('matisses.shoppingCart.List', JSON.stringify(this.carrito.shoppingCart));
+          this.validarCliente(this.carrito.shoppingCart._id);
+        },
+        error => {
+          console.error(error);
+        }
+      );
+
+
+    }
   }
 
   private validarCliente(_idCarrito) {
@@ -342,7 +390,12 @@ export class InfoPagoRegalosComponent implements OnInit {
     this._customerService.getCustomerData(this.customer.fiscalID).subscribe(
       response => {
         //Mandar directo a placetopay
+        if(this.infoBono==null){
         this.enviarPlaceToPay(_idCarrito);
+        }
+        else{
+          this.enviarPlaceToPayBono(_idCarrito);
+        }
       },
       error => {
         //Se debe mandar a crear el cliente en SAP
@@ -416,7 +469,13 @@ export class InfoPagoRegalosComponent implements OnInit {
         this._customerService.createCustomer(businesspartner).subscribe(
           response => {
             if (response.estado == 0) {
-              this.enviarPlaceToPay(_idCarrito);
+              if(this.infoBono==null){
+                this.enviarPlaceToPay(_idCarrito);
+              }
+              else{
+                this.enviarPlaceToPayBono(_idCarrito);
+              }
+
             } else {
               //error
             }
@@ -478,7 +537,7 @@ export class InfoPagoRegalosComponent implements OnInit {
               }
             }
           }
-          console.log('codigo de la lista '+this.codigoLista);
+
           this.datosPago = new DatosPagoPlaceToPay().newDatosPagoPlaceToPayLista(buyer, null, navigator.userAgent, payment, null, null, this.urlReturn + _id, '',this.codigoLista,this.messageNovios);
 
           this._placetopayService.redirect(this.datosPago).subscribe(
@@ -506,60 +565,88 @@ export class InfoPagoRegalosComponent implements OnInit {
       }
     );
 
-    //
-    //
-    //
-    //
-    // //Se mapean los datos que se le enviaran a PlacetoPay
-    // let apellidos = '';
-    // apellidos += this.customer.lastName1;
-    // if (this.customer.lastName2 != null && this.customer.lastName2.length > 0) {
-    //   apellidos += ' ' + this.customer.lastName2;
-    // }
-    //
-    // let buyer = {
-    //   document: this.customer.fiscalID,
-    //   name: this.customer.firstName,
-    //   surname: apellidos,
-    //   documentType: this.customer.fiscalIdType,
-    //   email: this.customer.addresses[0].email,
-    //   mobile: this.customer.addresses[0].cellphone,
-    //   address: {
-    //     street: this.customer.addresses[0].address,
-    //     city: this.customer.addresses[0].cityName,
-    //     country: this.customer.addresses[0].country
-    //   }
-    // };
-    //
-    // let payment = {
-    //   allowPartial: 'false',
-    //   description: 'Compra matisses.co',
-    //   reference: _id,
-    //   amount: {
-    //     currency: 'COP',
-    //     total: ((this.carrito.totalCarrito + (this.metodoEnvioSeleccionado.code === 2 ? 0 : this.costoEnvio)) - this.carrito.totalDescuentos),
-    //     taxes: {
-    //       kind: 'valueAddedTax',
-    //       amount: this.carrito.totalImpuestos
-    //     }
-    //   }
-    // }
-    //
-    // this.datosPago = new DatosPagoPlaceToPay().newDatosPagoPlaceToPay(buyer, null, navigator.userAgent, payment, null, null, this.urlReturn + _id, '');
-    //
-    // this._placetopayService.redirect(this.datosPago).subscribe(
-    //   response => {
-    //     if (response.codigo === -1) {
-    //       this.procesandoP2P = false;
-    //       return;
-    //     }
-    //     localStorage.removeItem('matisses.shoppingCart');
-    //     window.location.href = response.respuestaPlaceToPay.processUrl;
-    //   },
-    //   error => {
-    //     console.error(error);
-    //   }
-    // );
+  }
+
+
+  private enviarPlaceToPayBono(_id) {
+
+    //Se valida el estado de los items como primera medida
+   this.codigoLista=localStorage.getItem('codigo-lista');
+    let datosCompraWeb = {
+      idCarrito: '00000000000000000',
+      items: null,
+      idLista:sessionStorage.getItem('id-lista'),
+      montoPagar:parseInt(this.infoBono)
+    }
+
+
+
+    this._shoppingCartValidatorService.validate(datosCompraWeb).subscribe(
+      response => {
+
+        if (response.mensaje === 'true') {
+          //Se mapean los datos que se le enviaran a PlacetoPay
+          let apellidos = '';
+          apellidos += this.customer.lastName1;
+          if (this.customer.lastName2 != null && this.customer.lastName2.length > 0) {
+            apellidos += ' ' + this.customer.lastName2;
+          }
+
+          let buyer = {
+            document: this.customer.fiscalID,
+            name: this.customer.firstName,
+            surname: apellidos,
+            documentType: this.customer.fiscalIdType,
+            email: this.customer.addresses[0].email,
+            mobile: this.customer.addresses[0].cellphone,
+            address: {
+              street: this.customer.addresses[0].address,
+              city: this.customer.addresses[0].cityName,
+              country: this.customer.addresses[0].country
+            }
+          };
+
+          let payment = {
+            allowPartial: 'false',
+            description: 'Compra Bono matisses.co',
+            reference: _id,
+            amount: {
+              currency: 'COP',
+              total: (this.carrito.totalCarrito),
+              taxes: {
+                kind: 'valueAddedTax',
+                amount: 0
+              }
+            }
+          }
+
+          this.datosPago = new DatosPagoPlaceToPay().newDatosPagoPlaceToPayLista(buyer, null, navigator.userAgent, payment, null, null, this.urlReturn + _id, '',this.codigoLista,this.messageNovios);
+
+          this._placetopayService.redirect(this.datosPago).subscribe(
+            response => {
+              if (response.codigo === -1) {
+                this.procesandoP2P = false;
+                return;
+              }
+              localStorage.removeItem('matisses.shoppingCart.List');
+              window.location.href = response.respuestaPlaceToPay.processUrl;
+            },
+            error => {
+              console.error(error);
+            }
+          );
+        } else {
+          this.messageCambio = 'No se pudo continuar con el proceso de compra, debido a que uno o varios ítems ya no aplican descuento.';
+          $('#cambioPrecio').modal('show');
+
+        }
+      }, error => {
+        console.log('**********************************');
+        console.log(error);
+        console.log('**********************************');
+      }
+    );
+
   }
 
   public refrescarValoresCarrito() {
@@ -741,14 +828,18 @@ export class InfoPagoRegalosComponent implements OnInit {
   }
 
   public cargarCarrito() {
+
     //consultar localstorage
-    console.log('entra en el cargar resumen');
+
     let localSC = JSON.parse(localStorage.getItem('matisses.shoppingCart.List'));
     if (!localSC) {
+
       this.carrito.inicializarShoppingCart();
     } else {
+
       this.carrito.shoppingCart = localSC;
     }
+
     //TODO: validar si el carrito esta vigente
     //TODO: validar el saldo y los precios de los items en el carrito si la fecha de creacion es del dia anterior
 

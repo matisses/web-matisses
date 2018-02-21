@@ -34,6 +34,76 @@
     </div>
   </div>
 </div>
+<!--modal bono-->
+<div id="modalBono" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-center">Ud ha seleccionado un bono de regalo</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-7">
+              <div class="row">
+                <div class="col-sm-10 col-sm-offset-1 col-xs-12 col-xs-offset-0 resumen-carrito">
+                  <p>No puede seleccionar productos en el mismo proceso de compra de un bono de regalo</p>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-md-5 border-left">
+
+              <div class="row">
+                <div class="col-xs-12">
+                  <button type="button" class="btn btn-seguir" data-dismiss="modal" aria-label="Close">
+                    Seguir comprando
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="modalBonoValidar" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-center">Monto Mínimo Bono</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-7">
+              <div class="row">
+                <div class="col-sm-10 col-sm-offset-1 col-xs-12 col-xs-offset-0 resumen-carrito">
+                  <p>El monto mínimo del bono de regalo es {{minimoBono}}</p>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-md-5 border-left">
+
+              <div class="row">
+                <div class="col-xs-12">
+                  <button type="button" class="btn btn-seguir" data-dismiss="modal" aria-label="Close">
+                    Seguir comprando
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!---->
 
 <div class="container">
   <div class="contenedor">
@@ -56,7 +126,7 @@
           </div>
         </div>
         <div class="fecha-dias">
-          <p>Fecha de celebración: {{formatoFechaEvento}}</p>
+          <p>Fecha de celebración: {{fechaEvento}}</p>
           <!-- <span class="icon-fecha icono-fecha"></span> -->
           <!-- <p class="dias"> días</p> -->
         </div>
@@ -109,6 +179,33 @@
                   </div>
                 </div>
               </div>
+              <!--Bono-->
+              <div class="row border" *ngIf="shoppingCart.bono.valor > 0">
+                <div class="col-xs-3 text-center">
+                  <img src="../../assets/images/bono.jpg" class="jpg-responsive" alt="Bono de Regalo">
+                  <!-- <img class="img-responsive imagen" src="https://img.matisses.co/{{item.itemcode}}/mini/{{item.itemcode}}_01.jpg" alt="{{item.itemname}}"> -->
+                </div>
+                <div class="col-xs-9">
+                  <div class="row">
+                    <div class="col-xs-7">
+                      <p class="nombre"><b>Bono de Regalo</b></p>
+                    </div>
+                    <div class="col-xs-5 text-right precio" >
+                      <p>$ {{shoppingCart.bono.valor | number}}</p>
+                    </div>
+
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-7">
+                      <p class="cantidad"><b>Cantidad</b></p>
+                      <p class="numero">1</p>
+                    </div>
+                    <div class="col-xs-5 text-right">
+                      <span *ngIf="mostrarBotonEliminar()" class="glyphicon glyphicon-trash trash" (click)="eliminarBono()"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="row">
               <div class="col-xs-12 text-right">
@@ -117,7 +214,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-xs-6 text-center btn-izq">
+              <div class="col-xs-6 text-center btn-izq" *ngIf="shoppingCart.bono.valor == 0">
                 <p class="boton" [routerLink]="['/resumen-regalos']">ir al carrito</p>
               </div>
               <div class="col-xs-6 text-center btn-der">
@@ -141,7 +238,7 @@
       </div>
     </div>
     <!-- botones como mostrar los productos -->
-    <div class="row" *ngIf="items.length > 0">
+    <div class="row" *ngIf="itemsListaBcs.length > 0">
       <div class="col-md-4 text-center">
         <div class="mostrar">
           <div class="btn-group">
@@ -149,9 +246,9 @@
                 {{itemsXPag}} <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(12)">12 x pag</a></li>
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(24)">24 x pag</a></li>
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(36)">36 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(11)">12 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(23)">24 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(35)">36 x pag</a></li>
               <li *ngIf="totalItems < 100"><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
             </ul>
           </div>
@@ -192,14 +289,14 @@
     </div>
     <br>
     <!-- Informacón cuando hay productos agregados -->
-    <div class="row" *ngIf="items && items.length > 0">
+    <div class="row" *ngIf="itemsListaBcs && itemsListaBcs.length > 0">
       <!-- Bono regalo -->
       <div class="col-sm-3 col-xs-6 producto bono-regalo">
         <img src="../../assets/images/bono.jpg" class="jpg-responsive" alt="">
         <p class="nombre"><b>BONO REGALO</b></p>
-        <input type="number" class="precio" placeholder="Ingrese monto">
-        <p class="solicitados">Minimo $ 400.000</p>
-        <p class="solicitados oculto">Comprados:</p>
+        <input type="number" class="precio" placeholder="Ingrese monto"  [(ngModel)]="montoBono" *ngIf="aceptaBono">
+        <!-- <p class="solicitados">Minimo $ 400.000</p>
+        <p class="solicitados oculto">Comprados:</p> -->
         <br>
         <div class="row">
           <div class="col-sm-5 col-xs-6 col-xs-offset-3 col-sm-offset-0 padding-right-0 visible-xs oculto">
@@ -216,7 +313,7 @@
             </form>
           </div>
           <div class="col-xs-10 col-xs-offset-1">
-            <button type="button" class="btn btn-regalar">
+            <button type="button" class="btn btn-regalar" *ngIf="aceptaBono" (click)="agregarBono(montoBono)">
               <span class="icon-regalar_1"></span>
               Regalar bono
             </button>
@@ -256,7 +353,7 @@
     </div>
     <br>
     <!-- botones como mostrar los productos -->
-    <div class="row" *ngIf="items.length > 0">
+    <div class="row" *ngIf="itemsListaBcs.length > 0">
       <div class="col-md-4 text-center">
         <div class="mostrar">
           <div class="btn-group dropup">
@@ -264,9 +361,9 @@
                 {{itemsXPag}} <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(12)">12 x pag</a></li>
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(24)">24 x pag</a></li>
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(36)">36 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(11)">12 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(22)">24 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(35)">36 x pag</a></li>
               <li *ngIf="totalItems < 100"><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
             </ul>
           </div>
