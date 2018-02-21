@@ -26,6 +26,7 @@ import { PoliticaPrivacidadComponent } from './components/politica-privacidad/po
 import { PreguntasFrecuentesComponent } from './components/preguntas-frecuentes/preguntas-frecuentes.component';
 import { SinInteresComponent } from './components/sin-interes/sin-interes.component';
 import { HotSaleComponent } from './components/hot-sale/hot-sale.component';
+import { NovedadesComponent } from './components/novedades/novedades.component';
 
 // Lista de Regalos
 import { ListaRegalosComponent } from './components/lista-de-regalos/lista-regalos.component';
@@ -123,6 +124,7 @@ const appRoutes: Routes = [
   { path: 'trabaja-con-nosotros', component: TrabajaComponent },
   // { path: 'hot-sale', component: HotSaleComponent },
   { path: 'info', component: InfoBogotaComponent },
+  { path: 'novedades', component: NovedadesComponent },
   { path: 'promocion-enero', component: PromocionAlfComponent },
   { path: 'garantias', component: GarantiasComponent },
   { path: 'envios', component: EnviosComponent },

@@ -254,7 +254,7 @@
   }
   .principal-01 .conoce-mas {
     text-align: left;
-    margin: 0;
+    margin: -22px 0;
     font-size: 15px;
     padding: 0;
   }
@@ -269,7 +269,7 @@
 @media screen and (max-width: 414px) {
   .principal-01 {
     min-height: 250px;
-    background-position: center -16px;
+    background-position: center 15px;
   }
   .recomendaciones .precio {
     font-size: 15px;
