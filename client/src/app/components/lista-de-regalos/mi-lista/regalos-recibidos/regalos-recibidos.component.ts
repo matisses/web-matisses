@@ -335,7 +335,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     this.itemsListaCompra = new Array<any>();
     this._itemService.find(itemcode).subscribe( // Item 1
       response => {
-        this.formAgregar.itemcode = response.result[0].itemcode;
+        this.formAgregar.shortcode = response.result[0].shortitemcode;
         this.formAgregar.name = response.result[0].itemname;
         this.formAgregar.image = 'https://img.matisses.co/' + response.result[0].itemcode + '/parrilla/' + response.result[0].itemcode + '_01.jpg';
         this.formAgregar.description = response.result[0].description;
@@ -496,7 +496,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
       response => {
 
         if(response>0){
-          
+
           this.successMessage = 'se realizo la devolucion correctamente';
           return;
         }
