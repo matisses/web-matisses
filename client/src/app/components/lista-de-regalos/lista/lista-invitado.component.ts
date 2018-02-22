@@ -535,7 +535,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   private cambiarItem(item: Item) {
-    //0. Cargar contenido de localStorage
+    0. Cargar contenido de localStorage
     this.cargarCarrito();
     //1. validar contenido
     let encontrado = false;
@@ -547,7 +547,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
           this.shoppingCart.items.splice(i, 1);
         } else {
           //modificar el item
-          this.shoppingCart.items[i].selectedQuantity = item.selectedQuantity;
+          this.shoppingCart.items[i].selectedQuantity =this.shoppingCart.items[i].selectedQuantity + item.selectedQuantity;
         }
         break;
       }
