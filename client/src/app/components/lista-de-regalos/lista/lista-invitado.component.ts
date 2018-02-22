@@ -535,7 +535,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   private cambiarItem(item: Item) {
-    0. Cargar contenido de localStorage
+  //  0. Cargar contenido de localStorage
     this.cargarCarrito();
     //1. validar contenido
     let encontrado = false;
