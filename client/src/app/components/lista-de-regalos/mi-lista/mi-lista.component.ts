@@ -45,8 +45,8 @@ export class MiListaComponent implements OnInit {
   public idListaUsuario1: number;
   public confirmEliminar: boolean = false;
   public formAgregar: any;
-  public aceptaBono:boolean=true;
-  public minimoBono: number=0;
+  public aceptaBono: boolean = true;
+  public minimoBono: number = 0;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -104,6 +104,10 @@ export class MiListaComponent implements OnInit {
         $('#cambioContrasena').modal('show');
       }
     }, 500);
+
+    $(function() {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
   }
 
   public confirmEliminarItem() {
@@ -137,8 +141,8 @@ export class MiListaComponent implements OnInit {
     let usuarioDTO = {
       nombreUsuario: this.nombreUsuario,
       password: this.claveNueva,
-      idListaRegalos:{
-        idLista:parseInt(this.idListaUsuario)
+      idListaRegalos: {
+        idLista: parseInt(this.idListaUsuario)
       },
       usuarioId: localStorage.getItem('usuario-id')
     }
@@ -417,8 +421,8 @@ export class MiListaComponent implements OnInit {
         if (respuesta.length > 0) {
           this.nombreUsuario = respuesta[0].nombreCreador;
           this.fechaEvento = respuesta[0].formatoFechaEvento;
-          this.aceptaBono=response[0].aceptaBonos;
-          this.minimoBono=response[0].valorMinimoBono;
+          this.aceptaBono = response[0].aceptaBonos;
+          this.minimoBono = response[0].valorMinimoBono;
           sessionStorage.setItem('formatoFechaEvento', respuesta[0].formatoFechaEvento);
         }
       },
