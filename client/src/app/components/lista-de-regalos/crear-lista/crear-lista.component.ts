@@ -268,7 +268,7 @@ export class CrearListaComponent implements OnInit {
         || this.customerCocreador.fiscalIdType == null || this.customerCocreador.fiscalIdType.length <= 0
         || this.customerCocreador.addresses[0].email == null || this.customerCocreador.addresses[0].email.length <= 0)
     ) {
-      this.messageError = 'Debes llenar todos los campos obligatorios para poder continuar con el Paso #2.';
+      this.messageError = 'Debes llenar todos los campos obligatorios para poder continuar con el siguiente paso.';
       this.validCreador = false;
       this.validCocreador = false;
       return false;
@@ -293,7 +293,7 @@ export class CrearListaComponent implements OnInit {
   public llenarDatosEvento() {
     if ((this.anoInicio == null || this.anoInicio.length < 0) || (this.mesInicio == null || this.mesInicio.length < 0)
       || (this.diaInicio == null)) {
-      this.messageError = 'Debes llenar todos los campos obligatorios para poder continuar con el Paso #3.';
+      this.messageError = 'Debes llenar todos los campos obligatorios para poder continuar con el siguiente paso.';
       this.validForm2 = false;
       return false;
     } else if (this.aceptaBonos && (!this.montoBono || this.montoBono < 10000)) {
@@ -317,7 +317,7 @@ export class CrearListaComponent implements OnInit {
       || (this.customerCocreador.addresses[0].cellphone == null || this.customerCocreador.addresses[0].cellphone.length <= 0
         || this.customerCocreador.addresses[0].address == null || this.customerCocreador.addresses[0].address.length <= 0
         || this.customerCocreador.addresses[0].cityCode == null || this.customerCocreador.addresses[0].cityCode <= 0)) {
-      this.messageError = 'Debes llenar todos los campos obligatorios para poder continuar con el Paso #4.';
+      this.messageError = 'Debes llenar todos los campos obligatorios para poder continuar con el siguiente paso.';
       this.validForm3 = false;
       return false;
     } else {
