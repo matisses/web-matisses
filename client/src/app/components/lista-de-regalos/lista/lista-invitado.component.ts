@@ -67,6 +67,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public montoBono: number;
   public aceptaBono: boolean = true;
   public minimoBono: number = 0;
+  public formAgregar: any;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -84,6 +85,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     this.itemsListaBcs = new Array<any>();
     //carrito de COMPRAS
     this.inicializarShoppingCart();
+    this.inicializarForm();
   }
 
   private inicializarParamsConsulta() {
@@ -462,8 +464,13 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
         item.messageError=null;
         item.selectedQuantity = item.selectedQuantity;
         this.procesarItem(item);
-        this.toggleResumen();
-        //this.abrirModalAgregarRegalo(item);
+        this.formAgregar.itemname=item.itemname;
+        this.formAgregar.itemcode=item.itemcode;
+        this.formAgregar.precio=item.priceaftervat;
+
+        this.formAgregar.cantidadSeleccionada=item.selectedQuantity;
+
+        $('#carritoModalResumen').modal('show');
       }
       else {
         item.messageError = 'Debe seleccionar al menos un producto para regalar';
@@ -733,5 +740,20 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     if (item.selectedQuantity > 0) {
       item.selectedQuantity -= 1;
     }
+  }
+
+  private inicializarForm() {
+    this.formAgregar = {
+      itemcode: '',
+      itemname: '',
+      description: '',
+      cantidad: 0,
+      msjagradecimiento: '',
+      image: '',
+      precio: 0,
+      cantidadSeleccionada: 0,
+      color:'',
+      priceafterdiscount:0
+    };
   }
 }
