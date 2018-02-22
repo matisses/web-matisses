@@ -111,6 +111,10 @@ export class MiListaComponent implements OnInit {
         $('#cambioContrasena').modal('show');
       }
     }, 500);
+
+    $(function() {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
   }
 
   public confirmEliminarItem() {
@@ -144,8 +148,8 @@ export class MiListaComponent implements OnInit {
     let usuarioDTO = {
       nombreUsuario: this.nombreUsuario,
       password: this.claveNueva,
-      idListaRegalos:{
-        idLista:parseInt(this.idListaUsuario)
+      idListaRegalos: {
+        idLista: parseInt(this.idListaUsuario)
       },
       usuarioId: localStorage.getItem('usuario-id')
     }
@@ -438,8 +442,8 @@ export class MiListaComponent implements OnInit {
         if (respuesta.length > 0) {
           this.nombreUsuario = respuesta[0].nombreCreador;
           this.fechaEvento = respuesta[0].formatoFechaEvento;
-          this.aceptaBono=response[0].aceptaBonos;
-          this.minimoBono=response[0].valorMinimoBono;
+          this.aceptaBono = response[0].aceptaBonos;
+          this.minimoBono = response[0].valorMinimoBono;
           sessionStorage.setItem('formatoFechaEvento', respuesta[0].formatoFechaEvento);
         }
       },
