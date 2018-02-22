@@ -45,8 +45,8 @@ export class MiListaComponent implements OnInit {
   public idListaUsuario1: number;
   public confirmEliminar: boolean = false;
   public formAgregar: any;
-  public aceptaBono: boolean = true;
-  public minimoBono: number = 0;
+  public aceptaBono: boolean = false;
+  public minimoBono: number=0;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -68,16 +68,22 @@ export class MiListaComponent implements OnInit {
   }
 
   private inicializarParamsConsulta() {
+    let paginaRegistro = '12';
+    if (this.aceptaBono) {
+      console.log('entra en 11');
+      paginaRegistro = '11';
+    }
     this.paramsConsulta = {
       idLista: localStorage.getItem('id-lista'),
       pagina: '1',
-      registrosPagina: '11',
+      registrosPagina: paginaRegistro,
       orderBy: 'referencia asc',
       sortOrder: ''
     };
   }
 
   ngOnInit() {
+    console.log('en el init');
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('fecha-evento');
@@ -89,6 +95,7 @@ export class MiListaComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+      console.log('en el ngAfterViewInit');
     $(window).scroll(function() {
       var scroll = $(window).scrollTop();
       if (scroll >= 30) {
@@ -229,7 +236,12 @@ export class MiListaComponent implements OnInit {
       this.orderByStr = 'Similares';
     }
     this.activePage = parseInt(this.queryParams.has('page') ? this.queryParams.get('page') : '1');
-    let pageSize = parseInt(this.queryParams.has('pageSize') ? this.queryParams.get('pageSize') : '11');
+    let pageSize = parseInt(this.queryParams.has('pageSize') ? this.queryParams.get('pageSize') : '12');
+    if(this.aceptaBono){
+        pageSize = parseInt(this.queryParams.has('pageSize') ? this.queryParams.get('pageSize') : '11');
+    }
+
+
     let totalPages = Math.ceil(this.totalItems / pageSize);
     if (this.activePage > totalPages || this.activePage <= 0) {
       this.activePage = 1;
@@ -258,6 +270,15 @@ export class MiListaComponent implements OnInit {
       this.inicializarMapa(params);
       if (this.queryParams.has('pageSize')) {
         this.paramsConsulta.registrosPagina = this.queryParams.get('pageSize');
+      }
+      else{
+        if(this.aceptaBono){
+          this.paramsConsulta.registrosPagina = '11';
+        }
+        else{
+            this.paramsConsulta.registrosPagina = '12';
+        }
+
       }
 
       if (this.queryParams.has('orderBy')) {
@@ -388,11 +409,18 @@ export class MiListaComponent implements OnInit {
     $('#modalDetalle').modal('show');
   }
 
-  public guardarCambios() {
-    console.log('metodo de guardarCambios');
-
-
-    $('#modalDetalle').modal('hide');
+  public guardarCambios(item: string, cantidad: number) {
+    this._listaService.modificarCantidadElegida(this.codigoLista, item, cantidad).subscribe(
+      response => {
+        if (response) {
+          $('#modalDetalle').modal('hide');
+          this.cargarItems0();
+        } else {
+          this.messageError = "Lo sentimos. Ocurrió un error inesperado, por favor inténtelo más tarde.";
+        }
+      },
+      error => { console.error(error); }
+    );
   }
 
   public cerrarSession() {
