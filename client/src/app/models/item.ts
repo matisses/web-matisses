@@ -43,6 +43,7 @@ export class Item {
   public agregadoLista:boolean;
   public cantidadElegida:number;
   public cantidadComprada:number;
+  public messageError:string;
 
   constructor() {
 
