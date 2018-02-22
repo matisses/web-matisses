@@ -358,10 +358,10 @@
         <br>
         <div class="row">
           <div class="col-sm-5 col-xs-8 col-xs-offset-2 col-sm-offset-0 padding-right-0">
-            <div class="row" *ngIf="messageError != null && messageError.length > 0">
+            <div class="row" *ngIf="items[i].messageError != null && items[i].messageError.length > 0">
               <div class="col-xs-12">
                 <div class="alert alert-danger" role="alert">
-                  <p>{{messageError}}</p>
+                  <p>{{items[i].messageError}}</p>
                 </div>
               </div>
             </div>

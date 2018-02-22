@@ -459,13 +459,14 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public agregarCarrito(item: Item) {
     if (this.shoppingCart.bono.valor == 0) {
       if (item.selectedQuantity > 0) {
+        item.messageError=null;
         item.selectedQuantity = item.selectedQuantity;
         this.procesarItem(item);
         this.toggleResumen();
         //this.abrirModalAgregarRegalo(item);
       }
       else {
-        this.messageError = 'Debe seleccionar al menos un producto para regalar';
+        item.messageError = 'Debe seleccionar al menos un producto para regalar';
       }
     }
     else {
@@ -547,7 +548,8 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
           this.shoppingCart.items.splice(i, 1);
         } else {
           //modificar el item
-          this.shoppingCart.items[i].selectedQuantity =this.shoppingCart.items[i].selectedQuantity + item.selectedQuantity;
+          //let sumatoria=parseInt(this.shoppingCart.items[i].selectedQuantity) + parseInt(item.selectedQuantity);
+          this.shoppingCart.items[i].selectedQuantity =item.selectedQuantity;
         }
         break;
       }
