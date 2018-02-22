@@ -112,7 +112,7 @@ export class ListaRegalosService {
       .map(res => res.json());
   }
 
-  generarDocumento(documento, codigoLista){
+  generarDocumento(documento, codigoLista) {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
@@ -148,7 +148,14 @@ export class ListaRegalosService {
       .map(res => res.json());
   }
 
-  //devolucion/{idLista}/{factura}
+  modificarCantidadElegida(codigoLista, item, cantidad) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'listaregalos/modificarcantidadelegida/' + codigoLista + "/" + item + "/" + cantidad, { headers: headers })
+      .map(res => res.json());
+  }
 
   devolverItemsFactura(idLista, factura, salesDocumentLineDTO) {
     const headers = new Headers({

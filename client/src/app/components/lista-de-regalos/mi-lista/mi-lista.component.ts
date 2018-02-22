@@ -45,8 +45,8 @@ export class MiListaComponent implements OnInit {
   public idListaUsuario1: number;
   public confirmEliminar: boolean = false;
   public formAgregar: any;
-  public aceptaBono:boolean=true;
-  public minimoBono: number=0;
+  public aceptaBono: boolean = true;
+  public minimoBono: number = 0;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -137,8 +137,8 @@ export class MiListaComponent implements OnInit {
     let usuarioDTO = {
       nombreUsuario: this.nombreUsuario,
       password: this.claveNueva,
-      idListaRegalos:{
-        idLista:parseInt(this.idListaUsuario)
+      idListaRegalos: {
+        idLista: parseInt(this.idListaUsuario)
       },
       usuarioId: localStorage.getItem('usuario-id')
     }
@@ -384,11 +384,18 @@ export class MiListaComponent implements OnInit {
     $('#modalDetalle').modal('show');
   }
 
-  public guardarCambios() {
-    console.log('metodo de guardarCambios');
-
-
-    $('#modalDetalle').modal('hide');
+  public guardarCambios(item: string, cantidad: number) {
+    this._listaService.modificarCantidadElegida(this.codigoLista, item, cantidad).subscribe(
+      response => {
+        if (response) {
+          $('#modalDetalle').modal('hide');
+          this.cargarItems0();
+        } else {
+          this.messageError = "Lo sentimos. Ocurrió un error inesperado, por favor inténtelo más tarde.";
+        }
+      },
+      error => { console.error(error); }
+    );
   }
 
   public cerrarSession() {
@@ -417,8 +424,8 @@ export class MiListaComponent implements OnInit {
         if (respuesta.length > 0) {
           this.nombreUsuario = respuesta[0].nombreCreador;
           this.fechaEvento = respuesta[0].formatoFechaEvento;
-          this.aceptaBono=response[0].aceptaBonos;
-          this.minimoBono=response[0].valorMinimoBono;
+          this.aceptaBono = response[0].aceptaBonos;
+          this.minimoBono = response[0].valorMinimoBono;
           sessionStorage.setItem('formatoFechaEvento', respuesta[0].formatoFechaEvento);
         }
       },
