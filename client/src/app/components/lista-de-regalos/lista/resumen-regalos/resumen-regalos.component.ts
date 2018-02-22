@@ -55,6 +55,10 @@ export class ResumenRegalosComponent implements OnInit {
     });
   }
 
+  public volverAtras() {
+    window.history.back();
+  }
+
   public openResumen() {
     document.getElementById("resumen").style.height = "380px";
   }

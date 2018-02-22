@@ -49,7 +49,7 @@
                       <div class="col-xs-3 padding-right-0">
                         <p>Total</p>
                         <div class="price-full" *ngIf="!item.priceafterdiscount || item.priceafterdiscount === 0 || item.priceafterdiscount === item.pricebeforediscount">
-                          <p><b>$ {{item.priceaftervat | number}}</b></p>
+                          <p><b>$ {{item.priceaftervat * item.selectedQuantity | number}}</b></p>
                         </div>
                         <div class="price-discount" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0">
                           <p class="old-price"><b>$ {{(item.priceaftervat * item.selectedQuantity) | number}}</b></p>
@@ -68,18 +68,18 @@
         </div>
         <br/>
         <div class="row hidden-xs">
-          <div class="col-xs-5" *ngIf="carrito.shoppingCart.items != null && carrito.shoppingCart.items.length > 0">
-            <p class="btn-continuar" (click)="procederPago()">Proceder al pago <span class="arrow glyphicon glyphicon-circle-arrow-right"></span></p>
+          <div class="col-xs-5">
+            <p class="btn-continuar" (click)="volverAtras()">Volver a la lista</p>
           </div>
         </div>
       </div>
-      <div class="col-md-4 col-sm-5">
+      <div class="col-md-4 col-sm-5" *ngIf="carrito.shoppingCart.items != null && carrito.shoppingCart.items.length > 0">
         <div class="row">
           <div class="col-md-11 col-md-offset-1">
             <div class="row">
               <div class="col-xs-12">
                 <h4>Resumen del pedido:</h4>
-                <h5><b>{{carrito.totalItems}}</b> productos.</h5>
+                <h5><b>{{carrito.totalItems}}</b> regalos.</h5>
               </div>
             </div>
             <hr/>
@@ -100,14 +100,14 @@
               </div>
             </div>
             <hr/>
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-xs-6">
                 <h5>Descuentos</h5>
               </div>
               <div class="col-xs-6">
                 <h4>${{carrito.totalDescuentos | number}}</h4>
               </div>
-            </div>
+            </div> -->
             <div class="total">
               <div class="row">
                 <div class="col-xs-6">
