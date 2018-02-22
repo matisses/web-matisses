@@ -2,24 +2,40 @@
   margin-top: 110px;
 }
 
+.perfil-imagen {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  border-radius: 50%;
+  margin-top: 15px;
+  background-image: url(../../../../assets/images/img-perfil-01.jpg);
+  background-position: center;
+  background-size: cover;
+}
+
 .icon-camera {
   color: #FFF;
   position: absolute;
   font-size: 50px;
   padding: 52px;
   opacity: 0;
-  -webkit-transition: opacity 0.5s;
+  border-radius: 52%;
+  background: rgba(0, 0, 0, 0.59);
+  background: -moz-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0.59) 0%, rgba(255, 255, 255, 0) 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(0, 0, 0, 0.59)), color-stop(100%, rgba(255, 255, 255, 0)));
+  background: -webkit-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0.59) 0%, rgba(255, 255, 255, 0) 100%);
+  background: -o-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0.59) 0%, rgba(255, 255, 255, 0) 100%);
+  background: -ms-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0.59) 0%, rgba(255, 255, 255, 0) 100%);
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.59) 0%, rgba(255, 255, 255, 0) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#ffffff', GradientType=1);
   transition: opacity 0.5s;
   cursor: pointer;
+  top: 8px;
+  margin-left: -2px;
 }
 
 .icon-camera:hover {
   opacity: 1;
-}
-
-.img-perfil {
-  margin-top: 10px;
-  max-height: 150px;
 }
 
 
