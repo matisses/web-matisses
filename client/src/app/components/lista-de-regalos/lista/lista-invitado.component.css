@@ -495,6 +495,11 @@ hr {
   border: 1px solid #EDEDED;
 }
 
+.producto .error-cantidad {
+  position: absolute;
+  top: 25%;
+}
+
 .producto p {
   margin-bottom: 0;
 }

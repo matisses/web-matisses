@@ -106,7 +106,7 @@
   background-image: url(../../../assets/images/que-es-lista-regalos.jpg);
   background-position: center;
   text-align: center;
-  padding: 50px 80px;
+  padding: 50px 150px;
 }
 
 .que-es::after {
@@ -126,18 +126,24 @@
 }
 
 .text-como-funciona {
-  padding: 10px 80px;
+  padding: 50px 80px;
   border: 1px solid #FFF;
+  min-height: 290px;
+  text-align: center;
+}
+
+.text-como-funciona span {
+  font-size: 50px;
+  color: #D77D7D;
+  font-weight: 100;
 }
 
 .border-right {
-  border-right: 1px solid #D77D7D !important;
-  border-bottom: 1px solid #D77D7D !important;
+  border-right: 1px solid rgba(215,125,125,0.5) !important;
 }
 
-.border-left {
-  border-left: 1px solid #D77D7D !important;
-  border-top: 1px solid #D77D7D !important;
+.border-bottom {
+  border-bottom: 1px solid rgba(215,125,125,0.5) !important;
 }
 
 @media screen and (max-width: 1024px) {
@@ -151,7 +157,7 @@
 
 @media screen and (max-width: 986px) {
   .text-como-funciona {
-    padding: 10px 40px;
+    padding: 30px 40px;
   }
   .que-es::after {
     width: 92%;
@@ -186,18 +192,18 @@
     height: 92%;
   }
   .text-como-funciona {
-    padding: 10px 40px;
+    padding: 30px 40px;
   }
   .border-right {
     border-right: 1px solid #FFF !important;
-    border-bottom: 1px solid #D77D7D !important;
+    border-bottom: 1px solid rgba(215,125,125,0.5) !important;
   }
   .border-left {
     border-left: 1px solid #FFF !important;
-    border-top: 1px solid #D77D7D !important;
+    border-top: 1px solid rgba(215,125,125,0.5) !important;
   }
   .border-bottom {
-    border-bottom: 1px solid #D77D7D !important;
+    border-bottom: 1px solid rgba(215,125,125,0.5) !important;
   }
 }
 
