@@ -267,10 +267,16 @@
             <button type="button" class="btn btn-matisses dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{itemsXPag}} <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu">
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(11)">12 x pag</a></li>
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(23)">24 x pag</a></li>
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(35)">36 x pag</a></li>
+            <ul class="dropdown-menu" *ngIf="aceptaBono">
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(11)">11 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(23)">23 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(35)">35 x pag</a></li>
+              <li *ngIf="totalItems < 100"><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
+            </ul>
+            <ul class="dropdown-menu" *ngIf="!aceptaBono">
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(12)">12 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(24)">24 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(36)">36 x pag</a></li>
               <li *ngIf="totalItems < 100"><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
             </ul>
           </div>
@@ -343,10 +349,16 @@
             <button type="button" class="btn btn-matisses dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{itemsXPag}} <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu">
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(11)">12 x pag</a></li>
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(23)">24 x pag</a></li>
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(35)">36 x pag</a></li>
+            <ul class="dropdown-menu" *ngIf="aceptaBono">
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(11)">11 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(23)">23 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(35)">35 x pag</a></li>
+              <li *ngIf="totalItems < 100"><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
+            </ul>
+            <ul class="dropdown-menu" *ngIf="!aceptaBono">
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(12)">12 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(24)">24 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(36)">36 x pag</a></li>
               <li *ngIf="totalItems < 100"><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
             </ul>
           </div>

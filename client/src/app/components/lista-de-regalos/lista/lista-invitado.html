@@ -136,68 +136,7 @@
     </div>
   </div>
 </div>
-<div id="modalBonoValidar" class="modal fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title text-center">Monto Mínimo Bono</h4>
-      </div>
-      <div class="modal-body">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-7">
-              <div class="row">
-                <div class="col-sm-10 col-sm-offset-1 col-xs-12 col-xs-offset-0 resumen-carrito">
-                  <p>El monto mínimo del bono de regalo es $ {{minimoBono | number}}.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-5 border-left">
-              <div class="row">
-                <div class="col-xs-12">
-                  <button type="button" class="btn btn-seguir" data-dismiss="modal" aria-label="Close">
-                    Seguir comprando
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div id="modalProductosValidar" class="modal fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title text-center">Ud ha seleccionado productos de la lista</h4>
-      </div>
-      <div class="modal-body">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-7">
-              <div class="row">
-                <div class="col-sm-10 col-sm-offset-1 col-xs-12 col-xs-offset-0 resumen-carrito">
-                  <p>No puede seleccionar un bono de regalo en el mismo proceso de compra de productos.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-5 border-left">
-              <div class="row">
-                <div class="col-xs-12">
-                  <button type="button" class="btn btn-seguir" data-dismiss="modal" aria-label="Close">
-                    Seguir comprando
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
 <div class="container">
   <div class="contenedor">
     <!-- Información de la lista -->
@@ -337,9 +276,9 @@
                 {{itemsXPag}} <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" *ngIf="aceptaBono">
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(11)">12 x pag</a></li>
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(23)">24 x pag</a></li>
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(35)">36 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(11)">11 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(23)">23 x pag</a></li>
+              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(35)">35 x pag</a></li>
               <li *ngIf="totalItems < 100"><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
             </ul>
             <ul class="dropdown-menu" *ngIf="!aceptaBono">
@@ -389,6 +328,15 @@
     <div class="row" *ngIf="itemsListaBcs && itemsListaBcs.length > 0">
       <!-- Bono regalo -->
       <div class="col-sm-3 col-xs-6 producto bono-regalo" *ngIf="aceptaBono">
+        <div class="error-cantidad">
+          <div class="row" *ngIf="messageError != null && messageError.length > 0">
+            <div class="col-xs-12">
+              <div class="alert alert-danger" role="alert">
+                <p>{{messageError}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
         <img src="../../assets/images/bono.jpg" class="jpg-responsive" alt="">
         <p class="nombre"><b>BONO REGALO</b></p>
         <input type="number" class="precio" placeholder="Ingrese monto" [(ngModel)]="montoBono" >
@@ -396,6 +344,7 @@
         <p class="solicitados oculto">Comprados:</p>
         <br>
         <div class="row">
+
           <div class="col-sm-5 col-xs-6 col-xs-offset-3 col-sm-offset-0 padding-right-0 visible-xs oculto">
             <form>
               <div class="input-group">
