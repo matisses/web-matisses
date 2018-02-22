@@ -65,7 +65,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public totalDescuentos: number = 0;
   public mostrar: boolean = true;
   public montoBono: number;
-  public aceptaBono: boolean = true;
+  public aceptaBono: boolean = false;
   public minimoBono: number = 0;
   public formAgregar: any;
 
@@ -483,11 +483,11 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
   public agregarBono(valor: number) {
     if (this.totalItemsCarrito > 0) {
-      $('#modalProductosValidar').modal('show');
+      this.messageError='No puedes comprar bono de regalos en una misma compra de productos';
     } else {
       if (valor < this.minimoBono) {
-        console.log('entro al modalBonoValidar');
-        $('#modalBonoValidar').modal('show');
+
+        this.messageError='El monto mínimo del bono de regalo es $ ' +this.minimoBono;
       }
       else {
         if (valor > 0 && valor >= this.minimoBono) {
@@ -507,6 +507,9 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
           }
           this.openResumen();
           localStorage.setItem('matisses.shoppingCart.bono', JSON.stringify(this.shoppingCart.bono.valor));
+        }
+        else{
+          this.messageError='El monto mínimo del bono de regalo es $ '+this.minimoBono;
         }
       }
     }
