@@ -11,14 +11,14 @@
   background-image: url(../../../../assets/images/img-perfil-01.jpg);
   background-position: center;
   background-size: cover;
+  padding-top: 75px;
 }
 
 .icon-camera {
   color: #FFF;
-  position: absolute;
   font-size: 50px;
-  padding: 52px;
   opacity: 0;
+  padding: 75px;
   border-radius: 52%;
   background: rgba(0, 0, 0, 0.59);
   background: -moz-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0.59) 0%, rgba(255, 255, 255, 0) 100%);
@@ -30,8 +30,6 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#ffffff', GradientType=1);
   transition: opacity 0.5s;
   cursor: pointer;
-  top: 8px;
-  margin-left: -2px;
 }
 
 .icon-camera:hover {

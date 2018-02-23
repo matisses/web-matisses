@@ -102,23 +102,10 @@
               <p class="text-justify descripcion" [innerHTML]="formAgregar.description"></p>
               <p class="referencia"><b>Ref:</b> {{formAgregar.itemcode}}</p>
               <p class="precio"><b>$ {{formAgregar.precio | number}}</b></p>
-              <!--<p class="cantidad">Cantidad Elegida: <b>{{verDetalle.cantidadElegida}}</b></p>-->
               <!-- btn cantidad -->
               <div class="row">
-                <div class="col-xs-8">
-                  <!-- <div class="cantidad">
-                    <form>
-                      <div class="input-group">
-                        <span class="input-group-addon span-cantidad" (click)="reducirCantidad()">
-                          <button type="button" class="icon-minus btn-cantidad" name="button"></button>
-                        </span>
-                        <input class="input-cantidad form-control" type="tel" name="verDetalle.cantidad" [innerHTML]="verDetalle.cantidadElegida" min="1" max="" readonly="readonly" />
-                        <span class="input-group-addon span-cantidad" (click)="aumentarCantidad()">
-                          <button type="button" class="icon-plus btn-cantidad" name="button"></button>
-                        </span>
-                      </div>
-                    </form>
-                  </div> -->
+                <div class="col-xs-6">
+                  <p class="precio"><b>Editar cantidad elegida:</b></p>
                   <div class="cantidad">
                     <form>
                       <div class="input-group">
@@ -211,7 +198,7 @@
     <div class="row">
       <div class="col-xs-12 text-center">
         <div class="perfil-imagen text-center">
-          <!-- <span class="icon-camera" data-toggle="tooltip" data-placement="right" title="Personaliza tu foto de perfil"></span> -->
+          <span class="icon-camera" data-toggle="tooltip" data-placement="right" title="Personaliza tu foto de perfil"></span>
         </div>
       </div>
     </div>
