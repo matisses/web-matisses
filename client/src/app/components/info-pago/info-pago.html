@@ -1,3 +1,18 @@
+<!-- Modal -->
+<div class="modal fade" id="mantenimiento" tabindex="-1" role="dialog" aria-labelledby="mantenimientoLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <a href="javascript:void(0)" onclick="javascript:OpenLHNChat();return false;">
+          <img src="../../assets/images/banner/slide-5/banner-mantenimiento.jpg" class="img-responsive" alt="">
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 <matisses-header></matisses-header>
 
 <div id="cambioPrecio" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
@@ -176,9 +191,8 @@
                 <div class="col-sm-10 col-sm-offset-1 text-center">
                   <p class="text-left">El proceso de pago te redireccionará a un sitio seguro.</p>
                   <img src="assets/images/logo-p2p.png" class="text-center" alt="">
-                  <p><button *ngIf="!procesandoP2P" type="submit" class="btn-continuar" name="submit">Continuar</button></p>
-
-                  <!--<p  *ngIf="!procesandoP2P" class="btn-continuar"   (click)="pagar()">Continuar</p>-->
+                  <!-- <p><button *ngIf="!procesandoP2P" type="submit" class="btn-continuar" name="submit">Continuar</button></p> -->
+                  <p><button type="button" data-toggle="modal" data-target="#mantenimiento" class="btn-continuar">Continuar</button></p>
                   <img *ngIf="procesandoP2P" src="assets/images/gif-cargando.gif" alt="">
                 </div>
               </div>
