@@ -110,7 +110,7 @@ const appRoutes: Routes = [
       { path: 'lista', component: ListaInvitadoComponent },
       { path: 'lista-de-regalos/tips', component: TipsComponent },
       { path: 'lista-de-regalos/beneficios', component: BeneficiosComponent },
-      { path: 'lista-de-regalos/contacto', component: ContactoRegalosComponent },
+      { path: 'lista-de-regalos/contactenos', component: ContactoRegalosComponent },
       { path: 'lista-asistencia/:codigoLista/:codigoInvitado', component: AsistenciaComponent }
     ]
   },

@@ -32,6 +32,7 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
   public apellidosInvitado: string;
   public correoInvitado: string;
   public telefonoInvitado: string;
+  public msjAgradecimiento: string;
   public asistencia: boolean = true;
   public valid: boolean = true;
   public items: Array<Item>;
@@ -43,8 +44,9 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
-    this.fechaEvento = localStorage.getItem('fecha-evento');
+    this.fechaEvento = localStorage.getItem('formatoFechaEvento');
     this.idListaUsuario = localStorage.getItem('id-lista');
+    this.msjAgradecimiento = localStorage.getItem('msjAgradecimiento');
     this.queryParams = new Map<string, string>();
     this.invitados = new Array<any>();
 
@@ -60,8 +62,9 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
-    this.fechaEvento = localStorage.getItem('fecha-evento');
+    this.fechaEvento = localStorage.getItem('formatoFechaEvento');
     this.idListaUsuario = localStorage.getItem('id-lista');
+    this.msjAgradecimiento = localStorage.getItem('msjAgradecimiento');
 
     this.cargarInvitados();
   }
@@ -69,7 +72,7 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
-    this.fechaEvento = localStorage.getItem('fecha-evento');
+    this.fechaEvento = localStorage.getItem('formatoFechaEvento');
     this.idListaUsuario = localStorage.getItem('id-lista');
   }
 
@@ -118,9 +121,9 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
     let documento = 'invitados';
     this._listaService.generarDocumento(documento, this.codigoLista).subscribe(
       response => {
-        if (response != "false"){
+        if (response) {
           this.generar(response);
-        }else{
+        } else {
           this.messageError = 'Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.';
         }
       },
@@ -150,6 +153,25 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
           }
         }
       }, error => { console.error(error); }
+    );
+  }
+
+  public modificarMensaje() {
+    let listaDTO = {
+      codigo: this.codigoLista,
+      mensajeAgradecimiento: this.msjAgradecimiento
+    }
+
+    this._listaService.modificarMensajeAgradecimiento(listaDTO).subscribe(
+      response => {
+        if (response) {
+          $("#modalMsjAgradecimiento").modal("hide");
+          this.msjAgradecimiento = listaDTO.mensajeAgradecimiento;
+        } else {
+          this.messageError = "Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.";
+        }
+      },
+      error => { console.error(error); }
     );
   }
 

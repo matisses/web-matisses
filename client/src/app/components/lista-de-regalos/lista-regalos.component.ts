@@ -126,6 +126,8 @@ export class ListaRegalosComponent implements OnInit {
         localStorage.setItem('id-lista', this.idListaUsuario);
         localStorage.setItem('codigo-lista', this.codigoLista);
         localStorage.setItem('fecha-evento', this.fechaEvento);
+        localStorage.setItem('msjAgradecimiento', response.idListaRegalos.mensajeAgradecimiento);
+
         this._router.navigate(['/mi-lista']);
       },
       error => {

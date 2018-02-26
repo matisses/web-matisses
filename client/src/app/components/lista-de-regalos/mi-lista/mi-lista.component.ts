@@ -70,7 +70,6 @@ export class MiListaComponent implements OnInit {
   private inicializarParamsConsulta() {
     let paginaRegistro = '12';
     if (this.aceptaBono) {
-      console.log('entra en 11');
       paginaRegistro = '11';
     }
     this.paramsConsulta = {
@@ -83,7 +82,6 @@ export class MiListaComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('en el init');
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('fecha-evento');
@@ -95,7 +93,6 @@ export class MiListaComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-      console.log('en el ngAfterViewInit');
     $(window).scroll(function() {
       var scroll = $(window).scrollTop();
       if (scroll >= 30) {
@@ -451,7 +448,7 @@ export class MiListaComponent implements OnInit {
           this.fechaEvento = respuesta[0].formatoFechaEvento;
           this.aceptaBono = response[0].aceptaBonos;
           this.minimoBono = response[0].valorMinimoBono;
-          sessionStorage.setItem('formatoFechaEvento', respuesta[0].formatoFechaEvento);
+          localStorage.setItem('formatoFechaEvento', respuesta[0].formatoFechaEvento);
         }
       },
       error => { console.error(error); }

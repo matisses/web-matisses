@@ -157,6 +157,15 @@ export class ListaRegalosService {
       .map(res => res.json());
   }
 
+  modificarMensajeAgradecimiento(listaDTO) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'listaregalos/modificarmsjagradecimiento/', JSON.stringify(listaDTO), { headers: headers })
+      .map(res => res.json());
+  }
+
   devolverItemsFactura(idLista, factura, salesDocumentLineDTO) {
     const headers = new Headers({
       'Content-Type': 'application/json'
