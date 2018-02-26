@@ -47,7 +47,7 @@
             <div class="col-xs-10 col-xs-offset-1">
               <p>Escribenos.</p>
               <br/>
-              <form id="form_contact">
+              <form id="form_contact" #ContactForm="ngForm" (submit)="enviar(ContactForm)">
                 <div class="row">
                   <div class="col-xs-12">
                     <label for="name">Nombre*</label>
@@ -80,6 +80,11 @@
                   <div class="col-xs-12">
                     <label for="mensaje">Mensaje*</label>
                     <textarea id="mensaje" rows="5" cols="1" class="input-matisses" [class.required-field]="!valid" name="message" [(ngModel)]="message" required></textarea>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <ng2-google-recaptcha [siteKey]="recaptchaSiteKey" (onCaptchaComplete)="onCaptchaComplete($event)" required></ng2-google-recaptcha>
                   </div>
                 </div>
                 <div class="row">
