@@ -36,6 +36,9 @@
   opacity: 1;
 }
 
+.hidden-input {
+  display: none;
+}
 
 /* bono regalo */
 

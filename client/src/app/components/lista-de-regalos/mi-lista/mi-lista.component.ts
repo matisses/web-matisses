@@ -46,7 +46,7 @@ export class MiListaComponent implements OnInit {
   public confirmEliminar: boolean = false;
   public formAgregar: any;
   public aceptaBono: boolean = false;
-  public minimoBono: number=0;
+  public minimoBono: number = 0;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -112,6 +112,27 @@ export class MiListaComponent implements OnInit {
     $(function() {
       $('[data-toggle="tooltip"]').tooltip()
     })
+  }
+
+  public actualizarImage(contactForm) {
+    console.log('entra a cargar imagen');
+  }
+
+  onFileChange(event) {
+    let reader = new FileReader();
+    if (event.target.files && event.target.files.length > 0) {
+      let file = event.target.files[0];
+      console.log('file ' + file.name);
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        console.log('dadadada' + this.fileUpload);
+        // this.form.get('imageLista').setValue({
+        //   filename: file.name,
+        //   filetype: file.type,
+        //   value: reader.result.split(',')[1]
+        // })
+      };
+    }
   }
 
   public confirmEliminarItem() {
@@ -234,8 +255,8 @@ export class MiListaComponent implements OnInit {
     }
     this.activePage = parseInt(this.queryParams.has('page') ? this.queryParams.get('page') : '1');
     let pageSize = parseInt(this.queryParams.has('pageSize') ? this.queryParams.get('pageSize') : '12');
-    if(this.aceptaBono){
-        pageSize = parseInt(this.queryParams.has('pageSize') ? this.queryParams.get('pageSize') : '11');
+    if (this.aceptaBono) {
+      pageSize = parseInt(this.queryParams.has('pageSize') ? this.queryParams.get('pageSize') : '11');
     }
 
 
@@ -268,12 +289,12 @@ export class MiListaComponent implements OnInit {
       if (this.queryParams.has('pageSize')) {
         this.paramsConsulta.registrosPagina = this.queryParams.get('pageSize');
       }
-      else{
-        if(this.aceptaBono){
+      else {
+        if (this.aceptaBono) {
           this.paramsConsulta.registrosPagina = '11';
         }
-        else{
-            this.paramsConsulta.registrosPagina = '12';
+        else {
+          this.paramsConsulta.registrosPagina = '12';
         }
 
       }
