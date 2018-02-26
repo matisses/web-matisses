@@ -3,6 +3,17 @@
   overflow-x: hidden;
 }
 
+.perfil-imagen {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  border-radius: 50%;
+  margin-top: 15px;
+  background-image: url(../../../../assets/images/img-perfil-01.jpg);
+  background-position: center;
+  background-size: cover;
+}
+
 
 /* Estilos modal */
 

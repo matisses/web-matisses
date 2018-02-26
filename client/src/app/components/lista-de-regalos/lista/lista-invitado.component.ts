@@ -473,7 +473,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
         $('#carritoModalResumen').modal('show');
       }
       else {
-        item.messageError = 'Debe seleccionar al menos un producto para regalar';
+        item.messageError = 'Debe seleccionar la cantidad que desea regalar';
       }
     }
     else {

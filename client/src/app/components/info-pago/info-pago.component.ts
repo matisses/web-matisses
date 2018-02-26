@@ -81,7 +81,7 @@ export class InfoPagoComponent implements OnInit {
 
     setTimeout(function() {
       $(document).ready(function() {
-        $('#modalVacaiones').modal('show')
+        $('#mantenimiento').modal('show')
       });
     }, 500); // Modal Vacaiones
   }
