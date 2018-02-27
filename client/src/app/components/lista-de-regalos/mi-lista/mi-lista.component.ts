@@ -47,6 +47,7 @@ export class MiListaComponent implements OnInit {
   public formAgregar: any;
   public aceptaBono: boolean = false;
   public minimoBono: number = 0;
+  public fileUpload: any;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -112,6 +113,11 @@ export class MiListaComponent implements OnInit {
     $(function() {
       $('[data-toggle="tooltip"]').tooltip()
     })
+
+    $(".perfil-imagen").css("background-image", "url(https://360.matisses.co:8443/shared/lista-regalos/imagenPerfil/sin-imagen.jpg)"); // Imagen por defecto
+
+    // $(".perfil-imagen").css("background-image", "url(https://360.matisses.co:8443/shared/lista-regalos/imagenPerfil/"+this.codigoLista+".jpg)"); imagen variable
+
   }
 
   public actualizarImage(contactForm) {

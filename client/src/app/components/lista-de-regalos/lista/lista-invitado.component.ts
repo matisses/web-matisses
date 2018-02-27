@@ -199,6 +199,10 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
         }
       );
     }
+
+    //Imagen de Perfil
+    $(".perfil-imagen").css("background-image", "url(https://360.matisses.co:8443/shared/lista-regalos/imagenPerfil/" + this.codigoLista + ".jpg)");
+
   }
 
   public cargarFechaEvento() {
@@ -461,14 +465,14 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public agregarCarrito(item: Item) {
     if (this.shoppingCart.bono.valor == 0) {
       if (item.selectedQuantity > 0) {
-        item.messageError=null;
+        item.messageError = null;
         item.selectedQuantity = item.selectedQuantity;
         this.procesarItem(item);
-        this.formAgregar.itemname=item.itemname;
-        this.formAgregar.itemcode=item.itemcode;
-        this.formAgregar.precio=item.priceaftervat;
+        this.formAgregar.itemname = item.itemname;
+        this.formAgregar.itemcode = item.itemcode;
+        this.formAgregar.precio = item.priceaftervat;
 
-        this.formAgregar.cantidadSeleccionada=item.selectedQuantity;
+        this.formAgregar.cantidadSeleccionada = item.selectedQuantity;
 
         $('#carritoModalResumen').modal('show');
       }
@@ -483,11 +487,11 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
   public agregarBono(valor: number) {
     if (this.totalItemsCarrito > 0) {
-      this.messageError='No puedes comprar bono de regalos en una misma compra de productos';
+      this.messageError = 'No puedes comprar bono de regalos en una misma compra de productos';
     } else {
       if (valor < this.minimoBono) {
 
-        this.messageError='El monto mínimo del bono de regalo es $ ' +this.minimoBono;
+        this.messageError = 'El monto mínimo del bono de regalo es $ ' + this.minimoBono;
       }
       else {
         if (valor > 0 && valor >= this.minimoBono) {
@@ -508,8 +512,8 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
           this.openResumen();
           localStorage.setItem('matisses.shoppingCart.bono', JSON.stringify(this.shoppingCart.bono.valor));
         }
-        else{
-          this.messageError='El monto mínimo del bono de regalo es $ '+this.minimoBono;
+        else {
+          this.messageError = 'El monto mínimo del bono de regalo es $ ' + this.minimoBono;
         }
       }
     }
@@ -546,7 +550,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   private cambiarItem(item: Item) {
-  //  0. Cargar contenido de localStorage
+    //  0. Cargar contenido de localStorage
     this.cargarCarrito();
     //1. validar contenido
     let encontrado = false;
@@ -559,7 +563,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
         } else {
           //modificar el item
           //let sumatoria=parseInt(this.shoppingCart.items[i].selectedQuantity) + parseInt(item.selectedQuantity);
-          this.shoppingCart.items[i].selectedQuantity =item.selectedQuantity;
+          this.shoppingCart.items[i].selectedQuantity = item.selectedQuantity;
         }
         break;
       }
@@ -755,8 +759,8 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
       image: '',
       precio: 0,
       cantidadSeleccionada: 0,
-      color:'',
-      priceafterdiscount:0
+      color: '',
+      priceafterdiscount: 0
     };
   }
 }
