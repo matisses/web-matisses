@@ -19,7 +19,7 @@ declare var $: any;
 
 export class CrearListaComponent implements OnInit {
   private viewportWidth: number = 0;
-  public tipoEvento: number = 4;
+  public tipoEvento: number = 0;
   public paso: number = 1;
   public montoBono: number;
   public invitados: number;
