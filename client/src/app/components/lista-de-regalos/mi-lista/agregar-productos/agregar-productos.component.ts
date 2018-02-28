@@ -42,6 +42,7 @@ export class AgregarProductosComponent implements OnInit {
   public mostrarFiltro: boolean = true;
   public mostrarCategoria: boolean = true;
   private viewportWidth: number = 0;
+  public itemsListaBcs: Array<any>;
 
 
   //public shoppingCart: any;
@@ -58,7 +59,9 @@ export class AgregarProductosComponent implements OnInit {
     this.orderByStr = 'Similares';
     this.pages = new Array<number>();
     this.items = new Array<Item>();
+      this.itemsListaBcs = new Array<any>();
     this.itemsAgregados = new Array<Item>();
+    this.mostrarFiltro = false;
     this.inicializarForm();
 
   }
@@ -206,11 +209,31 @@ export class AgregarProductosComponent implements OnInit {
     this.items = new Array<Item>();
     this._route.queryParams.forEach((params: Params) => {
       this.inicializarMapa(params);
+
+      let paramsConsulta = {
+        idLista: localStorage.getItem('id-lista')
+      };
       this._itemService.filter(this.queryString).subscribe(
         response => {
           this.items = response.result;
           this.totalItems = response.records;
           for (let i = 0; i < this.items.length; i++) {
+
+            this._listaService.consultarListaSinPaginar(paramsConsulta).subscribe(
+               response => {
+                this.itemsListaBcs = response;
+                
+                for (var j = 0; j < this.itemsListaBcs.length; j++) {
+
+                  if (this.itemsListaBcs[j]['referencia'] === this.items[i].shortitemcode) {
+                      this.items[i].agregadoLista=true;
+                  }
+                }
+              },
+              error => {
+                   console.error(error);
+                }
+            );
             //validar si el ítem tiene descuentos
             // this._descuentosService.findDiscount(this.items[i].itemcode).subscribe(
             //   response => {
@@ -235,7 +258,7 @@ export class AgregarProductosComponent implements OnInit {
       );
     });
   }
-
+//consultarListaSinPaginar
   private inicializarMapa(params: Params) {
     this.queryParams = new Map<string, string>();
     this.queryString = '?';
