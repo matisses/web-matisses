@@ -174,4 +174,13 @@ export class ListaRegalosService {
     return this._http.post(this.urlBCS + 'listaregalos/devolucion/' + idLista + '/' + factura, JSON.stringify(salesDocumentLineDTO), { headers: headers })
       .map(res => res.json());
   }
+
+  subirImagenLista(formData) {
+    const headers = new Headers({
+      'Content-Type': 'multipart/form-data; boundary = ---- WebKitFormBoundary7MA4YWxkTrZu0gW'
+    });
+
+    return this._http.post(this.urlBCS + 'listaregalos/subirimagen/', formData)
+      .map(res => res);
+  }
 }
