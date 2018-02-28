@@ -52,8 +52,8 @@ export class ContactoRegalosComponent implements OnInit {
     if (this.firstName == null || this.firstName.length <= 0 ||
       this.mail == null || this.mail.length <= 0 ||
       this.subject == null || this.subject.length <= 0 ||
-      this.message == null || this.message.length <= 0 ||
-      !this.reCaptcha) {
+      this.message == null || this.message.length <= 0 /*||
+      !this.reCaptcha*/) {
       this.messageError = 'Debes llenar todos los campos obligatorios para poder proceder con el envío.';
       this.valid = false;
       return;
@@ -69,7 +69,7 @@ export class ContactoRegalosComponent implements OnInit {
       }
 
       let mailMessage = {
-        templateName: 'contactanos',
+        templateName: 'lista_regalos_contactanos',
         params: {
           'cliente': this.firstName,
           'celular': celular,
@@ -78,7 +78,7 @@ export class ContactoRegalosComponent implements OnInit {
           'asunto': this.subject,
           'mensaje': this.message
         },
-        from: 'Contacto Lista de Regalo Matisses <info@matisses.co>',
+        from: 'Contacto Lista de Regalo Matisses <listaideal@matisses.co>',
         to: [this.toMail, this.mail],
         subject: this.subject
       }
@@ -104,7 +104,7 @@ export class ContactoRegalosComponent implements OnInit {
     this.phone = '';
     this.subject = '';
     this.message = '';
-    grecaptcha.reset();
-    this._router.navigate(['/contactanos']);
+    //grecaptcha.reset();
+    //this._router.navigate(['/lista-de-regalos/contactenos']);
   }
 }

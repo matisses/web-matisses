@@ -68,12 +68,14 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public aceptaBono: boolean = false;
   public minimoBono: number = 0;
   public formAgregar: any;
+  public conteoDias: string;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('fecha-evento');
     this.novios = sessionStorage.getItem('novios');
+    this.conteoDias = sessionStorage.getItem('conteo-Dias');
     this.resultados = sessionStorage.getItem('resultados');
     //this.idListaUsuario = localStorage.getItem('id-lista');
     this.queryParams = new Map<string, string>();
@@ -122,17 +124,16 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
       this._listaService.consultarLista(consultaDTO).subscribe(
         response => {
           if (response.length > 0) {
-
             this.idListaUsuario = response[0].idLista;
             this.fechaEvento = response[0].formatoFechaEvento;
             this.aceptaBono = response[0].aceptaBonos;
             this.minimoBono = response[0].valorMinimoBono;
+            this.conteoDias = response[0].contadorDias;
             localStorage.setItem('id-lista', this.idListaUsuario);
             localStorage.setItem('codigo-lista', this.codigoLista);
             this.inicializarShoppingCart();
             this.cargarItems0();
-            this.cargarFechaEvento();
-
+            //this.cargarFechaEvento();
             this.showBadge = true;
           }
         },
@@ -151,17 +152,16 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
       this._listaService.consultarLista(consultaDTO).subscribe(
         response => {
           if (response.length > 0) {
-
             this.idListaUsuario = response[0].idLista;
             this.fechaEvento = response[0].formatoFechaEvento;
             this.aceptaBono = response[0].aceptaBonos;
             this.minimoBono = response[0].valorMinimoBono;
+            this.conteoDias = response[0].contadorDias;
             localStorage.setItem('id-lista', this.idListaUsuario);
             localStorage.setItem('codigo-lista', this.codigoLista);
             this.inicializarShoppingCart();
             this.cargarItems0();
-            this.cargarFechaEvento();
-
+            //this.cargarFechaEvento();
             this.showBadge = true;
           }
         },
@@ -191,6 +191,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
             this.fechaEvento = response[0].formatoFechaEvento;
             this.aceptaBono = response[0].aceptaBonos;
             this.minimoBono = response[0].valorMinimoBono;
+            this.conteoDias = response[0].contadorDias;
           }
         },
         error => {
@@ -201,26 +202,26 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public cargarFechaEvento() {
-    if (this.codigoLista != null && this.codigoLista.length > 0) {
-      let consultaDTO = {
-        nombre: '',
-        apellido: '',
-        codigo: this.codigoLista
-      }
-      this._listaService.consultarLista(consultaDTO).subscribe(
-        response => {
-          if (response.length > 0) {
-            this.formatoFechaEvento = response[0].formatoFechaEvento;
-            this.idListaUsuario = response[0].idLista;
-            this.aceptaBono = response[0].aceptaBonos;
-            this.minimoBono = response[0].valorMinimoBono;
-          }
-        },
-        error => { console.error(error); }
-      );
-    }
-  }
+  // public cargarFechaEvento() {
+  //   if (this.codigoLista != null && this.codigoLista.length > 0) {
+  //     let consultaDTO = {
+  //       nombre: '',
+  //       apellido: '',
+  //       codigo: this.codigoLista
+  //     }
+  //     this._listaService.consultarLista(consultaDTO).subscribe(
+  //       response => {
+  //         if (response.length > 0) {
+  //           this.formatoFechaEvento = response[0].formatoFechaEvento;
+  //           this.idListaUsuario = response[0].idLista;
+  //           this.aceptaBono = response[0].aceptaBonos;
+  //           this.minimoBono = response[0].valorMinimoBono;
+  //         }
+  //       },
+  //       error => { console.error(error); }
+  //     );
+  //   }
+  // }
 
   public irAPagina(pagina) {
     this.queryParams.set('page', pagina);
@@ -461,14 +462,14 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public agregarCarrito(item: Item) {
     if (this.shoppingCart.bono.valor == 0) {
       if (item.selectedQuantity > 0) {
-        item.messageError=null;
+        item.messageError = null;
         item.selectedQuantity = item.selectedQuantity;
         this.procesarItem(item);
-        this.formAgregar.itemname=item.itemname;
-        this.formAgregar.itemcode=item.itemcode;
-        this.formAgregar.precio=item.priceaftervat;
+        this.formAgregar.itemname = item.itemname;
+        this.formAgregar.itemcode = item.itemcode;
+        this.formAgregar.precio = item.priceaftervat;
 
-        this.formAgregar.cantidadSeleccionada=item.selectedQuantity;
+        this.formAgregar.cantidadSeleccionada = item.selectedQuantity;
 
         $('#carritoModalResumen').modal('show');
       }
@@ -483,11 +484,11 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
   public agregarBono(valor: number) {
     if (this.totalItemsCarrito > 0) {
-      this.messageError='No puedes comprar bono de regalos en una misma compra de productos';
+      this.messageError = 'No puedes comprar bono de regalos en una misma compra de productos';
     } else {
       if (valor < this.minimoBono) {
 
-        this.messageError='El monto mínimo del bono de regalo es $ ' +this.minimoBono;
+        this.messageError = 'El monto mínimo del bono de regalo es $ ' + this.minimoBono;
       }
       else {
         if (valor > 0 && valor >= this.minimoBono) {
@@ -508,8 +509,8 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
           this.openResumen();
           localStorage.setItem('matisses.shoppingCart.bono', JSON.stringify(this.shoppingCart.bono.valor));
         }
-        else{
-          this.messageError='El monto mínimo del bono de regalo es $ '+this.minimoBono;
+        else {
+          this.messageError = 'El monto mínimo del bono de regalo es $ ' + this.minimoBono;
         }
       }
     }
@@ -546,7 +547,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   private cambiarItem(item: Item) {
-  //  0. Cargar contenido de localStorage
+    //  0. Cargar contenido de localStorage
     this.cargarCarrito();
     //1. validar contenido
     let encontrado = false;
@@ -559,7 +560,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
         } else {
           //modificar el item
           //let sumatoria=parseInt(this.shoppingCart.items[i].selectedQuantity) + parseInt(item.selectedQuantity);
-          this.shoppingCart.items[i].selectedQuantity =item.selectedQuantity;
+          this.shoppingCart.items[i].selectedQuantity = item.selectedQuantity;
         }
         break;
       }
@@ -755,8 +756,8 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
       image: '',
       precio: 0,
       cantidadSeleccionada: 0,
-      color:'',
-      priceafterdiscount:0
+      color: '',
+      priceafterdiscount: 0
     };
   }
 }
