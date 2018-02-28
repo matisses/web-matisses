@@ -144,7 +144,7 @@
         <p><b>{{totalInvitados}}</b> Invitados</p>
       </div>
       <!-- boton agregar -->
-      <div class="col-sm-3 monto-regalado no-selector" data-toggle="modal" data-target="#modalInvitado">
+      <div class="col-sm-3 monto-regalado no-selector" (click)="abrirModal('#modalInvitado')">
         <span class="icon-plus-regalo"></span>
         <p>Agregar invitados</p>
       </div>
@@ -153,8 +153,8 @@
         <span class="icon-imprimir"></span>
         <p>Imprimir lista</p>
       </div>
-    <!-- btn sms agradecimiento -->
-      <div class="col-sm-3 agendar-fecha mensaje-agradecimiento no-selector cursor-pointer" data-toggle="modal" data-target="#modalMsjAgradecimiento">
+      <!-- btn sms agradecimiento -->
+      <div class="col-sm-3 agendar-fecha mensaje-agradecimiento no-selector cursor-pointer" (click)="abrirModal('#modalMsjAgradecimiento')">
         <span class="icon-mensaje-01"></span>
         <p>Mensaje agradecimiento</p>
       </div>
