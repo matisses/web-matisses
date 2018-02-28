@@ -183,4 +183,13 @@ export class ListaRegalosService {
     return this._http.post(this.urlBCS + 'listaregalos/subirimagen/', formData)
       .map(res => res);
   }
+
+  consultarListaSinPaginar(paramsConsulta) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'listaregalos/consultarproductos/sinpaginar/', JSON.stringify(paramsConsulta), { headers: headers })
+      .map(res => res.json());
+  }
 }
