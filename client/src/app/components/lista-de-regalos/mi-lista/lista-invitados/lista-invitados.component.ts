@@ -95,7 +95,7 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
       this._listaService.crearInvitado(invitadoDTO).subscribe(
         response => {
           if (response.codigo == 0) {
-            this.messageExit = 'Invitación enviada satisfatoriamente.';
+            this.messageExit = 'Invitación enviada satisfactoriamente.';
             $("#modalInvitado").modal("hide");
             this.limpiarCampos();
             this.cargarInvitados();
