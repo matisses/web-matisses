@@ -197,8 +197,19 @@
     <hr class="rosa" />
     <div class="row">
       <div class="col-xs-12 text-center">
-        <div class="perfil-imagen text-center">
-          <!-- <span class="icon-camera" data-toggle="tooltip" data-placement="right" title="Personaliza tu foto de perfil"></span> -->
+        <div class="perfil-imagen text-center" data-toggle="tooltip" data-placement="right" title="Personaliza tu foto de perfil">
+          <label for="imageLista">
+              <span class="icon-camera"></span>
+            </label>
+          <input type="file" class="hidden-input" accept="image/png, image/jpeg" id="imageLista" [(ngModel)]="fileUpload" (change)="onFileChange($event)" #fileInput>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="messageError != null && messageError.length > 0">
+      <div class="col-sm-4 col-sm-offset-4">
+        <br/>
+        <div class="alert alert-danger" role="alert">
+          <p>{{messageError}}</p>
         </div>
       </div>
     </div>

@@ -200,6 +200,10 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
         }
       );
     }
+
+    //Imagen de Perfil
+    $(".perfil-imagen").css("background-image", "url(https://360.matisses.co:8443/shared/lista-regalos/imagenPerfil/" + this.codigoLista + ".jpg)");
+
   }
 
   // public cargarFechaEvento() {
