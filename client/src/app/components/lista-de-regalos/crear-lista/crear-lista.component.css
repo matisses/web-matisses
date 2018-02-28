@@ -2,6 +2,12 @@
   margin-top: 110px;
 }
 
+.disabled-event {
+  filter: grayscale();
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 input[type=number]::-webkit-inner-spin-button, .bono-regalo input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
