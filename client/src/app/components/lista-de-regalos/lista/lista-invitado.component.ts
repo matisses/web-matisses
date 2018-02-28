@@ -68,12 +68,14 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public aceptaBono: boolean = false;
   public minimoBono: number = 0;
   public formAgregar: any;
+  public conteoDias: string;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('fecha-evento');
     this.novios = sessionStorage.getItem('novios');
+    this.conteoDias = sessionStorage.getItem('conteo-Dias');
     this.resultados = sessionStorage.getItem('resultados');
     //this.idListaUsuario = localStorage.getItem('id-lista');
     this.queryParams = new Map<string, string>();
@@ -122,17 +124,16 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
       this._listaService.consultarLista(consultaDTO).subscribe(
         response => {
           if (response.length > 0) {
-
             this.idListaUsuario = response[0].idLista;
             this.fechaEvento = response[0].formatoFechaEvento;
             this.aceptaBono = response[0].aceptaBonos;
             this.minimoBono = response[0].valorMinimoBono;
+            this.conteoDias = response[0].contadorDias;
             localStorage.setItem('id-lista', this.idListaUsuario);
             localStorage.setItem('codigo-lista', this.codigoLista);
             this.inicializarShoppingCart();
             this.cargarItems0();
-            this.cargarFechaEvento();
-
+            //this.cargarFechaEvento();
             this.showBadge = true;
           }
         },
@@ -151,17 +152,16 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
       this._listaService.consultarLista(consultaDTO).subscribe(
         response => {
           if (response.length > 0) {
-
             this.idListaUsuario = response[0].idLista;
             this.fechaEvento = response[0].formatoFechaEvento;
             this.aceptaBono = response[0].aceptaBonos;
             this.minimoBono = response[0].valorMinimoBono;
+            this.conteoDias = response[0].contadorDias;
             localStorage.setItem('id-lista', this.idListaUsuario);
             localStorage.setItem('codigo-lista', this.codigoLista);
             this.inicializarShoppingCart();
             this.cargarItems0();
-            this.cargarFechaEvento();
-
+            //this.cargarFechaEvento();
             this.showBadge = true;
           }
         },
@@ -191,6 +191,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
             this.fechaEvento = response[0].formatoFechaEvento;
             this.aceptaBono = response[0].aceptaBonos;
             this.minimoBono = response[0].valorMinimoBono;
+            this.conteoDias = response[0].contadorDias;
           }
         },
         error => {
@@ -205,26 +206,26 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
 
   }
 
-  public cargarFechaEvento() {
-    if (this.codigoLista != null && this.codigoLista.length > 0) {
-      let consultaDTO = {
-        nombre: '',
-        apellido: '',
-        codigo: this.codigoLista
-      }
-      this._listaService.consultarLista(consultaDTO).subscribe(
-        response => {
-          if (response.length > 0) {
-            this.formatoFechaEvento = response[0].formatoFechaEvento;
-            this.idListaUsuario = response[0].idLista;
-            this.aceptaBono = response[0].aceptaBonos;
-            this.minimoBono = response[0].valorMinimoBono;
-          }
-        },
-        error => { console.error(error); }
-      );
-    }
-  }
+  // public cargarFechaEvento() {
+  //   if (this.codigoLista != null && this.codigoLista.length > 0) {
+  //     let consultaDTO = {
+  //       nombre: '',
+  //       apellido: '',
+  //       codigo: this.codigoLista
+  //     }
+  //     this._listaService.consultarLista(consultaDTO).subscribe(
+  //       response => {
+  //         if (response.length > 0) {
+  //           this.formatoFechaEvento = response[0].formatoFechaEvento;
+  //           this.idListaUsuario = response[0].idLista;
+  //           this.aceptaBono = response[0].aceptaBonos;
+  //           this.minimoBono = response[0].valorMinimoBono;
+  //         }
+  //       },
+  //       error => { console.error(error); }
+  //     );
+  //   }
+  // }
 
   public irAPagina(pagina) {
     this.queryParams.set('page', pagina);

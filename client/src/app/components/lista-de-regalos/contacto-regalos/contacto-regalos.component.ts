@@ -69,7 +69,7 @@ export class ContactoRegalosComponent implements OnInit {
       }
 
       let mailMessage = {
-        templateName: 'contactanos',
+        templateName: 'lista_regalos_contacto',
         params: {
           'cliente': this.firstName,
           'celular': celular,
@@ -78,7 +78,7 @@ export class ContactoRegalosComponent implements OnInit {
           'asunto': this.subject,
           'mensaje': this.message
         },
-        from: 'Contacto Lista de Regalo Matisses <info@matisses.co>',
+        from: 'Contacto Lista de Regalo Matisses <listaideal@matisses.co>',
         to: [this.toMail, this.mail],
         subject: this.subject
       }
@@ -104,7 +104,7 @@ export class ContactoRegalosComponent implements OnInit {
     this.phone = '';
     this.subject = '';
     this.message = '';
-    grecaptcha.reset();
-    this._router.navigate(['/contactanos']);
+    //grecaptcha.reset();
+    //this._router.navigate(['/lista-de-regalos/contactenos']);
   }
 }
