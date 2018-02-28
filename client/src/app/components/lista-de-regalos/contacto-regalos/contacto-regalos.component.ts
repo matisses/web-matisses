@@ -69,7 +69,7 @@ export class ContactoRegalosComponent implements OnInit {
       }
 
       let mailMessage = {
-        templateName: 'lista_regalos_contactanos',
+        templateName: 'lista_regalos_contacto',
         params: {
           'cliente': this.firstName,
           'celular': celular,
