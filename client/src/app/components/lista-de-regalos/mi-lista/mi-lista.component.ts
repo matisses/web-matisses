@@ -48,6 +48,7 @@ export class MiListaComponent implements OnInit {
   public aceptaBono: boolean = false;
   public minimoBono: number = 0;
   public fileUpload: any;
+  public urlAvatar: string;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -57,6 +58,7 @@ export class MiListaComponent implements OnInit {
 
     this.totalLista = 0;
     this.urlQr = GLOBAL.urlShared + 'qr/';
+    this.urlAvatar = GLOBAL.urlShared + 'imagenPerfil/';
     this.queryParams = new Map<string, string>();
     this.itemsXPag = '12 x pag';
     this.orderByStr = 'Similares';
@@ -90,10 +92,12 @@ export class MiListaComponent implements OnInit {
     this.buscarLista(this.codigoLista);
     localStorage.setItem('fecha-evento', this.fechaEvento);
     localStorage.setItem('username-lista', this.nombreUsuario);
-    $(".perfil-imagen").css("background-image", "url(https://360.matisses.co:8443/shared/lista-regalos/imagenPerfil/sin-imagen.jpg)");
 
-    $(".perfil-imagen").css("background-image", "url(https://360.matisses.co:8443/shared/lista-regalos/imagenPerfil/sin-imagen.jpg)");
-    this.existeUrl('http://192.168.5.157:8080/shared/listaRegalos/'+this.codigoLista+'.png');
+    console.log(this.urlAvatar);
+
+    $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + "sin-imagen.jpg)");
+
+    this.existeUrl(this.urlAvatar + 'sin-imagen.jpg');
 
     this.cargarItems0();
   }
@@ -118,11 +122,6 @@ export class MiListaComponent implements OnInit {
     $(function() {
       $('[data-toggle="tooltip"]').tooltip()
     })
-
-
-
-
-
   }
 
   public confirmEliminarItem() {
@@ -491,82 +490,66 @@ export class MiListaComponent implements OnInit {
     };
   }
 
-    public actualizarImage(){
+  public actualizarImage() {
     console.log('entra a cargar imagen');
   }
 
   onFileChange(event) {
     let fileList: FileList = event.target.files;
-     if(fileList.length > 0) {
-     let file: File = fileList[0];
-     let fileSize:number=fileList[0].size;
-     let tipopng: string='image/png';
-     let tipojpg:string='image/jpeg';
-     if(file.type!==tipopng && file.type!==tipojpg){
-
-       return;
-     }
-     if(fileSize<=10485760)
-     {
-     let formData:FormData = new FormData();
-     formData.append('file',file);
-     formData.append('codigo', this.codigoLista);
-     this._listaService.subirImagenLista(formData).subscribe(
-       response => {
-         let respuesta = JSON.parse(JSON.stringify(response));
-
-         this.existeUrl('http://192.168.5.157:8080/shared/listaRegalos/'+this.codigoLista+'.png');
-         location.reload();
-         //$(".perfil-imagen").css("background-image", "url(http://192.168.5.157:8080/shared/listaRegalos/"+this.codigoLista+".jpg)");
-         this.navigate();
-       },
-       error => { console.error(error); }
-     );
-
-     }
-     else
-     {
-       this.messageError='Tamaño máximo superado';
-     }
-   }
-   else
-   {
-     this.messageError='Something went Wrong.';
-   }
-
+    if (fileList.length > 0) {
+      let file: File = fileList[0];
+      let fileSize: number = fileList[0].size;
+      let tipopng: string = 'image/png';
+      let tipojpg: string = 'image/jpeg';
+      if (file.type !== tipojpg && file.type !== tipojpg) {
+        this.messageError = 'La imagen solo puede ser formato JPG';
+        return;
+      }
+      if (fileSize <= 10485760) {
+        let formData: FormData = new FormData();
+        formData.append('file', file);
+        formData.append('codigo', this.codigoLista);
+        this._listaService.subirImagenLista(formData).subscribe(
+          response => {
+            let respuesta = JSON.parse(JSON.stringify(response));
+            this.existeUrl(this.urlAvatar + this.codigoLista + '.png');
+            location.reload();
+            $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + this.codigoLista + ".jpg)");
+            this.navigate();
+          },
+          error => { console.error(error); }
+        );
+      }
+      else {
+        this.messageError = 'Tamaño máximo superado';
+      }
+    }
+    else {
+      this.messageError = 'Lo sentimos intenta mas tarde.';
+    }
   }
 
   public existeUrl(url) {
-
-    url='http://192.168.5.157:8080/shared/listaRegalos/'+this.codigoLista+'.jpg';
-   var http = new XMLHttpRequest();
-   http.open('GET', url, true);
-   http.send();
-
-   if(http.status!=404){
-
-       if(url=='http://192.168.5.157:8080/shared/listaRegalos/'+this.codigoLista+'.jpg'){
-
-         $(".perfil-imagen").css("background-image", "url(http://192.168.5.157:8080/shared/listaRegalos/"+this.codigoLista+".jpg)");
-       }
-
-   }
-   else{
-     url='http://192.168.5.157:8080/shared/listaRegalos/'+this.codigoLista+'.png';
-     var http = new XMLHttpRequest();
-     http.open('GET', url, true);
-     http.send();
-      if(http.status!=404){
-
-        $(".perfil-imagen").css("background-image", "url(http://192.168.5.157:8080/shared/listaRegalos/"+this.codigoLista+".png)");
+    url = this.urlAvatar + this.codigoLista + '.jpg';
+    var http = new XMLHttpRequest();
+    http.open('GET', url, true);
+    http.send();
+    if (http.status != 404) {
+      if (url == this.urlAvatar + this.codigoLista + '.jpg') {
+        $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + this.codigoLista + ".jpg)");
       }
-      else{
-        $(".perfil-imagen").css("background-image", "url(https://360.matisses.co:8443/shared/lista-regalos/imagenPerfil/sin-imagen.jpg)");
-
+    }
+    else {
+      url = this.urlAvatar + this.codigoLista + '.png';
+      var http = new XMLHttpRequest();
+      http.open('GET', url, true);
+      http.send();
+      if (http.status != 404) {
+        $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + this.codigoLista + ".png)");
       }
-
-   }
-
-
-}
+      else {
+        $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + "sin-imagen.jpg)");
+      }
+    }
+  }
 }
