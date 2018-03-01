@@ -4,6 +4,45 @@
   color: #5B5B5B;
 }
 
+.text-como-beneficios {
+  padding: 10px 80px;
+  border: 1px solid #FFF;
+  min-height: 215px;
+  text-align: center;
+}
+
+.text-como-beneficios span {
+  font-size: 50px;
+  color: #D77D7D;
+  font-weight: 100;
+}
+
+.right-border {
+  border-right: 1px solid rgba(215,125,125,0.5);
+}
+
+.bottom-border {
+  border-bottom: 1px solid rgba(215,125,125,0.5);
+}
+
+.beneficios-especiales {
+  margin-top: 15px;
+  min-height: 200px;
+  text-align: center;
+  padding: 10px 25px;
+}
+
+.beneficios-especiales span {
+  font-size: 50px;
+  color: #C4C4C4;
+  font-weight: 100;
+}
+
+.border-both {
+  border-right: 1px solid rgba(150,150,150,0.3);
+  border-left: 1px solid rgba(150,150,150,0.3);
+}
+
 .baskerville {
   font-family: Baskerville, "Baskerville Old Face", "Hoefler Text";
   font-size: 25px;
