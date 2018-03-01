@@ -47,6 +47,7 @@ export class MiListaComponent implements OnInit {
   public formAgregar: any;
   public aceptaBono: boolean = false;
   public minimoBono: number=0;
+  public fileUpload: any;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
