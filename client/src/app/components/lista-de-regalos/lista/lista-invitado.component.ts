@@ -411,7 +411,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
             );
           }
 
-          this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalLista);
+          this.cargarItems(this.availableFields, this.items, this.queryParams, this.items.length);
         },
         error => { console.error(error); }
       );
@@ -442,10 +442,17 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   public search() {
+    console.log('entro aca '+this.keywords);
     if (this.keywords && this.keywords.length > 0) {
       let queryParamsObj = { keywords: this.keywords.replace(/ /g, ",") };
-      //this._router.navigate(['/lista/' + this.codigoLista], { queryParams: queryParamsObj });
-      this.navigate();
+      //this.navigate();
+     this._router.navigate(['/mi-lista'], { queryParams: queryParamsObj });
+    }
+    else{
+      this.keywords='';
+      let queryParamsObj = { keywords: this.keywords.replace(/ /g, ",") };
+       this._router.navigate(['/mi-lista']);
+      //this.navigate();
     }
   }
 

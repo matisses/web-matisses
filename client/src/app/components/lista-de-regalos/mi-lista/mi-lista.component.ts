@@ -316,12 +316,14 @@ export class MiListaComponent implements OnInit {
         },
         error => { console.error(error); }
       );
-
+      if (this.keywords && this.keywords.length > 0) {
+        this.paramsConsulta.keywords=this.keywords;
+      }
       this._listaService.consultarListaPaginada(this.paramsConsulta).subscribe(
         response => {
           this.itemsListaBcs = response;
 
-          this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.totalLista);
+          this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.itemsListaBcs.length);
         },
         error => { console.error(error); }
       );
@@ -344,9 +346,17 @@ export class MiListaComponent implements OnInit {
   }
 
   public search() {
+    console.log('entro aca '+this.keywords);
     if (this.keywords && this.keywords.length > 0) {
       let queryParamsObj = { keywords: this.keywords.replace(/ /g, ",") };
-      this._router.navigate(['/mi-lista'], { queryParams: queryParamsObj });
+      //this.navigate();
+     this._router.navigate(['/mi-lista'], { queryParams: queryParamsObj });
+    }
+    else{
+      this.keywords='';
+      let queryParamsObj = { keywords: this.keywords.replace(/ /g, ",") };
+       this._router.navigate(['/mi-lista']);
+      //this.navigate();
     }
   }
 
@@ -378,7 +388,9 @@ export class MiListaComponent implements OnInit {
         );
         $('#modalDetalle').modal('hide');
         this.confirmEliminar = false;
-
+        if (this.keywords && this.keywords.length > 0) {
+          this.paramsConsulta.keywords=this.keywords;
+        }
         this._listaService.consultarListaPaginada(this.paramsConsulta).subscribe(
           response => {
             this.itemsListaBcs = response;
