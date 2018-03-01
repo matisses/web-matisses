@@ -223,8 +223,13 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   public irAPagina(pagina) {
+    if(pagina>0){
+    if(pagina <= this.pages.length){
+      console.log('pagina '+pagina+' '+this.pages.length);
     this.queryParams.set('page', pagina);
     this.navigate();
+    }
+  }
   }
 
   public changeOrder(orderkey) {
