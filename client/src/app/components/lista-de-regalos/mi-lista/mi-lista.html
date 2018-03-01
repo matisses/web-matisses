@@ -337,13 +337,14 @@
       <!-- productos -->
       <div class="col-sm-3 col-xs-6 producto" *ngFor="let item of itemsListaBcs" (click)="abrirModalDetalle(item.referencia,item.cantidadElegida)">
 
-        <img src="https://img.matisses.co/{{item.referencia.substring(0,3)+'00000000000000'+item.referencia.substring(4)}}/parrilla/{{item.referencia.substring(0,3)+'00000000000000'+item.referencia.substring(4)}}_01.jpg" class="jpg-responsive" alt="{{item.descripcionProducto}}">
+        <img src="https://img.matisses.co/{{item.referencia.substring(0,3)+'0000000000000'+item.referencia.substring(3)}}/parrilla/{{item.referencia.substring(0,3)+'0000000000000'+item.referencia.substring(3)}}_01.jpg" class="jpg-responsive" alt="{{item.descripcionProducto}}">
         <p class="nombre"><b>{{item.descripcionProducto}}</b></p>
         <p class="referencia"><b>Ref:</b> {{item.referencia}}</p>
         <p class="precio"><b>$ {{item.precio | number}}</b></p>
         <p class="cantidad">Cantidad Elegida: <b>{{item.cantidadElegida}}</b></p>
         <p class="cantidad">Cantidad Comprada: <b>{{item.cantidadComprada}}</b></p>
         <p class="detalle" (click)="abrirModalDetalle(item.referencia,item.cantidadElegida)">Ver Detalle</p>
+        
       </div>
     </div>
     <br>
