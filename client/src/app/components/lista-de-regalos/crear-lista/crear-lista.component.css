@@ -2,6 +2,12 @@
   margin-top: 110px;
 }
 
+.disabled-event {
+  filter: grayscale();
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 input[type=number]::-webkit-inner-spin-button, .bono-regalo input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
@@ -80,6 +86,11 @@ li {
   background-color: #D77D7D !important;
 }
 
+.seleccionado-green {
+  color: #FFF !important;
+  background-color: #6d9791 !important;
+}
+
 .contenedor-formulario {
   max-width: 900px !important;
   margin: 0 auto;
@@ -135,6 +146,18 @@ li {
 
 .btn-formulario:hover {
   background-color: #AB4646;
+}
+
+.btn-formulario-green {
+  border: none;
+  padding: 10px 30px;
+  color: #FFF;
+  margin-top: 13px;
+  background-color: #6D9791 !important;
+}
+
+.btn-formulario-green:hover {
+  background-color: #425E63 !important;
 }
 
 .info-evento {

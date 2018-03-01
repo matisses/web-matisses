@@ -46,7 +46,9 @@ export class MiListaComponent implements OnInit {
   public confirmEliminar: boolean = false;
   public formAgregar: any;
   public aceptaBono: boolean = false;
-  public minimoBono: number=0;
+  public minimoBono: number = 0;
+  public fileUpload: any;
+  public urlAvatar: string;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -56,6 +58,7 @@ export class MiListaComponent implements OnInit {
 
     this.totalLista = 0;
     this.urlQr = GLOBAL.urlShared + 'qr/';
+    this.urlAvatar = GLOBAL.urlShared + 'imagenPerfil/';
     this.queryParams = new Map<string, string>();
     this.itemsXPag = '12 x pag';
     this.orderByStr = 'Similares';
@@ -89,6 +92,13 @@ export class MiListaComponent implements OnInit {
     this.buscarLista(this.codigoLista);
     localStorage.setItem('fecha-evento', this.fechaEvento);
     localStorage.setItem('username-lista', this.nombreUsuario);
+
+    console.log(this.urlAvatar);
+
+    $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + "sin-imagen.jpg)");
+
+    this.existeUrl(this.urlAvatar + 'sin-imagen.jpg');
+
     this.cargarItems0();
   }
 
@@ -239,8 +249,8 @@ export class MiListaComponent implements OnInit {
     }
     this.activePage = parseInt(this.queryParams.has('page') ? this.queryParams.get('page') : '1');
     let pageSize = parseInt(this.queryParams.has('pageSize') ? this.queryParams.get('pageSize') : '12');
-    if(this.aceptaBono){
-        pageSize = parseInt(this.queryParams.has('pageSize') ? this.queryParams.get('pageSize') : '11');
+    if (this.aceptaBono) {
+      pageSize = parseInt(this.queryParams.has('pageSize') ? this.queryParams.get('pageSize') : '11');
     }
 
 
@@ -273,12 +283,12 @@ export class MiListaComponent implements OnInit {
       if (this.queryParams.has('pageSize')) {
         this.paramsConsulta.registrosPagina = this.queryParams.get('pageSize');
       }
-      else{
-        if(this.aceptaBono){
+      else {
+        if (this.aceptaBono) {
           this.paramsConsulta.registrosPagina = '11';
         }
-        else{
-            this.paramsConsulta.registrosPagina = '12';
+        else {
+          this.paramsConsulta.registrosPagina = '12';
         }
 
       }
@@ -483,5 +493,68 @@ export class MiListaComponent implements OnInit {
       precio: 0,
       cantidadmaxima: 0
     };
+  }
+
+  public actualizarImage() {
+    console.log('entra a cargar imagen');
+  }
+
+  onFileChange(event) {
+    let fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      let file: File = fileList[0];
+      let fileSize: number = fileList[0].size;
+      let tipopng: string = 'image/png';
+      let tipojpg: string = 'image/jpeg';
+      if (file.type !== tipojpg && file.type !== tipojpg) {
+        this.messageError = 'La imagen solo puede ser formato JPG';
+        return;
+      }
+      if (fileSize <= 10485760) {
+        let formData: FormData = new FormData();
+        formData.append('file', file);
+        formData.append('codigo', this.codigoLista);
+        this._listaService.subirImagenLista(formData).subscribe(
+          response => {
+            let respuesta = JSON.parse(JSON.stringify(response));
+            this.existeUrl(this.urlAvatar + this.codigoLista + '.png');
+            location.reload();
+            $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + this.codigoLista + ".jpg)");
+            this.navigate();
+          },
+          error => { console.error(error); }
+        );
+      }
+      else {
+        this.messageError = 'Tamaño máximo superado';
+      }
+    }
+    else {
+      this.messageError = 'Lo sentimos intenta mas tarde.';
+    }
+  }
+
+  public existeUrl(url) {
+    url = this.urlAvatar + this.codigoLista + '.jpg';
+    var http = new XMLHttpRequest();
+    http.open('GET', url, true);
+    http.send();
+    if (http.status != 404) {
+      if (url == this.urlAvatar + this.codigoLista + '.jpg') {
+        $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + this.codigoLista + ".jpg)");
+      }
+    }
+    else {
+      url = this.urlAvatar + this.codigoLista + '.png';
+      var http = new XMLHttpRequest();
+      http.open('GET', url, true);
+      http.send();
+      if (http.status != 404) {
+        $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + this.codigoLista + ".png)");
+      }
+      else {
+        $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + "sin-imagen.jpg)");
+      }
+    }
   }
 }

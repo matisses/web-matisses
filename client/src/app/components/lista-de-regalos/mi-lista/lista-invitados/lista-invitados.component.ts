@@ -76,6 +76,11 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
     this.idListaUsuario = localStorage.getItem('id-lista');
   }
 
+  public abrirModal(modal: string) {
+    this.limpiarCampos();
+    $(modal).modal('show');
+  }
+
   public registrarInvitado() {
     if (this.nombreInvitado == null || this.nombreInvitado.length <= 0
       || this.apellidosInvitado == null || this.apellidosInvitado.length <= 0
@@ -95,8 +100,10 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
       this._listaService.crearInvitado(invitadoDTO).subscribe(
         response => {
           if (response.codigo == 0) {
-            this.messageExit = 'Invitación enviada satisfatoriamente.';
+            this.messageExit = 'Invitación enviada satisfactoriamente.';
             $("#modalInvitado").modal("hide");
+            $('#modalInvitado').on('hide.bs.modal', function() {
+            });
             this.limpiarCampos();
             this.cargarInvitados();
           } else {
@@ -118,16 +125,18 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
   }
 
   public imprimirLista() {
-    let documento = 'invitados';
-    this._listaService.generarDocumento(documento, this.codigoLista).subscribe(
-      response => {
-        if (response) {
-          this.generar(response);
-        } else {
-          this.messageError = 'Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.';
-        }
-      },
-      error => { console.error(error) });
+    if (this.totalInvitados > 0) {
+      let documento = 'invitados';
+      this._listaService.generarDocumento(documento, this.codigoLista).subscribe(
+        response => {
+          if (response) {
+            this.generar(response);
+          } else {
+            this.messageError = 'Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.';
+          }
+        },
+        error => { console.error(error) });
+    }
   }
 
   public cargarInvitados() {

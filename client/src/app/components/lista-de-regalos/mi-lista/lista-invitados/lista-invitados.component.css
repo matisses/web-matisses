@@ -2,6 +2,10 @@
   margin-top: 110px;
 }
 
+.mensaje-agradecimiento {
+  border-left: 1px solid #CCC;
+}
+
 
 /* modal agregar invitado */
 
