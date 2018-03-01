@@ -480,4 +480,45 @@ export class MiListaComponent implements OnInit {
       cantidadmaxima: 0
     };
   }
+
+  onFileChange(event) {
+    let fileList: FileList = event.target.files;
+     if(fileList.length > 0) {
+     let file: File = fileList[0];
+     let fileSize:number=fileList[0].size;
+     let tipopng: string='image/png';
+     let tipojpg:string='image/jpeg';
+     if(file.type!==tipopng && file.type!==tipojpg){
+
+       return;
+     }
+     if(fileSize<=10485760)
+     {
+     let formData:FormData = new FormData();
+     formData.append('file',file);
+     formData.append('codigo', this.codigoLista);
+     this._listaService.subirImagenLista(formData).subscribe(
+       response => {
+         let respuesta = JSON.parse(JSON.stringify(response));
+
+         this.existeUrl('http://192.168.5.157:8080/shared/listaRegalos/'+this.codigoLista+'.png');
+         location.reload();
+         //$(".perfil-imagen").css("background-image", "url(http://192.168.5.157:8080/shared/listaRegalos/"+this.codigoLista+".jpg)");
+         this.navigate();
+       },
+       error => { console.error(error); }
+     );
+
+     }
+     else
+     {
+       this.messageError='Tamaño máximo superado';
+     }
+   }
+   else
+   {
+     this.messageError='Something went Wrong.';
+   }
+
+  }
 }
