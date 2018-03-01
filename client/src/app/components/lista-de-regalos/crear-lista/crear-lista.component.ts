@@ -132,9 +132,8 @@ export class CrearListaComponent implements OnInit {
   }
 
   public irPaso(paso) {
-    console.log(paso);
     if (this.paso === 1) {
-      if (!this.llenarDatosNovios()) {
+      if (!this.llenarDatosNovios() || !this.llenarDatosAniversario()) {
         return;
       }
     } else if (this.paso === 2) {
@@ -146,7 +145,6 @@ export class CrearListaComponent implements OnInit {
         return;
       }
     }
-
     this.paso = paso;
   }
 
@@ -157,17 +155,13 @@ export class CrearListaComponent implements OnInit {
       response => {
         this.ciudadesPrincipales = response.cities;
       },
-      error => {
-        console.error(error);
-      }
+      error => { console.error(error); }
     );
     this._cityService.findOtherCities().subscribe(
       response => {
         this.otrasCiudades = response.cities;
       },
-      error => {
-        console.error(error);
-      }
+      error => { console.error(error); }
     );
   }
 
@@ -238,6 +232,7 @@ export class CrearListaComponent implements OnInit {
           this.disabledCocreador = true;
         },
         error => {
+          //Cocreador no existe en base de datos cliente.
           this.customerCocreador.fiscalIdType = '';
           this.customerCocreador.firstName = '';
           this.customerCocreador.lastName1 = '';
@@ -251,6 +246,7 @@ export class CrearListaComponent implements OnInit {
         }
       );
     } else {
+      $('#form_cocreador').trigger("reset");
       this.customerCocreador = new Customer();
     }
   }
@@ -277,6 +273,34 @@ export class CrearListaComponent implements OnInit {
       if (this.customerCreador.fiscalID == this.customerCocreador.fiscalID) {
         this.messageError = 'Los novios no pueden ser el mismo.';
         this.validCocreador = true;
+        this.disabledCocreador = false;
+        return false;
+      } else {
+        this.limpiarCampos();
+        //pasar al siguiente paso
+        if (this.paso < 4) {
+          this.paso++;
+        }
+      }
+    }
+    return true;
+  }
+
+  public llenarDatosAniversario() {
+    if ((this.customerCreador.fiscalID == null || this.customerCreador.fiscalID.length <= 0
+      || this.customerCreador.firstName == null || this.customerCreador.firstName.length <= 0
+      || this.customerCreador.lastName1 == null || this.customerCreador.lastName1.length <= 0
+      || this.customerCreador.fiscalIdType == null || this.customerCreador.fiscalIdType.length <= 0
+      || this.customerCreador.addresses[0].email == null || this.customerCreador.addresses[0].email.length <= 0)) {
+      this.messageError = 'Debes llenar todos los campos obligatorios para poder continuar con el siguiente paso.';
+      this.validCreador = false;
+      //this.validCocreador = false;
+      return false;
+    } else {
+      this.limpiarCampos();
+      if (this.customerCreador.fiscalID == this.customerCocreador.fiscalID) {
+        this.messageError = 'Los implicados del evento no pueden ser el mismo.';
+        //this.validCocreador = true;
         this.disabledCocreador = false;
         return false;
       } else {
@@ -621,16 +645,65 @@ export class CrearListaComponent implements OnInit {
   public obtenerSiguientePaso() {
     switch (this.paso) {
       case 1:
-        this.llenarDatosNovios();
+        if (this.tipoEvento == 1) {
+          console.log('Validar paso #' + this.paso + ' del evento Matrimonio');
+          this.llenarDatosAniversario();
+        }
+        if (this.tipoEvento == 2) {
+          console.log('Validar paso #' + this.paso + ' del evento Home Shower');
+        }
+        if (this.tipoEvento == 3) {
+          console.log('Validar paso #' + this.paso + ' del evento Cumpleaños');
+        }
+        if (this.tipoEvento == 4) {
+          console.log('Validar paso #' + this.paso + ' del evento Lista de Regalo');
+          this.llenarDatosNovios();
+        }
         break;
       case 2:
-        this.llenarDatosEvento();
+        if (this.tipoEvento == 1) {
+          console.log('Validar paso #' + this.paso + ' del evento Matrimonio');
+        }
+        if (this.tipoEvento == 2) {
+          console.log('Validar paso #' + this.paso + ' del evento Home Shower');
+        }
+        if (this.tipoEvento == 3) {
+          console.log('Validar paso #' + this.paso + ' del evento Cumpleaños');
+        }
+        if (this.tipoEvento == 4) {
+          console.log('Validar paso #' + this.paso + ' del evento Lista de Regalo');
+          this.llenarDatosEvento();
+        }
         break;
       case 3:
-        this.validarDireccionEvento();
+        if (this.tipoEvento == 1) {
+          console.log('Validar paso #' + this.paso + ' del evento Matrimonio');
+        }
+        if (this.tipoEvento == 2) {
+          console.log('Validar paso #' + this.paso + ' del evento Home Shower');
+        }
+        if (this.tipoEvento == 3) {
+          console.log('Validar paso #' + this.paso + ' del evento Cumpleaños');
+        }
+        if (this.tipoEvento == 4) {
+          console.log('Validar paso #' + this.paso + ' del evento Lista de Regalo');
+          this.validarDireccionEvento();
+        }
         break;
       case 4:
-        this.crearLista();
+        if (this.tipoEvento == 1) {
+          console.log('Validar paso #' + this.paso + ' del evento Matrimonio');
+        }
+        if (this.tipoEvento == 2) {
+          console.log('Validar paso #' + this.paso + ' del evento Home Shower');
+        }
+        if (this.tipoEvento == 3) {
+          console.log('Validar paso #' + this.paso + ' del evento Cumpleaños');
+        }
+        if (this.tipoEvento == 4) {
+          console.log('Validar paso #' + this.paso + ' del evento Lista de Regalo');
+          this.crearLista();
+        }
         break;
     }
   }
