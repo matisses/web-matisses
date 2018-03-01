@@ -100,7 +100,8 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
       pagina: '1',
       registrosPagina: paginaRegistro,
       orderBy: 'referencia asc',
-      sortOrder: ''
+      sortOrder: '',
+      keywords:''
     };
   }
 
@@ -227,14 +228,19 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   //   }
   // }
 
+  // public irAPagina(pagina) {
+  //   if(pagina>0){
+  //   if(pagina <= this.pages.length){
+  //     console.log('pagina '+pagina+' '+this.pages.length);
+  //   this.queryParams.set('page', pagina);
+  //   this.navigate();
+  //   }
+  // }
+  // }
+
   public irAPagina(pagina) {
-    if(pagina>0){
-    if(pagina <= this.pages.length){
-      console.log('pagina '+pagina+' '+this.pages.length);
     this.queryParams.set('page', pagina);
     this.navigate();
-    }
-  }
   }
 
   public changeOrder(orderkey) {
@@ -380,6 +386,9 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
       if (this.queryParams.has('page')) {
         this.paramsConsulta.pagina = this.queryParams.get('page');
       }
+      if (this.keywords && this.keywords.length > 0) {
+        this.paramsConsulta.keywords=this.keywords;
+      }
 
       this._listaService.consultarListaPaginada(this.paramsConsulta).subscribe(
         response => {
@@ -435,7 +444,8 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public search() {
     if (this.keywords && this.keywords.length > 0) {
       let queryParamsObj = { keywords: this.keywords.replace(/ /g, ",") };
-      this._router.navigate(['/lista/' + this.codigoLista], { queryParams: queryParamsObj });
+      //this._router.navigate(['/lista/' + this.codigoLista], { queryParams: queryParamsObj });
+      this.navigate();
     }
   }
 
