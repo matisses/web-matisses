@@ -521,4 +521,28 @@ export class MiListaComponent implements OnInit {
    }
 
   }
+
+  public existeUrl(url) {
+    url = this.urlAvatar + this.codigoLista + '.jpg';
+    var http = new XMLHttpRequest();
+    http.open('GET', url, true);
+    http.send();
+    if (http.status != 404) {
+      if (url == this.urlAvatar + this.codigoLista + '.jpg') {
+        $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + this.codigoLista + ".jpg)");
+      }
+    }
+    else {
+      url = this.urlAvatar + this.codigoLista + '.png';
+      var http = new XMLHttpRequest();
+      http.open('GET', url, true);
+      http.send();
+      if (http.status != 404) {
+        $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + this.codigoLista + ".png)");
+      }
+      else {
+        $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + "sin-imagen.jpg)");
+      }
+    }
+  }
 }
