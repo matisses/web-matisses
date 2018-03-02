@@ -49,6 +49,7 @@ export class MiListaComponent implements OnInit {
   public minimoBono: number = 0;
   public fileUpload: any;
   public urlAvatar: string;
+  public itemsSinPaginar: Array<any>;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -65,6 +66,7 @@ export class MiListaComponent implements OnInit {
     this.pages = new Array<number>();
     this.items = new Array<Item>();
     this.itemsListaBcs = new Array<any>();
+    this.itemsSinPaginar=new Array<any>();
     this.inicializarForm();
 
     this.inicializarParamsConsulta();
@@ -92,13 +94,8 @@ export class MiListaComponent implements OnInit {
     this.buscarLista(this.codigoLista);
     localStorage.setItem('fecha-evento', this.fechaEvento);
     localStorage.setItem('username-lista', this.nombreUsuario);
-
-    console.log(this.urlAvatar);
-
     $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + "sin-imagen.jpg)");
-
     this.existeUrl(this.urlAvatar + 'sin-imagen.jpg');
-
     this.cargarItems0();
   }
 
@@ -181,9 +178,18 @@ export class MiListaComponent implements OnInit {
     );
   }
 
+  // public irAPagina(pagina) {
+  //   this.queryParams.set('page', pagina);
+  //   this.navigate();
+  // }
+
   public irAPagina(pagina) {
+    if(pagina>0){
+    if(pagina <= this.pages.length){
     this.queryParams.set('page', pagina);
     this.navigate();
+    }
+  }
   }
 
   public changeOrder(orderkey) {
@@ -322,8 +328,20 @@ export class MiListaComponent implements OnInit {
       this._listaService.consultarListaPaginada(this.paramsConsulta).subscribe(
         response => {
           this.itemsListaBcs = response;
+          let paramConsulta = {
+            idLista: localStorage.getItem('id-lista')
+          };
+          this._listaService.consultarListaSinPaginar(paramConsulta).subscribe(
+             response => {
+               this.itemsSinPaginar = response;
 
-          this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.itemsListaBcs.length);
+
+            },
+            error => {
+                 console.error(error);
+              }
+          );
+          this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.itemsSinPaginar.length);
         },
         error => { console.error(error); }
       );
@@ -346,7 +364,6 @@ export class MiListaComponent implements OnInit {
   }
 
   public search() {
-    console.log('entro aca '+this.keywords);
     if (this.keywords && this.keywords.length > 0) {
       let queryParamsObj = { keywords: this.keywords.replace(/ /g, ",") };
       //this.navigate();
