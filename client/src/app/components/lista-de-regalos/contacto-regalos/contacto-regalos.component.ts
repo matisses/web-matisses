@@ -45,7 +45,7 @@ export class ContactoRegalosComponent implements OnInit {
     this.reCaptcha = response.token;
   }
 
-  public enviar(contactForm) {
+  public enviar() {
     this.valid = true;
     this.messageError = '';
     this.messageExit = '';
@@ -85,8 +85,8 @@ export class ContactoRegalosComponent implements OnInit {
       this._sendEmailService.enviar(mailMessage).subscribe(
         response => {
           this.messageExit = 'Gracias por contactarnos, tu mensaje se envió exitosamente. Te responderemos en el menor tiempo posible.';
-          contactForm.reset();
           this.limpiar();
+          $('#form_contact').trigger("reset");
           return;
         },
         error => {

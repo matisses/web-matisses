@@ -17,7 +17,7 @@
       <img src="../../../../assets/images/04.jpg" class="jpg-responsive" alt="">
       <p>Lista de novios</p>
     </div>
-    <div class="col-sm-3 col-xs-6 text-center cursor-pointer novios disabled-event" (click)="seleccionarEvento(0)">
+    <div class="col-sm-3 col-xs-6 text-center cursor-pointer novios" (click)="seleccionarEvento(1)">
       <img src="../../../../assets/images/01.jpg" class="jpg-responsive" alt="">
       <p>Aniversario</p>
     </div>
@@ -182,85 +182,87 @@
                 <hr/>
               </div>
               <!-- datos del 2do creador -->
-              <div class="col-sm-5 col-sm-offset-2">
-                <h1 class="text-center title-form">Co-creador</h1>
-                <br/>
-                <label class="label-lista" for="tipo-D">Tipo de documento</label>
-                <select id="tipo-D-2" name="typeDocCocreador" [disabled]="disabledCocreador" class="form-control" [class.ng-reflect-model]="!31" [class.required-field]="!validCocreador" [(ngModel)]="customerCocreador.fiscalIdType" required>
+              <form id="form_cocreador">
+                <div class="col-sm-5 col-sm-offset-2">
+                  <h1 class="text-center title-form">Co-creador</h1>
+                  <br/>
+                  <label class="label-lista" for="tipo-D">Tipo de documento</label>
+                  <select id="tipo-D-2" name="typeDocCocreador" [disabled]="disabledCocreador" class="form-control" [class.ng-reflect-model]="!31" [class.required-field]="!validCocreador" [(ngModel)]="customerCocreador.fiscalIdType">
                     <option style="display:none" disabled selected value>Seleccione uno</option>
                     <option [selected]="customerCocreador.fiscalIdType == 13" value="13">Cedula</option>
                     <option [selected]="customerCocreador.fiscalIdType == 22" value="22">Cedula extranjería</option>
                     <option [selected]="customerCocreador.fiscalIdType == 41" value="41">Pasaporte</option>
                   </select>
-                <label class="label-lista" for="documento">Documento</label>
-                <input id="documento-2" type="text" class="form-control" maxlength="30" [class.required-field]="!validCocreador" name="fiscalIDCocreador" [(ngModel)]="customerCocreador.fiscalID" (change)="buscarCocreador()" required>
-                <label class="label-lista" for="nombre">Nombre</label>
-                <input id="nombre-2" type="text" [disabled]="disabledCocreador" class="form-control" maxlength="30" [class.required-field]="!validCocreador" name="nameCocreador" [(ngModel)]="customerCocreador.firstName" required>
-                <label class="label-lista" for="last1">Primer apellido</label>
-                <input id="last1-2" type="text" [disabled]="disabledCocreador" class="form-control" maxlength="30" [class.required-field]="!validCocreador" name="lastname1Cocreador" [(ngModel)]="customerCocreador.lastName1" required>
-                <label class="label-lista" for="last2">Segundo apellido</label>
-                <input id="last2-2" type="text" [disabled]="disabledCocreador" class="form-control" maxlength="30" name="lastname2Cocreador" [(ngModel)]="customerCocreador.lastName2">
-                <label class="label-lista" for="email">Email</label>
-                <input id="email-2" type="email" [disabled]="disabledCocreador" class="form-control" maxlength="30" name="emailCocreador" [email]="true" [(ngModel)]="customerCocreador.addresses[0].email">
-                <br/>
-                <!-- Notificación # 1 -->
-                <div class="row">
-                  <div class="col-xs-12">
-                    <p>Notificarme de forma <b>inmediata</b> cada vez que alguien realiza una compra por medio de:</p>
-                    <div class="row">
-                      <div class="col-xs-5 col-xs-offset-1 text-center">
-                        <label class="radio-inline">
+                  <label class="label-lista" for="documento">Documento</label>
+                  <input id="documento-2" type="text" class="form-control" maxlength="30" [class.required-field]="!validCocreador" name="fiscalIDCocreador" [(ngModel)]="customerCocreador.fiscalID" (change)="buscarCocreador()">
+                  <label class="label-lista" for="nombre">Nombre</label>
+                  <input id="nombre-2" type="text" [disabled]="disabledCocreador" class="form-control" maxlength="30" [class.required-field]="!validCocreador" name="nameCocreador" [(ngModel)]="customerCocreador.firstName">
+                  <label class="label-lista" for="last1">Primer apellido</label>
+                  <input id="last1-2" type="text" [disabled]="disabledCocreador" class="form-control" maxlength="30" [class.required-field]="!validCocreador" name="lastname1Cocreador" [(ngModel)]="customerCocreador.lastName1">
+                  <label class="label-lista" for="last2">Segundo apellido</label>
+                  <input id="last2-2" type="text" [disabled]="disabledCocreador" class="form-control" maxlength="30" name="lastname2Cocreador" [(ngModel)]="customerCocreador.lastName2">
+                  <label class="label-lista" for="email">Email</label>
+                  <input id="email-2" type="email" [disabled]="disabledCocreador" class="form-control" maxlength="30" name="emailCocreador" [email]="true" [(ngModel)]="customerCocreador.addresses[0].email">
+                  <br/>
+                  <!-- Notificación # 1 -->
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <p>Notificarme de forma <b>inmediata</b> cada vez que alguien realiza una compra por medio de:</p>
+                      <div class="row">
+                        <div class="col-xs-5 col-xs-offset-1 text-center">
+                          <label class="radio-inline">
                           <input type="checkbox" name="notificacionInmediataMailCocreador" [(ngModel)]="notificacionInmediataMailCocreador"><b class="notificaciones">Vía Mail</b>
                         </label>
-                      </div>
-                      <div class="col-xs-5 text-center">
-                        <label class="radio-inline">
+                        </div>
+                        <div class="col-xs-5 text-center">
+                          <label class="radio-inline">
                           <input type="checkbox" name="notificacionInmediataSmsCocreador" [(ngModel)]="notificacionInmediataSmsCocreador"><b class="notificaciones">Vía SMS</b>
                         </label>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <hr/>
-                <!-- Notificación # 2 -->
-                <div class="row">
-                  <div class="col-xs-12">
-                    <p>Notificarme <b>diariamente</b> las compras hechas en mi lista por medio de:</p>
-                    <div class="row">
-                      <div class="col-xs-5 col-xs-offset-1 text-center">
-                        <label class="radio-inline">
+                  <hr/>
+                  <!-- Notificación # 2 -->
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <p>Notificarme <b>diariamente</b> las compras hechas en mi lista por medio de:</p>
+                      <div class="row">
+                        <div class="col-xs-5 col-xs-offset-1 text-center">
+                          <label class="radio-inline">
                           <input type="checkbox" name="notificacionDiariaMailCocreador" [(ngModel)]="notificacionDiariaMailCocreador"><b class="notificaciones">Vía Mail</b>
                         </label>
-                      </div>
-                      <div class="col-xs-5 text-center">
-                        <label class="radio-inline">
+                        </div>
+                        <div class="col-xs-5 text-center">
+                          <label class="radio-inline">
                           <input type="checkbox" name="notificacionDiariaSmsCocreador" [(ngModel)]="notificacionDiariaSmsCocreador"><b class="notificaciones">Vía SMS</b>
                         </label>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <hr/>
-                <!-- Notificación # 3 -->
-                <div class="row">
-                  <div class="col-xs-12">
-                    <p>Notificarme <b>semanalmente</b> las compras hechas en mi lista por medio de:</p>
-                    <div class="row">
-                      <div class="col-xs-5 col-xs-offset-1 text-center">
-                        <label class="radio-inline">
+                  <hr/>
+                  <!-- Notificación # 3 -->
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <p>Notificarme <b>semanalmente</b> las compras hechas en mi lista por medio de:</p>
+                      <div class="row">
+                        <div class="col-xs-5 col-xs-offset-1 text-center">
+                          <label class="radio-inline">
                           <input type="checkbox" name="notificacionSemanalMailCocreador" [(ngModel)]="notificacionSemanalMailCocreador"><b class="notificaciones">Vía Mail</b>
                         </label>
-                      </div>
-                      <div class="col-xs-5 text-center">
-                        <label class="radio-inline">
+                        </div>
+                        <div class="col-xs-5 text-center">
+                          <label class="radio-inline">
                           <input type="checkbox" name="notificacionSemanalSmsCocreador" [(ngModel)]="notificacionSemanalSmsCocreador"><b class="notificaciones">Vía SMS</b>
                         </label>
+                        </div>
                       </div>
                     </div>
                   </div>
+                  <hr/>
                 </div>
-                <hr/>
-              </div>
+              </form>
             </div>
           </form>
         </div>
