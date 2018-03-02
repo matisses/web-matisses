@@ -25,6 +25,19 @@
   font-size: 100px;
 }
 
+.otros-empleados {
+  min-height: 335px;
+  border: 1px dotted #5B5B5B;
+  padding: 20px;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.otros-empleados h3 {
+  text-align: center;
+  min-height: 60px;
+}
+
 @media screen and (max-width: 1200px) {}
 
 @media screen and (max-width: 991px) {
