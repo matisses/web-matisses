@@ -1,0 +1,58 @@
+.stuck-body {
+  margin-top: 125px;
+  color: #5B5B5B;
+}
+
+.padding-0 {
+  padding-left: 0;
+  padding-right: 0;
+  overflow: hidden;
+}
+
+.jpg-responsive {
+  width: 100%;
+  height: auto;
+}
+
+.container-grey {
+  background-color: #EDEDED;
+  margin: 25px 0;
+  padding: 30px 0px;
+}
+
+.icono-tarjeta {
+  text-align: center;
+  font-size: 100px;
+}
+
+.otros-empleados {
+  min-height: 335px;
+  border: 1px dotted #5B5B5B;
+  padding: 20px;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.otros-empleados h3 {
+  text-align: center;
+  min-height: 60px;
+}
+
+@media screen and (max-width: 1200px) {}
+
+@media screen and (max-width: 991px) {
+  .stuck-body {
+    margin-top: 0px;
+  }
+  .mt-50 {
+    margin-top: 50px;
+  }
+}
+
+@media screen and (max-width: 769px) {}
+
+@media screen and (max-width: 426px) {}
+
+@media screen and (max-width: 375px) {}
+
+@media screen and (max-width: 320px) {}
