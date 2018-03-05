@@ -69,6 +69,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public minimoBono: number = 0;
   public formAgregar: any;
   public conteoDias: string;
+  public itemsSinPaginar: Array<any>;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -85,6 +86,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     this.items = new Array<Item>();
     this.url = this._router.url;
     this.itemsListaBcs = new Array<any>();
+    this.itemsSinPaginar=new Array<any>();
     //carrito de COMPRAS
     this.inicializarShoppingCart();
     this.inicializarForm();
@@ -106,6 +108,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.inicializarParamsConsulta();
     this.novios = sessionStorage.getItem('novios');
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
@@ -162,6 +165,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
             localStorage.setItem('codigo-lista', this.codigoLista);
             this.inicializarShoppingCart();
             this.cargarItems0();
+            $(".perfil-imagen").css("background-image", "url(https://360.matisses.co:8443/shared/lista-regalos/imagenPerfil/" + this.codigoLista + ".jpg)");
             //this.cargarFechaEvento();
             this.showBadge = true;
           }
@@ -228,21 +232,14 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   //   }
   // }
 
-  // public irAPagina(pagina) {
-  //   if(pagina>0){
-  //   if(pagina <= this.pages.length){
-  //     console.log('pagina '+pagina+' '+this.pages.length);
-  //   this.queryParams.set('page', pagina);
-  //   this.navigate();
-  //   }
-  // }
-  // }
-
   public irAPagina(pagina) {
+    if(pagina>0){
+    if(pagina <= this.pages.length){
     this.queryParams.set('page', pagina);
     this.navigate();
+    }
   }
-
+  }
   public changeOrder(orderkey) {
     this.queryParams.set('orderBy', orderkey);
     this.queryParams.set('page', '1');
@@ -350,14 +347,22 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   private cargarItems0() {
-
     this.items = new Array<Item>();
-    this.inicializarParamsConsulta();
+    //this.inicializarParamsConsulta();
     this._route.queryParams.forEach((params: Params) => {
 
       this.inicializarMapa(params);
       if (this.queryParams.has('pageSize')) {
         this.paramsConsulta.registrosPagina = this.queryParams.get('pageSize');
+      }
+      else{
+
+        if (this.aceptaBono) {
+          this.paramsConsulta.registrosPagina = '11';
+        }
+        else{
+          this.paramsConsulta.registrosPagina = '12';
+        }
       }
 
       if (this.queryParams.has('orderBy')) {
@@ -406,12 +411,26 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
                 if (response.result[0].cantidadElegida > response.result[0].cantidadComprada) {
                   this.items.push(response.result[0]);
                 }
+
+                let paramConsulta = {
+                  idLista: localStorage.getItem('id-lista')
+                };
+                this._listaService.consultarListaSinPaginar(paramConsulta).subscribe(
+                   response => {
+                     this.itemsSinPaginar = response;
+
+
+                  },
+                  error => {
+                       console.error(error);
+                    }
+                );
               },
               error => { console.error(error); }
             );
           }
 
-          this.cargarItems(this.availableFields, this.items, this.queryParams, this.totalLista);
+          this.cargarItems(this.availableFields, this.items, this.queryParams, this.itemsSinPaginar.length);
         },
         error => { console.error(error); }
       );
@@ -444,7 +463,13 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   public search() {
     if (this.keywords && this.keywords.length > 0) {
       let queryParamsObj = { keywords: this.keywords.replace(/ /g, ",") };
-      //this._router.navigate(['/lista/' + this.codigoLista], { queryParams: queryParamsObj });
+      this.navigate();
+     this._router.navigate(['/lista/' + this.codigoLista], { queryParams: queryParamsObj });
+    }
+    else{
+      this.keywords='';
+      let queryParamsObj = { keywords: this.keywords.replace(/ /g, ",") };
+      //this._router.navigate(['/lista/' + this.codigoLista]);
       this.navigate();
     }
   }

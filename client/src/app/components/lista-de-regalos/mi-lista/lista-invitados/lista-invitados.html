@@ -3,7 +3,9 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="limpiarCampos()"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="limpiarCampos()">
+          <span aria-hidden="true">&times;</span>
+        </button>
         <h4 class="modal-title text-center" id="modalInvitadoLabel">Agregar invitado</h4>
       </div>
       <div class="row" *ngIf="messageError != null && messageError.length > 0">
@@ -16,29 +18,27 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-sm-8 col-sm-offset-2">
-            <label for="name">Nombres*</label>
-            <form (submit)="registrarInvitado()">
-              <input type="text" id="name" class="form-control height-40" maxlength="30" [class.required-field]="!valid" name="nombreInvitado" [(ngModel)]="nombreInvitado" required>
+            <form id="form_registrar_invitado" (submit)="registrarInvitado()">
+              <label for="name">Nombres*</label>
+              <input type="text" id="name" class="form-control height-40" maxlength="30" [class.required-field]="!valid" name="nombreInvitado"
+                [(ngModel)]="nombreInvitado" required>
+              <label for="apellido">Apellidos*</label>
+              <input type="text" id="apellido" class="form-control height-40" maxlength="30" [class.required-field]="!valid" name="apellidosInvitado"
+                [(ngModel)]="apellidosInvitado" required>
+              <label for="correo">Email*</label>
+              <input type="email" id="correo" class="form-control height-40" maxlength="30" [class.required-field]="!valid" [email]="true"
+                name="correoInvitado" [(ngModel)]="correoInvitado" required>
+              <label for="celular">Celular*</label>
+              <input type="text" id="celular" class="form-control height-40" maxlength="30" [class.required-field]="!valid" name="telefonoInvitado"
+                [(ngModel)]="telefonoInvitado" required>
+              <p>*Información requerida</p>
+              <br>
+              <div class="row">
+                <div class="col-xs-12 text-center">
+                  <button type="submit" class="btn btn-agregar" name="registrarInvitado">Envíar invitación</button>
+                </div>
+              </div>
             </form>
-            <label for="apellido">Apellidos*</label>
-            <form (submit)="registrarInvitado()">
-              <input type="text" id="apellido" class="form-control height-40" maxlength="30" [class.required-field]="!valid" name="apellidosInvitado" [(ngModel)]="apellidosInvitado" required>
-            </form>
-            <label for="correo">Email*</label>
-            <form (submit)="registrarInvitado()">
-              <input type="email" id="correo" class="form-control height-40" maxlength="30" [class.required-field]="!valid" [email]="true" name="correoInvitado" [(ngModel)]="correoInvitado" required>
-            </form>
-            <label for="celular">Celular*</label>
-            <form (submit)="registrarInvitado()">
-              <input type="text" id="celular" class="form-control height-40" maxlength="30" [class.required-field]="!valid" name="telefonoInvitado" [(ngModel)]="telefonoInvitado" required>
-            </form>
-            <p>*Información requerida</p>
-          </div>
-        </div>
-        <br>
-        <div class="row">
-          <div class="col-xs-12 text-center">
-            <button type="button" class="btn btn-agregar" (click)="registrarInvitado()">Envíar invitación</button>
           </div>
         </div>
       </div>
@@ -50,7 +50,9 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="limpiarCampos()"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="limpiarCampos()">
+          <span aria-hidden="true">&times;</span>
+        </button>
         <h4 class="modal-title text-center" id="modalInvitadoLabel">Modificar Mensaje</h4>
       </div>
       <div class="row" *ngIf="messageError != null && messageError.length > 0">
@@ -116,11 +118,15 @@
     <div class="row">
       <div class="codigo-fecha">
         <div class="col-sm-6 text-right">
-          <p class="codigo">Codigo de novios: <b>{{codigoLista}}</b></p>
+          <p class="codigo">Codigo de novios:
+            <b>{{codigoLista}}</b>
+          </p>
         </div>
         <div class="col-sm-6 text-left text-center-fecha">
           <span class="icon-fecha icono-fecha"></span>
-          <p class="fecha">Fecha celebración: <b>{{fechaEvento}}</b></p>
+          <p class="fecha">Fecha celebración:
+            <b>{{fechaEvento}}</b>
+          </p>
         </div>
       </div>
     </div>
@@ -128,7 +134,7 @@
     <div class="row">
       <div class="col-xs-12 text-center">
         <h1 class="title-mi-lista">MI LISTA DE INVITADOS</h1>
-        <p style="margin:0; color#CCC">Crea tu lista de invitados, confirma asistencia y compate tu lista de regalos.</p>
+        <p style="margin:0; color:#CCC">Crea tu lista de invitados, confirma asistencia y compate tu lista de regalos.</p>
       </div>
     </div>
     <div class="row">
@@ -141,7 +147,8 @@
       <!-- contador invitados -->
       <div class="col-sm-3 agendar-fecha no-selector">
         <span class="icon-invitado-02"></span>
-        <p><b>{{totalInvitados}}</b> Invitados</p>
+        <p>
+          <b>{{totalInvitados}}</b> Invitados</p>
       </div>
       <!-- boton agregar -->
       <div class="col-sm-3 monto-regalado no-selector" (click)="abrirModal('#modalInvitado')">

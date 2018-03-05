@@ -100,17 +100,17 @@ export class CrearListaComponent implements OnInit {
 
   ngOnInit() {
     //Bloqueo del botón ir atras, no deja al usuario ir atras.
-    window.onload = function() {
+    window.onload = function () {
       if (typeof history.pushState === "function") {
         history.pushState(null, null, null);
-        window.onpopstate = function() {
+        window.onpopstate = function () {
           history.pushState(null, null, null);
         };
       }
     }
 
     //Mensaje de pereder los datos si recarga la página.
-    window.onbeforeunload = function(e) {
+    window.onbeforeunload = function (e) {
       var e = e || window.event;
       var msg = "¿De verdad quieres dejar esta página?"
       // For IE and Firefox
@@ -132,9 +132,8 @@ export class CrearListaComponent implements OnInit {
   }
 
   public irPaso(paso) {
-    console.log(paso);
     if (this.paso === 1) {
-      if (!this.llenarDatosNovios()) {
+      if (!this.llenarDatosNovios() || !this.llenarDatosIniciales()) {
         return;
       }
     } else if (this.paso === 2) {
@@ -146,7 +145,6 @@ export class CrearListaComponent implements OnInit {
         return;
       }
     }
-
     this.paso = paso;
   }
 
@@ -157,17 +155,13 @@ export class CrearListaComponent implements OnInit {
       response => {
         this.ciudadesPrincipales = response.cities;
       },
-      error => {
-        console.error(error);
-      }
+      error => { console.error(error); }
     );
     this._cityService.findOtherCities().subscribe(
       response => {
         this.otrasCiudades = response.cities;
       },
-      error => {
-        console.error(error);
-      }
+      error => { console.error(error); }
     );
   }
 
@@ -238,6 +232,7 @@ export class CrearListaComponent implements OnInit {
           this.disabledCocreador = true;
         },
         error => {
+          //Cocreador no existe en base de datos cliente.
           this.customerCocreador.fiscalIdType = '';
           this.customerCocreador.firstName = '';
           this.customerCocreador.lastName1 = '';
@@ -251,18 +246,19 @@ export class CrearListaComponent implements OnInit {
         }
       );
     } else {
+      $('#form_cocreador').trigger("reset");
       this.customerCocreador = new Customer();
     }
   }
 
   public llenarDatosNovios() {
-    if ((this.customerCreador.fiscalID == null || this.customerCreador.fiscalID.length <= 0
+    if ((this.customerCreador.fiscalID == null || this.customerCreador.fiscalID.trim().length <= 0
       || this.customerCreador.firstName == null || this.customerCreador.firstName.length <= 0
       || this.customerCreador.lastName1 == null || this.customerCreador.lastName1.length <= 0
       || this.customerCreador.fiscalIdType == null || this.customerCreador.fiscalIdType.length <= 0
       || this.customerCreador.addresses[0].email == null || this.customerCreador.addresses[0].email.length <= 0)
       ||
-      (this.customerCocreador.fiscalID == null || this.customerCocreador.fiscalID.length <= 0
+      (this.customerCocreador.fiscalID == null || this.customerCocreador.fiscalID.trim().length <= 0
         || this.customerCocreador.firstName == null || this.customerCocreador.firstName.length <= 0
         || this.customerCocreador.lastName1 == null || this.customerCocreador.lastName1.length <= 0
         || this.customerCocreador.fiscalIdType == null || this.customerCocreador.fiscalIdType.length <= 0
@@ -274,7 +270,7 @@ export class CrearListaComponent implements OnInit {
       return false;
     } else {
       this.limpiarCampos();
-      if (this.customerCreador.fiscalID == this.customerCocreador.fiscalID) {
+      if (this.customerCreador.fiscalID.trim() == this.customerCocreador.fiscalID.trim()) {
         this.messageError = 'Los novios no pueden ser el mismo.';
         this.validCocreador = true;
         this.disabledCocreador = false;
@@ -284,6 +280,67 @@ export class CrearListaComponent implements OnInit {
         //pasar al siguiente paso
         if (this.paso < 4) {
           this.paso++;
+        }
+      }
+    }
+    return true;
+  }
+
+  public llenarDatosIniciales() {
+    if (this.customerCocreador.fiscalID == null) {
+      if ((this.customerCreador.fiscalID == null || this.customerCreador.fiscalID.trim().length <= 0
+        || this.customerCreador.firstName == null || this.customerCreador.firstName.length <= 0
+        || this.customerCreador.lastName1 == null || this.customerCreador.lastName1.length <= 0
+        || this.customerCreador.fiscalIdType == null || this.customerCreador.fiscalIdType.length <= 0
+        || this.customerCreador.addresses[0].email == null || this.customerCreador.addresses[0].email.length <= 0)) {
+        this.messageError = 'Debes llenar todos los campos obligatorios para poder continuar con el siguiente paso.';
+        this.validCreador = false;
+        this.validCocreador = true;
+        return false;
+      } else {
+        this.limpiarCampos();
+        if (this.customerCreador.fiscalID.trim() == this.customerCocreador.fiscalID) {
+          this.messageError = 'Los implicados del evento no pueden ser el mismo.';
+          this.disabledCocreador = false;
+          return false;
+        } else {
+          this.limpiarCampos();
+          //pasar al siguiente paso
+          if (this.paso < 4) {
+            this.paso++;
+          }
+        }
+      }
+    } else {
+      if ((this.customerCreador.fiscalID == null || this.customerCreador.fiscalID.trim().length <= 0
+        || this.customerCreador.firstName == null || this.customerCreador.firstName.length <= 0
+        || this.customerCreador.lastName1 == null || this.customerCreador.lastName1.length <= 0
+        || this.customerCreador.fiscalIdType == null || this.customerCreador.fiscalIdType.length <= 0
+        || this.customerCreador.addresses[0].email == null || this.customerCreador.addresses[0].email.length <= 0)
+        ||
+        (this.customerCocreador.fiscalID == null || this.customerCocreador.fiscalID.trim().length <= 0
+          || this.customerCocreador.firstName == null || this.customerCocreador.firstName.length <= 0
+          || this.customerCocreador.lastName1 == null || this.customerCocreador.lastName1.length <= 0
+          || this.customerCocreador.fiscalIdType == null || this.customerCocreador.fiscalIdType.length <= 0
+          || this.customerCocreador.addresses[0].email == null || this.customerCocreador.addresses[0].email.length <= 0)
+      ) {
+        this.messageError = 'Debes llenar todos los campos obligatorios para poder continuar con el siguiente paso.';
+        this.validCreador = false;
+        this.validCocreador = false;
+        return false;
+      } else {
+        this.limpiarCampos();
+        if (this.customerCreador.fiscalID.trim() == this.customerCocreador.fiscalID.trim()) {
+          this.messageError = 'Los novios no pueden ser el mismo.';
+          this.validCocreador = true;
+          this.disabledCocreador = false;
+          return false;
+        } else {
+          this.limpiarCampos();
+          //pasar al siguiente paso
+          if (this.paso < 4) {
+            this.paso++;
+          }
         }
       }
     }
@@ -311,21 +368,59 @@ export class CrearListaComponent implements OnInit {
   }
 
   public validarDireccionEvento() {
-    if ((this.customerCreador.addresses[0].cellphone == null || this.customerCreador.addresses[0].cellphone.length <= 0
-      || this.customerCreador.addresses[0].address == null || this.customerCreador.addresses[0].address.length <= 0
-      || this.customerCreador.addresses[0].cityCode == null || this.customerCreador.addresses[0].cityCode <= 0)
-      || (this.customerCocreador.addresses[0].cellphone == null || this.customerCocreador.addresses[0].cellphone.length <= 0
-        || this.customerCocreador.addresses[0].address == null || this.customerCocreador.addresses[0].address.length <= 0
-        || this.customerCocreador.addresses[0].cityCode == null || this.customerCocreador.addresses[0].cityCode <= 0)) {
-      this.messageError = 'Debes llenar todos los campos obligatorios para poder continuar con el siguiente paso.';
-      this.validForm3 = false;
-      return false;
-    } else {
-      this.limpiarCampos();
-      //pasar al siguiente paso
-      if (this.paso < 4) {
-        this.paso++;
-      }
+    switch (this.tipoEvento) {
+      case 4:
+        if ((this.customerCreador.addresses[0].cellphone == null || this.customerCreador.addresses[0].cellphone.length <= 0
+          || this.customerCreador.addresses[0].address == null || this.customerCreador.addresses[0].address.length <= 0
+          || this.customerCreador.addresses[0].cityCode == null || this.customerCreador.addresses[0].cityCode <= 0)
+          || (this.customerCocreador.addresses[0].cellphone == null || this.customerCocreador.addresses[0].cellphone.length <= 0
+            || this.customerCocreador.addresses[0].address == null || this.customerCocreador.addresses[0].address.length <= 0
+            || this.customerCocreador.addresses[0].cityCode == null || this.customerCocreador.addresses[0].cityCode <= 0)) {
+          this.messageError = 'Debes llenar todos los campos obligatorios para poder continuar con el siguiente paso.';
+          this.validForm3 = false;
+          return false;
+        } else {
+          this.limpiarCampos();
+          //pasar al siguiente paso
+          if (this.paso < 4) {
+            this.paso++;
+          }
+        }
+        break;
+        default:/*Para los demas eventos*/
+        if (this.customerCocreador.fiscalID == null) {
+          if ((this.customerCreador.addresses[0].cellphone == null || this.customerCreador.addresses[0].cellphone.length <= 0
+            || this.customerCreador.addresses[0].address == null || this.customerCreador.addresses[0].address.length <= 0
+            || this.customerCreador.addresses[0].cityCode == null || this.customerCreador.addresses[0].cityCode <= 0)) {
+            this.messageError = 'Debes llenar todos los campos obligatorios para poder continuar con el siguiente paso.';
+            this.validForm3 = false;
+            return false;
+          } else {
+            this.limpiarCampos();
+            //pasar al siguiente paso
+            if (this.paso < 4) {
+              this.paso++;
+            }
+          }
+        } else {
+          if ((this.customerCreador.addresses[0].cellphone == null || this.customerCreador.addresses[0].cellphone.length <= 0
+            || this.customerCreador.addresses[0].address == null || this.customerCreador.addresses[0].address.length <= 0
+            || this.customerCreador.addresses[0].cityCode == null || this.customerCreador.addresses[0].cityCode <= 0)
+            || (this.customerCocreador.addresses[0].cellphone == null || this.customerCocreador.addresses[0].cellphone.length <= 0
+              || this.customerCocreador.addresses[0].address == null || this.customerCocreador.addresses[0].address.length <= 0
+              || this.customerCocreador.addresses[0].cityCode == null || this.customerCocreador.addresses[0].cityCode <= 0)) {
+            this.messageError = 'Debes llenar todos los campos obligatorios para poder continuar con el siguiente paso.';
+            this.validForm3 = false;
+            return false;
+          } else {
+            this.limpiarCampos();
+            //pasar al siguiente paso
+            if (this.paso < 4) {
+              this.paso++;
+            }
+          }
+        }
+        break;
     }
     return true;
   }
@@ -336,24 +431,40 @@ export class CrearListaComponent implements OnInit {
     let usarDatosCreador;
     let usarDatosCocreador;
     let tipoLista;
+
+    if (this.customerCocreador.fiscalID == null) {
+      this.customerCocreador.fiscalID = '';
+      this.customerCocreador.firstName = '';
+      this.customerCocreador.lastName1 = '';
+      this.customerCocreador.lastName2 = '';
+      this.customerCocreador.addresses[0].cellphone = '';
+      this.customerCocreador.addresses[0].address = '';
+      this.customerCocreador.addresses[0].email = '';
+    }
+
     apellidosCreador += this.customerCreador.lastName1;
     apellidosCocreador += this.customerCocreador.lastName1;
+
     if (this.customerCreador.lastName2 != null && this.customerCreador.lastName2.length > 0) {
       apellidosCreador += ' ' + this.customerCreador.lastName2;
     }
+
     if (this.customerCocreador.lastName2 != null && this.customerCocreador.lastName2.length > 0) {
       apellidosCocreador += ' ' + this.customerCocreador.lastName2;
     }
+
     if (this.usarDatos == 'CREADOR') {
       usarDatosCreador = true;
     } else {
       usarDatosCreador = false;
     }
+
     if (this.usarDatos == 'COCREADOR') {
       usarDatosCocreador = true;
     } else {
       usarDatosCocreador = false;
     }
+
     if (this.tipoLista == 'PRIVADA') {
       tipoLista = true;
     } else {
@@ -379,7 +490,7 @@ export class CrearListaComponent implements OnInit {
         formatoFechaEvento: this.anoInicio + '-' + this.mesInicio + '-' + this.diaInicio,
         celebracion: this.celebracion,
         lugar: this.lugar,
-        cedulaCreador: this.customerCreador.fiscalID,
+        cedulaCreador: this.customerCreador.fiscalID.trim(),
         nombreCreador: this.customerCreador.firstName.toUpperCase(),
         apellidoCreador: apellidosCreador.toUpperCase(),
         telefonoCreador: this.customerCreador.addresses[0].cellphone,
@@ -393,7 +504,7 @@ export class CrearListaComponent implements OnInit {
         notificacionSemanalMailCreador: this.notificacionSemanalMailCreador,
         notificacionSemanalSmsCreador: this.notificacionSemanalSmsCreador,
         notificacionCambioCategoriaCreador: "",
-        cedulaCocreador: this.customerCocreador.fiscalID,
+        cedulaCocreador: this.customerCocreador.fiscalID.trim(),
         nombreCocreador: this.customerCocreador.firstName.toUpperCase(),
         apellidoCocreador: apellidosCocreador.toUpperCase(),
         telefonoCocreador: this.customerCocreador.addresses[0].cellphone,
@@ -427,10 +538,10 @@ export class CrearListaComponent implements OnInit {
         productos: [],
         fechaEventoUTC: ""
       }
+
       this._listaRegalosService.crearLista(listGiftDTO).subscribe(
         response => {
           if (response.codigo === 0) {
-            //this.buscarLista(response.mensaje);
             localStorage.setItem('codigo-lista', response.mensaje);
             localStorage.setItem('id-lista', response.idLista);
 
@@ -438,8 +549,12 @@ export class CrearListaComponent implements OnInit {
             if (!this.existeCreador) {
               this.crearClienteCreador();
             }
-            if (!this.existeCocreador) {
-              this.crearClienteCocreador();
+            if (!this.existeCocreador && this.customerCocreador.fiscalID.trim().length > 0) {
+              if (this.customerCocreador.addresses[0].cityCode == null || this.customerCocreador.addresses[0].cityCode <= 0) {
+                this.validForm3 = false;
+              } else {
+                this.crearClienteCocreador();
+              }
             }
             this._router.navigate(['/mi-lista']);
           } else {
@@ -464,26 +579,29 @@ export class CrearListaComponent implements OnInit {
     if (this.customerCreador.lastName2 != null && this.customerCreador.lastName2.length > 0) {
       apellidos += ' ' + this.customerCreador.lastName2;
     }
+
     if (this.customerCreador.fiscalIdType === '22') {
       nacionalidad = 'FOREIGN';
     } else {
       nacionalidad = 'NATIONAL';
     }
+
     if (this.checkedCreadorF) {
       sexo = 'FEMENINO';
     } else {
       sexo = 'MASCULINO';
     }
+
     let businesspartner = {
       birthDate: '1900-01-01',
-      cardCode: this.customerCreador.fiscalID + 'CL',
+      cardCode: this.customerCreador.fiscalID.trim() + 'CL',
       cardName: this.customerCreador.firstName.toUpperCase() + ' ' + apellidos.toUpperCase(),
       defaultBillingAddress: 'FACTURACIÓN',
       defaultShippingAddress: 'FACTURACIÓN',
       firstName: this.customerCreador.firstName.toUpperCase(),
       lastName1: this.customerCreador.lastName1.toUpperCase(),
       lastName2: this.customerCreador.lastName2.toUpperCase(),
-      fiscalID: this.customerCreador.fiscalID,
+      fiscalID: this.customerCreador.fiscalID.trim(),
       selfRetainer: 'N',
       salesPersonCode: '98',
       cardType: 'CUSTOMER',
@@ -542,29 +660,33 @@ export class CrearListaComponent implements OnInit {
     let apellidos = '';
     let nacionalidad = '';
     apellidos += this.customerCocreador.lastName1;
+
     if (this.customerCocreador.lastName2 != null && this.customerCocreador.lastName2.length > 0) {
       apellidos += ' ' + this.customerCocreador.lastName2;
     }
+
     if (this.customerCocreador.fiscalIdType === '22') {
       nacionalidad = 'FOREIGN';
     } else {
       nacionalidad = 'NATIONAL';
     }
+
     if (this.checkedCocreadorF) {
       sexo = 'FEMENINO';
     } else {
       sexo = 'MASCULINO';
     }
+
     let businesspartner = {
       birthDate: '1900-01-01',
-      cardCode: this.customerCocreador.fiscalID + 'CL',
+      cardCode: this.customerCocreador.fiscalID.trim() + 'CL',
       cardName: this.customerCocreador.firstName.toUpperCase() + ' ' + apellidos.toUpperCase(),
       defaultBillingAddress: 'FACTURACIÓN',
       defaultShippingAddress: 'FACTURACIÓN',
       firstName: this.customerCocreador.firstName.toUpperCase(),
       lastName1: this.customerCocreador.lastName1.toUpperCase(),
       lastName2: this.customerCocreador.lastName2.toUpperCase(),
-      fiscalID: this.customerCocreador.fiscalID,
+      fiscalID: this.customerCocreador.fiscalID.trim(),
       selfRetainer: 'N',
       salesPersonCode: '98',
       cardType: 'CUSTOMER',
@@ -620,16 +742,21 @@ export class CrearListaComponent implements OnInit {
 
   public obtenerSiguientePaso() {
     switch (this.paso) {
-      case 1:
-        this.llenarDatosNovios();
+      case 1://sobre ustedes
+        if (this.tipoEvento == 1 || this.tipoEvento == 2 || this.tipoEvento == 3) {
+          this.llenarDatosIniciales();
+        }
+        if (this.tipoEvento == 4) {
+          this.llenarDatosNovios();
+        }
         break;
-      case 2:
+      case 2://sobre la celebracion
         this.llenarDatosEvento();
         break;
-      case 3:
+      case 3://datos contacto
         this.validarDireccionEvento();
         break;
-      case 4:
+      case 4://sobre el contracto
         this.crearLista();
         break;
     }

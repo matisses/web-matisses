@@ -17,15 +17,15 @@
       <img src="../../../../assets/images/04.jpg" class="jpg-responsive" alt="">
       <p>Lista de novios</p>
     </div>
-    <div class="col-sm-3 col-xs-6 text-center cursor-pointer novios disabled-event" (click)="seleccionarEvento(0)">
+    <div class="col-sm-3 col-xs-6 text-center cursor-pointer novios" (click)="seleccionarEvento(1)">
       <img src="../../../../assets/images/01.jpg" class="jpg-responsive" alt="">
       <p>Aniversario</p>
     </div>
-    <div class="col-sm-3 col-xs-6 text-center cursor-pointer novios disabled-event" (click)="seleccionarEvento(0)">
+    <div class="col-sm-3 col-xs-6 text-center cursor-pointer novios" (click)="seleccionarEvento(2)">
       <img src="../../../../assets/images/03.jpg" class="jpg-responsive" alt="">
       <p>Homeshower</p>
     </div>
-    <div class="col-sm-3 col-xs-6 text-center cursor-pointer novios disabled-event" (click)="seleccionarEvento(0)">
+    <div class="col-sm-3 col-xs-6 text-center cursor-pointer novios" (click)="seleccionarEvento(3)">
       <img src="../../../../assets/images/02.jpg" class="jpg-responsive" alt="">
       <p>Cumpleaños</p>
     </div>
@@ -54,7 +54,7 @@
   </div>
   <!-- iconos pasos formulario otros eventos -->
   <div class="row">
-    <div class="pasos text-center" *ngIf="tipoEvento === 1">
+    <div class="pasos text-center" *ngIf="tipoEvento === 1 || tipoEvento === 2 || tipoEvento === 3">
       <hr>
       <div class="col-md-2 col-md-offset-2 col-xs-3">
         <span class="icon-invitado-01 cursor-pointer" (click)="irPaso(1)" [ngClass]="{'seleccionado-green' : paso === 1}"></span>
@@ -94,7 +94,7 @@
     </div>
   </div>
   <!-- formulario otros eventos -->
-  <div class="row" *ngIf="tipoEvento === 1">
+  <div class="row" *ngIf="tipoEvento === 1 || tipoEvento === 2 || tipoEvento === 3">
     <div class="col-xs-12">
       <!-- paso #1 -->
       <div class="row">
@@ -106,36 +106,44 @@
                 <h1 class="text-center title-form">Creador</h1>
                 <br/>
                 <label class="label-lista" for="tipo-D">Tipo de documento*</label>
-                <select id="tipo-D" name="typeDocCreador" [disabled]="disabledCreador" class="form-control" [class.ng-reflect-model]="!31" [class.required-field]="!validCreador" [(ngModel)]="customerCreador.fiscalIdType" required>
-                    <option style="display:none" disabled selected value>Seleccione uno</option>
-                    <option [selected]="customerCreador.fiscalIdType == 13" value="13">Cedula</option>
-                    <option [selected]="customerCreador.fiscalIdType == 22" value="22">Cedula extranjería</option>
-                    <option [selected]="customerCreador.fiscalIdType == 41" value="41">Pasaporte</option>
-                  </select>
+                <select id="tipo-D" name="typeDocCreador" [disabled]="disabledCreador" class="form-control" [class.ng-reflect-model]="!31"
+                  [class.required-field]="!validCreador" [(ngModel)]="customerCreador.fiscalIdType" required>
+                  <option style="display:none" disabled selected value>Seleccione uno</option>
+                  <option [selected]="customerCreador.fiscalIdType == 13" value="13">Cedula</option>
+                  <option [selected]="customerCreador.fiscalIdType == 22" value="22">Cedula extranjería</option>
+                  <option [selected]="customerCreador.fiscalIdType == 41" value="41">Pasaporte</option>
+                </select>
                 <label class="label-lista" for="documento">Documento*</label>
-                <input id="documento" type="text" class="form-control" maxlength="30" [class.required-field]="!validCreador" name="fiscalIDCreador" [(ngModel)]="customerCreador.fiscalID" (change)="buscarCreador()" required>
+                <input id="documento" type="text" class="form-control" maxlength="30" [class.required-field]="!validCreador" name="fiscalIDCreador"
+                  [(ngModel)]="customerCreador.fiscalID" (change)="buscarCreador()" required>
                 <label class="label-lista" for="nombre">Nombre*</label>
-                <input id="nombre" type="text" [disabled]="disabledCreador" class="form-control" maxlength="30" [class.required-field]="!validCreador" name="nameCreador" [(ngModel)]="customerCreador.firstName" required>
+                <input id="nombre" type="text" [disabled]="disabledCreador" class="form-control" maxlength="30" [class.required-field]="!validCreador"
+                  name="nameCreador" [(ngModel)]="customerCreador.firstName" required>
                 <label class="label-lista" for="last1">Primer apellido*</label>
-                <input id="last1" type="text" [disabled]="disabledCreador" class="form-control" maxlength="30" [class.required-field]="!validCreador" name="lastname1Creador" [(ngModel)]="customerCreador.lastName1" required>
+                <input id="last1" type="text" [disabled]="disabledCreador" class="form-control" maxlength="30" [class.required-field]="!validCreador"
+                  name="lastname1Creador" [(ngModel)]="customerCreador.lastName1" required>
                 <label class="label-lista" for="last2">Segundo apellido</label>
                 <input id="last2" type="text" [disabled]="disabledCreador" class="form-control" maxlength="30" name="lastname2Creador" [(ngModel)]="customerCreador.lastName2">
                 <label class="label-lista" for="email">Email*</label>
-                <input id="email" type="email" [disabled]="disabledCreador" class="form-control" maxlength="30" [class.required-field]="!validCreador" name="emailCreador" [email]="true" [(ngModel)]="customerCreador.addresses[0].email" required>
+                <input id="email" type="email" [disabled]="disabledCreador" class="form-control" maxlength="30" [class.required-field]="!validCreador"
+                  name="emailCreador" [email]="true" [(ngModel)]="customerCreador.addresses[0].email" required>
                 <br/>
                 <!-- Notificación # 1 -->
                 <div class="row">
                   <div class="col-xs-12">
-                    <p>Notificarme de forma <b>inmediata</b> cada vez que alguien realiza una compra por medio de:</p>
+                    <p>Notificarme de forma
+                      <b>inmediata</b> cada vez que alguien realiza una compra por medio de:</p>
                     <div class="row">
                       <div class="col-xs-5 col-xs-offset-1 text-center">
                         <label class="radio-inline">
-                          <input type="checkbox" name="notificacionInmediataMailCreador" [(ngModel)]="notificacionInmediataMailCreador"><b class="notificaciones">Vía Mail</b>
+                          <input type="checkbox" name="notificacionInmediataMailCreador" [(ngModel)]="notificacionInmediataMailCreador">
+                          <b class="notificaciones">Vía Mail</b>
                         </label>
                       </div>
                       <div class="col-xs-5 text-center">
                         <label class="radio-inline">
-                          <input type="checkbox" name="notificacionInmediataSmsCreador" [(ngModel)]="notificacionInmediataSmsCreador"><b class="notificaciones">Vía SMS</b>
+                          <input type="checkbox" name="notificacionInmediataSmsCreador" [(ngModel)]="notificacionInmediataSmsCreador">
+                          <b class="notificaciones">Vía SMS</b>
                         </label>
                       </div>
                     </div>
@@ -145,16 +153,19 @@
                 <!-- Notificación # 2 -->
                 <div class="row">
                   <div class="col-xs-12">
-                    <p>Notificarme <b>diariamente</b> las compras hechas en mi lista por medio de:</p>
+                    <p>Notificarme
+                      <b>diariamente</b> las compras hechas en mi lista por medio de:</p>
                     <div class="row">
                       <div class="col-xs-5 col-xs-offset-1 text-center">
                         <label class="radio-inline">
-                          <input type="checkbox" name="notificacionDiariaMailCreador" [(ngModel)]="notificacionDiariaMailCreador"><b class="notificaciones">Vía Mail</b>
+                          <input type="checkbox" name="notificacionDiariaMailCreador" [(ngModel)]="notificacionDiariaMailCreador">
+                          <b class="notificaciones">Vía Mail</b>
                         </label>
                       </div>
                       <div class="col-xs-5 text-center">
                         <label class="radio-inline">
-                          <input type="checkbox" name="notificacionDiariaSmsCreador" [(ngModel)]="notificacionDiariaSmsCreador"><b class="notificaciones">Vía SMS</b>
+                          <input type="checkbox" name="notificacionDiariaSmsCreador" [(ngModel)]="notificacionDiariaSmsCreador">
+                          <b class="notificaciones">Vía SMS</b>
                         </label>
                       </div>
                     </div>
@@ -164,16 +175,19 @@
                 <!-- Notificación # 3 -->
                 <div class="row">
                   <div class="col-xs-12">
-                    <p>Notificarme <b>semanalmente</b> las compras hechas en mi lista por medio de:</p>
+                    <p>Notificarme
+                      <b>semanalmente</b> las compras hechas en mi lista por medio de:</p>
                     <div class="row">
                       <div class="col-xs-5 col-xs-offset-1 text-center">
                         <label class="radio-inline">
-                          <input type="checkbox" name="notificacionSemanalMailCreador" [(ngModel)]="notificacionSemanalMailCreador"><b class="notificaciones">Vía Mail</b>
+                          <input type="checkbox" name="notificacionSemanalMailCreador" [(ngModel)]="notificacionSemanalMailCreador">
+                          <b class="notificaciones">Vía Mail</b>
                         </label>
                       </div>
                       <div class="col-xs-5 text-center">
                         <label class="radio-inline">
-                          <input type="checkbox" name="notificacionSemanalSmsCreador" [(ngModel)]="notificacionSemanalSmsCreador"><b class="notificaciones">Vía SMS</b>
+                          <input type="checkbox" name="notificacionSemanalSmsCreador" [(ngModel)]="notificacionSemanalSmsCreador">
+                          <b class="notificaciones">Vía SMS</b>
                         </label>
                       </div>
                     </div>
@@ -181,86 +195,103 @@
                 </div>
                 <hr/>
               </div>
-              <!-- datos del 2do creador -->
-              <div class="col-sm-5 col-sm-offset-2">
-                <h1 class="text-center title-form">Co-creador</h1>
-                <br/>
-                <label class="label-lista" for="tipo-D">Tipo de documento</label>
-                <select id="tipo-D-2" name="typeDocCocreador" [disabled]="disabledCocreador" class="form-control" [class.ng-reflect-model]="!31" [class.required-field]="!validCocreador" [(ngModel)]="customerCocreador.fiscalIdType" required>
+              <!-- datos del 2do creador Evento aniversario-->
+              <form id="form_cocreador">
+                <div class="col-sm-5 col-sm-offset-2">
+                  <h1 class="text-center title-form">Co-creador</h1>
+                  <br/>
+                  <label class="label-lista" for="tipo-D">Tipo de documento</label>
+                  <select id="tipo-D-2" name="typeDocCocreador" [disabled]="disabledCocreador" class="form-control" [class.ng-reflect-model]="!31"
+                    [class.required-field]="!validCocreador" [(ngModel)]="customerCocreador.fiscalIdType" [required]="!validCocreador">
                     <option style="display:none" disabled selected value>Seleccione uno</option>
                     <option [selected]="customerCocreador.fiscalIdType == 13" value="13">Cedula</option>
                     <option [selected]="customerCocreador.fiscalIdType == 22" value="22">Cedula extranjería</option>
                     <option [selected]="customerCocreador.fiscalIdType == 41" value="41">Pasaporte</option>
                   </select>
-                <label class="label-lista" for="documento">Documento</label>
-                <input id="documento-2" type="text" class="form-control" maxlength="30" [class.required-field]="!validCocreador" name="fiscalIDCocreador" [(ngModel)]="customerCocreador.fiscalID" (change)="buscarCocreador()" required>
-                <label class="label-lista" for="nombre">Nombre</label>
-                <input id="nombre-2" type="text" [disabled]="disabledCocreador" class="form-control" maxlength="30" [class.required-field]="!validCocreador" name="nameCocreador" [(ngModel)]="customerCocreador.firstName" required>
-                <label class="label-lista" for="last1">Primer apellido</label>
-                <input id="last1-2" type="text" [disabled]="disabledCocreador" class="form-control" maxlength="30" [class.required-field]="!validCocreador" name="lastname1Cocreador" [(ngModel)]="customerCocreador.lastName1" required>
-                <label class="label-lista" for="last2">Segundo apellido</label>
-                <input id="last2-2" type="text" [disabled]="disabledCocreador" class="form-control" maxlength="30" name="lastname2Cocreador" [(ngModel)]="customerCocreador.lastName2">
-                <label class="label-lista" for="email">Email</label>
-                <input id="email-2" type="email" [disabled]="disabledCocreador" class="form-control" maxlength="30" name="emailCocreador" [email]="true" [(ngModel)]="customerCocreador.addresses[0].email">
-                <br/>
-                <!-- Notificación # 1 -->
-                <div class="row">
-                  <div class="col-xs-12">
-                    <p>Notificarme de forma <b>inmediata</b> cada vez que alguien realiza una compra por medio de:</p>
-                    <div class="row">
-                      <div class="col-xs-5 col-xs-offset-1 text-center">
-                        <label class="radio-inline">
-                          <input type="checkbox" name="notificacionInmediataMailCocreador" [(ngModel)]="notificacionInmediataMailCocreador"><b class="notificaciones">Vía Mail</b>
-                        </label>
-                      </div>
-                      <div class="col-xs-5 text-center">
-                        <label class="radio-inline">
-                          <input type="checkbox" name="notificacionInmediataSmsCocreador" [(ngModel)]="notificacionInmediataSmsCocreador"><b class="notificaciones">Vía SMS</b>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <hr/>
-                <!-- Notificación # 2 -->
-                <div class="row">
-                  <div class="col-xs-12">
-                    <p>Notificarme <b>diariamente</b> las compras hechas en mi lista por medio de:</p>
-                    <div class="row">
-                      <div class="col-xs-5 col-xs-offset-1 text-center">
-                        <label class="radio-inline">
-                          <input type="checkbox" name="notificacionDiariaMailCocreador" [(ngModel)]="notificacionDiariaMailCocreador"><b class="notificaciones">Vía Mail</b>
-                        </label>
-                      </div>
-                      <div class="col-xs-5 text-center">
-                        <label class="radio-inline">
-                          <input type="checkbox" name="notificacionDiariaSmsCocreador" [(ngModel)]="notificacionDiariaSmsCocreador"><b class="notificaciones">Vía SMS</b>
-                        </label>
+                  <label class="label-lista" for="documento">Documento</label>
+                  <input id="documento-2" type="text" class="form-control" maxlength="30" [class.required-field]="!validCocreador" name="fiscalIDCocreador"
+                    [(ngModel)]="customerCocreador.fiscalID" (change)="buscarCocreador()" [required]="!validCocreador">
+                  <label class="label-lista" for="nombre">Nombre</label>
+                  <input id="nombre-2" type="text" [disabled]="disabledCocreador" class="form-control" maxlength="30" [class.required-field]="!validCocreador"
+                    name="nameCocreador" [(ngModel)]="customerCocreador.firstName" [required]="!validCocreador">
+                  <label class="label-lista" for="last1">Primer apellido</label>
+                  <input id="last1-2" type="text" [disabled]="disabledCocreador" class="form-control" maxlength="30" [class.required-field]="!validCocreador"
+                    name="lastname1Cocreador" [(ngModel)]="customerCocreador.lastName1" [required]="!validCocreador">
+                  <label class="label-lista" for="last2">Segundo apellido</label>
+                  <input id="last2-2" type="text" [disabled]="disabledCocreador" class="form-control" maxlength="30" name="lastname2Cocreador"
+                    [(ngModel)]="customerCocreador.lastName2">
+                  <label class="label-lista" for="email">Email</label>
+                  <input id="email-2" type="email" [disabled]="disabledCocreador" class="form-control" maxlength="30" [class.required-field]="!validCocreador"
+                    name="emailCocreador" [email]="true" [(ngModel)]="customerCocreador.addresses[0].email" [required]="!validCocreador">
+                  <br/>
+                  <!-- Notificación # 1 -->
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <p>Notificarme de forma
+                        <b>inmediata</b> cada vez que alguien realiza una compra por medio de:</p>
+                      <div class="row">
+                        <div class="col-xs-5 col-xs-offset-1 text-center">
+                          <label class="radio-inline">
+                            <input type="checkbox" name="notificacionInmediataMailCocreador" [(ngModel)]="notificacionInmediataMailCocreador">
+                            <b class="notificaciones">Vía Mail</b>
+                          </label>
+                        </div>
+                        <div class="col-xs-5 text-center">
+                          <label class="radio-inline">
+                            <input type="checkbox" name="notificacionInmediataSmsCocreador" [(ngModel)]="notificacionInmediataSmsCocreador">
+                            <b class="notificaciones">Vía SMS</b>
+                          </label>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <hr/>
-                <!-- Notificación # 3 -->
-                <div class="row">
-                  <div class="col-xs-12">
-                    <p>Notificarme <b>semanalmente</b> las compras hechas en mi lista por medio de:</p>
-                    <div class="row">
-                      <div class="col-xs-5 col-xs-offset-1 text-center">
-                        <label class="radio-inline">
-                          <input type="checkbox" name="notificacionSemanalMailCocreador" [(ngModel)]="notificacionSemanalMailCocreador"><b class="notificaciones">Vía Mail</b>
-                        </label>
-                      </div>
-                      <div class="col-xs-5 text-center">
-                        <label class="radio-inline">
-                          <input type="checkbox" name="notificacionSemanalSmsCocreador" [(ngModel)]="notificacionSemanalSmsCocreador"><b class="notificaciones">Vía SMS</b>
-                        </label>
+                  <hr/>
+                  <!-- Notificación # 2 -->
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <p>Notificarme
+                        <b>diariamente</b> las compras hechas en mi lista por medio de:</p>
+                      <div class="row">
+                        <div class="col-xs-5 col-xs-offset-1 text-center">
+                          <label class="radio-inline">
+                            <input type="checkbox" name="notificacionDiariaMailCocreador" [(ngModel)]="notificacionDiariaMailCocreador">
+                            <b class="notificaciones">Vía Mail</b>
+                          </label>
+                        </div>
+                        <div class="col-xs-5 text-center">
+                          <label class="radio-inline">
+                            <input type="checkbox" name="notificacionDiariaSmsCocreador" [(ngModel)]="notificacionDiariaSmsCocreador">
+                            <b class="notificaciones">Vía SMS</b>
+                          </label>
+                        </div>
                       </div>
                     </div>
                   </div>
+                  <hr/>
+                  <!-- Notificación # 3 -->
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <p>Notificarme
+                        <b>semanalmente</b> las compras hechas en mi lista por medio de:</p>
+                      <div class="row">
+                        <div class="col-xs-5 col-xs-offset-1 text-center">
+                          <label class="radio-inline">
+                            <input type="checkbox" name="notificacionSemanalMailCocreador" [(ngModel)]="notificacionSemanalMailCocreador">
+                            <b class="notificaciones">Vía Mail</b>
+                          </label>
+                        </div>
+                        <div class="col-xs-5 text-center">
+                          <label class="radio-inline">
+                            <input type="checkbox" name="notificacionSemanalSmsCocreador" [(ngModel)]="notificacionSemanalSmsCocreador">
+                            <b class="notificaciones">Vía SMS</b>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr/>
                 </div>
-                <hr/>
-              </div>
+              </form>
             </div>
           </form>
         </div>
@@ -275,30 +306,33 @@
                   <p class="label-lista">Fecha del evento*</p>
                   <div class="row">
                     <div class="col-sm-4">
-                      <select id="yearEvent" name="anoEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2" [(ngModel)]="anoInicio" (change)="cargarDias(mesInicio,anoInicio)" required>
-                      <option style="display:none" disabled selected value>Año</option>
-                      <option *ngFor="let year of yearEvent" [ngValue]="year">{{year}}</option>
-                    </select>
+                      <select id="yearEvent" name="anoEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2"
+                        [(ngModel)]="anoInicio" (change)="cargarDias(mesInicio,anoInicio)" required>
+                        <option style="display:none" disabled selected value>Año</option>
+                        <option *ngFor="let year of yearEvent" [ngValue]="year">{{year}}</option>
+                      </select>
                     </div>
                     <div class="col-sm-4">
-                      <select id="monthEvent" name="mesEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2" [(ngModel)]="mesInicio" (change)="cargarDias(mesInicio,anoInicio)" required>
-                      <option style="display:none" disabled selected value>Mes</option>
-                      <option value="01">Enero</option>
-                      <option value="02">Febrero</option>
-                      <option value="03">Marzo</option>
-                      <option value="04">Abril</option>
-                      <option value="05">Mayo</option>
-                      <option value="06">Junio</option>
-                      <option value="07">Julio</option>
-                      <option value="08">Agosto</option>
-                      <option value="09">Septiembre</option>
-                      <option value="10">Octubre</option>
-                      <option value="11">Noviembre</option>
-                      <option value="12">Diciembre</option>
-                    </select>
+                      <select id="monthEvent" name="mesEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2"
+                        [(ngModel)]="mesInicio" (change)="cargarDias(mesInicio,anoInicio)" required>
+                        <option style="display:none" disabled selected value>Mes</option>
+                        <option value="01">Enero</option>
+                        <option value="02">Febrero</option>
+                        <option value="03">Marzo</option>
+                        <option value="04">Abril</option>
+                        <option value="05">Mayo</option>
+                        <option value="06">Junio</option>
+                        <option value="07">Julio</option>
+                        <option value="08">Agosto</option>
+                        <option value="09">Septiembre</option>
+                        <option value="10">Octubre</option>
+                        <option value="11">Noviembre</option>
+                        <option value="12">Diciembre</option>
+                      </select>
                     </div>
                     <div class="col-sm-4">
-                      <select id="dayEvent" name="diaEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2" [(ngModel)]="diaInicio" required>
+                      <select id="dayEvent" name="diaEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2"
+                        [(ngModel)]="diaInicio" required>
                         <option style="display:none" disabled selected value>Día</option>
                         <option *ngFor="let day of dayEvent" [ngValue]="day">{{day}}</option>
                       </select>
@@ -307,36 +341,17 @@
                   <br class="hidden-xs">
                   <div class="row">
                     <div class="col-sm-4">
-                      <label class="label-lista" for="t-celebracion">Tipo de evento*</label>
-                      <select id="celebracion" name="celebracion" class="form-control height-40" [(ngModel)]="celebracion">
-                        <option style="display:none" disabled selected value>Seleccione uno</option>
-                        <option value="RELIGIOSO">Aniversario</option>
-                        <option value="CIVIL">Home Shower</option>
-                        <option value="OTRO">Cumpleaños</option>
-                      </select>
-                    </div>
-                    <div class="col-sm-4">
-                      <label class="label-lista" for="lugar">Lugar</label>
-                      <select id="lugar" name="lugarEvento" class="form-control height-40" [(ngModel)]="lugar">
-                        <option style="display:none" disabled selected value>Seleccione uno</option>
-                        <option value="CASA">Casa</option>
-                        <option value="CENTRO_EVENTOS">Centro de Eventos</option>
-                        <option value="HOTEL">Hotel</option>
-                        <option value="OTRO">Otro</option>
-                      </select>
-                    </div>
-                    <div class="col-sm-4">
                       <label class="label-lista" for="n-invitados">N° de invitados</label>
                       <input id="n-invitados" type="number" name="nInvitados" class="form-control height-40" min="0" [(ngModel)]="invitados">
                     </div>
-                  </div>
-                  <br>
-                  <div class="row">
                     <div class="col-sm-4">
-                      <input type="checkbox" name="gift-cards" [(ngModel)]="aceptaBonos"><b class="notificaciones">¿Aceptas Gift-Cards?</b>
+                      <input type="checkbox" name="gift-cards" [(ngModel)]="aceptaBonos">
+                      <b class="notificaciones">¿Aceptas Gift-Cards?</b>
                     </div>
                     <div class="col-sm-4">
-                      <input id="montoBono" type="number" [disabled]="!aceptaBonos" class="form-control" maxlength="30" [class.required-field]="!validMonto" name="montoBono" [(ngModel)]="montoBono" placeholder="$10.000" required>
+                      <label class="label-lista"></label>
+                      <input id="montoBono" type="number" [disabled]="!aceptaBonos" class="form-control height-40" maxlength="30" [class.required-field]="!validMonto"
+                        name="montoBono" [(ngModel)]="montoBono" placeholder="$10.000" required>
                     </div>
                   </div>
                   <br>
@@ -364,41 +379,52 @@
                 <h1 class="text-center title-form">Creador</h1>
                 <br/>
                 <label class="label-lista" for="ciudad-1">Ciudad</label>
-                <select id="cityCreador" name="cityCreador" [disabled]="disabledForm3" class="form-control" [class.required-field]="!validForm3" [(ngModel)]="customerCreador.addresses[0].cityCode" (change)="cambiarCiudad()" *ngIf="ciudadesPrincipales" required>
+                <select id="cityCreador" name="cityCreador" [disabled]="disabledForm3" class="form-control" [class.required-field]="!validForm3"
+                  [(ngModel)]="customerCreador.addresses[0].cityCode" (change)="cambiarCiudad()" *ngIf="ciudadesPrincipales"
+                  required>
                   <option style="display:none" disabled selected value>Seleccione una</option>
                   <option disabled>─ Ciudades capitales</option>
-                  <option [selected]="customerCreador.addresses[0].cityCode == principal.code" *ngFor="let principal of ciudadesPrincipales" [ngValue]="principal.code">{{principal.name}}</option>
+                  <option [selected]="customerCreador.addresses[0].cityCode == principal.code" *ngFor="let principal of ciudadesPrincipales"
+                    [ngValue]="principal.code">{{principal.name}}</option>
                   <option disabled>─ Otras ciudades</option>
                   <option [selected]="customerCocreador.addresses[0].cityCode == otra.code" *ngFor="let otra of otrasCiudades" [ngValue]="otra.code">{{otra.name}}</option>
                 </select>
                 <label class="label-lista" for="address1">Dirección</label>
-                <input id="addressCreador" type="text" [disabled]="disabledForm3" class="form-control" maxlength="30" [class.required-field]="!validForm3" name="addressCreador" [(ngModel)]="customerCreador.addresses[0].address" required>
+                <input id="addressCreador" type="text" [disabled]="disabledForm3" class="form-control" maxlength="30" [class.required-field]="!validForm3"
+                  name="addressCreador" [(ngModel)]="customerCreador.addresses[0].address" required>
                 <label class="label-lista" for="cel">Teléfono móvil</label>
-                <input id="celCreador" type="text" [disabled]="disabledForm3" class="form-control" maxlength="30" [class.required-field]="!validForm3" name="phoneCreador" [(ngModel)]="customerCreador.addresses[0].cellphone" required>
+                <input id="celCreador" type="text" [disabled]="disabledForm3" class="form-control" maxlength="30" [class.required-field]="!validForm3"
+                  name="phoneCreador" [(ngModel)]="customerCreador.addresses[0].cellphone" required>
               </div>
               <!-- datos del Cocreador -->
               <div class="col-sm-5 col-sm-offset-2">
                 <h1 class="text-center title-form">Co-creador</h1>
                 <br/>
-                <label class="label-lista" for="ciudad-2">Ciudad*</label>
-                <select id="cityCocreador" name="cityCocreador" [disabled]="disabledForm3" class="form-control" [class.required-field]="!validForm3" [(ngModel)]="customerCocreador.addresses[0].cityCode" (change)="cambiarCiudad()" *ngIf="ciudadesPrincipales" required>
+                <label class="label-lista" for="ciudad-2">Ciudad</label>
+                <select id="cityCocreador" name="cityCocreador" [disabled]="disabledForm3" class="form-control" [class.required-field]="!validForm3"
+                  [(ngModel)]="customerCocreador.addresses[0].cityCode" (change)="cambiarCiudad()" *ngIf="ciudadesPrincipales"
+                  [required]="!validForm3">
                   <option style="display:none" disabled selected value>Seleccione una</option>
                   <option disabled>─ Ciudades capitales</option>
-                  <option [selected]="customerCocreador.addresses[0].cityCode == principal.code" *ngFor="let principal of ciudadesPrincipales" [ngValue]="principal.code">{{principal.name}}</option>
+                  <option [selected]="customerCocreador.addresses[0].cityCode == principal.code" *ngFor="let principal of ciudadesPrincipales"
+                    [ngValue]="principal.code">{{principal.name}}</option>
                   <option disabled>─ Otras ciudades</option>
                   <option [selected]="customerCocreador.addresses[0].cityCode == otra.code" *ngFor="let otra of otrasCiudades" [ngValue]="otra.code">{{otra.name}}</option>
                 </select>
-                <label class="label-lista" for="address2">Dirección*</label>
-                <input id="addressCocreador" type="text" [disabled]="disabledForm3" class="form-control" maxlength="30" [class.required-field]="!validForm3" name="addressCocreador" [(ngModel)]="customerCocreador.addresses[0].address" required>
-                <label class="label-lista" for="cel">Teléfono móvil*</label>
-                <input id="celCocreador" type="text" [disabled]="disabledForm3" class="form-control" maxlength="30" [class.required-field]="!validForm3" name="phoneCocreador" [(ngModel)]="customerCocreador.addresses[0].cellphone" required>
+                <label class="label-lista" for="address2">Dirección</label>
+                <input id="addressCocreador" type="text" [disabled]="disabledForm3" class="form-control" maxlength="30" [class.required-field]="!validForm3"
+                  name="addressCocreador" [(ngModel)]="customerCocreador.addresses[0].address" [required]="!validForm3">
+                <label class="label-lista" for="cel">Teléfono móvil</label>
+                <input id="celCocreador" type="text" [disabled]="disabledForm3" class="form-control" maxlength="30" [class.required-field]="!validForm3"
+                  name="phoneCocreador" [(ngModel)]="customerCocreador.addresses[0].cellphone" [required]="!validForm3">
               </div>
             </div>
             <br>
             <!-- contacto de la tienda -->
             <div class="row" *ngIf="paso === 3">
               <div class="col-xs-10 col-xs-offset-1 text-center">
-                <p><b>Usar datos de envío de:</b>
+                <p>
+                  <b>Usar datos de envío de:</b>
                   <label class="radio-inline">
                     <input type="radio" name="usarDatosCreador" value="CREADOR" [(ngModel)]="usarDatos">Creador
                   </label>
@@ -410,7 +436,9 @@
             </div>
             <div class="row" *ngIf="paso === 3">
               <div class="col-sm-4 col-sm-offset-4 text-center">
-                <p><b>TIENDA DE CONTACTO</b></p>
+                <p>
+                  <b>TIENDA DE CONTACTO</b>
+                </p>
                 <select id="tienda" name="typeDoc" class="form-control" [(ngModel)]="tiendaContacto">
                   <option style="display:none" disabled selected value>Seleccione una</option>
                   <option value="0203">Medellín (Las Vegas)</option>
@@ -434,7 +462,8 @@
               <br/>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" name="permitirEntregaPersonal" [(ngModel)]="permitirEntregaPersonal">Permito que los invitados que compren los regalos en la tienda física me los entreguen personalmente y no con la entrega de regalos que programara con Matisses.
+                  <input type="checkbox" name="permitirEntregaPersonal" [(ngModel)]="permitirEntregaPersonal">Permito que los invitados que compren los regalos en la tienda física me los entreguen personalmente y
+                  no con la entrega de regalos que programara con Matisses.
                 </label>
               </div>
             </div>
@@ -445,13 +474,18 @@
             <div class="col-xs-10 col-xs-offset-1">
               <div class="radio">
                 <label>
-                  <input type="radio" name="tipoLista" value="PUBLICA" [(ngModel)]="tipoLista"> <b>Pública</b><br>Tu lista quedará publica, así podra ser encontrada por el nombre del creador, co-creador, y/o código.
+                  <input type="radio" name="tipoLista" value="PUBLICA" [(ngModel)]="tipoLista">
+                  <b>Pública</b>
+                  <br>Tu lista quedará publica, así podra ser encontrada por el nombre del creador, co-creador, y/o código.
                 </label>
               </div>
               <br/>
               <div class="radio">
                 <label>
-                  <input type="radio" name="tipoLista" value="PRIVADA" [(ngModel)]="tipoLista"><b>Privada</b><br>Al hacer tu lista privada solamente podrán acceder a ella mediante el código o el link directo, recuerda compartir esta información con tus invitados.
+                  <input type="radio" name="tipoLista" value="PRIVADA" [(ngModel)]="tipoLista">
+                  <b>Privada</b>
+                  <br>Al hacer tu lista privada solamente podrán acceder a ella mediante el código o el link directo, recuerda
+                  compartir esta información con tus invitados.
                 </label>
               </div>
             </div>
@@ -475,44 +509,52 @@
                 <br/>
                 <div class="text-center">
                   <label class="radio-inline">
-                      <input type="radio" [disabled]="disabledCreador" name="generoCreador" [checked]="checkedCreadorF">Mujer
-                    </label>
+                    <input type="radio" [disabled]="disabledCreador" name="generoCreador" [checked]="checkedCreadorF">Mujer
+                  </label>
                   <label class="radio-inline">
-                      <input type="radio" [disabled]="disabledCreador" name="generoCreador" [checked]="checkedCreadorM">Hombre
-                    </label>
+                    <input type="radio" [disabled]="disabledCreador" name="generoCreador" [checked]="checkedCreadorM">Hombre
+                  </label>
                 </div>
                 <br/>
                 <label class="label-lista" for="tipo-D">Tipo de documento*</label>
-                <select id="tipo-D" name="typeDocCreador" [disabled]="disabledCreador" class="form-control" [class.ng-reflect-model]="!31" [class.required-field]="!validCreador" [(ngModel)]="customerCreador.fiscalIdType" required>
-                    <option style="display:none" disabled selected value>Seleccione uno</option>
-                    <option [selected]="customerCreador.fiscalIdType == 13" value="13">Cedula</option>
-                    <option [selected]="customerCreador.fiscalIdType == 22" value="22">Cedula extranjería</option>
-                    <option [selected]="customerCreador.fiscalIdType == 41" value="41">Pasaporte</option>
-                  </select>
+                <select id="tipo-D" name="typeDocCreador" [disabled]="disabledCreador" class="form-control" [class.ng-reflect-model]="!31"
+                  [class.required-field]="!validCreador" [(ngModel)]="customerCreador.fiscalIdType" required>
+                  <option style="display:none" disabled selected value>Seleccione uno</option>
+                  <option [selected]="customerCreador.fiscalIdType == 13" value="13">Cedula</option>
+                  <option [selected]="customerCreador.fiscalIdType == 22" value="22">Cedula extranjería</option>
+                  <option [selected]="customerCreador.fiscalIdType == 41" value="41">Pasaporte</option>
+                </select>
                 <label class="label-lista" for="documento">Documento*</label>
-                <input id="documento" type="text" class="form-control" maxlength="30" [class.required-field]="!validCreador" name="fiscalIDCreador" [(ngModel)]="customerCreador.fiscalID" (change)="buscarCreador()" required>
+                <input id="documento" type="text" class="form-control" maxlength="30" [class.required-field]="!validCreador" name="fiscalIDCreador"
+                  [(ngModel)]="customerCreador.fiscalID" (change)="buscarCreador()" required>
                 <label class="label-lista" for="nombre">Nombre*</label>
-                <input id="nombre" type="text" [disabled]="disabledCreador" class="form-control" maxlength="30" [class.required-field]="!validCreador" name="nameCreador" [(ngModel)]="customerCreador.firstName" required>
+                <input id="nombre" type="text" [disabled]="disabledCreador" class="form-control" maxlength="30" [class.required-field]="!validCreador"
+                  name="nameCreador" [(ngModel)]="customerCreador.firstName" required>
                 <label class="label-lista" for="last1">Primer apellido*</label>
-                <input id="last1" type="text" [disabled]="disabledCreador" class="form-control" maxlength="30" [class.required-field]="!validCreador" name="lastname1Creador" [(ngModel)]="customerCreador.lastName1" required>
+                <input id="last1" type="text" [disabled]="disabledCreador" class="form-control" maxlength="30" [class.required-field]="!validCreador"
+                  name="lastname1Creador" [(ngModel)]="customerCreador.lastName1" required>
                 <label class="label-lista" for="last2">Segundo apellido</label>
                 <input id="last2" type="text" [disabled]="disabledCreador" class="form-control" maxlength="30" name="lastname2Creador" [(ngModel)]="customerCreador.lastName2">
                 <label class="label-lista" for="email">Email*</label>
-                <input id="email" type="email" [disabled]="disabledCreador" class="form-control" maxlength="30" [class.required-field]="!validCreador" name="emailCreador" [email]="true" [(ngModel)]="customerCreador.addresses[0].email" required>
+                <input id="email" type="email" [disabled]="disabledCreador" class="form-control" maxlength="30" [class.required-field]="!validCreador"
+                  name="emailCreador" [email]="true" [(ngModel)]="customerCreador.addresses[0].email" required>
                 <br/>
                 <!-- Notificación # 1 -->
                 <div class="row">
                   <div class="col-xs-12">
-                    <p>Notificarme de forma <b>inmediata</b> cada vez que alguien realiza una compra por medio de:</p>
+                    <p>Notificarme de forma
+                      <b>inmediata</b> cada vez que alguien realiza una compra por medio de:</p>
                     <div class="row">
                       <div class="col-xs-5 col-xs-offset-1 text-center">
                         <label class="radio-inline">
-                          <input type="checkbox" name="notificacionInmediataMailCreador" [(ngModel)]="notificacionInmediataMailCreador"><b class="notificaciones">Vía Mail</b>
+                          <input type="checkbox" name="notificacionInmediataMailCreador" [(ngModel)]="notificacionInmediataMailCreador">
+                          <b class="notificaciones">Vía Mail</b>
                         </label>
                       </div>
                       <div class="col-xs-5 text-center">
                         <label class="radio-inline">
-                          <input type="checkbox" name="notificacionInmediataSmsCreador" [(ngModel)]="notificacionInmediataSmsCreador"><b class="notificaciones">Vía SMS</b>
+                          <input type="checkbox" name="notificacionInmediataSmsCreador" [(ngModel)]="notificacionInmediataSmsCreador">
+                          <b class="notificaciones">Vía SMS</b>
                         </label>
                       </div>
                     </div>
@@ -522,16 +564,19 @@
                 <!-- Notificación # 2 -->
                 <div class="row">
                   <div class="col-xs-12">
-                    <p>Notificarme <b>diariamente</b> las compras hechas en mi lista por medio de:</p>
+                    <p>Notificarme
+                      <b>diariamente</b> las compras hechas en mi lista por medio de:</p>
                     <div class="row">
                       <div class="col-xs-5 col-xs-offset-1 text-center">
                         <label class="radio-inline">
-                          <input type="checkbox" name="notificacionDiariaMailCreador" [(ngModel)]="notificacionDiariaMailCreador"><b class="notificaciones">Vía Mail</b>
+                          <input type="checkbox" name="notificacionDiariaMailCreador" [(ngModel)]="notificacionDiariaMailCreador">
+                          <b class="notificaciones">Vía Mail</b>
                         </label>
                       </div>
                       <div class="col-xs-5 text-center">
                         <label class="radio-inline">
-                          <input type="checkbox" name="notificacionDiariaSmsCreador" [(ngModel)]="notificacionDiariaSmsCreador"><b class="notificaciones">Vía SMS</b>
+                          <input type="checkbox" name="notificacionDiariaSmsCreador" [(ngModel)]="notificacionDiariaSmsCreador">
+                          <b class="notificaciones">Vía SMS</b>
                         </label>
                       </div>
                     </div>
@@ -541,16 +586,19 @@
                 <!-- Notificación # 3 -->
                 <div class="row">
                   <div class="col-xs-12">
-                    <p>Notificarme <b>semanalmente</b> las compras hechas en mi lista por medio de:</p>
+                    <p>Notificarme
+                      <b>semanalmente</b> las compras hechas en mi lista por medio de:</p>
                     <div class="row">
                       <div class="col-xs-5 col-xs-offset-1 text-center">
                         <label class="radio-inline">
-                          <input type="checkbox" name="notificacionSemanalMailCreador" [(ngModel)]="notificacionSemanalMailCreador"><b class="notificaciones">Vía Mail</b>
+                          <input type="checkbox" name="notificacionSemanalMailCreador" [(ngModel)]="notificacionSemanalMailCreador">
+                          <b class="notificaciones">Vía Mail</b>
                         </label>
                       </div>
                       <div class="col-xs-5 text-center">
                         <label class="radio-inline">
-                          <input type="checkbox" name="notificacionSemanalSmsCreador" [(ngModel)]="notificacionSemanalSmsCreador"><b class="notificaciones">Vía SMS</b>
+                          <input type="checkbox" name="notificacionSemanalSmsCreador" [(ngModel)]="notificacionSemanalSmsCreador">
+                          <b class="notificaciones">Vía SMS</b>
                         </label>
                       </div>
                     </div>
@@ -565,44 +613,53 @@
                 <br/>
                 <div class="text-center">
                   <label class="radio-inline">
-                      <input type="radio" [disabled]="disabledCocreador" [class.required-field]="!validCocreador" name="generoCocreador" [checked]="checkedCocreadorF">Mujer
-                    </label>
+                    <input type="radio" [disabled]="disabledCocreador" [class.required-field]="!validCocreador" name="generoCocreador" [checked]="checkedCocreadorF">Mujer
+                  </label>
                   <label class="radio-inline">
-                      <input type="radio" [disabled]="disabledCocreador" [class.required-field]="!validCocreador" name="generoCocreador" [checked]="checkedCocreadorM">Hombre
-                    </label>
+                    <input type="radio" [disabled]="disabledCocreador" [class.required-field]="!validCocreador" name="generoCocreador" [checked]="checkedCocreadorM">Hombre
+                  </label>
                 </div>
                 <br/>
                 <label class="label-lista" for="tipo-D">Tipo de documento*</label>
-                <select id="tipo-D-2" name="typeDocCocreador" [disabled]="disabledCocreador" class="form-control" [class.ng-reflect-model]="!31" [class.required-field]="!validCocreador" [(ngModel)]="customerCocreador.fiscalIdType" required>
-                    <option style="display:none" disabled selected value>Seleccione uno</option>
-                    <option [selected]="customerCocreador.fiscalIdType == 13" value="13">Cedula</option>
-                    <option [selected]="customerCocreador.fiscalIdType == 22" value="22">Cedula extranjería</option>
-                    <option [selected]="customerCocreador.fiscalIdType == 41" value="41">Pasaporte</option>
-                  </select>
+                <select id="tipo-D-2" name="typeDocCocreador" [disabled]="disabledCocreador" class="form-control" [class.ng-reflect-model]="!31"
+                  [class.required-field]="!validCocreador" [(ngModel)]="customerCocreador.fiscalIdType" required>
+                  <option style="display:none" disabled selected value>Seleccione uno</option>
+                  <option [selected]="customerCocreador.fiscalIdType == 13" value="13">Cedula</option>
+                  <option [selected]="customerCocreador.fiscalIdType == 22" value="22">Cedula extranjería</option>
+                  <option [selected]="customerCocreador.fiscalIdType == 41" value="41">Pasaporte</option>
+                </select>
                 <label class="label-lista" for="documento">Documento*</label>
-                <input id="documento-2" type="text" class="form-control" maxlength="30" [class.required-field]="!validCocreador" name="fiscalIDCocreador" [(ngModel)]="customerCocreador.fiscalID" (change)="buscarCocreador()" required>
+                <input id="documento-2" type="text" class="form-control" maxlength="30" [class.required-field]="!validCocreador" name="fiscalIDCocreador"
+                  [(ngModel)]="customerCocreador.fiscalID" (change)="buscarCocreador()" required>
                 <label class="label-lista" for="nombre">Nombre*</label>
-                <input id="nombre-2" type="text" [disabled]="disabledCocreador" class="form-control" maxlength="30" [class.required-field]="!validCocreador" name="nameCocreador" [(ngModel)]="customerCocreador.firstName" required>
+                <input id="nombre-2" type="text" [disabled]="disabledCocreador" class="form-control" maxlength="30" [class.required-field]="!validCocreador"
+                  name="nameCocreador" [(ngModel)]="customerCocreador.firstName" required>
                 <label class="label-lista" for="last1">Primer apellido*</label>
-                <input id="last1-2" type="text" [disabled]="disabledCocreador" class="form-control" maxlength="30" [class.required-field]="!validCocreador" name="lastname1Cocreador" [(ngModel)]="customerCocreador.lastName1" required>
+                <input id="last1-2" type="text" [disabled]="disabledCocreador" class="form-control" maxlength="30" [class.required-field]="!validCocreador"
+                  name="lastname1Cocreador" [(ngModel)]="customerCocreador.lastName1" required>
                 <label class="label-lista" for="last2">Segundo apellido</label>
-                <input id="last2-2" type="text" [disabled]="disabledCocreador" class="form-control" maxlength="30" name="lastname2Cocreador" [(ngModel)]="customerCocreador.lastName2">
+                <input id="last2-2" type="text" [disabled]="disabledCocreador" class="form-control" maxlength="30" name="lastname2Cocreador"
+                  [(ngModel)]="customerCocreador.lastName2">
                 <label class="label-lista" for="email">Email</label>
-                <input id="email-2" type="email" [disabled]="disabledCocreador" class="form-control" maxlength="30" name="emailCocreador" [email]="true" [(ngModel)]="customerCocreador.addresses[0].email">
+                <input id="email-2" type="email" [disabled]="disabledCocreador" class="form-control" maxlength="30" name="emailCocreador"
+                  [email]="true" [(ngModel)]="customerCocreador.addresses[0].email">
                 <br/>
                 <!-- Notificación # 1 -->
                 <div class="row">
                   <div class="col-xs-12">
-                    <p>Notificarme de forma <b>inmediata</b> cada vez que alguien realiza una compra por medio de:</p>
+                    <p>Notificarme de forma
+                      <b>inmediata</b> cada vez que alguien realiza una compra por medio de:</p>
                     <div class="row">
                       <div class="col-xs-5 col-xs-offset-1 text-center">
                         <label class="radio-inline">
-                          <input type="checkbox" name="notificacionInmediataMailCocreador" [(ngModel)]="notificacionInmediataMailCocreador"><b class="notificaciones">Vía Mail</b>
+                          <input type="checkbox" name="notificacionInmediataMailCocreador" [(ngModel)]="notificacionInmediataMailCocreador">
+                          <b class="notificaciones">Vía Mail</b>
                         </label>
                       </div>
                       <div class="col-xs-5 text-center">
                         <label class="radio-inline">
-                          <input type="checkbox" name="notificacionInmediataSmsCocreador" [(ngModel)]="notificacionInmediataSmsCocreador"><b class="notificaciones">Vía SMS</b>
+                          <input type="checkbox" name="notificacionInmediataSmsCocreador" [(ngModel)]="notificacionInmediataSmsCocreador">
+                          <b class="notificaciones">Vía SMS</b>
                         </label>
                       </div>
                     </div>
@@ -612,16 +669,19 @@
                 <!-- Notificación # 2 -->
                 <div class="row">
                   <div class="col-xs-12">
-                    <p>Notificarme <b>diariamente</b> las compras hechas en mi lista por medio de:</p>
+                    <p>Notificarme
+                      <b>diariamente</b> las compras hechas en mi lista por medio de:</p>
                     <div class="row">
                       <div class="col-xs-5 col-xs-offset-1 text-center">
                         <label class="radio-inline">
-                          <input type="checkbox" name="notificacionDiariaMailCocreador" [(ngModel)]="notificacionDiariaMailCocreador"><b class="notificaciones">Vía Mail</b>
+                          <input type="checkbox" name="notificacionDiariaMailCocreador" [(ngModel)]="notificacionDiariaMailCocreador">
+                          <b class="notificaciones">Vía Mail</b>
                         </label>
                       </div>
                       <div class="col-xs-5 text-center">
                         <label class="radio-inline">
-                          <input type="checkbox" name="notificacionDiariaSmsCocreador" [(ngModel)]="notificacionDiariaSmsCocreador"><b class="notificaciones">Vía SMS</b>
+                          <input type="checkbox" name="notificacionDiariaSmsCocreador" [(ngModel)]="notificacionDiariaSmsCocreador">
+                          <b class="notificaciones">Vía SMS</b>
                         </label>
                       </div>
                     </div>
@@ -631,16 +691,19 @@
                 <!-- Notificación # 3 -->
                 <div class="row">
                   <div class="col-xs-12">
-                    <p>Notificarme <b>semanalmente</b> las compras hechas en mi lista por medio de:</p>
+                    <p>Notificarme
+                      <b>semanalmente</b> las compras hechas en mi lista por medio de:</p>
                     <div class="row">
                       <div class="col-xs-5 col-xs-offset-1 text-center">
                         <label class="radio-inline">
-                          <input type="checkbox" name="notificacionSemanalMailCocreador" [(ngModel)]="notificacionSemanalMailCocreador"><b class="notificaciones">Vía Mail</b>
+                          <input type="checkbox" name="notificacionSemanalMailCocreador" [(ngModel)]="notificacionSemanalMailCocreador">
+                          <b class="notificaciones">Vía Mail</b>
                         </label>
                       </div>
                       <div class="col-xs-5 text-center">
                         <label class="radio-inline">
-                          <input type="checkbox" name="notificacionSemanalSmsCocreador" [(ngModel)]="notificacionSemanalSmsCocreador"><b class="notificaciones">Vía SMS</b>
+                          <input type="checkbox" name="notificacionSemanalSmsCocreador" [(ngModel)]="notificacionSemanalSmsCocreador">
+                          <b class="notificaciones">Vía SMS</b>
                         </label>
                       </div>
                     </div>
@@ -662,30 +725,33 @@
                   <p class="label-lista">Fecha del evento*</p>
                   <div class="row">
                     <div class="col-sm-4">
-                      <select id="yearEvent" name="anoEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2" [(ngModel)]="anoInicio" (change)="cargarDias(mesInicio,anoInicio)" required>
-                      <option style="display:none" disabled selected value>Año</option>
-                      <option *ngFor="let year of yearEvent" [ngValue]="year">{{year}}</option>
-                    </select>
+                      <select id="yearEvent" name="anoEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2"
+                        [(ngModel)]="anoInicio" (change)="cargarDias(mesInicio,anoInicio)" required>
+                        <option style="display:none" disabled selected value>Año</option>
+                        <option *ngFor="let year of yearEvent" [ngValue]="year">{{year}}</option>
+                      </select>
                     </div>
                     <div class="col-sm-4">
-                      <select id="monthEvent" name="mesEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2" [(ngModel)]="mesInicio" (change)="cargarDias(mesInicio,anoInicio)" required>
-                      <option style="display:none" disabled selected value>Mes</option>
-                      <option value="01">Enero</option>
-                      <option value="02">Febrero</option>
-                      <option value="03">Marzo</option>
-                      <option value="04">Abril</option>
-                      <option value="05">Mayo</option>
-                      <option value="06">Junio</option>
-                      <option value="07">Julio</option>
-                      <option value="08">Agosto</option>
-                      <option value="09">Septiembre</option>
-                      <option value="10">Octubre</option>
-                      <option value="11">Noviembre</option>
-                      <option value="12">Diciembre</option>
-                    </select>
+                      <select id="monthEvent" name="mesEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2"
+                        [(ngModel)]="mesInicio" (change)="cargarDias(mesInicio,anoInicio)" required>
+                        <option style="display:none" disabled selected value>Mes</option>
+                        <option value="01">Enero</option>
+                        <option value="02">Febrero</option>
+                        <option value="03">Marzo</option>
+                        <option value="04">Abril</option>
+                        <option value="05">Mayo</option>
+                        <option value="06">Junio</option>
+                        <option value="07">Julio</option>
+                        <option value="08">Agosto</option>
+                        <option value="09">Septiembre</option>
+                        <option value="10">Octubre</option>
+                        <option value="11">Noviembre</option>
+                        <option value="12">Diciembre</option>
+                      </select>
                     </div>
                     <div class="col-sm-4">
-                      <select id="dayEvent" name="diaEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2" [(ngModel)]="diaInicio" required>
+                      <select id="dayEvent" name="diaEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2"
+                        [(ngModel)]="diaInicio" required>
                         <option style="display:none" disabled selected value>Día</option>
                         <option *ngFor="let day of dayEvent" [ngValue]="day">{{day}}</option>
                       </select>
@@ -720,10 +786,12 @@
                   <br>
                   <div class="row">
                     <div class="col-sm-4">
-                      <input type="checkbox" name="gift-cards" [(ngModel)]="aceptaBonos"><b class="notificaciones">¿Aceptas Gift-Cards?</b>
+                      <input type="checkbox" name="gift-cards" [(ngModel)]="aceptaBonos">
+                      <b class="notificaciones">¿Aceptas Gift-Cards?</b>
                     </div>
                     <div class="col-sm-4">
-                      <input id="montoBono" type="number" [disabled]="!aceptaBonos" class="form-control" maxlength="30" [class.required-field]="!validMonto" name="montoBono" [(ngModel)]="montoBono" placeholder="$10.000" required>
+                      <input id="montoBono" type="number" [disabled]="!aceptaBonos" class="form-control height-40" maxlength="30" [class.required-field]="!validMonto"
+                        name="montoBono" [(ngModel)]="montoBono" placeholder="$10.000" required>
                     </div>
                   </div>
                   <br>
@@ -751,41 +819,52 @@
                 <h1 class="text-center title-form">Novia(o)</h1>
                 <br/>
                 <label class="label-lista" for="ciudad-1">Ciudad*</label>
-                <select id="cityCreador" name="cityCreador" [disabled]="disabledForm3" class="form-control" [class.required-field]="!validForm3" [(ngModel)]="customerCreador.addresses[0].cityCode" (change)="cambiarCiudad()" *ngIf="ciudadesPrincipales" required>
+                <select id="cityCreador" name="cityCreador" [disabled]="disabledForm3" class="form-control" [class.required-field]="!validForm3"
+                  [(ngModel)]="customerCreador.addresses[0].cityCode" (change)="cambiarCiudad()" *ngIf="ciudadesPrincipales"
+                  required>
                   <option style="display:none" disabled selected value>Seleccione una</option>
                   <option disabled>─ Ciudades capitales</option>
-                  <option [selected]="customerCreador.addresses[0].cityCode == principal.code" *ngFor="let principal of ciudadesPrincipales" [ngValue]="principal.code">{{principal.name}}</option>
+                  <option [selected]="customerCreador.addresses[0].cityCode == principal.code" *ngFor="let principal of ciudadesPrincipales"
+                    [ngValue]="principal.code">{{principal.name}}</option>
                   <option disabled>─ Otras ciudades</option>
                   <option [selected]="customerCocreador.addresses[0].cityCode == otra.code" *ngFor="let otra of otrasCiudades" [ngValue]="otra.code">{{otra.name}}</option>
                 </select>
                 <label class="label-lista" for="address1">Dirección*</label>
-                <input id="addressCreador" type="text" [disabled]="disabledForm3" class="form-control" maxlength="30" [class.required-field]="!validForm3" name="addressCreador" [(ngModel)]="customerCreador.addresses[0].address" required>
+                <input id="addressCreador" type="text" [disabled]="disabledForm3" class="form-control" maxlength="30" [class.required-field]="!validForm3"
+                  name="addressCreador" [(ngModel)]="customerCreador.addresses[0].address" required>
                 <label class="label-lista" for="cel">Teléfono móvil*</label>
-                <input id="celCreador" type="text" [disabled]="disabledForm3" class="form-control" maxlength="30" [class.required-field]="!validForm3" name="phoneCreador" [(ngModel)]="customerCreador.addresses[0].cellphone" required>
+                <input id="celCreador" type="text" [disabled]="disabledForm3" class="form-control" maxlength="30" [class.required-field]="!validForm3"
+                  name="phoneCreador" [(ngModel)]="customerCreador.addresses[0].cellphone" required>
               </div>
               <!-- datos del Cocreador -->
               <div class="col-sm-5 col-sm-offset-2">
                 <h1 class="text-center title-form">Novio(a)</h1>
                 <br/>
                 <label class="label-lista" for="ciudad-2">Ciudad*</label>
-                <select id="cityCocreador" name="cityCocreador" [disabled]="disabledForm3" class="form-control" [class.required-field]="!validForm3" [(ngModel)]="customerCocreador.addresses[0].cityCode" (change)="cambiarCiudad()" *ngIf="ciudadesPrincipales" required>
+                <select id="cityCocreador" name="cityCocreador" [disabled]="disabledForm3" class="form-control" [class.required-field]="!validForm3"
+                  [(ngModel)]="customerCocreador.addresses[0].cityCode" (change)="cambiarCiudad()" *ngIf="ciudadesPrincipales"
+                  required>
                   <option style="display:none" disabled selected value>Seleccione una</option>
                   <option disabled>─ Ciudades capitales</option>
-                  <option [selected]="customerCocreador.addresses[0].cityCode == principal.code" *ngFor="let principal of ciudadesPrincipales" [ngValue]="principal.code">{{principal.name}}</option>
+                  <option [selected]="customerCocreador.addresses[0].cityCode == principal.code" *ngFor="let principal of ciudadesPrincipales"
+                    [ngValue]="principal.code">{{principal.name}}</option>
                   <option disabled>─ Otras ciudades</option>
                   <option [selected]="customerCocreador.addresses[0].cityCode == otra.code" *ngFor="let otra of otrasCiudades" [ngValue]="otra.code">{{otra.name}}</option>
                 </select>
                 <label class="label-lista" for="address2">Dirección*</label>
-                <input id="addressCocreador" type="text" [disabled]="disabledForm3" class="form-control" maxlength="30" [class.required-field]="!validForm3" name="addressCocreador" [(ngModel)]="customerCocreador.addresses[0].address" required>
+                <input id="addressCocreador" type="text" [disabled]="disabledForm3" class="form-control" maxlength="30" [class.required-field]="!validForm3"
+                  name="addressCocreador" [(ngModel)]="customerCocreador.addresses[0].address" required>
                 <label class="label-lista" for="cel">Teléfono móvil*</label>
-                <input id="celCocreador" type="text" [disabled]="disabledForm3" class="form-control" maxlength="30" [class.required-field]="!validForm3" name="phoneCocreador" [(ngModel)]="customerCocreador.addresses[0].cellphone" required>
+                <input id="celCocreador" type="text" [disabled]="disabledForm3" class="form-control" maxlength="30" [class.required-field]="!validForm3"
+                  name="phoneCocreador" [(ngModel)]="customerCocreador.addresses[0].cellphone" required>
               </div>
             </div>
             <br>
             <!-- contacto de la tienda -->
             <div class="row" *ngIf="paso === 3">
               <div class="col-xs-10 col-xs-offset-1 text-center">
-                <p><b>Usar datos de envío de:</b>
+                <p>
+                  <b>Usar datos de envío de:</b>
                   <label class="radio-inline">
                     <input type="radio" name="usarDatosCreador" value="CREADOR" [(ngModel)]="usarDatos">Novia(o)
                   </label>
@@ -797,7 +876,9 @@
             </div>
             <div class="row" *ngIf="paso === 3">
               <div class="col-sm-4 col-sm-offset-4 text-center">
-                <p><b>TIENDA DE CONTACTO</b></p>
+                <p>
+                  <b>TIENDA DE CONTACTO</b>
+                </p>
                 <select id="tienda" name="typeDoc" class="form-control" [(ngModel)]="tiendaContacto">
                   <option style="display:none" disabled selected value>Seleccione una</option>
                   <option value="0203">Medellín (Las Vegas)</option>
@@ -821,7 +902,8 @@
               <br/>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" name="permitirEntregaPersonal" [(ngModel)]="permitirEntregaPersonal">Permito que los invitados que compren los regalos en la tienda física me los entreguen personalmente y no con la entrega de regalos que programara con Matisses.
+                  <input type="checkbox" name="permitirEntregaPersonal" [(ngModel)]="permitirEntregaPersonal">Permito que los invitados que compren los regalos en la tienda física me los entreguen personalmente y
+                  no con la entrega de regalos que programara con Matisses.
                 </label>
               </div>
             </div>
@@ -832,13 +914,18 @@
             <div class="col-xs-10 col-xs-offset-1">
               <div class="radio">
                 <label>
-                  <input type="radio" name="tipoLista" value="PUBLICA" [(ngModel)]="tipoLista"> <b>Pública</b><br>Tu lista quedará publica, así podra ser encontrada por el nombre del creador, co-creador, y/o código.
+                  <input type="radio" name="tipoLista" value="PUBLICA" [(ngModel)]="tipoLista">
+                  <b>Pública</b>
+                  <br>Tu lista quedará publica, así podra ser encontrada por el nombre del creador, co-creador, y/o código.
                 </label>
               </div>
               <br/>
               <div class="radio">
                 <label>
-                  <input type="radio" name="tipoLista" value="PRIVADA" [(ngModel)]="tipoLista"><b>Privada</b><br>Al hacer tu lista privada solamente podrán acceder a ella mediante el código o el link directo, recuerda compartir esta información con tus invitados.
+                  <input type="radio" name="tipoLista" value="PRIVADA" [(ngModel)]="tipoLista">
+                  <b>Privada</b>
+                  <br>Al hacer tu lista privada solamente podrán acceder a ella mediante el código o el link directo, recuerda
+                  compartir esta información con tus invitados.
                 </label>
               </div>
             </div>
@@ -870,7 +957,13 @@
   <!-- botones de siguiente -->
   <div class="row" *ngIf="tipoEvento === 4">
     <div class="col-sm-4 text-center">* Información requerida</div>
-    <div class="col-sm-4 text-center">Conoce términos y condiciones <a href="../../../assets/archivos/contrato.pdf" target="_blank"><u><b>aquí</b></u></a></div>
+    <div class="col-sm-4 text-center">Conoce términos y condiciones
+      <a href="../../../assets/archivos/contrato.pdf" target="_blank">
+        <u>
+          <b>aquí</b>
+        </u>
+      </a>
+    </div>
     <div class="col-sm-4 text-center" *ngIf="paso === 1 || paso === 2 || paso === 3">
       <button type="button" name="button" class="btn-formulario btn-grey" (click)="obtenerPasoAnterior()" *ngIf="paso === 2 || paso === 3">Atras</button>
       <!-- No dejar seguir si la información requerida no esta completa -->
@@ -883,9 +976,15 @@
     </div>
   </div>
   <!-- botones de siguiente -->
-  <div class="row" *ngIf="tipoEvento === 1">
+  <div class="row" *ngIf="tipoEvento === 1 || tipoEvento === 2 || tipoEvento === 3">
     <div class="col-sm-4 text-center">* Información requerida</div>
-    <div class="col-sm-4 text-center">Conoce términos y condiciones <a href="../../../assets/archivos/contrato.pdf" target="_blank"><u><b>aquí</b></u></a></div>
+    <div class="col-sm-4 text-center">Conoce términos y condiciones
+      <a href="../../../assets/archivos/contrato.pdf" target="_blank">
+        <u>
+          <b>aquí</b>
+        </u>
+      </a>
+    </div>
     <div class="col-sm-4 text-center" *ngIf="paso === 1 || paso === 2 || paso === 3">
       <button type="button" name="button" class="btn-formulario btn-grey" (click)="obtenerPasoAnterior()" *ngIf="paso === 2 || paso === 3">Atras</button>
       <!-- No dejar seguir si la información requerida no esta completa -->
