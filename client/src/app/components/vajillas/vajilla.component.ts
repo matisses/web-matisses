@@ -87,7 +87,6 @@ export class VajillaComponent implements OnInit {
   private cargarVajillas() {
     this._crockeryService.list().subscribe(
       response => {
-        console.log(response);
         this.vajillas = response;
       }, error => { console.error(error); }
     );
@@ -96,7 +95,6 @@ export class VajillaComponent implements OnInit {
   public cargarColecciones() {
     this._itemService.listCollections(this.vajilla.brand).subscribe(
       response => {
-        console.log(response);
         this.colecciones = response.sort();
       }, error => { console.error(error); }
     );
@@ -106,7 +104,6 @@ export class VajillaComponent implements OnInit {
     let queryStr: string = encodeURI('?collection=' + this.vajilla.coleccion + '&brand=' + this.vajilla.brand + '&pageSize=1000')
     this._itemService.filter(queryStr).subscribe(
       response => {
-        console.log(response);
         this.itemsColeccion = response.result;
       }, error => { console.error(error); }
     );
@@ -174,8 +171,6 @@ export class VajillaComponent implements OnInit {
         response => {
           this.refreshModal(ModalForm);
           this.cargarVajillas();
-          console.log(response.result);
-          console.log('vajilla creada con exito. ');
           this.messageExit = 'Vajilla creada con éxito.';
           $('#modalEditar').modal('hide');
         }, error => {
@@ -232,9 +227,7 @@ export class VajillaComponent implements OnInit {
     this.cargarProductos();
     this.cargarColecciones();
 
-    console.log(this.vajilla.detail.length);
     for (let i = 0; i < this.vajilla.detail.length; i++) {
-      console.log(this.vajilla.detail[i].itemcode);
       if (this.vajilla.detail[i].itemcode === this.itemsColeccion){
       }
     }
@@ -257,7 +250,6 @@ export class VajillaComponent implements OnInit {
 
   public eliminarVajilla(vajilla) {
     this.vaciarMessage();
-    console.log('Eliminando vajilla ' + vajilla._id);
     this._crockeryService.remove(vajilla._id).subscribe(
       response => {
         this.cargarVajillas();
@@ -266,16 +258,12 @@ export class VajillaComponent implements OnInit {
         this.messageError = 'No se pudo eliminar la vajilla.'
       }
     );
-    console.log('Vajilla eliminada');
     this.messageExit = 'Vajilla eliminada con éxito.';
   }
 
   public actualizarVajilla() {
-    console.log('***************');
-    console.log(this.vajilla);
     this._crockeryService.edit(this.vajilla).subscribe(
       response => {
-        console.log('Se edito la vajilla');
       }, error => {
         console.error(error);
         this.messageError = 'No se pudo editar la vajilla.'
