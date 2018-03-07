@@ -25,16 +25,24 @@
               <div class="row">
                 <div class="col-md-12">
                   <span class="iconchat glyphicon glyphicon-earphone"></span>
-                  <p class="title"><b>Línea gratuita nacional</b><br>01 8000 410044</p>
+                  <p class="title">
+                    <b>Línea gratuita nacional</b>
+                    <br>01 8000 410044</p>
                 </div>
               </div>
               <div class="row">
                 <div class="info">
                   <div class="col-xs-12">
-                    <h5><b>Av. Las vegas - Medellín</b></h5>
-                    <p><span class="glyphicon glyphicon-map-marker"> </span> Calle 52 sur # 44 - 65 Medellín</p>
-                    <p><span class="glyphicon glyphicon-earphone"> </span> (574) 444 04 34</p>
-                    <p><span class="icon-clock"> </span> Lunes a Sábado 10:00 - 19:00 <br> Domingo y Festivos 11:00 - 19:00</p>
+                    <h5>
+                      <b>Av. Las vegas - Medellín</b>
+                    </h5>
+                    <p>
+                      <span class="glyphicon glyphicon-map-marker"> </span> Calle 52 sur # 44 - 65 Medellín</p>
+                    <p>
+                      <span class="glyphicon glyphicon-earphone"> </span> (574) 444 04 34</p>
+                    <p>
+                      <span class="icon-clock"> </span> Lunes a Sábado 10:00 - 19:00
+                      <br> Domingo y Festivos 11:00 - 19:00</p>
                     <hr/>
                   </div>
                 </div>
@@ -45,19 +53,21 @@
         <div class="col-sm-6 border-left">
           <div class="row">
             <div class="col-xs-10 col-xs-offset-1">
-              <p>Escribenos.</p>
+              <p>Escríbenos.</p>
               <br/>
-              <form id="form_contact" #ContactForm="ngForm" (submit)="enviar(ContactForm)">
+              <form id="form_contact" (submit)="enviar()">
                 <div class="row">
                   <div class="col-xs-12">
                     <label for="name">Nombre*</label>
-                    <input id="name" type="text" class="input-matisses" [class.required-field]="!valid" name="firstName" [(ngModel)]="firstName" required>
+                    <input id="name" type="text" class="input-matisses" [class.required-field]="!valid" name="firstName" [(ngModel)]="firstName"
+                      required>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-xs-12">
                     <label for="mail">E-mail*</label>
-                    <input id="mail" type="mail" class="input-matisses" [class.required-field]="!valid" name="mail" [email]="true" [(ngModel)]="mail" required>
+                    <input id="mail" type="mail" class="input-matisses" [class.required-field]="!valid" name="mail" [email]="true" [(ngModel)]="mail"
+                      required>
                   </div>
                 </div>
                 <div class="row">
@@ -73,13 +83,15 @@
                 <div class="row">
                   <div class="col-xs-12">
                     <label for="asunto">Asunto*</label>
-                    <input id="asunto" type="text" class="input-matisses" [class.required-field]="!valid" name="subject" [(ngModel)]="subject" required>
+                    <input id="asunto" type="text" class="input-matisses" [class.required-field]="!valid" name="subject" [(ngModel)]="subject"
+                      required>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-xs-12">
                     <label for="mensaje">Mensaje*</label>
-                    <textarea id="mensaje" rows="5" cols="1" class="input-matisses" [class.required-field]="!valid" name="message" [(ngModel)]="message" required></textarea>
+                    <textarea id="mensaje" rows="5" cols="1" class="input-matisses" [class.required-field]="!valid" name="message" [(ngModel)]="message"
+                      required></textarea>
                   </div>
                 </div>
                 <div class="row">

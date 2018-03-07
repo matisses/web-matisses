@@ -12,25 +12,33 @@
             <div class="col-md-7">
               <div class="row">
                 <div class="col-sm-6">
-                  <img src="https://img.matisses.co/{{formAgregar.itemcode}}/images/{{formAgregar.itemcode}}_01.jpg" class="img-responsive" alt="{{formAgregar.itemname}}">
+                  <img src="https://img.matisses.co/{{formAgregar.itemcode}}/images/{{formAgregar.itemcode}}_01.jpg" class="img-responsive"
+                    alt="{{formAgregar.itemname}}">
                 </div>
                 <div class="col-sm-6">
                   <div class="row">
                     <div class="col-xs-12">
-                      <p class="nombre-producto"><b>{{formAgregar.itemname}}</b></p>
+                      <p class="nombre-producto">
+                        <b>{{formAgregar.itemname}}</b>
+                      </p>
                     </div>
                   </div>
                   <div class="row">
 
                     <div class="col-xs-12">
-
+                      <p class="referencia">
+                        <b>Ref: </b>{{formAgregar.refcorta}}</p>
                       <!-- <h3 class="percentage">-{{formAgregar.descuento | number}}%</h3> -->
-                      <h3 class="new-price">$ {{formAgregar.precio | number}} <small>Iva incluido</small></h3>
+                      <h3 class="new-price">$ {{formAgregar.precio | number}}
+                        <small>Iva incluido</small>
+                      </h3>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-xs-12">
-                      <p class="cantidad-agregada">Cantidad: <span>{{formAgregar.cantidadSeleccionada | number}}</span></p>
+                      <p class="cantidad-agregada">Cantidad:
+                        <span>{{formAgregar.cantidadSeleccionada | number}}</span>
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -39,11 +47,24 @@
             <div class="col-md-5 border-left">
               <div class="row">
                 <div class="col-sm-10 col-sm-offset-1 col-xs-12 col-xs-offset-0 resumen-carrito">
-                  <h4 class="total-items"><b>{{totalItemsCarrito}}</b> ARTÍCULOS</h4>
-                  <p class="total-precio">Subtotal de los productos: <span class="pull-right"><b>$ {{(totalCarrito -totalImpuestos) | number}}</b></span></p>
-                  <p class="total-precio">Total impuestos: <span class="pull-right"><b>$ {{totalImpuestos | number}}</b></span></p>
+                  <h4 class="total-items">
+                    <b>{{totalItemsCarrito}}</b> ARTÍCULOS</h4>
+                  <p class="total-precio">Subtotal de los productos:
+                    <span class="pull-right">
+                      <b>$ {{(totalCarrito -totalImpuestos) | number}}</b>
+                    </span>
+                  </p>
+                  <p class="total-precio">Total impuestos:
+                    <span class="pull-right">
+                      <b>$ {{totalImpuestos | number}}</b>
+                    </span>
+                  </p>
                   <hr/>
-                  <p class="total-precio">Total: <span class="pull-right"><b>$ {{(totalCarrito - totalDescuentos) | number}}</b></span></p>
+                  <p class="total-precio">Total:
+                    <span class="pull-right">
+                      <b>$ {{(totalCarrito - totalDescuentos) | number}}</b>
+                    </span>
+                  </p>
                 </div>
               </div>
               <div class="row">
@@ -83,8 +104,12 @@
                 <div class="col-sm-10 col-sm-offset-1 col-xs-12 col-xs-offset-0 resumen-carrito">
                   <p>No se encontró cantidad suficiente para el ítem seleccionado:</p>
                   <br/>
-                  <p>Cantidad disponible: <b>{{lastAddedItem.availablestock}}</b></p>
-                  <p>Cantidad solicitada: <b>{{lastAddedItem.selectedQuantity}}</b></p>
+                  <p>Cantidad disponible:
+                    <b>{{lastAddedItem.availablestock}}</b>
+                  </p>
+                  <p>Cantidad solicitada:
+                    <b>{{lastAddedItem.selectedQuantity}}</b>
+                  </p>
                 </div>
               </div>
             </div>
@@ -152,7 +177,8 @@
         <h2 class="nombres" [innerHTML]="novios"> </h2>
         <br>
         <p class="codigo-lista">Código de novios
-          <br><span style="color:#D77D7D; font-size:30px;">{{codigoLista}}</span>
+          <br>
+          <span style="color:#D77D7D; font-size:30px;">{{codigoLista}}</span>
         </p>
         <div class="row">
           <div class="col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3">
@@ -181,7 +207,8 @@
             <div class="row">
               <div class="col-xs-12 text-center">
                 <br/>
-                <p>Tu carrito contiene <b id="totalItemsCarrito">({{totalItemsCarrito}})</b> productos</p>
+                <p>Tu carrito contiene
+                  <b id="totalItemsCarrito">({{totalItemsCarrito}})</b> productos</p>
               </div>
             </div>
             <div class="productos">
@@ -192,7 +219,9 @@
                 <div class="col-xs-9">
                   <div class="row">
                     <div class="col-xs-7">
-                      <p class="nombre"><b>{{item.itemname}}</b></p>
+                      <p class="nombre">
+                        <b>{{item.itemname}}</b>
+                      </p>
                     </div>
                     <div class="col-xs-5 text-right precio" *ngIf="!item.priceafterdiscount || item.priceafterdiscount === 0 || item.priceafterdiscount === item.pricebeforediscount">
                       <p>$ {{item.priceaftervat | number}}</p>
@@ -204,7 +233,9 @@
                   </div>
                   <div class="row">
                     <div class="col-xs-7">
-                      <p class="cantidad"><b>Cantidad</b></p>
+                      <p class="cantidad">
+                        <b>Cantidad</b>
+                      </p>
                       <p class="numero">{{item.selectedQuantity}}</p>
                     </div>
                     <div class="col-xs-5 text-right">
@@ -221,15 +252,19 @@
                 <div class="col-xs-9">
                   <div class="row">
                     <div class="col-xs-7">
-                      <p class="nombre"><b>Bono de Regalo</b></p>
+                      <p class="nombre">
+                        <b>Bono de Regalo</b>
+                      </p>
                     </div>
-                    <div class="col-xs-5 text-right precio" >
+                    <div class="col-xs-5 text-right precio">
                       <p>$ {{shoppingCart.bono.valor | number}}</p>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-xs-7">
-                      <p class="cantidad"><b>Cantidad</b></p>
+                      <p class="cantidad">
+                        <b>Cantidad</b>
+                      </p>
                       <p class="numero">1</p>
                     </div>
                     <div class="col-xs-5 text-right">
@@ -242,7 +277,9 @@
             <div class="row">
               <div class="col-xs-12 text-right">
                 <hr/>
-                <p class="subtotal">Subtotal <b>$ {{(totalCarrito -totalDescuentos) | number}}</b></p>
+                <p class="subtotal">Subtotal
+                  <b>$ {{(totalCarrito -totalDescuentos) | number}}</b>
+                </p>
               </div>
             </div>
             <div class="row">
@@ -275,19 +312,36 @@
         <div class="mostrar">
           <div class="btn-group">
             <button type="button" class="btn btn-matisses dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{itemsXPag}} <span class="caret"></span>
+              {{itemsXPag}}
+              <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" *ngIf="aceptaBono">
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(11)">11 x pag</a></li>
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(23)">23 x pag</a></li>
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(35)">35 x pag</a></li>
-              <li *ngIf="totalItems < 100"><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
+              <li>
+                <a href="javascript:void(0);" (click)="cambiarTamanoPagina(11)">11 x pag</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" (click)="cambiarTamanoPagina(23)">23 x pag</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" (click)="cambiarTamanoPagina(35)">35 x pag</a>
+              </li>
+              <li *ngIf="totalItems < 100">
+                <a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a>
+              </li>
             </ul>
             <ul class="dropdown-menu" *ngIf="!aceptaBono">
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(12)">12 x pag</a></li>
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(24)">24 x pag</a></li>
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(36)">36 x pag</a></li>
-              <li *ngIf="totalItems < 100"><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
+              <li>
+                <a href="javascript:void(0);" (click)="cambiarTamanoPagina(12)">12 x pag</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" (click)="cambiarTamanoPagina(24)">24 x pag</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" (click)="cambiarTamanoPagina(36)">36 x pag</a>
+              </li>
+              <li *ngIf="totalItems < 100">
+                <a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -296,15 +350,26 @@
         <div class="ordenar">
           <div class="btn-group">
             <button type="button" class="btn btn-matisses dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span [innerHTML]="orderByStr">
-                    </span><span class="caret"></span>
-                </button>
+              <span [innerHTML]="orderByStr">
+              </span>
+              <span class="caret"></span>
+            </button>
             <ul class="dropdown-menu" aria-labelledby="ordenar">
-              <li><a href="javascript:void(0);" (click)="changeOrder('price')">Precio: más bajos primero</a></li>
-              <li><a href="javascript:void(0);" (click)="changeOrder('-price')">Precio: más altos primero</a></li>
-              <li><a href="javascript:void(0);" (click)="changeOrder('itemname')">Nombre: de A a Z</a></li>
-              <li><a href="javascript:void(0);" (click)="changeOrder('-itemname')">Nombre: de Z a A</a></li>
-              <li><a href="javascript:void(0);" (click)="changeOrder('model')">Similares</a></li>
+              <li>
+                <a href="javascript:void(0);" (click)="changeOrder('price')">Precio: más bajos primero</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" (click)="changeOrder('-price')">Precio: más altos primero</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" (click)="changeOrder('itemname')">Nombre: de A a Z</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" (click)="changeOrder('-itemname')">Nombre: de Z a A</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" (click)="changeOrder('model')">Similares</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -313,14 +378,16 @@
         <ul class="pagination">
           <li (click)="irAPagina(activePage - 1)">
             <a href="javascript:void(0)" aria-label="Previous">
-                <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
-              </a>
+              <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
+            </a>
           </li>
-          <li><a href="javascript:void(0)" *ngFor="let page of pages" (click)="irAPagina(page)" [class.active]="page == activePage">{{page}}</a></li>
+          <li>
+            <a href="javascript:void(0)" *ngFor="let page of pages" (click)="irAPagina(page)" [class.active]="page == activePage">{{page}}</a>
+          </li>
           <li (click)="irAPagina(activePage + 1)">
             <a href="javascript:void(0)" aria-label="Next">
-                <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
-              </a>
+              <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
+            </a>
           </li>
         </ul>
       </div>
@@ -340,13 +407,15 @@
           </div>
         </div>
         <img src="../../assets/images/bono.jpg" class="jpg-responsive" alt="">
-        <p class="nombre"><b>BONO REGALO</b></p>
-        <input type="number" class="precio" placeholder="Ingrese monto" [(ngModel)]="montoBono" >
+        <p class="nombre">
+          <b>BONO REGALO</b>
+        </p>
+        <p class="referencia oculto">Ref</p>
+        <input type="number" class="precio" placeholder="Ingrese monto" [(ngModel)]="montoBono">
         <p class="solicitados">Mínimo $ {{minimoBono | number}}</p>
         <p class="solicitados oculto">Comprados:</p>
         <br>
         <div class="row">
-
           <div class="col-sm-5 col-xs-6 col-xs-offset-3 col-sm-offset-0 padding-right-0 visible-xs oculto">
             <form>
               <div class="input-group">
@@ -380,10 +449,20 @@
           </div>
         </div>
         <img src="https://img.matisses.co/{{items[i].itemcode}}/parrilla/{{items[i].itemcode}}_01.jpg" class="jpg-responsive" alt="{{items[i].itemname}}">
-        <p class="nombre"><b>{{items[i].itemname}}</b></p>
-        <p class="precio"><b>$ {{items[i].priceaftervat | number}}</b></p>
-        <p class="solicitados">Solicitados: <b>{{items[i].cantidadElegida}}</b></p>
-        <p class="solicitados">Comprados: <b>{{items[i].cantidadComprada}}</b></p>
+        <p class="nombre">
+          <b>{{items[i].itemname}}</b>
+        </p>
+        <p class="referencia">
+          <b>Ref: </b>{{items[i].shortitemcode}}</p>
+        <p class="precio">
+          <b>$ {{items[i].priceaftervat | number}}</b>
+        </p>
+        <p class="solicitados">Solicitados:
+          <b>{{items[i].cantidadElegida}}</b>
+        </p>
+        <p class="solicitados">Comprados:
+          <b>{{items[i].cantidadComprada}}</b>
+        </p>
         <br>
         <div class="row">
           <div class="col-sm-5 col-xs-8 col-xs-offset-2 col-sm-offset-0 padding-right-0">
@@ -392,7 +471,8 @@
                 <span class="input-group-addon span-cantidad" (click)="reducirCantidad(items[i])">
                   <button type="button" class="icon-minus btn-cantidad" name="button"></button>
                 </span>
-                <input class="input-cantidad form-control" type="tel" name="items[i].selectedQuantity" min="1" max="items[i].cantidadElegida" [(ngModel)]="items[i].selectedQuantity" readonly="readonly" />
+                <input class="input-cantidad form-control" type="tel" name="items[i].selectedQuantity" min="1" max="items[i].cantidadElegida"
+                  [(ngModel)]="items[i].selectedQuantity" readonly="readonly" />
                 <span class="input-group-addon span-cantidad" (click)="aumentarCantidad(items[i])">
                   <button type="button" class="icon-plus btn-cantidad" name="button"></button>
                 </span>
@@ -415,19 +495,36 @@
         <div class="mostrar">
           <div class="btn-group dropup">
             <button type="button" class="btn btn-matisses dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{itemsXPag}} <span class="caret"></span>
+              {{itemsXPag}}
+              <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" *ngIf="aceptaBono">
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(11)">12 x pag</a></li>
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(23)">24 x pag</a></li>
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(35)">36 x pag</a></li>
-              <li *ngIf="totalItems < 100"><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
+              <li>
+                <a href="javascript:void(0);" (click)="cambiarTamanoPagina(11)">12 x pag</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" (click)="cambiarTamanoPagina(23)">24 x pag</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" (click)="cambiarTamanoPagina(35)">36 x pag</a>
+              </li>
+              <li *ngIf="totalItems < 100">
+                <a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a>
+              </li>
             </ul>
             <ul class="dropdown-menu" *ngIf="!aceptaBono">
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(12)">12 x pag</a></li>
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(24)">24 x pag</a></li>
-              <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(36)">36 x pag</a></li>
-              <li *ngIf="totalItems < 100"><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
+              <li>
+                <a href="javascript:void(0);" (click)="cambiarTamanoPagina(12)">12 x pag</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" (click)="cambiarTamanoPagina(24)">24 x pag</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" (click)="cambiarTamanoPagina(36)">36 x pag</a>
+              </li>
+              <li *ngIf="totalItems < 100">
+                <a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -436,15 +533,26 @@
         <div class="ordenar">
           <div class="btn-group dropup">
             <button type="button" class="btn btn-matisses dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span [innerHTML]="orderByStr">
-                    </span><span class="caret"></span>
-                </button>
+              <span [innerHTML]="orderByStr">
+              </span>
+              <span class="caret"></span>
+            </button>
             <ul class="dropdown-menu" aria-labelledby="ordenar">
-              <li><a href="javascript:void(0);" (click)="changeOrder('price')">Precio: más bajos primero</a></li>
-              <li><a href="javascript:void(0);" (click)="changeOrder('-price')">Precio: más altos primero</a></li>
-              <li><a href="javascript:void(0);" (click)="changeOrder('itemname')">Nombre: de A a Z</a></li>
-              <li><a href="javascript:void(0);" (click)="changeOrder('-itemname')">Nombre: de Z a A</a></li>
-              <li><a href="javascript:void(0);" (click)="changeOrder('model')">Similares</a></li>
+              <li>
+                <a href="javascript:void(0);" (click)="changeOrder('price')">Precio: más bajos primero</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" (click)="changeOrder('-price')">Precio: más altos primero</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" (click)="changeOrder('itemname')">Nombre: de A a Z</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" (click)="changeOrder('-itemname')">Nombre: de Z a A</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" (click)="changeOrder('model')">Similares</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -453,14 +561,16 @@
         <ul class="pagination">
           <li (click)="irAPagina(activePage - 1)">
             <a href="javascript:void(0)" aria-label="Previous">
-                <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
-              </a>
+              <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
+            </a>
           </li>
-          <li><a href="javascript:void(0)" *ngFor="let page of pages" (click)="irAPagina(page)" [class.active]="page == activePage">{{page}}</a></li>
+          <li>
+            <a href="javascript:void(0)" *ngFor="let page of pages" (click)="irAPagina(page)" [class.active]="page == activePage">{{page}}</a>
+          </li>
           <li (click)="irAPagina(activePage + 1)">
             <a href="javascript:void(0)" aria-label="Next">
-                <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
-              </a>
+              <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
+            </a>
           </li>
         </ul>
       </div>

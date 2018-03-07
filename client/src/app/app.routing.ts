@@ -28,6 +28,7 @@ import { SinInteresComponent } from './components/sin-interes/sin-interes.compon
 import { CitibankComponent } from './components/citibank/citibank.component';
 import { HotSaleComponent } from './components/hot-sale/hot-sale.component';
 import { NovedadesComponent } from './components/novedades/novedades.component';
+import { CabifyComponent } from './components/cabify/cabify.component';
 
 // Lista de Regalos
 import { ListaRegalosComponent } from './components/lista-de-regalos/lista-regalos.component';
@@ -128,6 +129,7 @@ const appRoutes: Routes = [
   { path: 'info', component: InfoBogotaComponent },
   { path: 'novedades', component: NovedadesComponent },
   { path: 'promocion-enero', component: PromocionAlfComponent },
+  { path: 'transporte-matisses', component: CabifyComponent },
   { path: 'garantias', component: GarantiasComponent },
   { path: 'envios', component: EnviosComponent },
   { path: 'info-envios', component: InfoEnviosComponent },
