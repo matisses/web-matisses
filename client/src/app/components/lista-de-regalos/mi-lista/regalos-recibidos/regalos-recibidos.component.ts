@@ -244,7 +244,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
           this.totalLista = this.itemsListaBcs.length;
           this.totalAcumulado = 0;
           for (var i = 0; i < this.itemsListaBcs.length; i++) {
-            this.totalAcumulado = this.totalAcumulado + this.itemsListaBcs[i]['precio'];
+            this.totalAcumulado = this.totalAcumulado + this.itemsListaBcs[i]['precioTotal'];
           }
           this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.totalLista);
         },
