@@ -1,0 +1,208 @@
+<!-- Modal recuperar contraseña -->
+<div class="modal fade" id="forgotPassword" tabindex="-1" role="dialog" aria-labelledby="forgotPasswordLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title text-center" id="forgotPasswordLabel">Recuperar Clave</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-6 col-xs-offset-3">
+            <div class="campos">
+              <label for="recuperarmail">Ingresa tu e-mail</label>
+              <input type="mail" id="recuperarmail" class="form-registro">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6 col-xs-offset-3 text-center">
+            <button type="submit" class="btn btn-enviar-matisses">Continuar</button>
+          </div>
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+</div>
+
+<matisses-header></matisses-header>
+<div sticky-body>
+  <div class="container">
+    <div class="row">
+      <!-- Formulario registro -->
+      <div class="col-sm-6">
+        <div class="registro-nuevos">
+          <div class="title">
+            <p>Nuevos clientes</p>
+          </div>
+          <div class="bienvenida">
+            <p>Bienvenido a Matisses. Registrate y conoce lo último en diseño.</p>
+          </div>
+          <div class="campos">
+            <div class="row">
+              <div class="col-xs-4 col-xs-offset-1">
+                <label for="email">E-mail*</label>
+              </div>
+              <div class="col-xs-6">
+                <input type="text" class="form-registro" id="email">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-xs-4 col-xs-offset-1">
+                <label for="password">Contraseña*</label>
+              </div>
+              <div class="col-xs-6">
+                <input type="password" class="form-registro" id="password">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-xs-4 col-xs-offset-1">
+                <label for="password-confirm">Confirmar contraseña*</label>
+              </div>
+              <div class="col-xs-6">
+                <input type="password" class="form-registro" id="password-confirm">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-xs-10 col-xs-offset-1">
+                <label for="name">Nombres*</label>
+                <input type="text" class="form-registro" id="name">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-5 col-xs-10 col-xs-offset-1">
+                <label for="1apellido">Primer apellido*</label>
+                <input type="text" class="form-registro" id="1apellido">
+              </div>
+              <div class="col-md-5 col-xs-10 col-xs-offset-1 col-md-offset-0">
+                <label for="2apellido">Segundo apellido*</label>
+                <input type="text" class="form-registro" id="2apellido">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-5 col-xs-10 col-xs-offset-1">
+                <label for="tipo-doc">Tipo de documento*</label>
+                <select name="typeDoc" id="tipo-doc" class="form-registro">
+                  <option style="display:none" disabled selected value>Seleccione uno</option>
+                  <option value="13">Cedula</option>
+                  <option value="22">Cedula extranjería</option>
+                  <option value="41">Pasaporte</option>
+                </select>
+              </div>
+              <div class="col-md-5 col-xs-10 col-xs-offset-1 col-md-offset-0">
+                <label for="2apellido">Documento*</label>
+                <input type="text" class="form-registro" id="2apellido">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-5 col-xs-10 col-xs-offset-1">
+                <label for="datepicker">Fecha nacimiento*</label>
+                <input type='text' class="form-registro" id="datepicker" placeholder="DD/MM/AAAA">
+              </div>
+              <div class="col-md-5 col-xs-10 col-xs-offset-1 col-md-offset-0">
+                <label for="city">Ciudad*</label>
+                <select name="typeDoc" id="city" class="form-registro">
+                  <option style="display:none" disabled selected value>Seleccione una</option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-5 col-xs-10 col-xs-offset-1">
+                <label for="cel">Teléfono móvil*</label>
+                <input type="tel" class="form-registro" id="cel">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-5 col-xs-10 col-xs-offset-1">
+                <button type="submit" class="btn btn-enviar-matisses">Enviar</button>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-xs-10 col-xs-offset-1">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="aceptarTerminos">Acepto términos y condiciones y politica de tratamiento de datos.
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-10 col-xs-offset-1">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="newsletter">Suscirpción al newsletter
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Campos para login -->
+      <div class="col-sm-6">
+        <div class="login-clientes">
+          <div class="title">
+            <p>Clientes registrados</p>
+          </div>
+          <div class="campos">
+            <br>
+            <div class="row">
+              <div class="col-xs-4 col-xs-offset-1">
+                <label for="email-login">E-mail</label>
+              </div>
+              <div class="col-xs-6">
+                <input type="text" class="form-registro" id="email-login">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-xs-4 col-xs-offset-1">
+                <label for="password-login">Contraseña</label>
+              </div>
+              <div class="col-xs-6">
+                <input type="password" class="form-registro" id="password-login">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-10 col-xs-offset-1 text-center">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="aceptarTerminos">No cerrar sesión
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-10 col-xs-offset-1 text-center">
+                <p class="cursor-pointer" (click)="modalRecuperarPassword()">¿Olvidaste tu clave?</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-5 col-xs-10 col-xs-offset-1">
+                <button type="submit" class="btn btn-enviar-facebook">
+                  <span class="icon-facebook"></span> Ingresar con Facebook</button>
+              </div>
+              <div class="col-md-5 col-xs-10 col-xs-offset-1 col-md-offset-0">
+                <button type="submit" class="btn btn-enviar-ingresar" [routerLink]="['/mi-cuenta']">Ingresar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<newsletter></newsletter>
+<matisses-footer></matisses-footer>

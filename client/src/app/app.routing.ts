@@ -49,6 +49,7 @@ import { ContactoRegalosComponent } from './components/lista-de-regalos/contacto
 
 import { InfoBogotaComponent } from './components/info-bogota/info-bogota.component';
 import { PromocionAlfComponent } from './components/promocion-alf/promocion-alf.component';
+import { LoginComponent } from './components/mi-cuenta/login/login.component';
 
 const appRoutes: Routes = [
   //{path: '', component: HomeComponent},
@@ -116,6 +117,9 @@ const appRoutes: Routes = [
       { path: 'lista-asistencia/:codigoLista/:codigoInvitado', component: AsistenciaComponent }
     ]
   },
+  //Modulos mi cuenta 
+  { path: 'login', component: LoginComponent },
+
   // { path: '92-consola', redirectTo: 'categoria?group=002' },
   { path: 'blog', redirectTo: '/', pathMatch: 'full' },
 

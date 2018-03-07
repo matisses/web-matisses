@@ -102,6 +102,9 @@ import { BeneficiosComponent } from './components/lista-de-regalos/beneficios/be
 import { AsistenciaComponent } from './components/lista-de-regalos/lista/confirmar/asistencia.component';
 import { ContactoRegalosComponent } from './components/lista-de-regalos/contacto-regalos/contacto-regalos.component';
 
+//Modulo mi cuenta
+import { LoginComponent } from './components/mi-cuenta/login/login.component';
+
 // Promocion alf
 import { PromocionAlfComponent } from './components/promocion-alf/promocion-alf.component';
 
@@ -199,7 +202,9 @@ import { MetaModule } from '@ngx-meta/core';
     TipsComponent,
     BeneficiosComponent,
     AsistenciaComponent,
-    ContactoRegalosComponent
+    ContactoRegalosComponent,
+    //Modulo mi cuenta
+    LoginComponent
   ],
   imports: [
     BrowserModule,
