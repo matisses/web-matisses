@@ -52,6 +52,10 @@ export class ListaRegalosComponent implements OnInit {
       this.showCampos(-1);
     } else {
     }
+
+    $(document).ready(function () {
+      $("html, body").animate({ scrollTop: 0 }, 1000);
+    });
   }
 
   public showCampos(option: number) {

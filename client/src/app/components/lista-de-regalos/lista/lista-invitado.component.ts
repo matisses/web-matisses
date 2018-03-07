@@ -86,7 +86,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     this.items = new Array<Item>();
     this.url = this._router.url;
     this.itemsListaBcs = new Array<any>();
-    this.itemsSinPaginar=new Array<any>();
+    this.itemsSinPaginar = new Array<any>();
     //carrito de COMPRAS
     this.inicializarShoppingCart();
     this.inicializarForm();
@@ -103,7 +103,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
       registrosPagina: paginaRegistro,
       orderBy: 'referencia asc',
       sortOrder: '',
-      keywords:''
+      keywords: ''
     };
   }
 
@@ -209,6 +209,9 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     //Imagen de Perfil
     $(".perfil-imagen").css("background-image", "url(https://360.matisses.co:8443/shared/lista-regalos/imagenPerfil/" + this.codigoLista + ".jpg)");
 
+    $(document).ready(function () {
+      $("html, body").animate({ scrollTop: 0 }, 1000);
+    });
   }
 
   // public cargarFechaEvento() {
@@ -233,12 +236,12 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   // }
 
   public irAPagina(pagina) {
-    if(pagina>0){
-    if(pagina <= this.pages.length){
-    this.queryParams.set('page', pagina);
-    this.navigate();
+    if (pagina > 0) {
+      if (pagina <= this.pages.length) {
+        this.queryParams.set('page', pagina);
+        this.navigate();
+      }
     }
-  }
   }
   public changeOrder(orderkey) {
     this.queryParams.set('orderBy', orderkey);
@@ -355,12 +358,12 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
       if (this.queryParams.has('pageSize')) {
         this.paramsConsulta.registrosPagina = this.queryParams.get('pageSize');
       }
-      else{
+      else {
 
         if (this.aceptaBono) {
           this.paramsConsulta.registrosPagina = '11';
         }
-        else{
+        else {
           this.paramsConsulta.registrosPagina = '12';
         }
       }
@@ -392,7 +395,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
         this.paramsConsulta.pagina = this.queryParams.get('page');
       }
       if (this.keywords && this.keywords.length > 0) {
-        this.paramsConsulta.keywords=this.keywords;
+        this.paramsConsulta.keywords = this.keywords;
       }
 
       this._listaService.consultarListaPaginada(this.paramsConsulta).subscribe(
@@ -416,14 +419,14 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
                   idLista: localStorage.getItem('id-lista')
                 };
                 this._listaService.consultarListaSinPaginar(paramConsulta).subscribe(
-                   response => {
-                     this.itemsSinPaginar = response;
+                  response => {
+                    this.itemsSinPaginar = response;
 
 
                   },
                   error => {
-                       console.error(error);
-                    }
+                    console.error(error);
+                  }
                 );
               },
               error => { console.error(error); }
@@ -464,10 +467,10 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     if (this.keywords && this.keywords.length > 0) {
       let queryParamsObj = { keywords: this.keywords.replace(/ /g, ",") };
       this.navigate();
-     this._router.navigate(['/lista/' + this.codigoLista], { queryParams: queryParamsObj });
+      this._router.navigate(['/lista/' + this.codigoLista], { queryParams: queryParamsObj });
     }
-    else{
-      this.keywords='';
+    else {
+      this.keywords = '';
       let queryParamsObj = { keywords: this.keywords.replace(/ /g, ",") };
       //this._router.navigate(['/lista/' + this.codigoLista]);
       this.navigate();
