@@ -102,8 +102,6 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
           if (response.codigo == 0) {
             this.messageExit = 'Invitación enviada satisfactoriamente.';
             $("#modalInvitado").modal("hide");
-            $('#modalInvitado').on('hide.bs.modal', function() {
-            });
             this.limpiarCampos();
             this.cargarInvitados();
           } else {
@@ -119,7 +117,7 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
   }
 
   public generar(link: string) {
-    setTimeout(function() {
+    setTimeout(function () {
       window.open(link);
     }, 1000);
   }
@@ -190,6 +188,7 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
     this.apellidosInvitado = null;
     this.correoInvitado = null;
     this.telefonoInvitado = null;
+    $('#form_registrar_invitado').trigger("reset");
   }
 
   public cerrarSession() {
