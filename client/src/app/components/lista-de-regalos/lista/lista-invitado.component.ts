@@ -512,6 +512,7 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
         this.formAgregar.itemname = item.itemname;
         this.formAgregar.itemcode = item.itemcode;
         this.formAgregar.precio = item.priceaftervat;
+        this.formAgregar.refcorta = item.shortitemcode;
 
         this.formAgregar.cantidadSeleccionada = item.selectedQuantity;
 
