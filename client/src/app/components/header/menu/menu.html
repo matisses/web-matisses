@@ -38,7 +38,9 @@
                 <div class="input-group">
                   <input type="text" class="form-control" placeholder="Nivel 1" name="categoria" [(ngModel)]="categoriaSeleccionada.name">
                   <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" (click)="guardarCategoria()"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+                    <button class="btn btn-default" type="button" (click)="guardarCategoria()">
+                      <span class="glyphicon glyphicon-floppy-disk"></span>
+                    </button>
                   </span>
                 </div>
               </div>
@@ -46,25 +48,33 @@
             <br/>
             <div class="row" *ngIf="categoriaSeleccionada && categoriaSeleccionada._id != null && categoriaSeleccionada._id.length > 0">
               <div class="col-xs-4 text-center">
-                <button type="button" class="btn btn-default" (click)="subirPosicionCategoria()"><span class="glyphicon glyphicon-chevron-up"></span></button>
+                <button type="button" class="btn btn-default" (click)="subirPosicionCategoria()">
+                  <span class="glyphicon glyphicon-chevron-up"></span>
+                </button>
               </div>
               <div class="col-xs-4 text-center">
-                <button type="button" class="btn btn-default" (click)="bajarPosicionCategoria()"><span class="glyphicon glyphicon-chevron-down"></span></button>
+                <button type="button" class="btn btn-default" (click)="bajarPosicionCategoria()">
+                  <span class="glyphicon glyphicon-chevron-down"></span>
+                </button>
               </div>
               <div class="col-xs-4 text-center">
-                <button type="button" class="btn btn-default" (click)="eliminarCategoria(false)"><span class="glyphicon glyphicon-trash"></span></button>
+                <button type="button" class="btn btn-default" (click)="eliminarCategoria(false)">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </button>
               </div>
             </div>
             <br/>
             <div class="row">
               <div class="col-xs-12">
                 <table class="table">
-                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : categoria._id == categoriaSeleccionada._id}" *ngFor="let categoria of categorias" (click)="seleccionarCategoria(categoria, true)">
+                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : categoria._id == categoriaSeleccionada._id}" *ngFor="let categoria of categorias"
+                    (click)="seleccionarCategoria(categoria, true)">
                     <td>
                       {{categoria.name}}
                     </td>
                   </tr>
-                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : categoriaSeleccionada == null || categoriaSeleccionada._id == null || categoriaSeleccionada._id.length <= 0}" (click)="seleccionarCategoria(categoria, true)">
+                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : categoriaSeleccionada == null || categoriaSeleccionada._id == null || categoriaSeleccionada._id.length <= 0}"
+                    (click)="seleccionarCategoria(categoria, true)">
                     <td>
                       Nueva
                     </td>
@@ -92,7 +102,9 @@
                 <div class="input-group">
                   <input type="text" class="form-control" placeholder="Código subgrupo" name="codigoSubgrupo" [(ngModel)]="grupoSeleccionado.subgroup">
                   <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" (click)="guardarGrupo()"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+                    <button class="btn btn-default" type="button" (click)="guardarGrupo()">
+                      <span class="glyphicon glyphicon-floppy-disk"></span>
+                    </button>
                   </span>
                 </div>
               </div>
@@ -100,25 +112,33 @@
             <br/>
             <div class="row" *ngIf="categoriaSeleccionada && categoriaSeleccionada._id != null && categoriaSeleccionada._id.length > 0">
               <div class="col-xs-4 text-center">
-                <button type="button" class="btn btn-default" (click)="subirPosicionGrupo()"><span class="glyphicon glyphicon-chevron-up"></span></button>
+                <button type="button" class="btn btn-default" (click)="subirPosicionGrupo()">
+                  <span class="glyphicon glyphicon-chevron-up"></span>
+                </button>
               </div>
               <div class="col-xs-4 text-center">
-                <button type="button" class="btn btn-default" (click)="bajarPosicionGrupo()"><span class="glyphicon glyphicon-chevron-down"></span></button>
+                <button type="button" class="btn btn-default" (click)="bajarPosicionGrupo()">
+                  <span class="glyphicon glyphicon-chevron-down"></span>
+                </button>
               </div>
               <div class="col-xs-4 text-center">
-                <button type="button" class="btn btn-default" (click)="eliminarGrupo(false)"><span class="glyphicon glyphicon-trash"></span></button>
+                <button type="button" class="btn btn-default" (click)="eliminarGrupo(false)">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </button>
               </div>
             </div>
             <br/>
             <div class="row">
               <div class="col-xs-12">
                 <table class="table">
-                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : grupo._id == grupoSeleccionado._id}" *ngFor="let grupo of grupos" (click)="seleccionarGrupo(grupo, true)">
+                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : grupo._id == grupoSeleccionado._id}" *ngFor="let grupo of grupos"
+                    (click)="seleccionarGrupo(grupo, true)">
                     <td>
                       {{grupo.name}}
                     </td>
                   </tr>
-                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : grupoSeleccionado == null || grupoSeleccionado._id == null || grupoSeleccionado._id.length <= 0}" (click)="seleccionarGrupo(grupo, true)">
+                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : grupoSeleccionado == null || grupoSeleccionado._id == null || grupoSeleccionado._id.length <= 0}"
+                    (click)="seleccionarGrupo(grupo, true)">
                     <td>
                       Nuevo
                     </td>
@@ -146,7 +166,9 @@
                 <div class="input-group">
                   <input type="text" class="form-control" placeholder="Código subgrupo" name="codigoSubgrupo" [(ngModel)]="subgrupoSeleccionado.subgroup">
                   <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" (click)="guardarSubgrupo()"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+                    <button class="btn btn-default" type="button" (click)="guardarSubgrupo()">
+                      <span class="glyphicon glyphicon-floppy-disk"></span>
+                    </button>
                   </span>
                 </div>
               </div>
@@ -154,25 +176,33 @@
             <br/>
             <div class="row" *ngIf="subgrupoSeleccionado && subgrupoSeleccionado._id != null && subgrupoSeleccionado._id.length > 0">
               <div class="col-xs-4 text-center">
-                <button type="button" class="btn btn-default" (click)="subirPosicionSubgrupo()"><span class="glyphicon glyphicon-chevron-up"></span></button>
+                <button type="button" class="btn btn-default" (click)="subirPosicionSubgrupo()">
+                  <span class="glyphicon glyphicon-chevron-up"></span>
+                </button>
               </div>
               <div class="col-xs-4 text-center">
-                <button type="button" class="btn btn-default" (click)="bajarPosicionSubgrupo()"><span class="glyphicon glyphicon-chevron-down"></span></button>
+                <button type="button" class="btn btn-default" (click)="bajarPosicionSubgrupo()">
+                  <span class="glyphicon glyphicon-chevron-down"></span>
+                </button>
               </div>
               <div class="col-xs-4 text-center">
-                <button type="button" class="btn btn-default" (click)="eliminarSubgrupo(false)"><span class="glyphicon glyphicon-trash"></span></button>
+                <button type="button" class="btn btn-default" (click)="eliminarSubgrupo(false)">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </button>
               </div>
             </div>
             <br/>
             <div class="row">
               <div class="col-xs-12">
                 <table class="table">
-                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : subgrupo._id == subgrupoSeleccionado._id}" *ngFor="let subgrupo of subgrupos" (click)="seleccionarSubgrupo(subgrupo)">
+                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : subgrupo._id == subgrupoSeleccionado._id}" *ngFor="let subgrupo of subgrupos"
+                    (click)="seleccionarSubgrupo(subgrupo)">
                     <td>
                       {{subgrupo.name}}
                     </td>
                   </tr>
-                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : subgrupoSeleccionado == null || subgrupoSeleccionado._id == null || subgrupoSeleccionado._id.length <= 0}" (click)="seleccionarSubgrupo(subgrupo)">
+                  <tr class="item-menu-editar" [ngClass]="{'item-menu-editar-seleccionado' : subgrupoSeleccionado == null || subgrupoSeleccionado._id == null || subgrupoSeleccionado._id.length <= 0}"
+                    (click)="seleccionarSubgrupo(subgrupo)">
                     <td>
                       Nuevo
                     </td>
@@ -199,24 +229,45 @@
           </div>
           <div class="col-md-3 col-lg-offset-1 col-md-offset-0 col-sm-6 col-sm-offset-3 text-right">
             <button class="btn btn-search" type="button" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch">
-              <span class="glyphicon glyphicon-search" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch" (click)="showSearch()"></span>
+              <span class="glyphicon glyphicon-search" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"
+                (click)="showSearch()"></span>
             </button>
           </div>
           <div class="col-lg-4 col-md-5">
             <div class="row">
               <div class="col-md-12 col-sm-6">
                 <ul class="ingreso text-right medium" (mouseover)="carrito.closeResumen()">
-                  <li><a href="javascript:void(0)" [routerLink]="['/lista-de-deseos']"><span class="glyphicon glyphicon-heart icono-corazon"> </span> LISTA DE DESEOS</a></li>
-                  <li class="border-left"><a href="javascript:void(0)" data-toggle="tooltip" data-placement="bottom" title="Espéralo pronto."><span class="glyphicon glyphicon-log-in"> </span> REGÍSTRATE</a></li>
-                  <li class="border-left"><a href="javascript:void(0)" data-toggle="tooltip" data-placement="bottom" title="Espéralo pronto."><span class="icon-user"> </span> INGRESA</a></li>
+                  <li>
+                    <a href="javascript:void(0)" [routerLink]="['/lista-de-deseos']" *ngIf="tieneSesion === 0" (mouseenter)="ocultarSignIn()">
+                      <span class="glyphicon glyphicon-heart icono-corazon"> </span> LISTA DE DESEOS</a>
+                  </li>
+                  <li class="border-left">
+                    <a href="javascript:void(0)" *ngIf="tieneSesion === 0" (mouseenter)="mostrarSignIn()">
+                      <span class="icon-user"> </span> INGRESA</a>
+                  </li>
+                  <li class="border-left">
+                    <a href="javascript:void(0)" [routerLink]="['/login']" *ngIf="tieneSesion === 0" (mouseenter)="ocultarSignIn()">
+                      <span class="glyphicon glyphicon-log-in"> </span> REGÍSTRATE</a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0)" *ngIf="tieneSesion === 2">(Cerrar Sesión)</a>
+                  </li>
                 </ul>
+              </div>
+              <div class="campos-signIn" *ngIf="mostrarPopOverSignIn" (mouseleave)="ocultarSignIn()">
+                <div class="arrow-before"></div>
+                <div class="arrow-after"></div>
+                <div class="container-sign">
+                  <matisses-signIn></matisses-signIn>
+                </div>
               </div>
               <div class="col-md-12 col-sm-6 text-right">
                 <div class="row">
                   <div class="col-xs-6 btn-lista">
                     <!-- <a href="http://listaregalos.matisses.co/" target="_blank"> -->
                     <a href="javascript:void(0)" [routerLink]="['/lista-de-regalos']" target="_blank">
-                      <p (mouseover)="carrito.closeResumen()" class="lista-regalos text-center"><span class="icon-gift-box icono-regalo"> </span> LISTA DE REGALOS</p>
+                      <p (mouseover)="carrito.closeResumen()" class="lista-regalos text-center">
+                        <span class="icon-gift-box icono-regalo"> </span> LISTA DE REGALOS</p>
                     </a>
                   </div>
                   <div class="col-xs-6 btn-bolsa text-left">
@@ -235,7 +286,8 @@
                   <input id="searchField" [(ngModel)]="keywords" name="keywords" type="text" class="search-bar" placeholder="¿Qué estás buscando?">
                 </form>
                 <span class="input-group-btn">
-                  <button class="btn icon-close btn-close" type="button" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch" (click)="showSearch()"></button>
+                  <button class="btn icon-close btn-close" type="button" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="false"
+                    aria-controls="collapseSearch" (click)="showSearch()"></button>
                 </span>
               </div>
             </div>
@@ -251,7 +303,8 @@
             </div>
             <!-- botones para el administrador -->
             <ul>
-              <li class="item-menu cursor-pointer" [ngClass]="{'selected' : estaSeleccionado(menuItem._id)}" *ngFor="let menuItem of menuItems" (mouseenter)="alternarSeleccionPadre(menuItem) + carrito.closeResumen()">
+              <li class="item-menu cursor-pointer" [ngClass]="{'selected' : estaSeleccionado(menuItem._id)}" *ngFor="let menuItem of menuItems"
+                (mouseenter)="alternarSeleccionPadre(menuItem) + carrito.closeResumen()">
                 {{menuItem.name}}
               </li>
               <!-- <li class="item-menu hot-sale cursor-pointer" (mouseenter)="carrito.closeResumen() + cerrarOverlay()" [routerLink]="['/categoria']" [queryParams]="{discount: 'true'}">
@@ -296,15 +349,23 @@
   <div class="menu-content">
 
     <div *ngFor="let menuItem of menuItems">
-      <button class="accordion" (click)="alternarSeleccionPadre(menuItem)" (click)="toggleClass('#menuPhone-' + menuItem._id, 'icon-plus', 'icon-minus')">{{menuItem.name}}<span id="menuPhone-{{menuItem._id}}" class="icon-plus pull-right"></span></button>
+      <button class="accordion" (click)="alternarSeleccionPadre(menuItem)" (click)="toggleClass('#menuPhone-' + menuItem._id, 'icon-plus', 'icon-minus')">{{menuItem.name}}
+        <span id="menuPhone-{{menuItem._id}}" class="icon-plus pull-right"></span>
+      </button>
       <div *ngIf="padreSeleccionado._id === menuItem._id">
         <div *ngFor="let subMenuItem of padreSeleccionado.children">
-          <button class="child-accordion" (click)="toggleClass('#grandchild-' + subMenuItem._id,'visible','hidden')" (click)="toggleClass('#subMenu-' + subMenuItem._id, 'glyphicon-menu-down', 'glyphicon-menu-up')">{{subMenuItem.name}}<span id="subMenu-{{subMenuItem._id}}" class="glyphicon glyphicon-menu-down pull-right"></span></button>
+          <button class="child-accordion" (click)="toggleClass('#grandchild-' + subMenuItem._id,'visible','hidden')" (click)="toggleClass('#subMenu-' + subMenuItem._id, 'glyphicon-menu-down', 'glyphicon-menu-up')">{{subMenuItem.name}}
+            <span id="subMenu-{{subMenuItem._id}}" class="glyphicon glyphicon-menu-down pull-right"></span>
+          </button>
           <div class="grandchild hidden" id="grandchild-{{subMenuItem._id}}">
-            <div *ngFor="let grandChild of subMenuItem.children" [routerLink]="['/categoria']" [queryParams]="{group: grandChild.group, subgroup: grandChild.subgroup}" (click)="cerrarNav()">
+            <div *ngFor="let grandChild of subMenuItem.children" [routerLink]="['/categoria']" [queryParams]="{group: grandChild.group, subgroup: grandChild.subgroup}"
+              (click)="cerrarNav()">
               <p class="grandchild-accordion" (click)="cerrarNav()" (click)="toggleClass('#hamburger', 'glyphicon-menu-hamburger', 'glyphicon-remove')">{{grandChild.name}}</p>
             </div>
-            <p class="grandchild-accordion" (click)="cerrarNav()" (click)="toggleClass('#hamburger', 'glyphicon-menu-hamburger', 'glyphicon-remove')" [routerLink]="['/categoria']" [queryParams]="getAvailableParams(subMenuItem)"><b>Ver todos</b></p>
+            <p class="grandchild-accordion" (click)="cerrarNav()" (click)="toggleClass('#hamburger', 'glyphicon-menu-hamburger', 'glyphicon-remove')"
+              [routerLink]="['/categoria']" [queryParams]="getAvailableParams(subMenuItem)">
+              <b>Ver todos</b>
+            </p>
           </div>
         </div>
         <!-- <p class="child-accordion" (click)="cerrarNav()" (click)="toggleClass('#hamburger', 'glyphicon-menu-hamburger', 'glyphicon-remove')" [routerLink]="['/categoria']" [queryParams]="getAvailableParams(menuItem)"><b>Ver todos</b></p> -->
@@ -318,7 +379,9 @@
     <div class="row">
       <div class="col-xs-12">
         <div class="title-menu">
-          <p><b>Información</b></p>
+          <p>
+            <b>Información</b>
+          </p>
         </div>
       </div>
     </div>
@@ -335,20 +398,26 @@
     <div class="row">
       <div class="col-xs-12">
         <div class="title-menu">
-          <p><b>Mi cuenta</b></p>
+          <p>
+            <b>Mi cuenta</b>
+          </p>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-xs-12">
         <div class="menu-element">
-          <p [routerLink]="['/lista-de-deseos']" class="wish-list"><span class="icon-user"> </span> Ingresar</p>
-          <p [routerLink]="['/lista-de-deseos']" class="wish-list"><span class="glyphicon glyphicon-log-in"> </span> Regístrate</p>
+          <p [routerLink]="['/lista-de-deseos']" class="wish-list">
+            <span class="icon-user"> </span> Ingresar</p>
+          <p [routerLink]="['/lista-de-deseos']" class="wish-list">
+            <span class="glyphicon glyphicon-log-in"> </span> Regístrate</p>
           <hr/>
-          <p [routerLink]="['/lista-de-deseos']" class="wish-list"><span class="glyphicon glyphicon-heart"> </span> Lista de deseos</p>
+          <p [routerLink]="['/lista-de-deseos']" class="wish-list">
+            <span class="glyphicon glyphicon-heart"> </span> Lista de deseos</p>
           <hr/>
           <a href="javascript:void(0)" [routerLink]="['/lista-de-regalos']" target="_blank">
-            <p class="wish-list"><span class="icon-gift-box"> </span> Lista de Regalos</p>
+            <p class="wish-list">
+              <span class="icon-gift-box"> </span> Lista de Regalos</p>
           </a>
         </div>
       </div>
@@ -368,8 +437,10 @@
         </div>
       </div>
       <div class="col-xs-3 text-right">
-        <span class="glyphicon glyphicon-search" role="button" data-toggle="collapse" href="#collapseSearchMovil" aria-expanded="false" aria-controls="collapseSearchMovil"></span>
-        <span class="glyphicon glyphicon-menu-hamburger menu-mobile" id="hamburger" (click)="carritoMobile.closeResumen()" (click)="toggleClass('#hamburger', 'glyphicon-menu-hamburger', 'glyphicon-remove')" (click)="toggleNav()"></span>
+        <span class="glyphicon glyphicon-search" role="button" data-toggle="collapse" href="#collapseSearchMovil" aria-expanded="false"
+          aria-controls="collapseSearchMovil"></span>
+        <span class="glyphicon glyphicon-menu-hamburger menu-mobile" id="hamburger" (click)="carritoMobile.closeResumen()" (click)="toggleClass('#hamburger', 'glyphicon-menu-hamburger', 'glyphicon-remove')"
+          (click)="toggleNav()"></span>
       </div>
     </div>
   </div>
@@ -381,7 +452,8 @@
             <input id="searchFieldMobile" [(ngModel)]="keywords" name="keywords" type="search" class="search-bar" placeholder="¿Qué estás buscando?">
           </form>
           <span class="input-group-btn">
-            <button class="btn icon-close btn-close" type="button" data-toggle="collapse" data-target="#collapseSearchMovil" aria-expanded="false" aria-controls="collapseSearchMovil"></button>
+            <button class="btn icon-close btn-close" type="button" data-toggle="collapse" data-target="#collapseSearchMovil" aria-expanded="false"
+              aria-controls="collapseSearchMovil"></button>
           </span>
         </div>
       </div>

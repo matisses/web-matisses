@@ -5,16 +5,16 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 declare var $: any;
 
 @Component({
-  templateUrl: 'login.html',
-  styleUrls: ['login.component.css'],
+  templateUrl: 'resumen.html',
+  styleUrls: ['resumen.component.css'],
 })
 
 
-export class TrabajaComponent implements OnInit {
+export class ResumenMiCuentaComponent implements OnInit {
   public title: string;
 
   constructor(private _route: ActivatedRoute, private _router: Router) {
-      this.title = 'Este es el cuerpo de login';
+      this.title = 'Este es el cuerpo de resumen';
   }
 
   ngOnInit() {

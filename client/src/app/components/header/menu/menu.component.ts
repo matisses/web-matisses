@@ -70,10 +70,15 @@ export class MenuComponent implements OnInit, AfterViewInit {
   public grupos: Array<MenuItem>;
   public subgrupos: Array<MenuItem>;
   public mostrarBuscador: boolean = false;
+  public urlMenu: any;
+  public tieneSesion: number = 0;
+  public mostrarPopOverSignIn: boolean = false;
+  public nombreUsuario: string;
 
 
   constructor(private _jwt: JWTService, private _menuService: MenuItemService, private _route: ActivatedRoute, private _router: Router) {
     this.padreSeleccionado = new MenuItem();
+    this.nombreUsuario = 'Alejandro';
   }
 
   ngOnInit() {
@@ -93,6 +98,26 @@ export class MenuComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+
+    this.urlMenu = window.location.pathname;  
+    this.conSesion();
+    
+  }
+
+  public conSesion() {
+    if(this.urlMenu == '/mi-cuenta'){
+      this.tieneSesion = 2;
+    } else if(this.urlMenu == '/login'){
+      this.tieneSesion = 1;
+    }else {}
+  }
+
+  public mostrarSignIn() {
+    this.mostrarPopOverSignIn = true;
+  }
+
+  public ocultarSignIn() {
+    this.mostrarPopOverSignIn = false;
   }
 
   private cargarDatosMenu() {
