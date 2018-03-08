@@ -3,6 +3,25 @@
   color: #5B5B5B;
 }
 
+.contenidos {
+  border: 1px solid #ECECEC;
+  padding: 10px 20px;
+}
+
+.seleccionado {
+  color: #6D9791;
+}
+
+.seleccionado::before {
+  content: ' ';
+  position: absolute;
+  width: 100px;
+  border-bottom: 3px solid #6D9791;
+  height: 30px;
+  left: 32%;
+  color: transparent;
+}
+
 @media screen and (max-width: 991px) {
   .stuck-body {
     margin-top: 0px;

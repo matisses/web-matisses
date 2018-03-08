@@ -70,29 +70,71 @@ export class MenuComponent implements OnInit, AfterViewInit {
   public grupos: Array<MenuItem>;
   public subgrupos: Array<MenuItem>;
   public mostrarBuscador: boolean = false;
+  public urlMenu: any;
+  public tieneSesion: boolean = false;
+  public mostrarPopOverSignIn: boolean = false;
+  public mostrarPopOverMenuSesion: boolean = false;
+  public nombreUsuario: string;
+  public estaEnMiCuenta: boolean = false;
 
 
   constructor(private _jwt: JWTService, private _menuService: MenuItemService, private _route: ActivatedRoute, private _router: Router) {
     this.padreSeleccionado = new MenuItem();
+    this.nombreUsuario = 'Alejandro';
   }
 
   ngOnInit() {
     this.inicializarMenu();
     document.getElementById("myNav").style.width = "0%";
     this.cargarDatosMenu();
-    $('#collapseSearch').on('shown.bs.collapse', function() {
+    $('#collapseSearch').on('shown.bs.collapse', function () {
       $('#searchField').focus();
     });
-    $('#collapseSearchMovil').on('shown.bs.collapse', function() {
+    $('#collapseSearchMovil').on('shown.bs.collapse', function () {
       $('#searchFieldMobile').focus();
     });
-    $(function() {
+    $(function () {
       $('[data-toggle="tooltip"]').tooltip()
     })
   }
 
   ngAfterViewInit() {
     this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+
+    this.urlMenu = window.location.pathname;
+    this.sinMenu();
+  }
+
+  public conSesion() {
+    this.tieneSesion = true;
+  }
+
+  public sinSesion() {
+    this.tieneSesion = false;
+  }
+
+  public mostrarSignIn() {
+    this.mostrarPopOverSignIn = true;
+  }
+
+  public ocultarSignIn() {
+    this.mostrarPopOverSignIn = false;
+  }
+
+  public mostrarMenuSesion() {
+    this.mostrarPopOverMenuSesion = true;
+  }
+
+  public ocultarMenuSesion() {
+    this.mostrarPopOverMenuSesion = false;
+  }
+
+  public sinMenu() {
+    if (this.urlMenu == '/mi-cuenta') {
+      this.estaEnMiCuenta = true;
+    } else {
+
+    }
   }
 
   private cargarDatosMenu() {
