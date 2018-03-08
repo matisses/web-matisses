@@ -90,11 +90,12 @@
             <div class="row">
               <div class="col-md-5 col-xs-10 col-xs-offset-1">
                 <label for="tipo-doc">Tipo de documento*</label>
-                <select name="typeDoc" id="tipo-doc" class="form-registro">
+                <select id="tipo-D" name="typeDocumento" [disabled]="disabledCreador" class="form-control" [class.ng-reflect-model]="!31"
+                  [class.required-field]="!validCreador" [(ngModel)]="customer.fiscalIdType" required>
                   <option style="display:none" disabled selected value>Seleccione uno</option>
-                  <option value="13">Cedula</option>
-                  <option value="22">Cedula extranjería</option>
-                  <option value="41">Pasaporte</option>
+                  <option [selected]="customer.fiscalIdType == 13" value="13">Cedula</option>
+                  <option [selected]="customer.fiscalIdType == 22" value="22">Cedula extranjería</option>
+                  <option [selected]="customer.fiscalIdType == 41" value="41">Pasaporte</option>
                 </select>
               </div>
               <div class="col-md-5 col-xs-10 col-xs-offset-1 col-md-offset-0">
@@ -152,9 +153,17 @@
       </div>
       <!-- Campos para login -->
       <div class="col-sm-6">
+        <form #ContactForm="ngForm">
         <div class="login-clientes">
           <div class="title">
             <p>Clientes registrados</p>
+          </div>
+          <div class="row" *ngIf="messageError != null && messageError.length > 0">
+            <div class="col-xs-12">
+              <div class="alert alert-danger" role="alert">
+                <p>{{messageError}}</p>
+              </div>
+            </div>
           </div>
           <div class="campos">
             <br>
@@ -163,7 +172,7 @@
                 <label for="email-login">E-mail</label>
               </div>
               <div class="col-xs-6">
-                <input type="text" class="form-registro" id="email-login">
+                <input type="text" class="form-registro" id="email-login" name="nombreUsuario" [(ngModel)]="nombreUsuario" required>
               </div>
             </div>
             <br>
@@ -172,7 +181,7 @@
                 <label for="password-login">Contraseña</label>
               </div>
               <div class="col-xs-6">
-                <input type="password" class="form-registro" id="password-login">
+                <input type="password" class="form-registro" id="password-login"  name="password" [(ngModel)]="password" required>
               </div>
             </div>
             <div class="row">
@@ -195,11 +204,13 @@
                   <span class="icon-facebook"></span> Ingresar con Facebook</button>
               </div>
               <div class="col-md-5 col-xs-10 col-xs-offset-1 col-md-offset-0">
-                <button type="submit" class="btn btn-enviar-ingresar" [routerLink]="['/mi-cuenta']">Ingresar</button>
+                <!-- <button type="submit" class="btn btn-enviar-ingresar" [routerLink]="['/mi-cuenta']">Ingresar</button> -->
+                <button type="submit" class="btn btn-enviar-ingresar" (click)="login()">Ingresar</button>
               </div>
             </div>
           </div>
         </div>
+      </form>
       </div>
     </div>
   </div>
