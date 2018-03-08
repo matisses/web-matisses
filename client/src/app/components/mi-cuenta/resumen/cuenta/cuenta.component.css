@@ -1,0 +1,31 @@
+.cuenta {
+  width: 70%;
+  margin: 15px auto;
+}
+
+.icono {
+  font-size: 70px;
+  background-color: #E2E2E2;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  color: #6d9791;
+}
+
+.title {
+  font-size: 16px;
+  padding: 35px 0px;
+}
+
+@media screen and (max-width: 991px) {}
+
+@media screen and (max-width: 769px) {}
+
+@media screen and (max-width: 425px) {}
+
+@media screen and (max-width: 414px) {}
+
+@media screen and (max-width: 375px) {}
+
+@media screen and (max-width: 320px) {}

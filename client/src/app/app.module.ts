@@ -105,6 +105,7 @@ import { ContactoRegalosComponent } from './components/lista-de-regalos/contacto
 //Modulo mi cuenta
 import { LoginComponent } from './components/mi-cuenta/login/login.component';
 import { ResumenMiCuentaComponent } from './components/mi-cuenta/resumen/resumen.component';
+import { CuentaComponent } from './components/mi-cuenta/resumen/cuenta/cuenta.component';
 
 // Promocion alf
 import { PromocionAlfComponent } from './components/promocion-alf/promocion-alf.component';
@@ -206,7 +207,8 @@ import { MetaModule } from '@ngx-meta/core';
     ContactoRegalosComponent,
     //Modulo mi cuenta
     LoginComponent,
-    ResumenMiCuentaComponent
+    ResumenMiCuentaComponent,
+    CuentaComponent
   ],
   imports: [
     BrowserModule,

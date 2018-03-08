@@ -12,18 +12,23 @@ declare var $: any;
 
 export class ResumenMiCuentaComponent implements OnInit {
   public title: string;
+  public paso: number = 1;
 
   constructor(private _route: ActivatedRoute, private _router: Router) {
-      this.title = 'Este es el cuerpo de resumen';
+    this.title = 'Este es el cuerpo de resumen';
   }
 
   ngOnInit() {
   }
 
   ngAfterViewInit() {
-    $(document).ready(function() {
-      $("html, body").animate({scrollTop: 0}, 1000);
+    $(document).ready(function () {
+      $("html, body").animate({ scrollTop: 0 }, 1000);
     });
+  }
+
+  public irPaso(paso) {
+    this.paso = paso;
   }
 
 }
