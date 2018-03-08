@@ -75,6 +75,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   public mostrarPopOverSignIn: boolean = false;
   public mostrarPopOverMenuSesion: boolean = false;
   public nombreUsuario: string;
+  public estaEnMiCuenta: boolean = false;
 
 
   constructor(private _jwt: JWTService, private _menuService: MenuItemService, private _route: ActivatedRoute, private _router: Router) {
@@ -99,6 +100,9 @@ export class MenuComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+
+    this.urlMenu = window.location.pathname;
+    this.sinMenu();
   }
 
   public conSesion() {
@@ -123,6 +127,14 @@ export class MenuComponent implements OnInit, AfterViewInit {
 
   public ocultarMenuSesion() {
     this.mostrarPopOverMenuSesion = false;
+  }
+
+  public sinMenu() {
+    if (this.urlMenu == '/mi-cuenta') {
+      this.estaEnMiCuenta = true;
+    } else {
+
+    }
   }
 
   private cargarDatosMenu() {

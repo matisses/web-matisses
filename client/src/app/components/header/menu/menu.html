@@ -250,7 +250,7 @@
                       <span class="glyphicon glyphicon-log-in"> </span> REGÍSTRATE</a>
                   </li>
                   <li>
-                    <a href="javascript:void(0)" *ngIf="tieneSesion" (mouseenter)="mostrarMenuSesion()">Bienvenid@ {{nombreUsuario}}</a>
+                    <a href="javascript:void(0)" *ngIf="tieneSesion" (mouseenter)="mostrarMenuSesion()">Hola {{nombreUsuario}}</a>
                   </li>
                 </ul>
               </div>
@@ -310,7 +310,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-12 top">
+        <div class="col-xs-12 top" *ngIf="!estaEnMiCuenta">
           <div class="nav medium">
             <!-- botones para el administrador -->
             <div class="agregar" *ngIf="adminToken" data-toggle="modal" data-target="#modalMenu">

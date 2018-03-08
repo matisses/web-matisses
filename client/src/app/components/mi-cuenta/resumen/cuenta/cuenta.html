@@ -1,4 +1,4 @@
-<div class="cuenta">
+<div class="cuenta" *ngIf="!ajustesCuenta">
   <div class="row">
     <div class="col-xs-2">
       <div class="icono">
@@ -11,7 +11,7 @@
       </p>
     </div>
     <div class="col-xs-4 text-right">
-      <p class="title cursor-pointer">| Editar</p>
+      <p class="title cursor-pointer" (click)="editarCuenta()">| Editar</p>
     </div>
   </div>
   <br>
@@ -22,18 +22,64 @@
       <br>
       <p>Correo:</p>
       <p>{{correoUsuario}}</p>
-      <br>      
+      <br>
       <p>Celular:</p>
       <p>{{celularUsuario}}</p>
-      <br>      
+      <br>
       <p>Teléfono:</p>
       <p>{{telefonoUsuario}}</p>
-      <hr>      
+      <hr>
       <p>Tu dirección por defecto:</p>
       <p>{{direccionUsuario}}</p>
-      <hr>      
+      <hr>
       <p>Notificaciones:</p>
       <p>{{newsUsuario}}</p>
+    </div>
+  </div>
+</div>
+
+<div class="ajustes" *ngIf="ajustesCuenta">
+  <div class="row">
+    <div class="col-xs-10 col-xs-offset-1">
+      <p class="title">
+        <b>Ajustes de cuenta</b>
+      </p>
+    </div>
+  </div>
+  <div class="row" *ngIf="cambiosGuardados">
+    <div class="col-xs-10 col-xs-offset-1">
+      <div class="alert alert-success" role="alert">
+        <p>{{messageError}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-10 col-xs-offset-1">
+      <label for="telefono">Teléfono</label>
+      <input type="tel" id="telefono" class="form-micuenta">
+      <label for="cel">Celular</label>
+      <input type="tel" id="cel" class="form-micuenta">
+      <label for="newpassword">Nueva contraseña</label>
+      <input type="tel" id="newpassword" class="form-micuenta">
+      <label for="conNewpassword">Confirmar nueva contraseña</label>
+      <input type="tel" id="conNewpassword" class="form-micuenta">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-5 col-xs-offset-1">
+      <button class="btn btn-volver" (click)="salirEditarCuenta()">Volver a la cuenta</button>
+    </div>
+    <div class="col-xs-5">
+      <button class="btn btn-guardar" (click)="guardarCambios()">Guardar</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-10 col-xs-offset-1">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" name="newsletter" checked>Suscirpción al newsletter
+        </label>
+      </div>
     </div>
   </div>
 </div>
