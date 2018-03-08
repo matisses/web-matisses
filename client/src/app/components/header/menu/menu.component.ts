@@ -71,8 +71,9 @@ export class MenuComponent implements OnInit, AfterViewInit {
   public subgrupos: Array<MenuItem>;
   public mostrarBuscador: boolean = false;
   public urlMenu: any;
-  public tieneSesion: number = 0;
+  public tieneSesion: boolean = false;
   public mostrarPopOverSignIn: boolean = false;
+  public mostrarPopOverMenuSesion: boolean = false;
   public nombreUsuario: string;
 
 
@@ -85,31 +86,27 @@ export class MenuComponent implements OnInit, AfterViewInit {
     this.inicializarMenu();
     document.getElementById("myNav").style.width = "0%";
     this.cargarDatosMenu();
-    $('#collapseSearch').on('shown.bs.collapse', function() {
+    $('#collapseSearch').on('shown.bs.collapse', function () {
       $('#searchField').focus();
     });
-    $('#collapseSearchMovil').on('shown.bs.collapse', function() {
+    $('#collapseSearchMovil').on('shown.bs.collapse', function () {
       $('#searchFieldMobile').focus();
     });
-    $(function() {
+    $(function () {
       $('[data-toggle="tooltip"]').tooltip()
     })
   }
 
   ngAfterViewInit() {
     this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-
-    this.urlMenu = window.location.pathname;  
-    this.conSesion();
-    
   }
 
   public conSesion() {
-    if(this.urlMenu == '/mi-cuenta'){
-      this.tieneSesion = 2;
-    } else if(this.urlMenu == '/login'){
-      this.tieneSesion = 1;
-    }else {}
+    this.tieneSesion = true;
+  }
+
+  public sinSesion() {
+    this.tieneSesion = false;
   }
 
   public mostrarSignIn() {
@@ -118,6 +115,14 @@ export class MenuComponent implements OnInit, AfterViewInit {
 
   public ocultarSignIn() {
     this.mostrarPopOverSignIn = false;
+  }
+
+  public mostrarMenuSesion() {
+    this.mostrarPopOverMenuSesion = true;
+  }
+
+  public ocultarMenuSesion() {
+    this.mostrarPopOverMenuSesion = false;
   }
 
   private cargarDatosMenu() {
