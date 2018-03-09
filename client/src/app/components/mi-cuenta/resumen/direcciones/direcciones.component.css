@@ -1,20 +1,110 @@
-.stuck-body {
-  margin-top: 125px;
-  color: #5B5B5B;
+.direcciones {
+    width: 70%;
+    margin: 20px auto;
 }
 
-@media screen and (max-width: 991px) {
-  .stuck-body {
-    margin-top: 0px;
-  }
+.ajustes {
+    width: 60%;
+    margin: 15px auto;
 }
 
-@media screen and (max-width: 769px) {}
+.icono {
+    font-size: 70px;
+    background-color: #E2E2E2;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    color: #6d9791;
+}
 
-@media screen and (max-width: 425px) {}
+.title {
+    font-size: 16px;
+    padding: 35px 0px;
+}
 
-@media screen and (max-width: 414px) {}
+.titulos-direcciones {
+    border: 1px solid #E2E2E2;
+}
 
-@media screen and (max-width: 375px) {}
+.titulos-direcciones .name, .titulos-direcciones .address, .titulos-direcciones .info, .titulos-direcciones .icon {
+    text-transform: capitalize;
+    text-align: center;
+    float: left;
+    padding: 10px 5px;
+    height: 40px;
+    font-weight: bold;
+}
 
-@media screen and (max-width: 320px) {}
+.tabla-direcciones, .titulos-direcciones {
+    height: 40px;
+    width: 100%;
+}
+
+.tabla-direcciones p, .titulos-direcciones p {
+    margin-bottom: 1px;
+}
+
+.tabla-direcciones .name, .tabla-direcciones .address, .tabla-direcciones .info, .tabla-direcciones .icon {
+    text-transform: capitalize;
+    float: left;
+    border: 1px solid #E2E2E2;
+    padding: 10px 6px;
+    height: 40px;
+}
+
+.tabla-direcciones .name, .titulos-direcciones .name {
+    width: 15%;
+}
+
+.tabla-direcciones .address, .tabla-direcciones .info, .titulos-direcciones .address, .titulos-direcciones .info {
+    width: 36%;
+}
+
+.tabla-direcciones .icon, .titulos-direcciones .icon {
+    width: 13%;
+    text-align: center;
+    cursor: pointer;
+    color: #6D9791;
+}
+
+label {
+    font-weight: 400;
+    color: #5B5B5B;
+    margin-top: 5px;
+}
+
+.form-direcciones {
+    display: block;
+    width: 100%;
+    height: 35px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.4;
+    border-radius: 0;
+    border: 1px solid #E5E5E5;
+}
+
+.btn-agregar, .btn-volver, .btn-guardar {
+    border-radius: 0%;
+    color: #FFF;
+}
+
+.btn-agregar, .btn-guardar {
+    background-color: #6d9791;
+}
+
+.btn-volver {
+    background-color: #5B5B5B;
+}
+
+.title-modal {
+    font-weight: bold;
+    border-bottom: 1px solid #E2E2E2;
+    padding: 5px;
+}
+
+.checkbox {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
