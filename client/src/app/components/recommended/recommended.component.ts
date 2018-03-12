@@ -37,7 +37,7 @@ export class RecommendedComponent implements OnInit {
   ngAfterViewInit() {
     setTimeout(function() {
       $("#recommended").click();
-    }, 2500);
+    }, 1050);
   }
 
   private inicializarItems() {
