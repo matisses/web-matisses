@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?8u2hk5');
-  src:  url('fonts/icomoon.eot?8u2hk5#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?8u2hk5') format('truetype'),
-    url('fonts/icomoon.woff?8u2hk5') format('woff'),
-    url('fonts/icomoon.svg?8u2hk5#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?vm6iso');
+  src:  url('fonts/icomoon.eot?vm6iso#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?vm6iso') format('truetype'),
+    url('fonts/icomoon.woff?vm6iso') format('woff'),
+    url('fonts/icomoon.svg?vm6iso#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -213,11 +213,17 @@
 .icon-truck:before {
   content: "\e909";
 }
+.icon-pencil:before {
+  content: "\e93e";
+}
 .icon-camera:before {
   content: "\e938";
 }
 .icon-credit-card:before {
   content: "\e93f";
+}
+.icon-location:before {
+  content: "\e947";
 }
 .icon-bubble:before {
   content: "\e96b";
