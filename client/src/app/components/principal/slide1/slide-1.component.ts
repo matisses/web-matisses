@@ -26,10 +26,10 @@ export class Slide1Component implements OnInit {
 
   private inicializarItems() {
     this.items = new Array<Item>();
-    this._itemService.find('2440098').subscribe(
+    this._itemService.find('2560007').subscribe(
       response => {
         this.items.push(response.result[0]);
-        this._itemService.find('2440095').subscribe(
+        this._itemService.find('2560008').subscribe(
           response => {
             this.items.push(response.result[0]);
             this._itemService.find('2440096').subscribe(
