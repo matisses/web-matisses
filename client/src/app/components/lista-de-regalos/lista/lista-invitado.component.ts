@@ -20,7 +20,7 @@ declare var $: any;
   providers: [ItemService, SessionUsuarioService, ListaRegalosService]
 })
 
-export class ListaInvitadoComponent implements OnInit, AfterViewInit {
+export class ListaInvitadoComponent implements OnInit {
   @ViewChild(CarritoRegalosSimpleComponent)
   public carrito: CarritoRegalosSimpleComponent;
   public lastAddedItem: Item;
@@ -105,9 +105,34 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
       sortOrder: '',
       keywords: ''
     };
+
   }
 
   ngOnInit() {
+    // if(this.queryParams.size==0){
+    // this.queryParams = new Map<string, string>();
+    // this.queryString = '?';
+    // let queryParamsObj = {};
+    //
+    //
+    //   this.queryParams.set('page', '1');
+    //
+    //
+    //     if (this.queryString.charAt(this.queryString.length - 1) != '?') {
+    //       this.queryString += '&';
+    //     }
+    //     this.queryString += 'page' + '=' + this.queryParams.get('page');
+    //       queryParamsObj['page'] = this.queryParams.get('page');
+    //     this.queryParams.set('pageSize', '12');
+    //     if (this.queryString.charAt(this.queryString.length - 1) != '?') {
+    //       this.queryString += '&';
+    //     }
+    //     this.queryString += 'pageSize' + '=' + this.queryParams.get('pageSize');
+    //     queryParamsObj['pageSize'] = this.queryParams.get('pageSize');
+    //
+    //       this._router.navigate(['/lista/' + this.codigoLista], { queryParams: queryParamsObj });
+    //
+    // }
     this.inicializarParamsConsulta();
     this.novios = sessionStorage.getItem('novios');
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -265,6 +290,21 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   public cargarItems(availableFields, items, queryParams, records) {
+    console.log('cargar Items');
+    let paramConsulta = {
+      idLista: localStorage.getItem('id-lista')
+    };
+    this._listaService.consultarListaSinPaginar(paramConsulta).subscribe(
+      response => {
+        this.itemsSinPaginar = response;
+
+
+      },
+      error => {
+        console.error(error);
+      }
+    );
+
     if (this.codigoLista == null) {
       this._route.queryParams.subscribe(params => {
         this.codigoLista = params['codigoLista'];
@@ -298,7 +338,8 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
     this.items = items;
     this.availableFields = availableFields;
     this.queryParams = queryParams;
-    this.totalItems = records;
+    this.totalItems = this.itemsSinPaginar.length;
+    console.log('totalItems '+this.totalItems);
     this.pages = new Array<number>();
     if (this.queryParams.has('pageSize')) {
       if (this.queryParams.get('pageSize') === '10000') {
@@ -350,10 +391,11 @@ export class ListaInvitadoComponent implements OnInit, AfterViewInit {
   }
 
   private cargarItems0() {
+    console.log('cargar Items0');
     this.items = new Array<Item>();
     //this.inicializarParamsConsulta();
     this._route.queryParams.forEach((params: Params) => {
-
+      console.log('cargar Items forEach');
       this.inicializarMapa(params);
       if (this.queryParams.has('pageSize')) {
         this.paramsConsulta.registrosPagina = this.queryParams.get('pageSize');

@@ -250,22 +250,31 @@
                       <span class="glyphicon glyphicon-log-in"> </span> REGÍSTRATE</a>
                   </li>
                   <li>
-                    <a href="javascript:void(0)" *ngIf="tieneSesion" (mouseenter)="mostrarMenuSesion()">Hola {{nombreUsuario}}</a>
+                    <a href="javascript:void(0)" *ngIf="tieneSesion" (mouseenter)="mostrarMenuSesion()">Hola {{nombreSession}}</a>
                   </li>
                 </ul>
               </div>
               <div class="campos-signIn" *ngIf="mostrarPopOverSignIn" (mouseleave)="ocultarSignIn()">
                 <div class="arrow-before"></div>
                 <div class="container-sign">
+
+                  <div class="row" *ngIf="messageError != null && messageError.length > 0">
+                    <div class="col-xs-12">
+                      <div class="alert alert-danger" role="alert">
+                        <p>{{messageError}}</p>
+                      </div>
+                    </div>
+                  </div>
                   <label for="email-login">E-mail</label>
-                  <input type="email" class="form-registro" id="email-login">
+                  <input type="email" class="form-registro" id="email-login"   name="nombreUsuario" [(ngModel)]="nombreUsuario" required>
                   <br>
                   <label for="password-login">Contraseña</label>
-                  <input type="password" class="form-registro" id="password-login">
+                  <input type="password" class="form-registro" id="password-login" name="password" [(ngModel)]="password" required>
                   <br>
                   <button type="submit" class="btn btn-enviar-facebook">
                     <span class="icon-facebook"></span> Ingresar con Facebook</button>
-                  <button type="submit" class="btn btn-enviar-ingresar" (click)="conSesion(); ocultarSignIn()">Ingresar</button>
+                  <!-- <button type="submit" class="btn btn-enviar-ingresar" (click)="conSesion(); ocultarSignIn()">Ingresar</button> -->
+                  <button type="submit" class="btn btn-enviar-ingresar" (click)="login()">Ingresar</button>
                 </div>
               </div>
               <div class="campos-sesion" *ngIf="mostrarPopOverMenuSesion" (mouseleave)="ocultarMenuSesion()">
@@ -273,7 +282,8 @@
                 <div class="container-sign">
                   <p class="cursor-pointer" [routerLink]="['/mi-cuenta']">Mi cuenta</p>
                   <p class="cursor-pointer" [routerLink]="['/mi-cuenta']">Mis compras</p>
-                  <p class="cursor-pointer" [routerLink]="['/']" (click)="sinSesion(); ocultarMenuSesion()">Cerrar Sesión</p>
+                  <!-- <p class="cursor-pointer" [routerLink]="['/']" (click)="sinSesion(); ocultarMenuSesion()">Cerrar Sesión</p> -->
+                  <p class="cursor-pointer" [routerLink]="['/']" (click)="cerrarSession()">Cerrar Sesión</p>
                 </div>
               </div>
               <div class="col-md-12 col-sm-6 text-right">

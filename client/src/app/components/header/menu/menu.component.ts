@@ -5,6 +5,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { StickyMenuDirective } from '../../../directives/sticky.directive';
 import { MenuItem } from '../../../models/menu-item';
 import { CarritoComponent } from './carrito/carrito.component';
+import { SessionUsuarioService } from '../../../services/session-usuario.service';
 
 import { MenuItemService } from '../../../services/menu.service';
 import { JWTService } from '../../../services/jwt.service';
@@ -15,7 +16,7 @@ declare var $: any;
   selector: 'matisses-menu',
   templateUrl: 'menu.html',
   styleUrls: ['menu.component.css'],
-  providers: [MenuItemService, JWTService],
+  providers: [MenuItemService, JWTService,SessionUsuarioService],
   animations: [
     trigger('menuAnimation', [
       state('shown', style({
@@ -56,7 +57,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   public adminToken: string;
   public errorMessage: string = '';
   public keywords: string = '';
-
+  public messageError: string = '';
   public mensajeConfirmacion: string = '';
   public metodoEliminar: string = '';
   public confirmacion: boolean = false;
@@ -76,14 +77,20 @@ export class MenuComponent implements OnInit, AfterViewInit {
   public mostrarPopOverMenuSesion: boolean = false;
   public nombreUsuario: string;
   public estaEnMiCuenta: boolean = false;
+  public password: string;
+  public token: string;
+  public nombreSession: string;
+  public idUsuario: string;
 
 
-  constructor(private _jwt: JWTService, private _menuService: MenuItemService, private _route: ActivatedRoute, private _router: Router) {
+  constructor(private _jwt: JWTService, private _menuService: MenuItemService, private _route: ActivatedRoute, private _router: Router,private _userService: SessionUsuarioService) {
     this.padreSeleccionado = new MenuItem();
-    this.nombreUsuario = 'Alejandro';
+    this.messageError='';
+
   }
 
   ngOnInit() {
+    this.messageError='';
     this.inicializarMenu();
     document.getElementById("myNav").style.width = "0%";
     this.cargarDatosMenu();
@@ -95,10 +102,24 @@ export class MenuComponent implements OnInit, AfterViewInit {
     });
     $(function () {
       $('[data-toggle="tooltip"]').tooltip()
-    })
+    });
+    if(localStorage.getItem('matisses.session-token')!=null){
+    this.tieneSesion = true;
+    this.mostrarPopOverSignIn = false;
+    this.mostrarPopOverMenuSesion = true;
+    this.nombreSession=localStorage.getItem('username');
+
+    }
+
   }
 
   ngAfterViewInit() {
+
+    if(localStorage.getItem('matisses.session-token')!=null){
+    this.tieneSesion = true;
+    this.mostrarPopOverSignIn = false;
+    this.mostrarPopOverMenuSesion = true;
+    }
     this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 
     this.urlMenu = window.location.pathname;
@@ -111,6 +132,15 @@ export class MenuComponent implements OnInit, AfterViewInit {
 
   public sinSesion() {
     this.tieneSesion = false;
+  }
+
+  public cerrarSession(){
+    this.tieneSesion = false;
+    this.mostrarPopOverMenuSesion = false;
+    localStorage.removeItem('matisses.session-token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('usuario-id');
+
   }
 
   public mostrarSignIn() {
@@ -810,6 +840,64 @@ export class MenuComponent implements OnInit, AfterViewInit {
     } else {
       $("#menu").removeClass('top-164');
     }
+  }
+
+  public login() {
+    console.log('entra al login');
+    this.messageError = '';
+    if (this.nombreUsuario == null || this.nombreUsuario.length <= 0) {
+      this.messageError = 'Ingresa tu dirección de correo principal.';
+      return;
+    }
+    if (this.password == null || this.password.length <= 0) {
+      this.messageError = 'Debes ingresar tu clave.';
+      return;
+    }
+    let usuarioDTO = {
+      nombreUsuario: this.nombreUsuario,
+      password: this.password
+    }
+    console.log('this.nombreUsuario '+this.nombreUsuario);
+    console.log('this.password '+this.password);
+    this._userService.login(usuarioDTO).subscribe(
+      response => {
+        if (response.codigo == '-1') {
+          this.messageError = "Error de sesión, datos inválidos.";
+          this.tieneSesion = false;
+          this.mostrarPopOverMenuSesion = false;
+          localStorage.removeItem('matisses.session-token');
+          localStorage.removeItem('username');
+          localStorage.removeItem('usuario-id');
+          return;
+        }
+        this.token = response.token;
+        this.idUsuario = response.usuarioId;
+        this.nombreSession = response.nombre;
+
+        this._jwt.validateToken(this.token).subscribe(
+          response => {
+              this.tieneSesion = true;
+              this.mostrarPopOverSignIn = false;
+              this.mostrarPopOverMenuSesion = true;
+          }, error => {
+            console.error(error);
+            this.tieneSesion = false;
+            this.mostrarPopOverMenuSesion = false;
+            localStorage.removeItem('matisses.session-token');
+            localStorage.removeItem('username');
+            localStorage.removeItem('usuario-id');
+          }
+        );
+        localStorage.setItem('matisses.session-token', this.token);
+        localStorage.setItem('username', this.nombreSession);
+        localStorage.setItem('usuario-id', this.idUsuario);
+        this._router.navigate(['/']);
+      },
+      error => {
+        this.messageError = "Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.";
+        console.error(error);
+      }
+    );
   }
 
 }
