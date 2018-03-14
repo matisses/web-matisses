@@ -17,9 +17,17 @@ export class ResumenMiCuentaComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(localStorage.getItem('matisses.session-token')==null){
+      console.log('no hay session');
+      this._router.navigate(['/login']);
+    }
   }
 
   ngAfterViewInit() {
+    if(localStorage.getItem('matisses.session-token')==null){
+      console.log('no hay session');
+      this._router.navigate(['/login']);
+    }
     $(document).ready(function () {
       $("html, body").animate({ scrollTop: 0 }, 1000);
     });

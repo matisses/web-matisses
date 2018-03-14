@@ -9,20 +9,29 @@
         <h4 class="modal-title text-center" id="forgotPasswordLabel">Recuperar Clave</h4>
       </div>
       <div class="modal-body">
+        <form #RecuperarForm="ngForm">
+          <div class="row" *ngIf="updateMessage != null && updateMessage.length > 0">
+            <div class="col-xs-12">
+              <div class="alert alert-danger" role="alert">
+                <p>{{updateMessage}}</p>
+              </div>
+            </div>
+          </div>
         <div class="row">
           <div class="col-xs-6 col-xs-offset-3">
             <div class="campos">
               <label for="recuperarmail">Ingresa tu e-mail</label>
-              <input type="mail" id="recuperarmail" class="form-registro">
+              <input type="mail" id="recuperarmail" class="form-registro"  name="recuperarEmail" [(ngModel)]="recuperarEmail" required >
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-xs-6 col-xs-offset-3 text-center">
-            <button type="submit" class="btn btn-enviar-matisses">Continuar</button>
+            <button type="submit" class="btn btn-enviar-matisses" (click)="recuperar()">Continuar</button>
           </div>
         </div>
         <br>
+      </form>
       </div>
     </div>
   </div>

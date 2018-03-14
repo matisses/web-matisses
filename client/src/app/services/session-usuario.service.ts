@@ -50,6 +50,15 @@ export class SessionUsuarioService {
       .map(res => res.json());
   }
 
+  recuperarClave(nombreUsuario) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'sessionusuario/recuperar/' + nombreUsuario, { headers: headers })
+      .map(res => res.json());
+  }
+
   // crear/
 
 
