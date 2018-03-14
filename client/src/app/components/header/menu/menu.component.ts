@@ -118,7 +118,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
     if(localStorage.getItem('matisses.session-token')!=null){
     this.tieneSesion = true;
     this.mostrarPopOverSignIn = false;
-    this.mostrarPopOverMenuSesion = true;
+    this.mostrarPopOverMenuSesion = false;
     }
     this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 
