@@ -45,7 +45,7 @@ public forPedidos() {
     factura: "7000610",
     fecha: "05 | 11 | 2018",
     valor: "5550000",
-    estado: "transito"
+    estado: "tránsito"
   });
   this.pedidos.push({
     factura: "70000709",

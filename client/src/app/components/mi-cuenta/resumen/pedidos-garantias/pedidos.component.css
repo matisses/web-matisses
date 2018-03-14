@@ -26,11 +26,47 @@
 
 .border-left::after {
   content: ' ';
-  border-left: 1px solid #5B5B5B;
-  height: 80px;
+  border-left: 1px solid #ECECEC;
+  height: 100px;
   position: absolute;
-  left: -5px;
-  top: 15px;
+  left: 0px;
+  top: 20px;
+}
+
+.factura p {
+  background-color: #E2E2E2;
+  padding: 5px 15px
+}
+
+.fecha p, .valor p, .estado p {
+  margin-left: 15px;
+}
+
+.estado p {
+  padding: 5px 15px;
+  text-transform: capitalize;
+  font-weight: 500;
+  margin-bottom: 0;
+}
+
+.estado {
+  margin-bottom: 10px;
+}
+
+.bg-success {
+  color: #51ba21
+}
+
+.bg-danger {
+  color: #ed5757;
+}
+
+.bg-info {
+  color: #269fe0
+}
+
+.bg-warning {
+  color: #e5ca52;
 }
 
 @media screen and (max-width: 768px) {
@@ -41,5 +77,8 @@
     position: absolute;
     left: 0;
     top: 15px;
+  }
+  .fecha p, .valor p, .estado p {
+    margin-left: 0px;
   }
 }
