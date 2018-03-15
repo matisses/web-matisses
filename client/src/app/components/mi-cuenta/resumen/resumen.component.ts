@@ -11,7 +11,7 @@ declare var $: any;
 
 
 export class ResumenMiCuentaComponent implements OnInit {
-  public paso: number = 3;
+  public paso: number = 1;
 
   constructor(private _route: ActivatedRoute, private _router: Router) {
   }

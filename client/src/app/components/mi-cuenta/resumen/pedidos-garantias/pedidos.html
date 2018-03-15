@@ -1,4 +1,132 @@
-<div class="direcciones">
+<!-- Modal detalles factura -->
+<div class="modal fade" id="modalDetalle" tabindex="-1" role="dialog" aria-labelledby="modalDetalleLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="row">
+          <div class="col-xs-10 col-xs-offset-1">
+            <p>
+              <b>Detalles de factura</b>
+            </p>
+            <br>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="info-fac">
+                  <p class="title-modal">
+                    <b>FACTURA N° 70000710</b>
+                  </p>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <p class="fecha-fac">Fecha
+                        <b>17 | 07 | 2018</b>
+                      </p>
+                    </div>
+                    <div class="col-sm-4">
+                      <p class="estado-fac">Estado
+                        <b class="bg-succes">ENTREGADO</b>
+                      </p>
+                    </div>
+                    <div class="col-sm-4">
+                      <p class="pago-fac">Método de pago
+                        <b>portal web</b>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="detalle-envio">
+                  <p class="title-modal">
+                    <b>DIRECCIÓN DE ENVÍO</b>
+                  </p>
+                  <hr>
+                  <p>
+                    <b>Nombre:</b> Alejandro Guerra</p>
+                  <p>
+                    <b>Dirección:</b> Calle 48c # 18 - 56</p>
+                  <p>
+                    <b>Ciudad:</b> La Estrella</p>
+                  <p>
+                    <b>Departamento:</b> Antioquia</p>
+                  <p>
+                    <b>Teléfono: </b>418 51 58</p>
+                  <p>
+                    <b>Celular: </b>300 428 1100</p>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-sm-12">
+                <p class="title-modal">
+                  <b>Productos comprados</b>
+                </p>
+                <hr>
+                <div class="productos">
+                  <div class="row producto" *ngFor="let item of items">
+                    <div class="col-md-3 col-sm-12 text-center cursor-pointer">
+                      <img src="https://img.matisses.co/{{item.itemcode}}/mini/{{item.itemcode}}_01.jpg" alt="{{item.itemname}}">
+                    </div>
+                    <div class="col-md-9 col-sm-12">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <p class="item-name cursor-pointer">
+                            <b>{{item.itemname}}</b>
+                          </p>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="info">
+                            <div class="row">
+                              <div class="col-xs-3 padding-right-0">
+                                <p>Precio</p>
+                                <div class="price-full">
+                                  <p>
+                                    <b>$ {{item.priceaftervat | number}}</b>
+                                  </p>
+                                </div>
+                              </div>
+                              <div class="col-xs-3">
+                                <form>
+                                  <p>Cantidad</p>
+                                  <p><b>{{item.selectedQuantity}}</b></p>
+                                </form>
+                              </div>
+                              <div class="col-xs-3 padding-right-0">
+                                <p>Total</p>
+                                <div class="price-full">
+                                  <p>
+                                    <b>$ {{item.priceaftervat * item.selectedQuantity | number}}</b>
+                                  </p>
+                                </div>
+                              </div>
+                              <div class="col-xs-3 text-center">
+                                <p>Garantia</p>
+                                <p [ngClass]="{ 'bg-success' : item.estado === 'Reclamar' }"><b>{{item.estado}}</b></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Contenido -->
+<div class="pedidos">
   <div class="row">
     <div class="col-xs-2">
       <div class="icono">
@@ -11,4 +139,51 @@
       </p>
     </div>
   </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+      <div class="tabla-pedidos">
+        <div class="row">
+          <div class="col-sm-6" *ngFor="let pedido of pedidos, let i = index" [ngClass]="{ 'border-left' : i % 2 == 1 }">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="factura">
+                  <p>Factura n°:
+                    <b>{{pedido.factura}}</b>
+                    <span class="cursor-pointer pull-right" (click)="verDetalles()">
+                      <u>Ver detalles</u>
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-8">
+                <div class="fecha">
+                  <p>
+                    <b>Fecha: </b>{{pedido.fecha}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-8">
+                <div class="valor">
+                  <p>
+                    <b>Total:</b> $ {{pedido.valor | number}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 text-center">
+                <div class="estado">
+                  <p [ngClass]="{ 'bg-success' : pedido.estado === 'entregado', 'bg-info' : pedido.estado === 'tránsito', 'bg-warning' : pedido.estado === 'despachado', 'bg-danger' : pedido.estado === 'cancelado' }">{{pedido.estado}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
