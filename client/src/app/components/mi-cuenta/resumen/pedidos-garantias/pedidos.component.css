@@ -39,7 +39,8 @@
 }
 
 .fecha p, .valor p, .estado p {
-  margin-left: 15px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .estado p {
@@ -69,6 +70,46 @@
   color: #e5ca52;
 }
 
+/* estilos modal */
+
+.modal-content {
+  border-radius: 0px !important;
+}
+
+.modal hr {
+  margin: 5px 0px;
+}
+
+.modal .info-fac p, .modal .detalle-envio p {
+  margin: 0;
+}
+
+.modal .info-fac .fecha-fac b, .modal .info-fac .estado-fac b, .modal .info-fac .pago-fac b {
+  color: #6D9791;
+}
+
+.producto {
+  padding: 10px 0px;
+  border-bottom: 1px solid #EDEDED;
+}
+
+.producto img {
+  margin-top: 25px;
+}
+
+.item-name {
+  margin: 15px 0;
+  font-size: 15px;
+}
+
+.padding-right-0 {
+  padding-right: 0;
+}
+
+.modal .bg-success {
+  cursor: pointer;
+}
+
 @media screen and (max-width: 768px) {
   .border-left::after {
     content: ' ';
@@ -80,5 +121,12 @@
   }
   .fecha p, .valor p, .estado p {
     margin-left: 0px;
+  }
+}
+
+
+@media screen and (max-width: 450px) {
+  .info p {
+    font-size: 10px;
   }
 }

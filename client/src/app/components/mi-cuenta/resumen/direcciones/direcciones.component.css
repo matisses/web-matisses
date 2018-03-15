@@ -64,6 +64,9 @@
 .tabla-direcciones .icon, .titulos-direcciones .icon {
     width: 13%;
     text-align: center;
+}
+
+.tabla-direcciones .icon {
     cursor: pointer;
     color: #6D9791;
 }
