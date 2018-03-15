@@ -354,6 +354,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
             this.itemsListaCompra = response;
             for (var i = 0; i < this.itemsListaCompra.length; i++) {
               this.itemsListaCompra[i]['formAgregar'] = this.formAgregar;
+              console.log('fue devuelto '+this.itemsListaCompra[i].devuelto);
 
             }
           }, error => { console.error(error); });

@@ -103,6 +103,7 @@ export class LoginComponent implements OnInit {
         this.idUsuario = response.usuarioId;
         this.nombreSession = response.nombre;
         this.documentCustomer=response.documento;
+        this.nombreUsuario=response.nombreUsuario;
         if (response.esNuevo) {
           this.cambioContrasena = 'si';
         }
@@ -120,6 +121,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('usuario-id', this.idUsuario);
         localStorage.setItem('cambio-clave', this.cambioContrasena);
         localStorage.setItem('doc-customer', this.documentCustomer);
+        localStorage.setItem('nombre-usuario', this.nombreUsuario);
 
 
         this._router.navigate(['/mi-cuenta']);

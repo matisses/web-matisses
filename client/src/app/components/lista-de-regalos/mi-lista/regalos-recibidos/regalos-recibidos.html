@@ -114,7 +114,7 @@
                     <p class="referencia"><b>Ref:</b> {{item.formAgregar.shortcode}}</p>
                     <p class="precio"><b>$ {{item.formAgregar.precio | number}}</b></p>
                     <p class="cantidad">Cantidad comprada: <b>{{item.formAgregar.cantidad}}</b></p>
-                    <button type="button" *ngIf="item.formAgregar.cantidad> 0" class="btn btn-devolver" (click)=confirmDevolverItem()>Devolver regalo</button>
+                    <button type="button" *ngIf="item.formAgregar.cantidad> 0 && item.devuelto==false" class="btn btn-devolver" (click)=confirmDevolverItem()>Devolver regalo</button>
                   </div>
                   <br>
                   <div class="row" *ngIf="confirmDevolver">

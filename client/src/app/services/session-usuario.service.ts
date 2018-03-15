@@ -59,6 +59,23 @@ export class SessionUsuarioService {
       .map(res => res.json());
   }
 
+  cargarcliente(nombreUsuario) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'sessionusuario/cargarcliente/' + nombreUsuario, { headers: headers })
+      .map(res => res.json());
+  }
+
+  editarCliente(datosCliente) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'sessionusuario/editar/', JSON.stringify(datosCliente), { headers: headers })
+      .map(res => res.json());
+  }
   // crear/
 
 

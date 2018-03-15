@@ -142,6 +142,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
     localStorage.removeItem('username');
     localStorage.removeItem('usuario-id');
     localStorage.removeItem('doc-customer');
+    localStorage.removeItem('nombre-usuario');
 
   }
 
@@ -871,6 +872,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
           localStorage.removeItem('username');
           localStorage.removeItem('usuario-id');
           localStorage.removeItem('doc-customer');
+          localStorage.removeItem('nombre-usuario');
           return;
         }
         this.token = response.token;
@@ -890,7 +892,8 @@ export class MenuComponent implements OnInit, AfterViewInit {
             localStorage.removeItem('matisses.session-token');
             localStorage.removeItem('username');
             localStorage.removeItem('usuario-id');
-              localStorage.removeItem('doc-customer');
+            localStorage.removeItem('doc-customer');
+            localStorage.removeItem('nombre-usuario');
           }
         );
         localStorage.setItem('matisses.session-token', this.token);

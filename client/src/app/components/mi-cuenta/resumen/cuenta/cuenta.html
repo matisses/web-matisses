@@ -18,25 +18,25 @@
   <div class="row">
     <div class="col-xs-10 col-xs-offset-1">
       <p>Nombre:</p>
-      <p>{{customer.firstName}}</p>
+      <p>{{customer.CardName}}</p>
       <br>
       <p>Correo:</p>
-      <p>{{correoUsuario}}</p>
+      <p>{{this.customer.BPAddresses.BPAddress[0].County}}</p>
       <br>
       <p>Celular:</p>
-      <p>{{celularUsuario}}</p>
-      <br>
+      <p>{{this.customer.BPAddresses.BPAddress[0].BuildingFloorRoom}}</p>
+      <!-- <br>
       <p>Teléfono:</p>
-      <p>{{telefonoUsuario}}</p>
+      <p>{{telefonoUsuario}}</p> -->
       <hr>
       <div class="row">
         <div class="col-xs-6">
           <p>Tu dirección de entrega por defecto:</p>
-          <p>{{direccionUsuario}}</p>
+          <!-- <p>{{this.customer.addresses[0].address}}</p> -->
         </div>
         <div class="col-xs-6">
           <p>Tu dirección de facturación por defecto:</p>
-          <p>{{direccionUsuario}}</p>
+          <!-- <p>{{this.customer.addresses[0].address}}</p> -->
         </div>
       </div>
       <hr>
