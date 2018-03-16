@@ -900,6 +900,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
         localStorage.setItem('username', this.nombreSession);
         localStorage.setItem('usuario-id', this.idUsuario);
         localStorage.setItem('doc-customer', this.documentCustomer);
+        localStorage.setItem('nombre-usuario', this.nombreUsuario);
         this._router.navigate(['/']);
       },
       error => {

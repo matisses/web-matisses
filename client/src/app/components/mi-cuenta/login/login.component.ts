@@ -45,6 +45,10 @@ export class LoginComponent implements OnInit {
   public recuperarEmail:string;
   public updateMessage:string;
   public documentCustomer:string;
+  public celularOriginal:string;
+  public correoOriginal:string;
+  public direccionOriginal:string;
+  public customerEdit: any;
 
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _userService: SessionUsuarioService, private _jwt: JWTService,  private _customerService: CustomerService,
@@ -155,6 +159,9 @@ export class LoginComponent implements OnInit {
             this.checkedCustomerM = false;
           }
           this.customer = response;
+          this.correoOriginal=this.customer.addresses[0].email;
+          this.direccionOriginal=this.customer.addresses[0].address;
+          this.celularOriginal=this.customer.addresses[0].cellphone;
           this.existeCustomer = true;
           this.disabledCustomer = true;
         },
@@ -321,7 +328,7 @@ export class LoginComponent implements OnInit {
     //Validar si el usuario ya existe
     if (this.aceptaTerminos) {
 
-      this._userService.validarUsuario(this.customer.addresses[0].email,this.customer.fiscalID).subscribe(
+      this._userService.validarUsuario(this.correoOriginal,this.customer.fiscalID).subscribe(
         response => {
 
           if (response.estado === 0) {
@@ -351,6 +358,38 @@ export class LoginComponent implements OnInit {
     if (!this.existeCustomer) {
 
       this.crearCliente();
+    }
+    else{
+      this._userService.cargarcliente(this.correoOriginal).subscribe(
+        response => {
+          this.customerEdit = response;
+          console.log('sl socio '+  this.customerEdit.BPAddresses.BPAddress.length);
+          //this.customer = response;
+        },
+        error => {
+          console.error(error);
+        }
+      );
+
+      if(this.customer.addresses[0].email!=this.correoOriginal ||
+         this.customer.addresses[0].address!=this.direccionOriginal ||
+          this.customer.addresses[0].cellphone!=this.celularOriginal){
+        console.log('editar el usuario');
+        this.customerEdit.
+        this._userService.editarCliente(this.correoOriginal).subscribe(
+          response => {
+          if(response.estado==0){
+            console.log('update -->');
+
+          //  BilltoDefault
+
+          }
+          },
+          error => {
+            console.error(error);
+          }
+        );
+      }
     }
     if (this.aceptaTerminos) {
 
