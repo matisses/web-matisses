@@ -41,6 +41,7 @@ export class CuentaComponent implements OnInit {
     //this.customer = new Customer();
   }
 
+
   ngOnInit() {
     this.documentCustomer=localStorage.getItem('doc-customer');
     this.nombreUsuario=localStorage.getItem('nombre-usuario');
