@@ -247,7 +247,7 @@
   }
   .principal-01 {
     background: url(../../../../assets/images/banner/slide-1/banner-01-mobile.jpg) no-repeat center;
-    background-position: center;
+    background-position: center 30px;
   }
 }
 

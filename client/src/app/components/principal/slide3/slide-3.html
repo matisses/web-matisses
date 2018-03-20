@@ -10,7 +10,7 @@
         <span class="glyphicon glyphicon-menu-right"></span>
         <span class="sr-only">Next</span>
       </a>
-      <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{ group: '003', subgroup: '086', pageSize: '10000'}">
+      <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{ subgroup: '011' }">
         <div class="principal-01">
           <div class="container">
             <div class="row">
@@ -29,7 +29,7 @@
   <div class="row" *ngIf="items && items.length > 0">
     <div class="col-sm-3 col-xs-6 text-center">
       <div class="recomendaciones">
-        <p class="name">SILLA OCASIONAL<br><b>EN PIEL</b></p>
+        <p class="name">SILLA OCASIONAL<br><b>EN TELA</b></p>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[0].shortitemcode]">
           <img src="https://img.matisses.co/{{items[0].itemcode}}/parrilla/{{items[0].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[0].itemname}}">
         </a>
@@ -59,7 +59,7 @@
         <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{ brand: '0035', group: '003' }">
           <div class="col-xs-12">
             <div class="sub-banner-footer">
-              <p><b>Sillas de comedor desde</b> $ {{items[2].priceaftervat | number}}</p>
+              <p><b>Silla de comedor en poliuretano</b> $ {{items[2].priceaftervat | number}}</p>
               <button type="submit" class="ir-comprar" name="comprar-ya">Ir a comprar</button>
             </div>
           </div>

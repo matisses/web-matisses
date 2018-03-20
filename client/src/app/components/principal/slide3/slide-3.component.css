@@ -246,8 +246,8 @@
     font-weight: normal;
   }
   .principal-01 {
-    /* background: url(../../../../assets/images/banner/slide-3/banner-01-mobile.jpg) no-repeat center; */
-    background-position: center;
+    background: url(../../../../assets/images/banner/slide-3/banner-01-mobile.jpg) no-repeat center;
+    background-position: center -20px;
   }
 }
 
