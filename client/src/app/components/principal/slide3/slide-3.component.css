@@ -254,7 +254,7 @@
 @media screen and (max-width: 414px) {
   .principal-01 {
     min-height: 250px;
-    background-position: center 15px;
+    background-position: center -40px;
   }
   .text-01 {
     margin: 10px auto;
