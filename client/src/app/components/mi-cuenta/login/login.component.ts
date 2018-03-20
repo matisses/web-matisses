@@ -42,6 +42,13 @@ export class LoginComponent implements OnInit {
   public claveNueva: string;
   public claveConfirmacion: string;
   public successMessage:string;
+  public recuperarEmail:string;
+  public updateMessage:string;
+  public documentCustomer:string;
+  public celularOriginal:string;
+  public correoOriginal:string;
+  public direccionOriginal:string;
+  public customerEdit: any;
 
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _userService: SessionUsuarioService, private _jwt: JWTService,  private _customerService: CustomerService,
@@ -65,19 +72,23 @@ export class LoginComponent implements OnInit {
   }
 
   public modalRecuperarPassword () {
+    this.updateMessage='';
     $('#forgotPassword').modal('show');
   }
 
   public login() {
-
+    console.log('entra aca');
     this.valid = true;
     this.messageError = '';
     if (this.nombreUsuario == null || this.nombreUsuario.length <= 0) {
+
       this.messageError = 'Ingresa tu dirección de correo principal.';
+      $('#messageUser').modal('show');
       return;
     }
     if (this.password == null || this.password.length <= 0) {
       this.messageError = 'Debes ingresar tu clave.';
+      $('#messageUser').modal('show');
       return;
     }
     let usuarioDTO = {
@@ -88,11 +99,15 @@ export class LoginComponent implements OnInit {
       response => {
         if (response.codigo == '-1') {
           this.messageError = "Error de sesión, datos inválidos.";
+          $('#messageUser').modal('show');
           return;
         }
+        console.log(response);
         this.token = response.token;
         this.idUsuario = response.usuarioId;
         this.nombreSession = response.nombre;
+        this.documentCustomer=response.documento;
+        this.nombreUsuario=response.nombreUsuario;
         if (response.esNuevo) {
           this.cambioContrasena = 'si';
         }
@@ -109,12 +124,15 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('username', this.nombreSession);
         localStorage.setItem('usuario-id', this.idUsuario);
         localStorage.setItem('cambio-clave', this.cambioContrasena);
+        localStorage.setItem('doc-customer', this.documentCustomer);
+        localStorage.setItem('nombre-usuario', this.nombreUsuario);
 
 
         this._router.navigate(['/mi-cuenta']);
       },
       error => {
         this.messageError = "Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.";
+        $('#messageUser').modal('show');
         console.error(error);
       }
     );
@@ -141,6 +159,9 @@ export class LoginComponent implements OnInit {
             this.checkedCustomerM = false;
           }
           this.customer = response;
+          this.correoOriginal=this.customer.addresses[0].email;
+          this.direccionOriginal=this.customer.addresses[0].address;
+          this.celularOriginal=this.customer.addresses[0].cellphone;
           this.existeCustomer = true;
           this.disabledCustomer = true;
         },
@@ -279,7 +300,7 @@ export class LoginComponent implements OnInit {
     this.messageError='';
 
     if (this.claveNueva != this.claveConfirmacion) {
-      
+
       this.messageError = 'Ambas contraseñas deben ser iguales.';
       this.successMessage = '';
       $('#messageUser').modal('show');
@@ -307,7 +328,7 @@ export class LoginComponent implements OnInit {
     //Validar si el usuario ya existe
     if (this.aceptaTerminos) {
 
-      this._userService.validarUsuario(this.customer.addresses[0].email,this.customer.fiscalID).subscribe(
+      this._userService.validarUsuario(this.correoOriginal,this.customer.fiscalID).subscribe(
         response => {
 
           if (response.estado === 0) {
@@ -337,6 +358,38 @@ export class LoginComponent implements OnInit {
     if (!this.existeCustomer) {
 
       this.crearCliente();
+    }
+    else{
+      this._userService.cargarcliente(this.correoOriginal).subscribe(
+        response => {
+          this.customerEdit = response;
+          console.log('sl socio '+  this.customerEdit.BPAddresses.BPAddress.length);
+          //this.customer = response;
+        },
+        error => {
+          console.error(error);
+        }
+      );
+
+      if(this.customer.addresses[0].email!=this.correoOriginal ||
+         this.customer.addresses[0].address!=this.direccionOriginal ||
+          this.customer.addresses[0].cellphone!=this.celularOriginal){
+        console.log('editar el usuario');
+        this.customerEdit.
+        this._userService.editarCliente(this.correoOriginal).subscribe(
+          response => {
+          if(response.estado==0){
+            console.log('update -->');
+
+          //  BilltoDefault
+
+          }
+          },
+          error => {
+            console.error(error);
+          }
+        );
+      }
     }
     if (this.aceptaTerminos) {
 
@@ -369,6 +422,31 @@ export class LoginComponent implements OnInit {
     } else {
       this.messageError = "Debe aceptar los términos y condiciones.";
     }
+  }
+
+  public recuperar(){
+    console.log('recuperar clave');
+    if(this.recuperarEmail==null || this.recuperarEmail==''){
+      this.updateMessage='Debes ingresar el correo electrónico';
+    }
+    else{
+      this._userService.recuperarClave(this.recuperarEmail).subscribe(
+        response => {
+          if (response.estado === 0) {
+              this.updateMessage=response.mensaje;
+              $('#forgotPassword').modal('show');
+          } else {
+            this.messageError = response.mensaje;
+          }
+        },
+        error => {
+          this.messageError = 'Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.';
+          console.error(error);
+        }
+      );
+
+    }
+
   }
 
 

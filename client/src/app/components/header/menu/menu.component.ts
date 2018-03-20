@@ -81,6 +81,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   public token: string;
   public nombreSession: string;
   public idUsuario: string;
+  public documentCustomer:string;
 
 
   constructor(private _jwt: JWTService, private _menuService: MenuItemService, private _route: ActivatedRoute, private _router: Router,private _userService: SessionUsuarioService) {
@@ -140,6 +141,8 @@ export class MenuComponent implements OnInit, AfterViewInit {
     localStorage.removeItem('matisses.session-token');
     localStorage.removeItem('username');
     localStorage.removeItem('usuario-id');
+    localStorage.removeItem('doc-customer');
+    localStorage.removeItem('nombre-usuario');
 
   }
 
@@ -868,11 +871,14 @@ export class MenuComponent implements OnInit, AfterViewInit {
           localStorage.removeItem('matisses.session-token');
           localStorage.removeItem('username');
           localStorage.removeItem('usuario-id');
+          localStorage.removeItem('doc-customer');
+          localStorage.removeItem('nombre-usuario');
           return;
         }
         this.token = response.token;
         this.idUsuario = response.usuarioId;
         this.nombreSession = response.nombre;
+        this.documentCustomer=response.documento;
 
         this._jwt.validateToken(this.token).subscribe(
           response => {
@@ -886,11 +892,15 @@ export class MenuComponent implements OnInit, AfterViewInit {
             localStorage.removeItem('matisses.session-token');
             localStorage.removeItem('username');
             localStorage.removeItem('usuario-id');
+            localStorage.removeItem('doc-customer');
+            localStorage.removeItem('nombre-usuario');
           }
         );
         localStorage.setItem('matisses.session-token', this.token);
         localStorage.setItem('username', this.nombreSession);
         localStorage.setItem('usuario-id', this.idUsuario);
+        localStorage.setItem('doc-customer', this.documentCustomer);
+        localStorage.setItem('nombre-usuario', this.nombreUsuario);
         this._router.navigate(['/']);
       },
       error => {
