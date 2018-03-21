@@ -112,6 +112,7 @@
 .text-01 .precio {
   font-size: 12px;
 }
+
 /* Estilos banner 02 */
 
 .recomendaciones {
@@ -129,6 +130,13 @@
 .recomendaciones .precio {
   margin-top: 30px;
   font-size: 20px;
+}
+
+.recomendaciones .precio del {
+  position: absolute;
+  bottom: 100px;
+  font-size: 17px;
+  color: #B20404;
 }
 
 .pull-bottom {
@@ -246,7 +254,7 @@
     font-weight: normal;
   }
   .principal-01 {
-    background: url(../../../../assets/images/banner/slide-3/banner-01-mobile.jpg) no-repeat center;
+    background: url(../../../../assets/images/banner/slide-5/banner-01-mobile.jpg) no-repeat center;
     background-position: center -20px;
   }
 }
@@ -267,6 +275,10 @@
   }
   .recomendaciones .precio {
     font-size: 15px;
+  }
+  .recomendaciones .precio del {
+    bottom: 84px;
+    font-size: 12px;
   }
   .pull-bottom {
     font-size: 10px;
