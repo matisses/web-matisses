@@ -77,14 +77,14 @@
   .img-category {
     padding: 20px;
   }
+  .img-sale {
+    background: url(../../../assets/images/categorias/img-sale-mobile.jpg) no-repeat center top;
+  }
 }
 
 @media screen and (max-width: 350px) {
   .breadcrumb {
     font-size: 8px;
-  }
-  .img-sale {
-    background: url(../../../assets/images/categorias/img-sale-mobile.jpg) no-repeat center top;
   }
 }
 
