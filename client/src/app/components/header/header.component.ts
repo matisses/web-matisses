@@ -90,6 +90,7 @@ export class HeaderComponent implements OnInit {
           };
           this._router.navigate(['/categoria'], { queryParams: queryParamsObj });
         }
+        this.lastAddedItem.availablestock = response.result[0].availablestock;
       },
       error => { console.error(error); }
     );
