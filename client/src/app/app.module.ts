@@ -66,6 +66,7 @@ import { RecomendadosComponent } from './components/sin-interes/recomendados/rec
 import { HotSaleComponent } from './components/hot-sale/hot-sale.component';
 import { InfoBogotaComponent } from './components/info-bogota/info-bogota.component';
 import { CabifyComponent } from './components/cabify/cabify.component';
+import { SeccionesComponent } from './components/secciones/secciones.component';
 
 //Componenete pagina de error
 import { ErrorComponent } from './components/error/error.component';
@@ -179,6 +180,7 @@ import { MetaModule } from '@ngx-meta/core';
     HotSaleComponent,
     NovedadesComponent,
     CabifyComponent,
+    SeccionesComponent,
     //Lista de Regalos
     ListaRegalosComponent,
     MenuListaComponent,
