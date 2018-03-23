@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?vm6iso');
-  src:  url('fonts/icomoon.eot?vm6iso#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?vm6iso') format('truetype'),
-    url('fonts/icomoon.woff?vm6iso') format('woff'),
-    url('fonts/icomoon.svg?vm6iso#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?mqhfa6');
+  src:  url('fonts/icomoon.eot?mqhfa6#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?mqhfa6') format('truetype'),
+    url('fonts/icomoon.woff?mqhfa6') format('woff'),
+    url('fonts/icomoon.svg?mqhfa6#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,27 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-bono-matisses:before {
+  content: "\e940";
+}
+.icon-cash:before {
+  content: "\e941";
+}
+.icon-clientes:before {
+  content: "\e942";
+}
+.icon-cuenta:before {
+  content: "\e943";
+}
+.icon-direcciones:before {
+  content: "\e944";
+}
+.icon-pedidos:before {
+  content: "\e945";
+}
+.icon-puntos:before {
+  content: "\e946";
+}
 .icon-tc:before {
   content: "\e93d";
 }

@@ -26,9 +26,25 @@
   .stuck-body {
     margin-top: 0px;
   }
+  .menu-micuenta {
+    padding-top: 60px;
+  }
+  .seleccionado::before {
+    left: 23%;
+  }
 }
 
-@media screen and (max-width: 769px) {}
+@media screen and (max-width: 640px) {
+  .mobile {
+    padding-top: 90px;
+  }
+  .panel-title a:hover {
+    text-decoration: none;
+  }
+  .panel-title span {
+    opacity: 0.4;
+  }
+}
 
 @media screen and (max-width: 425px) {}
 

@@ -9,14 +9,14 @@
 }
 
 .icono {
-  font-size: 60px;
+  font-size: 50px;
+  padding-top: 12px;
   background-color: #E2E2E2;
   border-radius: 50%;
   width: 100px;
   height: 100px;
   text-align: center;
   color: #6d9791;
-  padding-top: 10px;
 }
 
 .title {
@@ -110,6 +110,13 @@
   cursor: pointer;
 }
 
+@media screen and (max-width: 991px) {
+  .pedidos {
+    width: 90%;
+    margin: 10px auto;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .border-left::after {
     content: ' ';
@@ -124,9 +131,21 @@
   }
 }
 
-
 @media screen and (max-width: 450px) {
   .info p {
     font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .icono {
+    font-size: 30px;
+    padding-top: 14px;
+    width: 70px;
+    height: 70px;
+  }
+  .title {
+    padding: 20px 0px;
+    padding-left: 13px;
   }
 }
