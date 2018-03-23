@@ -1,13 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Item } from '../../models/item';
+import { ItemService } from '../../services/item.service';
+import { CarritoSimpleComponent } from '../header/menu/carrito/carrito-simple.component';
 
 declare var $: any;
-
-import { Item } from '../../models/item';
-
-import { ItemService } from '../../services/item.service';
-
-import { CarritoSimpleComponent } from '../header/menu/carrito/carrito-simple.component';
 
 @Component({
   selector: 'matisses-header',
@@ -27,6 +24,10 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._route.params.forEach((params: Params) => {
+      this.validarSaldoDisponible(params['item']);
+    });
+
     $('#carritoModal').on('show.bs.modal', () => {
       this.cargarInfoModal();
     });
@@ -67,9 +68,7 @@ export class HeaderComponent implements OnInit {
             }
           }
         },
-        error => {
-          console.log(error);
-        }
+        error => { console.error(error); }
       );
     }
   }
@@ -82,7 +81,15 @@ export class HeaderComponent implements OnInit {
   private validarSaldoDisponible(shortitemcode: string) {
     this._itemService.find(shortitemcode).subscribe(
       response => {
-        this.lastAddedItem.availablestock = response.result[0].availablestock;
+        if (response.result[0].availablestock <= 0) {
+          let queryParamsObj = {
+            "page": 1,
+            "group": response.result[0].group.code,
+            "pageSize": "10000",
+            "orderBy": "price"
+          };
+          this._router.navigate(['/categoria'], { queryParams: queryParamsObj });
+        }
       },
       error => { console.error(error); }
     );
