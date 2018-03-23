@@ -37,16 +37,16 @@ export class HeaderComponent implements OnInit {
 
     this.validarSaldoCarrito();
 
-    $(document).ready(function() {
+    $(document).ready(function () {
       $(".modal-backdrop").remove();
       $("body").removeClass('modal-open');
     });
-
   }
 
   public cargarInfoModal() {
     this.carrito.cargarCarrito();
     this.lastAddedItem = JSON.parse(localStorage.getItem('matisses.lastAddedItem'));
+    this.validarSaldoDisponible(this.lastAddedItem.shortitemcode);
     localStorage.removeItem('matisses.lastAddedItem');
   }
 
@@ -77,5 +77,14 @@ export class HeaderComponent implements OnInit {
   private cargarItemSinSaldo() {
     this.itemsSinSaldo = JSON.parse(localStorage.getItem('matisses.itemsWithoutStock'));
     localStorage.removeItem('matisses.itemsWithoutStock');
+  }
+
+  private validarSaldoDisponible(shortitemcode: string) {
+    this._itemService.find(shortitemcode).subscribe(
+      response => {
+        this.lastAddedItem.availablestock = response.result[0].availablestock;
+      },
+      error => { console.error(error); }
+    );
   }
 }
