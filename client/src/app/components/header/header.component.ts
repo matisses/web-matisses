@@ -1,13 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Item } from '../../models/item';
+import { ItemService } from '../../services/item.service';
+import { CarritoSimpleComponent } from '../header/menu/carrito/carrito-simple.component';
 
 declare var $: any;
-
-import { Item } from '../../models/item';
-
-import { ItemService } from '../../services/item.service';
-
-import { CarritoSimpleComponent } from '../header/menu/carrito/carrito-simple.component';
 
 @Component({
   selector: 'matisses-header',
@@ -27,6 +24,10 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._route.params.forEach((params: Params) => {
+      this.validarSaldoDisponible(params['item']);
+    });
+
     $('#carritoModal').on('show.bs.modal', () => {
       this.cargarInfoModal();
     });
@@ -37,16 +38,16 @@ export class HeaderComponent implements OnInit {
 
     this.validarSaldoCarrito();
 
-    $(document).ready(function() {
+    $(document).ready(function () {
       $(".modal-backdrop").remove();
       $("body").removeClass('modal-open');
     });
-
   }
 
   public cargarInfoModal() {
     this.carrito.cargarCarrito();
     this.lastAddedItem = JSON.parse(localStorage.getItem('matisses.lastAddedItem'));
+    this.validarSaldoDisponible(this.lastAddedItem.shortitemcode);
     localStorage.removeItem('matisses.lastAddedItem');
   }
 
@@ -67,9 +68,7 @@ export class HeaderComponent implements OnInit {
             }
           }
         },
-        error => {
-          console.log(error);
-        }
+        error => { console.error(error); }
       );
     }
   }
@@ -77,5 +76,23 @@ export class HeaderComponent implements OnInit {
   private cargarItemSinSaldo() {
     this.itemsSinSaldo = JSON.parse(localStorage.getItem('matisses.itemsWithoutStock'));
     localStorage.removeItem('matisses.itemsWithoutStock');
+  }
+
+  private validarSaldoDisponible(shortitemcode: string) {
+    this._itemService.find(shortitemcode).subscribe(
+      response => {
+        if (response.result[0].availablestock <= 0) {
+          let queryParamsObj = {
+            "page": 1,
+            "group": response.result[0].group.code,
+            "pageSize": "10000",
+            "orderBy": "price"
+          };
+          this._router.navigate(['/categoria'], { queryParams: queryParamsObj });
+        }
+        this.lastAddedItem.availablestock = response.result[0].availablestock;
+      },
+      error => { console.error(error); }
+    );
   }
 }
