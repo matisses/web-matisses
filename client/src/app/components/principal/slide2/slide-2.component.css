@@ -54,7 +54,7 @@
   }
 
   .principal-01 {
-    background: url(../../../../assets/images/banner/slide-2/banner-01.gif) no-repeat center center;
+    background: url(../../../../assets/images/banner/slide-2/banner-01.jpg) no-repeat center center;
     margin-top: 0px;
     padding-top: 100px;
     background-attachment: relative;
@@ -246,7 +246,7 @@
       font-weight: normal;
     }
     .principal-01 {
-      background: url(../../../../assets/images/banner/slide-2/banner-01-mobile.gif) no-repeat center;
+      background: url(../../../../assets/images/banner/slide-2/banner-01-mobile.jpg) no-repeat center;
       background-position: center;
     }
   }
@@ -283,6 +283,7 @@
     .principal-01 {
       min-height: 270px;
       margin-top: 40px;
+      background-position: center -60px;      
     }
   }
 
