@@ -262,7 +262,7 @@
 @media screen and (max-width: 414px) {
   .principal-01 {
     min-height: 250px;
-    background-position: center -40px;
+    background-position: center -65px;
   }
   .text-01 {
     margin: 10px auto;
@@ -302,6 +302,7 @@
   .principal-01 {
     min-height: 240px;
     margin-top: 40px;
+    background-position: center -80px;        
   }
   .recomendaciones .name {
     font-size: 12px;
