@@ -18,7 +18,7 @@
   <div class="row">
     <div class="col-xs-10 col-xs-offset-1">
       <p>Nombre:</p>
-      
+
       <p>{{customer.CardName}}</p>
       <br>
       <p>Correo:</p>
@@ -33,32 +33,12 @@
       <div class="row">
         <div class="col-xs-6">
           <p>Tu dirección de entrega por defecto:</p>
-          <!-- <p>{{this.customer.addresses[0].address}}</p> -->
+          <p>{{direccionEntrega}}</p>
         </div>
         <div class="col-xs-6">
           <p>Tu dirección de facturación por defecto:</p>
-          <!-- <p>{{this.customer.addresses[0].address}}</p> -->
+          <p>{{direccionFactura}}</p>
 
-          <!-- <p><b>Nombre:</b></p>
-          <p>{{nombreUsuario}}</p>
-          <br>
-          <p><b>Correo:</b></p>
-          <p>{{correoUsuario}}</p>
-          <br>
-          <p><b>Celular:</b></p>
-          <p>{{celularUsuario}}</p>
-          <br>
-          <p><b>Teléfono:</b></p>
-          <p>{{telefonoUsuario}}</p>
-          <hr>
-          <div class="row">
-            <div class="col-xs-6">
-              <p><b>Tu dirección de entrega por defecto:</b></p>
-              <p>{{direccionUsuario}}</p>
-            </div>
-            <div class="col-xs-6">
-              <p><b>Tu dirección de facturación por defecto:</b></p>
-              <p>{{direccionUsuario}}</p> -->
         </div>
       </div>
       <hr>
@@ -86,13 +66,23 @@
   <div class="row">
     <div class="col-xs-10 col-xs-offset-1">
       <label for="telefono">Teléfono</label>
-      <input type="tel" id="telefono" class="form-micuenta">
+      <input type="tel" id="telefono" class="form-micuenta" name="telefono" [(ngModel)]="this.customer.BPAddresses.BPAddress[0].Block">
       <label for="cel">Celular</label>
-      <input type="tel" id="cel" class="form-micuenta">
-      <label for="newpassword">Nueva contraseña</label>
-      <input type="tel" id="newpassword" class="form-micuenta">
+      <input type="tel" id="cel" class="form-micuenta" name="celular" [(ngModel)]="this.customer.BPAddresses.BPAddress[0].BuildingFloorRoom">
+      <!-- <label for="newpassword">Nueva contraseña</label>
+      <input type="tel" id="newpassword" class="form-micuenta" name="claveEditar" [(ngModel)]="claveEditar">
       <label for="conNewpassword">Confirmar nueva contraseña</label>
-      <input type="tel" id="conNewpassword" class="form-micuenta">
+      <input type="tel" id="conNewpassword" class="form-micuenta" name="claveConfEditar" [(ngModel)]="claveConfEditar"> -->
+
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-8 col-xs-offset-1">
+      <label>Cambiar Contraseña</label>
+    </div>
+    <div class="col-xs-2">
+    <button class="btn btn-guardar" (click)="guardarCambios()">Cambiar</button>
     </div>
   </div>
   <div class="row">

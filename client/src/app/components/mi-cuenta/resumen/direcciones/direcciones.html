@@ -14,7 +14,7 @@
                         <label for="name">Nombre de dirección</label>
                     </div>
                     <div class="col-sm-6">
-                        <input type="text" class="form-direcciones" id="name">
+                        <input type="text" class="form-direcciones" id="name" [(ngModel)]="infoModalEdit.nombre" readonly="readonly">
                     </div>
                 </div>
                 <br>
@@ -23,7 +23,7 @@
                         <label for="adress">Dirección</label>
                     </div>
                     <div class="col-sm-6">
-                        <input type="text" class="form-direcciones" id="adress">
+                        <input type="text" class="form-direcciones" id="adress" [(ngModel)]="infoModalEdit.direccion">
                     </div>
                 </div>
                 <br>
@@ -32,9 +32,13 @@
                         <label for="city">Ciudad</label>
                     </div>
                     <div class="col-sm-6">
-                        <select name="ciudad" id="city" class="form-direcciones">
-                            <option style="display:none" disabled selected value>Seleccione una</option>
-                        </select>
+                      <select id="city" name="city" [disabled]="disabledCustomer" class="form-direcciones"  [(ngModel)]="infoModalEdit.municipio" (change)="cambiarCiudad()" *ngIf="ciudadesPrincipales" required>
+                        <option style="display:none" disabled selected value>Seleccione una</option>
+                        <option disabled>─ Ciudades capitales</option>
+                        <option [selected]="infoModalEdit.municipio == principal.code"  *ngFor="let principal of ciudadesPrincipales" [ngValue]="principal.code">{{principal.name}}</option>
+                        <option disabled>─ Otras ciudades</option>
+                        <option [selected]="infoModalEdit.municipio == otra.code"   *ngFor="let otra of otrasCiudades" [ngValue]="otra.code">{{otra.name}}</option>
+                      </select>
                     </div>
                 </div>
                 <br>
@@ -43,14 +47,14 @@
                         <label for="addInfo">Información adicional</label>
                     </div>
                     <div class="col-sm-6">
-                        <input type="text" class="form-direcciones" id="addInfo">
+                        <input type="text" class="form-direcciones" id="addInfo" [(ngModel)]="infoModalEdit.info">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-10 col-xs-offset-1">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="aceptarTerminos">Usar como dirección de entrega por defecto.
+                                <input type="checkbox" name="envioDefecto" [(ngModel)]="infoModalEdit.esEnvioDefecto">Usar como dirección de entrega por defecto.
                             </label>
                         </div>
                     </div>
@@ -59,15 +63,15 @@
                     <div class="col-xs-10 col-xs-offset-1">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="newsletter">Usar como dirección de facturación por defecto.
+                                <input type="checkbox" name="facturaDefecto" [(ngModel)]="infoModalEdit.esFacturacionDefecto">Usar como dirección de facturación por defecto.
                             </label>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-volver" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-guardar">Guardar cambios</button>
+                <button type="button" class="btn btn-volver" (click)="cerrarModal()">Cerrar</button>
+                <button type="button" class="btn btn-guardar" (click)="editar()">Guardar cambios</button>
             </div>
         </div>
     </div>
@@ -88,7 +92,7 @@
                         <label for="name">Nombre de dirección</label>
                     </div>
                     <div class="col-sm-6">
-                        <input type="text" class="form-direcciones" id="name">
+                        <input type="text" class="form-direcciones" id="name" [(ngModel)]="infoModalAgregar.nombre">
                     </div>
                 </div>
                 <br>
@@ -97,7 +101,7 @@
                         <label for="adress">Dirección</label>
                     </div>
                     <div class="col-sm-6">
-                        <input type="text" class="form-direcciones" id="adress">
+                        <input type="text" class="form-direcciones" id="adress" [(ngModel)]="infoModalAgregar.direccion">
                     </div>
                 </div>
                 <br>
@@ -106,9 +110,13 @@
                         <label for="city">Ciudad</label>
                     </div>
                     <div class="col-sm-6">
-                        <select name="ciudad" id="city" class="form-direcciones">
-                            <option style="display:none" disabled selected value>Seleccione una</option>
-                        </select>
+                      <select id="cityA" name="cityA"  class="form-direcciones"  [(ngModel)]="infoModalAgregar.municipio" (change)="cambiarCiudad()" *ngIf="ciudadesPrincipales" required>
+                        <option style="display:none" disabled selected value>Seleccione una</option>
+                        <option disabled>─ Ciudades capitales</option>
+                        <option [selected]="infoModalAgregar.municipio == principal.code"  *ngFor="let principal of ciudadesPrincipales" [ngValue]="principal.code">{{principal.name}}</option>
+                        <option disabled>─ Otras ciudades</option>
+                        <option [selected]="infoModalAgregar.municipio == otra.code"   *ngFor="let otra of otrasCiudades" [ngValue]="otra.code">{{otra.name}}</option>
+                      </select>
                     </div>
                 </div>
                 <br>
@@ -117,14 +125,14 @@
                         <label for="addInfo">Información adicional</label>
                     </div>
                     <div class="col-sm-6">
-                        <input type="text" class="form-direcciones" id="addInfo">
+                        <input type="text" class="form-direcciones" id="addInfoA" [(ngModel)]="infoModalAgregar.info">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-10 col-xs-offset-1">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="aceptarTerminos">Usar como dirección de entrega por defecto.
+                                <input type="checkbox" name="envioAgregar" [(ngModel)]="infoModalAgregar.esEnvioDefecto">Usar como dirección de entrega por defecto.
                             </label>
                         </div>
                     </div>
@@ -133,7 +141,7 @@
                     <div class="col-xs-10 col-xs-offset-1">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="newsletter">Usar como dirección de facturación por defecto.
+                                <input type="checkbox" name="facturarAgregar" [(ngModel)]="infoModalAgregar.esFacturacionDefecto">Usar como dirección de facturación por defecto.
                             </label>
                         </div>
                     </div>
@@ -141,7 +149,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-volver" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-guardar">Guardar cambios</button>
+                <button type="button" class="btn btn-guardar" (click)="agregarDireccion()">Guardar cambios</button>
             </div>
         </div>
     </div>
@@ -176,7 +184,10 @@
                 <p class="name">{{direccion.name}}</p>
                 <p class="address">{{direccion.direccion}}</p>
                 <p class="info">{{direccion.info}}</p>
-                <p class="icon" data-toggle="modal" data-target="#modalEditar">
+                <!-- <p class="icon" data-toggle="modal" data-target="#modalEditar">
+                    <span class="icon-pencil"></span>
+                </p> -->
+                <p class="icon" (click)="editarDireccion(direccion.posicion)">
                     <span class="icon-pencil"></span>
                 </p>
             </div>
@@ -185,7 +196,7 @@
     <br>
     <div class="row">
         <div class="col-xs-12 text-right">
-            <button class="btn btn-agregar" data-toggle="modal" data-target="#modalCerrar">Agregar dirección</button>
+            <button class="btn btn-agregar" (click)="abrirModalAgregar()">Agregar dirección</button>
         </div>
     </div>
 </div>

@@ -69,6 +69,7 @@ export class SessionUsuarioService {
   }
 
   editarCliente(datosCliente) {
+    console.log('entra en el servicio de editar');
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
