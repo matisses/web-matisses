@@ -176,7 +176,7 @@
             <div class="row">
               <div class="col-sm-12 text-center">
                 <div class="estado">
-                  <p [ngClass]="{ 'bg-success' : pedido.estado === 'entregado', 'bg-info' : pedido.estado === 'tránsito','bg-info' : pedido.estado === 'pendiente', 'bg-warning' : pedido.estado === 'devuelto', 'bg-danger' : pedido.estado === 'cancelado' }">{{pedido.estado}}</p>
+                  <p [ngClass]="{ 'bg-success' : pedido.estado === 'entregado', 'bg-warning' : pedido.estado === 'pendiente', 'bg-danger' : pedido.estado === 'cancelado' }">{{pedido.estado}}</p>
                 </div>
               </div>
             </div>
@@ -185,5 +185,8 @@
       </div>
     </div>
   </div>
-
+</div>
+<!-- detalle factura -->
+<div class="pedidos">
+  
 </div>

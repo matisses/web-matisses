@@ -68,13 +68,13 @@ if (this.nombreUsuario != null && this.nombreUsuario.length > 0) {
        for(let i = 0; i < response.length; i++) {
          let estado='';
           if(response[i].despachado){
-            estado='despachado'
+            estado='entregado'
           }
           if(response[i].ordenVenta=='PENDIENTE'){
             estado='pendiente'
           }
           if(response[i].devolucion){
-            estado='devuelto'
+            estado='cancelado'
           }
           this.pedidos.push({
             factura: response[i].nroPedido,
@@ -90,39 +90,6 @@ if (this.nombreUsuario != null && this.nombreUsuario.length > 0) {
     );
 
   }
-
-public forPedidos() {
-  this.pedidos.push({
-    factura: "70000710",
-    fecha: "03 | 02 | 2018",
-    valor: "50000",
-    estado: "entregado"
-  });
-  this.pedidos.push({
-    factura: "70006710",
-    fecha: "03 | 03 | 2018",
-    valor: "1550000",
-    estado: "entregado"
-  });
-  this.pedidos.push({
-    factura: "7000610",
-    fecha: "05 | 11 | 2018",
-    valor: "5550000",
-    estado: "tránsito"
-  });
-  this.pedidos.push({
-    factura: "70000709",
-    fecha: "03 | 11 | 2018",
-    valor: "150000",
-    estado: "despachado"
-  });
-  this.pedidos.push({
-    factura: "60006710",
-    fecha: "03 | 03 | 2018",
-    valor: "1550000",
-    estado: "cancelado"
-  });
-}
 
 public forItem() {
   this.items.push({
