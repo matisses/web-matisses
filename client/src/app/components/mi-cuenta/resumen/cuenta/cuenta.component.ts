@@ -54,7 +54,7 @@ export class CuentaComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    console.log(' entra en el after ');
+  
   }
 
   public editarCuenta() {
@@ -70,15 +70,10 @@ export class CuentaComponent implements OnInit {
 
     this._userService.editarCliente(this.customer).subscribe(
       response => {
-        console.log('despues de ir al servicio de edicion');
-      if(response.estado==0){
-        console.log('update -->' +response.mensaje);
-        this.cambiosGuardados = true;
-        this.messageError = response.mensaje;
-
-      //  BilltoDefault
-
-      }
+        if(response.estado==0){
+          this.cambiosGuardados = true;
+          this.messageError = response.mensaje;
+        }
       },
       error => {
         console.error(error);
@@ -87,7 +82,7 @@ export class CuentaComponent implements OnInit {
   }
 
   public buscarCliente() {
-console.log('buscar cliente '+this.nombreUsuario);
+
 if (this.nombreUsuario != null && this.nombreUsuario.length > 0) {
   this._userService.cargarcliente(this.nombreUsuario).subscribe(
     response => {

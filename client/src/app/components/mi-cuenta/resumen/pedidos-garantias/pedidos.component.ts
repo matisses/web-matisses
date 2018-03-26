@@ -63,7 +63,7 @@ if (this.nombreUsuario != null && this.nombreUsuario.length > 0) {
 
   public verPedidos(documento:string){
     this.pedidos = new Array<any>();
-    this._userService.verPedidos('14928197').subscribe(
+    this._userService.verPedidos(documento).subscribe(
       response => {
        for(let i = 0; i < response.length; i++) {
          let estado='';
