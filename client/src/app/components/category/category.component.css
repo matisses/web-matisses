@@ -39,8 +39,34 @@
   padding-left: 50px;
 }
 
+.img-seccion {
+  background-position: left top;
+  min-height: 200px;
+  width: 100%;
+  -webkit-background-size: 100%;
+  -moz-background-size: 100%;
+  -o-background-size: 100%;
+  background-size: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  padding-left: 50px;
+}
 
-.img-category h2 {
+.calia {
+  background: url(../../../assets/images/secciones/calia_01.jpg) no-repeat left top;  
+}
+
+.plantui {
+  background: url(../../../assets/images/secciones/plantui_01.jpg) no-repeat left top;  
+}
+
+.boska {
+  background: url(../../../assets/images/secciones/boska_01.jpg) no-repeat left top;  
+}
+
+.img-category h2, .img-seccion h2 {
   position: absolute;
   color: #FFF;
   font-weight: bold;

@@ -28,7 +28,7 @@ export class CategoryComponent implements OnInit {
   public queryParams: Map<string, string>;
   private availableFields: string[] = ['page', 'pageSize', 'orderBy', 'department', 'group', 'subgroup', 'color', 'minPrice', 'maxPrice', 'brand', 'material', 'collection', 'keywords', 'discount'];
   public urlCategoria: any;
-  public tieneCategoria: boolean = false;
+  public tieneCategoria: number = 0;
 
   constructor(private _itemService: ItemService, private _route: ActivatedRoute, private _router: Router, private _descuentosService: DescuentosService) {
     this.queryParams = new Map<string, string>();
@@ -48,93 +48,89 @@ export class CategoryComponent implements OnInit {
   }
 
   public sinCategoria() {
-    console.log(this.urlCategoria);
-
-    if (this.urlCategoria == 'http://192.168.5.189:4200/categoria?keywords=calia') {
-      this.tieneCategoria = true;
-    } else if (this.urlCategoria == 'http://192.168.5.189:4200/categoria?keywords=plantui') {
-      this.tieneCategoria = true;
-    } else if(this.urlCategoria == 'http://192.168.5.189:4200/categoria?keywords=boska') {
-      this.tieneCategoria = true;      
-    } else {
-      
-    }
+    if (this.urlCategoria === 'https://www.matisses.co/categoria?keywords=calia') {
+      this.tieneCategoria = 1;
+    } else if (this.urlCategoria === 'https://www.matisses.co/categoria?keywords=plantui') {
+      this.tieneCategoria = 2;
+    } else if (this.urlCategoria === 'https://www.matisses.co/categoria?keywords=boska') {
+      this.tieneCategoria = 3;
+    } else {  }
   }
 
   private cargarItems() {
-  this.items = new Array<Item>();
-  this._route.queryParams.forEach((params: Params) => {
-    this.inicializarMapa(params);
-    this._itemService.filter(this.queryString).subscribe(
-      response => {
-        this.items = response.result;
-        for (let i = 0; i < this.items.length; i++) {
-          //validar si el ítem tiene descuentos
-          this._descuentosService.findDiscount(this.items[i].itemcode).subscribe(
-            response => {
-              if (this.items[i].priceaftervat === response.precio) {
-                if (response.descuentos && response.descuentos.length > 0) {
-                  this.items[i].descuento = response.descuentos[0].porcentaje;
-                  this.items[i].priceafterdiscount = this.items[i].priceaftervat - ((this.items[i].priceaftervat / 100) * this.items[i].descuento);
+    this.items = new Array<Item>();
+    this._route.queryParams.forEach((params: Params) => {
+      this.inicializarMapa(params);
+      this._itemService.filter(this.queryString).subscribe(
+        response => {
+          this.items = response.result;
+          for (let i = 0; i < this.items.length; i++) {
+            //validar si el ítem tiene descuentos
+            this._descuentosService.findDiscount(this.items[i].itemcode).subscribe(
+              response => {
+                if (this.items[i].priceaftervat === response.precio) {
+                  if (response.descuentos && response.descuentos.length > 0) {
+                    this.items[i].descuento = response.descuentos[0].porcentaje;
+                    this.items[i].priceafterdiscount = this.items[i].priceaftervat - ((this.items[i].priceaftervat / 100) * this.items[i].descuento);
+                  }
                 }
+              },
+              error => {
+                console.error(error);
               }
-            },
-            error => {
-              console.error(error);
-            }
-          );
+            );
+          }
+          this.productosComponent.cargarItems(this.availableFields, this.items, this.queryParams, response.records);
+          this.filtrosComponent.inicializarFiltros(this.availableFields, this.queryParams, this.queryString, response.records);
+        },
+        error => {
+          console.error(error);
         }
-        this.productosComponent.cargarItems(this.availableFields, this.items, this.queryParams, response.records);
-        this.filtrosComponent.inicializarFiltros(this.availableFields, this.queryParams, this.queryString, response.records);
-      },
-      error => {
-        console.error(error);
-      }
-    );
-  });
-}
+      );
+    });
+  }
 
   private inicializarMapa(params: Params) {
-  this.queryParams = new Map<string, string>();
-  this.queryString = '?';
-  for (let i = 0; i < this.availableFields.length; i++) {
-    let key = this.availableFields[i];
-    if (params[key]) {
-      this.queryParams.set(key, params[key]);
-      if (this.queryString.charAt(this.queryString.length - 1) != '?') {
-        this.queryString += '&';
+    this.queryParams = new Map<string, string>();
+    this.queryString = '?';
+    for (let i = 0; i < this.availableFields.length; i++) {
+      let key = this.availableFields[i];
+      if (params[key]) {
+        this.queryParams.set(key, params[key]);
+        if (this.queryString.charAt(this.queryString.length - 1) != '?') {
+          this.queryString += '&';
+        }
+        this.queryString += key + '=' + this.queryParams.get(key);
       }
-      this.queryString += key + '=' + this.queryParams.get(key);
     }
+    this.inicializarNombreGrupo();
   }
-  this.inicializarNombreGrupo();
-}
 
   private inicializarNombreGrupo() {
-  this.nombreGrupo = '';
-  if (this.queryParams.has('group')) {
-    this._itemService.findType('grupo', '?fieldValue=' + this.queryParams.get('group').substring(0, 3)).subscribe(
-      response => {
-        try {
-          this.nombreGrupo = response.result[0].group.name;
+    this.nombreGrupo = '';
+    if (this.queryParams.has('group')) {
+      this._itemService.findType('grupo', '?fieldValue=' + this.queryParams.get('group').substring(0, 3)).subscribe(
+        response => {
+          try {
+            this.nombreGrupo = response.result[0].group.name;
 
-          //Cambiar imagen categoria
-          console.log('cambiando clase');
-          $('.img-category').css('background', 'url(/assets/images/categorias/' + response.result[0].group.code.substring(0, 3) + '.jpg) no-repeat center top');
-        } catch (e) {
-          console.error(e);
-        }
-      }, error => { console.error(error); }
-    )
+            //Cambiar imagen categoria
+            console.log('cambiando clase');
+            $('.img-category').css('background', 'url(/assets/images/categorias/' + response.result[0].group.code.substring(0, 3) + '.jpg) no-repeat center top');
+          } catch (e) {
+            console.error(e);
+          }
+        }, error => { console.error(error); }
+      )
+    }
   }
-}
 
   public openFilter() {
-  document.getElementById("myFilter").style.width = "100%";
-}
+    document.getElementById("myFilter").style.width = "100%";
+  }
 
   public closeFilter() {
-  document.getElementById("myFilter").style.width = "0%";
-}
+    document.getElementById("myFilter").style.width = "0%";
+  }
 
 }
