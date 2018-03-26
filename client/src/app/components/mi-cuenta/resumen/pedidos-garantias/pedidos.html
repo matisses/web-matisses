@@ -176,7 +176,7 @@
             <div class="row">
               <div class="col-sm-12 text-center">
                 <div class="estado">
-                  <p [ngClass]="{ 'bg-success' : pedido.estado === 'entregado', 'bg-info' : pedido.estado === 'tránsito', 'bg-warning' : pedido.estado === 'despachado', 'bg-danger' : pedido.estado === 'cancelado' }">{{pedido.estado}}</p>
+                  <p [ngClass]="{ 'bg-success' : pedido.estado === 'entregado', 'bg-info' : pedido.estado === 'tránsito','bg-info' : pedido.estado === 'pendiente', 'bg-warning' : pedido.estado === 'devuelto', 'bg-danger' : pedido.estado === 'cancelado' }">{{pedido.estado}}</p>
                 </div>
               </div>
             </div>

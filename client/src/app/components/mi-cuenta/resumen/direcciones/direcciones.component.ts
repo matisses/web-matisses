@@ -443,7 +443,7 @@ this._userService.cargarcliente(this.nombreUsuario).subscribe(
       let key = this.customer.BPAddresses.BPAddress[i].AddressName;
       this.direcciones.push({
         name: this.customer.BPAddresses.BPAddress[i].AddressName,
-        direccion:this.customer.BPAddresses.BPAddress[i].City+" "+this.customer.BPAddresses.BPAddress[i].Street,
+        direccion:this.customer.BPAddresses.BPAddress[i].Street,
         info: this.customer.BPAddresses.BPAddress[i].AddressName2,
         posicion:this.customer.BPAddresses.BPAddress[i].RowNum
       });

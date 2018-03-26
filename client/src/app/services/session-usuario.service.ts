@@ -77,7 +77,32 @@ export class SessionUsuarioService {
     return this._http.post(this.urlBCS + 'sessionusuario/editar/', JSON.stringify(datosCliente), { headers: headers })
       .map(res => res.json());
   }
-  // crear/
+
+  verPedidos(documentoUsuario) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'sessionusuario/mispedidos/' + documentoUsuario, { headers: headers })
+      .map(res => res.json());
+  }
+
+  detallePedido(numeroFactura) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'sessionusuario/detallepedido/' + numeroFactura, { headers: headers })
+      .map(res => res.json());
+  }
+
+  misNovios(documentoUsuario){                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'sessionusuario/misnovios/' + documentoUsuario, { headers: headers })
+      .map(res => res.json());
+  }
 
 
 }
