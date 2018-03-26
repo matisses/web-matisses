@@ -24,7 +24,7 @@
                   <div class="factura">
                     <p>Factura n°:
                       <b>{{pedido.factura}}</b>
-                      <span class="cursor-pointer pull-right" (click)="verDetalles(i+1)">
+                      <span class="cursor-pointer pull-right" (click)="verDetalles(pedido.factura)">
                         <u>Ver detalles</u>
                       </span>
                     </p>
@@ -79,18 +79,18 @@
           <div class="col-sm-12">
             <div class="info-fac">
               <p class="title-modal">
-                <b>FACTURA N° 70000710</b>
+                <b>FACTURA N° {{detallePedido.numeroFactura}}</b>
               </p>
               <hr>
               <div class="row">
                 <div class="col-sm-4">
                   <p class="fecha-fac">Fecha
-                    <b>17 | 07 | 2018</b>
+                    <b>{{detallePedido.fechaFactura}}</b>
                   </p>
                 </div>
                 <div class="col-sm-4">
                   <p class="estado-fac">Estado
-                    <b class="bg-succes">ENTREGADO</b>
+                    <b class="bg-succes">{{detallePedido.estado}}</b>
                   </p>
                 </div>
                 <div class="col-sm-4">
@@ -111,17 +111,17 @@
               </p>
               <hr>
               <p>
-                <b>Nombre:</b> Alejandro Guerra</p>
+                <b>Nombre: </b>{{detallePedido.cliente}}</p>
               <p>
-                <b>Dirección:</b> Calle 48c # 18 - 56</p>
+                <b>Dirección: </b>{{detallePedido.direccionEntrega}}</p>
               <p>
-                <b>Ciudad:</b> La Estrella</p>
+                <b>Ciudad: </b> {{detallePedido.ciudad}}</p>
               <p>
-                <b>Departamento:</b> Antioquia</p>
+                <b>Departamento: </b>{{detallePedido.departamentoEntrega}}</p>
               <p>
-                <b>Teléfono: </b>418 51 58</p>
+                <b>Teléfono: </b>{{detallePedido.telefono}}</p>
               <p>
-                <b>Celular: </b>300 428 1100</p>
+                <b>Celular: </b>{{detallePedido.celular}}</p>
             </div>
           </div>
         </div>

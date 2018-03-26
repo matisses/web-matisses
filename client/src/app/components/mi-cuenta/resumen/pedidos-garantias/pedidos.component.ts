@@ -20,6 +20,7 @@ export class PedidosComponent implements OnInit {
   public pedidos: Array<any>;
   public items: Array<any>;
   public customer: any;
+  public detallePedido:any;
   public documentCustomer: string;
   public nombreUsuario: string;
   public detalles: number = null;
@@ -44,7 +45,43 @@ export class PedidosComponent implements OnInit {
   }
 
   public verDetalles(pedido) {
+    this.items=new Array<any>();
+    this.inicializarInfoDetalle();
     this.detalles = pedido;
+
+    this._userService.detallePedido(pedido).subscribe(
+      response => {
+        for (let i = 0; i < response.length; i++) {
+
+          this.detallePedido= {
+            'numeroFactura':response[0].nroPedido,
+            'fechaFactura':response[0].formateoFechaPedido,
+            'estadoFactura':response[0].ordenVenta,
+            'cliente':response[0].cliente,
+            'direccionEntrega':response[0].direccionEntrega,
+            'ciudad':response[0].ciudadEntrega,
+            'departamentoEntrega':response[0].departamentoEntrega,
+            'telefono':response[0].telefono,
+            'celular':response[0].celular
+        };
+          let estado = '';
+          if(response[i].garantia){
+            estado='Reclamar'
+          }
+          this.items.push({
+            itemcode: response[i].item.substring(0,3)+'0000000000000'+response[i].item.substring(4),
+            shortitemcode: response[i].item.substring(0,3)+response[i].item.substring(4),
+            itemname: response[i].producto,
+            priceaftervat: response[i].precioUnitario,
+            selectedQuantity: response[i].cantidad,
+            estado: estado
+          });
+        }
+      },
+      error => {
+        console.error(error);
+      }
+    );
   }
 
   public volverPedidos() {
@@ -122,5 +159,21 @@ export class PedidosComponent implements OnInit {
       estado: "Reclamar"
     });
   }
+
+  public inicializarInfoDetalle(){
+
+    this.detallePedido= {
+      'numeroFactura':'',
+      'fechaFactura':'',
+      'estadoFactura':'',
+      'cliente':'',
+      'direccionEntrega':'',
+      'ciudad':'',
+      'departamentoEntrega':'',
+      'telefono':'',
+      'celular':''
+  }
+
+}
 
 }

@@ -92,7 +92,7 @@ export class SessionUsuarioService {
       'Content-Type': 'application/json'
     });
 
-    return this._http.get(this.urlBCS + 'sessionusuario/detallepedido/' + numeroFactura, { headers: headers })
+    return this._http.get(this.urlBCS + 'sessionusuario/detallePedido/' + numeroFactura, { headers: headers })
       .map(res => res.json());
   }
 
