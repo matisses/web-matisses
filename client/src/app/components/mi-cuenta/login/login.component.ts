@@ -50,6 +50,9 @@ export class LoginComponent implements OnInit {
   public direccionOriginal:string;
   public fechaOriginal:Date;
   public customerEdit: any;
+  public registroDecorador:string=null;
+  public registroPlanificador: string=null;
+  public fileUpload: any;
 
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _userService: SessionUsuarioService, private _jwt: JWTService,  private _customerService: CustomerService,
@@ -62,7 +65,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-
+       this.registroDecorador=localStorage.getItem('decorator_register');
+       this.registroPlanificador=localStorage.getItem('wedding_register');
       this.obtenerCiudades();
   }
 
@@ -79,7 +83,7 @@ export class LoginComponent implements OnInit {
   }
 
   public login() {
-    console.log('entra aca');
+
     this.valid = true;
     this.messageError = '';
     if (this.nombreUsuario == null || this.nombreUsuario.length <= 0) {
@@ -104,7 +108,7 @@ export class LoginComponent implements OnInit {
           $('#messageUser').modal('show');
           return;
         }
-        console.log(response);
+
         this.token = response.token;
         this.idUsuario = response.usuarioId;
         this.nombreSession = response.nombre;
@@ -115,8 +119,7 @@ export class LoginComponent implements OnInit {
         }
         this._jwt.validateToken(this.token).subscribe(
           response => {
-            ('token '+this.token);
-              console.log(response);
+
           }, error => {
             console.error(error);
             localStorage.removeItem('matisses.lista-token');
@@ -341,7 +344,7 @@ export class LoginComponent implements OnInit {
       this.crearCliente();
     }
     else{
-      console.log('existe el cliente ');
+
       this._userService.cargarcliente(this.correoOriginal).subscribe(
         response => {
           this.customerEdit = response;
@@ -358,9 +361,9 @@ export class LoginComponent implements OnInit {
 
             this._userService.editarCliente(this.customerEdit).subscribe(
               response => {
-                console.log('despues de ir al servicio de edicion');
+
               if(response.estado==0){
-                console.log('update -->' +response.mensaje);
+
                 this.messageError='editO el usuario';
 
                 $('#messageUser').modal('show');
@@ -436,7 +439,7 @@ export class LoginComponent implements OnInit {
   }
 
   public recuperar(){
-    console.log('recuperar clave');
+
     if(this.recuperarEmail==null || this.recuperarEmail==''){
       this.updateMessage='Debes ingresar el correo electrónico';
     }
@@ -820,6 +823,62 @@ export class LoginComponent implements OnInit {
         "BPBlockSendingMarketingContent": null
     }
 }
+  }
+
+  onFileChange(event) {
+    let fileList: FileList = event.target.files;
+
+    if(this.customer.fiscalID==null || this.customer.fiscalID =='' || this.customer.fiscalID=='undefined' ){
+      this.messageError = 'debes cargar el documento de identidad del usuario.';
+        $('#messageUser').modal('show');
+    }
+
+    else{
+    if (fileList.length > 0) {
+      let file: File = fileList[0];
+      let fileSize: number = fileList[0].size;
+      let tipopng: string = 'image/png';
+      let tipojpg: string = 'image/jpeg';
+      for(let i = 0; i < fileList.length; i++) {
+        let file: File = fileList[i];
+        let fileSize: number = fileList[i].size;
+        let formData: FormData = new FormData();
+        formData.append('file', file);
+        formData.append('codigo', this.customer.fiscalID+'_'+i);
+        this._userService.subirImagen(formData).subscribe(
+          response => {
+                let respuesta = JSON.parse(JSON.stringify(response));
+
+              },
+              error => { console.error(error); }
+        );
+      }
+
+      // if (fileSize <= 10485760) {
+      //   let formData: FormData = new FormData();
+      //   formData.append('file', file);
+      //   formData.append('codigo', this.codigoLista);
+      //   this._listaService.subirImagenLista(formData).subscribe(
+      //     response => {
+      //       let respuesta = JSON.parse(JSON.stringify(response));
+      //       this.existeUrl(this.urlAvatar + this.codigoLista + '.png');
+      //       location.reload();
+      //       $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + this.codigoLista + ".jpg)");
+      //       this.navigate();
+      //     },
+      //     error => { console.error(error); }
+      //   );
+      // }
+      // else {
+      //   this.messageError = 'Tamaño máximo superado';
+      // }
+    }
+    else {
+      this.messageError = 'Lo sentimos intenta mas tarde.';
+    }
+    }
+
+
   }
 
 
