@@ -113,5 +113,14 @@ export class SessionUsuarioService {
       .map(res => res.json());
   }
 
+  subirImagen(formData) {
+    const headers = new Headers({
+      'Content-Type': 'multipart/form-data; boundary = ---- WebKitFormBoundary7MA4YWxkTrZu0gW'
+    });
+
+    return this._http.post(this.urlBCS + 'sessionusuario/subirimagen/', formData)
+      .map(res => res);
+  }
+
 
 }

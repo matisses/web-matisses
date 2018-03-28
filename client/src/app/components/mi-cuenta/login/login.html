@@ -186,6 +186,16 @@
               </div>
             </div>
             <br>
+            <br>
+            <div class="row" *ngIf="registroDecorador && registroDecorador != null">
+              <div class="col-xs-4 col-xs-offset-1">
+                <label for="imageLista">Adjuntar Documentos</label>
+              </div>
+              <div class="col-xs-6">
+                  <input type="file" class="form-registro" accept="image/png, image/jpeg" id="imageLista" [(ngModel)]="fileUpload" (change)="onFileChange($event)" multiple>
+              </div>
+            </div>
+            <br>
             <div class="row">
               <div class="col-md-5 col-xs-10 col-xs-offset-1">
                 <button type="submit" class="btn btn-enviar-matisses">Enviar</button>
