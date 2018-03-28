@@ -33,6 +33,9 @@ export class CuentaComponent implements OnInit {
   public claveConfEditar:string;
   public direccionFactura:string;
   public direccionEntrega:string;
+  public claveNueva: string;
+  public claveConfirmacion: string;
+  public successMessage:string;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService,private _userService: SessionUsuarioService) {
     this.nombreUsuario = 'Alejandro Guerra';
@@ -54,7 +57,7 @@ export class CuentaComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-  
+
   }
 
   public editarCuenta() {
@@ -104,8 +107,7 @@ if (this.nombreUsuario != null && this.nombreUsuario.length > 0) {
 }
   }
 
-
-  public inicializarCliente(){
+public inicializarCliente(){
 
     this.customer= {
     'CardCode': '',
@@ -465,6 +467,40 @@ if (this.nombreUsuario != null && this.nombreUsuario.length > 0) {
         "BPBlockSendingMarketingContent": null
     }
 }
+  }
+
+  public cambiarClave(){
+    console.log('entra en cambiar cable');
+    let usuarioDTO = {
+      nombreUsuario: this.nombreUsuario,
+      password: this.claveNueva,
+      idListaRegalos: {
+        idLista: null
+      }
+    }
+
+    this._userService.updatePassword(usuarioDTO).subscribe(
+      response => {
+        if (response.estado == "0") {
+         this.successMessage="Clave actualizada correctamente";
+          $('#cambioContrasena').modal('hide');
+          return;
+        }
+        else {
+          this.messageError = 'Ocurrio un error al actualizar el usuario';
+        }
+      },
+      error => {
+        this.messageError = "Lo sentimos. Ocurrió un error inesperado, por favor inténtelo más tarde.";
+        console.error(error);
+      }
+    );
+
+
+  }
+
+  public abrirModalClave(){
+        $('#cambioContrasena').modal('show');
   }
 
 }

@@ -1,3 +1,47 @@
+<!-- Modal cambio de contraseña -->
+<div class="modal fade" id="cambioContrasena" tabindex="-1" role="dialog" aria-labelledby="cambioContraseñaLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row" *ngIf="messageError != null && messageError.length > 0">
+          <div class="col-xs-12">
+            <div class="alert alert-danger" role="alert">
+              <p>{{messageError}}</p>
+            </div>
+          </div>
+        </div>
+        <!-- mensaje sucess -->
+        <div class="row" *ngIf="successMessage != null && successMessage.length > 0">
+          <div class="col-xs-12">
+            <div class="alert alert-info" role="alert">
+              <p>{{successMessage}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <form #ContactForm="ngForm" (submit)="actualizarClave()">
+            <div class="col-xs-4 col-xs-offset-4">
+              <label class="label-lista" for="contraseña">Nueva contraseña</label>
+              <form (submit)="actualizarClave()">
+                <input type="password" class="form-lista-regalos" id="contraseña" name="claveNueva" [(ngModel)]="claveNueva" required>
+              </form>
+              <label class="label-lista" for="confirmar-contraseña">Confirmar contraseña</label>
+              <form (submit)="actualizarClave()">
+                <input type="password" class="form-lista-regalos" id="confirmar-contraseña" name="claveConfirmacion" [(ngModel)]="claveConfirmacion" required>
+              </form>
+            </div>
+          </form>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-buscar" (click)="cambiarClave()" *ngIf="successMessage == null || successMessage.length <= 0">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <div class="cuenta" *ngIf="!ajustesCuenta">
   <div class="row">
     <div class="col-md-2 col-sm-3 col-xs-3">
@@ -82,7 +126,7 @@
       <label>Cambiar Contraseña</label>
     </div>
     <div class="col-xs-2">
-    <button class="btn btn-guardar" (click)="guardarCambios()">Cambiar</button>
+    <button class="btn btn-guardar" (click)="abrirModalClave()">Cambiar</button>
     </div>
   </div>
   <div class="row">

@@ -92,7 +92,7 @@ export class SessionUsuarioService {
       'Content-Type': 'application/json'
     });
 
-    return this._http.get(this.urlBCS + 'sessionusuario/detallePedido/' + numeroFactura, { headers: headers })
+    return this._http.get(this.urlBCS + 'sessionusuario/detallepedido/' + numeroFactura, { headers: headers })
       .map(res => res.json());
   }
 
@@ -101,6 +101,15 @@ export class SessionUsuarioService {
     });
 
     return this._http.get(this.urlBCS + 'sessionusuario/misnovios/' + documentoUsuario, { headers: headers })
+      .map(res => res.json());
+  }
+
+  updatePassword(datosUsuario) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'sessionusuario/updateclave', JSON.stringify(datosUsuario), { headers: headers })
       .map(res => res.json());
   }
 
