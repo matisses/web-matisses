@@ -34,14 +34,12 @@ export class PedidosComponent implements OnInit {
     this.documentCustomer = localStorage.getItem('doc-customer');
     this.nombreUsuario = localStorage.getItem('nombre-usuario');
     this.buscarCliente();
-    //this.forPedidos();
   }
 
   ngAfterViewInit() {
     $(document).ready(function () {
       $("html, body").animate({ scrollTop: 0 }, 1000);
     });
-    this.forItem();
   }
 
   public verDetalles(pedido) {
@@ -131,33 +129,6 @@ export class PedidosComponent implements OnInit {
       }
     );
 
-  }
-
-  public forItem() {
-    this.items.push({
-      itemcode: "10500000000000001831",
-      shortitemcode: "1051831",
-      itemname: "SILLA OCASIONAL EN TELA",
-      priceaftervat: "2490000",
-      selectedQuantity: "2",
-      estado: ""
-    });
-    this.items.push({
-      itemcode: "20900000000000000108",
-      shortitemcode: "2090108",
-      itemname: "SOFÁ 3 PUESTOS DUCA EN TELA",
-      priceaftervat: "10880000",
-      selectedQuantity: "1",
-      estado: ""
-    });
-    this.items.push({
-      itemcode: "22100000000000000041",
-      shortitemcode: "2210041",
-      itemname: "SET/4 MESAS EN METAL",
-      priceaftervat: "4475000",
-      selectedQuantity: "1",
-      estado: "Reclamar"
-    });
   }
 
   public inicializarInfoDetalle(){
