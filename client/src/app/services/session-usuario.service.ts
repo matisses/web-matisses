@@ -122,5 +122,14 @@ export class SessionUsuarioService {
       .map(res => res);
   }
 
+  verNoviosWP(documento) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'sessionusuario/misnovios/' + documento, { headers: headers })
+      .map(res => res.json());
+  }
+
 
 }

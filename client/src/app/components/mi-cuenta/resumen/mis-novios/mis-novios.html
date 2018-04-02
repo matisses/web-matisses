@@ -21,14 +21,14 @@
         <div class="col-sm-6" *ngFor="let cliente of clientes">
           <div class="cliente">
             <p class="nombre">
-              <b>{{cliente.nombres}}</b>
+              <b>{{cliente.novios}}</b>
             </p>
             <p>
               <b>Código:</b> {{cliente.codigo}}</p>
             <p>
-              <b>Puntos:</b> {{cliente.puntos / 1000 | number}}</p>
+              <b>Puntos:</b> {{cliente.puntos  | number}}</p>
             <p>
-              <b>Fecha de boda:</b> {{cliente.fecha}}</p>
+              <b>Fecha de boda:</b> {{cliente.formateoFechaEvento}}</p>
           </div>
         </div>
       </div>
