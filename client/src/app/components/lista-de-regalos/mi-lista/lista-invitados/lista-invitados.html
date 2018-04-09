@@ -36,6 +36,14 @@
               <div class="row">
                 <div class="col-xs-12 text-center">
                   <button type="submit" class="btn btn-agregar" name="registrarInvitado">Envíar invitación</button>
+                  <a href="../../../assets/archivos/plantillaInvitados.xlsx" download="plantillaInvitados.xlsx" class="btn btn-agregar">Cargar todos los invitados</a>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-xs-12 text-center">
+                  <input type="file" id="archivo" [disabled]="false" class="form-control" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                    (change)="verificarArchivoMasivo($event)" #fileInput>
                 </div>
               </div>
             </form>

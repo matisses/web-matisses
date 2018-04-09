@@ -6,6 +6,7 @@ import { Item } from '../../../../models/item';
 
 import { SessionUsuarioService } from '../../../../services/session-usuario.service';
 import { ListaRegalosService } from '../../../../services/lista-regalos.service';
+import { Logs } from 'selenium-webdriver';
 
 // declare var jquery: any;
 declare var $: any;
@@ -105,7 +106,7 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
             this.limpiarCampos();
             this.cargarInvitados();
           } else {
-            this.messageError = ('Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.');
+            this.messageError = response.mensaje;
           }
         },
         error => {
@@ -200,5 +201,41 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
     localStorage.removeItem('codigo-lista');
     localStorage.removeItem('fecha-evento');
     this._router.navigate(['/lista-de-regalos']);
+  }
+
+  public verificarArchivoMasivo(event) {
+    let fileList: FileList = event.target.files;
+
+    if (fileList.length > 0) {
+      let file: File = fileList[0];
+      let fileSize: number = fileList[0].size;
+      let fileType: string = fileList[0].type;
+
+      if (fileType === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+        let formData: FormData = new FormData();
+        formData.append('file', file);
+        formData.append('codigo', this.codigoLista);
+
+        this._listaService.subirArchivoMasivo(formData).subscribe(
+          response => {
+            if (response) {
+              $("#modalInvitado").modal("hide");
+              this.limpiarCampos();
+              this.cargarInvitados();
+            } else {
+              this.messageError = "Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.";
+            }
+          },
+          error => {
+            console.error(error);
+            $("#modalInvitado").modal("hide");
+            this.limpiarCampos();
+            this.cargarInvitados();
+          }
+        );
+      } else {
+        this.messageError = 'El archivo solo puede ser formato .xlsx'
+      }
+    }
   }
 }

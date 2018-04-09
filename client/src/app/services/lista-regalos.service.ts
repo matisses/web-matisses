@@ -192,4 +192,13 @@ export class ListaRegalosService {
     return this._http.post(this.urlBCS + 'listaregalos/consultarproductos/sinpaginar/', JSON.stringify(paramsConsulta), { headers: headers })
       .map(res => res.json());
   }
+
+  subirArchivoMasivo(formData) {
+    const headers = new Headers({
+      'Content-Type': 'multipart/form-data; boundary = ---- WebKitFormBoundary7MA4YWxkTrZu0gW'
+    });
+
+    return this._http.post(this.urlBCS + 'listaregalos/subirarchivo/', formData)
+      .map(res => res);
+  }
 }
