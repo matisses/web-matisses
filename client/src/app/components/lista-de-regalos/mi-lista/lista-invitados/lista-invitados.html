@@ -1,3 +1,31 @@
+<!-- Modal compartir -->
+<div class="modal fade" id="modalCompartir" tabindex="-1" role="dialog" aria-labelledby="modalCompartirLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-5 col-sm-offset-0 col-xs-6 col-xs-offset-3 text-center">
+            <img src="{{this.urlQr}}{{codigoLista}}.png" class="jpg-responsive" alt="codigoQR">
+            <br/>
+            <a href="{{this.urlQr}}{{codigoLista}}.png" download="output.png" class="btn btn-qr">Descargar QR</a>
+          </div>
+          <div class="col-sm-7 col-sm-offset-0 col-xs-12 text-center">
+            <p class="text-justify">
+              Envía este código a todos tus invitados y así pueden acceder a tu lista para hacer las compras en línea.
+            </p>
+            <h1 class="codigo-lista">{{codigoLista}}</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Modal agregar invitado -->
 <div class="modal fade" id="modalInvitado" tabindex="-1" role="dialog" aria-labelledby="modalInvitadoLabel">
   <div class="modal-dialog" role="document">
@@ -101,6 +129,109 @@
       </div>
     </div>
     <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="row">
+          <div class="col-sm-3 col-sm-offset-1">
+            <!-- imagen de perfil -->
+            <div class="row">
+              <div class="col-xs-12 text-center">
+                <div class="perfil-imagen text-center">
+                </div>
+              </div>
+            </div>
+            <div class="row" *ngIf="messageError != null && messageError.length > 0">
+              <div class="col-sm-4 col-sm-offset-4">
+                <br/>
+                <div class="alert alert-danger" role="alert">
+                  <p>{{messageError}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-7">
+            <div class="info-lista">
+              <p style="margin-bottom: 0">LISTA DE INVITADOS</p>
+              <h1 class="title-mi-lista">DIANA RIOS & PABLO MORENO</h1>
+              <p>Código de novios: {{codigoLista}}</p>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="info-fechas">
+                    <p data-toggle="tooltip" data-placement="bottom" title="Monto acumulado">
+                      <span class="icon-coin icon-menu"></span>
+                      <b>$ {{totalAcumulado | number}}</b>
+                    </p>
+                    <p data-toggle="tooltip" data-placement="bottom" title="Fecha del evento">
+                      <span class="icon-valentines icon-menu"></span>
+                      <b>{{fechaEvento}}</b>
+                    </p>
+                    <p data-toggle="tooltip" data-placement="bottom" title="Fecha de entrega">
+                      <span class="icon-agenda-entrega icon-menu"></span>
+                      <b>{{fechaEvento}}</b>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 text-right">
+                  <p>
+                    <a href="javascript:void(0);" class="no-selector cursor-pointer" data-toggle="modal" data-target="#modalCompartir">
+                      <span class="icon-compartir"></span>
+                      <span class="text-adicional">Compartir lista</span>
+                    </a>
+                    <a href="javascript:void(0)" class="cursor-pointer" [routerLink]="['/mi-lista']">
+                      <!-- <span class="icon-invitados"></span> -->
+                      <span class="text-adicional btn btn-volver-lista" style="color:#FFF;">Volver a mi lista</span>
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <!-- segundo menu -->
+        <div class="row text-center">
+          <div class="segundo-menu">
+            <div class="col-sm-3 text-center item-segundo-menu">
+              <span>{{totalInvitados}}</span>
+              <p>Invitados</p>
+              <div class="border-menu">
+              </div>
+            </div>
+            <!-- boton compartir -->
+            <div class="col-sm-3 text-center item-segundo-menu" (click)="abrirModal('#modalInvitado')">
+              <span class="icon-plus-regalo"></span>
+              <p>Agregar invitado</p>
+              <div class="border-menu">
+              </div>
+            </div>
+            <!-- boton agregar -->
+            <div class="col-sm-3 item-segundo-menu" (click)="imprimirLista()">
+              <span class="icon-imprimir"></span>
+              <p>Imprimir lista</p>
+              <div class="border-menu">
+              </div>
+            </div>
+            <!-- boton buscar -->
+            <div class="col-sm-3 item-segundo-menu" (click)="abrirModal('#modalMsjAgradecimiento')">
+              <span class="icon-mensaje-01"></span>
+              <p>Mensaje agradecimiento</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="rosa" />
+    <br>
+    <!-- <div class="row">
+      <div class="col-xs-12 text-right">
+        <p class="cursor-pointer" (click)="cerrarSession()">(Cerrar sesión)</p>
+      </div>
+    </div>
+    <div class="row">
       <div class="menu1 no-selector">
         <div class="col-md-6">
           <p class="saludo">Hola {{nombreUsuario}}</p>
@@ -152,29 +283,29 @@
     </div>
     <br class="hidden-xs">
     <div class="row text-center">
-      <!-- contador invitados -->
+      contador invitados
       <div class="col-sm-3 agendar-fecha no-selector">
         <span class="icon-invitado-02"></span>
         <p>
           <b>{{totalInvitados}}</b> Invitados</p>
       </div>
-      <!-- boton agregar -->
+      boton agregar
       <div class="col-sm-3 monto-regalado no-selector" (click)="abrirModal('#modalInvitado')">
         <span class="icon-plus-regalo"></span>
         <p>Agregar invitados</p>
       </div>
-      <!-- boton fecha entrega -->
+      boton fecha entrega
       <div class="col-sm-3 agendar-fecha no-selector cursor-pointer" (click)="imprimirLista()">
         <span class="icon-imprimir"></span>
         <p>Imprimir lista</p>
       </div>
-      <!-- btn sms agradecimiento -->
+      btn sms agradecimiento
       <div class="col-sm-3 agendar-fecha mensaje-agradecimiento no-selector cursor-pointer" (click)="abrirModal('#modalMsjAgradecimiento')">
         <span class="icon-mensaje-01"></span>
         <p>Mensaje agradecimiento</p>
       </div>
     </div>
-    <br>
+    <br> -->
     <!-- Informacion cuando no hay invitados -->
     <div class="row" *ngIf="invitados && invitados.length <= 0">
       <div class="col-xs-12 text-center">
@@ -182,7 +313,7 @@
           <p>Aun no has agregado invitados</p>
           <div class="monto-regalado no-selector plus-regalo" data-toggle="modal" data-target="#modalInvitado">
             <span class="icon-plus-regalo"></span>
-            <p>Agregar invitados</p>
+            <p>Carga masiva de invitados</p>
           </div>
         </div>
       </div>

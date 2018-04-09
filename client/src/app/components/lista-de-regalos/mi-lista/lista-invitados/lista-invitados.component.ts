@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
+import { GLOBAL } from '../../../../services/global';
 import { ItemService } from '../../../../services/item.service';
 import { Item } from '../../../../models/item';
 
@@ -41,6 +42,8 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
   public invitados: Array<any>;
   public queryParams: Map<string, string>;
   public verDetalle: any;
+  public urlAvatar: string;
+  public urlQr: string;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -50,6 +53,8 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
     this.msjAgradecimiento = localStorage.getItem('msjAgradecimiento');
     this.queryParams = new Map<string, string>();
     this.invitados = new Array<any>();
+    this.urlAvatar = GLOBAL.urlShared + 'imagenPerfil/';
+    this.urlQr = GLOBAL.urlShared + 'qr/';   
 
     this.totalInvitados = 0;
     this.nombreInvitado = '';
@@ -66,7 +71,8 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
     this.fechaEvento = localStorage.getItem('formatoFechaEvento');
     this.idListaUsuario = localStorage.getItem('id-lista');
     this.msjAgradecimiento = localStorage.getItem('msjAgradecimiento');
-
+    $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + "sin-imagen.jpg)");
+    this.existeUrl(this.urlAvatar + 'sin-imagen.jpg');   
     this.cargarInvitados();
   }
 
@@ -75,6 +81,30 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('formatoFechaEvento');
     this.idListaUsuario = localStorage.getItem('id-lista');
+  }
+
+  public existeUrl(url) {
+    url = this.urlAvatar + this.codigoLista + '.jpg';
+    var http = new XMLHttpRequest();
+    http.open('GET', url, true);
+    http.send();
+    if (http.status != 404) {
+      if (url == this.urlAvatar + this.codigoLista + '.jpg') {
+        $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + this.codigoLista + ".jpg)");
+      }
+    }
+    else {
+      url = this.urlAvatar + this.codigoLista + '.png';
+      var http = new XMLHttpRequest();
+      http.open('GET', url, true);
+      http.send();
+      if (http.status != 404) {
+        $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + this.codigoLista + ".png)");
+      }
+      else {
+        $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + "sin-imagen.jpg)");
+      }
+    }
   }
 
   public abrirModal(modal: string) {

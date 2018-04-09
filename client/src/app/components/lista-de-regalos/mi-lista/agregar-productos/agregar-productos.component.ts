@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
+import { GLOBAL } from '../../../../services/global';
 import { ItemService } from '../../../../services/item.service';
 import { Item } from '../../../../models/item';
 import { ListaRegalosService } from '../../../../services/lista-regalos.service';
@@ -43,7 +44,8 @@ export class AgregarProductosComponent implements OnInit {
   public mostrarCategoria: boolean = true;
   private viewportWidth: number = 0;
   public itemsListaBcs: Array<any>;
-
+  public urlAvatar: string;
+  public urlQr: string;
 
   //public shoppingCart: any;
 
@@ -63,7 +65,8 @@ export class AgregarProductosComponent implements OnInit {
     this.itemsAgregados = new Array<Item>();
     this.mostrarFiltro = false;
     this.inicializarForm();
-
+    this.urlAvatar = GLOBAL.urlShared + 'imagenPerfil/';
+    this.urlQr = GLOBAL.urlShared + 'qr/';    
   }
 
   private inicializarForm() {
@@ -85,7 +88,8 @@ export class AgregarProductosComponent implements OnInit {
     this.idListaUsuario = localStorage.getItem('id-lista');
     this.itemsAgregados = new Array<Item>();
     this.cargarItems0();
-
+    $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + "sin-imagen.jpg)");
+    this.existeUrl(this.urlAvatar + 'sin-imagen.jpg');    
   }
 
 
@@ -100,6 +104,30 @@ export class AgregarProductosComponent implements OnInit {
         this.mostrarCategoria = true;
       }
 
+  }
+
+  public existeUrl(url) {
+    url = this.urlAvatar + this.codigoLista + '.jpg';
+    var http = new XMLHttpRequest();
+    http.open('GET', url, true);
+    http.send();
+    if (http.status != 404) {
+      if (url == this.urlAvatar + this.codigoLista + '.jpg') {
+        $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + this.codigoLista + ".jpg)");
+      }
+    }
+    else {
+      url = this.urlAvatar + this.codigoLista + '.png';
+      var http = new XMLHttpRequest();
+      http.open('GET', url, true);
+      http.send();
+      if (http.status != 404) {
+        $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + this.codigoLista + ".png)");
+      }
+      else {
+        $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + "sin-imagen.jpg)");
+      }
+    }
   }
 
   public showFiltros() {
