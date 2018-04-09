@@ -6,6 +6,12 @@
   border-left: 1px solid #CCC;
 }
 
+.btn-volver-lista {
+  color: #FFF;
+  background-color: #df9495;
+  border-radius: 0;
+}
+
 
 /* modal agregar invitado */
 
