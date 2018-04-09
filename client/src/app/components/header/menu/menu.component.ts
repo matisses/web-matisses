@@ -846,7 +846,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   }
 
   public login() {
-    console.log('entra al login');
+
     this.messageError = '';
     if (this.nombreUsuario == null || this.nombreUsuario.length <= 0) {
       this.messageError = 'Ingresa tu dirección de correo principal.';
@@ -860,8 +860,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
       nombreUsuario: this.nombreUsuario,
       password: this.password
     }
-    console.log('this.nombreUsuario '+this.nombreUsuario);
-    console.log('this.password '+this.password);
+  
     this._userService.login(usuarioDTO).subscribe(
       response => {
         if (response.codigo == '-1') {

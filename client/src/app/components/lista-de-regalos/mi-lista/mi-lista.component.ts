@@ -50,6 +50,7 @@ export class MiListaComponent implements OnInit {
   public fileUpload: any;
   public urlAvatar: string;
   public itemsSinPaginar: Array<any>;
+  public usuarioAdmin: string;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -87,7 +88,14 @@ export class MiListaComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.nombreUsuario = localStorage.getItem('username-lista');
+    if(localStorage.getItem('username-lista')!=null){
+      this.nombreUsuario = localStorage.getItem('username-lista');
+    }
+    else{
+      this.usuarioAdmin = localStorage.getItem('username-admin');
+      this.nombreUsuario=this.usuarioAdmin;
+    }
+
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('fecha-evento');
     this.idListaUsuario = localStorage.getItem('id-lista');
@@ -109,7 +117,12 @@ export class MiListaComponent implements OnInit {
       }
     });
 
-    this.nombreUsuario = localStorage.getItem('username-lista');
+    if(localStorage.getItem('username-lista')!=null){
+      this.nombreUsuario = localStorage.getItem('username-lista');
+    }
+    else{
+      this.usuarioAdmin = localStorage.getItem('username-admin');
+    }
     setTimeout(function() {
       if (localStorage.getItem('cambio-clave') == 'si') {
         $('#cambioContrasena').modal('show');

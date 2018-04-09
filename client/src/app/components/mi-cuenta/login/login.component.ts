@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Moment } from 'moment';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { SessionUsuarioService } from '../../../services/session-usuario.service';
 import { JWTService } from '../../../services/jwt.service';
@@ -309,6 +310,28 @@ export class LoginComponent implements OnInit {
 
       this.messageError = 'Ambas contraseñas deben ser iguales.';
       this.successMessage = '';
+      $('#messageUser').modal('show');
+      return;
+    }
+
+    let desde = String(this.customer.birthDate).split('-');
+    let fechaDesde = desde[2] + '-' + desde[1] + '-' ;
+
+
+    let myDate = new Date();
+
+    let fechaFormulario=new Date(this.customer.birthDate.toString());
+
+    if(fechaFormulario.toString()=='Invalid Date'){
+    
+      this.messageError = 'Fecha inválida, ingrese una fecha correcta';
+      this.successMessage = '';
+      $('#messageUser').modal('show');
+      return;
+    }
+    if(fechaFormulario>myDate){
+      this.messageError = 'La fecha de nacimiento es superior a la fecha actual.';
+      this.valid = false;
       $('#messageUser').modal('show');
       return;
     }

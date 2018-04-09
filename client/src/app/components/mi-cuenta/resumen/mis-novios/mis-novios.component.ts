@@ -31,6 +31,7 @@ export class NoviosComponent implements OnInit {
   ngOnInit() {
     this.documentCustomer=localStorage.getItem('doc-customer');
     this.nombreUsuario=localStorage.getItem('nombre-usuario');
+    localStorage.setItem('username-admin',this.nombreUsuario);
     this.buscarCliente();
   }
 
@@ -38,7 +39,7 @@ export class NoviosComponent implements OnInit {
     $(document).ready(function () {
       $("html, body").animate({ scrollTop: 0 }, 1000);
     });
-    this.forClientes();
+    //this.forClientes();
   }
 
   public forClientes() {
@@ -451,6 +452,13 @@ export class NoviosComponent implements OnInit {
     }
   );
   }
+  }
+
+  public irLista(codigoLista:string, idLista:string){
+    console.log('el codigo de la lista es '+codigoLista+" "+idLista);
+    localStorage.setItem('codigo-lista',codigoLista);
+    localStorage.setItem('id-lista',idLista);
+    this._router.navigate(['/mi-lista']);
   }
 
 }
