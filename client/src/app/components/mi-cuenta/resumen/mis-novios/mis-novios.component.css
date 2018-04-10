@@ -106,10 +106,6 @@
   text-align: center;
 }
 
-.title-tabla {
-  margin-top: 10px;
-}
-
 @media screen and (max-width: 991px) {
   .novios {
     width: 90%;

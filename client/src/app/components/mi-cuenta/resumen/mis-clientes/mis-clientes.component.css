@@ -1,20 +1,130 @@
-.stuck-body {
-  margin-top: 125px;
-  color: #5B5B5B;
+.novios {
+  width: 70%;
+  margin: 20px auto;
+}
+
+.icono {
+  font-size: 50px;
+  padding-top: 12px;
+  background-color: #E2E2E2;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  color: #6D9791;
+}
+
+.title {
+  font-size: 16px;
+  padding: 35px 0px;
+}
+
+.title-wp::before, .title-wp::after {
+  content: ' ';
+  border-bottom: 1px solid #E2E2E2;
+  width: 40%;
+  position: absolute;
+  top: 20px;
+}
+
+.title-wp::before {
+  left: 0;
+}
+
+.title-wp::after {
+  right: 0;
+}
+
+.subtitle-wp {
+  margin-top: 20px;
+}
+
+.subtitle-wp::before, .subtitle-wp::after {
+  content: ' ';
+  border-bottom: 1px solid #E2E2E2;
+  width: 30%;
+  position: absolute;
+  top: 30px;
+}
+
+.subtitle-wp::before {
+  left: 0;
+}
+
+.subtitle-wp::after {
+  right: 0;
+}
+
+.cliente {
+  border-left: 1px solid #6D9791;
+  padding-left: 15px;
+  margin-left: 5px;
+  margin: 15px 0;
+}
+
+.cliente .nombre {
+  color: #6D9791;
+  height: 40px;
+}
+
+.cliente p {
+  margin: 0;
+}
+
+.monto-puntos {
+  background-color: #F7F7F7;
+  color: #6D9791;
+  padding: 10px 0;
+}
+
+.monto-puntos p {
+  margin: 0;
+}
+
+.opcion p {
+  color: #6D9791;
+  font-size: 16px;
+}
+
+.opcion span {
+  margin-top: 15px;
+  font-size: 40px;
+  color: #6D9791
+}
+
+.title-3 {
+  color: #6D9791;
+  margin: 15px 0;
+  border-bottom: 1px solid #E2E2E2;
+  border-top: 1px solid #E2E2E2;
+  padding: 15px 0;
+}
+
+.title-3 p {
+  margin: 0;
+  text-align: center;
 }
 
 @media screen and (max-width: 991px) {
-  .stuck-body {
-    margin-top: 0px;
+  .novios {
+    width: 90%;
+    margin: 10px auto;
   }
 }
 
-@media screen and (max-width: 769px) {}
+@media screen and (max-width: 768px) {}
 
-@media screen and (max-width: 425px) {}
+@media screen and (max-width: 450px) {}
 
-@media screen and (max-width: 414px) {}
-
-@media screen and (max-width: 375px) {}
-
-@media screen and (max-width: 320px) {}
+@media screen and (max-width: 425px) {
+  .icono {
+    font-size: 30px;
+    padding-top: 14px;
+    width: 70px;
+    height: 70px;
+  }
+  .title {
+    padding: 20px 0px;
+    padding-left: 13px;
+  }
+}
