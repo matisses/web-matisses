@@ -20,12 +20,14 @@ export class NoviosComponent implements OnInit {
   public customer: any;
   public nombreUsuario: string;
   public documentCustomer:string;
+  public totalesDTO:any;
 
 
   constructor(private _route: ActivatedRoute, private _router: Router,private _customerService: CustomerService,private _userService: SessionUsuarioService,private _cityService: CityService) {
     this.title = 'Este es el cuerpo de novios';
     this.clientes = Array<any>();
     this.inicializarCliente();
+    this.inicializarTotales();
   }
 
   ngOnInit() {
@@ -112,12 +114,12 @@ export class NoviosComponent implements OnInit {
     "AdditionalID": null,
     "Pager": null,
     "FatherCard": null,
-    "CardForeignName": "MARIA ANGELICA FLORES GIL",
+    "CardForeignName": "",
     "FatherType": "cPayments_sum",
     "DeductionOffice": null,
     "ExportCode": null,
     "MinIntrest": 0,
-    "CurrentAccountBalance": -779760,
+    "CurrentAccountBalance": 0,
     "OpenDeliveryNotesBalance": 0,
     "OpenOrdersBalance": 0,
     "VatGroup": null,
@@ -128,7 +130,7 @@ export class NoviosComponent implements OnInit {
     "CreditCardCode": -1,
     "CreditCardNum": null,
     "CreditCardExpiration": null,
-    "DebitorAccount": "13050501",
+    "DebitorAccount": "",
     "OpenOpportunities": null,
     "Valid": "tNO",
     "ValidFrom": null,
@@ -344,12 +346,12 @@ export class NoviosComponent implements OnInit {
     "U_BPCO_CS": "11001",
     "U_BPCO_City": "11001",
     "U_BPCO_TP": "01",
-    "U_BPCO_Nombre": "MARIA ANGELICA",
-    "U_BPCO_1Apellido": "FLORES",
-    "U_BPCO_2Apellido": "GIL",
+    "U_BPCO_Nombre": "",
+    "U_BPCO_1Apellido": "",
+    "U_BPCO_2Apellido": "",
     "U_BPCO_BPExt": "01",
     "U_BPCO_TBPE": "01",
-    "U_BPCO_Address": "BOGOTA",
+    "U_BPCO_Address": "",
     "U_Manejo": "DIA",
     "U_BD_Erst": "Y",
     "U_BD_Datev": null,
@@ -362,30 +364,30 @@ export class NoviosComponent implements OnInit {
     "BPAddresses": {
         "BPAddress": [
             {
-                "AddressName": "FAC-Nro2",
-                "Street": "BOGOTA",
-                "Block": "3125800077",
+                "AddressName": "",
+                "Street": "",
+                "Block": "",
                 "ZipCode": null,
-                "City": "BOGOTÁ",
+                "City": "",
                 "County": '',
                 "Country": "CO",
                 "State": "11",
-                "FederalTaxID": "15584182",
+                "FederalTaxID": "",
                 "TaxCode": "",
-                "BuildingFloorRoom": "3125800077",
+                "BuildingFloorRoom": "",
                 "AddressType": "bo_ShipTo",
                 "AddressName2": null,
                 "AddressName3": null,
                 "TypeOfAddress": null,
                 "StreetNo": null,
-                "BPCode": "15584182CL",
+                "BPCode": "",
                 "RowNum": 1,
                 "GlobalLocationNumber": null,
                 "Nationality": null,
                 "TaxOffice": null,
                 "GSTIN": null,
                 "GstType": null,
-                "U_Municipio": "11001"
+                "U_Municipio": ""
             }
 
 
@@ -445,6 +447,19 @@ export class NoviosComponent implements OnInit {
         }
       );
 
+      this._userService.totalAcumuladoWP(this.documentCustomer).subscribe(
+        response => {
+          this.totalesDTO=response;
+        console.log('responseTotales '+this.totalesDTO.puntosAcomulados);
+        
+
+
+        },
+        error => {
+          console.error(error);
+        }
+      );
+
 
     },
     error => {
@@ -460,5 +475,21 @@ export class NoviosComponent implements OnInit {
     localStorage.setItem('id-lista',idLista);
     this._router.navigate(['/mi-lista']);
   }
+
+  public inicializarTotales(){
+    this.totalesDTO= {
+    'puntosAcomulados': '',
+    'redimeEfectivo':'',
+    'redimeBono':'',
+    'puntos': [
+       {
+           'porcentaje': "5%",
+           'concepto': "457 pts. - 9,999 pts."
+       }
+       ]
+
+
+  }
+}
 
 }
