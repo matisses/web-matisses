@@ -131,5 +131,13 @@ export class SessionUsuarioService {
       .map(res => res.json());
   }
 
+  totalAcumuladoWP(documentoUsuario){                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'sessionusuario/cargarmontoacomulado/' + documentoUsuario, { headers: headers })
+      .map(res => res.json());
+  }
+
 
 }

@@ -12,7 +12,7 @@
         <form #RecuperarForm="ngForm">
           <div class="row" *ngIf="updateMessage != null && updateMessage.length > 0">
             <div class="col-xs-12">
-              <div class="alert alert-danger" role="alert">
+              <div class="alert alert-info" role="alert">
                 <p>{{updateMessage}}</p>
               </div>
             </div>
@@ -27,7 +27,7 @@
         </div>
         <div class="row">
           <div class="col-xs-6 col-xs-offset-3 text-center">
-            <button type="submit" class="btn btn-enviar-matisses" (click)="recuperar()">Continuar</button>
+            <button type="submit" class="btn btn-enviar-matisses" (click)="recuperar()" *ngIf="updateMessage == null || updateMessage=='' ">Continuar</button>
           </div>
         </div>
         <br>
