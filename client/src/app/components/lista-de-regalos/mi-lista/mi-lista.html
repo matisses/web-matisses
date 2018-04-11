@@ -194,14 +194,14 @@
           <div class="col-sm-7">
             <div class="info-lista">
               <p style="margin-bottom: 0">BIENVENIDOS</p>
-              <h1 class="title-mi-lista">DIANA RIOS & PABLO MORENO</h1>
+              <h1 class="title-mi-lista">{{novios}}</h1>
               <p>Código de novios: {{codigoLista}}</p>
               <div class="row">
                 <div class="col-sm-12">
                   <div class="info-fechas">
                     <p data-toggle="tooltip" data-placement="bottom" title="Monto acumulado">
                       <span class="icon-coin icon-menu"></span>
-                      <b>$ 1.600.000</b>
+                      <b>{{totalAcumulado | number}}</b>
                     </p>
                     <p data-toggle="tooltip" data-placement="bottom" title="Fecha del evento">
                       <span class="icon-valentines icon-menu"></span>
@@ -246,7 +246,7 @@
             </div>
             <!-- boton compartir -->
             <div class="col-sm-3 text-center item-segundo-menu" [routerLink]="['/mi-lista/regalos-recibidos']">
-              <span>{{totalLista}}</span>
+              <span>{{totalComprado}}</span>
               <p>Regalos recibidos</p>
               <div class="border-menu">
               </div>

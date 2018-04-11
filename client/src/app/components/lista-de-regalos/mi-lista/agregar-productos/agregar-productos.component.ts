@@ -46,6 +46,10 @@ export class AgregarProductosComponent implements OnInit {
   public itemsListaBcs: Array<any>;
   public urlAvatar: string;
   public urlQr: string;
+  public totalLista: string;
+  public totalComprado: string;
+  public totalAcumulado:string
+  public novios:string;
 
   //public shoppingCart: any;
 
@@ -66,7 +70,11 @@ export class AgregarProductosComponent implements OnInit {
     this.mostrarFiltro = false;
     this.inicializarForm();
     this.urlAvatar = GLOBAL.urlShared + 'imagenPerfil/';
-    this.urlQr = GLOBAL.urlShared + 'qr/';    
+    this.urlQr = GLOBAL.urlShared + 'qr/';
+    this.totalLista=localStorage.getItem('total-por-comprar');
+    this.totalComprado=localStorage.getItem('total-comprado');
+    this.totalAcumulado=localStorage.getItem('total-acumulado');
+    this.novios=localStorage.getItem('novios-header');
   }
 
   private inicializarForm() {
@@ -81,7 +89,10 @@ export class AgregarProductosComponent implements OnInit {
   }
 
   ngOnInit() {
+
     //this.inicializarItems();
+    localStorage.removeItem('total-por-comprar');
+    localStorage.removeItem('total-comprado');
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('fecha-evento');
@@ -89,7 +100,7 @@ export class AgregarProductosComponent implements OnInit {
     this.itemsAgregados = new Array<Item>();
     this.cargarItems0();
     $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + "sin-imagen.jpg)");
-    this.existeUrl(this.urlAvatar + 'sin-imagen.jpg');    
+    this.existeUrl(this.urlAvatar + 'sin-imagen.jpg');
   }
 
 
@@ -174,6 +185,18 @@ export class AgregarProductosComponent implements OnInit {
       let key = this.availableFields[i];
       queryParamsObj[key] = this.queryParams.get(key);
     }
+
+    this._router.navigate(['/mi-lista/agregar-productos'], { queryParams: queryParamsObj });
+  }
+
+  private navigateFilter() {
+
+    let queryParamsObj = {};
+    for (let i = 0; i < this.availableFields.length; i++) {
+      let key = this.availableFields[i];
+      queryParamsObj[key] = this.queryParams.get(key);
+    }
+    queryParamsObj['page'] = '1';
     this._router.navigate(['/mi-lista/agregar-productos'], { queryParams: queryParamsObj });
   }
 
@@ -250,7 +273,7 @@ export class AgregarProductosComponent implements OnInit {
             this._listaService.consultarListaSinPaginar(paramsConsulta).subscribe(
                response => {
                 this.itemsListaBcs = response;
-                
+
                 for (var j = 0; j < this.itemsListaBcs.length; j++) {
 
                   if (this.itemsListaBcs[j]['referencia'] === this.items[i].shortitemcode) {
@@ -262,6 +285,10 @@ export class AgregarProductosComponent implements OnInit {
                    console.error(error);
                 }
             );
+
+
+
+
             //validar si el ítem tiene descuentos
             // this._descuentosService.findDiscount(this.items[i].itemcode).subscribe(
             //   response => {
@@ -307,6 +334,9 @@ export class AgregarProductosComponent implements OnInit {
     if (this.keywords && this.keywords.length > 0) {
       let queryParamsObj = { keywords: this.keywords.replace(/ /g, ",") };
       this._router.navigate(['/mi-lista/agregar-productos'], { queryParams: queryParamsObj });
+    }
+    else{
+      this._router.navigate(['/mi-lista/agregar-productos']);
     }
   }
 
@@ -463,6 +493,7 @@ export class AgregarProductosComponent implements OnInit {
   }
 
   public toggleSelection(tipoFiltro: string, codigo: string) {
+    console.log('entra en toggleSelection');
     if (tipoFiltro.endsWith('Price')) {
       if (!codigo || codigo == null || codigo.length === 0) {
         if (this.queryParams.has(tipoFiltro)) {
@@ -489,7 +520,7 @@ export class AgregarProductosComponent implements OnInit {
     } else {
       this.queryParams.set(tipoFiltro, codigo);
     }
-    this.navigate();
+    this.navigateFilter();
   }
 
   public toggleClass(idComponent) {
@@ -591,6 +622,8 @@ export class AgregarProductosComponent implements OnInit {
     localStorage.removeItem('id-lista');
     localStorage.removeItem('codigo-lista');
     localStorage.removeItem('fecha-evento');
+    localStorage.removeItem('total-por-comprar');
+    localStorage.removeItem('total-comprado');
 
     this._router.navigate(['/lista-de-regalos']);
   }

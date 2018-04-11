@@ -55,6 +55,8 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
   public totalAcumulado: number;
   public urlAvatar: string;
   public urlQr: string;
+  public totalComprado: number;
+  public novios: string;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -74,7 +76,8 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     this.inicializarForm();
     this.inicializarParamsConsulta();
     this.urlAvatar = GLOBAL.urlShared + 'imagenPerfil/';
-    this.urlQr = GLOBAL.urlShared + 'qr/';    
+    this.urlQr = GLOBAL.urlShared + 'qr/';
+
   }
 
   private inicializarParamsConsulta() {
@@ -98,7 +101,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     this.cargarAnos();
     this.cargarItems0();
     $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + "sin-imagen.jpg)");
-    this.existeUrl(this.urlAvatar + 'sin-imagen.jpg');    
+    this.existeUrl(this.urlAvatar + 'sin-imagen.jpg');
   }
 
   ngAfterViewInit() {
@@ -241,6 +244,8 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     this._route.queryParams.forEach((params: Params) => {
       this.inicializarMapa(params);
 
+
+
       if (this.queryParams.has('pageSize')) {
         this.paramsConsulta.registrosPagina = this.queryParams.get('pageSize');
       }
@@ -271,14 +276,28 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
       this._listaService.consultarListaComprados(this.paramsConsulta).subscribe(
         response => {
           this.itemsListaBcs = response;
-          this.totalLista = this.itemsListaBcs.length;
+          //this.totalLista = this.itemsListaBcs.length;
+          this.totalComprado=this.itemsListaBcs.length;
           this.totalAcumulado = 0;
           for (var i = 0; i < this.itemsListaBcs.length; i++) {
             this.totalAcumulado = this.totalAcumulado + this.itemsListaBcs[i]['precioTotal'];
           }
+
+          this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
+            response => {
+              this.totalLista = response - this.totalComprado ;
+            },
+            error => { console.error(error); });
+
           this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.totalLista);
         },
         error => { console.error(error); });
+
+        // this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
+        //   response => {
+        //     this.totalLista = response-this.totalComprado;
+        //   },
+        //   error => { console.error(error); });
     });
   }
 
@@ -399,6 +418,8 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     localStorage.removeItem('id-lista');
     localStorage.removeItem('codigo-lista');
     localStorage.removeItem('fecha-evento');
+    localStorage.removeItem('total-por-comprar');
+    localStorage.removeItem('total-comprado');
 
     this._router.navigate(['/lista-de-regalos']);
   }
@@ -418,6 +439,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
         if (respuesta.length > 0) {
           this.nombreUsuario = respuesta[0].nombreCreador;
           this.fechaEvento = respuesta[0].formatoFechaEvento;
+          this.novios=response[0].nombreCreador  + ' & ' + response[0].nombreCocreador;
           sessionStorage.setItem('formatoFechaEvento', respuesta[0].formatoFechaEvento);
         }
       },

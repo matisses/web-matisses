@@ -201,4 +201,13 @@ export class ListaRegalosService {
     return this._http.post(this.urlBCS + 'listaregalos/subirarchivo/', formData)
       .map(res => res);
   }
+
+  recuperarClave(nombreUsuario) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'sessionusuario/recuperar/' + nombreUsuario, { headers: headers })
+      .map(res => res.json());
+  }
 }
