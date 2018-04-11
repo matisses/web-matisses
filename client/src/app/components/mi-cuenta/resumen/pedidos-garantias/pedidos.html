@@ -61,7 +61,7 @@
     </div>
   </div>
   <!-- detalle factura -->
-  <div class="detalles-fv" *ngIf="detalles > 0">
+  <div class="detalles-fv" *ngIf="detalles > 0 && !reclamarGarantia">
     <div class="row">
       <div class="col-xs-10 col-xs-offset-1">
         <div class="row">
@@ -71,7 +71,8 @@
             </p>
           </div>
           <div class="col-md-3 col-xs-6 text-right">
-            <p class="cursor-pointer" (click)="volverPedidos()">< Atrás</p>
+            <p class="cursor-pointer" (click)="volverPedidos()">
+              < Atrás</p>
           </div>
         </div>
         <br>
@@ -173,7 +174,7 @@
                           </div>
                           <div class="col-xs-3 text-center">
                             <p>Garantia</p>
-                            <p [ngClass]="{ 'bg-success' : item.estado === 'Reclamar' }">
+                            <p [ngClass]="{ 'bg-success' : item.estado === 'Reclamar' }" class="cursor-pointer" (click)="garantiaReclamar()">
                               <b>{{item.estado}}</b>
                             </p>
                           </div>
@@ -187,6 +188,11 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="reclamarGarantia">
+    <div class="col-xs-12">
+        reclamar garantia
     </div>
   </div>
 </div>

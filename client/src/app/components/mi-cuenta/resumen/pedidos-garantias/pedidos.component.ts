@@ -24,6 +24,7 @@ export class PedidosComponent implements OnInit {
   public documentCustomer: string;
   public nombreUsuario: string;
   public detalles: number = null;
+  public reclamarGarantia: boolean = false;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService, private _userService: SessionUsuarioService) {
     this.pedidos = Array<any>();
@@ -40,6 +41,12 @@ export class PedidosComponent implements OnInit {
     $(document).ready(function () {
       $("html, body").animate({ scrollTop: 0 }, 1000);
     });
+  }
+
+  public garantiaReclamar(){
+    this.reclamarGarantia = true;
+    console.log(this.reclamarGarantia);
+    
   }
 
   public verDetalles(pedido) {
