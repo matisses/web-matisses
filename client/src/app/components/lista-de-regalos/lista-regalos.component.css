@@ -40,7 +40,7 @@
   padding: 94px 25px;
 }
 
-.form-lista-regalos {
+.form-lista-regalos, .modal .form-lista-regalos {
   display: block;
   width: 100%;
   height: 27px;
@@ -52,6 +52,10 @@
   background-image: none;
   border: 1px solid #FFF;
   margin-bottom: 5px;
+}
+
+.modal .form-lista-regalos {
+  border: 1px solid #E2E2E2;
 }
 
 .ng-valid[required], .ng-valid.required {
@@ -139,11 +143,11 @@
 }
 
 .border-right {
-  border-right: 1px solid rgba(215,125,125,0.5) !important;
+  border-right: 1px solid rgba(215, 125, 125, 0.5) !important;
 }
 
 .border-bottom {
-  border-bottom: 1px solid rgba(215,125,125,0.5) !important;
+  border-bottom: 1px solid rgba(215, 125, 125, 0.5) !important;
 }
 
 @media screen and (max-width: 1024px) {
@@ -196,14 +200,14 @@
   }
   .border-right {
     border-right: 1px solid #FFF !important;
-    border-bottom: 1px solid rgba(215,125,125,0.5) !important;
+    border-bottom: 1px solid rgba(215, 125, 125, 0.5) !important;
   }
   .border-left {
     border-left: 1px solid #FFF !important;
-    border-top: 1px solid rgba(215,125,125,0.5) !important;
+    border-top: 1px solid rgba(215, 125, 125, 0.5) !important;
   }
   .border-bottom {
-    border-bottom: 1px solid rgba(215,125,125,0.5) !important;
+    border-bottom: 1px solid rgba(215, 125, 125, 0.5) !important;
   }
 }
 
