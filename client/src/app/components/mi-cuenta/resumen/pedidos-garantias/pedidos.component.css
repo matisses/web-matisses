@@ -110,6 +110,30 @@
   cursor: pointer;
 }
 
+.cabezote {
+  background-color: #e2e2e2;
+  padding: 3px 10px;
+  position: relative;
+  top: -40px;
+}
+
+.item-garantia {
+  border-bottom: 1px solid #E2E2E2;
+}
+
+.item-garantia img {
+  background-color: red;
+}
+
+.notificaciones {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+textarea {
+  resize: none;
+}
+
 @media screen and (max-width: 991px) {
   .pedidos {
     width: 90%;

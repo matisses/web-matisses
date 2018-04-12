@@ -20,11 +20,12 @@ export class PedidosComponent implements OnInit {
   public pedidos: Array<any>;
   public items: Array<any>;
   public customer: any;
-  public detallePedido:any;
+  public detallePedido: any;
   public documentCustomer: string;
   public nombreUsuario: string;
   public detalles: number = null;
   public reclamarGarantia: boolean = false;
+  public materialSeleccionado: boolean = false;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService, private _userService: SessionUsuarioService) {
     this.pedidos = Array<any>();
@@ -41,16 +42,25 @@ export class PedidosComponent implements OnInit {
     $(document).ready(function () {
       $("html, body").animate({ scrollTop: 0 }, 1000);
     });
+    $(document).on('ready', function () {
+      $("#input-b5").fileinput({ showCaption: false, dropZoneEnabled: false });
+    });
   }
 
-  public garantiaReclamar(){
+  public seleccionarMaterial() {
+    this.materialSeleccionado = true;
+    console.log(this.materialSeleccionado);
+
+  }
+
+  public garantiaReclamar() {
     this.reclamarGarantia = true;
     console.log(this.reclamarGarantia);
-    
+
   }
 
   public verDetalles(pedido) {
-    this.items=new Array<any>();
+    this.items = new Array<any>();
     this.inicializarInfoDetalle();
     this.detalles = pedido;
 
@@ -58,24 +68,24 @@ export class PedidosComponent implements OnInit {
       response => {
         for (let i = 0; i < response.length; i++) {
 
-          this.detallePedido= {
-            'numeroFactura':response[0].nroPedido,
-            'fechaFactura':response[0].formateoFechaPedido,
-            'estadoFactura':response[0].ordenVenta,
-            'cliente':response[0].cliente,
-            'direccionEntrega':response[0].direccionEntrega,
-            'ciudad':response[0].ciudadEntrega,
-            'departamentoEntrega':response[0].departamentoEntrega,
-            'telefono':response[0].telefono,
-            'celular':response[0].celular
-        };
+          this.detallePedido = {
+            'numeroFactura': response[0].nroPedido,
+            'fechaFactura': response[0].formateoFechaPedido,
+            'estadoFactura': response[0].ordenVenta,
+            'cliente': response[0].cliente,
+            'direccionEntrega': response[0].direccionEntrega,
+            'ciudad': response[0].ciudadEntrega,
+            'departamentoEntrega': response[0].departamentoEntrega,
+            'telefono': response[0].telefono,
+            'celular': response[0].celular
+          };
           let estado = '';
-          if(response[i].garantia){
-            estado='Reclamar'
+          if (response[i].garantia) {
+            estado = 'Reclamar'
           }
           this.items.push({
-            itemcode: response[i].item.substring(0,3)+'0000000000000'+response[i].item.substring(4),
-            shortitemcode: response[i].item.substring(0,3)+response[i].item.substring(4),
+            itemcode: response[i].item.substring(0, 3) + '0000000000000' + response[i].item.substring(4),
+            shortitemcode: response[i].item.substring(0, 3) + response[i].item.substring(4),
             itemname: response[i].producto,
             priceaftervat: response[i].precioUnitario,
             selectedQuantity: response[i].cantidad,
@@ -138,20 +148,20 @@ export class PedidosComponent implements OnInit {
 
   }
 
-  public inicializarInfoDetalle(){
+  public inicializarInfoDetalle() {
 
-    this.detallePedido= {
-      'numeroFactura':'',
-      'fechaFactura':'',
-      'estadoFactura':'',
-      'cliente':'',
-      'direccionEntrega':'',
-      'ciudad':'',
-      'departamentoEntrega':'',
-      'telefono':'',
-      'celular':''
+    this.detallePedido = {
+      'numeroFactura': '',
+      'fechaFactura': '',
+      'estadoFactura': '',
+      'cliente': '',
+      'direccionEntrega': '',
+      'ciudad': '',
+      'departamentoEntrega': '',
+      'telefono': '',
+      'celular': ''
+    }
+
   }
-
-}
 
 }
