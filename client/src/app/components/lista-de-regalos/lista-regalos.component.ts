@@ -23,6 +23,7 @@ export class ListaRegalosComponent implements OnInit {
   public idListaUsuario: string;
   public codigoLista: string;
   public fechaEvento: string;
+  public fechaEntrega: string;
   public messageError: string
   public nombresNovios: string;
   public apellidosNovios: string;
@@ -31,7 +32,7 @@ export class ListaRegalosComponent implements OnInit {
   public mostrarBuscar: boolean = true;
   public mostrarCrear: boolean = true;
   public mostrarManage: boolean = true;
-  private viewportWidth: number = 0;
+  public viewportWidth: number = 0;
   public recuperarEmail:string;
   public updateMessage:string;
 
@@ -115,6 +116,7 @@ export class ListaRegalosComponent implements OnInit {
         this.idListaUsuario = response.idListaRegalos.idLista;
         this.codigoLista = response.idListaRegalos.codigo;
         this.fechaEvento = response.idListaRegalos.fechaEvento;
+        this.fechaEntrega = response.idListaRegalos.fechaEntrega;
         this.nombreSession = response.nombre;
         if (response.esNuevo) {
           this.cambioContrasena = 'si';
@@ -134,6 +136,7 @@ export class ListaRegalosComponent implements OnInit {
         localStorage.setItem('id-lista', this.idListaUsuario);
         localStorage.setItem('codigo-lista', this.codigoLista);
         localStorage.setItem('fecha-evento', this.fechaEvento);
+        localStorage.setItem('fecha-entrega', this.fechaEntrega);
         localStorage.setItem('msjAgradecimiento', response.idListaRegalos.mensajeAgradecimiento);
 
         this._router.navigate(['/mi-lista']);

@@ -37,6 +37,7 @@ export class MiListaComponent implements OnInit {
   public idListaUsuario: string;
   public codigoLista: string;
   public fechaEvento: string;
+  public fechaEntrega: string;
   public urlQr: string;
   public paramsConsulta: any;
   public itemsListaBcs: Array<any>;
@@ -59,6 +60,7 @@ export class MiListaComponent implements OnInit {
     this.novios = sessionStorage.getItem('novios');
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('fecha-evento');
+    this.fechaEntrega = localStorage.getItem('fecha-entrega');
     this.idListaUsuario = localStorage.getItem('id-lista');
 
     this.totalLista = 0;
@@ -96,9 +98,11 @@ export class MiListaComponent implements OnInit {
     this.novios = sessionStorage.getItem('novios');
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('fecha-evento');
+    this.fechaEntrega = localStorage.getItem('fecha-entrega');
     this.idListaUsuario = localStorage.getItem('id-lista');
     this.buscarLista(this.codigoLista);
     localStorage.setItem('fecha-evento', this.fechaEvento);
+    localStorage.setItem('fehca-entrega', this.fechaEntrega);
     localStorage.setItem('username-lista', this.nombreUsuario);
     $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + "sin-imagen.jpg)");
     this.existeUrl(this.urlAvatar + 'sin-imagen.jpg');
@@ -526,9 +530,11 @@ this._listaService.consultarListaComprados(this.paramsConsulta).subscribe(
     this._listaService.consultarLista(consultaDTO).subscribe(
       response => {
         let respuesta = JSON.parse(JSON.stringify(response));
+        console.log(respuesta);
         if (respuesta.length > 0) {
           this.nombreUsuario = respuesta[0].nombreCreador;
           this.fechaEvento = respuesta[0].formatoFechaEvento;
+          this.fechaEntrega = respuesta[0].formatoFechaEntrega;
           this.aceptaBono = response[0].aceptaBonos;
           this.minimoBono = response[0].valorMinimoBono;
           this.novios=response[0].nombreCreador  + ' & ' + response[0].nombreCocreador;

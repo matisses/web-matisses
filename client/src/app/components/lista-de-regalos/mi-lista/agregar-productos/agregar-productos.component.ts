@@ -40,6 +40,7 @@ export class AgregarProductosComponent implements OnInit {
   public nombreUsuario: string;
   public codigoLista: string;
   public fechaEvento: string;
+  public fechaEntrega: string;
   public mostrarFiltro: boolean = true;
   public mostrarCategoria: boolean = true;
   private viewportWidth: number = 0;
@@ -96,13 +97,14 @@ export class AgregarProductosComponent implements OnInit {
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('fecha-evento');
+    this.fechaEntrega = localStorage.getItem('fecha-entrega');
     this.idListaUsuario = localStorage.getItem('id-lista');
     this.itemsAgregados = new Array<Item>();
     this.cargarItems0();
+    this.buscarLista(this.codigoLista);
     $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + "sin-imagen.jpg)");
     this.existeUrl(this.urlAvatar + 'sin-imagen.jpg');
   }
-
 
   ngAfterViewInit() {
     this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
@@ -200,8 +202,30 @@ export class AgregarProductosComponent implements OnInit {
     this._router.navigate(['/mi-lista/agregar-productos'], { queryParams: queryParamsObj });
   }
 
-  public cargarItems(availableFields, items, queryParams, records) {
+  public buscarLista(codigo: string) {
+    this.messageError = '';
+    //Asignar datos para enviarlos a WS
+    let consultaDTO = {
+      nombre: null,
+      apellido: null,
+      codigo: codigo
+    }
+    this._listaService.consultarLista(consultaDTO).subscribe(
+      response => {
+        let respuesta = JSON.parse(JSON.stringify(response));
+        if (respuesta.length > 0) {
+          this.nombreUsuario = respuesta[0].nombreCreador;
+          this.fechaEvento = respuesta[0].formatoFechaEvento;
+          this.fechaEntrega = response[0].formatoFechaEntrega;
+          this.novios=response[0].nombreCreador  + ' & ' + response[0].nombreCocreador;
+          sessionStorage.setItem('formatoFechaEvento', respuesta[0].formatoFechaEvento);
+          sessionStorage.setItem('formatoFechaEntrega', respuesta[0].formatoFechaEntrega);
+        }
+      },
+      error => { console.error(error); });
+  }
 
+  public cargarItems(availableFields, items, queryParams, records) {
     this.items = items;
     this.availableFields = availableFields;
     this.queryParams = queryParams;

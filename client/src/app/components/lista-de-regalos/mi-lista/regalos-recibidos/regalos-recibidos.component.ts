@@ -37,6 +37,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
   public idListaUsuario: string;
   public codigoLista: string;
   public fechaEvento: string;
+  public fechaEntrega: string;
   public paramsConsulta: any;
   public itemsListaBcs: Array<any>;
   public totalLista: number;
@@ -94,6 +95,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('fecha-evento');
+    this.fechaEntrega = localStorage.getItem('fecha-entrega');
     this.idListaUsuario = localStorage.getItem('id-lista');
     this.buscarLista(this.codigoLista);
     localStorage.setItem('fecha-evento', this.fechaEvento);
@@ -439,8 +441,10 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
         if (respuesta.length > 0) {
           this.nombreUsuario = respuesta[0].nombreCreador;
           this.fechaEvento = respuesta[0].formatoFechaEvento;
+          this.fechaEntrega = response[0].formatoFechaEntrega;
           this.novios=response[0].nombreCreador  + ' & ' + response[0].nombreCocreador;
           sessionStorage.setItem('formatoFechaEvento', respuesta[0].formatoFechaEvento);
+          sessionStorage.setItem('formatoFechaEntrega', respuesta[0].formatoFechaEntrega);
         }
       },
       error => { console.error(error); });
@@ -525,12 +529,12 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
 
     this._listaService.updateFechaEntrega(listaDatos).subscribe(
       response => {
-        this.successMessage = 'se actualizo correctamente la fecha de entrega';
+        this.successMessage = 'Se actualizo correctamente la fecha de entrega.';
         return;
       },
       error => {
         console.error(error);
-        this.messageError = 'error en la actualización de la fecha de entrega';
+        this.messageError = 'Lo sentimos. Ocurrió un error inesperado, por favor inténtelo más tarde.';
         return;
       }
     );
