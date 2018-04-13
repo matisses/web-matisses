@@ -1,0 +1,93 @@
+<div class="container-fluid padding-0">
+  <div class="back-01">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                  <div class="row">
+                    <div class="col-sm-4 text-center">
+                      <img src="../../../../assets/images/secciones/asa/logo.png" class="jpg-responsive" alt="">
+                    </div>
+                    <div class="col-sm-8">
+                      <h3 class="title-seccion">Diviértete
+                        <br> diseñando tu mesa</h3>
+                      <p class="sub-title-seccion">Colores, formas, diseños modernos y auténticos.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4 overflow-h">
+                  <p class="name-coleccion" [routerLink]="['/categoria']" [queryParams]="{ collection: 'Voyage', brand:'0009' }">Voyage</p>
+                  <img src="../../../../assets/images/secciones/asa/voyage.jpg" class="jpg-responsive" alt="">
+                </div>
+                <div class="col-sm-4 overflow-h">
+                  <p class="name-coleccion" [routerLink]="['/categoria']" [queryParams]="{ keywords: 'cuba', group: '024', pageSize: '10000' }">Cuba</p>
+                  <a href="javascript:void(0)"></a>
+                  <img src="../../../../assets/images/secciones/asa/cuba.jpg" class="jpg-responsive" alt="">
+                </div>
+                <div class="col-sm-4 overflow-h">
+                  <p class="name-coleccion" [routerLink]="['/categoria']" [queryParams]="{ collection: 'Ligne', brand:'0009' }">Ligne</p>
+                  <a href="javascript:void(0)"></a>
+                  <img src="../../../../assets/images/secciones/asa/ligne.jpg" class="jpg-responsive" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4 text-center" *ngFor="let itemAsa of itemsAsa">
+      <div class="recomendaciones">
+        <a href="javascript:void(0)" [routerLink]="['/producto', itemAsa.shortitemcode]">
+          <img src="https://img.matisses.co/{{itemAsa.itemcode}}/parrilla/{{itemAsa.itemcode}}_01.jpg" class="jpg-responsive cursor-pointer"
+            alt="{{itemAsa.itemname}}">
+        </a>
+        <p class="name">{{itemAsa.itemname}}</p>
+        <p class="precio">
+          <b>$ {{itemAsa.priceaftervat | number}}</b>
+        </p>
+        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', itemAsa.shortitemcode]">Ir a comprar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <p id="asa" (click)="slickAsa()" class="hidden-lg hidden-md hidden-sm hidden-xs">Click on me</p>
+      <div class="slider-asa-container">
+        <div class="controllers">
+          <a class="left prev">
+            <span class="glyphicon glyphicon-menu-left"></span>
+          </a>
+          <a class="right next">
+            <span class="glyphicon glyphicon-menu-right"></span>
+          </a>
+        </div>
+        <div class="slider-asa">
+          <div class="col-sm-3 text-center" *ngFor="let carouselItem of itemsCarousel">
+            <div class="recomendaciones">
+              <a href="javascript:void(0)" [routerLink]="['/producto', carouselItem.shortitemcode]">
+                <img src="https://img.matisses.co/{{carouselItem.itemcode}}/parrilla/{{carouselItem.itemcode}}_01.jpg" class="jpg-responsive cursor-pointer"
+                  alt="{{carouselItem.itemname}}">
+              </a>
+              <p class="name-carousel">{{carouselItem.itemname}}</p>
+              <p class="precio">
+                <b>$ {{carouselItem.priceaftervat | number}}</b>
+              </p>
+              <button type="submit" class="ir-comprar-carousel pull-bottom" name="comprar-ya" [routerLink]="['/producto', carouselItem.shortitemcode]">AGREGAR AL CARRITO</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
