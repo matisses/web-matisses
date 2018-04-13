@@ -175,18 +175,11 @@
   width: 100%;
 }
 
-.btn-carrito, .btn-like {
+.btn-carrito {
   font-size: 12px;
   padding: 10px;
   border-radius: 0;
   font-weight: 500;
-}
-
-.btn-like {
-  background-color: #EDEDED;
-  color: #E07D7D;
-  font-size: 20px;
-  padding: 4px 5px;
 }
 
 .btn-carrito {
@@ -198,10 +191,6 @@
 .btn-carrito:hover {
   background-color: #6D9791;
   color: #FFF;
-}
-
-.btn-carrito span {
-  color: #750229;
 }
 
 @media screen and (max-width: 991px) {}
