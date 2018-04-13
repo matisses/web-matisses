@@ -20,7 +20,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    console.log('Termino de cargar deberia subir el body')
     $(document).ready(function() {
       $("html, body").animate({scrollTop: 0}, 1000);
     });

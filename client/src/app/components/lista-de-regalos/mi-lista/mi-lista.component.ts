@@ -530,7 +530,6 @@ this._listaService.consultarListaComprados(this.paramsConsulta).subscribe(
     this._listaService.consultarLista(consultaDTO).subscribe(
       response => {
         let respuesta = JSON.parse(JSON.stringify(response));
-        console.log(respuesta);
         if (respuesta.length > 0) {
           this.nombreUsuario = respuesta[0].nombreCreador;
           this.fechaEvento = respuesta[0].formatoFechaEvento;

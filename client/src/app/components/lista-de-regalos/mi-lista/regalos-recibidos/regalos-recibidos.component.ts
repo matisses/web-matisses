@@ -546,9 +546,6 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
       itemCode:itemCode,
       quantity:cantidad
     }
-    console.log('itemCode '+itemCode);
-    console.log('factura '+factura);
-    console.log('cantidad '+cantidad);
     this._listaService.devolverItemsFactura(this.idListaUsuario, factura,salesDocumentLineDTO).subscribe(
       response => {
 
