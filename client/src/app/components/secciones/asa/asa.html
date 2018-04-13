@@ -43,18 +43,18 @@
   </div>
 </div>
 <div class="container">
-  <div class="row" *ngIf="items && items.length > 0">
-    <div class="col-sm-4 text-center" *ngFor="let item of items">
+  <div class="row">
+    <div class="col-sm-4 text-center" *ngFor="let itemAsa of itemsAsa">
       <div class="recomendaciones">
-        <a href="javascript:void(0)" [routerLink]="['/producto', item.shortitemcode]">
-          <img src="https://img.matisses.co/{{item.itemcode}}/parrilla/{{item.itemcode}}_01.jpg" class="jpg-responsive cursor-pointer"
-            alt="{{item.itemname}}">
+        <a href="javascript:void(0)" [routerLink]="['/producto', itemAsa.shortitemcode]">
+          <img src="https://img.matisses.co/{{itemAsa.itemcode}}/parrilla/{{itemAsa.itemcode}}_01.jpg" class="jpg-responsive cursor-pointer"
+            alt="{{itemAsa.itemname}}">
         </a>
-        <p class="name">{{item.itemname}}</p>
+        <p class="name">{{itemAsa.itemname}}</p>
         <p class="precio">
-          <b>$ {{item.priceaftervat | number}}</b>
+          <b>$ {{itemAsa.priceaftervat | number}}</b>
         </p>
-        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', item.shortitemcode]">Ir a comprar</button>
+        <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', itemAsa.shortitemcode]">Ir a comprar</button>
       </div>
     </div>
   </div>
@@ -83,7 +83,7 @@
               <p class="precio">
                 <b>$ {{carouselItem.priceaftervat | number}}</b>
               </p>
-              <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', carouselItem.shortitemcode]">Ir a comprar</button>
+              <button type="submit" class="ir-comprar-carousel pull-bottom" name="comprar-ya" [routerLink]="['/producto', carouselItem.shortitemcode]">AGREGAR AL CARRITO</button>
             </div>
           </div>
         </div>

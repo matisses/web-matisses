@@ -16,7 +16,7 @@ declare var $: any;
 })
 
 export class AsaSeccionComponent implements OnInit {
-  public items: Array<Item>;
+  public itemsAsa: Array<Item>;
   public itemsCarousel: Array<Item>;
 
 
@@ -34,13 +34,13 @@ export class AsaSeccionComponent implements OnInit {
    }
 
   private inicializarItems() {
-    this.items = new Array<Item>();
+    this.itemsAsa = new Array<Item>();
     let refs = ['2220327', '2220322', '2220324'];
 
     for (let i = 0; i < refs.length; i++) {
       this._itemService.find(refs[i]).subscribe(
         response => {
-          this.items.push(response.result[0]);
+          this.itemsAsa.push(response.result[0]);
         }, error => { console.error(); }
       );
     }

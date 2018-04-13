@@ -105,6 +105,14 @@
   background-color: #6D9791;
 }
 
+.ir-comprar-carousel {
+  cursor: pointer;
+  color: #5B5B5B;
+  padding: 5px 20px;
+  border: 1px solid #7C7C7C;
+  background-color: #FFF;  
+}
+
 /* Estilos carousel */
 
 .slider-asa {
