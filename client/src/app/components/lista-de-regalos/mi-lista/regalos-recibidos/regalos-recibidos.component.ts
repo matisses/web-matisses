@@ -78,7 +78,6 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     this.inicializarParamsConsulta();
     this.urlAvatar = GLOBAL.urlShared + 'imagenPerfil/';
     this.urlQr = GLOBAL.urlShared + 'qr/';
-
   }
 
   private inicializarParamsConsulta() {
@@ -288,16 +287,9 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
               this.totalLista = response - this.totalComprado;
             },
             error => { console.error(error); });
-
           this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.totalLista);
         },
         error => { console.error(error); });
-
-      // this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
-      //   response => {
-      //     this.totalLista = response-this.totalComprado;
-      //   },
-      //   error => { console.error(error); });
     });
   }
 
@@ -376,6 +368,11 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     );
   }
 
+  public abrirModalFechaEntrega(modal: string) {
+    this.buscarLista(this.codigoLista);
+    $(modal).modal('show');
+  }
+
   public abrirModalDetalle(itemcode: string, cantidadElegida: number, cantidadComprada: number) {
     this.inicializarForm();
     this.messageError = '';
@@ -403,7 +400,6 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
             this.itemsListaCompra = response;
             for (var i = 0; i < this.itemsListaCompra.length; i++) {
               this.itemsListaCompra[i]['formAgregar'] = this.formAgregar;
-
             }
           }, error => { console.error(error); });
       });
@@ -420,14 +416,12 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     localStorage.removeItem('fecha-evento');
     localStorage.removeItem('total-por-comprar');
     localStorage.removeItem('total-comprado');
-
     this._router.navigate(['/lista-de-regalos']);
   }
 
 
   public buscarLista(codigo: string) {
     this.messageError = '';
-    //Asignar datos para enviarlos a WS
     let consultaDTO = {
       nombre: null,
       apellido: null,
@@ -539,16 +533,13 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
   }
 
   public devolverProducto(itemCode, factura, cantidad) {
-
     let salesDocumentLineDTO = {
       itemCode: itemCode,
       quantity: cantidad
     }
     this._listaService.devolverItemsFactura(this.idListaUsuario, factura, salesDocumentLineDTO).subscribe(
       response => {
-
         if (response > 0) {
-
           this.successMessage = 'se realizo la devolucion correctamente';
           return;
         }
@@ -556,7 +547,6 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
           this.messageError = "Lo sentimos. Ocurrió un error inesperado, por favor inténtelo más tarde.";
           return;
         }
-
       },
       error => {
         this.messageError = "Lo sentimos. Ocurrió un error inesperado, por favor inténtelo más tarde.";

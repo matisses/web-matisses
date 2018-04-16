@@ -52,8 +52,6 @@ export class AgregarProductosComponent implements OnInit {
   public totalAcumulado: string
   public novios: string;
 
-  //public shoppingCart: any;
-
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
@@ -90,8 +88,6 @@ export class AgregarProductosComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    //this.inicializarItems();
     localStorage.removeItem('total-por-comprar');
     localStorage.removeItem('total-comprado');
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -146,10 +142,8 @@ export class AgregarProductosComponent implements OnInit {
   public showFiltros() {
     if (this.mostrarFiltro) {
       this.mostrarFiltro = false;
-
     } else {
       this.mostrarFiltro = true;
-
     }
   }
 
@@ -174,25 +168,21 @@ export class AgregarProductosComponent implements OnInit {
   }
 
   public cambiarTamanoPagina(tamano) {
-
     this.queryParams.set('pageSize', tamano);
     this.queryParams.set('page', '1');
     this.navigate();
   }
 
   private navigate() {
-
     let queryParamsObj = {};
     for (let i = 0; i < this.availableFields.length; i++) {
       let key = this.availableFields[i];
       queryParamsObj[key] = this.queryParams.get(key);
     }
-
     this._router.navigate(['/mi-lista/agregar-productos'], { queryParams: queryParamsObj });
   }
 
   private navigateFilter() {
-
     let queryParamsObj = {};
     for (let i = 0; i < this.availableFields.length; i++) {
       let key = this.availableFields[i];
@@ -204,7 +194,6 @@ export class AgregarProductosComponent implements OnInit {
 
   public buscarLista(codigo: string) {
     this.messageError = '';
-    //Asignar datos para enviarlos a WS
     let consultaDTO = {
       nombre: null,
       apellido: null,
@@ -292,14 +281,13 @@ export class AgregarProductosComponent implements OnInit {
         response => {
           this.items = response.result;
           this.totalItems = response.records;
-          for (let i = 0; i < this.items.length; i++) {
 
+          for (let i = 0; i < this.items.length; i++) {
             this._listaService.consultarListaSinPaginar(paramsConsulta).subscribe(
               response => {
                 this.itemsListaBcs = response;
 
                 for (var j = 0; j < this.itemsListaBcs.length; j++) {
-
                   if (this.itemsListaBcs[j]['referencia'] === this.items[i].shortitemcode) {
                     this.items[i].agregadoLista = true;
                   }
@@ -309,10 +297,6 @@ export class AgregarProductosComponent implements OnInit {
                 console.error(error);
               }
             );
-
-
-
-
             //validar si el ítem tiene descuentos
             // this._descuentosService.findDiscount(this.items[i].itemcode).subscribe(
             //   response => {
@@ -331,12 +315,11 @@ export class AgregarProductosComponent implements OnInit {
           this.cargarItems(this.availableFields, this.items, this.queryParams, response.records);
           this.inicializarFiltros(this.availableFields, this.queryParams, this.queryString, response.records);
         },
-        error => {
-          console.error(error);
-        }
+        error => { console.error(error); }
       );
     });
   }
+
   //consultarListaSinPaginar
   private inicializarMapa(params: Params) {
     this.queryParams = new Map<string, string>();
@@ -380,9 +363,7 @@ export class AgregarProductosComponent implements OnInit {
         this.filtrosDisponibles = this.quitarDuplicados(response.result);
         this.configurarFiltrosActivos();
         this.viewHasLoaded = true;
-      }, error => {
-        console.error(error);
-      }
+      }, error => { console.error(error); }
     );
   }
 
@@ -426,7 +407,6 @@ export class AgregarProductosComponent implements OnInit {
     if (values['materials']) {
       values['materials'] = values['materials'].filter((option, index, self) => self.findIndex((t) => { return t.code === option.code; }) === index);
     }
-
     return values;
   }
 
@@ -443,9 +423,7 @@ export class AgregarProductosComponent implements OnInit {
                   if (response.result && response.result[0][this.availableFields[i]].code) {
                     this.filtrosAplicados.push(['Grupo', response.result[0][this.availableFields[i]].name, 'group', response.result[0][this.availableFields[i]].code]);
                   }
-                }, error => {
-                  console.error(error);
-                }
+                }, error => { console.error(error); }
               );
             }
             break;
@@ -459,9 +437,7 @@ export class AgregarProductosComponent implements OnInit {
                     }
                   }
                 }
-              }, error => {
-                console.error(error);
-              }
+              }, error => { console.error(error); }
             );
             break;
           case 'brand':
@@ -470,9 +446,7 @@ export class AgregarProductosComponent implements OnInit {
                 if (response.result && response.result[0].code) {
                   this.filtrosAplicados.push(['Marca', response.result[0].name, 'brand', response.result[0].code]);
                 }
-              }, error => {
-                console.error(error);
-              }
+              }, error => { console.error(error); }
             );
             break;
           case 'color':
@@ -481,9 +455,7 @@ export class AgregarProductosComponent implements OnInit {
                 if (response.result && response.result[0].code) {
                   this.filtrosAplicados.push(['Color', response.result[0].name, 'color', response.result[0].code]);
                 }
-              }, error => {
-                console.error(error);
-              }
+              }, error => { console.error(error); }
             );
             break;
           case 'material':
@@ -492,9 +464,7 @@ export class AgregarProductosComponent implements OnInit {
                 if (response.result && response.result[0].code) {
                   this.filtrosAplicados.push(['Material', response.result[0].name, 'material', response.result[0].code]);
                 }
-              }, error => {
-                console.error(error);
-              }
+              }, error => { console.error(error); }
             );
             break;
           case 'minPrice':
@@ -510,7 +480,6 @@ export class AgregarProductosComponent implements OnInit {
             this.filtrosAplicados.push(['Palabras Claves', this.queryParams.get('keywords'), 'keywords', this.queryParams.get('keywords')]);
             break;
           default:
-          //y sino?
         }
       }
     }
@@ -555,17 +524,13 @@ export class AgregarProductosComponent implements OnInit {
     return !this.queryParams.has('group') || this.queryParams.get('group').split(',').indexOf(menuItem.code) == -1;
   }
 
-
-
   public abrirModal(itemcode) {
-
     this.inicializarForm();
     this.messageError = '';
     this.successMessage = '';
     this.valid = true;
-    this._itemService.find(itemcode).subscribe( // Item 1
+    this._itemService.find(itemcode).subscribe(
       response => {
-
         this.formAgregar.itemcode = response.result[0].itemcode;
         this.formAgregar.name = response.result[0].itemname;
         this.formAgregar.image = 'https://img.matisses.co/' + response.result[0].itemcode + '/parrilla/' + response.result[0].itemcode + '_01.jpg';
@@ -573,14 +538,10 @@ export class AgregarProductosComponent implements OnInit {
         this.formAgregar.cantidad = 0;
       }
     );
-
     $('#modalAgregar').modal('show');
   }
 
   public agregarProducto(agregarForm) {
-
-
-
     let productoAgregar = {
       idLista: this.idListaUsuario,
       cantidadElegida: this.formAgregar.cantidad,
@@ -590,45 +551,32 @@ export class AgregarProductosComponent implements OnInit {
       favorito: 0,
       active: 1
     };
-    this._listaService.agregarProducto(productoAgregar).subscribe( // Item 1
+    this._listaService.agregarProducto(productoAgregar).subscribe(
       response => {
-
-
         if (response.codigo == "0") {
           for (let i = 0; i < this.items.length; i++) {
             //validar si el ítem tiene descuentos
-
             if (this.items[i].itemcode === productoAgregar.referencia) {
-
               this.items[i].agregadoLista = true;
-
-
             }
-
-
           }
           this.successMessage = "El producto fue agregado a tu lista corrrectamente";
           $('#modalAgregar').modal('hide');
           return;
         }
         else {
-
           this.messageError = "Ocurrio un error agregando el producto a tu lista." + ' ' + response.mensaje;
           return;
         }
-
       },
       error => {
         this.messageError = "Ocurrio un error agregando el producto a tu lista." + ' ' + error;
-
       }
     );
   }
 
   public aumentarCantidad() {
-
     this.formAgregar.cantidad += 1;
-
   }
 
   public reducirCantidad() {
@@ -637,8 +585,12 @@ export class AgregarProductosComponent implements OnInit {
     }
   }
 
-  public cerrarSession() {
+  public abrirModalFechaEntrega(modal: string) {
+    this.buscarLista(this.codigoLista);
+    $(modal).modal('show');
+  }
 
+  public cerrarSession() {
     localStorage.removeItem('matisses.lista-token');
     localStorage.removeItem('username-lista');
     localStorage.removeItem('usuario-id');
@@ -648,8 +600,6 @@ export class AgregarProductosComponent implements OnInit {
     localStorage.removeItem('fecha-evento');
     localStorage.removeItem('total-por-comprar');
     localStorage.removeItem('total-comprado');
-
     this._router.navigate(['/lista-de-regalos']);
   }
-
 }

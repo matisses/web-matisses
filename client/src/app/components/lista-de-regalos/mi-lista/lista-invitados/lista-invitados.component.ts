@@ -121,6 +121,11 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
     $(modal).modal('show');
   }
 
+  public abrirModalFechaEntrega(modal: string) {
+    this.buscarLista(this.codigoLista);
+    $(modal).modal('show');
+  }
+
   public registrarInvitado() {
     if (this.nombreInvitado == null || this.nombreInvitado.length <= 0
       || this.apellidosInvitado == null || this.apellidosInvitado.length <= 0
@@ -158,7 +163,6 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
 
   public buscarLista(codigo: string) {
     this.messageError = '';
-    //Asignar datos para enviarlos a WS
     let consultaDTO = {
       nombre: null,
       apellido: null,

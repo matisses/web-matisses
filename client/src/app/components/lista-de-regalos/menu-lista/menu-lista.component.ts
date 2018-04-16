@@ -95,17 +95,18 @@ export class MenuListaComponent implements OnInit {
       this.messageError = 'Debes llenar todos los campos obligatorios.';
       this.valid = false;
     } else {
-      /*validar fecha entrega superior a la actual*/
-
       let datosDTO = {
         idLista: this.idLista,
-        fechaEntrega: this.anoEntrega + '-' + this.mesEntrega + '-' + this.diaEntrega
+        fechaEntrega: this.anoEntrega + '-' + this.mesEntrega + '-' + (this.diaEntrega + 1)
       }
 
       this._listaRegalosService.actualizarFechaEntrega(datosDTO).subscribe(
         response => {
-          this.messageExit = 'Se actualizo correctamente la fecha de entrega.';
-          
+          if (response.codigo == 0) {
+            $("#modalFechaEntrega").modal("hide");
+          } else {
+            this.messageError = response.mensaje;            
+          }
         },
         error => {
           console.error(error);
