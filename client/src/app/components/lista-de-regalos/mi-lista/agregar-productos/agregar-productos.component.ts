@@ -49,8 +49,8 @@ export class AgregarProductosComponent implements OnInit {
   public urlQr: string;
   public totalLista: string;
   public totalComprado: string;
-  public totalAcumulado:string
-  public novios:string;
+  public totalAcumulado: string
+  public novios: string;
 
   //public shoppingCart: any;
 
@@ -66,16 +66,16 @@ export class AgregarProductosComponent implements OnInit {
     this.orderByStr = 'Similares';
     this.pages = new Array<number>();
     this.items = new Array<Item>();
-      this.itemsListaBcs = new Array<any>();
+    this.itemsListaBcs = new Array<any>();
     this.itemsAgregados = new Array<Item>();
     this.mostrarFiltro = false;
     this.inicializarForm();
     this.urlAvatar = GLOBAL.urlShared + 'imagenPerfil/';
     this.urlQr = GLOBAL.urlShared + 'qr/';
-    this.totalLista=localStorage.getItem('total-por-comprar');
-    this.totalComprado=localStorage.getItem('total-comprado');
-    this.totalAcumulado=localStorage.getItem('total-acumulado');
-    this.novios=localStorage.getItem('novios-header');
+    this.totalLista = localStorage.getItem('total-por-comprar');
+    this.totalComprado = localStorage.getItem('total-comprado');
+    this.totalAcumulado = localStorage.getItem('total-acumulado');
+    this.novios = localStorage.getItem('novios-header');
   }
 
   private inicializarForm() {
@@ -109,13 +109,13 @@ export class AgregarProductosComponent implements OnInit {
   ngAfterViewInit() {
     this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 
-      if (this.viewportWidth <= 768) {
-        this.mostrarFiltro = true;
-        this.mostrarCategoria = false;
-      } else {
-        this.mostrarFiltro = false;
-        this.mostrarCategoria = true;
-      }
+    if (this.viewportWidth <= 768) {
+      this.mostrarFiltro = true;
+      this.mostrarCategoria = false;
+    } else {
+      this.mostrarFiltro = false;
+      this.mostrarCategoria = true;
+    }
 
   }
 
@@ -217,7 +217,7 @@ export class AgregarProductosComponent implements OnInit {
           this.nombreUsuario = respuesta[0].nombreCreador;
           this.fechaEvento = respuesta[0].formatoFechaEvento;
           this.fechaEntrega = response[0].formatoFechaEntrega;
-          this.novios=response[0].nombreCreador  + ' & ' + response[0].nombreCocreador;
+          this.novios = response[0].nombreCreador + ' & ' + response[0].nombreCocreador;
           sessionStorage.setItem('formatoFechaEvento', respuesta[0].formatoFechaEvento);
           sessionStorage.setItem('formatoFechaEntrega', respuesta[0].formatoFechaEntrega);
         }
@@ -295,19 +295,19 @@ export class AgregarProductosComponent implements OnInit {
           for (let i = 0; i < this.items.length; i++) {
 
             this._listaService.consultarListaSinPaginar(paramsConsulta).subscribe(
-               response => {
+              response => {
                 this.itemsListaBcs = response;
 
                 for (var j = 0; j < this.itemsListaBcs.length; j++) {
 
                   if (this.itemsListaBcs[j]['referencia'] === this.items[i].shortitemcode) {
-                      this.items[i].agregadoLista=true;
+                    this.items[i].agregadoLista = true;
                   }
                 }
               },
               error => {
-                   console.error(error);
-                }
+                console.error(error);
+              }
             );
 
 
@@ -337,7 +337,7 @@ export class AgregarProductosComponent implements OnInit {
       );
     });
   }
-//consultarListaSinPaginar
+  //consultarListaSinPaginar
   private inicializarMapa(params: Params) {
     this.queryParams = new Map<string, string>();
     this.queryString = '?';
@@ -359,7 +359,7 @@ export class AgregarProductosComponent implements OnInit {
       let queryParamsObj = { keywords: this.keywords.replace(/ /g, ",") };
       this._router.navigate(['/mi-lista/agregar-productos'], { queryParams: queryParamsObj });
     }
-    else{
+    else {
       this._router.navigate(['/mi-lista/agregar-productos']);
     }
   }

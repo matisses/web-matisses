@@ -151,7 +151,7 @@
           <div class="col-sm-7">
             <div class="info-lista">
               <p style="margin-bottom: 0">LISTA DE INVITADOS</p>
-              <h1 class="title-mi-lista">DIANA RIOS & PABLO MORENO</h1>
+              <h1 class="title-mi-lista">{{novios}}</h1>
               <p>Código de novios: {{codigoLista}}</p>
               <div class="row">
                 <div class="col-sm-12">
@@ -164,9 +164,9 @@
                       <span class="icon-valentines icon-menu"></span>
                       <b>{{fechaEvento}}</b>
                     </p>
-                    <p data-toggle="tooltip" data-placement="bottom" title="Fecha de entrega">
+                    <p data-toggle="tooltip" data-placement="bottom" title="Fecha de entrega" data-toggle="modal" data-target="#modalFechaEntrega">
                       <span class="icon-agenda-entrega icon-menu"></span>
-                      <b>{{fechaEvento}}</b>
+                      <b>{{fechaEntrega}}</b>
                     </p>
                   </div>
                 </div>

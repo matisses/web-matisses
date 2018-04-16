@@ -789,9 +789,8 @@ export class CrearListaComponent implements OnInit {
     this.validCocreador = true;
   }
 
-  public cargarDias(mes: string, ano: number) {    
+  public cargarDiasEvento(mes: string, ano: number) {    
     this.dayEvent = new Array<number>();
-    this.dayEntrega = new Array<number>();
     switch (mes) {
       case '01':  // Enero
       case '03':  // Marzo
@@ -802,7 +801,6 @@ export class CrearListaComponent implements OnInit {
       case '12': // Diciembre
         for (let i = 1; i <= 31; i++) {
           this.dayEvent.push(i);
-          this.dayEntrega.push(i);
         }
         break;
       case '04':  // Abril
@@ -811,18 +809,51 @@ export class CrearListaComponent implements OnInit {
       case '11': // Noviembre
         for (let i = 1; i <= 30; i++) {
           this.dayEvent.push(i);
-          this.dayEntrega.push(i);
         }
         break;
       case '02':  // Febrero
         if (((ano % 100 == 0) && (ano % 400 == 0) || (ano % 100 != 0) && (ano % 4 == 0))) {
           for (let i = 1; i <= 29; i++) {
             this.dayEvent.push(i);
-            this.dayEntrega.push(i);
           }
         } else {
           for (let i = 1; i <= 28; i++) {
             this.dayEvent.push(i);
+          }
+        }
+        break;
+    }
+  }
+
+  public cargarDiasEntrega(mes: string, ano: number) {    
+    this.dayEntrega = new Array<number>();
+    switch (mes) {
+      case '01':  // Enero
+      case '03':  // Marzo
+      case '05':  // Mayo
+      case '07':  // Julio
+      case '08':  // Agosto
+      case '10':  // Octubre
+      case '12': // Diciembre
+        for (let i = 1; i <= 31; i++) {
+          this.dayEntrega.push(i);
+        }
+        break;
+      case '04':  // Abril
+      case '06':  // Junio
+      case '09':  // Septiembre
+      case '11': // Noviembre
+        for (let i = 1; i <= 30; i++) {
+          this.dayEntrega.push(i);
+        }
+        break;
+      case '02':  // Febrero
+        if (((ano % 100 == 0) && (ano % 400 == 0) || (ano % 100 != 0) && (ano % 4 == 0))) {
+          for (let i = 1; i <= 29; i++) {
+            this.dayEntrega.push(i);
+          }
+        } else {
+          for (let i = 1; i <= 28; i++) {
             this.dayEntrega.push(i);
           }
         }

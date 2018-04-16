@@ -25,17 +25,27 @@ Modal agendar fecha
             </div>
           </div>
         </div>
+        <!-- mensaje exit -->
+        <div class="row" *ngIf="messageExit != null && messageExit.length > 0">
+            <div class="col-xs-12">
+              <div class="alert alert-success" role="alert">
+                <p>{{messageExit}}</p>
+              </div>
+            </div>
+          </div>
         <form>
-          <div class="row">
+          <div class="row text-center">
             <div class="col-sm-4">
-              <select id="yearEntrega" name="anoEntrega" class="form-control height-40" [class.required-field]="!valid" [(ngModel)]="anoEntrega"
+              <label class="label-lista">Año</label>
+              <select id="anosEntrega" name="anoEntrega" class="form-control height-40" [class.required-field]="!valid" [(ngModel)]="anoEntrega"
                 (change)="cargarDias(mesEntrega,anoEntrega)" required>
                 <option style="display:none" disabled selected value>Año</option>
-                <option *ngFor="let year of yearEntrega" [ngValue]="year">{{year}}</option>
+                <option [selected]="anoEntrega == year" *ngFor="let year of anosEntrega" [ngValue]="year">{{year}}</option>
               </select>
             </div>
             <div class="col-sm-4">
-              <select id="monthEntrega" name="mesEntrega" class="form-control height-40" [class.required-field]="!valid" [(ngModel)]="mesEntrega"
+              <label class="label-lista">Mes</label>
+              <select id="mesesEntrega" name="mesEntrega" class="form-control height-40" [class.required-field]="!valid" [(ngModel)]="mesEntrega"
                 (change)="cargarDias(mesEntrega,anoEntrega)" required>
                 <option style="display:none" disabled selected value>Mes</option>
                 <option value="01">Enero</option>
@@ -53,10 +63,10 @@ Modal agendar fecha
               </select>
             </div>
             <div class="col-sm-4">
-              <select id="dayEntrega" name="diaEntrega" class="form-control height-40" [class.required-field]="valid" [(ngModel)]="diaEntrega"
-                required>
+              <label class="label-lista">Día</label>
+              <select id="diasEntrega" name="diaEntrega" class="form-control height-40" [class.required-field]="!valid" [(ngModel)]="diaEntrega" required>
                 <option style="display:none" disabled selected value>Día</option>
-                <option *ngFor="let day of dayEntrega" [ngValue]="day">{{day}}</option>
+                <option [selected]="diaEntrega == day" *ngFor="let day of diasEntrega" [ngValue]="day">{{day}}</option>
               </select>
             </div>
           </div>
@@ -90,23 +100,33 @@ Modal agendar fecha
         <div class="container bb-1">
           <!-- Brand and toggle get grouped for better mobile display -->
           <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+              aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
             <div class="cursor-pointer" [routerLink]="['/lista-de-regalos']">
-              <span class="icon-matisses"><span style="color:#848484;"> | </span><span class="logo-lista">LISTA DE REGALOS</span></span>
+              <span class="icon-matisses">
+                <span style="color:#848484;"> | </span>
+                <span class="logo-lista">LISTA DE REGALOS</span>
+              </span>
             </div>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-nav-matisses navbar-right">
-              <li><a href="javascript:void(0);" [routerLink]="['/lista-de-regalos/beneficios']">Beneficios novios</a></li>
-              <li><a href="javascript:void(0);" class="border cursor-pointer" [routerLink]="['/lista-de-regalos/tips']">Tips para hacer tu lista</a></li>
-              <li><a href="javascript:void(0);" [routerLink]="['/lista-de-regalos/contactenos']">Contáctenos</a></li>
+              <li>
+                <a href="javascript:void(0);" [routerLink]="['/lista-de-regalos/beneficios']">Beneficios novios</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" class="border cursor-pointer" [routerLink]="['/lista-de-regalos/tips']">Tips para hacer tu lista</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" [routerLink]="['/lista-de-regalos/contactenos']">Contáctenos</a>
+              </li>
             </ul>
           </div>
           <!-- /.navbar-collapse -->

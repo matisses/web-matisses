@@ -53,7 +53,7 @@ export class MiListaComponent implements OnInit {
   public urlAvatar: string;
   public itemsSinPaginar: Array<any>;
   public novios: string;
-  public totalAcumulado:number;
+  public totalAcumulado: number;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -62,7 +62,6 @@ export class MiListaComponent implements OnInit {
     this.fechaEvento = localStorage.getItem('fecha-evento');
     this.fechaEntrega = localStorage.getItem('fecha-entrega');
     this.idListaUsuario = localStorage.getItem('id-lista');
-
     this.totalLista = 0;
     this.totalComprado = 0;
     this.urlQr = GLOBAL.urlShared + 'qr/';
@@ -73,7 +72,7 @@ export class MiListaComponent implements OnInit {
     this.pages = new Array<number>();
     this.items = new Array<Item>();
     this.itemsListaBcs = new Array<any>();
-    this.itemsSinPaginar=new Array<any>();
+    this.itemsSinPaginar = new Array<any>();
     this.inicializarForm();
 
     this.inicializarParamsConsulta();
@@ -110,7 +109,7 @@ export class MiListaComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    $(window).scroll(function() {
+    $(window).scroll(function () {
       var scroll = $(window).scrollTop();
       if (scroll >= 30) {
         $(".contenedor").addClass("margin-top-scroll");
@@ -120,13 +119,13 @@ export class MiListaComponent implements OnInit {
     });
 
     this.nombreUsuario = localStorage.getItem('username-lista');
-    setTimeout(function() {
+    setTimeout(function () {
       if (localStorage.getItem('cambio-clave') == 'si') {
         $('#cambioContrasena').modal('show');
       }
     }, 500);
 
-    $(function() {
+    $(function () {
       $('[data-toggle="tooltip"]').tooltip()
     })
   }
@@ -188,18 +187,13 @@ export class MiListaComponent implements OnInit {
     );
   }
 
-  // public irAPagina(pagina) {
-  //   this.queryParams.set('page', pagina);
-  //   this.navigate();
-  // }
-
   public irAPagina(pagina) {
-    if(pagina>0){
-    if(pagina <= this.pages.length){
-    this.queryParams.set('page', pagina);
-    this.navigate();
+    if (pagina > 0) {
+      if (pagina <= this.pages.length) {
+        this.queryParams.set('page', pagina);
+        this.navigate();
+      }
     }
-  }
   }
 
   public changeOrder(orderkey) {
@@ -264,7 +258,6 @@ export class MiListaComponent implements OnInit {
       pageSize = parseInt(this.queryParams.has('pageSize') ? this.queryParams.get('pageSize') : '11');
     }
 
-
     let totalPages = Math.ceil(this.totalItems / pageSize);
     if (this.activePage > totalPages || this.activePage <= 0) {
       this.activePage = 1;
@@ -301,7 +294,6 @@ export class MiListaComponent implements OnInit {
         else {
           this.paramsConsulta.registrosPagina = '12';
         }
-
       }
 
       if (this.queryParams.has('orderBy')) {
@@ -326,39 +318,31 @@ export class MiListaComponent implements OnInit {
         this.paramsConsulta.pagina = this.queryParams.get('page');
       }
 
-      // this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
-      //   response => {
-      //     this.totalLista = response;
-      //   },
-      //   error => { console.error(error); }
-      // );
       if (this.keywords && this.keywords.length > 0) {
-        this.paramsConsulta.keywords=this.keywords;
+        this.paramsConsulta.keywords = this.keywords;
       }
 
-///
-this._listaService.consultarListaComprados(this.paramsConsulta).subscribe(
-  response => {
-    this.itemsListaBcs = response;
-    this.totalComprado=this.itemsListaBcs.length;
-    this.totalAcumulado = 0;
-    for (var i = 0; i < this.itemsListaBcs.length; i++) {
-      this.totalAcumulado = this.totalAcumulado + this.itemsListaBcs[i]['precioTotal'];
-    }
+      this._listaService.consultarListaComprados(this.paramsConsulta).subscribe(
+        response => {
+          this.itemsListaBcs = response;
+          this.totalComprado = this.itemsListaBcs.length;
+          this.totalAcumulado = 0;
+          for (var i = 0; i < this.itemsListaBcs.length; i++) {
+            this.totalAcumulado = this.totalAcumulado + this.itemsListaBcs[i]['precioTotal'];
+          }
 
+          this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
+            response => {
+              this.totalLista = response - this.totalComprado;
+              localStorage.setItem('total-por-comprar', this.totalLista.toString());
+              localStorage.setItem('total-acumulado', this.totalAcumulado.toString());
+            },
+            error => { console.error(error); });
 
-    this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
-      response => {
-        this.totalLista = response - this.totalComprado ;
-        localStorage.setItem('total-por-comprar',this.totalLista.toString());
-        localStorage.setItem('total-acumulado',this.totalAcumulado.toString());
-      },
-      error => { console.error(error); });
-
-      localStorage.setItem('total-comprado',this.totalComprado.toString());
-    this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.totalLista);
-  },
-  error => { console.error(error); });
+          localStorage.setItem('total-comprado', this.totalComprado.toString());
+          this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.totalLista);
+        },
+        error => { console.error(error); });
 
       this._listaService.consultarListaPaginada(this.paramsConsulta).subscribe(
         response => {
@@ -367,14 +351,12 @@ this._listaService.consultarListaComprados(this.paramsConsulta).subscribe(
             idLista: localStorage.getItem('id-lista')
           };
           this._listaService.consultarListaSinPaginar(paramConsulta).subscribe(
-             response => {
-               this.itemsSinPaginar = response;
-
-
+            response => {
+              this.itemsSinPaginar = response;
             },
             error => {
-                 console.error(error);
-              }
+              console.error(error);
+            }
           );
 
           this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.itemsSinPaginar.length);
@@ -399,26 +381,12 @@ this._listaService.consultarListaComprados(this.paramsConsulta).subscribe(
     }
   }
 
-  // public search() {
-  //   if (this.keywords && this.keywords.length > 0) {
-  //     let queryParamsObj = { keywords: this.keywords.replace(/ /g, ",") };
-  //     //this.navigate();
-  //    this._router.navigate(['/mi-lista'], { queryParams: queryParamsObj });
-  //   }
-  //   else{
-  //     this.keywords='';
-  //     let queryParamsObj = { keywords: this.keywords.replace(/ /g, ",") };
-  //      this._router.navigate(['/mi-lista']);
-  //     //this.navigate();
-  //   }
-  // }
-
   public search() {
     if (this.keywords && this.keywords.length > 0) {
       let queryParamsObj = { keywords: this.keywords.replace(/ /g, ",") };
       this._router.navigate(['/mi-lista'], { queryParams: queryParamsObj });
     }
-    else{
+    else {
       this._router.navigate(['/mi-lista']);
     }
   }
@@ -452,7 +420,7 @@ this._listaService.consultarListaComprados(this.paramsConsulta).subscribe(
         $('#modalDetalle').modal('hide');
         this.confirmEliminar = false;
         if (this.keywords && this.keywords.length > 0) {
-          this.paramsConsulta.keywords=this.keywords;
+          this.paramsConsulta.keywords = this.keywords;
         }
         this._listaService.consultarListaPaginada(this.paramsConsulta).subscribe(
           response => {
@@ -521,7 +489,6 @@ this._listaService.consultarListaComprados(this.paramsConsulta).subscribe(
 
   public buscarLista(codigo: string) {
     this.messageError = '';
-    //Asignar datos para enviarlos a WS
     let consultaDTO = {
       nombre: null,
       apellido: null,
@@ -536,7 +503,7 @@ this._listaService.consultarListaComprados(this.paramsConsulta).subscribe(
           this.fechaEntrega = respuesta[0].formatoFechaEntrega;
           this.aceptaBono = response[0].aceptaBonos;
           this.minimoBono = response[0].valorMinimoBono;
-          this.novios=response[0].nombreCreador  + ' & ' + response[0].nombreCocreador;
+          this.novios = response[0].nombreCreador + ' & ' + response[0].nombreCocreador;
           localStorage.setItem('novios-header', this.novios);
           localStorage.setItem('formatoFechaEvento', respuesta[0].formatoFechaEvento);
         }
@@ -631,5 +598,10 @@ this._listaService.consultarListaComprados(this.paramsConsulta).subscribe(
         $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + "sin-imagen.jpg)");
       }
     }
+  }
+
+  public abrirModalFechaEntrega(modal: string) {
+    this.buscarLista(this.codigoLista);
+    $(modal).modal('show');
   }
 }

@@ -130,7 +130,7 @@ export class ListaRegalosService {
       .map(res => res.json());
   }
 
-  updateFechaEntrega(datosConsulta) {
+  actualizarFechaEntrega(datosConsulta) {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });

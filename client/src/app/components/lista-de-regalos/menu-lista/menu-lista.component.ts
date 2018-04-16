@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ListaRegalosService } from '../../../services/lista-regalos.service';
 
 
 declare var jquery: any;
@@ -8,48 +9,44 @@ declare var $: any;
 @Component({
   selector: 'menu-lista',
   templateUrl: 'menu-lista.html',
-  styleUrls: ['menu-lista.component.css']
+  styleUrls: ['menu-lista.component.css'],
+  providers: [ListaRegalosService]
 })
 
 export class MenuListaComponent implements OnInit {
-  public title: string;
+  public idLista: number;
+  public anoEntrega: number;
+  public diaEntrega: number;
   public mesEntrega: string;
-  public anoEntrega: string;
-  public diaEntrega: string;
   public messageError: string;
   public messageExit: string;
-  public dayEntrega: Array<number>;
-  public yearEntrega: Array<number>;
-  public monthEntrega: Array<number>;
+  public diasEntrega: Array<number>;
+  public anosEntrega: Array<number>;
+  public mesesEntrega: Array<number>;
   public valid: boolean = true;
 
-  constructor(private _route: ActivatedRoute, private _router: Router) {
-    this.title = 'Este es el menu de la lista de regalos ';
-    this.dayEntrega = new Array<number>();
-    this.monthEntrega = new Array<number>();
-    this.yearEntrega = new Array<number>();
+  constructor(private _route: ActivatedRoute, private _router: Router, private _listaRegalosService: ListaRegalosService) {
+    this.diasEntrega = new Array<number>();
+    this.mesesEntrega = new Array<number>();
+    this.anosEntrega = new Array<number>();
     this.messageError = '';
     this.messageExit = '';
   }
 
   ngOnInit() {
     this.cargarAnos();
-    // $(window).scroll(function() {
-    //   var scroll = $(window).scrollTop();
-    //   if (scroll >= 30) {
-    //     $(".menu-lista").addClass("fixed");
-    //   } else {
-    //     $(".menu-lista").removeClass("fixed")
-    //   }
-    // });
+    this.anoEntrega = parseInt(localStorage.getItem('fecha-entrega').substring(0, 4));
+    this.mesEntrega = localStorage.getItem('fecha-entrega').substring(5, 7);
+    this.diaEntrega = parseInt(localStorage.getItem('fecha-entrega').substring(8, 11));
+    this.cargarDias(this.mesEntrega, this.anoEntrega);
+    this.idLista = parseInt(localStorage.getItem('id-lista'));
   }
-
 
   ngAfterViewInit() {
   }
 
-  public cargarDias(mes: string, ano: number) {    
-    this.dayEntrega = new Array<number>();
+  public cargarDias(mes: string, ano: number) {
+    this.diasEntrega = new Array<number>();
     switch (mes) {
       case '01':  // Enero
       case '03':  // Marzo
@@ -59,7 +56,7 @@ export class MenuListaComponent implements OnInit {
       case '10':  // Octubre
       case '12': // Diciembre
         for (let i = 1; i <= 31; i++) {
-          this.dayEntrega.push(i);
+          this.diasEntrega.push(i);
         }
         break;
       case '04':  // Abril
@@ -67,17 +64,17 @@ export class MenuListaComponent implements OnInit {
       case '09':  // Septiembre
       case '11': // Noviembre
         for (let i = 1; i <= 30; i++) {
-          this.dayEntrega.push(i);
+          this.diasEntrega.push(i);
         }
         break;
       case '02':  // Febrero
         if (((ano % 100 == 0) && (ano % 400 == 0) || (ano % 100 != 0) && (ano % 4 == 0))) {
           for (let i = 1; i <= 29; i++) {
-            this.dayEntrega.push(i);
+            this.diasEntrega.push(i);
           }
         } else {
           for (let i = 1; i <= 28; i++) {
-            this.dayEntrega.push(i);
+            this.diasEntrega.push(i);
           }
         }
         break;
@@ -87,14 +84,33 @@ export class MenuListaComponent implements OnInit {
   public cargarAnos() {
     var date = new Date();
     var year = date.getFullYear();
-    this.yearEntrega = new Array<number>();
+    this.anosEntrega = new Array<number>();
     for (let i = year; i <= year + 1; i++) {
-      this.yearEntrega.push(i);
+      this.anosEntrega.push(i);
     }
   }
 
-  public programarFechaEntrega(){
-    console.log('entro a programar fecha de entrega.');
+  public programarFechaEntrega() {
+    if ((this.anoEntrega == null || this.anoEntrega < 0) || (this.mesEntrega == null || this.mesEntrega.length < 0) || (this.diaEntrega == null)) {
+      this.messageError = 'Debes llenar todos los campos obligatorios.';
+      this.valid = false;
+    } else {
+      /*validar fecha entrega superior a la actual*/
 
+      let datosDTO = {
+        idLista: this.idLista,
+        fechaEntrega: this.anoEntrega + '-' + this.mesEntrega + '-' + this.diaEntrega
+      }
+
+      this._listaRegalosService.actualizarFechaEntrega(datosDTO).subscribe(
+        response => {
+          this.messageExit = 'Se actualizo correctamente la fecha de entrega.';
+          
+        },
+        error => {
+          console.error(error);
+          this.messageError = 'Lo sentimos. Ocurrió un error inesperado, por favor inténtelo más tarde.'
+        });
+    }
   }
 }

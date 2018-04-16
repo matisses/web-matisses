@@ -20,7 +20,9 @@ declare var $: any;
 
 export class ListaInvitadosComponent implements OnInit, AfterViewInit {
   public totalInvitados: number;
+  public totalAcumulado: string;
   public nombreUsuario: string;
+  public novios: string;
   public claveNueva: string;
   public claveConfirmacion: string;
   public messageError: string;
@@ -30,6 +32,7 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
   public idListaUsuario: string;
   public codigoLista: string;
   public fechaEvento: string;
+  public fechaEntrega: string;
   public nombreInvitado: string;
   public apellidosInvitado: string;
   public correoInvitado: string;
@@ -46,16 +49,18 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
   public urlQr: string;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
+    this.novios = sessionStorage.getItem('novios');
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('formatoFechaEvento');
+    this.fechaEntrega = localStorage.getItem('formatoFechaEntrega');
     this.idListaUsuario = localStorage.getItem('id-lista');
     this.msjAgradecimiento = localStorage.getItem('msjAgradecimiento');
+    this.totalAcumulado = localStorage.getItem('total-acumulado');
     this.queryParams = new Map<string, string>();
     this.invitados = new Array<any>();
     this.urlAvatar = GLOBAL.urlShared + 'imagenPerfil/';
-    this.urlQr = GLOBAL.urlShared + 'qr/';   
-
+    this.urlQr = GLOBAL.urlShared + 'qr/';
     this.totalInvitados = 0;
     this.nombreInvitado = '';
     this.apellidosInvitado = '';
@@ -66,17 +71,21 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.novios = sessionStorage.getItem('novios');
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('formatoFechaEvento');
+    this.fechaEntrega = localStorage.getItem('formatoFechaEntrega');
     this.idListaUsuario = localStorage.getItem('id-lista');
     this.msjAgradecimiento = localStorage.getItem('msjAgradecimiento');
     $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + "sin-imagen.jpg)");
-    this.existeUrl(this.urlAvatar + 'sin-imagen.jpg');   
+    this.existeUrl(this.urlAvatar + 'sin-imagen.jpg');
+    this.buscarLista(this.codigoLista);
     this.cargarInvitados();
   }
 
   ngAfterViewInit() {
+    this.novios = sessionStorage.getItem('novios');
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('formatoFechaEvento');
@@ -145,6 +154,28 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
         }
       );
     }
+  }
+
+  public buscarLista(codigo: string) {
+    this.messageError = '';
+    //Asignar datos para enviarlos a WS
+    let consultaDTO = {
+      nombre: null,
+      apellido: null,
+      codigo: codigo
+    }
+    this._listaService.consultarLista(consultaDTO).subscribe(
+      response => {
+        let respuesta = JSON.parse(JSON.stringify(response));
+        if (respuesta.length > 0) {
+          this.nombreUsuario = respuesta[0].nombreCreador;
+          this.fechaEvento = respuesta[0].formatoFechaEvento;
+          this.fechaEntrega = respuesta[0].formatoFechaEntrega;
+          this.novios = response[0].nombreCreador + ' & ' + response[0].nombreCocreador;
+        }
+      },
+      error => { console.error(error); }
+    );
   }
 
   public generar(link: string) {

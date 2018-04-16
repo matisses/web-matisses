@@ -107,7 +107,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    $(window).scroll(function() {
+    $(window).scroll(function () {
       var scroll = $(window).scrollTop();
       if (scroll >= 30) {
 
@@ -118,7 +118,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     });
 
     this.nombreUsuario = localStorage.getItem('username-lista');
-    setTimeout(function() {
+    setTimeout(function () {
       if (localStorage.getItem('cambio-clave') == 'si') {
         $('#cambioContrasena').modal('show');
       }
@@ -246,8 +246,6 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     this._route.queryParams.forEach((params: Params) => {
       this.inicializarMapa(params);
 
-
-
       if (this.queryParams.has('pageSize')) {
         this.paramsConsulta.registrosPagina = this.queryParams.get('pageSize');
       }
@@ -279,7 +277,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
         response => {
           this.itemsListaBcs = response;
           //this.totalLista = this.itemsListaBcs.length;
-          this.totalComprado=this.itemsListaBcs.length;
+          this.totalComprado = this.itemsListaBcs.length;
           this.totalAcumulado = 0;
           for (var i = 0; i < this.itemsListaBcs.length; i++) {
             this.totalAcumulado = this.totalAcumulado + this.itemsListaBcs[i]['precioTotal'];
@@ -287,7 +285,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
 
           this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
             response => {
-              this.totalLista = response - this.totalComprado ;
+              this.totalLista = response - this.totalComprado;
             },
             error => { console.error(error); });
 
@@ -295,11 +293,11 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
         },
         error => { console.error(error); });
 
-        // this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
-        //   response => {
-        //     this.totalLista = response-this.totalComprado;
-        //   },
-        //   error => { console.error(error); });
+      // this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
+      //   response => {
+      //     this.totalLista = response-this.totalComprado;
+      //   },
+      //   error => { console.error(error); });
     });
   }
 
@@ -378,7 +376,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     );
   }
 
-  public abrirModalDetalle(itemcode: string, cantidadElegida: number,cantidadComprada:number) {
+  public abrirModalDetalle(itemcode: string, cantidadElegida: number, cantidadComprada: number) {
     this.inicializarForm();
     this.messageError = '';
     this.successMessage = '';
@@ -391,7 +389,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
         this.formAgregar.name = response.result[0].itemname;
         this.formAgregar.image = 'https://img.matisses.co/' + response.result[0].itemcode + '/parrilla/' + response.result[0].itemcode + '_01.jpg';
         this.formAgregar.description = response.result[0].description;
-        this.formAgregar.cantidad =cantidadComprada;
+        this.formAgregar.cantidad = cantidadComprada;
         this.formAgregar.precio = response.result[0].priceaftervat;
         this.formAgregar.cantidadmaxima = cantidadElegida;
 
@@ -442,7 +440,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
           this.nombreUsuario = respuesta[0].nombreCreador;
           this.fechaEvento = respuesta[0].formatoFechaEvento;
           this.fechaEntrega = response[0].formatoFechaEntrega;
-          this.novios=response[0].nombreCreador  + ' & ' + response[0].nombreCocreador;
+          this.novios = response[0].nombreCreador + ' & ' + response[0].nombreCocreador;
           sessionStorage.setItem('formatoFechaEvento', respuesta[0].formatoFechaEvento);
           sessionStorage.setItem('formatoFechaEntrega', respuesta[0].formatoFechaEntrega);
         }
@@ -472,7 +470,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
       image: '',
       precio: 0,
       cantidadmaxima: 0,
-      devuelto:0
+      devuelto: 0
     };
   }
 
@@ -522,12 +520,12 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
   }
 
   public programar() {
-    let listaDatos = {
+    let listaDatosDTO = {
       formatoFechaEntrega: this.anoInicio.toString() + '-' + this.mesInicio + '-' + this.diaInicio,
       idLista: this.idListaUsuario
     }
 
-    this._listaService.updateFechaEntrega(listaDatos).subscribe(
+    this._listaService.actualizarFechaEntrega(listaDatosDTO).subscribe(
       response => {
         this.successMessage = 'Se actualizo correctamente la fecha de entrega.';
         return;
@@ -542,21 +540,21 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
 
   public devolverProducto(itemCode, factura, cantidad) {
 
-    let salesDocumentLineDTO={
-      itemCode:itemCode,
-      quantity:cantidad
+    let salesDocumentLineDTO = {
+      itemCode: itemCode,
+      quantity: cantidad
     }
-    this._listaService.devolverItemsFactura(this.idListaUsuario, factura,salesDocumentLineDTO).subscribe(
+    this._listaService.devolverItemsFactura(this.idListaUsuario, factura, salesDocumentLineDTO).subscribe(
       response => {
 
-        if(response>0){
+        if (response > 0) {
 
           this.successMessage = 'se realizo la devolucion correctamente';
           return;
         }
-        else{
+        else {
           this.messageError = "Lo sentimos. Ocurrió un error inesperado, por favor inténtelo más tarde.";
-            return;
+          return;
         }
 
       },

@@ -278,7 +278,6 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   }
 
   public solicitarCotizacion(contactForm) {
-    console.log('Se mandara la cotizacion');
     this.mensajeError = '';
     if (this.nombreCotizacion == null || this.nombreCotizacion.length <= 0 || this.emailCotizacion == null || this.emailCotizacion.length <= 0) {
       this.mensajeError = 'Debe llenar todos los datos necesarios para la cotización';

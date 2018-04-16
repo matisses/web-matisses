@@ -737,14 +737,14 @@
                   <div class="row">
                     <div class="col-sm-4">
                       <select id="yearEvent" name="anoEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2"
-                        [(ngModel)]="anoInicio" (change)="cargarDias(mesInicio,anoInicio)" required>
+                        [(ngModel)]="anoInicio" (change)="cargarDiasEvento(mesInicio,anoInicio)" required>
                         <option style="display:none" disabled selected value>Año</option>
                         <option *ngFor="let year of yearEvent" [ngValue]="year">{{year}}</option>
                       </select>
                     </div>
                     <div class="col-sm-4">
                       <select id="monthEvent" name="mesEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2"
-                        [(ngModel)]="mesInicio" (change)="cargarDias(mesInicio,anoInicio)" required>
+                        [(ngModel)]="mesInicio" (change)="cargarDiasEvento(mesInicio,anoInicio)" required>
                         <option style="display:none" disabled selected value>Mes</option>
                         <option value="01">Enero</option>
                         <option value="02">Febrero</option>
@@ -773,14 +773,14 @@
                   <div class="row">
                     <div class="col-sm-4">
                       <select id="yearEntrega" name="anoEntrega" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2"
-                        [(ngModel)]="anoEntrega" (change)="cargarDias(mesEntrega,anoEntrega)" required>
+                        [(ngModel)]="anoEntrega" (change)="cargarDiasEntrega(mesEntrega,anoEntrega)" required>
                         <option style="display:none" disabled selected value>Año</option>
                         <option *ngFor="let year of yearEntrega" [ngValue]="year">{{year}}</option>
                       </select>
                     </div>
                     <div class="col-sm-4">
                       <select id="monthEntrega" name="mesEntrega" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2"
-                        [(ngModel)]="mesEntrega" (change)="cargarDias(mesEntrega,anoEntrega)" required>
+                        [(ngModel)]="mesEntrega" (change)="cargarDiasEntrega(mesEntrega,anoEntrega)" required>
                         <option style="display:none" disabled selected value>Mes</option>
                         <option value="01">Enero</option>
                         <option value="02">Febrero</option>
