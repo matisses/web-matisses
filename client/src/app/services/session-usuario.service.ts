@@ -139,5 +139,30 @@ export class SessionUsuarioService {
       .map(res => res.json());
   }
 
+  materialPorItem(itemcode){                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'sessionusuario/cargarmateriales/' + itemcode, { headers: headers })
+      .map(res => res.json());
+  }
+
+  averiasPorMaterial(materialcode){                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'sessionusuario/cargaraverias/' + materialcode, { headers: headers })
+      .map(res => res.json());
+  }
+
+  llamadaServicio(datosLlamada) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'sessionusuario/reclamargarantia', JSON.stringify(datosLlamada), { headers: headers })
+      .map(res => res.json());
+  }
+
 
 }

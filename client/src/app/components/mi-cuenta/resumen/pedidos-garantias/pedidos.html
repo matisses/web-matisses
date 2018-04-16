@@ -174,7 +174,7 @@
                           </div>
                           <div class="col-xs-3 text-center">
                             <p>Garantia</p>
-                            <p [ngClass]="{ 'bg-success' : item.estado === 'Reclamar' }" class="cursor-pointer" (click)="garantiaReclamar()">
+                            <p [ngClass]="{ 'bg-success' : item.estado === 'Reclamar' }" class="cursor-pointer" (click)="garantiaReclamar(item.itemcode,item.itemname,detallePedido.numeroFactura)">
                               <b>{{item.estado}}</b>
                             </p>
                           </div>
@@ -205,6 +205,21 @@
           <p class="cabezote">
             Reporte de daños
           </p>
+          <div class="row" *ngIf="messageError != null && messageError.length > 0">
+            <div class="col-xs-12">
+              <div class="alert alert-danger" role="alert">
+                <p>{{messageError}}</p>
+              </div>
+            </div>
+          </div>
+          <!-- mensaje sucess -->
+          <div class="row" *ngIf="successMessage != null && successMessage.length > 0">
+            <div class="col-xs-12">
+              <div class="alert alert-info" role="alert">
+                <p>{{successMessage}}</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="row">
@@ -228,11 +243,16 @@
             <b>1. </b>Selecciona una material:</p>
         </div>
         <div class="col-xs-6">
-          <select id="tipo-material" name="" class="form-control" required (click)="seleccionarMaterial()">
+          <!-- <select id="tipo-material" name="" class="form-control" required (click)="seleccionarMaterial()">
             <option style="display:none" disabled>Seleccione uno</option>
             <option value="13">Acero</option>
             <option value="22">Plástico</option>
             <option value="41">Cuero</option>
+          </select> -->
+          <select id="tipo-material" name="tipo-material"  class="form-control"
+            [(ngModel)]="materialSeleccionado1" required (change)="onChange($event)">
+            <option style="display:none" disabled selected value>Material</option>
+            <option *ngFor="let material of materiales" [ngValue]="material.code">{{material.uNombreWeb}}</option>
           </select>
         </div>
       </div>
@@ -244,14 +264,14 @@
         </div>
       </div>
       <div class="row" *ngIf="materialSeleccionado">
-        <div class="col-xs-12">
+        <div class="col-xs-12" *ngFor="let averia of averias">
           <div class="checkbox">
             <label>
-              <input type="checkbox">
-              <b class="notificaciones">Daño 1</b>
+              <input type="radio" name="averia"  value="{{averia.code}}" [(ngModel)]="averiaSeleccionada">
+              <b class="notificaciones">{{averia.name}}</b>
             </label>
           </div>
-          <div class="checkbox">
+          <!-- <div class="checkbox">
             <label>
               <input type="checkbox">
               <b class="notificaciones">Daño 2</b>
@@ -268,7 +288,7 @@
               <input type="checkbox">
               <b class="notificaciones">Daño 4</b>
             </label>
-          </div>
+          </div> -->
         </div>
       </div>
       <hr>
@@ -276,14 +296,14 @@
         <div class="row">
           <div class="col-xs-12">
             <label class="label-lista" for="asunto">Asunto*</label>
-            <input id="asunto" type="text" class="form-control" maxlength="30" required>
+            <input id="asunto" type="text" class="form-control" maxlength="30" required [(ngModel)]="asunto">
           </div>
         </div>
         <br>
         <div class="row">
           <div class="col-xs-12">
             <label class="label-lista" for="asunto">Resumen (Detalle del daño)*</label>
-            <textarea name="" class="form-control" id="" cols="30" rows="10"></textarea>
+            <textarea name="" class="form-control" id="" cols="30" rows="10" [(ngModel)]="comentario"></textarea>
           </div>
         </div>
         <br>
@@ -298,13 +318,13 @@
         <br>
         <div class="row">
           <div class="col-sm-4">
-            <button class="btn btn-volver">Volver a mi cuenta</button>
+            <button class="btn btn-volver" (click)="volverCuenta()">Volver a mi cuenta</button>
           </div>
           <div class="col-sm-4">
 
           </div>
           <div class="col-sm-4 text-right">
-            <button class="btn btn-enviar">Enviar</button>
+            <button class="btn btn-enviar" *ngIf="successMessage == null || messageError==null" (click)="crearLLamada()">Enviar</button>
           </div>
         </div>
       </div>
