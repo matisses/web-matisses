@@ -13,7 +13,7 @@ declare var $: any;
 export class ResumenMiCuentaComponent implements OnInit {
   public paso: number = 1;
   public decorador: boolean = false;
-  public planner: boolean = true;
+  public planner: boolean = false;
   public menuMobile: boolean = false;
   private viewportWidth: number = 0;
 
@@ -24,6 +24,9 @@ export class ResumenMiCuentaComponent implements OnInit {
     if(localStorage.getItem('matisses.session-token')==null){
       console.log('no hay session');
       this._router.navigate(['/login']);
+    }
+    if(localStorage.getItem('usuario-planificador')=='true'){
+      this.planner=true;
     }
   }
 

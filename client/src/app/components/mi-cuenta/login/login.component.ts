@@ -54,6 +54,8 @@ export class LoginComponent implements OnInit {
   public registroDecorador:string=null;
   public registroPlanificador: string=null;
   public fileUpload: any;
+  public decorador:boolean=false;
+  public planificador:boolean=false;
 
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _userService: SessionUsuarioService, private _jwt: JWTService,  private _customerService: CustomerService,
@@ -115,6 +117,14 @@ export class LoginComponent implements OnInit {
         this.nombreSession = response.nombre;
         this.documentCustomer=response.documento;
         this.nombreUsuario=response.nombreUsuario;
+        if(response.esDecorador!=null){
+          this.decorador=response.esDecorador;
+        }
+        if(response.esPlanificador!=null){
+            this.planificador=response.esPlanificador;
+        }
+
+
         if (response.esNuevo) {
           this.cambioContrasena = 'si';
         }
@@ -132,7 +142,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('cambio-clave', this.cambioContrasena);
         localStorage.setItem('doc-customer', this.documentCustomer);
         localStorage.setItem('nombre-usuario', this.nombreUsuario);
-
+        localStorage.setItem('usuario-decorador',this.decorador.toString());
+        localStorage.setItem('usuario-planificador',this.planificador.toString());
 
         this._router.navigate(['/mi-cuenta']);
       },
@@ -323,7 +334,7 @@ export class LoginComponent implements OnInit {
     let fechaFormulario=new Date(this.customer.birthDate.toString());
 
     if(fechaFormulario.toString()=='Invalid Date'){
-    
+
       this.messageError = 'Fecha inválida, ingrese una fecha correcta';
       this.successMessage = '';
       $('#messageUser').modal('show');

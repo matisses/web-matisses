@@ -143,6 +143,9 @@ export class MenuComponent implements OnInit, AfterViewInit {
     localStorage.removeItem('usuario-id');
     localStorage.removeItem('doc-customer');
     localStorage.removeItem('nombre-usuario');
+    localStorage.removeItem('nombre-usuario');
+    localStorage.removeItem('usuario-decorador');
+    localStorage.removeItem('usuario-planificador');
 
   }
 
@@ -860,7 +863,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
       nombreUsuario: this.nombreUsuario,
       password: this.password
     }
-  
+
     this._userService.login(usuarioDTO).subscribe(
       response => {
         if (response.codigo == '-1') {
