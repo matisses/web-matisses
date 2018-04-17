@@ -469,7 +469,7 @@ public inicializarCliente(){
 }
   }
 
-  public cambiarClave(){
+  public actualizarClave(){
     console.log('entra en cambiar cable');
     let usuarioDTO = {
       nombreUsuario: this.nombreUsuario,
