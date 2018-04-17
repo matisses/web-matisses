@@ -1,11 +1,13 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
+import { GLOBAL } from '../../../../services/global';
 import { ItemService } from '../../../../services/item.service';
 import { Item } from '../../../../models/item';
 
 import { SessionUsuarioService } from '../../../../services/session-usuario.service';
 import { ListaRegalosService } from '../../../../services/lista-regalos.service';
+import { Logs } from 'selenium-webdriver';
 
 // declare var jquery: any;
 declare var $: any;
@@ -18,7 +20,9 @@ declare var $: any;
 
 export class ListaInvitadosComponent implements OnInit, AfterViewInit {
   public totalInvitados: number;
+  public totalAcumulado: string;
   public nombreUsuario: string;
+  public novios: string;
   public claveNueva: string;
   public claveConfirmacion: string;
   public messageError: string;
@@ -28,6 +32,7 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
   public idListaUsuario: string;
   public codigoLista: string;
   public fechaEvento: string;
+  public fechaEntrega: string;
   public nombreInvitado: string;
   public apellidosInvitado: string;
   public correoInvitado: string;
@@ -40,16 +45,22 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
   public invitados: Array<any>;
   public queryParams: Map<string, string>;
   public verDetalle: any;
+  public urlAvatar: string;
+  public urlQr: string;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
+    this.novios = sessionStorage.getItem('novios');
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('formatoFechaEvento');
+    this.fechaEntrega = localStorage.getItem('formatoFechaEntrega');
     this.idListaUsuario = localStorage.getItem('id-lista');
     this.msjAgradecimiento = localStorage.getItem('msjAgradecimiento');
+    this.totalAcumulado = localStorage.getItem('total-acumulado');
     this.queryParams = new Map<string, string>();
     this.invitados = new Array<any>();
-
+    this.urlAvatar = GLOBAL.urlShared + 'imagenPerfil/';
+    this.urlQr = GLOBAL.urlShared + 'qr/';
     this.totalInvitados = 0;
     this.nombreInvitado = '';
     this.apellidosInvitado = '';
@@ -60,26 +71,60 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.novios = sessionStorage.getItem('novios');
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('formatoFechaEvento');
+    this.fechaEntrega = localStorage.getItem('formatoFechaEntrega');
     this.idListaUsuario = localStorage.getItem('id-lista');
     this.msjAgradecimiento = localStorage.getItem('msjAgradecimiento');
-
+    $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + "sin-imagen.jpg)");
+    this.existeUrl(this.urlAvatar + 'sin-imagen.jpg');
+    this.buscarLista(this.codigoLista);
     this.cargarInvitados();
   }
 
   ngAfterViewInit() {
+    this.novios = sessionStorage.getItem('novios');
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('formatoFechaEvento');
     this.idListaUsuario = localStorage.getItem('id-lista');
+  }
+
+  public existeUrl(url) {
+    url = this.urlAvatar + this.codigoLista + '.jpg';
+    var http = new XMLHttpRequest();
+    http.open('GET', url, true);
+    http.send();
+    if (http.status != 404) {
+      if (url == this.urlAvatar + this.codigoLista + '.jpg') {
+        $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + this.codigoLista + ".jpg)");
+      }
+    }
+    else {
+      url = this.urlAvatar + this.codigoLista + '.png';
+      var http = new XMLHttpRequest();
+      http.open('GET', url, true);
+      http.send();
+      if (http.status != 404) {
+        $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + this.codigoLista + ".png)");
+      }
+      else {
+        $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + "sin-imagen.jpg)");
+      }
+    }
   }
 
   public abrirModal(modal: string) {
     this.limpiarCampos();
     $(modal).modal('show');
   }
+
+  // public abrirModalFechaEntrega(modal: string) {
+  //   this.buscarLista(this.codigoLista);
+  //   $(modal).modal('show');
+  // }
 
   public registrarInvitado() {
     if (this.nombreInvitado == null || this.nombreInvitado.length <= 0
@@ -105,7 +150,7 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
             this.limpiarCampos();
             this.cargarInvitados();
           } else {
-            this.messageError = ('Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.');
+            this.messageError = response.mensaje;
           }
         },
         error => {
@@ -114,6 +159,27 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
         }
       );
     }
+  }
+
+  public buscarLista(codigo: string) {
+    this.messageError = '';
+    let consultaDTO = {
+      nombre: null,
+      apellido: null,
+      codigo: codigo
+    }
+    this._listaService.consultarLista(consultaDTO).subscribe(
+      response => {
+        let respuesta = JSON.parse(JSON.stringify(response));
+        if (respuesta.length > 0) {
+          this.nombreUsuario = respuesta[0].nombreCreador;
+          this.fechaEvento = respuesta[0].formatoFechaEvento;
+          this.fechaEntrega = respuesta[0].formatoFechaEntrega;
+          this.novios = response[0].nombreCreador + ' ' + response[0].apellidoCreador + '<span class="anpersan"> & </span>' + response[0].nombreCocreador + ' ' + response[0].apellidoCocreador;
+        }
+      },
+      error => { console.error(error); }
+    );
   }
 
   public generar(link: string) {
@@ -200,5 +266,41 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
     localStorage.removeItem('codigo-lista');
     localStorage.removeItem('fecha-evento');
     this._router.navigate(['/lista-de-regalos']);
+  }
+
+  public verificarArchivoMasivo(event) {
+    let fileList: FileList = event.target.files;
+
+    if (fileList.length > 0) {
+      let file: File = fileList[0];
+      let fileSize: number = fileList[0].size;
+      let fileType: string = fileList[0].type;
+
+      if (fileType === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+        let formData: FormData = new FormData();
+        formData.append('file', file);
+        formData.append('codigo', this.codigoLista);
+
+        this._listaService.subirArchivoMasivo(formData).subscribe(
+          response => {
+            if (response) {
+              $("#modalInvitado").modal("hide");
+              this.limpiarCampos();
+              this.cargarInvitados();
+            } else {
+              this.messageError = "Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.";
+            }
+          },
+          error => {
+            console.error(error);
+            $("#modalInvitado").modal("hide");
+            this.limpiarCampos();
+            this.cargarInvitados();
+          }
+        );
+      } else {
+        this.messageError = 'El archivo solo puede ser formato .xlsx'
+      }
+    }
   }
 }

@@ -246,15 +246,15 @@
     font-weight: normal;
   }
   .principal-01 {
-    /* background: url(../../../../assets/images/banner/slide-3/banner-01-mobile.jpg) no-repeat center; */
-    background-position: center;
+    background: url(../../../../assets/images/banner/slide-3/banner-01-mobile.jpg) no-repeat center;
+    background-position: center -20px;
   }
 }
 
 @media screen and (max-width: 414px) {
   .principal-01 {
     min-height: 250px;
-    background-position: center 15px;
+    background-position: center -40px;
   }
   .text-01 {
     margin: 10px auto;

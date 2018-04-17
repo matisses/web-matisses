@@ -1,4 +1,41 @@
 <menu-lista></menu-lista>
+<!-- MODAL -->
+<div class="modal fade" id="forgotPassword" tabindex="-1" role="dialog" aria-labelledby="forgotPasswordLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title text-center" id="forgotPasswordLabel">Recuperar Clave</h4>
+      </div>
+      <div class="modal-body">
+        <form #RecuperarForm="ngForm">
+          <div class="row" *ngIf="updateMessage != null && updateMessage.length > 0">
+            <div class="col-xs-12">
+              <div class="alert alert-info" role="alert">
+                <p>{{updateMessage}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6 col-xs-offset-3">
+              <label for="recuperarmail" class="label-lista">Ingresa tu e-mail</label>
+              <input type="mail" id="recuperarmail" class="form-lista-regalos" name="recuperarEmail" [(ngModel)]="recuperarEmail" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6 col-xs-offset-3 text-center">
+              <button type="submit" class="btn-buscar" (click)="recuperar()" *ngIf="updateMessage == null || updateMessage=='' ">Continuar</button>
+            </div>
+          </div>
+          <br>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- CONTENIDO -->
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
@@ -16,7 +53,8 @@
                   </div>
                   <div class="row">
                     <div class="col-xs-12" role="button" (click)="showCampos(1)">
-                      <h4><b>Buscar</b> una lista</h4>
+                      <h4>
+                        <b>Buscar</b> una lista</h4>
                     </div>
                   </div>
                   <div class="collapse" id="collapseBuscar" [ngClass]="{'in' : mostrarBuscar}">
@@ -38,7 +76,8 @@
                 <div class="crear">
                   <div class="row">
                     <div class="col-xs-12" role="button" (click)="showCampos(2)">
-                      <h4><b>Crea</b> una lista</h4>
+                      <h4>
+                        <b>Crea</b> una lista</h4>
                     </div>
                   </div>
                   <div class="collapse" id="collapseCrear" [ngClass]="{'in' : mostrarCrear}">
@@ -58,19 +97,27 @@
                   <form #ContactForm="ngForm" (submit)="login()">
                     <div class="row">
                       <div class="col-xs-12" role="button" (click)="showCampos(3)">
-                        <h4><b>Iniciar</b> sesión</h4>
+                        <h4>
+                          <b>Iniciar</b> sesión</h4>
                       </div>
                     </div>
                     <div class="collapse" id="collapseManage" [ngClass]="{'in' : mostrarManage}">
                       <p>Administra tu lista, edita cantidades, estilos y mensajes</p>
                       <label class="label-lista" for="e-mail">Correo electrónico</label>
                       <form (submit)="login()">
-                        <input id="e-mail" type="email" class="form-lista-regalos" [class.required-field]="!valid" name="nombreUsuario" [(ngModel)]="nombreUsuario" required>
+                        <input id="e-mail" type="email" class="form-lista-regalos" [class.required-field]="!valid" name="nombreUsuario" [(ngModel)]="nombreUsuario"
+                          required>
                       </form>
                       <label class="label-lista" for="password">Contraseña</label>
                       <form (submit)="login()">
-                        <input id="password" type="password" class="form-lista-regalos" [class.required-field]="!valid" name="password" [(ngModel)]="password" required>
+                        <input id="password" type="password" class="form-lista-regalos" [class.required-field]="!valid" name="password" [(ngModel)]="password"
+                          required>
                       </form>
+
+                      <div class="col-xs-10 col-xs-offset-1 text-center">
+                        <p class="cursor-pointer" (click)="modalRecuperarPassword()">¿Olvidaste tu clave?</p>
+                      </div>
+
                       <button type="button" name="buscar" (click)="login()" class="btn-buscar">Ingresar</button>
                     </div>
                   </form>
@@ -86,7 +133,8 @@
     <div class="col-xs-12 text-center">
       <div class="personal-shopper">
         <h5 class="baskerville">¡Haz tu lista con nosotros y disfruta de grandes beneficios!</h5>
-        <p>Agenda ya tu cita con nuestro personal shopper <span class="icon-telefono"></span> (+57) 314 628 59 91 en Medellín.</p>
+        <p>Agenda ya tu cita con nuestro personal shopper
+          <span class="icon-telefono"></span> (+57) 314 628 59 91 en Medellín.</p>
       </div>
     </div>
   </div>
@@ -95,8 +143,9 @@
     <div class="col-xs-12">
       <div class="que-es">
         <h1>¿QUÉ ES LISTA DE REGALOS?</h1>
-        <p>Lista de regalos Matisses te permite elegir entre todos los productos que tenemos en nuestro amplio catálogo, puedes compartirla con tus invitados, ellos podrán elegir de tu lista lo que quieren regalarte, pagar en línea y nosotros te lo entregamos
-          en el lugar que elijas. También podrás activar las Gift Card para comprar lo que mas te guste.</p>
+        <p>Lista de regalos Matisses te permite elegir entre todos los productos que tenemos en nuestro amplio catálogo, puedes
+          compartirla con tus invitados, ellos podrán elegir de tu lista lo que quieren regalarte, pagar en línea y nosotros
+          te lo entregamos en el lugar que elijas. También podrás activar las Gift Card para comprar lo que mas te guste.</p>
       </div>
     </div>
   </div>
@@ -110,7 +159,8 @@
     <div class="col-sm-6 text-como-funciona border-right border-bottom">
       <span class="icon-crear-lista-01"></span>
       <h5 class="baskerville text-center">Crea tu lista</h5>
-      <p class="text-justify">Completa tu información, añade a alguien más si deseas que te ayude a crear tu lista ideal, dale tu estilo cargando imágenes de perfil e incluye un mensaje de bienvenida a quienes visitan tu sitio. Te explicaremos paso a paso.</p>
+      <p class="text-justify">Completa tu información, añade a alguien más si deseas que te ayude a crear tu lista ideal, dale tu estilo cargando
+        imágenes de perfil e incluye un mensaje de bienvenida a quienes visitan tu sitio. Te explicaremos paso a paso.</p>
     </div>
     <div class="col-sm-6 text-como-funciona border-bottom">
       <span class="icon-agrega-productos-01"></span>

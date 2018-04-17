@@ -24,6 +24,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+.icon-valentines:before {
+  content: "\e948";
+}
+.icon-coin:before {
+  content: "\e949";
+}
 .icon-bono-matisses:before {
   content: "\e940";
 }

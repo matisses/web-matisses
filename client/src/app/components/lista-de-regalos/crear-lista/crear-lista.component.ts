@@ -26,6 +26,9 @@ export class CrearListaComponent implements OnInit {
   public mesInicio: string;
   public anoInicio: string;
   public diaInicio: string;
+  public mesEntrega: string;
+  public anoEntrega: string;
+  public diaEntrega: string;
   public messageError: string;
   public messageExit: string;
   public celebracion: string;
@@ -73,6 +76,9 @@ export class CrearListaComponent implements OnInit {
   public dayEvent: Array<number>;
   public yearEvent: Array<number>;
   public monthEvent: Array<number>;
+  public dayEntrega: Array<number>;
+  public yearEntrega: Array<number>;
+  public monthEntrega: Array<number>;
   public ciudadesPrincipales: Array<City>;
   public otrasCiudades: Array<City>;
   public customerCreador: Customer;
@@ -85,6 +91,9 @@ export class CrearListaComponent implements OnInit {
     this.dayEvent = new Array<number>();
     this.monthEvent = new Array<number>();
     this.yearEvent = new Array<number>();
+    this.dayEntrega = new Array<number>();
+    this.monthEntrega = new Array<number>();
+    this.yearEntrega = new Array<number>();
     this.ciudadesPrincipales = new Array<City>();
     this.otrasCiudades = new Array<City>();
     this.celebracion = '';
@@ -348,8 +357,8 @@ export class CrearListaComponent implements OnInit {
   }
 
   public llenarDatosEvento() {
-    if ((this.anoInicio == null || this.anoInicio.length < 0) || (this.mesInicio == null || this.mesInicio.length < 0)
-      || (this.diaInicio == null)) {
+    if ((this.anoInicio == null || this.anoInicio.length < 0) || (this.mesInicio == null || this.mesInicio.length < 0) || (this.diaInicio == null)
+      || (this.anoEntrega == null || this.anoEntrega.length < 0) || (this.mesEntrega == null || this.mesEntrega.length < 0) || (this.diaEntrega == null)) {
       this.messageError = 'Debes llenar todos los campos obligatorios para poder continuar con el siguiente paso.';
       this.validForm2 = false;
       return false;
@@ -387,7 +396,7 @@ export class CrearListaComponent implements OnInit {
           }
         }
         break;
-        default:/*Para los demas eventos*/
+      default:/*Para los demas eventos*/
         if (this.customerCocreador.fiscalID == null) {
           if ((this.customerCreador.addresses[0].cellphone == null || this.customerCreador.addresses[0].cellphone.length <= 0
             || this.customerCreador.addresses[0].address == null || this.customerCreador.addresses[0].address.length <= 0
@@ -488,6 +497,7 @@ export class CrearListaComponent implements OnInit {
         activa: true,
         fechaCreacion: null,
         formatoFechaEvento: this.anoInicio + '-' + this.mesInicio + '-' + this.diaInicio,
+        formatoFechaEntrega: this.anoEntrega + '-' + this.mesEntrega + '-' + this.diaEntrega,
         celebracion: this.celebracion,
         lugar: this.lugar,
         cedulaCreador: this.customerCreador.fiscalID.trim(),
@@ -780,7 +790,7 @@ export class CrearListaComponent implements OnInit {
     this.validCocreador = true;
   }
 
-  public cargarDias(mes: string, ano: number) {
+  public cargarDiasEvento(mes: string, ano: number) {    
     this.dayEvent = new Array<number>();
     switch (mes) {
       case '01':  // Enero
@@ -816,12 +826,50 @@ export class CrearListaComponent implements OnInit {
     }
   }
 
+  public cargarDiasEntrega(mes: string, ano: number) {    
+    this.dayEntrega = new Array<number>();
+    switch (mes) {
+      case '01':  // Enero
+      case '03':  // Marzo
+      case '05':  // Mayo
+      case '07':  // Julio
+      case '08':  // Agosto
+      case '10':  // Octubre
+      case '12': // Diciembre
+        for (let i = 1; i <= 31; i++) {
+          this.dayEntrega.push(i);
+        }
+        break;
+      case '04':  // Abril
+      case '06':  // Junio
+      case '09':  // Septiembre
+      case '11': // Noviembre
+        for (let i = 1; i <= 30; i++) {
+          this.dayEntrega.push(i);
+        }
+        break;
+      case '02':  // Febrero
+        if (((ano % 100 == 0) && (ano % 400 == 0) || (ano % 100 != 0) && (ano % 4 == 0))) {
+          for (let i = 1; i <= 29; i++) {
+            this.dayEntrega.push(i);
+          }
+        } else {
+          for (let i = 1; i <= 28; i++) {
+            this.dayEntrega.push(i);
+          }
+        }
+        break;
+    }
+  }
+
   public cargarAnos() {
     var date = new Date();
     var year = date.getFullYear();
     this.yearEvent = new Array<number>();
+    this.yearEntrega = new Array<number>();
     for (let i = year; i <= year + 1; i++) {
       this.yearEvent.push(i);
+      this.yearEntrega.push(i);
     }
   }
 

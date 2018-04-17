@@ -13,13 +13,33 @@
         </div>
       </div>
     </div>
+    <!-- Imagen evento sale -->
     <div class="row" *ngIf="queryParams.has('discount')">
       <div class="col-xs-12">
         <div class="img-sale">
         </div>
       </div>
     </div>
-    <!-- Imagen categoria -->
+    <!-- Imagen secciones -->
+    <div class="row" *ngIf="tieneCategoria === 1">
+      <div class="col-xs-12">
+        <div class="img-seccion calia">
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="tieneCategoria === 2">
+      <div class="col-xs-12">
+        <div class="img-seccion plantui">
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="tieneCategoria === 3">
+      <div class="col-xs-12">
+        <div class="img-seccion boska">
+        </div>
+      </div>
+    </div>
+    <!-- Resto de contenido -->
     <br/>
     <div class="row">
 

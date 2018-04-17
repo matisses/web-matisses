@@ -23,6 +23,7 @@ export class ListaRegalosComponent implements OnInit {
   public idListaUsuario: string;
   public codigoLista: string;
   public fechaEvento: string;
+  public fechaEntrega: string;
   public messageError: string
   public nombresNovios: string;
   public apellidosNovios: string;
@@ -31,7 +32,9 @@ export class ListaRegalosComponent implements OnInit {
   public mostrarBuscar: boolean = true;
   public mostrarCrear: boolean = true;
   public mostrarManage: boolean = true;
-  private viewportWidth: number = 0;
+  public viewportWidth: number = 0;
+  public recuperarEmail:string;
+  public updateMessage:string;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _userService: SessionUsuarioService, private _jwt: JWTService,
     private _listaRegalosService: ListaRegalosService) {
@@ -39,6 +42,7 @@ export class ListaRegalosComponent implements OnInit {
     this.apellidosNovios = '';
     this.codigoLista = '';
     this.messageErrorSearch = '';
+    this.updateMessage=null;
   }
 
   ngOnInit() {
@@ -86,6 +90,7 @@ export class ListaRegalosComponent implements OnInit {
     localStorage.removeItem('cambio-clave');
     localStorage.removeItem('id-lista');
     localStorage.removeItem('codigo-lista');
+    sessionStorage.removeItem('novios');
     this.valid = true;
     this.messageError = '';
     if (this.nombreUsuario == null || this.nombreUsuario.length <= 0) {
@@ -111,6 +116,7 @@ export class ListaRegalosComponent implements OnInit {
         this.idListaUsuario = response.idListaRegalos.idLista;
         this.codigoLista = response.idListaRegalos.codigo;
         this.fechaEvento = response.idListaRegalos.fechaEvento;
+        this.fechaEntrega = response.idListaRegalos.fechaEntrega;
         this.nombreSession = response.nombre;
         if (response.esNuevo) {
           this.cambioContrasena = 'si';
@@ -130,6 +136,7 @@ export class ListaRegalosComponent implements OnInit {
         localStorage.setItem('id-lista', this.idListaUsuario);
         localStorage.setItem('codigo-lista', this.codigoLista);
         localStorage.setItem('fecha-evento', this.fechaEvento);
+        localStorage.setItem('fecha-entrega', this.fechaEntrega);
         localStorage.setItem('msjAgradecimiento', response.idListaRegalos.mensajeAgradecimiento);
 
         this._router.navigate(['/mi-lista']);
@@ -181,5 +188,35 @@ export class ListaRegalosComponent implements OnInit {
     } else {
       this.messageErrorSearch = 'Debe ingresar un dato.'
     }
+  }
+
+  public modalRecuperarPassword () {
+    this.updateMessage='';
+    $('#forgotPassword').modal('show');
+  }
+
+  public recuperar(){
+
+    if(this.recuperarEmail==null || this.recuperarEmail==''){
+      this.updateMessage='Debes ingresar el correo electrónico';
+    }
+    else{
+      this._listaRegalosService.recuperarClave(this.recuperarEmail).subscribe(
+        response => {
+          if (response.estado === 0) {
+              this.updateMessage=response.mensaje;
+              $('#forgotPassword').modal('show');
+          } else {
+            this.messageError = response.mensaje;
+          }
+        },
+        error => {
+          this.messageError = 'Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.';
+          console.error(error);
+        }
+      );
+
+    }
+
   }
 }

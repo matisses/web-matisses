@@ -9,6 +9,12 @@
   overflow: hidden;
 }
 
+.explicacion-alf {
+  position: relative;
+  top: 8px;
+  width: 100%;
+}
+
 .principal-01 {
   background: url(../../../assets/images/serena.jpg) no-repeat center center;
   margin-top: 0px;
@@ -27,6 +33,7 @@
   background-size: cover;
   color: #747C79;
   cursor: pointer;
+  overflow: hidden;
 }
 
 .text-01 {
@@ -119,19 +126,22 @@
   .principal-01 {
     min-height: 300px;
     margin-top: 20px;
-  }
-  .text-mobile {
-    display: block;
-    margin-top: 60px;
+    background-position: 70px center;
   }
 }
 
 @media screen and (max-width: 769px) {
   .principal-01 {
     min-height: 300px;
+    background-position: center center;
+  }
+  .text-mobile {
+    display: block;
+    margin-top: 60px;
   }
   .nombre-producto {
-    font-size: 15px;
+    font-size: 10px;
+    margin-top: 5px;
   }
   .precio-ahora {
     font-size: 15px;

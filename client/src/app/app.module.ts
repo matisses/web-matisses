@@ -66,6 +66,9 @@ import { RecomendadosComponent } from './components/sin-interes/recomendados/rec
 import { HotSaleComponent } from './components/hot-sale/hot-sale.component';
 import { InfoBogotaComponent } from './components/info-bogota/info-bogota.component';
 import { CabifyComponent } from './components/cabify/cabify.component';
+import { SeccionesComponent } from './components/secciones/secciones.component';
+import { WmfSeccionComponent } from './components/secciones/wmf/wmf.component';
+import { AsaSeccionComponent } from './components/secciones/asa/asa.component';
 
 //Componenete pagina de error
 import { ErrorComponent } from './components/error/error.component';
@@ -128,6 +131,7 @@ import { AppComponent } from './app.component';
 import { Ng2GoogleRecaptchaModule } from 'ng2-google-recaptcha';
 import { MetaModule } from '@ngx-meta/core';
 
+
 @NgModule({
   declarations: [
     RedirectComponent,
@@ -188,6 +192,9 @@ import { MetaModule } from '@ngx-meta/core';
     HotSaleComponent,
     NovedadesComponent,
     CabifyComponent,
+    SeccionesComponent,
+    WmfSeccionComponent,
+    AsaSeccionComponent,
     //Lista de Regalos
     ListaRegalosComponent,
     MenuListaComponent,

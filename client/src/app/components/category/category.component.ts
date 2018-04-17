@@ -27,6 +27,8 @@ export class CategoryComponent implements OnInit {
   public queryString: string;
   public queryParams: Map<string, string>;
   private availableFields: string[] = ['page', 'pageSize', 'orderBy', 'department', 'group', 'subgroup', 'color', 'minPrice', 'maxPrice', 'brand', 'material', 'collection', 'keywords', 'discount'];
+  public urlCategoria: any;
+  public tieneCategoria: number = 0;
 
   constructor(private _itemService: ItemService, private _route: ActivatedRoute, private _router: Router, private _descuentosService: DescuentosService) {
     this.queryParams = new Map<string, string>();
@@ -37,9 +39,22 @@ export class CategoryComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    $(document).ready(function() {
+    $(document).ready(function () {
       $("html, body").animate({ scrollTop: 0 }, 1000);
     });
+
+    this.urlCategoria = window.location.href;
+    this.sinCategoria();
+  }
+
+  public sinCategoria() {
+    if (this.urlCategoria === 'https://www.matisses.co/categoria?keywords=calia') {
+      this.tieneCategoria = 1;
+    } else if (this.urlCategoria === 'https://www.matisses.co/categoria?keywords=plantui') {
+      this.tieneCategoria = 2;
+    } else if (this.urlCategoria === 'https://www.matisses.co/categoria?keywords=boska') {
+      this.tieneCategoria = 3;
+    } else {  }
   }
 
   private cargarItems() {
@@ -94,14 +109,13 @@ export class CategoryComponent implements OnInit {
   private inicializarNombreGrupo() {
     this.nombreGrupo = '';
     if (this.queryParams.has('group')) {
-      this._itemService.findType('grupo', '?fieldValue=' + this.queryParams.get('group')).subscribe(
+      this._itemService.findType('grupo', '?fieldValue=' + this.queryParams.get('group').substring(0, 3)).subscribe(
         response => {
           try {
             this.nombreGrupo = response.result[0].group.name;
 
             //Cambiar imagen categoria
-            console.log('cambiando clase');
-            $('.img-category').css('background', 'url(/assets/images/categorias/' + response.result[0].group.code + '.jpg) no-repeat center top');
+            $('.img-category').css('background', 'url(/assets/images/categorias/' + response.result[0].group.code.substring(0, 3) + '.jpg) no-repeat center top');
           } catch (e) {
             console.error(e);
           }

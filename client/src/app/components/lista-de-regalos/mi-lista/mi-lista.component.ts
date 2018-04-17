@@ -37,10 +37,12 @@ export class MiListaComponent implements OnInit {
   public idListaUsuario: string;
   public codigoLista: string;
   public fechaEvento: string;
+  public fechaEntrega: string;
   public urlQr: string;
   public paramsConsulta: any;
   public itemsListaBcs: Array<any>;
   public totalLista: number;
+  public totalComprado: number;
   public verDetalle: any;
   public idListaUsuario1: number;
   public confirmEliminar: boolean = false;
@@ -51,14 +53,27 @@ export class MiListaComponent implements OnInit {
   public urlAvatar: string;
   public itemsSinPaginar: Array<any>;
   public usuarioAdmin: string;
+  public novios: string;
+  public totalAcumulado: number;
+  /*********************/
+  public anoEntrega: number;
+  public diaEntrega: number;
+  public mesEntrega: string;
+  public diasEntrega: Array<number>;
+  public anosEntrega: Array<number>;
+  public mesesEntrega: Array<number>;
+  public validEntrega: boolean = true;
+  /*********************/
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
+    this.novios = sessionStorage.getItem('novios');
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('fecha-evento');
+    this.fechaEntrega = localStorage.getItem('fecha-entrega');
     this.idListaUsuario = localStorage.getItem('id-lista');
-
     this.totalLista = 0;
+    this.totalComprado = 0;
     this.urlQr = GLOBAL.urlShared + 'qr/';
     this.urlAvatar = GLOBAL.urlShared + 'imagenPerfil/';
     this.queryParams = new Map<string, string>();
@@ -67,9 +82,13 @@ export class MiListaComponent implements OnInit {
     this.pages = new Array<number>();
     this.items = new Array<Item>();
     this.itemsListaBcs = new Array<any>();
-    this.itemsSinPaginar=new Array<any>();
+    this.itemsSinPaginar = new Array<any>();
+    /*********************/
+    this.diasEntrega = new Array<number>();
+    this.mesesEntrega = new Array<number>();
+    this.anosEntrega = new Array<number>();
+    /*********************/
     this.inicializarForm();
-
     this.inicializarParamsConsulta();
   }
 
@@ -88,27 +107,37 @@ export class MiListaComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(localStorage.getItem('username-lista')!=null){
+    if (localStorage.getItem('username-lista') != null) {
       this.nombreUsuario = localStorage.getItem('username-lista');
-    }
-    else{
+    } else {
       this.usuarioAdmin = localStorage.getItem('username-admin');
-      this.nombreUsuario=this.usuarioAdmin;
+      this.nombreUsuario = this.usuarioAdmin;
     }
-
+    this.novios = sessionStorage.getItem('novios');
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('fecha-evento');
+    this.fechaEntrega = localStorage.getItem('fecha-entrega');
     this.idListaUsuario = localStorage.getItem('id-lista');
     this.buscarLista(this.codigoLista);
     localStorage.setItem('fecha-evento', this.fechaEvento);
+    localStorage.setItem('fehca-entrega', this.fechaEntrega);
     localStorage.setItem('username-lista', this.nombreUsuario);
     $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + "sin-imagen.jpg)");
     this.existeUrl(this.urlAvatar + 'sin-imagen.jpg');
     this.cargarItems0();
+    /*********************/
+    /*if (localStorage.getItem('fecha-entrega') != null) {
+      this.cargarAnos();
+      this.anoEntrega = parseInt(localStorage.getItem('fecha-entrega').substring(0, 4));
+      this.mesEntrega = localStorage.getItem('fecha-entrega').substring(5, 7);
+      this.diaEntrega = parseInt(localStorage.getItem('fecha-entrega').substring(8, 11));
+      this.cargarDias(this.mesEntrega, this.anoEntrega);
+    }*/
+    /*********************/
   }
 
   ngAfterViewInit() {
-    $(window).scroll(function() {
+    $(window).scroll(function () {
       var scroll = $(window).scrollTop();
       if (scroll >= 30) {
         $(".contenedor").addClass("margin-top-scroll");
@@ -117,19 +146,18 @@ export class MiListaComponent implements OnInit {
       }
     });
 
-    if(localStorage.getItem('username-lista')!=null){
+    if (localStorage.getItem('username-lista') != null) {
       this.nombreUsuario = localStorage.getItem('username-lista');
-    }
-    else{
+    } else {
       this.usuarioAdmin = localStorage.getItem('username-admin');
     }
-    setTimeout(function() {
+    setTimeout(function () {
       if (localStorage.getItem('cambio-clave') == 'si') {
         $('#cambioContrasena').modal('show');
       }
     }, 500);
 
-    $(function() {
+    $(function () {
       $('[data-toggle="tooltip"]').tooltip()
     })
   }
@@ -174,7 +202,6 @@ export class MiListaComponent implements OnInit {
     this._userService.updateUser(usuarioDTO).subscribe(
       response => {
         if (response.codigo == "0") {
-          this.successMessage = '1';
           localStorage.removeItem('cambio-clave');
           localStorage.setItem('cambio-clave', 'no');
           $('#cambioContrasena').modal('hide');
@@ -191,18 +218,13 @@ export class MiListaComponent implements OnInit {
     );
   }
 
-  // public irAPagina(pagina) {
-  //   this.queryParams.set('page', pagina);
-  //   this.navigate();
-  // }
-
   public irAPagina(pagina) {
-    if(pagina>0){
-    if(pagina <= this.pages.length){
-    this.queryParams.set('page', pagina);
-    this.navigate();
+    if (pagina > 0) {
+      if (pagina <= this.pages.length) {
+        this.queryParams.set('page', pagina);
+        this.navigate();
+      }
     }
-  }
   }
 
   public changeOrder(orderkey) {
@@ -267,7 +289,6 @@ export class MiListaComponent implements OnInit {
       pageSize = parseInt(this.queryParams.has('pageSize') ? this.queryParams.get('pageSize') : '11');
     }
 
-
     let totalPages = Math.ceil(this.totalItems / pageSize);
     if (this.activePage > totalPages || this.activePage <= 0) {
       this.activePage = 1;
@@ -304,7 +325,6 @@ export class MiListaComponent implements OnInit {
         else {
           this.paramsConsulta.registrosPagina = '12';
         }
-
       }
 
       if (this.queryParams.has('orderBy')) {
@@ -329,15 +349,32 @@ export class MiListaComponent implements OnInit {
         this.paramsConsulta.pagina = this.queryParams.get('page');
       }
 
-      this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
-        response => {
-          this.totalLista = response;
-        },
-        error => { console.error(error); }
-      );
       if (this.keywords && this.keywords.length > 0) {
-        this.paramsConsulta.keywords=this.keywords;
+        this.paramsConsulta.keywords = this.keywords;
       }
+
+      this._listaService.consultarListaComprados(this.paramsConsulta).subscribe(
+        response => {
+          this.itemsListaBcs = response;
+          this.totalComprado = this.itemsListaBcs.length;
+          this.totalAcumulado = 0;
+          for (var i = 0; i < this.itemsListaBcs.length; i++) {
+            this.totalAcumulado = this.totalAcumulado + this.itemsListaBcs[i]['precioTotal'];
+          }
+
+          this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
+            response => {
+              this.totalLista = response - this.totalComprado;
+              localStorage.setItem('total-por-comprar', this.totalLista.toString());
+              localStorage.setItem('total-acumulado', this.totalAcumulado.toString());
+            },
+            error => { console.error(error); });
+
+          localStorage.setItem('total-comprado', this.totalComprado.toString());
+          this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.totalLista);
+        },
+        error => { console.error(error); });
+
       this._listaService.consultarListaPaginada(this.paramsConsulta).subscribe(
         response => {
           this.itemsListaBcs = response;
@@ -345,15 +382,14 @@ export class MiListaComponent implements OnInit {
             idLista: localStorage.getItem('id-lista')
           };
           this._listaService.consultarListaSinPaginar(paramConsulta).subscribe(
-             response => {
-               this.itemsSinPaginar = response;
-
-
+            response => {
+              this.itemsSinPaginar = response;
             },
             error => {
-                 console.error(error);
-              }
+              console.error(error);
+            }
           );
+
           this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.itemsSinPaginar.length);
         },
         error => { console.error(error); }
@@ -379,14 +415,10 @@ export class MiListaComponent implements OnInit {
   public search() {
     if (this.keywords && this.keywords.length > 0) {
       let queryParamsObj = { keywords: this.keywords.replace(/ /g, ",") };
-      //this.navigate();
-     this._router.navigate(['/mi-lista'], { queryParams: queryParamsObj });
+      this._router.navigate(['/mi-lista'], { queryParams: queryParamsObj });
     }
-    else{
-      this.keywords='';
-      let queryParamsObj = { keywords: this.keywords.replace(/ /g, ",") };
-       this._router.navigate(['/mi-lista']);
-      //this.navigate();
+    else {
+      this._router.navigate(['/mi-lista']);
     }
   }
 
@@ -419,7 +451,7 @@ export class MiListaComponent implements OnInit {
         $('#modalDetalle').modal('hide');
         this.confirmEliminar = false;
         if (this.keywords && this.keywords.length > 0) {
-          this.paramsConsulta.keywords=this.keywords;
+          this.paramsConsulta.keywords = this.keywords;
         }
         this._listaService.consultarListaPaginada(this.paramsConsulta).subscribe(
           response => {
@@ -480,13 +512,14 @@ export class MiListaComponent implements OnInit {
     localStorage.removeItem('id-lista');
     localStorage.removeItem('codigo-lista');
     localStorage.removeItem('fecha-evento');
+    localStorage.removeItem('total-por-comprar');
+    localStorage.removeItem('total-comprado');
 
     this._router.navigate(['/lista-de-regalos']);
   }
 
   public buscarLista(codigo: string) {
     this.messageError = '';
-    //Asignar datos para enviarlos a WS
     let consultaDTO = {
       nombre: null,
       apellido: null,
@@ -498,9 +531,13 @@ export class MiListaComponent implements OnInit {
         if (respuesta.length > 0) {
           this.nombreUsuario = respuesta[0].nombreCreador;
           this.fechaEvento = respuesta[0].formatoFechaEvento;
+          this.fechaEntrega = respuesta[0].formatoFechaEntrega;
           this.aceptaBono = response[0].aceptaBonos;
           this.minimoBono = response[0].valorMinimoBono;
+          this.novios = response[0].nombreCreador + ' ' + response[0].apellidoCreador + '<span class="anpersan"> & </span>' + response[0].nombreCocreador + ' ' + response[0].apellidoCocreador;
+          localStorage.setItem('novios-header', this.novios);
           localStorage.setItem('formatoFechaEvento', respuesta[0].formatoFechaEvento);
+          localStorage.setItem('formatoFechaEntrega', respuesta[0].formatoFechaEntrega);
         }
       },
       error => { console.error(error); }
@@ -594,4 +631,90 @@ export class MiListaComponent implements OnInit {
       }
     }
   }
+  /*********************/
+  public abrirModalFechaEntrega(modal: string) {
+    if (this.fechaEntrega != null) {
+      this.cargarAnos();
+      this.diaEntrega = parseInt(this.fechaEntrega.substring(0, 2));
+      this.mesEntrega = this.fechaEntrega.substring(5, 7);
+      this.anoEntrega = parseInt(this.fechaEntrega.substring(10, 14));
+      this.cargarDias(this.mesEntrega, this.anoEntrega);
+    }
+    this.successMessage = '';
+    this.messageError = '';
+    this.buscarLista(this.codigoLista);
+    $(modal).modal('show');
+  }
+
+  public cargarDias(mes: string, ano: number) {
+    this.diasEntrega = new Array<number>();
+    switch (mes) {
+      case '01':  // Enero
+      case '03':  // Marzo
+      case '05':  // Mayo
+      case '07':  // Julio
+      case '08':  // Agosto
+      case '10':  // Octubre
+      case '12': // Diciembre
+        for (let i = 1; i <= 31; i++) {
+          this.diasEntrega.push(i);
+        }
+        break;
+      case '04':  // Abril
+      case '06':  // Junio
+      case '09':  // Septiembre
+      case '11': // Noviembre
+        for (let i = 1; i <= 30; i++) {
+          this.diasEntrega.push(i);
+        }
+        break;
+      case '02':  // Febrero
+        if (((ano % 100 == 0) && (ano % 400 == 0) || (ano % 100 != 0) && (ano % 4 == 0))) {
+          for (let i = 1; i <= 29; i++) {
+            this.diasEntrega.push(i);
+          }
+        } else {
+          for (let i = 1; i <= 28; i++) {
+            this.diasEntrega.push(i);
+          }
+        }
+        break;
+    }
+  }
+
+  public cargarAnos() {
+    var date = new Date();
+    var year = date.getFullYear();
+    this.anosEntrega = new Array<number>();
+    for (let i = year; i <= year + 1; i++) {
+      this.anosEntrega.push(i);
+    }
+  }
+
+  public programarFechaEntrega() {
+    if ((this.anoEntrega == null || this.anoEntrega < 0) || (this.mesEntrega == null || this.mesEntrega.length < 0) || (this.diaEntrega == null)) {
+      this.messageError = 'Debes llenar todos los campos obligatorios.';
+      this.valid = false;
+    } else {
+      let datosDTO = {
+        idLista: this.idListaUsuario,
+        fechaEntrega: this.anoEntrega + '-' + this.mesEntrega + '-' + (this.diaEntrega + 1)
+      }
+
+      this._listaService.actualizarFechaEntrega(datosDTO).subscribe(
+        response => {
+          if (response.codigo == 0) {
+            $("#modalFechaEntrega").modal("hide");
+            this.buscarLista(this.codigoLista);
+          } else {
+            this.messageError = response.mensaje;
+          }
+        },
+        error => {
+          console.error(error);
+          this.messageError = 'Lo sentimos. Ocurrió un error inesperado, por favor inténtelo más tarde.'
+        });
+    }
+  }
+  /*********************/
 }

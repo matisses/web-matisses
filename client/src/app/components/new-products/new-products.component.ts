@@ -34,7 +34,7 @@ export class NewProductsComponent implements OnInit {
   ngAfterViewInit() {
     setTimeout(function() {
       $("#new-products").click();
-    }, 2000);
+    }, 1000);
   }
 
   private inicializarItems() {

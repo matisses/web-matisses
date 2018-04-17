@@ -304,6 +304,12 @@ a {
   min-height: 295px;
 }
 
+.hot-sale {
+  background-color: #59c7af;
+  color: #FFF !important;
+  border-bottom: 0 !important;
+}
+
 .col-nav {
   display: inline-block;
   vertical-align: top;

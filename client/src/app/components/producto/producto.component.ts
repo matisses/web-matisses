@@ -52,26 +52,26 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.cargarInfoItem();
     this._itemService.inicializarWishlist();
-    $(function() {
+    $(function () {
       $('[data-toggle="popover"]').popover()
     })
-    $("#popover1").hover(function() {
+    $("#popover1").hover(function () {
       $("#popover1").click();
     });
-    $("#popover2").hover(function() {
+    $("#popover2").hover(function () {
       $("#popover2").click();
     });
-    $('#modalSolicitud').on('shown.bs.modal', function() {
+    $('#modalSolicitud').on('shown.bs.modal', function () {
       $('#name').focus()
     });
-    $(function() {
+    $(function () {
       $('[data-toggle="tooltip"]').tooltip()
     })
   }
 
   ngAfterViewInit() {
     this.carrito.cargarCarrito();
-    $(document).ready(function() {
+    $(document).ready(function () {
       $("html, body").animate({ scrollTop: 0 }, 1000);
     });
   }
@@ -91,7 +91,6 @@ export class ProductoComponent implements OnInit, AfterViewInit {
       let itemCode: string = params['item'];
       this._itemService.find(itemCode).subscribe(
         response => {
-          console.log(response.result[0]);
           this.item = response.result[0];
 
           let urlImage: string = 'https://img.matisses.co/' + this.item.itemcode + '/images/' + this.item.itemcode + '_01.jpg';
@@ -157,17 +156,17 @@ export class ProductoComponent implements OnInit, AfterViewInit {
     try {
       this._http.get('https://img.matisses.co/' + this.item.itemcode + '/360/' + this.item.itemcode + '.html')
         .subscribe(
-        response => {
-          if (response.status === 200) {
-            this.existe360 = true;
-            document.getElementById('frame360').setAttribute('src', 'https://img.matisses.co/' + this.item.itemcode + '/360/' + this.item.itemcode + '.html');
-          } else {
+          response => {
+            if (response.status === 200) {
+              this.existe360 = true;
+              document.getElementById('frame360').setAttribute('src', 'https://img.matisses.co/' + this.item.itemcode + '/360/' + this.item.itemcode + '.html');
+            } else {
+              this.existe360 = false;
+            }
+          },
+          error => {
             this.existe360 = false;
-          }
-        },
-        error => {
-          this.existe360 = false;
-        });
+          });
     } catch (e) {
       console.error('ocurrio un error al acceder a la ruta de la imagen');
     }
@@ -267,7 +266,6 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   }
 
   public aumentarCantidad() {
-    console.log('Aumentando cantidad para el ítem');
     if (this.item.availablestock > this.selectedQuantity) {
       this.selectedQuantity += 1;
     }
@@ -280,7 +278,6 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   }
 
   public solicitarCotizacion(contactForm) {
-    console.log('Se mandara la cotizacion');
     this.mensajeError = '';
     if (this.nombreCotizacion == null || this.nombreCotizacion.length <= 0 || this.emailCotizacion == null || this.emailCotizacion.length <= 0) {
       this.mensajeError = 'Debe llenar todos los datos necesarios para la cotización';
@@ -299,9 +296,7 @@ export class ProductoComponent implements OnInit, AfterViewInit {
           this.mensajeError = 'No fue posible enviar la cotización solicitada';
         }
       },
-      error => {
-        console.log(error);
-      }
+      error => { console.error(error); }
     );
   }
 

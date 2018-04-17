@@ -134,7 +134,7 @@ const appRoutes: Routes = [
   // { path: 'hot-sale', component: HotSaleComponent },
   { path: 'info', component: InfoBogotaComponent },
   { path: 'novedades', component: NovedadesComponent },
-  { path: 'promocion-enero', component: PromocionAlfComponent },
+  { path: 'evento-alf', component: PromocionAlfComponent },
   { path: 'transporte-matisses', component: CabifyComponent },
   { path: 'garantias', component: GarantiasComponent },
   { path: 'envios', component: EnviosComponent },

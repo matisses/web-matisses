@@ -29,7 +29,7 @@ export class CarritoRegalosSimpleComponent {
     this.inicializarShoppingCart();
   }
 
-  public inicializarShoppingCart(){
+  public inicializarShoppingCart() {
 
     this.shoppingCart = {
       _id: null,
@@ -37,8 +37,8 @@ export class CarritoRegalosSimpleComponent {
       fechacreacion: new Date(),
       items: new Array<Item>(),
       bono: {
-        valor:0,
-        isBono:false
+        valor: 0,
+        isBono: false
       }
     };
   }
@@ -79,9 +79,7 @@ export class CarritoRegalosSimpleComponent {
             this.cambiarItem(item);
           }
         },
-        error => {
-          console.log(error);
-        }
+        error => { console.error(error); }
       );
     } else {
       this.cambiarItem(item);
