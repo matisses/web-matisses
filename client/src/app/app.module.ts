@@ -105,6 +105,15 @@ import { BeneficiosComponent } from './components/lista-de-regalos/beneficios/be
 import { AsistenciaComponent } from './components/lista-de-regalos/lista/confirmar/asistencia.component';
 import { ContactoRegalosComponent } from './components/lista-de-regalos/contacto-regalos/contacto-regalos.component';
 
+//Modulo mi cuenta
+import { LoginComponent } from './components/mi-cuenta/login/login.component';
+import { ResumenMiCuentaComponent } from './components/mi-cuenta/resumen/resumen.component';
+import { CuentaComponent } from './components/mi-cuenta/resumen/cuenta/cuenta.component';
+import { DireccionesComponent } from './components/mi-cuenta/resumen/direcciones/direcciones.component';
+import { PedidosComponent } from './components/mi-cuenta/resumen/pedidos-garantias/pedidos.component';
+import { NoviosComponent } from './components/mi-cuenta/resumen/mis-novios/mis-novios.component';
+import { ClientesComponent } from './components/mi-cuenta/resumen/mis-clientes/mis-clientes.component';
+
 // Promocion alf
 import { PromocionAlfComponent } from './components/promocion-alf/promocion-alf.component';
 
@@ -206,7 +215,15 @@ import { MetaModule } from '@ngx-meta/core';
     TipsComponent,
     BeneficiosComponent,
     AsistenciaComponent,
-    ContactoRegalosComponent
+    ContactoRegalosComponent,
+    //Modulo mi cuenta
+    LoginComponent,
+    ResumenMiCuentaComponent,
+    CuentaComponent,
+    DireccionesComponent,
+    PedidosComponent,
+    NoviosComponent,
+    ClientesComponent
   ],
   imports: [
     BrowserModule,

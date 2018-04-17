@@ -1,0 +1,175 @@
+.pedidos {
+  width: 70%;
+  margin: 20px auto;
+}
+
+.ajustes {
+  width: 60%;
+  margin: 15px auto;
+}
+
+.icono {
+  font-size: 50px;
+  padding-top: 12px;
+  background-color: #E2E2E2;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  color: #6d9791;
+}
+
+.title {
+  font-size: 16px;
+  padding: 35px 0px;
+}
+
+.border-left::after {
+  content: ' ';
+  border-left: 1px solid #ECECEC;
+  height: 100px;
+  position: absolute;
+  left: 0px;
+  top: 20px;
+}
+
+.factura p {
+  background-color: #E2E2E2;
+  padding: 5px 15px
+}
+
+.fecha p, .valor p, .estado p {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.estado p {
+  padding: 5px 15px;
+  text-transform: capitalize;
+  font-weight: 500;
+  margin-bottom: 0;
+}
+
+.estado {
+  margin-bottom: 10px;
+}
+
+.bg-success {
+  color: #51ba21
+}
+
+.bg-danger {
+  color: #ed5757;
+}
+
+.bg-info {
+  color: #269fe0
+}
+
+.bg-warning {
+  color: #e5ca52;
+}
+
+/* estilos modal */
+
+.modal-content {
+  border-radius: 0px !important;
+}
+
+.modal hr {
+  margin: 5px 0px;
+}
+
+.modal .info-fac p, .modal .detalle-envio p {
+  margin: 0;
+}
+
+.modal .info-fac .fecha-fac b, .modal .info-fac .estado-fac b, .modal .info-fac .pago-fac b {
+  color: #6D9791;
+}
+
+.producto {
+  padding: 10px 0px;
+  border-bottom: 1px solid #EDEDED;
+}
+
+.producto img {
+  margin-top: 25px;
+}
+
+.item-name {
+  margin: 15px 0;
+  font-size: 15px;
+}
+
+.padding-right-0 {
+  padding-right: 0;
+}
+
+.modal .bg-success {
+  cursor: pointer;
+}
+
+.cabezote {
+  background-color: #e2e2e2;
+  padding: 3px 10px;
+  position: relative;
+  top: -40px;
+}
+
+.item-garantia {
+  border-bottom: 1px solid #E2E2E2;
+}
+
+.item-garantia img {
+  background-color: red;
+}
+
+.notificaciones {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+textarea {
+  resize: none;
+}
+
+@media screen and (max-width: 991px) {
+  .pedidos {
+    width: 90%;
+    margin: 10px auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .border-left::after {
+    content: ' ';
+    border-left: 0px solid #5B5B5B;
+    height: 90px;
+    position: absolute;
+    left: 0;
+    top: 15px;
+  }
+  .fecha p, .valor p, .estado p {
+    margin-left: 0px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .info p {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .icono {
+    font-size: 30px;
+    padding-top: 14px;
+    width: 70px;
+    height: 70px;
+  }
+  .title {
+    padding: 20px 0px;
+    padding-left: 13px;
+  }
+}

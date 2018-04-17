@@ -1,0 +1,78 @@
+<div class="novios">
+  <div class="row">
+    <div class="col-md-2 col-sm-3 col-xs-3">
+      <div class="icono">
+        <span class="icon-clientes"></span>
+      </div>
+    </div>
+    <div class="col-md-10 col-sm-9 col-xs-9">
+      <p class="title">
+        <b>Mis clientes</b>
+      </p>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+      <!-- <h4 class="title-wp text-center">
+        MIS CLIENTES
+      </h4> -->
+      <div class="row">
+        <div class="col-sm-6" *ngFor="let cliente of clientes">
+          <div class="cliente">
+            <p class="nombre">
+              <b>{{cliente.novios}}</b>
+            </p>
+            <!-- <p>
+              <b>Código:</b> {{cliente.codigo}}</p> -->
+            <p>
+              <b>Total vendido:</b> {{cliente.puntos | number}}</p>
+            <!-- <p>
+              <b>Fecha de boda:</b> {{cliente.formateoFechaEvento}}</p> -->
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <h4 class="subtitle-wp text-center">
+            REDIME TU ACUMULADO POR
+          </h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-8 col-sm-offset-2 col-xs-offset-0 text-center">
+          <div class="title-3">
+            <p>
+              <b>BENEFICIOS MATISSES</b>
+            </p>
+          </div>
+          <p class="text-justify">Si redimes en efectivo recibes un porcentaje de comisión por las compras totales de tus clientes o si prefieres un bono Matisses recibes un 12,5% adicional
+            para comprar productos Matisses.</p>
+          <p class="text-justify">* Aplican condiciones y restricciones.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 text-center">
+          <div class="opcion">
+            <br>
+            <span class="icon-cash"></span>
+            <p>Efectivo</p>
+            <p>
+              <b>($744.000)</b>
+            </p>
+          </div>
+        </div>
+        <div class="col-sm-6 text-center">
+          <div class="opcion">
+            <br>
+            <span class="icon-bono-matisses"></span>
+            <p>Bono Matisses</p>
+            <p>
+              <b>($837.000)</b>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

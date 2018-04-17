@@ -1,0 +1,202 @@
+<!-- Modal editar-->
+<div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="modalEditarLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1">
+                        <p class="title-modal">Editar dirección</p>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-4 col-sm-offset-1">
+                        <label for="name">Nombre de dirección</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-direcciones" id="name" [(ngModel)]="infoModalEdit.nombre" readonly="readonly">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-4 col-sm-offset-1">
+                        <label for="adress">Dirección</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-direcciones" id="adress" [(ngModel)]="infoModalEdit.direccion">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-4 col-sm-offset-1">
+                        <label for="city">Ciudad</label>
+                    </div>
+                    <div class="col-sm-6">
+                      <select id="city" name="city" [disabled]="disabledCustomer" class="form-direcciones"  [(ngModel)]="infoModalEdit.municipio" (change)="cambiarCiudad()" *ngIf="ciudadesPrincipales" required>
+                        <option style="display:none" disabled selected value>Seleccione una</option>
+                        <option disabled>─ Ciudades capitales</option>
+                        <option [selected]="infoModalEdit.municipio == principal.code"  *ngFor="let principal of ciudadesPrincipales" [ngValue]="principal.code">{{principal.name}}</option>
+                        <option disabled>─ Otras ciudades</option>
+                        <option [selected]="infoModalEdit.municipio == otra.code"   *ngFor="let otra of otrasCiudades" [ngValue]="otra.code">{{otra.name}}</option>
+                      </select>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-4 col-sm-offset-1">
+                        <label for="addInfo">Información adicional</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-direcciones" id="addInfo" [(ngModel)]="infoModalEdit.info">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-10 col-xs-offset-1">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="envioDefecto" [(ngModel)]="infoModalEdit.esEnvioDefecto">Usar como dirección de entrega por defecto.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-10 col-xs-offset-1">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="facturaDefecto" [(ngModel)]="infoModalEdit.esFacturacionDefecto">Usar como dirección de facturación por defecto.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-volver" (click)="cerrarModal()">Cerrar</button>
+                <button type="button" class="btn btn-guardar" (click)="editar()">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Agregar-->
+<div class="modal fade" id="modalCerrar" tabindex="-1" role="dialog" aria-labelledby="modalCerrarLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1">
+                        <p class="title-modal">Agregar dirección</p>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-4 col-sm-offset-1">
+                        <label for="name">Nombre de dirección</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-direcciones" id="name" [(ngModel)]="infoModalAgregar.nombre">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-4 col-sm-offset-1">
+                        <label for="adress">Dirección</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-direcciones" id="adress" [(ngModel)]="infoModalAgregar.direccion">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-4 col-sm-offset-1">
+                        <label for="city">Ciudad</label>
+                    </div>
+                    <div class="col-sm-6">
+                      <select id="cityA" name="cityA"  class="form-direcciones"  [(ngModel)]="infoModalAgregar.municipio" (change)="cambiarCiudad()" *ngIf="ciudadesPrincipales" required>
+                        <option style="display:none" disabled selected value>Seleccione una</option>
+                        <option disabled>─ Ciudades capitales</option>
+                        <option [selected]="infoModalAgregar.municipio == principal.code"  *ngFor="let principal of ciudadesPrincipales" [ngValue]="principal.code">{{principal.name}}</option>
+                        <option disabled>─ Otras ciudades</option>
+                        <option [selected]="infoModalAgregar.municipio == otra.code"   *ngFor="let otra of otrasCiudades" [ngValue]="otra.code">{{otra.name}}</option>
+                      </select>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-4 col-sm-offset-1">
+                        <label for="addInfo">Información adicional</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-direcciones" id="addInfoA" [(ngModel)]="infoModalAgregar.info">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-10 col-xs-offset-1">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="envioAgregar" [(ngModel)]="infoModalAgregar.esEnvioDefecto">Usar como dirección de entrega por defecto.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-10 col-xs-offset-1">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="facturarAgregar" [(ngModel)]="infoModalAgregar.esFacturacionDefecto">Usar como dirección de facturación por defecto.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-volver" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-guardar" (click)="agregarDireccion()">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="direcciones">
+    <div class="row">
+        <div class="col-md-2 col-sm-3 col-xs-3">
+            <div class="icono">
+                <span class="icon-direcciones"></span>
+            </div>
+        </div>
+        <div class="col-md-10 col-sm-9 col-xs-9">
+            <p class="title">
+                <b>Mis direcciones</b>
+            </p>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="titulos-direcciones">
+                <p class="name">Nombre</p>
+                <p class="address">Dirección</p>
+                <p class="info">Información</p>
+                <p class="icon">Editar</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="tabla-direcciones" *ngFor="let direccion of direcciones">
+                <p class="name">{{direccion.name}}</p>
+                <p class="address">{{direccion.direccion}}</p>
+                <p class="info">{{direccion.info}}</p>
+                <!-- <p class="icon" data-toggle="modal" data-target="#modalEditar">
+                    <span class="icon-pencil"></span>
+                </p> -->
+                <p class="icon" (click)="editarDireccion(direccion.posicion)">
+                    <span class="icon-pencil"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-12 text-right">
+            <button class="btn btn-agregar" (click)="abrirModalAgregar()">Agregar dirección</button>
+        </div>
+    </div>
+</div>

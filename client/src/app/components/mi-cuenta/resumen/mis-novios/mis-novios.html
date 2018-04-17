@@ -1,0 +1,103 @@
+<div class="novios">
+  <div class="row">
+    <div class="col-md-2 col-sm-3 col-xs-3">
+      <div class="icono">
+        <span class="icon-clientes"></span>
+      </div>
+    </div>
+    <div class="col-md-10 col-sm-9 col-xs-9">
+      <p class="title">
+        <b>Novios registrados y activos</b>
+      </p>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+      <h4 class="title-wp text-center">
+        CLIENTES W.P
+      </h4>
+      <div class="row">
+        <div class="col-sm-6" *ngFor="let cliente of clientes">
+          <div class="cliente" (click)="irLista(cliente.codigo, cliente.ilista)">
+            <p class="nombre">
+              <b>{{cliente.novios}}</b>
+            </p>
+            <p>
+              <b>Código:</b> {{cliente.codigo}}</p>
+            <p>
+              <b>Puntos:</b> {{cliente.puntos | number}}</p>
+            <p>
+              <b>Fecha de boda:</b> {{cliente.formateoFechaEvento}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 text-center">
+          <div class="monto-puntos">
+            <p>Total puntos:
+              <b>{{totalesDTO.puntosAcomulados | number}}</b>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <h4 class="subtitle-wp text-center">
+            REDIME TUS PUNTOS POR
+          </h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 text-center">
+          <div class="opcion">
+            <br>
+            <span class="icon-cash"></span>
+            <p>Efectivo</p>
+            <p>
+              <b>(${{totalesDTO.redimeEfectivo | number}})</b>
+            </p>
+          </div>
+        </div>
+        <div class="col-sm-6 text-center">
+          <div class="opcion">
+            <br>
+            <span class="icon-bono-matisses"></span>
+            <p>Bono Matisses</p>
+            <p>
+              <b>(${{totalesDTO.redimeBono | number}})</b>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 text-center">
+          <div class="title-3">
+            <p>
+              <b>BENEFICIOS MATISSES</b>
+            </p>
+            <p>(EXCLUSIVO PARA EL WEDDING PLANNER)</p>
+          </div>
+          <p class="text-justify">Si redimes en efectivo recibe un porcentaje de comisión por las compras totales de tus clientes o 12,5% adicional
+            si redimes por productos Matisses.</p>
+          <p class="text-justify">* Aplican condiciones y restricciones.</p>
+        </div>
+        <div class="col-sm-6">
+          <div class="title-3">
+            <p style="margin-top: 10px;">TABLA DE PUNTOS W.P</p>
+          </div>
+          <table class="table table-bordered text-center">
+            <tbody>
+
+                  <tr *ngFor="let punto of totalesDTO.puntos">
+                <th class="text-center">{{punto.porcentaje}}</th>
+                <td>{{punto.concepto}}</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

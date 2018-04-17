@@ -1,0 +1,149 @@
+<!-- Modal cambio de contraseña -->
+<div class="modal fade" id="cambioContrasena" tabindex="-1" role="dialog" aria-labelledby="cambioContraseñaLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row" *ngIf="messageError != null && messageError.length > 0">
+          <div class="col-xs-12">
+            <div class="alert alert-danger" role="alert">
+              <p>{{messageError}}</p>
+            </div>
+          </div>
+        </div>
+        <!-- mensaje sucess -->
+        <div class="row" *ngIf="successMessage != null && successMessage.length > 0">
+          <div class="col-xs-12">
+            <div class="alert alert-info" role="alert">
+              <p>{{successMessage}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <form #ContactForm="ngForm" (submit)="actualizarClave()">
+            <div class="col-xs-4 col-xs-offset-4">
+              <label class="label-lista" for="contraseña">Nueva contraseña</label>
+              <form (submit)="actualizarClave()">
+                <input type="password" class="form-lista-regalos" id="contraseña" name="claveNueva" [(ngModel)]="claveNueva" required>
+              </form>
+              <label class="label-lista" for="confirmar-contraseña">Confirmar contraseña</label>
+              <form (submit)="actualizarClave()">
+                <input type="password" class="form-lista-regalos" id="confirmar-contraseña" name="claveConfirmacion" [(ngModel)]="claveConfirmacion" required>
+              </form>
+            </div>
+          </form>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-buscar" (click)="cambiarClave()" *ngIf="successMessage == null || successMessage.length <= 0">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="cuenta" *ngIf="!ajustesCuenta">
+  <div class="row">
+    <div class="col-md-2 col-sm-3 col-xs-3">
+      <div class="icono">
+        <span class="icon-cuenta"></span>
+      </div>
+    </div>
+    <div class="col-md-7 col-xs-5">
+      <p class="title">
+        <b>Información de cuenta</b>
+      </p>
+    </div>
+    <div class="col-md-3 col-xs-4 text-right">
+      <p class="title cursor-pointer" (click)="editarCuenta()">| Editar</p>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-xs-10 col-xs-offset-1">
+      <p><b>Nombre:</b></p>
+
+      <p>{{customer.CardName}}</p>
+      <br>
+      <p><b>Correo:</b></p>
+      <p>{{this.customer.BPAddresses.BPAddress[0].County}}</p>
+      <br>
+      <p><b>Celular:</b></p>
+      <p>{{this.customer.BPAddresses.BPAddress[0].BuildingFloorRoom}}</p>
+      <!-- <br>
+      <p>Teléfono:</p>
+      <p>{{telefonoUsuario}}</p> -->
+      <hr>
+      <div class="row">
+        <div class="col-xs-6">
+          <p>Tu dirección de entrega por defecto:</p>
+          <p>{{direccionEntrega}}</p>
+        </div>
+        <div class="col-xs-6">
+          <p>Tu dirección de facturación por defecto:</p>
+          <p>{{direccionFactura}}</p>
+
+        </div>
+      </div>
+      <hr>
+      <p><b>Notificaciones:</b></p>
+      <p>{{newsUsuario}}</p>
+    </div>
+  </div>
+</div>
+
+<div class="ajustes" *ngIf="ajustesCuenta">
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+      <p class="title">
+        <b>Ajustes de cuenta</b>
+      </p>
+    </div>
+  </div>
+  <div class="row" *ngIf="cambiosGuardados">
+    <div class="col-xs-10 col-xs-offset-1">
+      <div class="alert alert-success" role="alert">
+        <p>{{messageError}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+      <label for="telefono">Teléfono</label>
+      <input type="tel" id="telefono" class="form-micuenta" name="telefono" [(ngModel)]="this.customer.BPAddresses.BPAddress[0].Block">
+      <label for="cel">Celular</label>
+      <input type="tel" id="cel" class="form-micuenta" name="celular" [(ngModel)]="this.customer.BPAddresses.BPAddress[0].BuildingFloorRoom">
+      <!-- <label for="newpassword">Nueva contraseña</label>
+      <input type="tel" id="newpassword" class="form-micuenta" name="claveEditar" [(ngModel)]="claveEditar">
+      <label for="conNewpassword">Confirmar nueva contraseña</label>
+      <input type="tel" id="conNewpassword" class="form-micuenta" name="claveConfEditar" [(ngModel)]="claveConfEditar"> -->
+
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-8 col-xs-offset-1">
+      <label>Cambiar Contraseña</label>
+    </div>
+    <div class="col-xs-2">
+    <button class="btn btn-guardar" (click)="abrirModalClave()">Cambiar</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-5 col-sm-offset-1">
+      <button class="btn btn-volver" (click)="salirEditarCuenta()">Volver a la cuenta</button>
+    </div>
+    <div class="col-sm-5">
+      <button class="btn btn-guardar" (click)="guardarCambios()">Guardar</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-10 col-xs-offset-1">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" name="newsletter" checked>Suscirpción al newsletter
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
