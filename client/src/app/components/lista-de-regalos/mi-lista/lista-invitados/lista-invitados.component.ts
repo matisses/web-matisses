@@ -121,10 +121,10 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
     $(modal).modal('show');
   }
 
-  public abrirModalFechaEntrega(modal: string) {
-    this.buscarLista(this.codigoLista);
-    $(modal).modal('show');
-  }
+  // public abrirModalFechaEntrega(modal: string) {
+  //   this.buscarLista(this.codigoLista);
+  //   $(modal).modal('show');
+  // }
 
   public registrarInvitado() {
     if (this.nombreInvitado == null || this.nombreInvitado.length <= 0
@@ -175,7 +175,7 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
           this.nombreUsuario = respuesta[0].nombreCreador;
           this.fechaEvento = respuesta[0].formatoFechaEvento;
           this.fechaEntrega = respuesta[0].formatoFechaEntrega;
-          this.novios = response[0].nombreCreador + ' & ' + response[0].nombreCocreador;
+          this.novios = response[0].nombreCreador + ' ' + response[0].apellidoCreador + '<span class="anpersan"> & </span>' + response[0].nombreCocreador + ' ' + response[0].apellidoCocreador;
         }
       },
       error => { console.error(error); }

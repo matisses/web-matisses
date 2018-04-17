@@ -503,9 +503,10 @@ export class MiListaComponent implements OnInit {
           this.fechaEntrega = respuesta[0].formatoFechaEntrega;
           this.aceptaBono = response[0].aceptaBonos;
           this.minimoBono = response[0].valorMinimoBono;
-          this.novios = response[0].nombreCreador + ' & ' + response[0].nombreCocreador;
+          this.novios = response[0].nombreCreador + ' ' + response[0].apellidoCreador + '<span class="anpersan"> & </span>' + response[0].nombreCocreador + ' ' + response[0].apellidoCocreador;
           localStorage.setItem('novios-header', this.novios);
           localStorage.setItem('formatoFechaEvento', respuesta[0].formatoFechaEvento);
+          localStorage.setItem('formatoFechaEntrega', respuesta[0].formatoFechaEntrega);
         }
       },
       error => { console.error(error); }

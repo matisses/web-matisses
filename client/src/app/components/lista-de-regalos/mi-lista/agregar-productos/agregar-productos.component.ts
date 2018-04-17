@@ -206,7 +206,7 @@ export class AgregarProductosComponent implements OnInit {
           this.nombreUsuario = respuesta[0].nombreCreador;
           this.fechaEvento = respuesta[0].formatoFechaEvento;
           this.fechaEntrega = response[0].formatoFechaEntrega;
-          this.novios = response[0].nombreCreador + ' & ' + response[0].nombreCocreador;
+          this.novios = response[0].nombreCreador + ' ' + response[0].apellidoCreador + '<span class="anpersan"> & </span>' + response[0].nombreCocreador + ' ' + response[0].apellidoCocreador;
           sessionStorage.setItem('formatoFechaEvento', respuesta[0].formatoFechaEvento);
           sessionStorage.setItem('formatoFechaEntrega', respuesta[0].formatoFechaEntrega);
         }
@@ -585,10 +585,10 @@ export class AgregarProductosComponent implements OnInit {
     }
   }
 
-  public abrirModalFechaEntrega(modal: string) {
-    this.buscarLista(this.codigoLista);
-    $(modal).modal('show');
-  }
+  // public abrirModalFechaEntrega(modal: string) {
+  //   this.buscarLista(this.codigoLista);
+  //   $(modal).modal('show');
+  // }
 
   public cerrarSession() {
     localStorage.removeItem('matisses.lista-token');

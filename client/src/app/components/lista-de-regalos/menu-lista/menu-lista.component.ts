@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ListaRegalosService } from '../../../services/lista-regalos.service';
-
 
 declare var jquery: any;
 declare var $: any;
@@ -35,11 +34,13 @@ export class MenuListaComponent implements OnInit {
 
   ngOnInit() {
     this.cargarAnos();
-    this.anoEntrega = parseInt(localStorage.getItem('fecha-entrega').substring(0, 4));
-    this.mesEntrega = localStorage.getItem('fecha-entrega').substring(5, 7);
-    this.diaEntrega = parseInt(localStorage.getItem('fecha-entrega').substring(8, 11));
-    this.cargarDias(this.mesEntrega, this.anoEntrega);
-    this.idLista = parseInt(localStorage.getItem('id-lista'));
+    if (localStorage.getItem('fecha-entrega') != null) {
+      this.anoEntrega = parseInt(localStorage.getItem('fecha-entrega').substring(0, 4));
+      this.mesEntrega = localStorage.getItem('fecha-entrega').substring(5, 7);
+      this.diaEntrega = parseInt(localStorage.getItem('fecha-entrega').substring(8, 11));
+      this.cargarDias(this.mesEntrega, this.anoEntrega);
+      this.idLista = parseInt(localStorage.getItem('id-lista'));
+    }
   }
 
   ngAfterViewInit() {
@@ -104,8 +105,9 @@ export class MenuListaComponent implements OnInit {
         response => {
           if (response.codigo == 0) {
             $("#modalFechaEntrega").modal("hide");
+            this.buscarLista('AG20180611');
           } else {
-            this.messageError = response.mensaje;            
+            this.messageError = response.mensaje;
           }
         },
         error => {
@@ -113,5 +115,33 @@ export class MenuListaComponent implements OnInit {
           this.messageError = 'Lo sentimos. Ocurrió un error inesperado, por favor inténtelo más tarde.'
         });
     }
+  }
+
+  public buscarLista(codigo: string) {
+    this.messageError = '';
+    let consultaDTO = {
+      nombre: null,
+      apellido: null,
+      codigo: codigo
+    }
+    this._listaRegalosService.consultarLista(consultaDTO).subscribe(
+      response => {
+        let respuesta = JSON.parse(JSON.stringify(response));
+        if (respuesta.length > 0) {
+          console.log(respuesta[0].formatoFechaEntrega);
+
+          //this.nombreUsuario = respuesta[0].nombreCreador;
+          //this.fechaEvento = respuesta[0].formatoFechaEvento;
+          //this.fechaEntrega = respuesta[0].formatoFechaEntrega;
+          //this.aceptaBono = response[0].aceptaBonos;
+          //this.minimoBono = response[0].valorMinimoBono;
+          //this.novios = response[0].nombreCreador + ' & ' + response[0].nombreCocreador;
+          //localStorage.setItem('novios-header', this.novios);
+          //localStorage.setItem('formatoFechaEvento', respuesta[0].formatoFechaEvento);
+          localStorage.setItem('fecha-entrega', respuesta[0].formatoFechaEntrega);
+        }
+      },
+      error => { console.error(error); }
+    );
   }
 }
