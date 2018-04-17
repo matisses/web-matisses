@@ -1,3 +1,31 @@
+<!-- Modal compartir -->
+<div class="modal fade" id="modalCompartir" tabindex="-1" role="dialog" aria-labelledby="modalCompartirLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-5 col-sm-offset-0 col-xs-6 col-xs-offset-3 text-center">
+              <img src="{{this.urlQr}}{{codigoLista}}.png" class="jpg-responsive" alt="codigoQR">
+              <br/>
+              <a href="{{this.urlQr}}{{codigoLista}}.png" download="output.png" class="btn btn-qr">Descargar QR</a>
+            </div>
+            <div class="col-sm-7 col-sm-offset-0 col-xs-12 text-center">
+              <p class="text-justify">
+                Envía este código a todos tus invitados y así pueden acceder a tu lista para hacer las compras en línea.
+              </p>
+              <h1 class="codigo-lista">{{codigoLista}}</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <menu-lista></menu-lista>
 
 <div class="container">
@@ -81,7 +109,112 @@
 
 <!--modal-->
 
-    <div class="row">
+<div class="row">
+    <div class="col-xs-12 text-right">
+      <p class="cursor-pointer" (click)="cerrarSession()">(Cerrar sesión)</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="row">
+        <div class="col-sm-3 col-sm-offset-1">
+          <!-- imagen de perfil -->
+          <div class="row">
+            <div class="col-xs-12 text-center">
+              <div class="perfil-imagen text-center">
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="messageError != null && messageError.length > 0">
+            <div class="col-sm-4 col-sm-offset-4">
+              <br/>
+              <div class="alert alert-danger" role="alert">
+                <p>{{messageError}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-7">
+          <div class="info-lista">
+            <p style="margin-bottom: 0">BIENVENIDOS</p>
+            <h1 class="title-mi-lista" [innerHTML]="novios"></h1>
+            <p>Código de novios: {{codigoLista}}</p>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="info-fechas">
+                  <p data-toggle="tooltip" data-placement="bottom" title="Monto acumulado">
+                    <span class="icon-coin icon-menu"></span>
+                    <b>$ {{totalAcumulado | number}}</b>
+                  </p>
+                  <p data-toggle="tooltip" data-placement="bottom" title="Fecha del evento">
+                    <span class="icon-valentines icon-menu"></span>
+                    <b>{{fechaEvento}}</b>
+                  </p>
+                  <p data-toggle="tooltip" data-placement="bottom" title="Fecha de entrega" (click)="abrirModalFechaEntrega('#modalFechaEntrega')">
+                    <span class="icon-agenda-entrega icon-menu"></span>
+                    <b>{{fechaEntrega}}</b>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 text-right">
+                <p>
+                  <a href="javascript:void(0);" class="no-selector cursor-pointer" data-toggle="modal" data-target="#modalCompartir">
+                    <span class="icon-compartir"></span>
+                    <span class="text-adicional">Compartir lista</span>
+                  </a>
+                  <a href="javascript:void(0)" class="cursor-pointer" [routerLink]="['/mi-lista/lista-invitados']">
+                    <span class="icon-invitados"></span>
+                    <span class="text-adicional">Lista de invitados</span>
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <!-- segundo menu -->
+      <div class="row text-center">
+        <div class="segundo-menu">
+          <div class="col-sm-3 text-center item-segundo-menu" [routerLink]="['/mi-lista']">
+            <span>{{totalLista}}</span>
+            <p>Regalos por recibir</p>
+            <div class="border-menu">
+            </div>
+          </div>
+          <!-- boton compartir -->
+          <div class="col-sm-3 text-center item-segundo-menu" [routerLink]="['/mi-lista/regalos-recibidos']">
+            <span>{{totalComprado}}</span>
+            <p>Regalos recibidos</p>
+            <div class="border-menu">
+            </div>
+          </div>
+          <!-- boton agregar -->
+          <div class="col-sm-3 item-segundo-menu seleccionado">
+            <span class="icon-agregar-regalo"></span>
+            <p>Agregar regalos</p>
+          </div>
+          <!-- boton buscar -->
+          <div class="col-sm-3">
+            <form (submit)="search()">
+              <div class="input-group">
+                <input id="searchField" [(ngModel)]="keywords" name="keywords" type="text" class="form-control" placeholder="Busca productos en tu lista">
+                <span class="input-group-addon icon-lupa" id="basic-addon1"></span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr class="rosa" />
+
+    <!-- <div class="row">
       <div class="col-xs-12 text-right">
         <p class="cursor-pointer" (click)="cerrarSession()">(Cerrar sesión)</p>
       </div>
@@ -144,7 +277,7 @@
       </div>
     </div>
     <br>
-    <hr>
+    <hr> -->
     <!-- menu -->
     <div class="row hidden-xs">
       <div class="col-xs-12">
@@ -175,7 +308,7 @@
                   </h4>
                 <h4 class="panel-title text-center" *ngIf="mostrarFiltro">
                     Mostrar filtros
-                  </h4>
+                </h4>
               </div>
             </a>
             <!-- body filtros -->

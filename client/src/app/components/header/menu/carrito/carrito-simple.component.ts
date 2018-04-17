@@ -72,9 +72,7 @@ export class CarritoSimpleComponent {
             this.cambiarItem(item);
           }
         },
-        error => {
-          console.log(error);
-        }
+        error => { console.error(error); }
       );
     } else {
       this.cambiarItem(item);
@@ -92,9 +90,6 @@ export class CarritoSimpleComponent {
   }
 
   private cambiarItem(item: Item) {
-    console.log('Se recibion un item para cambiar');
-    console.log(item);
-
     //0. Cargar contenido de localStorage
     this.cargarCarrito();
     //1. validar contenido

@@ -130,7 +130,7 @@ export class ListaRegalosService {
       .map(res => res.json());
   }
 
-  updateFechaEntrega(datosConsulta) {
+  actualizarFechaEntrega(datosConsulta) {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
@@ -190,6 +190,24 @@ export class ListaRegalosService {
     });
 
     return this._http.post(this.urlBCS + 'listaregalos/consultarproductos/sinpaginar/', JSON.stringify(paramsConsulta), { headers: headers })
+      .map(res => res.json());
+  }
+
+  subirArchivoMasivo(formData) {
+    const headers = new Headers({
+      'Content-Type': 'multipart/form-data; boundary = ---- WebKitFormBoundary7MA4YWxkTrZu0gW'
+    });
+
+    return this._http.post(this.urlBCS + 'listaregalos/subirarchivo/', formData)
+      .map(res => res);
+  }
+
+  recuperarClave(nombreUsuario) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'sessionusuario/recuperar/' + nombreUsuario, { headers: headers })
       .map(res => res.json());
   }
 }

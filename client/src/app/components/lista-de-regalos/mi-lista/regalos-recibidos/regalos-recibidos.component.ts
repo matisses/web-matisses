@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
+import { GLOBAL } from '../../../../services/global';
 import { ItemService } from '../../../../services/item.service';
 import { Item } from '../../../../models/item';
 
@@ -36,6 +37,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
   public idListaUsuario: string;
   public codigoLista: string;
   public fechaEvento: string;
+  public fechaEntrega: string;
   public paramsConsulta: any;
   public itemsListaBcs: Array<any>;
   public totalLista: number;
@@ -52,7 +54,10 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
   public validForm2: boolean = true;
   public itemsListaCompra: Array<any>;
   public totalAcumulado: number;
-
+  public urlAvatar: string;
+  public urlQr: string;
+  public totalComprado: number;
+  public novios: string;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -71,6 +76,8 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     this.itemsListaCompra = new Array<any>();
     this.inicializarForm();
     this.inicializarParamsConsulta();
+    this.urlAvatar = GLOBAL.urlShared + 'imagenPerfil/';
+    this.urlQr = GLOBAL.urlShared + 'qr/';
   }
 
   private inicializarParamsConsulta() {
@@ -87,16 +94,19 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     this.nombreUsuario = localStorage.getItem('username-lista');
     this.codigoLista = localStorage.getItem('codigo-lista');
     this.fechaEvento = localStorage.getItem('fecha-evento');
+    this.fechaEntrega = localStorage.getItem('fecha-entrega');
     this.idListaUsuario = localStorage.getItem('id-lista');
     this.buscarLista(this.codigoLista);
     localStorage.setItem('fecha-evento', this.fechaEvento);
     localStorage.setItem('username-lista', this.nombreUsuario);
     this.cargarAnos();
     this.cargarItems0();
+    $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + "sin-imagen.jpg)");
+    this.existeUrl(this.urlAvatar + 'sin-imagen.jpg');
   }
 
   ngAfterViewInit() {
-    $(window).scroll(function() {
+    $(window).scroll(function () {
       var scroll = $(window).scrollTop();
       if (scroll >= 30) {
 
@@ -107,11 +117,35 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     });
 
     this.nombreUsuario = localStorage.getItem('username-lista');
-    setTimeout(function() {
+    setTimeout(function () {
       if (localStorage.getItem('cambio-clave') == 'si') {
         $('#cambioContrasena').modal('show');
       }
     }, 500);
+  }
+
+  public existeUrl(url) {
+    url = this.urlAvatar + this.codigoLista + '.jpg';
+    var http = new XMLHttpRequest();
+    http.open('GET', url, true);
+    http.send();
+    if (http.status != 404) {
+      if (url == this.urlAvatar + this.codigoLista + '.jpg') {
+        $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + this.codigoLista + ".jpg)");
+      }
+    }
+    else {
+      url = this.urlAvatar + this.codigoLista + '.png';
+      var http = new XMLHttpRequest();
+      http.open('GET', url, true);
+      http.send();
+      if (http.status != 404) {
+        $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + this.codigoLista + ".png)");
+      }
+      else {
+        $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + "sin-imagen.jpg)");
+      }
+    }
   }
 
   public confirmDevolverItem() {
@@ -241,11 +275,18 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
       this._listaService.consultarListaComprados(this.paramsConsulta).subscribe(
         response => {
           this.itemsListaBcs = response;
-          this.totalLista = this.itemsListaBcs.length;
+          //this.totalLista = this.itemsListaBcs.length;
+          this.totalComprado = this.itemsListaBcs.length;
           this.totalAcumulado = 0;
           for (var i = 0; i < this.itemsListaBcs.length; i++) {
             this.totalAcumulado = this.totalAcumulado + this.itemsListaBcs[i]['precioTotal'];
           }
+
+          this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
+            response => {
+              this.totalLista = response - this.totalComprado;
+            },
+            error => { console.error(error); });
           this.cargarItems(this.availableFields, this.itemsListaBcs, this.queryParams, this.totalLista);
         },
         error => { console.error(error); });
@@ -327,7 +368,12 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     );
   }
 
-  public abrirModalDetalle(itemcode: string, cantidadElegida: number,cantidadComprada:number) {
+  // public abrirModalFechaEntrega(modal: string) {
+  //   this.buscarLista(this.codigoLista);
+  //   $(modal).modal('show');
+  // }
+
+  public abrirModalDetalle(itemcode: string, cantidadElegida: number, cantidadComprada: number) {
     this.inicializarForm();
     this.messageError = '';
     this.successMessage = '';
@@ -340,7 +386,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
         this.formAgregar.name = response.result[0].itemname;
         this.formAgregar.image = 'https://img.matisses.co/' + response.result[0].itemcode + '/parrilla/' + response.result[0].itemcode + '_01.jpg';
         this.formAgregar.description = response.result[0].description;
-        this.formAgregar.cantidad =cantidadComprada;
+        this.formAgregar.cantidad = cantidadComprada;
         this.formAgregar.precio = response.result[0].priceaftervat;
         this.formAgregar.cantidadmaxima = cantidadElegida;
 
@@ -354,7 +400,6 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
             this.itemsListaCompra = response;
             for (var i = 0; i < this.itemsListaCompra.length; i++) {
               this.itemsListaCompra[i]['formAgregar'] = this.formAgregar;
-
             }
           }, error => { console.error(error); });
       });
@@ -369,14 +414,14 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     localStorage.removeItem('id-lista');
     localStorage.removeItem('codigo-lista');
     localStorage.removeItem('fecha-evento');
-
+    localStorage.removeItem('total-por-comprar');
+    localStorage.removeItem('total-comprado');
     this._router.navigate(['/lista-de-regalos']);
   }
 
 
   public buscarLista(codigo: string) {
     this.messageError = '';
-    //Asignar datos para enviarlos a WS
     let consultaDTO = {
       nombre: null,
       apellido: null,
@@ -388,7 +433,10 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
         if (respuesta.length > 0) {
           this.nombreUsuario = respuesta[0].nombreCreador;
           this.fechaEvento = respuesta[0].formatoFechaEvento;
+          this.fechaEntrega = response[0].formatoFechaEntrega;
+          this.novios = response[0].nombreCreador + ' ' + response[0].apellidoCreador + '<span class="anpersan"> & </span>' + response[0].nombreCocreador + ' ' + response[0].apellidoCocreador;
           sessionStorage.setItem('formatoFechaEvento', respuesta[0].formatoFechaEvento);
+          sessionStorage.setItem('formatoFechaEntrega', respuesta[0].formatoFechaEntrega);
         }
       },
       error => { console.error(error); });
@@ -416,7 +464,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
       image: '',
       precio: 0,
       cantidadmaxima: 0,
-      devuelto:0
+      devuelto: 0
     };
   }
 
@@ -466,46 +514,39 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
   }
 
   public programar() {
-    let listaDatos = {
+    let listaDatosDTO = {
       formatoFechaEntrega: this.anoInicio.toString() + '-' + this.mesInicio + '-' + this.diaInicio,
       idLista: this.idListaUsuario
     }
 
-    this._listaService.updateFechaEntrega(listaDatos).subscribe(
+    this._listaService.actualizarFechaEntrega(listaDatosDTO).subscribe(
       response => {
-        this.successMessage = 'se actualizo correctamente la fecha de entrega';
+        this.successMessage = 'Se actualizo correctamente la fecha de entrega.';
         return;
       },
       error => {
         console.error(error);
-        this.messageError = 'error en la actualización de la fecha de entrega';
+        this.messageError = 'Lo sentimos. Ocurrió un error inesperado, por favor inténtelo más tarde.';
         return;
       }
     );
   }
 
   public devolverProducto(itemCode, factura, cantidad) {
-
-    let salesDocumentLineDTO={
-      itemCode:itemCode,
-      quantity:cantidad
+    let salesDocumentLineDTO = {
+      itemCode: itemCode,
+      quantity: cantidad
     }
-    console.log('itemCode '+itemCode);
-    console.log('factura '+factura);
-    console.log('cantidad '+cantidad);
-    this._listaService.devolverItemsFactura(this.idListaUsuario, factura,salesDocumentLineDTO).subscribe(
+    this._listaService.devolverItemsFactura(this.idListaUsuario, factura, salesDocumentLineDTO).subscribe(
       response => {
-
-        if(response>0){
-
+        if (response > 0) {
           this.successMessage = 'se realizo la devolucion correctamente';
           return;
         }
-        else{
+        else {
           this.messageError = "Lo sentimos. Ocurrió un error inesperado, por favor inténtelo más tarde.";
-            return;
+          return;
         }
-
       },
       error => {
         this.messageError = "Lo sentimos. Ocurrió un error inesperado, por favor inténtelo más tarde.";

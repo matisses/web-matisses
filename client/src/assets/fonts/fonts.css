@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?8u2hk5');
-  src:  url('fonts/icomoon.eot?8u2hk5#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?8u2hk5') format('truetype'),
-    url('fonts/icomoon.woff?8u2hk5') format('woff'),
-    url('fonts/icomoon.svg?8u2hk5#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?i5pjwj');
+  src:  url('fonts/icomoon.eot?i5pjwj#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?i5pjwj') format('truetype'),
+    url('fonts/icomoon.woff?i5pjwj') format('woff'),
+    url('fonts/icomoon.svg?i5pjwj#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,33 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-valentines:before {
+  content: "\e948";
+}
+.icon-coin:before {
+  content: "\e949";
+}
+.icon-bono-matisses:before {
+  content: "\e940";
+}
+.icon-cash:before {
+  content: "\e941";
+}
+.icon-clientes:before {
+  content: "\e942";
+}
+.icon-cuenta:before {
+  content: "\e943";
+}
+.icon-direcciones:before {
+  content: "\e944";
+}
+.icon-pedidos:before {
+  content: "\e945";
+}
+.icon-puntos:before {
+  content: "\e946";
+}
 .icon-tc:before {
   content: "\e93d";
 }
@@ -213,11 +240,17 @@
 .icon-truck:before {
   content: "\e909";
 }
+.icon-pencil:before {
+  content: "\e93e";
+}
 .icon-camera:before {
   content: "\e938";
 }
 .icon-credit-card:before {
   content: "\e93f";
+}
+.icon-location:before {
+  content: "\e947";
 }
 .icon-bubble:before {
   content: "\e96b";
