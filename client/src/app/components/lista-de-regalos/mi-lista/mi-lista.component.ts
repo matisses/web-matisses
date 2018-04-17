@@ -54,6 +54,15 @@ export class MiListaComponent implements OnInit {
   public itemsSinPaginar: Array<any>;
   public novios: string;
   public totalAcumulado: number;
+  /*********************/
+  public anoEntrega: number;
+  public diaEntrega: number;
+  public mesEntrega: string;
+  public diasEntrega: Array<number>;
+  public anosEntrega: Array<number>;
+  public mesesEntrega: Array<number>;
+  public validEntrega: boolean = true;
+  /*********************/
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -73,8 +82,12 @@ export class MiListaComponent implements OnInit {
     this.items = new Array<Item>();
     this.itemsListaBcs = new Array<any>();
     this.itemsSinPaginar = new Array<any>();
+    /*********************/
+    this.diasEntrega = new Array<number>();
+    this.mesesEntrega = new Array<number>();
+    this.anosEntrega = new Array<number>();
+    /*********************/
     this.inicializarForm();
-
     this.inicializarParamsConsulta();
   }
 
@@ -106,6 +119,15 @@ export class MiListaComponent implements OnInit {
     $(".perfil-imagen").css("background-image", "url(" + this.urlAvatar + "sin-imagen.jpg)");
     this.existeUrl(this.urlAvatar + 'sin-imagen.jpg');
     this.cargarItems0();
+    /*********************/
+    /*if (localStorage.getItem('fecha-entrega') != null) {
+      this.cargarAnos();
+      this.anoEntrega = parseInt(localStorage.getItem('fecha-entrega').substring(0, 4));
+      this.mesEntrega = localStorage.getItem('fecha-entrega').substring(5, 7);
+      this.diaEntrega = parseInt(localStorage.getItem('fecha-entrega').substring(8, 11));
+      this.cargarDias(this.mesEntrega, this.anoEntrega);
+    }*/
+    /*********************/
   }
 
   ngAfterViewInit() {
@@ -170,7 +192,6 @@ export class MiListaComponent implements OnInit {
     this._userService.updateUser(usuarioDTO).subscribe(
       response => {
         if (response.codigo == "0") {
-          this.successMessage = '1';
           localStorage.removeItem('cambio-clave');
           localStorage.setItem('cambio-clave', 'no');
           $('#cambioContrasena').modal('hide');
@@ -600,9 +621,90 @@ export class MiListaComponent implements OnInit {
       }
     }
   }
-
+  /*********************/
   public abrirModalFechaEntrega(modal: string) {
+    if (this.fechaEntrega != null) {
+      this.cargarAnos();
+      this.diaEntrega = parseInt(this.fechaEntrega.substring(0, 2));
+      this.mesEntrega = this.fechaEntrega.substring(5, 7);
+      this.anoEntrega = parseInt(this.fechaEntrega.substring(10, 14));
+      this.cargarDias(this.mesEntrega, this.anoEntrega);
+    }
+    this.successMessage = '';
+    this.messageError = '';
     this.buscarLista(this.codigoLista);
     $(modal).modal('show');
   }
+
+  public cargarDias(mes: string, ano: number) {
+    this.diasEntrega = new Array<number>();
+    switch (mes) {
+      case '01':  // Enero
+      case '03':  // Marzo
+      case '05':  // Mayo
+      case '07':  // Julio
+      case '08':  // Agosto
+      case '10':  // Octubre
+      case '12': // Diciembre
+        for (let i = 1; i <= 31; i++) {
+          this.diasEntrega.push(i);
+        }
+        break;
+      case '04':  // Abril
+      case '06':  // Junio
+      case '09':  // Septiembre
+      case '11': // Noviembre
+        for (let i = 1; i <= 30; i++) {
+          this.diasEntrega.push(i);
+        }
+        break;
+      case '02':  // Febrero
+        if (((ano % 100 == 0) && (ano % 400 == 0) || (ano % 100 != 0) && (ano % 4 == 0))) {
+          for (let i = 1; i <= 29; i++) {
+            this.diasEntrega.push(i);
+          }
+        } else {
+          for (let i = 1; i <= 28; i++) {
+            this.diasEntrega.push(i);
+          }
+        }
+        break;
+    }
+  }
+
+  public cargarAnos() {
+    var date = new Date();
+    var year = date.getFullYear();
+    this.anosEntrega = new Array<number>();
+    for (let i = year; i <= year + 1; i++) {
+      this.anosEntrega.push(i);
+    }
+  }
+
+  public programarFechaEntrega() {
+    if ((this.anoEntrega == null || this.anoEntrega < 0) || (this.mesEntrega == null || this.mesEntrega.length < 0) || (this.diaEntrega == null)) {
+      this.messageError = 'Debes llenar todos los campos obligatorios.';
+      this.valid = false;
+    } else {
+      let datosDTO = {
+        idLista: this.idListaUsuario,
+        fechaEntrega: this.anoEntrega + '-' + this.mesEntrega + '-' + (this.diaEntrega + 1)
+      }
+
+      this._listaService.actualizarFechaEntrega(datosDTO).subscribe(
+        response => {
+          if (response.codigo == 0) {
+            $("#modalFechaEntrega").modal("hide");
+            this.buscarLista(this.codigoLista);
+          } else {
+            this.messageError = response.mensaje;
+          }
+        },
+        error => {
+          console.error(error);
+          this.messageError = 'Lo sentimos. Ocurrió un error inesperado, por favor inténtelo más tarde.'
+        });
+    }
+  }
+  /*********************/
 }

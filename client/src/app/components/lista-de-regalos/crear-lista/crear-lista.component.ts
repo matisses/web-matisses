@@ -497,6 +497,7 @@ export class CrearListaComponent implements OnInit {
         activa: true,
         fechaCreacion: null,
         formatoFechaEvento: this.anoInicio + '-' + this.mesInicio + '-' + this.diaInicio,
+        formatoFechaEntrega: this.anoEntrega + '-' + this.mesEntrega + '-' + this.diaEntrega,
         celebracion: this.celebracion,
         lugar: this.lugar,
         cedulaCreador: this.customerCreador.fiscalID.trim(),

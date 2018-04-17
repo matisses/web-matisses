@@ -1,3 +1,90 @@
+<!-- Modal agendar fecha -->
+<div class="modal fade" id="modalFechaEntrega" tabindex="-1" role="dialog" aria-labelledby="modalFechaEntregaLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title text-center" id="modalFechaEntregaLabel">PROGRAMA LA FECHA DE ENTREGA DE TUS REGALOS</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row" *ngIf="messageError != null && messageError.length > 0">
+          <div class="col-xs-12">
+            <div class="alert alert-danger" role="alert">
+              <p>{{messageError}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="successMessage != null && successMessage.length > 0">
+          <div class="col-xs-12">
+            <div class="alert alert-info" role="alert">
+              <p>{{successMessage}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="messageExit != null && messageExit.length > 0">
+            <div class="col-xs-12">
+              <div class="alert alert-success" role="alert">
+                <p>{{messageExit}}</p>
+              </div>
+            </div>
+          </div>
+        <form>
+          <div class="row text-center">
+            <div class="col-sm-4">
+              <label class="label-lista">Año</label>
+              <select id="anosEntrega" name="anoEntrega" class="form-control height-40" [class.required-field]="!validEntrega" [(ngModel)]="anoEntrega"
+                (change)="cargarDias(mesEntrega,anoEntrega)" required>
+                <option style="display:none" disabled selected value>Año</option>
+                <option [selected]="anoEntrega == year" *ngFor="let year of anosEntrega" [ngValue]="year">{{year}}</option>
+              </select>
+            </div>
+            <div class="col-sm-4">
+              <label class="label-lista">Mes</label>
+              <select id="mesesEntrega" name="mesEntrega" class="form-control height-40" [class.required-field]="!validEntrega" [(ngModel)]="mesEntrega"
+                (change)="cargarDias(mesEntrega,anoEntrega)" required>
+                <option style="display:none" disabled selected value>Mes</option>
+                <option value="01">Enero</option>
+                <option value="02">Febrero</option>
+                <option value="03">Marzo</option>
+                <option value="04">Abril</option>
+                <option value="05">Mayo</option>
+                <option value="06">Junio</option>
+                <option value="07">Julio</option>
+                <option value="08">Agosto</option>
+                <option value="09">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+              </select>
+            </div>
+            <div class="col-sm-4">
+              <label class="label-lista">Día</label>
+              <select id="diasEntrega" name="diaEntrega" class="form-control height-40" [class.required-field]="!validEntrega" [(ngModel)]="diaEntrega" required>
+                <option style="display:none" disabled selected value>Día</option>
+                <option [selected]="diaEntrega == day" *ngFor="let day of diasEntrega" [ngValue]="day">{{day}}</option>
+              </select>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-xs-12 text-center">
+              <button type="button" class="btn btn-programar" (click)=programarFechaEntrega()>Programar</button>
+            </div>
+          </div>
+          <br>
+        </form>
+        <div class="row">
+          <div class="col-xs-12">
+            <p>*Los envíos solo se podrán programar con 2 días hábiles de anticipación a la fecha de entrega.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Modal cambio de contraseña -->
 <div class="modal fade" id="cambioContrasena" tabindex="-1" role="dialog" aria-labelledby="cambioContraseñaLabel">
   <div class="modal-dialog" role="document">
