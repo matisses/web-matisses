@@ -27,20 +27,27 @@ export class DireccionesComponent implements OnInit {
   public esFacturacionDefecto:boolean;
   public esEnvioDefecto:boolean;
   public infoModalAgregar:any;
+  public messageError:string;
+  public successMessage:string;
 
 
   constructor(private _route: ActivatedRoute, private _router: Router,private _customerService: CustomerService,private _userService: SessionUsuarioService,private _cityService: CityService) {
     this.direcciones = Array<any>();
     this.ciudadesPrincipales = new Array<City>();
     this.otrasCiudades = new Array<City>();
+    this.messageError='';
+    this.successMessage='';
     this.inicializarCliente();
     this.inicializarFormEdit();
     this.inicializarFormAgregar();
+
   }
 
   ngOnInit() {
     this.documentCustomer=localStorage.getItem('doc-customer');
     this.nombreUsuario=localStorage.getItem('nombre-usuario');
+    this.messageError='';
+    this.successMessage='';
     this.buscarCliente();
       this.obtenerCiudades();
     //this.forDirecciones();
@@ -556,12 +563,14 @@ this._userService.cargarcliente(this.nombreUsuario).subscribe(
           //editarCuenta
           this._userService.editarCliente(this.customer).subscribe(
             response => {
-            if(response.estado==0){
+            if(response.estado=='0'){
+              this.messageError='';
               console.log('update -->' +response.mensaje);
-              //this.messageError = response.mensaje;
+              this.successMessage = 'tu dirección fue actualizada correctamente';
 
-            //  BilltoDefault
-
+            }
+            else{
+                this.messageError = response.mensaje;
             }
             },
             error => {
@@ -620,10 +629,15 @@ public agregarDireccion(){
             this._userService.editarCliente(this.customer).subscribe(
               response => {
 
-              if(response.estado==0){
+              if(response.estado=='0'){
+                this.messageError='';
                 console.log('update -->' +response.mensaje);
+                this.successMessage = 'tu dirección fue agregada correctamente';
 
 
+              }
+              else{
+                  this.messageError = response.mensaje;
               }
               },
               error => {

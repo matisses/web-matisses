@@ -454,9 +454,9 @@ export class LoginComponent implements OnInit {
 
       this._userService.createUser(usuarioDTO).subscribe(
         response => {
-          if (response.codigo === 0) {
+          if (response.estado == '0') {
             this.messageError='';
-            this.successMessage= response.mensaje;
+            this.successMessage= 'Tu usuario se creó exitosamente';
             $('#messageUser').modal('show');
           } else {
             this.messageError = response.mensaje;

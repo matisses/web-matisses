@@ -73,7 +73,8 @@ export class CuentaComponent implements OnInit {
 
     this._userService.editarCliente(this.customer).subscribe(
       response => {
-        if(response.estado==0){
+        if(response.estado=="0"){
+          console.log('entra aca');
           this.cambiosGuardados = true;
           this.messageError = response.mensaje;
         }
@@ -93,10 +94,10 @@ if (this.nombreUsuario != null && this.nombreUsuario.length > 0) {
 
       for(let i = 0; i < this.customer.BPAddresses.BPAddress.length; i++) {
         if(this.customer.BilltoDefault==this.customer.BPAddresses.BPAddress[i].AddressName){
-          this.direccionFactura=this.customer.BPAddresses.BPAddress[i].City+" "+this.customer.BPAddresses.BPAddress[i].AddressName;
+          this.direccionFactura=this.customer.BPAddresses.BPAddress[i].Street+' '+this.customer.BPAddresses.BPAddress[i].City;
         }
         if(this.customer.ShipToDefault==this.customer.BPAddresses.BPAddress[i].AddressName){
-          this.direccionEntrega=this.direccionFactura=this.customer.BPAddresses.BPAddress[i].City+" "+this.customer.BPAddresses.BPAddress[i].AddressName;
+          this.direccionEntrega=this.customer.BPAddresses.BPAddress[i].Street+' '+this.customer.BPAddresses.BPAddress[i].City;
         }
       }
     },
