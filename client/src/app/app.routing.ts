@@ -29,6 +29,8 @@ import { CitibankComponent } from './components/citibank/citibank.component';
 import { HotSaleComponent } from './components/hot-sale/hot-sale.component';
 import { NovedadesComponent } from './components/novedades/novedades.component';
 import { CabifyComponent } from './components/cabify/cabify.component';
+import { LandingDecoradoresComponent } from './components/mi-cuenta/landing-decoradores/landing-decoradores.component';
+import { LandingPlannerComponent } from './components/mi-cuenta/landing-planner/landing-planner.component';
 
 // Lista de Regalos
 import { ListaRegalosComponent } from './components/lista-de-regalos/lista-regalos.component';
@@ -121,6 +123,8 @@ const appRoutes: Routes = [
   //Modulos mi cuenta 
   { path: 'login', component: LoginComponent },
   { path: 'mi-cuenta', component: ResumenMiCuentaComponent },
+  { path: 'decoradores', component: LandingDecoradoresComponent },
+  { path: 'planners', component: LandingPlannerComponent },
 
   // { path: '92-consola', redirectTo: 'categoria?group=002' },
   { path: 'blog', redirectTo: '/', pathMatch: 'full' },

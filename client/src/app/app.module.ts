@@ -113,6 +113,8 @@ import { DireccionesComponent } from './components/mi-cuenta/resumen/direcciones
 import { PedidosComponent } from './components/mi-cuenta/resumen/pedidos-garantias/pedidos.component';
 import { NoviosComponent } from './components/mi-cuenta/resumen/mis-novios/mis-novios.component';
 import { ClientesComponent } from './components/mi-cuenta/resumen/mis-clientes/mis-clientes.component';
+import { LandingDecoradoresComponent } from './components/mi-cuenta/landing-decoradores/landing-decoradores.component';
+import { LandingPlannerComponent } from './components/mi-cuenta/landing-planner/landing-planner.component';
 
 // Promocion alf
 import { PromocionAlfComponent } from './components/promocion-alf/promocion-alf.component';
@@ -223,7 +225,9 @@ import { MetaModule } from '@ngx-meta/core';
     DireccionesComponent,
     PedidosComponent,
     NoviosComponent,
-    ClientesComponent
+    ClientesComponent,
+    LandingDecoradoresComponent,
+    LandingPlannerComponent
   ],
   imports: [
     BrowserModule,
