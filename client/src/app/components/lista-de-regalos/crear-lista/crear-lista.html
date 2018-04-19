@@ -420,20 +420,6 @@
               </div>
             </div>
             <br>
-            <!-- contacto de la tienda -->
-            <div class="row" *ngIf="paso === 3">
-              <div class="col-xs-10 col-xs-offset-1 text-center">
-                <p>
-                  <b>Usar datos de envío de:</b>
-                  <label class="radio-inline">
-                    <input type="radio" name="usarDatosCreador" value="CREADOR" [(ngModel)]="usarDatos">Creador
-                  </label>
-                  <label class="radio-inline">
-                    <input type="radio" name="usarDatosCreador" value="COCREADOR" [(ngModel)]="usarDatos">Co-creador
-                  </label>
-                </p>
-              </div>
-            </div>
             <div class="row" *ngIf="paso === 3">
               <div class="col-sm-4 col-sm-offset-4 text-center">
                 <p>
@@ -711,17 +697,17 @@
                 </div>
                 <hr/>
               </div>
-            </div>
-            <div class="col-xs-10 col-xs-offset-1 text-center">
-              <p>
-                <b>Usar datos de envío de:</b>
-                <label class="radio-inline">
-                  <input type="radio" name="usarDatosCreador" value="CREADOR" [(ngModel)]="usarDatos">Novia(o)
-                </label>
-                <label class="radio-inline">
-                  <input type="radio" name="usarDatosCreador" value="COCREADOR" [(ngModel)]="usarDatos">Novio(a)
-                </label>
-              </p>
+              <div class="col-xs-10 col-xs-offset-1 text-center">
+                <p>
+                  <b>Usar datos de envío de:</b>
+                  <label class="radio-inline">
+                    <input type="radio" name="usarDatosCreador" value="CREADOR" [(ngModel)]="usarDatos">Novia(o)
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="usarDatosCreador" value="COCREADOR" [(ngModel)]="usarDatos">Novio(a)
+                  </label>
+                </p>
+              </div>
             </div>
           </form>
         </div>
