@@ -60,6 +60,7 @@ export class CrearListaComponent implements OnInit {
   public checkedCocreadorM: boolean = true;
   public validCreador: boolean = true;
   public validCocreador: boolean = true;
+  public validMailCocreador: boolean = true;
   public disabledCreador: boolean = false;
   public disabledCocreador: boolean = false;
   public validForm2: boolean = true;
@@ -131,6 +132,7 @@ export class CrearListaComponent implements OnInit {
     };
     this.cargarAnos();
     this.obtenerCiudades();
+    this.validarUsoDatos();
   }
 
   ngAfterViewInit() {
@@ -138,6 +140,14 @@ export class CrearListaComponent implements OnInit {
 
   public seleccionarEvento(id) {
     this.tipoEvento = id;
+  }
+
+  public validarUsoDatos() {
+    if (this.usarDatos == "COCREADOR") {
+      this.validMailCocreador = false;
+    } else {
+      this.validMailCocreador = true;
+    }
   }
 
   public irPaso(paso) {
@@ -357,6 +367,25 @@ export class CrearListaComponent implements OnInit {
   }
 
   public llenarDatosEvento() {
+    if ((this.anoInicio == null || this.anoInicio.length < 0) || (this.mesInicio == null || this.mesInicio.length < 0) || (this.diaInicio == null)) {
+      this.messageError = 'Debes llenar todos los campos obligatorios para poder continuar con el siguiente paso.';
+      this.validForm2 = false;
+      return false;
+    } else if (this.aceptaBonos && (!this.montoBono || this.montoBono < 10000)) {
+      this.messageError = 'Monto mínimo para el bono es de $10.000';
+      this.validMonto = false;
+      return false;
+    } else {
+      this.limpiarCampos();
+      //pasar al siguiente paso
+      if (this.paso < 4) {
+        this.paso++;
+      }
+    }
+    return true;
+  }
+
+  public llenarDatosEventoNovios() {
     if ((this.anoInicio == null || this.anoInicio.length < 0) || (this.mesInicio == null || this.mesInicio.length < 0) || (this.diaInicio == null)
       || (this.anoEntrega == null || this.anoEntrega.length < 0) || (this.mesEntrega == null || this.mesEntrega.length < 0) || (this.diaEntrega == null)) {
       this.messageError = 'Debes llenar todos los campos obligatorios para poder continuar con el siguiente paso.';
@@ -762,7 +791,12 @@ export class CrearListaComponent implements OnInit {
         }
         break;
       case 2://sobre la celebracion
-        this.llenarDatosEvento();
+        if (this.tipoEvento == 1 || this.tipoEvento == 2 || this.tipoEvento == 3) {
+          this.llenarDatosEvento();
+        }
+        if (this.tipoEvento == 4) {
+          this.llenarDatosEventoNovios();
+        }
         break;
       case 3://datos contacto
         this.validarDireccionEvento();
@@ -791,7 +825,7 @@ export class CrearListaComponent implements OnInit {
     this.validCocreador = true;
   }
 
-  public cargarDiasEvento(mes: string, ano: number) {    
+  public cargarDiasEvento(mes: string, ano: number) {
     this.dayEvent = new Array<number>();
     switch (mes) {
       case '01':  // Enero
@@ -827,7 +861,7 @@ export class CrearListaComponent implements OnInit {
     }
   }
 
-  public cargarDiasEntrega(mes: string, ano: number) {    
+  public cargarDiasEntrega(mes: string, ano: number) {
     this.dayEntrega = new Array<number>();
     switch (mes) {
       case '01':  // Enero
