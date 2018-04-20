@@ -307,14 +307,14 @@
                   <div class="row">
                     <div class="col-sm-4">
                       <select id="yearEvent" name="anoEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2"
-                        [(ngModel)]="anoInicio" (change)="cargarDias(mesInicio,anoInicio)" required>
+                        [(ngModel)]="anoInicio" (change)="cargarDiasEvento(mesInicio,anoInicio)" required>
                         <option style="display:none" disabled selected value>Año</option>
                         <option *ngFor="let year of yearEvent" [ngValue]="year">{{year}}</option>
                       </select>
                     </div>
                     <div class="col-sm-4">
                       <select id="monthEvent" name="mesEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2"
-                        [(ngModel)]="mesInicio" (change)="cargarDias(mesInicio,anoInicio)" required>
+                        [(ngModel)]="mesInicio" (change)="cargarDiasEvento(mesInicio,anoInicio)" required>
                         <option style="display:none" disabled selected value>Mes</option>
                         <option value="01">Enero</option>
                         <option value="02">Febrero</option>
@@ -628,7 +628,7 @@
                   [(ngModel)]="customerCocreador.lastName2">
                 <label class="label-lista" for="email">Email</label>
                 <input id="email-2" type="email" [disabled]="disabledCocreador" class="form-control" maxlength="30" name="emailCocreador"
-                  [email]="true" [(ngModel)]="customerCocreador.addresses[0].email">
+                  [email]="true" [(ngModel)]="customerCocreador.addresses[0].email" [required]="false">
                 <br/>
                 <!-- Notificación # 1 -->
                 <div class="row">
@@ -701,10 +701,10 @@
                 <p>
                   <b>Usar datos de envío de:</b>
                   <label class="radio-inline">
-                    <input type="radio" name="usarDatosCreador" value="CREADOR" [(ngModel)]="usarDatos">Novia(o)
+                    <input type="radio" name="usarDatosCreador" value="CREADOR" [(ngModel)]="usarDatos" (change)="validarUsoDatos()">Novia(o)
                   </label>
                   <label class="radio-inline">
-                    <input type="radio" name="usarDatosCreador" value="COCREADOR" [(ngModel)]="usarDatos">Novio(a)
+                    <input type="radio" name="usarDatosCreador" value="COCREADOR" [(ngModel)]="usarDatos" (change)="validarUsoDatos()">Novio(a)
                   </label>
                 </p>
               </div>
