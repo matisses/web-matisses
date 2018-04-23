@@ -311,12 +311,12 @@ export class CrearListaComponent implements OnInit {
           this.validCreador = false;
           this.validCocreador = false;
           return;
-        } else if (!this.validMailCocreador ) {
+        } /*else if (!this.validMailCocreador) {
           this.messageError = 'El formato del email es incorrecto.';
           this.validCreador = false;
           this.validCocreador = false;
           return;
-        }
+        }*/
       }
       this.limpiarCampos();
       if (this.customerCreador.fiscalID.trim() == this.customerCocreador.fiscalID.trim()) {
