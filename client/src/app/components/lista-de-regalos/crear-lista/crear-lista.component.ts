@@ -63,6 +63,7 @@ export class CrearListaComponent implements OnInit {
   public validMailCocreador: boolean = true;
   public disabledCreador: boolean = false;
   public disabledCocreador: boolean = false;
+  public disabledMailCocreador: boolean = false;
   public validForm2: boolean = true;
   public validForm3: boolean = true;
   public validForm4: boolean = true;
@@ -145,6 +146,21 @@ export class CrearListaComponent implements OnInit {
   public validarUsoDatos() {
     if (this.usarDatos == "COCREADOR") {
       this.validMailCocreador = false;
+      this.disabledMailCocreador = false;
+    } else {
+      if (this.customerCocreador.addresses[0].email != null && this.customerCocreador.addresses[0].email.length > 0) {
+        this.validMailCocreador = false;
+        this.disabledMailCocreador = false;
+      } else {
+        this.validMailCocreador = true;
+        this.disabledMailCocreador = true;
+      }
+    }
+  }
+
+  public validarMailCocreador() {
+    if (this.customerCocreador.addresses[0].email != null && this.customerCocreador.addresses[0].email.length > 0) {
+      this.validMailCocreador = false;
     } else {
       this.validMailCocreador = true;
     }
@@ -209,7 +225,7 @@ export class CrearListaComponent implements OnInit {
           this.disabledCreador = true;
         },
         error => {
-          this.customerCreador.fiscalIdType = '';
+          //Creador no existe en base de datos cliente.
           this.customerCreador.firstName = '';
           this.customerCreador.lastName1 = '';
           this.customerCreador.lastName2 = '';
@@ -249,10 +265,10 @@ export class CrearListaComponent implements OnInit {
           this.customerCocreador = response;
           this.existeCocreador = true;
           this.disabledCocreador = true;
+          this.disabledMailCocreador = false;
         },
         error => {
           //Cocreador no existe en base de datos cliente.
-          this.customerCocreador.fiscalIdType = '';
           this.customerCocreador.firstName = '';
           this.customerCocreador.lastName1 = '';
           this.customerCocreador.lastName2 = '';
@@ -261,6 +277,8 @@ export class CrearListaComponent implements OnInit {
           this.customerCocreador.addresses[0].address = '';
           this.customerCocreador.addresses[0].cellphone = '';
           this.existeCocreador = false;
+          this.validMailCocreador = true;
+          this.disabledMailCocreador = true;
           console.error(error);
         }
       );
@@ -280,14 +298,26 @@ export class CrearListaComponent implements OnInit {
       (this.customerCocreador.fiscalID == null || this.customerCocreador.fiscalID.trim().length <= 0
         || this.customerCocreador.firstName == null || this.customerCocreador.firstName.length <= 0
         || this.customerCocreador.lastName1 == null || this.customerCocreador.lastName1.length <= 0
-        || this.customerCocreador.fiscalIdType == null || this.customerCocreador.fiscalIdType.length <= 0
-        || this.customerCocreador.addresses[0].email == null || this.customerCocreador.addresses[0].email.length <= 0)
+        || this.customerCocreador.fiscalIdType == null || this.customerCocreador.fiscalIdType.length <= 0)
     ) {
       this.messageError = 'Debes llenar todos los campos obligatorios para poder continuar con el siguiente paso.';
       this.validCreador = false;
       this.validCocreador = false;
-      return false;
+      return;
     } else {
+      if (this.usarDatos == "COCREADOR") {
+        if (this.customerCocreador.addresses[0].email == null || this.customerCocreador.addresses[0].email.length <= 0) {
+          this.messageError = 'Debes llenar el campo email del novio.';
+          this.validCreador = false;
+          this.validCocreador = false;
+          return;
+        } else if (!this.validMailCocreador ) {
+          this.messageError = 'El formato del email es incorrecto.';
+          this.validCreador = false;
+          this.validCocreador = false;
+          return;
+        }
+      }
       this.limpiarCampos();
       if (this.customerCreador.fiscalID.trim() == this.customerCocreador.fiscalID.trim()) {
         this.messageError = 'Los novios no pueden ser el mismo.';
