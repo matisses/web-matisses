@@ -28,4 +28,11 @@ export class LandingPlannerComponent implements OnInit {
     })
   }
 
+  irALogin(){
+    console.log('irALogin');
+    localStorage.setItem('wedding_register','Y');
+      this._router.navigate(['/login']);
+  }
+
+
 }

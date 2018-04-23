@@ -54,6 +54,10 @@ export class LoginComponent implements OnInit {
   public registroDecorador:string=null;
   public registroPlanificador: string=null;
   public fileUpload: any;
+  public fileUploadRut:any;
+  public fileUploadCc:any;
+  public fileUploadCert:any;
+  public fileUploadTp:any;
   public decorador:boolean=false;
   public planificador:boolean=false;
 
@@ -64,10 +68,13 @@ export class LoginComponent implements OnInit {
     this.customer = new Customer();
     this.ciudadesPrincipales = new Array<City>();
     this.otrasCiudades = new Array<City>();
+    this.fileUploadRut=null;
     this.inicializarCliente();
   }
 
   ngOnInit() {
+      // localStorage.removeItem('decorator_register');
+      // localStorage.removeItem('wedding_register');
        this.registroDecorador=localStorage.getItem('decorator_register');
        this.registroPlanificador=localStorage.getItem('wedding_register');
       this.obtenerCiudades();
@@ -315,6 +322,8 @@ export class LoginComponent implements OnInit {
 
 
   public registrar() {
+
+      console.log('fileUploadRut'+this.fileUploadRut);
     this.messageError='';
 
     if (this.claveNueva != this.claveConfirmacion) {
@@ -345,6 +354,20 @@ export class LoginComponent implements OnInit {
       this.valid = false;
       $('#messageUser').modal('show');
       return;
+    }
+
+    if(this.registroDecorador!=null || this.registroPlanificador!=null){
+
+      if(this.fileUploadRut==null || this.fileUploadRut.length<=0
+      || this.fileUploadCc==null || this.fileUploadCc.length<=0
+      || this.fileUploadCert==null || this.fileUploadCert.length<=0
+      || this.fileUploadTp==null || this.fileUploadTp.length<=0){
+
+        this.messageError = 'Debes adjuntar los documentos solicitados.';
+        this.valid = false;
+        $('#messageUser').modal('show');
+        return;
+      }
     }
 
 
@@ -440,7 +463,14 @@ export class LoginComponent implements OnInit {
           console.error(error);
         }
       );
-
+      let esDecorador=false;
+      let esPlanificador=false;
+      if(this.registroDecorador!=null){
+        esDecorador=true;
+      }
+      if(this.registroPlanificador!=null){
+        esPlanificador=true;
+      }
       let usuarioDTO = {
         nombreUsuario:this.customer.addresses[0].email.toUpperCase(),
         nombre: this.customer.firstName+' '+this.customer.lastName1,
@@ -448,7 +478,9 @@ export class LoginComponent implements OnInit {
         documento: this.customer.fiscalID,
         aceptaTerminos: this.aceptaTerminos,
         esNuevo:true,
-        suscripcionNotificaciones: this.suscripcionNotificaciones
+        suscripcionNotificaciones: this.suscripcionNotificaciones,
+        esDecorador:esDecorador,
+        esPlanificador:esPlanificador
 
       }
 
@@ -859,8 +891,22 @@ export class LoginComponent implements OnInit {
 }
   }
 
-  onFileChange(event) {
+  onFileChange(event, tipo:string) {
     let fileList: FileList = event.target.files;
+    console.log('entra en el Change '+fileList.length);
+    if(tipo=='fileUploadRut' && fileList.length>0){
+      this.fileUploadRut='Y';
+    }
+    if(tipo=='fileUploadCc'  && fileList.length>0){
+      this.fileUploadCc='Y';
+    }
+    if(tipo=='fileUploadCert'  && fileList.length>0){
+        this.fileUploadCert='Y';
+    }
+    if(tipo=='fileUploadTp'  && fileList.length>0){
+        this.fileUploadTp='Y';
+    }
+
 
     if(this.customer.fiscalID==null || this.customer.fiscalID =='' || this.customer.fiscalID=='undefined' ){
       this.messageError = 'debes cargar el documento de identidad del usuario.';
@@ -871,16 +917,29 @@ export class LoginComponent implements OnInit {
     if (fileList.length > 0) {
       let file: File = fileList[0];
       let fileSize: number = fileList[0].size;
-      let tipopng: string = 'image/png';
-      let tipojpg: string = 'image/jpeg';
+      // let tipopng: string = 'image/png';
+      // let tipojpg: string = 'image/jpeg';
       for(let i = 0; i < fileList.length; i++) {
         let file: File = fileList[i];
         let fileSize: number = fileList[i].size;
         let formData: FormData = new FormData();
+        let nameA=file.name.split('.');
+        console.log('solonombre '+nameA[0]);
         formData.append('file', file);
-        formData.append('codigo', this.customer.fiscalID+'_'+i);
+        formData.append('codigo', this.customer.fiscalID);
+        formData.append('nombrearchivo', nameA[0]);
+        if(this.registroDecorador!=null){
+          formData.append('decorador', 'decorador');
+          formData.append('planificador', '');
+        }
+        if(this.registroPlanificador!=null){
+          formData.append('planificador', 'planificador');
+          formData.append('decorador', '');
+        }
+        console.log('formData '+formData);
         this._userService.subirImagen(formData).subscribe(
           response => {
+            console.log('viene del servicio '+response);
                 let respuesta = JSON.parse(JSON.stringify(response));
 
               },

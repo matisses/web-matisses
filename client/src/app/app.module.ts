@@ -115,6 +115,8 @@ import { NoviosComponent } from './components/mi-cuenta/resumen/mis-novios/mis-n
 import { ClientesComponent } from './components/mi-cuenta/resumen/mis-clientes/mis-clientes.component';
 import { LandingDecoradoresComponent } from './components/mi-cuenta/landing-decoradores/landing-decoradores.component';
 import { LandingPlannerComponent } from './components/mi-cuenta/landing-planner/landing-planner.component';
+import { ConfirmarUsuarioComponent } from './components/mi-cuenta/login/confirmar-usuario/confirmar-usuario.component';
+
 
 // Promocion alf
 import { PromocionAlfComponent } from './components/promocion-alf/promocion-alf.component';
@@ -227,7 +229,8 @@ import { MetaModule } from '@ngx-meta/core';
     NoviosComponent,
     ClientesComponent,
     LandingDecoradoresComponent,
-    LandingPlannerComponent
+    LandingPlannerComponent,
+    ConfirmarUsuarioComponent
   ],
   imports: [
     BrowserModule,

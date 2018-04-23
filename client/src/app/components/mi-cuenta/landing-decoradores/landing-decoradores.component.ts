@@ -28,4 +28,10 @@ export class LandingDecoradoresComponent implements OnInit {
     })
   }
 
+  irALogin(){
+    console.log('irALogin');
+    localStorage.setItem('decorator_register','Y');
+      this._router.navigate(['/login']);
+  }
+
 }
