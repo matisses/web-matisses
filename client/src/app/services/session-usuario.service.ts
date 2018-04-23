@@ -164,5 +164,14 @@ export class SessionUsuarioService {
       .map(res => res.json());
   }
 
+  confirmarUsuario(nombreUsuario) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'sessionusuario/activarusuario/' + nombreUsuario , { headers: headers })
+      .map(res => res.json());
+  }
+
 
 }

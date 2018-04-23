@@ -35,6 +35,7 @@ export class ListaRegalosComponent implements OnInit {
   public viewportWidth: number = 0;
   public recuperarEmail:string;
   public updateMessage:string;
+  public isAdmin:string;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _userService: SessionUsuarioService, private _jwt: JWTService,
     private _listaRegalosService: ListaRegalosService) {
@@ -113,11 +114,15 @@ export class ListaRegalosComponent implements OnInit {
         }
         this.token = response.token;
         this.idUsuario = response.usuarioId;
+        if(response.idListaRegalos!=null){
         this.idListaUsuario = response.idListaRegalos.idLista;
         this.codigoLista = response.idListaRegalos.codigo;
         this.fechaEvento = response.idListaRegalos.fechaEvento;
         this.fechaEntrega = response.idListaRegalos.fechaEntrega;
+        }
         this.nombreSession = response.nombre;
+        this.isAdmin=response.esAdmin;
+        console.log('es admin '+this.isAdmin);
         if (response.esNuevo) {
           this.cambioContrasena = 'si';
         }
@@ -137,9 +142,16 @@ export class ListaRegalosComponent implements OnInit {
         localStorage.setItem('codigo-lista', this.codigoLista);
         localStorage.setItem('fecha-evento', this.fechaEvento);
         localStorage.setItem('fecha-entrega', this.fechaEntrega);
-        localStorage.setItem('msjAgradecimiento', response.idListaRegalos.mensajeAgradecimiento);
+        if(response.idListaRegalos!=null){
+          localStorage.setItem('msjAgradecimiento', response.idListaRegalos.mensajeAgradecimiento);
+        }
+          if(response.idListaRegalos!=null){
+            this._router.navigate(['/mi-lista']);
+          }
+          else{
+            this._router.navigate(['/lista-de-regalos/resultado-busqueda']);
+          }
 
-        this._router.navigate(['/mi-lista']);
       },
       error => {
         this.messageError = "Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.";

@@ -56,7 +56,7 @@
           </div>
           <div class="row" *ngIf="successMessage != null && successMessage.length > 0">
             <div class="col-xs-12">
-              <div class="alert alert-danger" role="alert">
+              <div class="alert alert-info" role="alert">
                 <p>{{successMessage}}</p>
               </div>
             </div>
@@ -81,7 +81,7 @@
             <p>Bienvenido a Matisses. Registrate y conoce lo último en diseño.</p>
           </div>
           <div class="campos">
-            <form id="form_registrar" #infoPago="ngForm" (submit)="registrar()">
+            <form id="form_registrar" #infoPago="ngForm" >
 
               <!-- <div class="row" *ngIf="successMessage != null && successMessage.length > 0">
                 <div class="col-xs-12">
@@ -187,18 +187,47 @@
             </div>
             <br>
             <br>
-            <div class="row" *ngIf="registroDecorador && registroDecorador != null">
+            <div class="row" *ngIf="(registroDecorador && registroDecorador != null) || (registroPlanificador && registroPlanificador != null)">
               <div class="col-xs-4 col-xs-offset-1">
-                <label for="imageLista">Adjuntar Documentos</label>
+                <label for="ccDoc">Documento de Identidad</label>
               </div>
               <div class="col-xs-6">
-                  <input type="file" class="form-registro" accept="image/png, image/jpeg" id="imageLista" [(ngModel)]="fileUpload" (change)="onFileChange($event)" multiple>
+                  <input type="file" class="form-registro" id="ccDoc" [(ngModel)]="fileUploadCc" (change)="onFileChange($event,'fileUploadCc')">
               </div>
             </div>
+              <br>
+                <div class="row" *ngIf="(registroDecorador && registroDecorador != null) || (registroPlanificador && registroPlanificador != null)">
+              <div class="col-xs-4 col-xs-offset-1">
+                <label for="rutDoc">RUT</label>
+              </div>
+              <div class="col-xs-6">
+                  <input type="file" class="form-registro" id="rutDoc" [(ngModel)]="fileUploadRut" (change)="onFileChange($event,'fileUploadRut')">
+              </div>
+            </div>
+              <br>
+                <div class="row" *ngIf="(registroDecorador && registroDecorador != null) || (registroPlanificador && registroPlanificador != null)">
+              <div class="col-xs-4 col-xs-offset-1">
+                <label for="certRut">5 Certificados Retencion</label>
+              </div>
+              <div class="col-xs-6">
+                  <input type="file" class="form-registro" id="certRut" [(ngModel)]="fileUploadCert" (change)="onFileChange($event,'fileUploadCert')" multiple>
+              </div>
+            </div>
+              <br>
+              <div class="row" *ngIf="(registroDecorador && registroDecorador != null) || (registroPlanificador && registroPlanificador != null) ">
+              <div class="col-xs-4 col-xs-offset-1">
+                <label for="tarjetaDoc"> Tarjeta Profesional</label>
+              </div>
+              <div class="col-xs-6">
+                  <input type="file" class="form-registro" id="tarjetaDoc" [(ngModel)]="fileUploadTp" (change)="onFileChange($event,'fileUploadTp')">
+              </div>
+            </div>
+
+            <!-- </div> -->
             <br>
             <div class="row">
               <div class="col-md-5 col-xs-10 col-xs-offset-1">
-                <button type="submit" class="btn btn-enviar-matisses">Enviar</button>
+                <button type="submit" class="btn btn-enviar-matisses" (click)="registrar()">Enviar</button>
               </div>
             </div>
             <br>

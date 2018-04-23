@@ -22,4 +22,13 @@ export class SendEmailService {
     return this._http.post(this.urlBCS + 'email/enviaremail360', JSON.stringify(message), { headers: headers })
       .map(res => res.json());
   }
+
+  validarEmail(email: string) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'emailvalidator/validarformatoemail/' + email, { headers: headers })
+      .map(res => res.json());
+  }
 }
