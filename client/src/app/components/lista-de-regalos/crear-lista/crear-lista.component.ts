@@ -354,7 +354,7 @@ export class CrearListaComponent implements OnInit {
           return false;
         } else {
           this.limpiarCampos();
-          //pasar al siguiente paso.
+          //pasar al siguiente paso
           if (this.paso < 4) {
             this.paso++;
           }
