@@ -555,6 +555,7 @@ export class CrearListaComponent implements OnInit {
         permitirEntregaPersonal: this.permitirEntregaPersonal,
         activa: true,
         fechaCreacion: null,
+        fechaEntrega: null,
         formatoFechaEvento: this.anoInicio + '-' + this.mesInicio + '-' + this.diaInicio,
         formatoFechaEntrega: this.anoEntrega + '-' + this.mesEntrega + '-' + this.diaEntrega,
         celebracion: this.celebracion,
