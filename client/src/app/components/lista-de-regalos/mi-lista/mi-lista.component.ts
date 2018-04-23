@@ -63,6 +63,7 @@ export class MiListaComponent implements OnInit {
   public anosEntrega: Array<number>;
   public mesesEntrega: Array<number>;
   public validEntrega: boolean = true;
+  public messageEntregaError: string;
   /*********************/
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
@@ -642,6 +643,7 @@ export class MiListaComponent implements OnInit {
     }
     this.successMessage = '';
     this.messageError = '';
+    this.messageEntregaError = "";
     this.buscarLista(this.codigoLista);
     $(modal).modal('show');
   }
@@ -693,26 +695,25 @@ export class MiListaComponent implements OnInit {
 
   public programarFechaEntrega() {
     if ((this.anoEntrega == null || this.anoEntrega < 0) || (this.mesEntrega == null || this.mesEntrega.length < 0) || (this.diaEntrega == null)) {
-      this.messageError = 'Debes llenar todos los campos obligatorios.';
+      this.messageEntregaError = 'Debes llenar todos los campos obligatorios.';
       this.valid = false;
     } else {
       let datosDTO = {
         idLista: this.idListaUsuario,
         fechaEntrega: this.anoEntrega + '-' + this.mesEntrega + '-' + (this.diaEntrega + 1)
       }
-
       this._listaService.actualizarFechaEntrega(datosDTO).subscribe(
         response => {
           if (response.codigo == 0) {
             $("#modalFechaEntrega").modal("hide");
             this.buscarLista(this.codigoLista);
           } else {
-            this.messageError = response.mensaje;
+            this.messageEntregaError = response.mensaje;
           }
         },
         error => {
           console.error(error);
-          this.messageError = 'Lo sentimos. Ocurrió un error inesperado, por favor inténtelo más tarde.'
+          this.messageEntregaError = 'Lo sentimos. Ocurrió un error inesperado, por favor inténtelo más tarde.'
         });
     }
   }

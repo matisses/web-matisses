@@ -9,20 +9,20 @@
         <h4 class="modal-title text-center" id="modalFechaEntregaLabel">PROGRAMA LA FECHA DE ENTREGA DE TUS REGALOS</h4>
       </div>
       <div class="modal-body">
-        <div class="row" *ngIf="messageError != null && messageError.length > 0">
+        <div class="row" *ngIf="messageEntregaError != null && messageEntregaError.length > 0">
           <div class="col-xs-12">
             <div class="alert alert-danger" role="alert">
-              <p>{{messageError}}</p>
+              <p>{{messageEntregaError}}</p>
             </div>
           </div>
         </div>
-        <div class="row" *ngIf="successMessage != null && successMessage.length > 0">
+        <!-- <div class="row" *ngIf="successMessage != null && successMessage.length > 0">
           <div class="col-xs-12">
             <div class="alert alert-info" role="alert">
               <p>{{successMessage}}</p>
             </div>
           </div>
-        </div>
+        </div> -->
         <form>
           <div class="row text-center">
             <div class="col-sm-4">
@@ -70,7 +70,7 @@
         </form>
         <div class="row">
           <div class="col-xs-12">
-            <p>*Los envíos solo se podrán programar con 2 días hábiles de anticipación a la fecha de entrega.</p>
+            <p>*Los envíos solo se podrán programar con 8 días hábiles de anticipación a la fecha de entrega.</p>
           </div>
         </div>
       </div>
