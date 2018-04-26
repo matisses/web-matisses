@@ -725,14 +725,14 @@
                     <div class="col-sm-4">
                       <select id="yearEvent" name="anoEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2"
                         [(ngModel)]="anoInicio" (change)="cargarDiasEvento(mesInicio,anoInicio)" required>
-                        <option style="display:none" disabled selected value>Año</option>
+                        <option style="display:none" disabled selected value="null">Año</option>
                         <option *ngFor="let year of yearEvent" [ngValue]="year">{{year}}</option>
                       </select>
                     </div>
                     <div class="col-sm-4">
                       <select id="monthEvent" name="mesEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2"
                         [(ngModel)]="mesInicio" (change)="cargarDiasEvento(mesInicio,anoInicio)" required>
-                        <option style="display:none" disabled selected value>Mes</option>
+                        <option style="display:none" disabled selected value="null">Mes</option>
                         <option value="01">Enero</option>
                         <option value="02">Febrero</option>
                         <option value="03">Marzo</option>
@@ -750,7 +750,7 @@
                     <div class="col-sm-4">
                       <select id="dayEvent" name="diaEvento" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2"
                         [(ngModel)]="diaInicio" required>
-                        <option style="display:none" disabled selected value>Día</option>
+                        <option style="display:none" disabled selected value="null">Día</option>
                         <option *ngFor="let day of dayEvent" [ngValue]="day">{{day}}</option>
                       </select>
                     </div>
@@ -761,14 +761,14 @@
                     <div class="col-sm-4">
                       <select id="yearEntrega" name="anoEntrega" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2"
                         [(ngModel)]="anoEntrega" (change)="cargarDiasEntrega(mesEntrega,anoEntrega)" required>
-                        <option style="display:none" disabled selected value>Año</option>
+                        <option style="display:none" disabled selected value="null">Año</option>
                         <option *ngFor="let year of yearEntrega" [ngValue]="year">{{year}}</option>
                       </select>
                     </div>
                     <div class="col-sm-4">
                       <select id="monthEntrega" name="mesEntrega" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2"
                         [(ngModel)]="mesEntrega" (change)="cargarDiasEntrega(mesEntrega,anoEntrega)" required>
-                        <option style="display:none" disabled selected value>Mes</option>
+                        <option style="display:none" disabled selected value="null">Mes</option>
                         <option value="01">Enero</option>
                         <option value="02">Febrero</option>
                         <option value="03">Marzo</option>
@@ -786,7 +786,7 @@
                     <div class="col-sm-4">
                       <select id="dayEntrega" name="diaEntrega" [disabled]="disabledForm2" class="form-control height-40" [class.required-field]="!validForm2"
                         [(ngModel)]="diaEntrega" required>
-                        <option style="display:none" disabled selected value>Día</option>
+                        <option style="display:none" disabled selected value="null">Día</option>
                         <option *ngFor="let day of dayEntrega" [ngValue]="day">{{day}}</option>
                       </select>
                     </div>
@@ -908,6 +908,19 @@
                 <select id="tienda" name="typeDoc" class="form-control" [(ngModel)]="tiendaContacto">
                   <option style="display:none" disabled selected value>Seleccione una</option>
                   <option value="0203">Medellín (Las Vegas)</option>
+                </select>
+              </div>
+            </div>
+            <!-- contacto planificador -->
+            <div class="row" *ngIf="paso === 3">
+              <div class="col-sm-4 col-sm-offset-4 text-center">
+                <p>
+                  <b>PLANIFICADOR DE MI BODA</b>
+                </p>
+                <select id="planificador" name="planificador" class="form-control" [(ngModel)]="planificador">
+                  <option style="display:none" disabled value="null">Seleccione uno</option>
+                  <option value="0">Ninguno</option>
+                  <option *ngFor="let wp of planificadores" [ngValue]="wp">{{wp}}</option>
                 </select>
               </div>
             </div>
