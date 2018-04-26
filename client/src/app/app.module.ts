@@ -69,6 +69,7 @@ import { CabifyComponent } from './components/cabify/cabify.component';
 import { SeccionesComponent } from './components/secciones/secciones.component';
 import { WmfSeccionComponent } from './components/secciones/wmf/wmf.component';
 import { AsaSeccionComponent } from './components/secciones/asa/asa.component';
+import { DesayunosSeccionComponent } from './components/secciones/desayuno/desayuno.component';
 
 //Componenete pagina de error
 import { ErrorComponent } from './components/error/error.component';
@@ -199,6 +200,7 @@ import { MetaModule } from '@ngx-meta/core';
     SeccionesComponent,
     WmfSeccionComponent,
     AsaSeccionComponent,
+    DesayunosSeccionComponent,
     //Lista de Regalos
     ListaRegalosComponent,
     MenuListaComponent,
