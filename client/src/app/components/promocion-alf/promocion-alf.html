@@ -1,63 +1,72 @@
 <matisses-header></matisses-header>
 
 <div sticky-body>
-  <div class="container-fluid padding-0">
-    <div class="row">
-      <div class="text-mobile">
-        <div class="col-sm-6 col-sm-offset-3">
-          <img src="../../../assets/images/explicacion-promo-alf.jpg" class="explicacion-alf" alt="">
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-12">
-        <a href="javascript:void(0)" [routerLink]="['/producto/2440121']">
-          <div class="principal-01">
-            <!-- <div class="container">
-              <div class="row">
-                <div class="col-md-3 col-md-offset-9 hidden-sm hidden-xs">
-                  <div class="text-01 text-center">
-                    <p class="uno">COMPRA UN SOFÁ ITALIANO Y</p>
-                    <h1 class="dos">LLÉVATE UN</h1>
-                    <p class="tres">COMEDOR SERENA</p>
-                    <p class="cuatro">CON EL</p>
-                    <h2 class="cinco">53% OFF</h2>
-                  </div>
-                </div>
-              </div>
-            </div> -->
-            <div class="row">
-              <div class="col-md-3 col-sm-5">
-                <img src="../../../assets/images/explicacion-promo-alf.jpg" class="explicacion-alf hidden-xs" alt="">
-              </div>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="container-fluid padding-0">
+  <div class="container">
+    <div class="contenedor">
       <div class="row">
-        <div class="col-sm-12">
-          <div class="nombre-producto">COMEDOR SERENA | ANTES $ 12.300.000</div>
-          <div class="precio-ahora">AHORA $ 4.920.000</div>
+        <div class="col-xs-12 hidden-xs">
+          <img src="../../../assets/images/evento-alf.jpg" class="jpg-responsive" alt="">
+        </div>
+        <div class="col-xs-12 visible-xs">
+          <img src="../../../assets/images/evento-alf-mobile.jpg" class="jpg-responsive" alt="">
         </div>
       </div>
       <div class="row">
         <div class="col-xs-10 col-xs-offset-1 text-center">
-          <p>Promoción válida hasta agotar existencias. *Aplica para un comedor Serena por cada 6 millones comprados en mobiliario
-            italiano. No aplica cambio, ni devoluciones. Aplican condiciones y restricciones.</p>
+          <p>*Promoción válida hasta agotar existencias.
+            <br>*Aplica para un producto en promoción por cada 6 millones comprados en mobiliario.</p>
         </div>
       </div>
-    </div>
-  </div>
-  <recommended></recommended>
-  <new-products></new-products>  
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12 text-center">
-        <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{ keywords: 'calia,nicoletti', orderBy: 'price'}">
-          <button type="button" class="btn btn-ver-mas" name="button">Ver más</button>
-        </a>
+      <div class="row">
+        <div class="col-sm-4 col-sm-offset-2 col-xs-8 col-xs-offset-2">
+          <div class="recomendaciones">
+            <p class="name">COMEDOR 8 PUESTOS
+              <br>
+              <b>SERENA</b>
+            </p>
+            <a href="javascript:void(0)" [routerLink]="['/producto', items[0].shortitemcode]">
+              <img src="https://img.matisses.co/{{items[0].itemcode}}/parrilla/{{items[0].itemcode}}_01.jpg" class="item-jpg-responsive cursor-pointer"
+                alt="{{items[0].itemname}}">
+            </a>
+            <p class="precio">
+              <del>$ {{items[0].priceaftervat | number}}</del>
+            </p>
+            <p class="descount">
+              <b>$ {{items[0].priceaftervat * 0.4 | number}}</b>
+            </p>
+          </div>
+        </div>
+        <div class="col-sm-4 col-xs-8 col-xs-offset-2 col-sm-offset-0">
+          <div class="recomendaciones">
+            <p class="name">CAMA EXTRA DOBLE
+              <br>
+              <b>SERENA</b>
+            </p>
+            <a href="javascript:void(0)" [routerLink]="['/producto', items[1].shortitemcode]">
+              <img src="https://img.matisses.co/{{items[1].itemcode}}/parrilla/{{items[1].itemcode}}_01.jpg" class="item-jpg-responsive cursor-pointer"
+                alt="{{items[1].itemname}}">
+            </a>
+            <p class="precio">
+              <del>$ {{items[1].priceaftervat | number}}</del>
+            </p>
+            <p class="descount">
+              <b>$ {{items[1].priceaftervat * 0.4 | number}}</b>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+          <h3 class="text-center">Condiciones y restricciones:</h3>
+          <ul>
+            <li>Promoción válida hasta agotar existencias.</li>
+            <li>Promoción válida hasta el 30 de mayo de 2018.</li>
+            <li>Aplica para un producto en promoción por cada 6 millones comprados en mobiliario.</li>
+            <li>No aplica cambios ni devoluciones.</li>
+            <li>No acumulable con otras promociones.</li>
+            <li>La actividad promocional podría ser extendida en tiempo sin previo aviso.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

@@ -20,6 +20,21 @@ export class PromocionAlfComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.inicializarItems();
+  }
+
+  private inicializarItems() {
+    this.items = new Array<Item>();
+    this._itemService.find('2440012').subscribe(
+      response => {
+        this.items.push(response.result[0]);
+        this._itemService.find('2440001').subscribe(
+          response => {
+            this.items.push(response.result[0]);
+          }, error => { console.error(); }
+        );
+      }, error => { console.error(); }
+    );
   }
 
 }
