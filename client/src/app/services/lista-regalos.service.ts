@@ -210,4 +210,13 @@ export class ListaRegalosService {
     return this._http.get(this.urlBCS + 'sessionusuario/recuperar/' + nombreUsuario, { headers: headers })
       .map(res => res.json());
   }
+
+  consultarPlanificadoresActivos() {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'listaregalos/consultarplanificadores', { headers: headers })
+      .map(res => res.json());
+  }
 }
