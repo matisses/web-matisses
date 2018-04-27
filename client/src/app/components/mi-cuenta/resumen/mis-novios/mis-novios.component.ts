@@ -21,11 +21,26 @@ export class NoviosComponent implements OnInit {
   public nombreUsuario: string;
   public documentCustomer:string;
   public totalesDTO:any;
-
+  public fileList: FileList;
+  public formDataRut: FormData;
+  public formDataSC: FormData;
+  public messageError:string;
+  public successMessage:string;
+  public updateMessage:string="";
+  public seguridadSocialR:any;
+  public montoRedimir:number;
+  public fileUploadCc:any;
+  public codigoDecorador: string;
+  public codigoRedimir:string=null;
+  public tipoRedencion:string;
 
   constructor(private _route: ActivatedRoute, private _router: Router,private _customerService: CustomerService,private _userService: SessionUsuarioService,private _cityService: CityService) {
     this.title = 'Este es el cuerpo de novios';
-    this.clientes = Array<any>();
+    //this.fileList=new FileList();
+    this.formDataRut=new FormData();
+    this.formDataSC=new FormData();
+    this.clientes = new Array<any>();
+    this.montoRedimir=0;
     this.inicializarCliente();
     this.inicializarTotales();
   }
@@ -428,17 +443,16 @@ export class NoviosComponent implements OnInit {
   }
 
   public buscarCliente() {
-    console.log('buscarCliente ');
+
     if (this.nombreUsuario != null && this.nombreUsuario.length > 0) {
-      console.log('buscarCliente ');
+
   this._userService.cargarcliente(this.nombreUsuario).subscribe(
     response => {
       this.customer = response;
       this._userService.verNoviosWP(this.documentCustomer).subscribe(
         response => {
           this.clientes=response;
-        console.log('response '+this.clientes);
-
+          this.codigoDecorador=response[0].codigoDecorador;
 
 
         },
@@ -450,8 +464,8 @@ export class NoviosComponent implements OnInit {
       this._userService.totalAcumuladoWP(this.documentCustomer).subscribe(
         response => {
           this.totalesDTO=response;
-        console.log('responseTotales '+this.totalesDTO.puntosAcomulados);
-        
+
+
 
 
         },
@@ -470,7 +484,7 @@ export class NoviosComponent implements OnInit {
   }
 
   public irLista(codigoLista:string, idLista:string){
-    console.log('el codigo de la lista es '+codigoLista+" "+idLista);
+
     localStorage.setItem('codigo-lista',codigoLista);
     localStorage.setItem('id-lista',idLista);
     this._router.navigate(['/mi-lista']);
@@ -490,6 +504,148 @@ export class NoviosComponent implements OnInit {
 
 
   }
+}
+
+public abrirModalRedimir(tipo:string){
+  this.tipoRedencion=tipo;
+  this.successMessage=null;
+  this.montoRedimir=0;
+  this.codigoRedimir=null;
+  $('#solicitarRedencion').modal('show');
+}
+
+onFileChangeR(event, tipo:string) {
+  let fileList:FileList = event.target.files;
+
+  for(let i = 0; i < fileList.length; i++) {
+    let file: File = fileList[i];
+    if(tipo=='RUT'){
+
+
+      let nameA=file.name.split('.');
+
+      this.formDataRut.append('file', file);
+      this.formDataRut.append('nombrearchivo', nameA[0]);
+    }
+    else if(tipo=='CC'){
+      let nameB=file.name.split('.');
+
+      this.formDataSC.append('file', file);
+      this.formDataSC.append('nombrearchivo', nameB[0]);
+
+    }
+
+
+  }
+
+  // else{
+  // if (fileList.length > 0) {
+  //   let file: File = fileList[0];
+  //   let fileSize: number = fileList[0].size;
+  //   // let tipopng: string = 'image/png';
+  //   // let tipojpg: string = 'image/jpeg';
+  //   for(let i = 0; i < fileList.length; i++) {
+  //     let file: File = fileList[i];
+  //     let fileSize: number = fileList[i].size;
+  //     let formData: FormData = new FormData();
+  //     let nameA=file.name.split('.');
+  //     console.log('solonombre '+nameA[0]);
+  //     formData.append('file', file);
+  //     formData.append('codigo', this.customer.fiscalID);
+  //     formData.append('nombrearchivo', nameA[0]);
+  //     // if(this.registroDecorador!=null){
+  //     //   formData.append('decorador', 'decorador');
+  //     //   formData.append('planificador', '');
+  //     // }
+  //     // if(this.registroPlanificador!=null){
+  //     //   formData.append('planificador', 'planificador');
+  //     //   formData.append('decorador', '');
+  //     // }
+  //     console.log('formData '+formData);
+  //     // this._userService.subirImagen(formData).subscribe(
+  //     //   response => {
+  //     //     console.log('viene del servicio '+response);
+  //     //         let respuesta = JSON.parse(JSON.stringify(response));
+  //     //
+  //     //       },
+  //     //       error => { console.error(error); }
+  //     // );
+  //   }
+  //
+  // }
+  // else {
+  //   this.messageError = 'Lo sentimos intenta mas tarde.';
+  // }
+  // }
+
+}
+
+public redimir(){
+
+  if(this.codigoDecorador!=this.codigoRedimir || this.codigoRedimir==null ){
+    this.messageError="El codigo de decorador es invalido";
+    return;
+  }
+  this.messageError='';
+  if(this.montoRedimir==0 || this.montoRedimir==null){
+    this.messageError="El monto a redimir debe ser mayor a 0";
+    return;
+  }
+  this.messageError='';
+  if(this.formDataRut.get('file')==null){
+    this.messageError="Debes adjuntar la cuenta de cobro";
+    return;
+  }
+  this.messageError='';
+  if(this.formDataSC.get('file')==null){
+    this.messageError="Debes adjuntar la seguridad social";
+    return;
+  }
+
+ this.successMessage=null;
+  let datosSolicitud={
+	"tipo":"WP",
+	"estado":"PE",
+	"monto": this.montoRedimir,
+	"modo":this.tipoRedencion,
+	"idUsuarioPaginaDTO":{
+		"usuarioId":  localStorage.getItem('usuario-id')
+	}
+
+}
+
+//servicio solicitarRedencion
+this._userService.solicitarRedencion(datosSolicitud).subscribe(
+  response => {
+    if(response.estado=='0'){
+
+
+      this.formDataRut.append('idSolicitud',response.valor);
+      this.formDataSC.append('idSolicitud', response.valor);
+      this._userService.documentosRedencion(this.formDataRut).subscribe(
+        response => {
+
+              let respuesta = JSON.parse(JSON.stringify(response));
+
+            },
+            error => { console.error(error); }
+      );
+      this._userService.documentosRedencion(this.formDataSC).subscribe(
+        response => {
+
+              let respuesta = JSON.parse(JSON.stringify(response));
+
+            },
+            error => { console.error(error); }
+      );
+      this.successMessage='Solicitud de redención creada correctamente';
+    }
+
+  },
+  error => {
+    console.error(error);
+  }
+);
 }
 
 }

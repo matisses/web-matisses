@@ -135,7 +135,7 @@ export class SessionUsuarioService {
       'Content-Type': 'application/json'
     });
 
-    return this._http.get(this.urlBCS + 'sessionusuario/cargarmontoacomulado/' + documentoUsuario, { headers: headers })
+    return this._http.get(this.urlBCS + 'sessionusuario/cargarmontoacumulado/' + documentoUsuario, { headers: headers })
       .map(res => res.json());
   }
 
@@ -171,6 +171,24 @@ export class SessionUsuarioService {
 
     return this._http.get(this.urlBCS + 'sessionusuario/activarusuario/' + nombreUsuario , { headers: headers })
       .map(res => res.json());
+  }
+
+  solicitarRedencion(datosLlamada) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'sessionusuario/solicitaredencion', JSON.stringify(datosLlamada), { headers: headers })
+      .map(res => res.json());
+  }
+
+  documentosRedencion(formData) {
+    const headers = new Headers({
+      'Content-Type': 'multipart/form-data; boundary = ---- WebKitFormBoundary7MA4YWxkTrZu0gW'
+    });
+
+    return this._http.post(this.urlBCS + 'sessionusuario/subirredencion/', formData)
+      .map(res => res);
   }
 
 
