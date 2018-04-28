@@ -135,6 +135,7 @@ import { routing, appRoutingProviders } from './app.routing';
 import { AppComponent } from './app.component';
 import { Ng2GoogleRecaptchaModule } from 'ng2-google-recaptcha';
 import { MetaModule } from '@ngx-meta/core';
+import { CondicionesComplementosAlfComponent } from './components/condiciones-complementos/condiciones-complementos.component';
 
 
 @NgModule({
@@ -201,6 +202,7 @@ import { MetaModule } from '@ngx-meta/core';
     WmfSeccionComponent,
     AsaSeccionComponent,
     DesayunosSeccionComponent,
+    CondicionesComplementosAlfComponent,
     //Lista de Regalos
     ListaRegalosComponent,
     MenuListaComponent,
