@@ -32,6 +32,7 @@ import { Slide2Component } from './components/principal/slide2/slide-2.component
 import { Slide3Component } from './components/principal/slide3/slide-3.component';
 import { Slide4Component } from './components/principal/slide4/slide-4.component';
 import { Slide5Component } from './components/principal/slide5/slide-5.component';
+import { Slide6Component } from './components/principal/slide6/slide-6.component';
 
 //Componentes de la seccion de categorias
 import { CategoryComponent } from './components/category/category.component';
@@ -153,6 +154,7 @@ import { CondicionesComplementosAlfComponent } from './components/condiciones-co
     Slide3Component,
     Slide4Component,
     Slide5Component,
+    Slide6Component,
     TopBannerComponent,
     PromocionComponent,
     MenuComponent,
