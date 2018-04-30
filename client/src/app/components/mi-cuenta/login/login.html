@@ -109,6 +109,14 @@
                 </div>
               </div>
               <br>
+              <div class="row" *ngIf="customer.fiscalIdType == 31">
+                <div class="col-xs-10 col-xs-offset-1">
+                  <label for="razonSocial">Razón social*</label>
+                  <input type="text" class="form-registro" id="razonSocial" [disabled]="disabledCustomer" name="razonSocial" [(ngModel)]="customer.cardName"
+                    required>
+                </div>
+              </div>
+              <br>
               <div class="row">
                 <div class="col-xs-10 col-xs-offset-1">
                   <label for="name">Nombres*</label>
@@ -126,14 +134,6 @@
                 <div class="col-md-5 col-xs-10 col-xs-offset-1 col-md-offset-0">
                   <label for="2apellido">Segundo apellido*</label>
                   <input type="text" class="form-registro" id="apellidoCustomer2" [disabled]="disabledCustomer" name="lastName2" [(ngModel)]="customer.lastName2"
-                    required>
-                </div>
-              </div>
-              <br>
-              <div class="row" *ngIf="customer.fiscalIdType == 31">
-                <div class="col-xs-10 col-xs-offset-1">
-                  <label for="razonSocial">Razón social*</label>
-                  <input type="text" class="form-registro" id="razonSocial" [disabled]="disabledCustomer" name="razonSocial" [(ngModel)]="customer.cardName"
                     required>
                 </div>
               </div>

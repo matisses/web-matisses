@@ -172,11 +172,22 @@ export class LoginComponent implements OnInit {
     if (this.customer.fiscalID != null && this.customer.fiscalID.length > 0) {
       this._customerService.getCustomerData(this.customer.fiscalID).subscribe(
         response => {
-          // if (response.fiscalIdType == '31') {
-          //   this.messageError = 'Tu tipo de documento no está habilitado actualmente para realizar compras en el sitio web.';
-          //   this.validCustomer = false;
-          //   return;
-          // }
+          if (response.fiscalIdType == '31') {
+            this.customer.fiscalIdType = response.fiscalIdType;
+            this.customer.firstName = response.contacts.firstName + ' ' + response.contacts.middleName;
+            this.customer.lastName1 = response.contacts.lastName1;
+            this.customer.lastName2 = response.contacts.lastName2;
+            this.customer.birthDate = response.birthDate;
+            this.customer.addresses[0].email = response.addresses[0].email;
+            this.customer.addresses[0].cellphone = response.addresses[0].cellphone;
+            this.customer.addresses[0].address = response.addresses[0].address;
+            this.customer.addresses[0].cityCode = response.addresses[0].cityCode;
+            this.customer.cardName = response.cardName;
+            this.existeCustomer = true;
+            this.disabledCustomer = true;
+            return;
+          }
+
           if (response.gender == 'MASCULINO') {
             this.checkedCustomerF = false;
             this.checkedCustomerM = true;
@@ -205,10 +216,10 @@ export class LoginComponent implements OnInit {
               error => { console.error(error); }
             );
           }
-
           this.customer.firstName = '';
           this.customer.lastName1 = '';
           this.customer.lastName2 = '';
+          this.customer.cardName = '';
           this.customer.addresses[0].email = '';
           this.customer.addresses[0].cityCode = null;
           this.customer.addresses[0].address = '';
@@ -234,9 +245,7 @@ export class LoginComponent implements OnInit {
       response => {
         this.ciudadesPrincipales = response.cities;
       },
-      error => {
-        console.error(error);
-      }
+      error => { console.error(error); }
     );
     this._cityService.findOtherCities().subscribe(
       response => {
@@ -272,11 +281,9 @@ export class LoginComponent implements OnInit {
     }
 
     if (this.customer.fiscalIdType == "31") {
-      //documento = this.customer.cardCode;
       tipoPersona = 'JURIDICA';
       NombreCliente = this.customer.cardName;
     } else {
-      //documento = this.customer.fiscalID;
       tipoPersona = 'NATURAL';
       NombreCliente = this.customer.firstName.toUpperCase() + ' ' + apellidos.toUpperCase();
     }
@@ -300,8 +307,20 @@ export class LoginComponent implements OnInit {
       nationality: nacionalidad,
       personType: tipoPersona,
       taxRegime: 'REGIMEN_SIMPLIFICADO',
-      addresses: []
+      addresses: [],
+      contacts: {
+        name: 'ContactoWeb',
+        firstName: this.customer.firstName.toUpperCase(),
+        middleName: '',
+        lastName1: this.customer.lastName1.toUpperCase(),
+        lastName2: this.customer.lastName2.toUpperCase(),
+        address: this.customer.addresses[0].address.toUpperCase(),
+        tel1: '',
+        cellolar: this.customer.addresses[0].cellphone,
+        eMailL: this.customer.addresses[0].email.toUpperCase()
+      }
     }
+
     let billAddress = {
       stateCode: this.customer.addresses[0].cityCode.toString().substring(0, 2),
       stateName: '',
@@ -335,7 +354,6 @@ export class LoginComponent implements OnInit {
 
     this._customerService.createCustomer(businesspartner).subscribe(
       response => {
-
       },
       error => {
         this.messageError = 'Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.'
@@ -919,7 +937,7 @@ export class LoginComponent implements OnInit {
           let fileSize: number = fileList[i].size;
           let formData: FormData = new FormData();
           let nameA = file.name.split('.');
-          console.log('solonombre ' + nameA[0]);
+          
           formData.append('file', file);
           formData.append('codigo', this.customer.fiscalID);
           formData.append('nombrearchivo', nameA[0]);
