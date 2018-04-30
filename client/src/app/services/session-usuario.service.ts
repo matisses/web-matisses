@@ -190,6 +190,21 @@ export class SessionUsuarioService {
     return this._http.post(this.urlBCS + 'sessionusuario/subirredencion/', formData)
       .map(res => res);
   }
+  misClientes(documento){                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
 
+    return this._http.get(this.urlBCS + 'sessionusuario/cargar-clientes-decorador/' + documento, { headers: headers })
+      .map(res => res.json());
+  }
+
+
+  facturasClienteDecorador(documentoDecorador,documentoCliente){                                                                                                                                                                                                                                                                                                                                                                                                                                                           const headers = new Headers({
+    'Content-Type': 'application/json'
+  });
+
+  return this._http.get(this.urlBCS + 'sessionusuario/cargar-facturas-clientes-decorador/' + documentoDecorador + '/' + documentoCliente, { headers: headers })
+    .map(res => res.json());
+}
 
 }

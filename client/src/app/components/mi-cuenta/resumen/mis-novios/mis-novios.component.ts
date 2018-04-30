@@ -538,45 +538,6 @@ onFileChangeR(event, tipo:string) {
 
   }
 
-  // else{
-  // if (fileList.length > 0) {
-  //   let file: File = fileList[0];
-  //   let fileSize: number = fileList[0].size;
-  //   // let tipopng: string = 'image/png';
-  //   // let tipojpg: string = 'image/jpeg';
-  //   for(let i = 0; i < fileList.length; i++) {
-  //     let file: File = fileList[i];
-  //     let fileSize: number = fileList[i].size;
-  //     let formData: FormData = new FormData();
-  //     let nameA=file.name.split('.');
-  //     console.log('solonombre '+nameA[0]);
-  //     formData.append('file', file);
-  //     formData.append('codigo', this.customer.fiscalID);
-  //     formData.append('nombrearchivo', nameA[0]);
-  //     // if(this.registroDecorador!=null){
-  //     //   formData.append('decorador', 'decorador');
-  //     //   formData.append('planificador', '');
-  //     // }
-  //     // if(this.registroPlanificador!=null){
-  //     //   formData.append('planificador', 'planificador');
-  //     //   formData.append('decorador', '');
-  //     // }
-  //     console.log('formData '+formData);
-  //     // this._userService.subirImagen(formData).subscribe(
-  //     //   response => {
-  //     //     console.log('viene del servicio '+response);
-  //     //         let respuesta = JSON.parse(JSON.stringify(response));
-  //     //
-  //     //       },
-  //     //       error => { console.error(error); }
-  //     // );
-  //   }
-  //
-  // }
-  // else {
-  //   this.messageError = 'Lo sentimos intenta mas tarde.';
-  // }
-  // }
 
 }
 

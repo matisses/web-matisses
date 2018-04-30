@@ -480,7 +480,10 @@ export class LoginComponent implements OnInit {
         esNuevo:true,
         suscripcionNotificaciones: this.suscripcionNotificaciones,
         esDecorador:esDecorador,
-        esPlanificador:esPlanificador
+        esPlanificador:esPlanificador,
+        pendienteAprobacionDecorador:esDecorador,
+        pendienteAprobacionPlanificador:esPlanificador
+
 
       }
 

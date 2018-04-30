@@ -1,3 +1,138 @@
+<!-- MOdalReencion -->
+<div class="modal fade" id="solicitarRedencion" tabindex="-1" role="dialog" aria-labelledby="solicitarRedencionLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title text-center" id="forgotPasswordLabel">Solicitud de Redención </h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="col-sm-10 col-sm-offset-1" *ngIf="messageError != null && messageError.length > 0">
+            <div class="alert alert-danger" role="alert">
+                <p>{{messageError}}</p>
+            </div>
+        </div>
+        <div class="col-sm-10 col-sm-offset-1" *ngIf="successMessage != null && successMessage.length > 0">
+            <div class="alert alert-info" role="alert">
+                <p>{{successMessage}}</p>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6 col-xs-offset-3">
+            <div class="campos">
+              <label for="codigoD">Ingresa tu codigo</label>
+              <input  id="codigoD" class="form-registro"  name="codigoRedimir" [(ngModel)]="codigoRedimir" required >
+            </div>
+          </div>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+          <div class="col-xs-6 col-xs-offset-3">
+            <div class="campos">
+              <label for="montoD">Ingresa Monto que deseas redimir</label>
+              <input  id="montoD" class="form-registro"  name="montoRedimir" [(ngModel)]="montoRedimir" required >
+            </div>
+          </div>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+          <div class="col-xs-6 col-xs-offset-3">
+            <div class="campos">
+              <label for="ccDoc">Adjuntar Rut</label>
+                <input type="file" class="form-registro" id="rut" name="rut" (change)="onFileChangeR($event,'RUT')">
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-xs-6 col-xs-offset-3">
+            <div class="campos">
+              <label for="ccDoc">Adjuntar Cuenta de Cobro</label>
+                <input type="file" class="form-registro" id="cuentac" name="cuentac" (change)="onFileChangeR($event,'CC')">
+            </div>
+          </div>
+        </div>
+        <!-- <br>
+        <div class="row">
+          <div class="col-xs-6 col-xs-offset-3">
+            <div class="campos">
+              <label for="cuentaCobroR">Adjunte Cuenta de Cobro</label>
+              <input type="file" class="form-registro" id="cuentaCobroR" [(ngModel)]="cuentaCobroR" (change)="onFileChangeR($event, 'WP')">
+            </div>
+        </div>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+        <div class="col-xs-6 col-xs-offset-3">
+            <div class="campos">
+          <label for="seguridadSocialR">Adjunte Seguridad Social</label>
+            <input type="file" class="form-registro" id="seguridadSocialR"  (change)="onFileChangeR($event,'WP')">
+          </div>
+
+        </div>
+      </div> -->
+      <br>
+      <br>
+        <div class="row">
+          <div class="col-xs-6 col-xs-offset-3 text-center" *ngIf="successMessage == null">
+            <button class="btn btn-enviar-matisses" (click)="redimir()" >Continuar</button>
+          </div>
+        </div>
+        <br>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal detalle factura -->
+<div class="modal fade" id="detalleFactura" tabindex="-1" role="dialog" aria-labelledby="detalleFacturaLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title text-center" id="forgotPasswordLabel">Facturas Cliente </h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="row">
+          <div class="col-sm-6" *ngFor="let factura of facturasCliente">
+              <div class="address-box">
+                  <div class="predeterminado">
+                      <p>Factura Nro. {{factura.factura}}</p>
+                  </div>
+                  <div class="cuerpo">
+                      <p>Meses vencidos: ${{factura.mesesVencidos}}</p>
+                      <p>Monto Total: ${{factura.valor | number}}</p>
+                        <p>Monto Comisión:${{factura.comision | number}}</p>
+                  </div>
+
+              </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
 <div class="novios">
   <div class="row">
     <div class="col-md-2 col-sm-3 col-xs-3">
@@ -19,16 +154,11 @@
       </h4> -->
       <div class="row">
         <div class="col-sm-6" *ngFor="let cliente of clientes">
-          <div class="cliente">
+          <div class="cliente" (click)="detalleCliente(cliente.nit)">
             <p class="nombre">
-              <b>{{cliente.novios}}</b>
+              <b>{{cliente.nombres}}</b>
             </p>
-            <!-- <p>
-              <b>Código:</b> {{cliente.codigo}}</p> -->
-            <p>
-              <b>Total vendido:</b> {{cliente.puntos | number}}</p>
-            <!-- <p>
-              <b>Fecha de boda:</b> {{cliente.formateoFechaEvento}}</p> -->
+
           </div>
         </div>
       </div>
@@ -53,22 +183,22 @@
       </div>
       <div class="row">
         <div class="col-sm-6 text-center">
-          <div class="opcion">
+          <div class="opcion" (click)="abrirModalRedimir('EF')">
             <br>
             <span class="icon-cash"></span>
             <p>Efectivo</p>
             <p>
-              <b>($744.000)</b>
+              <b>(${{totalComisionEfectivo | number}})</b>
             </p>
           </div>
         </div>
         <div class="col-sm-6 text-center">
-          <div class="opcion">
+          <div class="opcion" (click)="abrirModalRedimir('BN')">
             <br>
             <span class="icon-bono-matisses"></span>
             <p>Bono Matisses</p>
             <p>
-              <b>($837.000)</b>
+              <b>(${{totalComisionBono | number}})</b>
             </p>
           </div>
         </div>
