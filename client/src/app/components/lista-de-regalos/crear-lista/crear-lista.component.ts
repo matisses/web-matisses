@@ -40,6 +40,7 @@ export class CrearListaComponent implements OnInit {
   public nombreCreadorLista: string;
   public fechaEventoLista: string;
   public messageAgadecimiento: string;
+  public planificador: string = null;
   public mostrarDatosNovia: boolean = true;
   public mostrarDatosNovio: boolean = true;
   public notificacionInmediataMailCreador: boolean = false;
@@ -83,6 +84,7 @@ export class CrearListaComponent implements OnInit {
   public monthEntrega: Array<number>;
   public ciudadesPrincipales: Array<City>;
   public otrasCiudades: Array<City>;
+  public planificadores: Array<string>;
   public customerCreador: Customer;
   public customerCocreador: Customer;
 
@@ -98,6 +100,7 @@ export class CrearListaComponent implements OnInit {
     this.yearEntrega = new Array<number>();
     this.ciudadesPrincipales = new Array<City>();
     this.otrasCiudades = new Array<City>();
+    this.planificadores = new Array<string>();
     this.celebracion = '';
     this.lugar = '';
     this.tiendaContacto = '';
@@ -107,6 +110,13 @@ export class CrearListaComponent implements OnInit {
     this.tipoLista = 'PUBLICA';
     this.messageAgadecimiento = '';
     this.notificacionInmediataMailCreador = true;
+    this.mesInicio = null;
+    this.anoInicio = null;
+    this.diaInicio = null;
+    this.mesEntrega = null;
+    this.anoEntrega = null;
+    this.diaEntrega = null;
+    this.planificador = null;
   }
 
   ngOnInit() {
@@ -134,6 +144,7 @@ export class CrearListaComponent implements OnInit {
     this.cargarAnos();
     this.obtenerCiudades();
     this.validarUsoDatos();
+    this.obtenerPlanificadores();
   }
 
   ngAfterViewInit() {
@@ -181,6 +192,18 @@ export class CrearListaComponent implements OnInit {
       }
     }
     this.paso = paso;
+  }
+
+  public obtenerPlanificadores() {
+    this.planificadores = new Array<string>();
+    this._listaRegalosService.consultarPlanificadoresActivos().subscribe(
+      Response => {
+        for (let i = 0; i < Response.length; i++) {
+          this.planificadores.push(Response[i].code + ' ' + Response[i].name);
+        }
+      },
+      error => { console.error(error); }
+    );
   }
 
   public obtenerCiudades() {
@@ -499,6 +522,7 @@ export class CrearListaComponent implements OnInit {
     let usarDatosCreador;
     let usarDatosCocreador;
     let tipoLista;
+    let idDecorador;
 
     if (this.customerCocreador.fiscalID == null) {
       this.customerCocreador.fiscalID = '';
@@ -539,11 +563,18 @@ export class CrearListaComponent implements OnInit {
       tipoLista = false;
     }
 
+    if (this.planificador == null || this.planificador.length <= 0) {
+      idDecorador = null;
+    } else {
+      idDecorador = this.planificador.trim().substring(0, 4);
+    }
+
     if (this.aceptaTerminos) {
       let listGiftDTO = {
         idLista: null,
         invitados: this.invitados,
         valorMinimoBono: this.montoBono,
+        idDecorador: idDecorador,
         codigo: "",
         nombre: null,
         rutaImagenPerfil: null,

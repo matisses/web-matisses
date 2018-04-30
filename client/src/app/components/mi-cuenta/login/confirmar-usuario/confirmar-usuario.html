@@ -6,68 +6,68 @@
 
 
       <!-- Campos para login -->
-      <!-- <div class="col-sm-6"> -->
+      <div class="col-sm-6 col-sm-offset-3">
         <form #ContactForm="ngForm">
-        <div class="login-clientes">
-          <div class="row" *ngIf="successMessage != null && successMessage.length > 0">
-            <div class="col-xs-12">
-              <div class="alert alert-info" role="alert">
-                <p>{{successMessage}}</p>
-              </div>
-            </div>
-          </div>
-          <div class="title">
-            <p>Inicia Sesión</p>
-          </div>
-
-          <div class="campos">
-
-            <br>
-            <div class="row">
-              <div class="col-xs-4 col-xs-offset-1">
-                <label for="email-login">E-mail</label>
-              </div>
-              <div class="col-xs-6">
-                <input type="text" class="form-registro" id="email-login" name="nombreUsuario" [(ngModel)]="nombreUsuario" required>
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-xs-4 col-xs-offset-1">
-                <label for="password-login">Contraseña</label>
-              </div>
-              <div class="col-xs-6">
-                <input type="password" class="form-registro" id="password-login"  name="password" [(ngModel)]="password" required>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-10 col-xs-offset-1 text-center">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" name="aceptarTerminos">No cerrar sesión
-                  </label>
+          <div class="login-clientes">
+            <div class="row" *ngIf="successMessage != null && successMessage.length > 0">
+              <div class="col-xs-12">
+                <div class="alert alert-info" role="alert">
+                  <p>{{successMessage}}</p>
                 </div>
               </div>
             </div>
-            <!-- <div class="row">
-              <div class="col-xs-10 col-xs-offset-1 text-center">
-                <p class="cursor-pointer" (click)="modalRecuperarPassword()">¿Olvidaste tu clave?</p>
+            <div class="title">
+              <p>Inicia Sesión</p>
+            </div>
+
+            <div class="campos">
+
+              <br>
+              <div class="row">
+                <div class="col-xs-4 col-xs-offset-1">
+                  <label for="email-login">E-mail</label>
+                </div>
+                <div class="col-xs-6">
+                  <input type="text" class="form-registro" id="email-login" name="nombreUsuario" [(ngModel)]="nombreUsuario" required>
+                </div>
               </div>
-            </div> -->
+              <br>
+              <div class="row">
+                <div class="col-xs-4 col-xs-offset-1">
+                  <label for="password-login">Contraseña</label>
+                </div>
+                <div class="col-xs-6">
+                  <input type="password" class="form-registro" id="password-login" name="password" [(ngModel)]="password" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-10 col-xs-offset-1 text-center">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="aceptarTerminos">No cerrar sesión
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-10 col-xs-offset-1 text-center">
+                  <p class="cursor-pointer" (click)="modalRecuperarPassword()">¿Olvidaste tu clave?</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-xs-offset-3">
+                  <button type="submit" class="btn btn-enviar-ingresar" (click)="login()">Ingresar</button>
+                </div>
             <div class="row">
               <!-- <div class="col-md-5 col-xs-10 col-xs-offset-1">
                 <button type="submit" class="btn btn-enviar-facebook">
                   <span class="icon-facebook"></span> Ingresar con Facebook</button>
               </div> -->
-              <div class="col-md-5 col-xs-10 col-xs-offset-1 col-md-offset-0">
-                <!-- <button type="submit" class="btn btn-enviar-ingresar" [routerLink]="['/mi-cuenta']">Ingresar</button> -->
-                <button type="submit" class="btn btn-enviar-ingresar" (click)="login()">Ingresar</button>
               </div>
             </div>
           </div>
-        </div>
-      </form>
-      <!-- </div> -->
+        </form>
+      </div>
     </div>
   </div>
 </div>

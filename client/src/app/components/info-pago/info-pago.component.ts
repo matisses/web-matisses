@@ -18,16 +18,19 @@ import { ItemService } from '../../services/item.service';
 import { CoordinadoraService } from '../../services/coordinadora.service';
 import { ShoppingCartValidatorService } from '../../services/shopping-cart-validator.service';
 import { DescuentosService } from '../../services/descuentos.service';
+import { DigitoVerificacionService } from '../../services/digitoVerificacion.service';
 
 import { CarritoSimpleComponent } from '../header/menu/carrito/carrito-simple.component';
 import { CarritoComponent } from '../header/menu/carrito/carrito.component';
+import { CompileAnimationStateDeclarationMetadata } from '@angular/compiler';
 
 declare var $: any;
 
 @Component({
   templateUrl: 'info-pago.html',
   styleUrls: ['info-pago.component.css'],
-  providers: [CustomerService, CityService, ShippingMethodService, PlacetoPayService, ShoppingCartService, ItemService, CoordinadoraService, ShoppingCartValidatorService, DescuentosService]
+  providers: [CustomerService, CityService, ShippingMethodService, PlacetoPayService, ShoppingCartService, ItemService, CoordinadoraService,
+    ShoppingCartValidatorService, DescuentosService, DigitoVerificacionService]
 })
 
 export class InfoPagoComponent implements OnInit {
@@ -59,7 +62,7 @@ export class InfoPagoComponent implements OnInit {
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService, private _cityService: CityService,
     private _shippingMethodService: ShippingMethodService, private _placetopayService: PlacetoPayService, private _shoppingCartService: ShoppingCartService,
     private _itemService: ItemService, private _coordinadoraService: CoordinadoraService, private _shoppingCartValidatorService: ShoppingCartValidatorService,
-    private _descuentosService: DescuentosService) {
+    private _descuentosService: DescuentosService, private _digitoVerificacionService: DigitoVerificacionService) {
     this.messageError = '';
     this.urlReturn = GLOBAL.urlTransactionResult;
     this.limpiar();
@@ -75,7 +78,7 @@ export class InfoPagoComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    $(document).ready(function() {
+    $(document).ready(function () {
       $("html, body").animate({ scrollTop: 0 }, 1000);
     });
   }
@@ -87,17 +90,13 @@ export class InfoPagoComponent implements OnInit {
       response => {
         this.ciudadesPrincipales = response.cities;
       },
-      error => {
-        console.error(error);
-      }
+      error => { console.error(error); }
     );
     this._cityService.findOtherCities().subscribe(
       response => {
         this.otrasCiudades = response.cities;
       },
-      error => {
-        console.error(error);
-      }
+      error => { console.error(error); }
     );
   }
 
@@ -106,6 +105,7 @@ export class InfoPagoComponent implements OnInit {
     this.metodosEnvio = new Array<ShippingMethod>();
     this._shippingMethodService.listShippingMethods().subscribe(
       response => {
+        this.metodosEnvio = new Array<ShippingMethod>();
         for (let i = 0; i < response.length; i++) {
           // if(response[i].code === 3){
           //   //TODO: se debe quitar esta condición si el medio es Coordinadora
@@ -118,11 +118,8 @@ export class InfoPagoComponent implements OnInit {
             this.metodosEnvio.push(response[i]);
           }
         }
-        console.log(this.metodosEnvio);
       },
-      error => {
-        console.error(error);
-      }
+      error => { console.error(error); }
     );
 
     // this.metodosEnvio = new Array<ShippingMethod>();
@@ -146,31 +143,61 @@ export class InfoPagoComponent implements OnInit {
   public buscarCliente() {
     this.disabled = false;
     this.customer.fiscalID = this.customer.fiscalID.trim();
+    this.customer.cardCode = this.customer.fiscalID.trim();
+
     this.messageError = '';
     if (this.customer.fiscalID != null && this.customer.fiscalID.length > 0) {
       this._customerService.getCustomerData(this.customer.fiscalID).subscribe(
         response => {
           if (response.fiscalIdType == '31') {
-            this.messageError = 'Tu tipo de documento no está habilitado actualmente para realizar compras en el sitio web.';
-            this.limpiar();
+            this.customer.fiscalID = response.fiscalID;
+            this.customer.fiscalIdType = response.fiscalIdType;
+            this.customer.firstName = response.contacts.firstName + ' ' + response.contacts.middleName;
+            this.customer.lastName1 = response.contacts.lastName1;
+            this.customer.lastName2 = response.contacts.lastName2;
+            this.customer.birthDate = response.birthDate;
+            this.customer.addresses[0].email = response.addresses[0].email;
+            this.customer.addresses[0].cellphone = response.addresses[0].cellphone;
+            this.customer.addresses[0].address = response.addresses[0].address;
+            this.customer.addresses[0].cityCode = response.addresses[0].cityCode;
+            this.customer.cardName = response.cardName;
+            this.disabled = true;
             this.valid = false;
             return;
           }
+
           this.customer = response;
           this.disabled = true;
-          console.log('Consultando costo de envio');
           this.consultarCostoEnvio();
         },
         error => {
+          if (this.customer.fiscalIdType == '31') {
+            this._digitoVerificacionService.consultarDigitoVerificacion(this.customer.fiscalID).subscribe(
+              response => {
+                if (response != null || response.length > 0) {
+                  this.customer.fiscalID = this.customer.fiscalID + '-' + response;
+                } else {
+                  this.messageError = "Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.";
+                }
+              },
+              error => { console.error(error); }
+            );
+          }
+
           let cedula = this.customer.fiscalID;
-          this.limpiar();
+          this.customer.firstName = null;
+          this.customer.lastName1 = null;
+          this.customer.lastName2 = null;
+          this.customer.cardName = null;
+          this.customer.addresses[0].email = null;
+          this.customer.addresses[0].cellphone = null;
+          this.customer.addresses[0].cityCode = null;
+          this.customer.addresses[0].address = null;
           this.customer.fiscalID = cedula;
           console.error(error);
         }
       );
-    } else {
-      this.limpiar();
-    }
+    } else { this.limpiar(); }
   }
 
   public consultarCostoEnvio() {
@@ -188,15 +215,12 @@ export class InfoPagoComponent implements OnInit {
         for (let i = 0; i < this.metodosEnvio.length; i++) {
           if (this.metodosEnvio[i].code === 3) {
             this.costoEnvio = response.valor;
-            console.log(this.costoEnvio);
             break;
           }
         }
         this.obtenerMetodosEnvio();
       },
-      error => {
-        console.error(error);
-      }
+      error => { console.error(error); }
     );
   }
 
@@ -253,7 +277,7 @@ export class InfoPagoComponent implements OnInit {
       return;
     }
     if (this.metodoEnvioSeleccionado.code == 2 && (this.tiendaSeleccionada == null || this.tiendaSeleccionada.length <= 0)) {
-      this.messageError = 'Debes seleccionar en cual tienda deseas recoger los artículos.';
+      this.messageError = 'Debes seleccionar la tienda en la que deseas recoger los artículos.';
       return;
     } else if (this.metodoEnvioSeleccionado.code != 2) {
       this.tiendaSeleccionada = null;
@@ -321,9 +345,7 @@ export class InfoPagoComponent implements OnInit {
               localStorage.setItem('matisses.shoppingCart', JSON.stringify(this.carrito.shoppingCart));
               this.validarCliente(this.carrito.shoppingCart._id);
             },
-            error => {
-              console.error(error);
-            }
+            error => { console.error(error); }
           );
         }
       },
@@ -346,7 +368,10 @@ export class InfoPagoComponent implements OnInit {
         //Se debe mandar a crear el cliente en SAP
         let apellidos = '';
         let nacionalidad = '';
+        let tipoPersona = '';
+        let NombreCliente = '';
         apellidos += this.customer.lastName1;
+
         if (this.customer.lastName2 != null && this.customer.lastName2.length > 0) {
           apellidos += ' ' + this.customer.lastName2;
         }
@@ -356,10 +381,18 @@ export class InfoPagoComponent implements OnInit {
           nacionalidad = 'FOREIGN';
         }
 
+        if (this.customer.fiscalIdType == "31") {
+          tipoPersona = 'JURIDICA';
+          NombreCliente = this.customer.cardName.toUpperCase();
+        } else {
+          tipoPersona = 'NATURAL';
+          NombreCliente = this.customer.firstName.toUpperCase() + ' ' + apellidos.toUpperCase();
+        }
+
         let businesspartner = {
           birthDate: '1900-01-01',
-          cardCode: this.customer.fiscalID + 'CL',
-          cardName: this.customer.firstName.toUpperCase() + ' ' + apellidos.toUpperCase(),
+          cardCode: this.customer.cardCode.trim() + 'CL',
+          cardName: NombreCliente,
           defaultBillingAddress: 'FACTURACIÓN',
           defaultShippingAddress: 'FACTURACIÓN',
           firstName: this.customer.firstName.toUpperCase(),
@@ -373,9 +406,20 @@ export class InfoPagoComponent implements OnInit {
           foreignType: 'CON_CLAVE',
           gender: 'NINGUNO',
           nationality: nacionalidad,
-          personType: 'NATURAL',
+          personType: tipoPersona,
           taxRegime: 'REGIMEN_SIMPLIFICADO',
-          addresses: []
+          addresses: [],
+          contacts: {
+            name: 'ContactoWeb',
+            firstName: this.customer.firstName.toUpperCase(),
+            middleName: '',
+            lastName1: this.customer.lastName1.toUpperCase(),
+            lastName2: this.customer.lastName2.toUpperCase(),
+            address: this.customer.addresses[0].address.toUpperCase(),
+            tel1: '',
+            cellolar: this.customer.addresses[0].cellphone,
+            eMailL: this.customer.addresses[0].email.toUpperCase()
+          }
         }
 
         let billAddress = {
@@ -416,12 +460,10 @@ export class InfoPagoComponent implements OnInit {
             if (response.estado == 0) {
               this.enviarPlaceToPay(_idCarrito);
             } else {
-              //error
+              this.messageError = "Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.";
             }
           },
-          error => {
-            console.error(error);
-          }
+          error => { console.error(error); }
         );
       }
     );
@@ -434,15 +476,13 @@ export class InfoPagoComponent implements OnInit {
       items: this.carrito.shoppingCart.items
     }
 
-    console.log(datosCompraWeb);
-
     this._shoppingCartValidatorService.validate(datosCompraWeb).subscribe(
       response => {
-        console.log(response);
         if (response.mensaje === 'true') {
           //Se mapean los datos que se le enviaran a PlacetoPay
           let apellidos = '';
           apellidos += this.customer.lastName1;
+
           if (this.customer.lastName2 != null && this.customer.lastName2.length > 0) {
             apellidos += ' ' + this.customer.lastName2;
           }
@@ -486,20 +526,13 @@ export class InfoPagoComponent implements OnInit {
               localStorage.removeItem('matisses.shoppingCart');
               window.location.href = response.respuestaPlaceToPay.processUrl;
             },
-            error => {
-              console.error(error);
-            }
+            error => { console.error(error); }
           );
         } else {
           this.messageCambio = 'No se pudo continuar con el proceso de compra, debido a que uno o varios ítems ya no aplican descuento.';
           $('#cambioPrecio').modal('show');
-
         }
-      }, error => {
-        console.log('**********************************');
-        console.log(error);
-        console.log('**********************************');
-      }
+      }, error => { console.error(error) }
     );
 
     //
@@ -559,22 +592,12 @@ export class InfoPagoComponent implements OnInit {
   }
 
   public refrescarValoresCarrito() {
-    console.log('*************** desplegando carrito desde el modal ***************')
     this.carrito1.clickCarrito();
-    // console.log('Variable mostrar: ' + this.carrito.mostrar);
-    console.log('------------------------------------');
-    console.log('Datos encontrados en LocalStorage: ');
-    console.log(this.carrito.shoppingCart.items);
-    console.log('------------------------------------');
 
     for (let i = 0; this.carrito.shoppingCart.items.length; i++) {
-      console.log(this.carrito.shoppingCart.items[i].shortitemcode);
       this._itemService.find(this.carrito.shoppingCart.items[i].shortitemcode).subscribe(
         response => {
-          console.log('Precio encontrado en mongo: ' + response.result[0].priceaftervat + ' - Precio encontrado en LocalStorage: ' +
-            this.carrito.shoppingCart.items[i].priceaftervat + ' Ref: ' + this.carrito.shoppingCart.items[i].shortitemcode);
           if (response.result[0].priceaftervat !== this.carrito.shoppingCart.items[i].priceaftervat) {
-            console.log('El precio no coincide: ' + this.carrito.shoppingCart.items[i].shortitemcode);
             response.result[0].selectedQuantity = this.carrito.shoppingCart.items[i].selectedQuantity;
             this.carrito.shoppingCart.items[i].selectedQuantity = 0;
             this.carrito.procesarItem(this.carrito.shoppingCart.items[i]);
@@ -586,7 +609,6 @@ export class InfoPagoComponent implements OnInit {
                   response => {
                     if (!(response.descuentos.length > 0 && (response.descuentos[0].porcentaje === this.carrito.shoppingCart.items[i].descuento))) {
                       let item = this.carrito.shoppingCart.items[i];
-                      console.log(this.carrito.shoppingCart.items[i]);
                       let selectedQuantity = this.carrito.shoppingCart.items[i].selectedQuantity;
                       if (response.descuentos.length > 0 && response.descuentos[0].porcentaje !== 'undefined') {
                         this.carrito.shoppingCart.items[i].discount = response.descuentos[0].porcentaje;
@@ -604,16 +626,12 @@ export class InfoPagoComponent implements OnInit {
                       this.carrito.mostrarModalCarrito(false);//TODO: false no muestra modal de agreagr al cerrar cambioPrecio
                       this.procesandoP2P = false;
                     }
-                  }, error => {
-                    console.error(error);
-                  }
+                  }, error => { console.error(error); }
                 );
               }
             }
           }
-        }, error => {
-          console.error(error);
-        }
+        }, error => { console.error(error); }
       );
     }
     this._router.navigate(['www.matisses.co/resumen-carrito']);
@@ -651,7 +669,6 @@ export class InfoPagoComponent implements OnInit {
   public cambiarCiudad() {
     if (this.customer.addresses[0].cityCode != null || this.customer.addresses[0].cityCode != 0) {
       this.obtenerNombreCiudad();
-      console.log('Consultando costo de envio');
       this.consultarCostoEnvio();
     }
   }
@@ -733,6 +750,14 @@ export class InfoPagoComponent implements OnInit {
           break;
         }
       }
+    }
+  }
+
+  public vaciarDocumento(tipoDocumento: string) {
+    if (tipoDocumento == "31") {
+      this.customer.fiscalID = "";
+    } else {
+      this.customer.cardName = "";
     }
   }
 }

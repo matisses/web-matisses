@@ -28,6 +28,9 @@ export class ResumenMiCuentaComponent implements OnInit {
     if(localStorage.getItem('usuario-planificador')=='true'){
       this.planner=true;
     }
+    if(localStorage.getItem('usuario-decorador')=='true'){
+      this.decorador=true;
+    }
   }
 
   ngAfterViewInit() {

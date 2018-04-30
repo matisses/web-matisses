@@ -135,7 +135,7 @@ export class SessionUsuarioService {
       'Content-Type': 'application/json'
     });
 
-    return this._http.get(this.urlBCS + 'sessionusuario/cargarmontoacomulado/' + documentoUsuario, { headers: headers })
+    return this._http.get(this.urlBCS + 'sessionusuario/cargarmontoacumulado/' + documentoUsuario, { headers: headers })
       .map(res => res.json());
   }
 
@@ -173,5 +173,38 @@ export class SessionUsuarioService {
       .map(res => res.json());
   }
 
+  solicitarRedencion(datosLlamada) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'sessionusuario/solicitaredencion', JSON.stringify(datosLlamada), { headers: headers })
+      .map(res => res.json());
+  }
+
+  documentosRedencion(formData) {
+    const headers = new Headers({
+      'Content-Type': 'multipart/form-data; boundary = ---- WebKitFormBoundary7MA4YWxkTrZu0gW'
+    });
+
+    return this._http.post(this.urlBCS + 'sessionusuario/subirredencion/', formData)
+      .map(res => res);
+  }
+  misClientes(documento){                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'sessionusuario/cargar-clientes-decorador/' + documento, { headers: headers })
+      .map(res => res.json());
+  }
+
+
+  facturasClienteDecorador(documentoDecorador,documentoCliente){                                                                                                                                                                                                                                                                                                                                                                                                                                                           const headers = new Headers({
+    'Content-Type': 'application/json'
+  });
+
+  return this._http.get(this.urlBCS + 'sessionusuario/cargar-facturas-clientes-decorador/' + documentoDecorador + '/' + documentoCliente, { headers: headers })
+    .map(res => res.json());
+}
 
 }
