@@ -10,12 +10,12 @@
 
 /* Estilos carousel */
 
-.slider-asa {
+.slider-items {
   width: 100%;
   margin-top: 15px;
 }
 
-.slider-asa .producto {
+.slider-items .producto {
   width: 100%;
 }
 
@@ -68,6 +68,24 @@
 
 .article .img-producto {
   width: 100%;
+}
+
+.btn-carrito {
+  font-size: 12px;
+  padding: 10px;
+  border-radius: 0;
+  font-weight: 500;
+}
+
+.btn-carrito {
+  border: 1px solid #EDEDED;
+  background-color: transparent;
+  margin-left: 5px !important;
+}
+
+.btn-carrito:hover {
+  background-color: #6D9791;
+  color: #FFF;
 }
 
 @media screen and (max-width: 991px) {

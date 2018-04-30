@@ -13,29 +13,78 @@ declare var $: any;
 })
 
 export class CondicionesComplementosAlfComponent implements OnInit {
-  public itemscomplementos: Array<Item>;
+  public itemsCarousel: Array<Item>;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService) {
 
   }
 
   ngOnInit() {
-    this.inicializarItems();
+    this.inicializarCarousel();
   }
 
+  ngAfterViewInit() {
+    setTimeout(function() {
+      $("#items").click();
+    }, 500);
+   }
 
 
-  private inicializarItems() {
-    this.itemscomplementos = new Array<Item>();
-    let refs = ['2310153', '2310360', '2310398'];
 
-    for (let i = 0; i < refs.length; i++) {
-      this._itemService.find(refs[i]).subscribe(
+  private inicializarCarousel() {
+    this.itemsCarousel = new Array<Item>();
+    let refes = [
+     '2220643',
+     '2220184',
+     '2220526',
+     '2220613',
+     '2220267',
+     '2220212',
+     '2220538',
+     '2220910',
+     '2220356',
+     '2220036',
+     '2220042',
+     '2220049'
+    ];
+
+    for (let i = 0; i < refes.length; i++) {
+      this._itemService.find(refes[i]).subscribe(
         response => {
-          this.itemscomplementos.push(response.result[0]);
+          this.itemsCarousel.push(response.result[0]);
         }, error => { console.error(); }
       );
     }
+  }
+
+  public slickItems() {
+    $(".slider-items").slick({
+      prevArrow: '.slider-items-container .prev',
+      nextArrow: '.slider-items-container .next',
+      slidesToShow: 4,
+      slidesToScroll: 2,
+      responsive: [
+        {
+          breakpoint: 1025,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3,
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 2
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1
+          }
+        }
+      ]
+    });
   }
 
   
