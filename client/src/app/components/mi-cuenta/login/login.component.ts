@@ -196,6 +196,7 @@ export class LoginComponent implements OnInit {
             this.checkedCustomerF = true;
             this.checkedCustomerM = false;
           }
+          
           this.customer = response;
           this.correoOriginal = this.customer.addresses[0].email;
           this.direccionOriginal = this.customer.addresses[0].address;
@@ -260,7 +261,6 @@ export class LoginComponent implements OnInit {
     let sexo = '';
     let apellidos = '';
     let nacionalidad = '';
-    let documento = '';
     let tipoPersona = '';
     let NombreCliente = '';
     apellidos += this.customer.lastName1;
@@ -283,7 +283,7 @@ export class LoginComponent implements OnInit {
 
     if (this.customer.fiscalIdType == "31") {
       tipoPersona = 'JURIDICA';
-      NombreCliente = this.customer.cardName;
+      NombreCliente = this.customer.cardName.toUpperCase();
     } else {
       tipoPersona = 'NATURAL';
       NombreCliente = this.customer.firstName.toUpperCase() + ' ' + apellidos.toUpperCase();

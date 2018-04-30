@@ -105,6 +105,7 @@ export class InfoPagoComponent implements OnInit {
     this.metodosEnvio = new Array<ShippingMethod>();
     this._shippingMethodService.listShippingMethods().subscribe(
       response => {
+        this.metodosEnvio = new Array<ShippingMethod>();
         for (let i = 0; i < response.length; i++) {
           // if(response[i].code === 3){
           //   //TODO: se debe quitar esta condición si el medio es Coordinadora
@@ -142,6 +143,8 @@ export class InfoPagoComponent implements OnInit {
   public buscarCliente() {
     this.disabled = false;
     this.customer.fiscalID = this.customer.fiscalID.trim();
+    this.customer.cardCode = this.customer.fiscalID.trim();
+
     this.messageError = '';
     if (this.customer.fiscalID != null && this.customer.fiscalID.length > 0) {
       this._customerService.getCustomerData(this.customer.fiscalID).subscribe(
@@ -182,7 +185,14 @@ export class InfoPagoComponent implements OnInit {
           }
 
           let cedula = this.customer.fiscalID;
-          this.limpiar();
+          this.customer.firstName = null;
+          this.customer.lastName1 = null;
+          this.customer.lastName2 = null;
+          this.customer.cardName = null;
+          this.customer.addresses[0].email = null;
+          this.customer.addresses[0].cellphone = null;
+          this.customer.addresses[0].cityCode = null;
+          this.customer.addresses[0].address = null;
           this.customer.fiscalID = cedula;
           console.error(error);
         }
@@ -267,7 +277,7 @@ export class InfoPagoComponent implements OnInit {
       return;
     }
     if (this.metodoEnvioSeleccionado.code == 2 && (this.tiendaSeleccionada == null || this.tiendaSeleccionada.length <= 0)) {
-      this.messageError = 'Debes seleccionar en cual tienda deseas recoger los artículos.';
+      this.messageError = 'Debes seleccionar la tienda en la que deseas recoger los artículos.';
       return;
     } else if (this.metodoEnvioSeleccionado.code != 2) {
       this.tiendaSeleccionada = null;
@@ -358,6 +368,8 @@ export class InfoPagoComponent implements OnInit {
         //Se debe mandar a crear el cliente en SAP
         let apellidos = '';
         let nacionalidad = '';
+        let tipoPersona = '';
+        let NombreCliente = '';
         apellidos += this.customer.lastName1;
 
         if (this.customer.lastName2 != null && this.customer.lastName2.length > 0) {
@@ -369,10 +381,18 @@ export class InfoPagoComponent implements OnInit {
           nacionalidad = 'FOREIGN';
         }
 
+        if (this.customer.fiscalIdType == "31") {
+          tipoPersona = 'JURIDICA';
+          NombreCliente = this.customer.cardName.toUpperCase();
+        } else {
+          tipoPersona = 'NATURAL';
+          NombreCliente = this.customer.firstName.toUpperCase() + ' ' + apellidos.toUpperCase();
+        }
+
         let businesspartner = {
           birthDate: '1900-01-01',
-          cardCode: this.customer.fiscalID + 'CL',
-          cardName: this.customer.firstName.toUpperCase() + ' ' + apellidos.toUpperCase(),
+          cardCode: this.customer.cardCode.trim() + 'CL',
+          cardName: NombreCliente,
           defaultBillingAddress: 'FACTURACIÓN',
           defaultShippingAddress: 'FACTURACIÓN',
           firstName: this.customer.firstName.toUpperCase(),
@@ -386,9 +406,20 @@ export class InfoPagoComponent implements OnInit {
           foreignType: 'CON_CLAVE',
           gender: 'NINGUNO',
           nationality: nacionalidad,
-          personType: 'NATURAL',
+          personType: tipoPersona,
           taxRegime: 'REGIMEN_SIMPLIFICADO',
-          addresses: []
+          addresses: [],
+          contacts: {
+            name: 'ContactoWeb',
+            firstName: this.customer.firstName.toUpperCase(),
+            middleName: '',
+            lastName1: this.customer.lastName1.toUpperCase(),
+            lastName2: this.customer.lastName2.toUpperCase(),
+            address: this.customer.addresses[0].address.toUpperCase(),
+            tel1: '',
+            cellolar: this.customer.addresses[0].cellphone,
+            eMailL: this.customer.addresses[0].email.toUpperCase()
+          }
         }
 
         let billAddress = {
