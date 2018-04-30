@@ -17,21 +17,21 @@
               </div>
             </div>
           </div>
-        <div class="row">
-          <div class="col-xs-6 col-xs-offset-3">
-            <div class="campos">
-              <label for="recuperarmail">Ingresa tu e-mail</label>
-              <input type="mail" id="recuperarmail" class="form-registro"  name="recuperarEmail" [(ngModel)]="recuperarEmail" required >
+          <div class="row">
+            <div class="col-xs-6 col-xs-offset-3">
+              <div class="campos">
+                <label for="recuperarmail">Ingresa tu e-mail</label>
+                <input type="mail" id="recuperarmail" class="form-registro" name="recuperarEmail" [(ngModel)]="recuperarEmail" required>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-6 col-xs-offset-3 text-center">
-            <button type="submit" class="btn btn-enviar-matisses" (click)="recuperar()" *ngIf="updateMessage == null || updateMessage=='' ">Continuar</button>
+          <div class="row">
+            <div class="col-xs-6 col-xs-offset-3 text-center">
+              <button type="submit" class="btn btn-enviar-matisses" (click)="recuperar()" *ngIf="updateMessage == null || updateMessage=='' ">Continuar</button>
+            </div>
           </div>
-        </div>
-        <br>
-      </form>
+          <br>
+        </form>
       </div>
     </div>
   </div>
@@ -47,20 +47,20 @@
         <h4 class="modal-title text-center" id="forgotPasswordLabel">Hola</h4>
       </div>
       <div class="modal-body">
-          <div class="row" *ngIf="messageError != null && messageError.length > 0">
-            <div class="col-xs-12">
-              <div class="alert alert-danger" role="alert">
-                <p>{{messageError}}</p>
-              </div>
+        <div class="row" *ngIf="messageError != null && messageError.length > 0">
+          <div class="col-xs-12">
+            <div class="alert alert-danger" role="alert">
+              <p>{{messageError}}</p>
             </div>
           </div>
-          <div class="row" *ngIf="successMessage != null && successMessage.length > 0">
-            <div class="col-xs-12">
-              <div class="alert alert-info" role="alert">
-                <p>{{successMessage}}</p>
-              </div>
+        </div>
+        <div class="row" *ngIf="successMessage != null && successMessage.length > 0">
+          <div class="col-xs-12">
+            <div class="alert alert-info" role="alert">
+              <p>{{successMessage}}</p>
             </div>
           </div>
+        </div>
         <br>
       </div>
     </div>
@@ -81,7 +81,7 @@
             <p>Bienvenido a Matisses. Registrate y conoce lo último en diseño.</p>
           </div>
           <div class="campos">
-            <form id="form_registrar" #infoPago="ngForm" >
+            <form id="form_registrar" #infoPago="ngForm">
 
               <!-- <div class="row" *ngIf="successMessage != null && successMessage.length > 0">
                 <div class="col-xs-12">
@@ -90,223 +90,240 @@
                   </div>
                 </div>
               </div> -->
-            <div class="row">
-              <div class="col-md-5 col-xs-10 col-xs-offset-1">
-                <label for="tipo-doc">Tipo de documento*</label>
-                <select id="tipo-D" name="typeDocumento" [disabled]="disabledCustomer" class="form-control" [class.ng-reflect-model]="!31"
-                  [class.required-field]="!validCustomer" [(ngModel)]="customer.fiscalIdType" required>
-                  <option style="display:none" disabled selected value>Seleccione uno</option>
-                  <option [selected]="customer.fiscalIdType == '13'" value="13">Cedula</option>
-                  <option [selected]="customer.fiscalIdType == '22'" value="22">Cedula extranjería</option>
-                  <option [selected]="customer.fiscalIdType == '41'" value="41">Pasaporte</option>
-                </select>
+              <div class="row">
+                <div class="col-md-5 col-xs-10 col-xs-offset-1">
+                  <label for="tipo-doc">Tipo de documento*</label>
+                  <select id="tipo-D" name="typeDocumento" [disabled]="disabledCustomer" class="form-control" [class.required-field]="!validCustomer"
+                    [(ngModel)]="customer.fiscalIdType" (change)="vaciarDocumento(31)" required>
+                    <option style="display:none" disabled selected value>Seleccione uno</option>
+                    <option [selected]="customer.fiscalIdType == '13'" value="13">Cedula</option>
+                    <option [selected]="customer.fiscalIdType == '22'" value="22">Cedula extranjería</option>
+                    <option [selected]="customer.fiscalIdType == '31'" value="31">Nit</option>
+                    <option [selected]="customer.fiscalIdType == '41'" value="41">Pasaporte</option>
+                  </select>
+                </div>
+                <div class="col-md-5 col-xs-10 col-xs-offset-1 col-md-offset-0">
+                  <label for="2apellido">Documento*</label>
+                  <input type="text" class="form-registro" id="documento" [disabled]="disabledCustomer" type="text" name="fiscalID" [(ngModel)]="customer.fiscalID"
+                    (change)="buscarCliente()" required>
+                </div>
               </div>
-              <div class="col-md-5 col-xs-10 col-xs-offset-1 col-md-offset-0">
-                <label for="2apellido">Documento*</label>
-                <input type="text" class="form-registro" id="documento"  [disabled]="disabledCustomer" type="text" name="fiscalID" [(ngModel)]="customer.fiscalID" (change)="buscarCliente()" required>
+              <br *ngIf="customer.fiscalIdType == '31'">
+              <div class="row" *ngIf="customer.fiscalIdType == '31'">
+                <div class="col-xs-10 col-xs-offset-1">
+                  <label for="razonSocial">Razón social*</label>
+                  <input type="text" class="form-registro" id="razonSocial" [disabled]="disabledCustomer" name="razonSocial" [(ngModel)]="customer.cardName"
+                    required>
+                </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-10 col-xs-offset-1">
-                <label for="name">Nombres*</label>
-                <input type="text" class="form-registro" id="nameCustomer" [disabled]="disabledCustomer"  name="nameCustomer" [(ngModel)]="customer.firstName" required>
+              <br>
+              <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                  <label for="name">Nombres*</label>
+                  <input type="text" class="form-registro" id="nameCustomer" [disabled]="disabledCustomer" name="nameCustomer" [(ngModel)]="customer.firstName"
+                    required>
+                </div>
               </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-md-5 col-xs-10 col-xs-offset-1">
-                <label for="1apellido">Primer apellido*</label>
-                <input type="text" class="form-registro" id="apellidoCustomer1" [disabled]="disabledCustomer" name="lastName1" [(ngModel)]="customer.lastName1" required>
+              <br>
+              <div class="row">
+                <div class="col-md-5 col-xs-10 col-xs-offset-1">
+                  <label for="1apellido">Primer apellido*</label>
+                  <input type="text" class="form-registro" id="apellidoCustomer1" [disabled]="disabledCustomer" name="lastName1" [(ngModel)]="customer.lastName1"
+                    required>
+                </div>
+                <div class="col-md-5 col-xs-10 col-xs-offset-1 col-md-offset-0">
+                  <label for="2apellido">Segundo apellido*</label>
+                  <input type="text" class="form-registro" id="apellidoCustomer2" [disabled]="disabledCustomer" name="lastName2" [(ngModel)]="customer.lastName2"
+                    required>
+                </div>
               </div>
-              <div class="col-md-5 col-xs-10 col-xs-offset-1 col-md-offset-0">
-                <label for="2apellido">Segundo apellido*</label>
-                <input type="text" class="form-registro" id="apellidoCustomer2" [disabled]="disabledCustomer" name="lastName2" [(ngModel)]="customer.lastName2" required>
+              <br>
+              <div class="row">
+                <div class="col-md-5 col-xs-10 col-xs-offset-1">
+                  <label for="datepicker">Fecha nacimiento*</label>
+                  <input type='date' class="form-registro" id="datepicker" placeholder="DD/MM/AAAA" name="birthDate" [(ngModel)]="customer.birthDate"
+                    required>
+                </div>
+                <div class="col-md-5 col-xs-10 col-xs-offset-1 col-md-offset-0">
+                  <label for="city">Ciudad*</label>
+                  <select id="city" name="city" [disabled]="disabledCustomer" class="form-registro" [class.required-field]="!valid" [(ngModel)]="customer.addresses[0].cityCode"
+                    (change)="cambiarCiudad()" *ngIf="ciudadesPrincipales" required>
+                    <option style="display:none" disabled selected value>Seleccione una</option>
+                    <option disabled>─ Ciudades capitales</option>
+                    <option [selected]="customer.addresses[0].cityCode == principal.code" *ngFor="let principal of ciudadesPrincipales" [ngValue]="principal.code">{{principal.name}}</option>
+                    <option disabled>─ Otras ciudades</option>
+                    <option [selected]="customer.addresses[0].cityCode == otra.code" *ngFor="let otra of otrasCiudades" [ngValue]="otra.code">{{otra.name}}</option>
+                  </select>
+                </div>
               </div>
-            </div>
-            <br>
+              <br>
+              <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                  <label for="cel">Teléfono móvil*</label>
+                  <input type="tel" class="form-registro" id="cel" name="phoneCustomer" [(ngModel)]="customer.addresses[0].cellphone" required>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                  <label for="cel">Dirección*</label>
+                  <input type="tel" class="form-registro" id="address" name="address" [(ngModel)]="customer.addresses[0].address" required>
+                </div>
+              </div>
 
-            <br>
-            <div class="row">
-              <div class="col-md-5 col-xs-10 col-xs-offset-1">
-                <label for="datepicker">Fecha nacimiento*</label>
-                <input type='date' class="form-registro" id="datepicker"  placeholder="DD/MM/AAAA" name="birthDate" [(ngModel)]="customer.birthDate" required>
-              </div>
-              <div class="col-md-5 col-xs-10 col-xs-offset-1 col-md-offset-0">
-                <label for="city">Ciudad*</label>
-                <select id="city" name="city" [disabled]="disabledCustomer" class="form-registro" [class.required-field]="!valid" [(ngModel)]="customer.addresses[0].cityCode" (change)="cambiarCiudad()" *ngIf="ciudadesPrincipales" required>
-                  <option style="display:none" disabled selected value>Seleccione una</option>
-                  <option disabled>─ Ciudades capitales</option>
-                  <option [selected]="customer.addresses[0].cityCode == principal.code"  *ngFor="let principal of ciudadesPrincipales" [ngValue]="principal.code">{{principal.name}}</option>
-                  <option disabled>─ Otras ciudades</option>
-                  <option [selected]="customer.addresses[0].cityCode == otra.code"   *ngFor="let otra of otrasCiudades" [ngValue]="otra.code">{{otra.name}}</option>
-                </select>
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-xs-10 col-xs-offset-1">
-                <label for="cel">Teléfono móvil*</label>
-                <input type="tel" class="form-registro" id="cel"   name="phoneCustomer" [(ngModel)]="customer.addresses[0].cellphone" required>
-              </div>
-            </div>
-              <br>
-            <div class="row">
-              <div class="col-xs-10 col-xs-offset-1">
-                <label for="cel">Dirección*</label>
-                <input type="tel" class="form-registro" id="address"   name="address" [(ngModel)]="customer.addresses[0].address" required>
-              </div>
-            </div>
-
               <br>
               <br>
-            <div class="row">
-              <div class="col-xs-4 col-xs-offset-1">
-                <label for="email">E-mail*</label>
+              <div class="row">
+                <div class="col-xs-4 col-xs-offset-1">
+                  <label for="email">E-mail*</label>
+                </div>
+                <div class="col-xs-6">
+                  <input type="text" class="form-registro" id="email" [disabled]="disabledCustomer" name="emailCreador" [email]="true" [(ngModel)]="customer.addresses[0].email"
+                    required>
+                </div>
               </div>
-              <div class="col-xs-6">
-                <input type="text" class="form-registro" id="email"  [disabled]="disabledCustomer" name="emailCreador" [email]="true" [(ngModel)]="customer.addresses[0].email" required>
+              <br>
+              <div class="row">
+                <div class="col-xs-4 col-xs-offset-1">
+                  <label for="password">Contraseña*</label>
+                </div>
+                <div class="col-xs-6">
+                  <input type="password" class="form-registro" id="password" name="claveNueva" [(ngModel)]="claveNueva" required>
+                </div>
               </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-xs-4 col-xs-offset-1">
-                <label for="password">Contraseña*</label>
+              <br>
+              <div class="row">
+                <div class="col-xs-4 col-xs-offset-1">
+                  <label for="password-confirm">Confirmar contraseña*</label>
+                </div>
+                <div class="col-xs-6">
+                  <input type="password" class="form-registro" id="password-confirm" name="claveConfirmacion" [(ngModel)]="claveConfirmacion"
+                    required>
+                </div>
               </div>
-              <div class="col-xs-6">
-                <input type="password" class="form-registro" id="password"  name="claveNueva" [(ngModel)]="claveNueva" required>
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-xs-4 col-xs-offset-1">
-                <label for="password-confirm">Confirmar contraseña*</label>
-              </div>
-              <div class="col-xs-6">
-                <input type="password" class="form-registro" id="password-confirm" name="claveConfirmacion" [(ngModel)]="claveConfirmacion" required>
-              </div>
-            </div>
-            <br>
-            <br>
-            <div class="row" *ngIf="(registroDecorador && registroDecorador != null) || (registroPlanificador && registroPlanificador != null)">
-              <div class="col-xs-4 col-xs-offset-1">
-                <label for="ccDoc">Documento de Identidad</label>
-              </div>
-              <div class="col-xs-6">
+              <br>
+              <br>
+              <div class="row" *ngIf="(registroDecorador && registroDecorador != null) || (registroPlanificador && registroPlanificador != null)">
+                <div class="col-xs-4 col-xs-offset-1">
+                  <label for="ccDoc">Documento de Identidad</label>
+                </div>
+                <div class="col-xs-6">
                   <input type="file" class="form-registro" id="ccDoc" [(ngModel)]="fileUploadCc" (change)="onFileChange($event,'fileUploadCc')">
+                </div>
               </div>
-            </div>
               <br>
-                <div class="row" *ngIf="(registroDecorador && registroDecorador != null) || (registroPlanificador && registroPlanificador != null)">
-              <div class="col-xs-4 col-xs-offset-1">
-                <label for="rutDoc">RUT</label>
-              </div>
-              <div class="col-xs-6">
+              <div class="row" *ngIf="(registroDecorador && registroDecorador != null) || (registroPlanificador && registroPlanificador != null)">
+                <div class="col-xs-4 col-xs-offset-1">
+                  <label for="rutDoc">RUT</label>
+                </div>
+                <div class="col-xs-6">
                   <input type="file" class="form-registro" id="rutDoc" [(ngModel)]="fileUploadRut" (change)="onFileChange($event,'fileUploadRut')">
+                </div>
               </div>
-            </div>
               <br>
-                <div class="row" *ngIf="(registroDecorador && registroDecorador != null) || (registroPlanificador && registroPlanificador != null)">
-              <div class="col-xs-4 col-xs-offset-1">
-                <label for="certRut">5 Certificados Retencion</label>
+              <div class="row" *ngIf="(registroDecorador && registroDecorador != null) || (registroPlanificador && registroPlanificador != null)">
+                <div class="col-xs-4 col-xs-offset-1">
+                  <label for="certRut">5 Certificados Retencion</label>
+                </div>
+                <div class="col-xs-6">
+                  <input type="file" class="form-registro" id="certRut" [(ngModel)]="fileUploadCert" (change)="onFileChange($event,'fileUploadCert')"
+                    multiple>
+                </div>
               </div>
-              <div class="col-xs-6">
-                  <input type="file" class="form-registro" id="certRut" [(ngModel)]="fileUploadCert" (change)="onFileChange($event,'fileUploadCert')" multiple>
-              </div>
-            </div>
               <br>
               <div class="row" *ngIf="(registroDecorador && registroDecorador != null) || (registroPlanificador && registroPlanificador != null) ">
-              <div class="col-xs-4 col-xs-offset-1">
-                <label for="tarjetaDoc"> Tarjeta Profesional</label>
-              </div>
-              <div class="col-xs-6">
+                <div class="col-xs-4 col-xs-offset-1">
+                  <label for="tarjetaDoc"> Tarjeta Profesional</label>
+                </div>
+                <div class="col-xs-6">
                   <input type="file" class="form-registro" id="tarjetaDoc" [(ngModel)]="fileUploadTp" (change)="onFileChange($event,'fileUploadTp')">
+                </div>
               </div>
-            </div>
 
-            <!-- </div> -->
-            <br>
-            <div class="row">
-              <div class="col-md-5 col-xs-10 col-xs-offset-1">
-                <button type="submit" class="btn btn-enviar-matisses" (click)="registrar()">Enviar</button>
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-xs-10 col-xs-offset-1">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" name="aceptarTerminos"  [checked]="true" [(ngModel)]="aceptaTerminos">Acepto términos y condiciones y politica de tratamiento de datos.
-                  </label>
+              <!-- </div> -->
+              <br>
+              <div class="row">
+                <div class="col-md-5 col-xs-10 col-xs-offset-1">
+                  <button type="submit" class="btn btn-enviar-matisses" (click)="registrar()">Enviar</button>
                 </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-10 col-xs-offset-1">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" name="newsletter" [checked]="false" [(ngModel)]="suscripcionNotificaciones">Suscirpción al newsletter
-                  </label>
+              <br>
+              <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="aceptarTerminos" [checked]="true" [(ngModel)]="aceptaTerminos">Acepto términos y condiciones y politica de tratamiento de datos.
+                    </label>
+                  </div>
                 </div>
               </div>
-            </div>
-          </form>
+              <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="newsletter" [checked]="false" [(ngModel)]="suscripcionNotificaciones">Suscirpción al newsletter
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
       <!-- Campos para login -->
       <div class="col-sm-6">
         <form #ContactForm="ngForm">
-        <div class="login-clientes">
-          <div class="title">
-            <p>Clientes registrados</p>
-          </div>
+          <div class="login-clientes">
+            <div class="title">
+              <p>Clientes registrados</p>
+            </div>
 
-          <div class="campos">
-            <br>
-            <div class="row">
-              <div class="col-xs-4 col-xs-offset-1">
-                <label for="email-login">E-mail</label>
-              </div>
-              <div class="col-xs-6">
-                <input type="text" class="form-registro" id="email-login" name="nombreUsuario" [(ngModel)]="nombreUsuario" required>
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-xs-4 col-xs-offset-1">
-                <label for="password-login">Contraseña</label>
-              </div>
-              <div class="col-xs-6">
-                <input type="password" class="form-registro" id="password-login"  name="password" [(ngModel)]="password" required>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-10 col-xs-offset-1 text-center">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" name="aceptarTerminos">No cerrar sesión
-                  </label>
+            <div class="campos">
+              <br>
+              <div class="row">
+                <div class="col-xs-4 col-xs-offset-1">
+                  <label for="email-login">E-mail</label>
+                </div>
+                <div class="col-xs-6">
+                  <input type="text" class="form-registro" id="email-login" name="nombreUsuario" [(ngModel)]="nombreUsuario" required>
                 </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-10 col-xs-offset-1 text-center">
-                <p class="cursor-pointer" (click)="modalRecuperarPassword()">¿Olvidaste tu clave?</p>
+              <br>
+              <div class="row">
+                <div class="col-xs-4 col-xs-offset-1">
+                  <label for="password-login">Contraseña</label>
+                </div>
+                <div class="col-xs-6">
+                  <input type="password" class="form-registro" id="password-login" name="password" [(ngModel)]="password" required>
+                </div>
               </div>
-            </div>
-            <div class="row">
-              <!-- <div class="col-md-5 col-xs-10 col-xs-offset-1">
+              <div class="row">
+                <div class="col-xs-10 col-xs-offset-1 text-center">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="aceptarTerminos">No cerrar sesión
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-10 col-xs-offset-1 text-center">
+                  <p class="cursor-pointer" (click)="modalRecuperarPassword()">¿Olvidaste tu clave?</p>
+                </div>
+              </div>
+              <div class="row">
+                <!-- <div class="col-md-5 col-xs-10 col-xs-offset-1">
                 <button type="submit" class="btn btn-enviar-facebook">
                   <span class="icon-facebook"></span> Ingresar con Facebook</button>
               </div> -->
-              <div class="col-md-5 col-xs-10 col-xs-offset-1 col-md-offset-0">
-                <!-- <button type="submit" class="btn btn-enviar-ingresar" [routerLink]="['/mi-cuenta']">Ingresar</button> -->
-                <button type="submit" class="btn btn-enviar-ingresar" (click)="login()">Ingresar</button>
+                <div class="col-md-5 col-xs-10 col-xs-offset-1 col-md-offset-0">
+                  <!-- <button type="submit" class="btn btn-enviar-ingresar" [routerLink]="['/mi-cuenta']">Ingresar</button> -->
+                  <button type="submit" class="btn btn-enviar-ingresar" (click)="login()">Ingresar</button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </form>
+        </form>
       </div>
     </div>
   </div>
