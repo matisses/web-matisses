@@ -31,6 +31,7 @@ import { NovedadesComponent } from './components/novedades/novedades.component';
 import { CabifyComponent } from './components/cabify/cabify.component';
 import { LandingDecoradoresComponent } from './components/mi-cuenta/landing-decoradores/landing-decoradores.component';
 import { LandingPlannerComponent } from './components/mi-cuenta/landing-planner/landing-planner.component';
+import { CondicionesComplementosAlfComponent } from './components/condiciones-complementos/condiciones-complementos.component';
 
 // Lista de Regalos
 import { ListaRegalosComponent } from './components/lista-de-regalos/lista-regalos.component';
@@ -136,6 +137,7 @@ const appRoutes: Routes = [
   // { path: 'categoria', component: CategoryComponent, pathMatch: 'full' },
   { path: 'quienes', component: QuienesComponent },
   { path: 'tiendas', component: TiendasComponent },
+  { path: 'condiciones-complementos', component: CondicionesComplementosAlfComponent },
   { path: 'sin-intereses', component: SinInteresComponent },
   { path: 'compra-sin-intereses', component: CitibankComponent },
   { path: 'trabaja-con-nosotros', component: TrabajaComponent },

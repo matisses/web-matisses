@@ -26,13 +26,13 @@ export class Slide2Component implements OnInit {
 
   private inicializarItems() {
     this.items = new Array<Item>();
-    this._itemService.find('2310363').subscribe(
+    this._itemService.find('2310674').subscribe(
       response => {
         this.items.push(response.result[0]);
-        this._itemService.find('2310076').subscribe(
+        this._itemService.find('2310668').subscribe(
           response => {
             this.items.push(response.result[0]);
-            this._itemService.find('2240013').subscribe(
+            this._itemService.find('2310060').subscribe(
               response => {
                 this.items.push(response.result[0]);
               }, error => { console.error(); }
@@ -42,4 +42,5 @@ export class Slide2Component implements OnInit {
       }, error => { console.error(); }
     );
   }
+
 }

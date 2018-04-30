@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { ItemService } from '../../services/item.service';
-import { Item } from '../../models/item';
+import { ItemService } from '../../../services/item.service';
+import { Item } from '../../../models/item';
 
 //declare var jquery: any;
 declare var $: any;
 
 @Component({
-  templateUrl: 'promocion-alf.html',
-  styleUrls: ['promocion-alf.component.css'],
+  selector: 'slide-6',
+  templateUrl: 'slide-6.html',
+  styleUrls: ['slide-6.component.css'],
   providers: [ItemService]
 })
 
-export class PromocionAlfComponent implements OnInit {
+export class Slide6Component implements OnInit {
   public items: Array<Item>;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService) {
@@ -25,16 +26,20 @@ export class PromocionAlfComponent implements OnInit {
 
   private inicializarItems() {
     this.items = new Array<Item>();
-    this._itemService.find('2440012').subscribe(
+    this._itemService.find('2660002').subscribe(
       response => {
         this.items.push(response.result[0]);
-        this._itemService.find('2440001').subscribe(
+        this._itemService.find('2660011').subscribe(
           response => {
             this.items.push(response.result[0]);
+            this._itemService.find('2660030').subscribe(
+              response => {
+                this.items.push(response.result[0]);
+              }, error => { console.error(); }
+            );
           }, error => { console.error(); }
         );
       }, error => { console.error(); }
     );
   }
-
 }

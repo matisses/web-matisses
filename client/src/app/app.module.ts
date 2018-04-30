@@ -32,6 +32,7 @@ import { Slide2Component } from './components/principal/slide2/slide-2.component
 import { Slide3Component } from './components/principal/slide3/slide-3.component';
 import { Slide4Component } from './components/principal/slide4/slide-4.component';
 import { Slide5Component } from './components/principal/slide5/slide-5.component';
+import { Slide6Component } from './components/principal/slide6/slide-6.component';
 
 //Componentes de la seccion de categorias
 import { CategoryComponent } from './components/category/category.component';
@@ -69,6 +70,7 @@ import { CabifyComponent } from './components/cabify/cabify.component';
 import { SeccionesComponent } from './components/secciones/secciones.component';
 import { WmfSeccionComponent } from './components/secciones/wmf/wmf.component';
 import { AsaSeccionComponent } from './components/secciones/asa/asa.component';
+import { DesayunosSeccionComponent } from './components/secciones/desayuno/desayuno.component';
 
 //Componenete pagina de error
 import { ErrorComponent } from './components/error/error.component';
@@ -134,6 +136,7 @@ import { routing, appRoutingProviders } from './app.routing';
 import { AppComponent } from './app.component';
 import { Ng2GoogleRecaptchaModule } from 'ng2-google-recaptcha';
 import { MetaModule } from '@ngx-meta/core';
+import { CondicionesComplementosAlfComponent } from './components/condiciones-complementos/condiciones-complementos.component';
 
 
 @NgModule({
@@ -151,6 +154,7 @@ import { MetaModule } from '@ngx-meta/core';
     Slide3Component,
     Slide4Component,
     Slide5Component,
+    Slide6Component,
     TopBannerComponent,
     PromocionComponent,
     MenuComponent,
@@ -199,6 +203,8 @@ import { MetaModule } from '@ngx-meta/core';
     SeccionesComponent,
     WmfSeccionComponent,
     AsaSeccionComponent,
+    DesayunosSeccionComponent,
+    CondicionesComplementosAlfComponent,
     //Lista de Regalos
     ListaRegalosComponent,
     MenuListaComponent,
