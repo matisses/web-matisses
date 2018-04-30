@@ -498,8 +498,12 @@ export class LoginComponent implements OnInit {
         aceptaTerminos: this.aceptaTerminos,
         esNuevo: true,
         suscripcionNotificaciones: this.suscripcionNotificaciones,
-        esDecorador: esDecorador,
-        esPlanificador: esPlanificador
+
+        esDecorador:esDecorador,
+        esPlanificador:esPlanificador,
+        pendienteAprobacionDecorador:esDecorador,
+        pendienteAprobacionPlanificador:esPlanificador
+
       }
 
       this._userService.createUser(usuarioDTO).subscribe(

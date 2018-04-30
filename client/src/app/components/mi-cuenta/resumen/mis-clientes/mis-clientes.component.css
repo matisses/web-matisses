@@ -105,6 +105,36 @@
   text-align: center;
 }
 
+.address-box {
+    height: 185px;
+    width: 100%;
+    border-width: 1px;
+    box-sizing: border-box;
+    border-color: #E2E2E2;
+    border-style: solid;
+    margin-bottom: 30px;
+}
+
+.address-box .predeterminado {
+    margin-bottom: 15px;
+    text-transform: capitalize;
+    font-weight: bold;
+    height: 50px;
+    width: 100%;
+    border-bottom: 1px solid #E2E2E2;
+    padding-left: 20px;
+    padding-top: 15px;
+}
+
+.address-box .cuerpo {
+    padding: 0 20px;
+    height: 70px;
+}
+
+.address-box .editar-address {
+    padding: 0 20px;
+}
+
 @media screen and (max-width: 991px) {
   .novios {
     width: 90%;
