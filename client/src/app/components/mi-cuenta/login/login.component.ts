@@ -173,6 +173,7 @@ export class LoginComponent implements OnInit {
       this._customerService.getCustomerData(this.customer.fiscalID).subscribe(
         response => {
           if (response.fiscalIdType == '31') {
+            this.customer.fiscalID = response.fiscalID;
             this.customer.fiscalIdType = response.fiscalIdType;
             this.customer.firstName = response.contacts.firstName + ' ' + response.contacts.middleName;
             this.customer.lastName1 = response.contacts.lastName1;
@@ -937,7 +938,7 @@ export class LoginComponent implements OnInit {
           let fileSize: number = fileList[i].size;
           let formData: FormData = new FormData();
           let nameA = file.name.split('.');
-          
+
           formData.append('file', file);
           formData.append('codigo', this.customer.fiscalID);
           formData.append('nombrearchivo', nameA[0]);

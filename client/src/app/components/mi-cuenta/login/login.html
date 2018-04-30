@@ -108,8 +108,8 @@
                     (change)="buscarCliente()" required>
                 </div>
               </div>
-              <br>
-              <div class="row" *ngIf="customer.fiscalIdType == 31">
+              <br *ngIf="customer.fiscalIdType == '31'">
+              <div class="row" *ngIf="customer.fiscalIdType == '31'">
                 <div class="col-xs-10 col-xs-offset-1">
                   <label for="razonSocial">Razón social*</label>
                   <input type="text" class="form-registro" id="razonSocial" [disabled]="disabledCustomer" name="razonSocial" [(ngModel)]="customer.cardName"

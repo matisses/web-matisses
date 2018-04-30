@@ -37,28 +37,40 @@
               <div class="row">
                 <div class="col-md-6">
                   <label for="tipo-D">Tipo de documento*</label>
-                  <select name="typeDoc" id="tipo-D" [disabled]="disabled" class="form-control" [class.ng-reflect-model]="!31" [class.required-field]="!valid" [(ngModel)]="customer.fiscalIdType" required>
+                  <select name="typeDoc" id="tipo-D" [disabled]="disabled" class="form-control" [class.ng-reflect-model]="!31" [class.required-field]="!valid"
+                    [(ngModel)]="customer.fiscalIdType" (change)="vaciarDocumento(31)" required>
                     <option style="display:none" disabled selected value>Seleccione uno</option>
-                    <option [selected]="customer.fiscalIdType == 13" value="13">Cedula</option>
-                    <option [selected]="customer.fiscalIdType == 22" value="22">Cedula extranjería</option>
-                    <option [selected]="customer.fiscalIdType == 41" value="41">Pasaporte</option>
+                    <option [selected]="customer.fiscalIdType == '13'" value="13">Cedula</option>
+                    <option [selected]="customer.fiscalIdType == '22'" value="22">Cedula extranjería</option>
+                    <option [selected]="customer.fiscalIdType == '31'" value="31">Nit</option>
+                    <option [selected]="customer.fiscalIdType == '41'" value="41">Pasaporte</option>
                   </select>
                 </div>
                 <div class="col-md-6">
                   <label for="docu">Documento*</label>
-                  <input id="docu" type="text" class="form-control" [class.required-field]="!valid" name="fiscalID" [(ngModel)]="customer.fiscalID" (change)="buscarCliente()" required>
+                  <input id="docu" type="text" class="form-control" [class.required-field]="!valid" name="fiscalID" [(ngModel)]="customer.fiscalID"
+                    (change)="buscarCliente()" required>
+                </div>
+              </div>
+              <div class="row" *ngIf="customer.fiscalIdType == '31'">
+                <div class="col-md-12">
+                  <label for="razonSocial">Razón social*</label>
+                  <input id="razonSocial" type="text" [disabled]="disabled" class="form-control" [class.required-field]="!valid" name="razonSocial"
+                    [(ngModel)]="customer.cardName" required>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
                   <label for="name">Nombres*</label>
-                  <input id="name" type="text" [disabled]="disabled" class="form-control" [class.required-field]="!valid" name="name" [(ngModel)]="customer.firstName" required>
+                  <input id="name" type="text" [disabled]="disabled" class="form-control" [class.required-field]="!valid" name="name" [(ngModel)]="customer.firstName"
+                    required>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
                   <label for="last1">Primer apellido*</label>
-                  <input id="last1" type="text" [disabled]="disabled" class="form-control" [class.required-field]="!valid" name="lastname1" [(ngModel)]="customer.lastName1" required>
+                  <input id="last1" type="text" [disabled]="disabled" class="form-control" [class.required-field]="!valid" name="lastname1"
+                    [(ngModel)]="customer.lastName1" required>
                 </div>
                 <div class="col-md-6">
                   <label for="last2">Segundo apellido</label>
@@ -69,17 +81,20 @@
             <div class="row">
               <div class="col-md-12">
                 <label for="mail">Correo*</label>
-                <input id="mail" type="email" [disabled]="disabled" class="form-control" [class.required-field]="!valid" name="email" [email]="true" [(ngModel)]="customer.addresses[0].email" required>
+                <input id="mail" type="email" [disabled]="disabled" class="form-control" [class.required-field]="!valid" name="email" [email]="true"
+                  [(ngModel)]="customer.addresses[0].email" required>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6">
                 <label for="cel">Teléfono móvil*</label>
-                <input id="cel" type="text" [disabled]="disabled" class="form-control" [class.required-field]="!valid" name="phone" [(ngModel)]="customer.addresses[0].cellphone" required>
+                <input id="cel" type="text" [disabled]="disabled" class="form-control" [class.required-field]="!valid" name="phone" [(ngModel)]="customer.addresses[0].cellphone"
+                  required>
               </div>
               <div class="col-md-6">
                 <label for="city">Ciudad*</label>
-                <select id="city" name="city" [disabled]="disabled" class="form-control" [class.required-field]="!valid" [(ngModel)]="customer.addresses[0].cityCode" (change)="cambiarCiudad()" *ngIf="ciudadesPrincipales" required>
+                <select id="city" name="city" [disabled]="disabled" class="form-control" [class.required-field]="!valid" [(ngModel)]="customer.addresses[0].cityCode"
+                  (change)="cambiarCiudad()" *ngIf="ciudadesPrincipales" required>
                   <option style="display:none" disabled selected value>Seleccione una</option>
                   <option disabled>─ Ciudades capitales</option>
                   <option [selected]="customer.addresses[0].cityCode == principal.code" *ngFor="let principal of ciudadesPrincipales" [ngValue]="principal.code">{{principal.name}}</option>
@@ -91,7 +106,8 @@
             <div class="row">
               <div class="col-md-12">
                 <label for="address">Dirección*</label>
-                <input id="address" type="mail" [disabled]="disabled" class="form-control" [class.required-field]="!valid" name="address" [(ngModel)]="customer.addresses[0].address" required>
+                <input id="address" type="mail" [disabled]="disabled" class="form-control" [class.required-field]="!valid" name="address"
+                  [(ngModel)]="customer.addresses[0].address" required>
               </div>
             </div>
             <br/>
@@ -107,10 +123,13 @@
               <div class="row">
                 <div class="col-xs-12" *ngIf="customer.addresses[0].cityCode != null && customer.addresses[0].cityCode.length > 0">
                   <div *ngFor="let metodo of metodosEnvio">
-                    <input id="metodo_{{metodo.code}}" type="radio" name="envio" (click)="seleccionarMetodoEnvio(metodo)" [checked]="metodoEnvioSeleccionado && metodoEnvioSeleccionado.code === metodo.code" class="cursor-pointer">
+                    <input id="metodo_{{metodo.code}}" type="radio" name="envio" (click)="seleccionarMetodoEnvio(metodo)" [checked]="metodoEnvioSeleccionado && metodoEnvioSeleccionado.code === metodo.code"
+                      class="cursor-pointer">
                     <label for="metodo_{{metodo.code}}" class="cursor-pointer">{{metodo.name}}
                       <span *ngIf="metodo.code !== 3">{{metodo.description}}</span>
-                      <span *ngIf="metodo.code == 3"><b>$ {{costoEnvio | number}}</b></span>
+                      <span *ngIf="metodo.code == 3">
+                        <b>$ {{costoEnvio | number}}</b>
+                      </span>
                     </label>
                   </div>
                 </div>
@@ -118,14 +137,17 @@
               <br/>
               <div class="row" *ngIf="metodoEnvioSeleccionado && metodoEnvioSeleccionado.code == 2">
                 <div class="col-xs-12">
-                  <p class="info_recoger_item"><b>Nota:</b> Nos pondremos en contacto para programar la entrega del producto en la tienda seleccionada. Espera la llamada de nuestro equipo de servicio al cliente.</p>
+                  <p class="info_recoger_item">
+                    <b>Nota:</b> Nos pondremos en contacto para programar la entrega del producto en la tienda seleccionada.
+                    Espera la llamada de nuestro equipo de servicio al cliente.</p>
                 </div>
               </div>
               <div *ngIf="metodoEnvioSeleccionado && metodoEnvioSeleccionado.code == 2">
                 <div class="row">
                   <div class="col-xs-12">
                     <label for="tienda">Tienda*</label>
-                    <select name="tienda" id="tienda" class="form-control" [class.ng-reflect-model]="!31" [class.required-field]="!valid" [(ngModel)]="tiendaSeleccionada" required>
+                    <select name="tienda" id="tienda" class="form-control" [class.ng-reflect-model]="!31" [class.required-field]="!valid" [(ngModel)]="tiendaSeleccionada"
+                      required>
                       <option style="display:none" disabled selected value>Seleccione una</option>
                       <option [selected]="tiendaSeleccionada == 'Medellín'" value="Medellín">Medellín</option>
                     </select>
@@ -146,16 +168,37 @@
                 <div class="col-xs-12">
                   <div class="row">
                     <div class="col-sm-10 col-sm-offset-1 border-bottom">
-                      <h4><b>{{carrito.totalItems}}</b> PRODUCTOS</h4>
-                      <p>Total de los productos: <span class="pull-right"><b>$ {{carrito.totalCarrito - carrito.totalImpuestos | number}}</b></span></p>
-                      <p>Total impuestos: <span class="pull-right"><b>$ {{carrito.totalImpuestos | number}}</b></span></p>
-                      <p>Total descuentos: <span class="pull-right"><b>$ {{carrito.totalDescuentos | number}}</b></span></p>
-                      <p>Envío estándar: <span class="pull-right"><b>$ {{totalEnvio | number}}</b></span></p>
+                      <h4>
+                        <b>{{carrito.totalItems}}</b> PRODUCTOS</h4>
+                      <p>Total de los productos:
+                        <span class="pull-right">
+                          <b>$ {{carrito.totalCarrito - carrito.totalImpuestos | number}}</b>
+                        </span>
+                      </p>
+                      <p>Total impuestos:
+                        <span class="pull-right">
+                          <b>$ {{carrito.totalImpuestos | number}}</b>
+                        </span>
+                      </p>
+                      <p>Total descuentos:
+                        <span class="pull-right">
+                          <b>$ {{carrito.totalDescuentos | number}}</b>
+                        </span>
+                      </p>
+                      <p>Envío estándar:
+                        <span class="pull-right">
+                          <b>$ {{totalEnvio | number}}</b>
+                        </span>
+                      </p>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-10 col-sm-offset-1">
-                      <p>Total: <span class="pull-right"><b>$ {{((carrito.totalCarrito + totalEnvio) - carrito.totalDescuentos) | number}}</b></span></p>
+                      <p>Total:
+                        <span class="pull-right">
+                          <b>$ {{((carrito.totalCarrito + totalEnvio) - carrito.totalDescuentos) | number}}</b>
+                        </span>
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -167,7 +210,9 @@
                 <div class="col-sm-10 col-sm-offset-1 text-center">
                   <p class="text-left">El proceso de pago te redireccionará a un sitio seguro.</p>
                   <img src="assets/images/logo-p2p.png" class="text-center" alt="">
-                  <p><button *ngIf="!procesandoP2P" type="submit" class="btn-continuar" name="submit">Continuar</button></p>
+                  <p>
+                    <button *ngIf="!procesandoP2P" type="submit" class="btn-continuar" name="submit">Continuar</button>
+                  </p>
                   <img *ngIf="procesandoP2P" src="assets/images/gif-cargando.gif" alt="">
                 </div>
               </div>
