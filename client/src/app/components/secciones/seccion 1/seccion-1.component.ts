@@ -8,14 +8,14 @@ import { Item } from '../../../models/item';
 declare var $: any;
 
 @Component({
-  selector: 'seccion-asa',
-  templateUrl: 'asa.html',
-  styleUrls: ['asa.component.css'],
+  selector: 'seccion-1',
+  templateUrl: 'seccion-1.html',
+  styleUrls: ['seccion-1.component.css'],
   providers: [ItemService],
 
 })
 
-export class AsaSeccionComponent implements OnInit {
+export class Seccion1Component implements OnInit {
   public itemsAsa: Array<Item>;
   public itemsCarousel: Array<Item>;
 

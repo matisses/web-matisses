@@ -69,7 +69,7 @@ import { InfoBogotaComponent } from './components/info-bogota/info-bogota.compon
 import { CabifyComponent } from './components/cabify/cabify.component';
 import { SeccionesComponent } from './components/secciones/secciones.component';
 import { WmfSeccionComponent } from './components/secciones/wmf/wmf.component';
-import { AsaSeccionComponent } from './components/secciones/asa/asa.component';
+import { Seccion1Component } from './components/secciones/seccion 1/seccion-1.component';
 import { DesayunosSeccionComponent } from './components/secciones/desayuno/desayuno.component';
 
 //Componenete pagina de error
@@ -202,7 +202,7 @@ import { CondicionesComplementosAlfComponent } from './components/condiciones-co
     CabifyComponent,
     SeccionesComponent,
     WmfSeccionComponent,
-    AsaSeccionComponent,
+    Seccion1Component,
     DesayunosSeccionComponent,
     CondicionesComplementosAlfComponent,
     //Lista de Regalos
