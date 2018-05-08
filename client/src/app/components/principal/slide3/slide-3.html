@@ -10,7 +10,8 @@
         <span class="glyphicon glyphicon-menu-right"></span>
         <span class="sr-only">Next</span>
       </a>
-      <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{ group: '037', subgroup: '276', brand: '0020', pageSize: '10000' }">
+      <a href="javascript:void(0)" [routerLink]="['/lista-de-regalos']">
+        <!-- [queryParams]="{ group: '037', subgroup: '276', brand: '0020', pageSize: '10000' }" -->
         <div class="principal-01">
           <div class="container">
             <div class="row">
@@ -29,7 +30,7 @@
   <div class="row" *ngIf="items && items.length > 0">
     <div class="col-sm-3 col-xs-6 text-center">
       <div class="recomendaciones">
-        <p class="name">VELA AROMÁTICA<br><b>VOLUSPA</b></p>
+        <p class="name">OLLA EN COBRE Y ACERO<br><b>EVA SOLO</b></p>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[0].shortitemcode]">
           <img src="https://img.matisses.co/{{items[0].itemcode}}/parrilla/{{items[0].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[0].itemname}}">
         </a>
@@ -39,7 +40,7 @@
     </div>
     <div class="col-sm-3 col-xs-6 text-center" *ngIf="items && items.length >= 2">
       <div class="recomendaciones">
-        <p class="name">VELA AROMÁTICA<br><b>VOLUSPA</b></p>
+        <p class="name">PLATO BUTTERFLY PARADE<br><b>VISTA ALEGRE</b></p>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[1].shortitemcode]">
           <img src="https://img.matisses.co/{{items[1].itemcode}}/parrilla/{{items[1].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[1].itemname}}">
         </a>
@@ -56,10 +57,10 @@
         </a>
       </div>
       <div class="row">
-        <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{ keywords: 'mon ami', pageSize: '10000' }">
+        <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{ group: '025', pageSize: '10000', orderBy: 'price' }">
           <div class="col-xs-12">
             <div class="sub-banner-footer">
-              <p><b>Colección Mon Ami desde</b> $ {{items[2].priceaftervat | number}}</p>
+              <p><b>DESDE</b> $ {{items[2].priceaftervat | number}}</p>
               <button type="submit" class="ir-comprar" name="comprar-ya">Ir a comprar</button>
             </div>
           </div>
