@@ -266,6 +266,8 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
     localStorage.removeItem('codigo-lista');
     localStorage.removeItem('fecha-evento');
     this._router.navigate(['/lista-de-regalos']);
+    localStorage.removeItem('username-admin');
+    sessionStorage.removeItem('resultados');
   }
 
   public verificarArchivoMasivo(event) {

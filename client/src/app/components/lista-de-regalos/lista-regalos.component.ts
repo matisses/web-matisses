@@ -149,6 +149,26 @@ export class ListaRegalosComponent implements OnInit {
             this._router.navigate(['/mi-lista']);
           }
           else{
+            this._listaRegalosService.consultarListasActivas().subscribe(
+              response => {
+                console.log('listas activas '+response.length);
+                if (response.length > 0) {
+                  console.log('nombre usuario '+this.nombreUsuario);
+                  sessionStorage.setItem('resultados', JSON.stringify(response));
+                  localStorage.setItem('username-admin',this.nombreUsuario);
+
+                  this._router.navigate(['/lista-de-regalos/resultado-busqueda']);
+                } else {
+                  this.messageErrorSearch = 'No se encontro la lista.'
+                }
+              },
+              error => {
+                this.messageErrorSearch = 'Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.'
+                console.error(error);
+              }
+            );
+
+
             this._router.navigate(['/lista-de-regalos/resultado-busqueda']);
           }
 
