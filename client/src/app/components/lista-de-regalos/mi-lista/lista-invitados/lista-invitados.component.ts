@@ -47,6 +47,7 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
   public verDetalle: any;
   public urlAvatar: string;
   public urlQr: string;
+  public disabledMasivoSMS: boolean = true;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.novios = sessionStorage.getItem('novios');
@@ -154,7 +155,7 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
           }
         },
         error => {
-          this.messageError = ('Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.');
+          this.messageError = 'Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.';
           console.error(error);
         }
       );
@@ -211,17 +212,30 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
           this.totalInvitados = response.length;
           for (let i = 0; i < response.length; i++) {
             let assistance;
+            let alergico;
             if (!response[i].asistencia) {
               assistance = 'Por confirmar';
             } else {
               assistance = 'Confirmado';
             }
 
+            if (!response[i].alergico) {
+              alergico = 'No';
+            } else {
+              alergico = 'Si';
+            }
+
+            if (response[i].alergico == null) {
+              alergico = ''
+            }
+
             this.invitados.push({
               nombre: response[i].nombreInvitado + ' ' + response[i].apellidosInvitado,
               correo: response[i].correoInvitado,
               celular: response[i].telefonoInvitado,
-              asistencia: assistance
+              asistencia: assistance,
+              alergico: alergico,
+              alergia: response[i].alergia
             });
           }
         }
@@ -302,5 +316,24 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
         this.messageError = 'El archivo solo puede ser formato .xlsx'
       }
     }
+  }
+
+  public enviarInvitacionMasivaSMS() {
+    this._listaService.enviarInvitacionSmsMasivo(this.codigoLista).subscribe(
+      response => {
+        if (response.estado === 0) {
+          $("#modalInvitacionSMS").modal("hide");
+          this.messageExit = response.mensaje;
+        } else {
+          $("#modalInvitacionSMS").modal("hide");
+          this.messageError = response.mensaje;
+        }
+      },
+      error => {
+        $("#modalInvitacionSMS").modal("hide");
+        this.messageError = 'Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.';
+        console.error(error);
+      }
+    );
   }
 }
