@@ -50,7 +50,34 @@
 
   <!-- Redirect IE users -->
   <script type="text/javascript">
-    var esIE = navigator.userAgent.indexOf('Trident') >= 0 || navigator.userAgent.indexOf('Edge') >= 0;
+  var getBrowserInfo = function() {
+    var ua= navigator.userAgent, tem,
+    M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+    if(/trident/i.test(M[1])){
+        tem=  /\brv[ :]+(\d+)/g.exec(ua) || [];
+        return 'IE '+(tem[1] || '');
+    }
+    if(M[1]=== 'Chrome'){
+        tem= ua.match(/\b(OPR|Edge)\/(\d+)/);
+        if(tem!= null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+    }
+    M= M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+    if((tem= ua.match(/version\/(\d+)/i))!= null) M.splice(1, 1, tem[1]);
+     var n=M.join(' ');
+    var y=n.split(' ');
+    if(y[0]=='Chrome'){
+      if(y[1] > 50){
+            window.location = "http://www.matisses.co/ie";
+      }
+    }
+
+    return M.join(' ');
+};
+
+var result=getBrowserInfo();
+
+
+    var esIE = navigator.userAgent.indexOf('Trident') >= 0 || navigator.userAgent.indexOf('Edge') >= 0 ;
     if (esIE) {
       //This user uses Internet Explorer
       window.location = "http://www.matisses.co/ie";
@@ -112,6 +139,7 @@
 </head>
 
 <body>
+
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PJ366RL"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -144,6 +172,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="footer">
     <div class="container">
       <div class="end-footer">
+        <noscript>
+          <div class="row">
+
+              <h1>javascript está deshabilitado</h1>
+
+                  Javascript está deshabilitado en su navegador web.<br />
+                  Por favor, para ver correctamente este sitio,<br />
+                  <b><i>habilite javascript</i></b>.<br />
+                  <br />
+                  Para ver las instrucciones para habilitar javascript<br />
+                  en su navegador, haga click
+                  <a href="http://www.enable-javascript.com/es/"
+                  target="_blank">aquí</a>.
+
+            </div>
+          </noscript>
         <div class="row">
           <div class="col-md-2 text-center">
             <span id="siteseal" class="sello-seguridad">

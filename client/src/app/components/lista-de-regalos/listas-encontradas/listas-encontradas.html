@@ -1,12 +1,56 @@
 <menu-lista></menu-lista>
+<!-- Modal cambio de contraseña -->
+<div class="modal fade" id="enviarMensaje" tabindex="-1" role="dialog" aria-labelledby="enviarMensajeLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p>Enviar Mensaje a los Novios</p>
+        <div class="row" *ngIf="messageError != null && messageError.length > 0">
+          <div class="col-xs-12">
+            <div class="alert alert-danger" role="alert">
+              <p>{{messageError}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="updateMessage != null && updateMessage.length > 0">
+          <div class="col-xs-12">
+            <div class="alert alert-info" role="alert">
+              <p>{{updateMessage}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <form #ContactForm="ngForm" >
+            <div class="col-xs-8 col-xs-offset-4">
+              <label class="label-lista" for="asunto">Asunto</label>
+
+                <input type="text" class="form-control" id="asunto" name="asunto" [(ngModel)]="asunto" required>
+                <br>
+              <label class="label-lista" for="mensaje">Mensaje</label>
+                <textarea id="mensaje" class="form-control" name="mensaje" [(ngModel)]="cuerpoMensaje" required></textarea>
+
+
+            </div>
+          </form>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-buscar" (click)="enviarMensaje()" *ngIf="successMessage == null || successMessage.length <= 0">Enviar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="container">
   <div class="contenedor">
     <!-- Campos para nueva lista -->
     <div class="row">
       <div class="col-xs-12 text-center">
+        <p class="cursor-pointer text-right" *ngIf="esAdmin==true"  (click)="cerrarSession()">Cerrar Sesión</p>
         <hr class="linea-top">
         <p>Resultado de búsqueda</p>
+
       </div>
     </div>
     <div class="row text-center">
@@ -66,6 +110,7 @@
               <th>Novios</th>
               <th class="hidden-xs">Fecha de boda</th>
               <th class="hidden-xs">Lista de regalos</th>
+              <th class="hidden-xs" *ngIf="esAdmin">Administrar</th>
             </tr>
           </thead>
           <tbody>
@@ -75,6 +120,10 @@
               <td class="hidden-xs">{{novios.fecha}}</td>
               <td class="hidden-xs">
                 <button type="button" name="verLista" class="btn btn-listas" (click)="removeSession(novios.idLista,novios.codigo,novios.novios,novios.fecha)" [routerLink]="['/lista', novios.codigo]">Ver lista</button>
+              </td>
+              <td class="hidden-xs">
+                <button type="button" name="adminLista" class="btn btn-listas" *ngIf="esAdmin" (click)="removeSession(novios.idLista,novios.codigo,novios.novios,novios.fecha)" [routerLink]="['/mi-lista']">Administrar</button>
+                <button type="button" name="enviaMsj" class="btn btn-listas" *ngIf="esAdmin" (click)="abrirModalEnvio('#enviarMensaje',novios.correoLista,novios.novios)" >Enviar Mensaje</button>
               </td>
             </tr>
           </tbody>

@@ -228,4 +228,21 @@ export class ListaRegalosService {
     return this._http.get(this.urlBCS + 'listaregalos/enviarinvitacionsmsmasivo/' + codigoLista, { headers: headers })
       .map(res => res.json());
   }
+
+  consultarListasActivas() {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    return this._http.post(this.urlBCS + 'listaregalos/consultarlistasactivas/', { headers: headers })
+      .map(res => res.json());
+  }
+
+  enviarCorreoNovia(datosMensaje) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.post(this.urlBCS + 'listaregalos/enviarcorreonovios/', datosMensaje, { headers: headers })
+    .map(res => res.json());
+  }
 }
