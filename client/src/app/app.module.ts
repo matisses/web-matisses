@@ -67,10 +67,12 @@ import { RecomendadosComponent } from './components/sin-interes/recomendados/rec
 import { HotSaleComponent } from './components/hot-sale/hot-sale.component';
 import { InfoBogotaComponent } from './components/info-bogota/info-bogota.component';
 import { CabifyComponent } from './components/cabify/cabify.component';
-import { SeccionesComponent } from './components/secciones/secciones.component';
-import { WmfSeccionComponent } from './components/secciones/wmf/wmf.component';
-import { Seccion1Component } from './components/secciones/seccion 1/seccion-1.component';
-import { DesayunosSeccionComponent } from './components/secciones/desayuno/desayuno.component';
+
+// SECCIONES
+import { Seccion1Component } from './components/secciones/seccion-1/seccion-1.component';
+import { Seccion2Component } from './components/secciones/seccion-2/seccion-2.component';
+import { Seccion3Component } from './components/secciones/seccion-3/seccion-3.component';
+import { Seccion4Component } from './components/secciones/seccion-4/seccion-4.component';
 
 //Componenete pagina de error
 import { ErrorComponent } from './components/error/error.component';
@@ -200,10 +202,10 @@ import { CondicionesComplementosAlfComponent } from './components/condiciones-co
     HotSaleComponent,
     NovedadesComponent,
     CabifyComponent,
-    SeccionesComponent,
-    WmfSeccionComponent,
     Seccion1Component,
-    DesayunosSeccionComponent,
+    Seccion2Component,
+    Seccion3Component,
+    Seccion4Component,
     CondicionesComplementosAlfComponent,
     //Lista de Regalos
     ListaRegalosComponent,

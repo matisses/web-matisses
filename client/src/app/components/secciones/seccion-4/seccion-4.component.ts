@@ -5,13 +5,13 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 declare var $: any;
 
 @Component({
-  selector: 'seccion-desayunos',
-  templateUrl: 'desayuno.html',
-  styleUrls: ['desayuno.component.css'],
+  selector: 'seccion-4',
+  templateUrl: 'seccion-4.html',
+  styleUrls: ['seccion-4.component.css'],
 
 })
 
-export class DesayunosSeccionComponent implements OnInit {
+export class Seccion4Component implements OnInit {
 
 
   constructor(private _route: ActivatedRoute, private _router: Router) { }

@@ -5,17 +5,23 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 declare var $: any;
 
 @Component({
-  selector: 'secciones',
-  templateUrl: 'secciones.html',
-  styleUrls: ['secciones.component.css'],
+  selector: 'seccion-seccion-3',
+  templateUrl: 'seccion-3.html',
+  styleUrls: ['seccion-3.component.css'],
+
 })
 
-export class SeccionesComponent implements OnInit {
+export class Seccion3Component implements OnInit {
+
 
   constructor(private _route: ActivatedRoute, private _router: Router) { }
 
-  ngOnInit() { }
+  ngOnInit() {
 
-  ngAfterViewInit() { }
+  }
+
+  ngAfterViewInit() {
+
+   }
 
 }
