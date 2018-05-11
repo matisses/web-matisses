@@ -96,6 +96,12 @@
                     <div class="col-sm-10 col-sm-offset-1">
                         <p class="title-modal">Agregar dirección</p>
                     </div>
+                    <div class="col-sm-10 col-sm-offset-1" *ngIf="messageAlert != null && messageAlert.length > 0">
+                        <div class="alert alert-danger" role="alert">
+                            <p>{{messageAlert}}</p>
+                        </div>
+                    </div>
+
                     <div class="col-sm-10 col-sm-offset-1" *ngIf="messageError != null && messageError.length > 0">
                         <div class="alert alert-danger" role="alert">
                             <p>{{messageError}}</p>
@@ -171,7 +177,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-volver" (click)="cerrarAgregar()">Cerrar</button>
-                <button type="button" class="btn btn-guardar" (click)="agregarDireccion()">Guardar cambios</button>
+                <button type="button" class="btn btn-guardar" *ngIf="messageAlert == null || successMessage == null" (click)="agregarDireccion()">Guardar cambios</button>
             </div>
         </div>
     </div>

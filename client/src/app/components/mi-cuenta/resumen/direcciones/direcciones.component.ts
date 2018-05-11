@@ -29,6 +29,7 @@ export class DireccionesComponent implements OnInit {
   public infoModalAgregar: any;
   public messageError: string;
   public successMessage: string;
+  public messageAlert:string=null;
 
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService, private _userService: SessionUsuarioService, private _cityService: CityService) {
@@ -663,8 +664,12 @@ export class DireccionesComponent implements OnInit {
   }
 
   public abrirModalAgregar() {
+    this.messageAlert=null;
     this.messageError = '';
     this.successMessage = '';
+    if (this.direcciones.length > 3){
+      this.messageAlert='No puede añadir mas direcciones a su lista';
+    }
     $('#modalAgregar').modal('show');
   }
 

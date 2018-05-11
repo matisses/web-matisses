@@ -78,4 +78,17 @@ export class ResumenMiCuentaComponent implements OnInit {
     } else { }
   }
 
+  public cerrarSession(){
+  
+    localStorage.removeItem('matisses.session-token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('usuario-id');
+    localStorage.removeItem('doc-customer');
+    localStorage.removeItem('nombre-usuario');
+    localStorage.removeItem('nombre-usuario');
+    localStorage.removeItem('usuario-decorador');
+    localStorage.removeItem('usuario-planificador');
+    this._router.navigate(['/login']);
+  }
+
 }
