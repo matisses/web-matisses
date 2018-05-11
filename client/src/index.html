@@ -48,9 +48,36 @@
   <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
   <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 
-  <!-- Redirect IE users -->
-  <script type="text/javascript">
-    var esIE = navigator.userAgent.indexOf('Trident') >= 0 || navigator.userAgent.indexOf('Edge') >= 0;
+ <!-- Redirect IE users -->
+ <script type="text/javascript">
+  var getBrowserInfo = function() {
+    var ua= navigator.userAgent, tem,
+    M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+    if(/trident/i.test(M[1])){
+        tem=  /\brv[ :]+(\d+)/g.exec(ua) || [];
+        return 'IE '+(tem[1] || '');
+    }
+    if(M[1]=== 'Chrome'){
+        tem= ua.match(/\b(OPR|Edge)\/(\d+)/);
+        if(tem!= null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+    }
+    M= M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+    if((tem= ua.match(/version\/(\d+)/i))!= null) M.splice(1, 1, tem[1]);
+     var n=M.join(' ');
+    var y=n.split(' ');
+    if(y[0]=='Chrome'){
+      if(y[1] < 50){
+            window.location = "http://www.matisses.co/ie";
+      }
+    }
+
+    return M.join(' ');
+};
+
+var result=getBrowserInfo();
+
+
+    var esIE = navigator.userAgent.indexOf('Trident') >= 0 || navigator.userAgent.indexOf('Edge') >= 0 ;
     if (esIE) {
       //This user uses Internet Explorer
       window.location = "http://www.matisses.co/ie";
