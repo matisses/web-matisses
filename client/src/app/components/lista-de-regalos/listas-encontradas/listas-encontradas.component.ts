@@ -45,6 +45,9 @@ export class ResultadoBusquedaListasComponent implements OnInit {
       this.esAdmin=true;
     }
     this.cargarListas();
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
   }
 
   ngAfterViewInit() {
