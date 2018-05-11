@@ -68,6 +68,18 @@
   background-color: #D3D3D3;
 }
 
+.btn-admin {
+  background-color: transparent;
+  font-size: 20px;
+  padding: 0;
+  margin-right: 10px;
+}
+
+.mail-novios textarea {
+  resize: none;
+  height: 200px;
+}
+
 @media screen and (max-width: 1200px) {}
 
 @media screen and (max-width: 991px) {}

@@ -3,8 +3,13 @@
 <div class="modal fade" id="enviarMensaje" tabindex="-1" role="dialog" aria-labelledby="enviarMensajeLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title text-center">Envía un mail a los novios</h4>
+      </div>
       <div class="modal-body">
-        <p>Enviar Mensaje a los Novios</p>
         <div class="row" *ngIf="messageError != null && messageError.length > 0">
           <div class="col-xs-12">
             <div class="alert alert-danger" role="alert">
@@ -20,23 +25,33 @@
           </div>
         </div>
         <div class="row">
-          <form #ContactForm="ngForm" >
-            <div class="col-xs-8 col-xs-offset-4">
-              <label class="label-lista" for="asunto">Asunto</label>
-
+          <form #ContactForm="ngForm">
+            <div class="col-xs-8 col-xs-offset-2">
+              <p>
+                <b>Mensajes predeterminados:</b>
+              </p>
+              <select class="form-control">
+                <option style="display:none" disabled selected>Seleccione uno</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+              <hr>
+              <div class="mail-novios">
+                <label class="label-lista" for="asunto">Asunto</label>
                 <input type="text" class="form-control" id="asunto" name="asunto" [(ngModel)]="asunto" required>
                 <br>
-              <label class="label-lista" for="mensaje">Mensaje</label>
+                <label class="label-lista" for="mensaje">Mensaje</label>
                 <textarea id="mensaje" class="form-control" name="mensaje" [(ngModel)]="cuerpoMensaje" required></textarea>
-
-
+              </div>
             </div>
           </form>
         </div>
-
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-buscar" (click)="enviarMensaje()" *ngIf="successMessage == null || successMessage.length <= 0">Enviar</button>
+        <button type="button" class="btn btn-listas" (click)="enviarMensaje()" *ngIf="successMessage == null || successMessage.length <= 0">Enviar</button>
       </div>
     </div>
   </div>
@@ -47,7 +62,7 @@
     <!-- Campos para nueva lista -->
     <div class="row">
       <div class="col-xs-12 text-center">
-        <p class="cursor-pointer text-right" *ngIf="esAdmin==true"  (click)="cerrarSession()">Cerrar Sesión</p>
+        <p class="cursor-pointer text-right" *ngIf="esAdmin==true" (click)="cerrarSession()">Cerrar Sesión</p>
         <hr class="linea-top">
         <p>Resultado de búsqueda</p>
 
@@ -66,7 +81,9 @@
           <h4 class="title-buscar-lista">Busca una lista</h4>
         </div>
         <div class="col-sm-3" *ngIf="!mostrarBtnBuscar">
-          <h4 role="button" (click)="showBuscar()" class="title-buscar-lista" (click)="toggleClass('#caret')">Busca una lista <span id="caret" class="glyphicon glyphicon-menu-down"></span></h4>
+          <h4 role="button" (click)="showBuscar()" class="title-buscar-lista" (click)="toggleClass('#caret')">Busca una lista
+            <span id="caret" class="glyphicon glyphicon-menu-down"></span>
+          </h4>
         </div>
         <div class="collapse" id="collapseExample" [ngClass]="{'in' : mostrarBuscar}">
           <div class="col-sm-2 text-left">
@@ -108,22 +125,30 @@
             <tr class="table-title">
               <th>Código</th>
               <th>Novios</th>
-              <th class="hidden-xs">Fecha de boda</th>
+              <th class="hidden-xs">Fecha del evento</th>
               <th class="hidden-xs">Lista de regalos</th>
-              <th class="hidden-xs" *ngIf="esAdmin">Administrar</th>
+              <th class="hidden-xs" *ngIf="esAdmin">Administrador</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let novios of listas">
               <th scope="row" (click)="removeSession(novios.idLista,novios.codigo,novios.novios,novios.fecha)" [routerLink]="['/lista', novios.codigo]">{{novios.codigo}}</th>
-              <td class="nombres-novios" (click)="removeSession(novios.idLista,novios.codigo,novios.novios,novios.fecha)" [routerLink]="['/lista', novios.codigo]" [innerHTML]="novios.novios"></td>
+              <td class="nombres-novios" (click)="removeSession(novios.idLista,novios.codigo,novios.novios,novios.fecha)" [routerLink]="['/lista', novios.codigo]"
+                [innerHTML]="novios.novios"></td>
               <td class="hidden-xs">{{novios.fecha}}</td>
               <td class="hidden-xs">
-                <button type="button" name="verLista" class="btn btn-listas" (click)="removeSession(novios.idLista,novios.codigo,novios.novios,novios.fecha)" [routerLink]="['/lista', novios.codigo]">Ver lista</button>
+                <button type="button" name="verLista" class="btn btn-listas" (click)="removeSession(novios.idLista,novios.codigo,novios.novios,novios.fecha)"
+                  [routerLink]="['/lista', novios.codigo]">Ver lista</button>
               </td>
               <td class="hidden-xs">
-                <button type="button" name="adminLista" class="btn btn-listas" *ngIf="esAdmin" (click)="removeSession(novios.idLista,novios.codigo,novios.novios,novios.fecha)" [routerLink]="['/mi-lista']">Administrar</button>
-                <button type="button" name="enviaMsj" class="btn btn-listas" *ngIf="esAdmin" (click)="abrirModalEnvio('#enviarMensaje',novios.correoLista,novios.novios)" >Enviar Mensaje</button>
+                <button type="button" name="adminLista" class="btn btn-admin" *ngIf="esAdmin" (click)="removeSession(novios.idLista,novios.codigo,novios.novios,novios.fecha)"
+                  [routerLink]="['/mi-lista']" data-toggle="tooltip" data-placement="left" title="Admin Lista">
+                  <span class="icon-settings"></span>
+                </button>
+                <button type="button" name="enviaMsj" class="btn btn-admin" *ngIf="esAdmin" (click)="abrirModalEnvio('#enviarMensaje',novios.correoLista,novios.novios)"
+                  data-toggle="tooltip" data-placement="right" title="Enviar Mail">
+                  <span class="icon-mail2"></span>
+                </button>
               </td>
             </tr>
           </tbody>
