@@ -169,7 +169,7 @@ export class ListaRegalosComponent implements OnInit {
             );
 
 
-            this._router.navigate(['/lista-de-regalos/resultado-busqueda']);
+            ///this._router.navigate(['/lista-de-regalos/resultado-busqueda']);
           }
 
       },
