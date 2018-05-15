@@ -30,13 +30,13 @@
               <p>
                 <b>Mensajes predeterminados:</b>
               </p>
-              <select class="form-control">
-                <option style="display:none" disabled selected>Seleccione uno</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+              <select class="form-control" id="mensajePredeterminado" name="mensajePredeterminado" [(ngModel)]="mensajePredeterminado" (change)="onChange($event)">
+                <option style="display:none" disabled selected >Seleccione uno</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
               </select>
               <hr>
               <div class="mail-novios">

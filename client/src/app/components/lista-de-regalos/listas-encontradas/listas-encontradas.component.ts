@@ -26,6 +26,7 @@ export class ResultadoBusquedaListasComponent implements OnInit {
   public correoCreador:string='';
   public nombreNovios:string='';
   public updateMessage:string;
+  public mensajePredeterminado:string;
 
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _listaRegalosService: ListaRegalosService) {
@@ -175,12 +176,42 @@ export class ResultadoBusquedaListasComponent implements OnInit {
   }
 
   public abrirModalEnvio(modal: string, correoLista: string, nombreNovios: string){
+  this.mensajePredeterminado="0";
+  this.updateMessage=null;
+  this.asunto='';
+  this.cuerpoMensaje='';
 
    this.correoCreador=correoLista;
    this.nombreNovios=nombreNovios;
 
       $(modal).modal('show');
 
+  }
+
+  onChange($event) {
+   if(this.mensajePredeterminado=="1"){
+       this.asunto="Matisses-Felicidades por tu boda";
+       this.cuerpoMensaje=" Llego el día por el que tanto han esperado, de parte del equipo Matisses queremos desearles la mayor cantidad de alegrías, el trayecto de vida ahora es un camino compartido, muchas felicidades en su día.";
+     }
+     if(this.mensajePredeterminado=="2"){
+       this.asunto="Matisses-Necesitas ayuda con tu lista?";
+       this.cuerpoMensaje="Recuerda que con  tu lista de novias Matisses puedes realizar modificaciones desde la comodidad de tu hogar y ver los resultados de dichos cambios en tiempo real, nuestro equipo está dispuesto a ayudarte siempre.";
+     }
+     if(this.mensajePredeterminado=="3"){
+       this.asunto="Matisses-Se acerca la fecha de tu boda";
+       this.cuerpoMensaje="Se acerca el día de tu boda, recuerda que cada detalle es esencial, esperamos haber sido de gran apoyo en todo este periodo. Siempre será un honor hacer parte de tu lista de novias ideal.";
+     }
+     if(this.mensajePredeterminado=="4"){
+       this.asunto="Matisses-Requieres algun tipo de ayuda?";
+       this.cuerpoMensaje="Recuerda que si necesitas algún tipo de apoyo o ayuda, nuestro equipo está atento a tus solicitudes, comprendemos que este es uno de los días más especiales y esperados para toda pareja.";
+     }
+     if(this.mensajePredeterminado=="5"){
+       this.asunto="Matisses-Necesitas conocer mas nuestros productos?";
+       this.cuerpoMensaje="Toda la información que solicites de un producto en específico estaremos atentos a tu petición, recuerda que estamos aquí para brindarte la mejor experiencia Matisses";
+     }
+
+    // I want to do something here for new selectedDevice, but what I
+    // got here is always last selection, not the one I just select.
   }
 
   public enviarMensaje(){
