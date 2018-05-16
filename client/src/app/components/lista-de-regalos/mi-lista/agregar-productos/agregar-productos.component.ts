@@ -601,5 +601,7 @@ export class AgregarProductosComponent implements OnInit {
     localStorage.removeItem('total-por-comprar');
     localStorage.removeItem('total-comprado');
     this._router.navigate(['/lista-de-regalos']);
+    sessionStorage.removeItem('resultados');
+    localStorage.removeItem('username-admin');
   }
 }

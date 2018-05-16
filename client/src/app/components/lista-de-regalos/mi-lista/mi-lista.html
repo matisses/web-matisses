@@ -243,7 +243,8 @@
   <div class="contenedor">
     <div class="row">
       <div class="col-xs-12 text-right">
-        <p class="cursor-pointer" (click)="cerrarSession()">(Cerrar sesión)</p>
+        <p class="cursor-pointer"  *ngIf="usuarioAdmin != null && usuarioAdmin.length > 0" (click)="regresar()">|Regresar|</p>
+          <p class="cursor-pointer"  (click)="cerrarSession()">|Cerrar sesión|</p>
       </div>
     </div>
     <div class="row">

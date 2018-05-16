@@ -108,6 +108,7 @@ export class MiListaComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.usuarioAdmin=localStorage.getItem('username-admin');
     if (localStorage.getItem('username-lista') != null) {
       this.nombreUsuario = localStorage.getItem('username-lista');
     } else {
@@ -135,6 +136,7 @@ export class MiListaComponent implements OnInit {
       this.cargarDias(this.mesEntrega, this.anoEntrega);
     }*/
     /*********************/
+
   }
 
   ngAfterViewInit() {
@@ -515,6 +517,8 @@ export class MiListaComponent implements OnInit {
     localStorage.removeItem('fecha-evento');
     localStorage.removeItem('total-por-comprar');
     localStorage.removeItem('total-comprado');
+    sessionStorage.removeItem('resultados');
+    localStorage.removeItem('username-admin');
 
     this._router.navigate(['/lista-de-regalos']);
   }
@@ -571,7 +575,7 @@ export class MiListaComponent implements OnInit {
   }
 
   public actualizarImage() {
-    console.log('entra a cargar imagen');
+
   }
 
   onFileChange(event) {
@@ -691,6 +695,11 @@ export class MiListaComponent implements OnInit {
     for (let i = year; i <= year + 1; i++) {
       this.anosEntrega.push(i);
     }
+  }
+
+ public regresar(){
+
+    this._router.navigate(['/lista-de-regalos/resultado-busqueda']);
   }
 
   public programarFechaEntrega() {
