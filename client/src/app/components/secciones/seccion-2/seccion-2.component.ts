@@ -8,14 +8,14 @@ import { Item } from '../../../models/item';
 declare var $: any;
 
 @Component({
-  selector: 'seccion-wmf',
-  templateUrl: 'wmf.html',
-  styleUrls: ['wmf.component.css'],
+  selector: 'seccion-seccion-2',
+  templateUrl: 'seccion-2.html',
+  styleUrls: ['seccion-2.component.css'],
   providers: [ItemService],
 
 })
 
-export class WmfSeccionComponent implements OnInit {
+export class Seccion2Component implements OnInit {
   public itemswmf: Array<Item>;
   public itemsCarousel: Array<Item>;
 

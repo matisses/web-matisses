@@ -112,7 +112,15 @@
   color: #5B5B5B;
   padding: 5px 20px;
   border: 1px solid #7C7C7C;
-  background-color: #FFF;  
+  background-color: #FFF;
+}
+
+.btn-todos {
+  background-color: transparent;
+  border: 1px solid #5B5B5B;
+  border-radius: 0;
+  margin-top: 30px;
+  color: #5B5B5B;
 }
 
 /* Estilos carousel */

@@ -36,6 +36,10 @@
   margin-top: 30px;
 }
 
+.title {
+  height: 170px;
+}
+
 .title-seccion {
   font-size: 31px;
   position: relative;
@@ -46,18 +50,16 @@
 .title-seccion::after {
   content: ' ';
   position: absolute;
-  left: 0;
+  left: 47%;
   width: 50px;
   height: 2px;
   background-color: #000;
-  bottom: -5px;
+  bottom: -10px;
 }
 
 .sub-title-seccion {
-  position: relative;
-  top: 65px;
-  font-weight: bold;
-  font-size: 15px;
+  margin-top: 15px;
+  font-size: 20px;
 }
 
 .recomendaciones {
@@ -110,7 +112,15 @@
   color: #5B5B5B;
   padding: 5px 20px;
   border: 1px solid #7C7C7C;
-  background-color: #FFF;  
+  background-color: #FFF;
+}
+
+.btn-todos {
+  background-color: transparent;
+  border: 1px solid #5B5B5B;
+  border-radius: 0;
+  margin-top: 30px;
+  color: #5B5B5B;
 }
 
 /* Estilos carousel */
