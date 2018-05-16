@@ -417,6 +417,8 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
     localStorage.removeItem('total-por-comprar');
     localStorage.removeItem('total-comprado');
     this._router.navigate(['/lista-de-regalos']);
+    localStorage.removeItem('username-admin');
+    sessionStorage.removeItem('resultados');
   }
 
 

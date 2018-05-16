@@ -29,6 +29,7 @@ export class DireccionesComponent implements OnInit {
   public infoModalAgregar: any;
   public messageError: string;
   public successMessage: string;
+  public messageAlert:string=null;
 
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService, private _userService: SessionUsuarioService, private _cityService: CityService) {
@@ -573,7 +574,7 @@ export class DireccionesComponent implements OnInit {
                   this.messageError = '';
                   console.log('update -->' + response.mensaje);
                   this.successMessage = 'tu dirección fue actualizada correctamente';
-
+                  this.buscarCliente();
                 }
                 else {
                   this.messageError = response.mensaje;
@@ -591,7 +592,7 @@ export class DireccionesComponent implements OnInit {
       }
     );
 
-    this.buscarCliente();
+
 
   }
 
@@ -634,6 +635,7 @@ export class DireccionesComponent implements OnInit {
           "U_Municipio": this.infoModalAgregar.municipio
         }
         this.customer.BPAddresses.BPAddress.push(direccionAdd);
+        this.customer.BPAddresses.BPAddress.
         this._userService.editarCliente(this.customer).subscribe(
           response => {
 
@@ -641,7 +643,7 @@ export class DireccionesComponent implements OnInit {
               this.messageError = '';
               console.log('update -->' + response.mensaje);
               this.successMessage = 'tu dirección fue agregada correctamente';
-
+              this.buscarCliente();
 
             }
             else {
@@ -658,13 +660,17 @@ export class DireccionesComponent implements OnInit {
       }
     );
 
-    this.buscarCliente();
+
 
   }
 
   public abrirModalAgregar() {
+    this.messageAlert=null;
     this.messageError = '';
     this.successMessage = '';
+    if (this.direcciones.length > 3){
+      this.messageAlert='No puede añadir mas direcciones a su lista';
+    }
     $('#modalAgregar').modal('show');
   }
 

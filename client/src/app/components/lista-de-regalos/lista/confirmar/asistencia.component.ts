@@ -11,14 +11,19 @@ declare var $: any;
 })
 
 export class AsistenciaComponent implements OnInit {
+  public alergia: string;
+  public alergico: string;
+  public asiste: string;
   public queryParams: Map<string, string>;
   public queryString: string;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _listaRegalosService: ListaRegalosService) {
+    this.alergia = "";
+    this.alergico = "false";
+    this.asiste = "true";
   }
 
   ngOnInit() {
-    this.confirmarAsistencia();
   }
 
   ngAfterViewInit() {
@@ -26,8 +31,16 @@ export class AsistenciaComponent implements OnInit {
 
   public confirmarAsistencia() {
     this._route.params.forEach((params: Params) => {
+      let confirmarAsistenciaDTO = {
+        idInvitado: params['codigoInvitado'],
+        codigoLista: params['codigoLista'],
+        alergia: this.alergia,
+        asiste: this.asiste,
+        alergico: this.alergico
+      }
+
       //Llamar servicio para confirmar asistencia
-      this._listaRegalosService.actualizarConfirmarAsistencia(params['codigoLista'], params['codigoInvitado']).subscribe(
+      this._listaRegalosService.actualizarConfirmarAsistencia(confirmarAsistenciaDTO).subscribe(
         response => {
           this.navigate(params['codigoLista']);
         }, error => { console.error(error); }
@@ -39,5 +52,9 @@ export class AsistenciaComponent implements OnInit {
     let queryParamsObj = {};
     queryParamsObj['codigoLista'] = codigoLista;
     this._router.navigate(['/lista'], { queryParams: queryParamsObj });
+  }
+
+  public limpiar() {
+    this.alergia = "";
   }
 }

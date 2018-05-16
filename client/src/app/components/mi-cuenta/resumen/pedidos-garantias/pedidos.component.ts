@@ -193,6 +193,7 @@ export class PedidosComponent implements OnInit {
     }
 
   }
+  
 
   onChange($event) {
 
