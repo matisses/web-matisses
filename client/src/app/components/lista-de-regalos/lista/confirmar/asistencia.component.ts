@@ -31,11 +31,19 @@ export class AsistenciaComponent implements OnInit {
 
   public confirmarAsistencia() {
     this._route.params.forEach((params: Params) => {
+      let asistencia;
+
+      if (this.asiste) {
+        asistencia = "Confirmado"
+      } else {
+        asistencia = "Cancelado"
+      }
+
       let confirmarAsistenciaDTO = {
         idInvitado: params['codigoInvitado'],
         codigoLista: params['codigoLista'],
         alergia: this.alergia,
-        asiste: this.asiste,
+        asiste: asistencia,
         alergico: this.alergico
       }
 
