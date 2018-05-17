@@ -141,7 +141,7 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
         apellidosInvitado: this.apellidosInvitado.toUpperCase(),
         correoInvitado: this.correoInvitado.toUpperCase(),
         telefonoInvitado: this.telefonoInvitado.toUpperCase(),
-        asistencia: false//Se inserta false hasta que el invitado confirme asistencia via mail
+        asistencia: 'Por confirmar'//TODO: Hasta que el invitado confirme asistencia via mail o SMS.
       }
       this._listaService.crearInvitado(invitadoDTO).subscribe(
         response => {
@@ -211,13 +211,7 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
         if (response.length > 0) {
           this.totalInvitados = response.length;
           for (let i = 0; i < response.length; i++) {
-            let assistance;
             let alergico;
-            if (!response[i].asistencia) {
-              assistance = 'Por confirmar';
-            } else {
-              assistance = 'Confirmado';
-            }
 
             if (!response[i].alergico) {
               alergico = 'No';
@@ -233,7 +227,7 @@ export class ListaInvitadosComponent implements OnInit, AfterViewInit {
               nombre: response[i].nombreInvitado + ' ' + response[i].apellidosInvitado,
               correo: response[i].correoInvitado,
               celular: response[i].telefonoInvitado,
-              asistencia: assistance,
+              asistencia: response[i].asistencia,
               alergico: alergico,
               alergia: response[i].alergia
             });
