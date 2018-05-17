@@ -1,19 +1,32 @@
-.chat {
+.chat, .whatsapp {
   position: fixed;
   bottom: 0px;
-  right: 35px;
   background-color: #5B5B5B;
   text-align: center;
   color: #FFF;
   cursor: pointer;
-  z-index: 6;
-  width: 200px;
   height: 35px;
   padding-top: 10px;
 }
 
+.chat {
+  right: 35px;
+  z-index: 6;
+  width: 200px;
+}
+
+.whatsapp {
+  right: 236px;
+  z-index: 5;
+  width: 135px;
+}
+
 .chat:hover {
   background-color: #6D9791;
+}
+
+.whatsapp:hover {
+  background-color: #01E675;
 }
 
 .icon-chat {
@@ -28,3 +41,14 @@ p {
   display: inline-block;
   margin-left: 10px;
 }
+
+@media screen and (max-width: 426px) {
+  .whatsapp {
+    right: 30%;
+    width: 135px;
+  }
+}
+
+@media screen and (max-width: 375px) {}
+
+@media screen and (max-width: 320px) {}
