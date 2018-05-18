@@ -164,6 +164,12 @@
 
 <div class="container">
   <div class="contenedor">
+    <div class="row">
+      <div class="col-xs-12 text-right">
+        <p class="cursor-pointer"  *ngIf="usuarioAdmin != null && usuarioAdmin.length > 0" (click)="regresar()">|Regresar|</p>
+        
+      </div>
+    </div>
     <!-- Información de la lista -->
     <hr class="rosa">
     <div class="row">

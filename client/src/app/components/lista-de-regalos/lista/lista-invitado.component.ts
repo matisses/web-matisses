@@ -70,6 +70,7 @@ export class ListaInvitadoComponent implements OnInit {
   public formAgregar: any;
   public conteoDias: string;
   public itemsSinPaginar: Array<any>;
+  public usuarioAdmin:string=null;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -133,6 +134,10 @@ export class ListaInvitadoComponent implements OnInit {
     //       this._router.navigate(['/lista/' + this.codigoLista], { queryParams: queryParamsObj });
     //
     // }
+
+      this.usuarioAdmin = localStorage.getItem('username-admin');
+      this.nombreUsuario = this.usuarioAdmin;
+
     this.inicializarParamsConsulta();
     this.novios = sessionStorage.getItem('novios');
     this.nombreUsuario = localStorage.getItem('username-lista');
@@ -158,6 +163,7 @@ export class ListaInvitadoComponent implements OnInit {
             this.aceptaBono = response[0].aceptaBonos;
             this.minimoBono = response[0].valorMinimoBono;
             this.conteoDias = response[0].contadorDias;
+            this.novios=response[0].nombreCreador.toLowerCase() + ' ' + response[0].apellidoCreador.toLowerCase() + ' & ' + response[0].nombreCocreador.toLowerCase() + ' ' + response[0].apellidoCocreador.toLowerCase();
             localStorage.setItem('id-lista', this.idListaUsuario);
             localStorage.setItem('codigo-lista', this.codigoLista);
             this.inicializarShoppingCart();
@@ -186,6 +192,7 @@ export class ListaInvitadoComponent implements OnInit {
             this.aceptaBono = response[0].aceptaBonos;
             this.minimoBono = response[0].valorMinimoBono;
             this.conteoDias = response[0].contadorDias;
+            this.novios=response[0].nombreCreador.toLowerCase() + ' ' + response[0].apellidoCreador.toLowerCase() + ' & ' + response[0].nombreCocreador.toLowerCase() + ' ' + response[0].apellidoCocreador.toLowerCase();
             localStorage.setItem('id-lista', this.idListaUsuario);
             localStorage.setItem('codigo-lista', this.codigoLista);
             this.inicializarShoppingCart();
@@ -850,4 +857,10 @@ export class ListaInvitadoComponent implements OnInit {
       priceafterdiscount: 0
     };
   }
+
+  public regresar(){
+
+     this._router.navigate(['/lista-de-regalos/resultado-busqueda']);
+   }
+
 }
