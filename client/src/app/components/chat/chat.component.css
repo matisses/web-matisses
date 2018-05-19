@@ -19,6 +19,7 @@
   right: 236px;
   z-index: 5;
   width: 135px;
+  background-color: #075e54;
 }
 
 .chat:hover {
@@ -26,7 +27,7 @@
 }
 
 .whatsapp:hover {
-  background-color: #01E675;
+  background-color: #25d366;
 }
 
 .icon-chat {
@@ -44,8 +45,12 @@ p {
 
 @media screen and (max-width: 426px) {
   .whatsapp {
-    right: 30%;
-    width: 135px;
+    right: 0;
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+    padding-top: 10px;
+    top: 80%;
   }
 }
 

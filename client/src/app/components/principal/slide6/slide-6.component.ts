@@ -29,10 +29,10 @@ export class Slide6Component implements OnInit {
     this._itemService.find('2310674').subscribe(
       response => {
         this.items.push(response.result[0]);
-        this._itemService.find('2310082').subscribe(
+        this._itemService.find('2310044').subscribe(
           response => {
             this.items.push(response.result[0]);
-            this._itemService.find('2240056').subscribe(
+            this._itemService.find('2310204').subscribe(
               response => {
                 this.items.push(response.result[0]);
               }, error => { console.error(); }
