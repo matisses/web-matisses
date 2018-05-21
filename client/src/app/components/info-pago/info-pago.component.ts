@@ -58,6 +58,7 @@ export class InfoPagoComponent implements OnInit {
   private viewportWidth: number = 0;
   public resumenMobileVisible: boolean = false;
   public resumenDesktopVisible: boolean = false;
+  public maxlength: number;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService, private _cityService: CityService,
     private _shippingMethodService: ShippingMethodService, private _placetopayService: PlacetoPayService, private _shoppingCartService: ShoppingCartService,
@@ -381,7 +382,7 @@ export class InfoPagoComponent implements OnInit {
           nacionalidad = 'FOREIGN';
         }
 
-        if (this.customer.fiscalIdType == "31") {
+        if (this.customer.fiscalIdType == '31') {
           tipoPersona = 'JURIDICA';
           NombreCliente = this.customer.cardName.toUpperCase();
         } else {
@@ -754,10 +755,13 @@ export class InfoPagoComponent implements OnInit {
   }
 
   public vaciarDocumento(tipoDocumento: string) {
-    if (tipoDocumento == "31") {
+    if (tipoDocumento === '31') {
       this.customer.fiscalID = "";
+      this.maxlength = 9;
     } else {
+      this.customer.fiscalID = "";
       this.customer.cardName = "";
+      this.maxlength = 10;
     }
   }
 }

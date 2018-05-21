@@ -94,7 +94,7 @@
                 <div class="col-md-5 col-xs-10 col-xs-offset-1">
                   <label for="tipo-doc">Tipo de documento*</label>
                   <select id="tipo-D" name="typeDocumento" [disabled]="disabledCustomer" class="form-control" [class.required-field]="!validCustomer"
-                    [(ngModel)]="customer.fiscalIdType" (change)="vaciarDocumento('31')" required>
+                    [(ngModel)]="customer.fiscalIdType" (change)="vaciarDocumento(customer.fiscalIdType)" required>
                     <option style="display:none" disabled selected value>Seleccione uno</option>
                     <option [selected]="customer.fiscalIdType == '13'" value="13">Cedula</option>
                     <option [selected]="customer.fiscalIdType == '22'" value="22">Cedula extranjería</option>
@@ -104,8 +104,8 @@
                 </div>
                 <div class="col-md-5 col-xs-10 col-xs-offset-1 col-md-offset-0">
                   <label for="2apellido">Documento*</label>
-                  <input type="text" class="form-registro" id="documento" [disabled]="disabledCustomer" type="text" name="fiscalID" [(ngModel)]="customer.fiscalID"
-                    (change)="buscarCliente()" required>
+                  <input type="text" [maxlength]="maxlength" class="form-registro" id="documento" [disabled]="disabledCustomer" name="fiscalID"
+                    [(ngModel)]="customer.fiscalID" (change)="buscarCliente()" required>
                 </div>
               </div>
               <br *ngIf="customer.fiscalIdType == '31'">

@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
   public fileUploadTp: any;
   public decorador: boolean = false;
   public planificador: boolean = false;
-  public digitoVerificacion: number;
+  public maxlength: number;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _userService: SessionUsuarioService, private _jwt: JWTService,
     private _customerService: CustomerService, private _cityService: CityService, private _digitoVerificacionService: DigitoVerificacionService) {
@@ -196,7 +196,7 @@ export class LoginComponent implements OnInit {
             this.checkedCustomerF = true;
             this.checkedCustomerM = false;
           }
-          
+
           this.customer = response;
           this.correoOriginal = this.customer.addresses[0].email;
           this.direccionOriginal = this.customer.addresses[0].address;
@@ -499,10 +499,10 @@ export class LoginComponent implements OnInit {
         esNuevo: true,
         suscripcionNotificaciones: this.suscripcionNotificaciones,
 
-        esDecorador:esDecorador,
-        esPlanificador:esPlanificador,
-        pendienteAprobacionDecorador:esDecorador,
-        pendienteAprobacionPlanificador:esPlanificador
+        esDecorador: esDecorador,
+        esPlanificador: esPlanificador,
+        pendienteAprobacionDecorador: esDecorador,
+        pendienteAprobacionPlanificador: esPlanificador
 
       }
 
@@ -991,10 +991,13 @@ export class LoginComponent implements OnInit {
   }
 
   public vaciarDocumento(tipoDocumento: string) {
-    if (tipoDocumento == "31") {
+    if (tipoDocumento === '31') {
       this.customer.fiscalID = "";
+      this.maxlength = 9;
     } else {
+      this.customer.fiscalID = "";
       this.customer.cardName = "";
+      this.maxlength = 10;
     }
   }
 }
