@@ -245,4 +245,13 @@ export class ListaRegalosService {
     return this._http.post(this.urlBCS + 'listaregalos/enviarcorreonovios/', datosMensaje, { headers: headers })
     .map(res => res.json());
   }
+
+  consultarTotalComprado(codigoLista) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'listaregalos/consultartotalcomprado/' + codigoLista, { headers: headers })
+      .map(res => res.json());
+  }
 }
