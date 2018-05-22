@@ -153,7 +153,7 @@ export class InfoPagoComponent implements OnInit {
           if (response.fiscalIdType === '31') {
             this.customer.fiscalID = response.fiscalID;
             this.customer.fiscalIdType = response.fiscalIdType;
-            this.customer.firstName = response.contacts.firstName + ' ' + response.contacts.middleName == null ? "" : response.contacts.middleName;
+            this.customer.firstName = response.contacts.firstName + ' ' + (response.contacts.middleName == null ? "" : response.contacts.middleName);
             this.customer.lastName1 = response.contacts.lastName1;
             this.customer.lastName2 = response.contacts.lastName2 == null ? "" : response.contacts.lastName2;
             this.customer.birthDate = response.birthDate;
