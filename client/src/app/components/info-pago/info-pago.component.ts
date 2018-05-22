@@ -150,7 +150,7 @@ export class InfoPagoComponent implements OnInit {
     if (this.customer.fiscalID != null && this.customer.fiscalID.length > 0) {
       this._customerService.getCustomerData(this.customer.fiscalID).subscribe(
         response => {
-          if (response.fiscalIdType == '31') {
+          if (response.fiscalIdType === '31') {
             this.customer.fiscalID = response.fiscalID;
             this.customer.fiscalIdType = response.fiscalIdType;
             this.customer.firstName = response.contacts.firstName + ' ' + response.contacts.middleName;
@@ -172,7 +172,7 @@ export class InfoPagoComponent implements OnInit {
           this.consultarCostoEnvio();
         },
         error => {
-          if (this.customer.fiscalIdType == '31') {
+          if (this.customer.fiscalIdType === '31') {
             this._digitoVerificacionService.consultarDigitoVerificacion(this.customer.fiscalID).subscribe(
               response => {
                 if (response != null || response.length > 0) {
@@ -360,7 +360,7 @@ export class InfoPagoComponent implements OnInit {
   private validarCliente(_idCarrito) {
     this.obtenerNombreCiudad();
 
-    this._customerService.getCustomerData(this.customer.fiscalID).subscribe(
+    this._customerService.getCustomerData(this.customer.cardCode).subscribe(
       response => {
         //Mandar directo a placetopay
         this.enviarPlaceToPay(_idCarrito);
@@ -382,7 +382,7 @@ export class InfoPagoComponent implements OnInit {
           nacionalidad = 'FOREIGN';
         }
 
-        if (this.customer.fiscalIdType == '31') {
+        if (this.customer.fiscalIdType === '31') {
           tipoPersona = 'JURIDICA';
           NombreCliente = this.customer.cardName.toUpperCase();
         } else {
@@ -398,7 +398,7 @@ export class InfoPagoComponent implements OnInit {
           defaultShippingAddress: 'FACTURACIÓN',
           firstName: this.customer.firstName.toUpperCase(),
           lastName1: this.customer.lastName1.toUpperCase(),
-          lastName2: this.customer.lastName2.toUpperCase(),
+          lastName2: this.customer.lastName2 == null ? "" : this.customer.lastName2.toUpperCase(),
           fiscalID: this.customer.fiscalID,
           selfRetainer: 'N',
           salesPersonCode: '98',
@@ -415,7 +415,6 @@ export class InfoPagoComponent implements OnInit {
             firstName: this.customer.firstName.toUpperCase(),
             middleName: '',
             lastName1: this.customer.lastName1.toUpperCase(),
-            lastName2: this.customer.lastName2.toUpperCase(),
             address: this.customer.addresses[0].address.toUpperCase(),
             tel1: '',
             cellolar: this.customer.addresses[0].cellphone,
@@ -470,7 +469,7 @@ export class InfoPagoComponent implements OnInit {
     );
   }
 
-  private enviarPlaceToPay(_id) {
+  private enviarPlaceToPay(_id) {    
     //Se valida el estado de los items como primera medida
     let datosCompraWeb = {
       idCarrito: '00000000000000000',
@@ -489,7 +488,7 @@ export class InfoPagoComponent implements OnInit {
           }
 
           let buyer = {
-            document: this.customer.fiscalID,
+            document: this.customer.cardCode,
             name: this.customer.firstName,
             surname: apellidos,
             documentType: this.customer.fiscalIdType,
