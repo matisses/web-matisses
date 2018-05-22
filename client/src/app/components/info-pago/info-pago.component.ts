@@ -155,7 +155,7 @@ export class InfoPagoComponent implements OnInit {
             this.customer.fiscalIdType = response.fiscalIdType;
             this.customer.firstName = response.contacts.firstName + ' ' + response.contacts.middleName;
             this.customer.lastName1 = response.contacts.lastName1;
-            this.customer.lastName2 = response.contacts.lastName2;
+            this.customer.lastName2 = response.contacts.lastName2 == null ? "" : response.contacts.lastName2;
             this.customer.birthDate = response.birthDate;
             this.customer.addresses[0].email = response.addresses[0].email;
             this.customer.addresses[0].cellphone = response.addresses[0].cellphone;
@@ -470,7 +470,7 @@ export class InfoPagoComponent implements OnInit {
     );
   }
 
-  private enviarPlaceToPay(_id) {    
+  private enviarPlaceToPay(_id) {
     //Se valida el estado de los items como primera medida
     let datosCompraWeb = {
       idCarrito: '00000000000000000',
