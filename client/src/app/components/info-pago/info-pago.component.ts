@@ -415,6 +415,7 @@ export class InfoPagoComponent implements OnInit {
             firstName: this.customer.firstName.toUpperCase(),
             middleName: '',
             lastName1: this.customer.lastName1.toUpperCase(),
+            lastName2: this.customer.lastName1 == null ? "" : this.customer.lastName2.toUpperCase(),
             address: this.customer.addresses[0].address.toUpperCase(),
             tel1: '',
             cellolar: this.customer.addresses[0].cellphone,
