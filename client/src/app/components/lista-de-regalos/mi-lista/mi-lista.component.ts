@@ -64,6 +64,7 @@ export class MiListaComponent implements OnInit {
   public mesesEntrega: Array<number>;
   public validEntrega: boolean = true;
   public messageEntregaError: string;
+  public totalBonos: number;
   /*********************/
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
@@ -364,12 +365,19 @@ export class MiListaComponent implements OnInit {
           for (var i = 0; i < this.itemsListaBcs.length; i++) {
             this.totalAcumulado = this.totalAcumulado + this.itemsListaBcs[i]['precioTotal'];
           }
+          //Total con Bono
+          this._listaService.consultarTotalComprado(this.codigoLista).subscribe(
+            response => {
+            this.totalBonos=response;
+            },
+            error => { console.error(error); });
+
 
           this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
             response => {
               this.totalLista = response - this.totalComprado;
               localStorage.setItem('total-por-comprar', this.totalLista.toString());
-              localStorage.setItem('total-acumulado', this.totalAcumulado.toString());
+              localStorage.setItem('total-acumulado', this.totalBonos.toString());
             },
             error => { console.error(error); });
 

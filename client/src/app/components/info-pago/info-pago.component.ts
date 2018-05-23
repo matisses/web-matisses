@@ -58,6 +58,7 @@ export class InfoPagoComponent implements OnInit {
   private viewportWidth: number = 0;
   public resumenMobileVisible: boolean = false;
   public resumenDesktopVisible: boolean = false;
+  public maxlength: number;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService, private _cityService: CityService,
     private _shippingMethodService: ShippingMethodService, private _placetopayService: PlacetoPayService, private _shoppingCartService: ShoppingCartService,
@@ -149,12 +150,12 @@ export class InfoPagoComponent implements OnInit {
     if (this.customer.fiscalID != null && this.customer.fiscalID.length > 0) {
       this._customerService.getCustomerData(this.customer.fiscalID).subscribe(
         response => {
-          if (response.fiscalIdType == '31') {
+          if (response.fiscalIdType === '31') {
             this.customer.fiscalID = response.fiscalID;
             this.customer.fiscalIdType = response.fiscalIdType;
-            this.customer.firstName = response.contacts.firstName + ' ' + response.contacts.middleName;
+            this.customer.firstName = response.contacts.firstName + ' ' + (response.contacts.middleName == null ? "" : response.contacts.middleName);
             this.customer.lastName1 = response.contacts.lastName1;
-            this.customer.lastName2 = response.contacts.lastName2;
+            this.customer.lastName2 = response.contacts.lastName2 == null ? "" : response.contacts.lastName2;
             this.customer.birthDate = response.birthDate;
             this.customer.addresses[0].email = response.addresses[0].email;
             this.customer.addresses[0].cellphone = response.addresses[0].cellphone;
@@ -171,7 +172,7 @@ export class InfoPagoComponent implements OnInit {
           this.consultarCostoEnvio();
         },
         error => {
-          if (this.customer.fiscalIdType == '31') {
+          if (this.customer.fiscalIdType === '31') {
             this._digitoVerificacionService.consultarDigitoVerificacion(this.customer.fiscalID).subscribe(
               response => {
                 if (response != null || response.length > 0) {
@@ -359,7 +360,7 @@ export class InfoPagoComponent implements OnInit {
   private validarCliente(_idCarrito) {
     this.obtenerNombreCiudad();
 
-    this._customerService.getCustomerData(this.customer.fiscalID).subscribe(
+    this._customerService.getCustomerData(this.customer.cardCode).subscribe(
       response => {
         //Mandar directo a placetopay
         this.enviarPlaceToPay(_idCarrito);
@@ -381,7 +382,7 @@ export class InfoPagoComponent implements OnInit {
           nacionalidad = 'FOREIGN';
         }
 
-        if (this.customer.fiscalIdType == "31") {
+        if (this.customer.fiscalIdType === '31') {
           tipoPersona = 'JURIDICA';
           NombreCliente = this.customer.cardName.toUpperCase();
         } else {
@@ -397,7 +398,7 @@ export class InfoPagoComponent implements OnInit {
           defaultShippingAddress: 'FACTURACIÓN',
           firstName: this.customer.firstName.toUpperCase(),
           lastName1: this.customer.lastName1.toUpperCase(),
-          lastName2: this.customer.lastName2.toUpperCase(),
+          lastName2: this.customer.lastName2 == null ? "" : this.customer.lastName2.toUpperCase(),
           fiscalID: this.customer.fiscalID,
           selfRetainer: 'N',
           salesPersonCode: '98',
@@ -414,7 +415,7 @@ export class InfoPagoComponent implements OnInit {
             firstName: this.customer.firstName.toUpperCase(),
             middleName: '',
             lastName1: this.customer.lastName1.toUpperCase(),
-            lastName2: this.customer.lastName2.toUpperCase(),
+            lastName2: this.customer.lastName1 == null ? "" : this.customer.lastName2.toUpperCase(),
             address: this.customer.addresses[0].address.toUpperCase(),
             tel1: '',
             cellolar: this.customer.addresses[0].cellphone,
@@ -488,7 +489,7 @@ export class InfoPagoComponent implements OnInit {
           }
 
           let buyer = {
-            document: this.customer.fiscalID,
+            document: this.customer.cardCode,
             name: this.customer.firstName,
             surname: apellidos,
             documentType: this.customer.fiscalIdType,
@@ -754,10 +755,13 @@ export class InfoPagoComponent implements OnInit {
   }
 
   public vaciarDocumento(tipoDocumento: string) {
-    if (tipoDocumento == "31") {
+    if (tipoDocumento === '31') {
       this.customer.fiscalID = "";
+      this.maxlength = 9;
     } else {
+      this.customer.fiscalID = "";
       this.customer.cardName = "";
+      this.maxlength = 10;
     }
   }
 }

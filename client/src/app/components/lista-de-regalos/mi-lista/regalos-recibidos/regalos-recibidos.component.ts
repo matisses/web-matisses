@@ -57,6 +57,7 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
   public urlAvatar: string;
   public urlQr: string;
   public totalComprado: number;
+  public totalBonos:number;
   public novios: string;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _userService: SessionUsuarioService, private _listaService: ListaRegalosService) {
@@ -281,6 +282,14 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
           for (var i = 0; i < this.itemsListaBcs.length; i++) {
             this.totalAcumulado = this.totalAcumulado + this.itemsListaBcs[i]['precioTotal'];
           }
+
+          //Total con Bono
+          this._listaService.consultarTotalComprado(this.codigoLista).subscribe(
+            response => {
+            this.totalBonos=response;
+            console.log(this.totalBonos)
+            },
+            error => { console.error(error); });
 
           this._listaService.consultarTotalLista(this.idListaUsuario).subscribe(
             response => {

@@ -119,13 +119,16 @@ export class ListaRegalosComponent implements OnInit {
         this.codigoLista = response.idListaRegalos.codigo;
         this.fechaEvento = response.idListaRegalos.fechaEvento;
         this.fechaEntrega = response.idListaRegalos.fechaEntrega;
-        }
-        this.nombreSession = response.nombre;
-        this.isAdmin=response.esAdmin;
-        console.log('es admin '+this.isAdmin);
         if (response.esNuevo) {
           this.cambioContrasena = 'si';
         }
+        }
+        else{
+        this.nombreSession = response.nombre;
+        this.isAdmin=response.esAdmin;
+        console.log('es admin '+this.isAdmin);
+        }
+
         this._jwt.validateToken(this.token).subscribe(
           response => {
 
