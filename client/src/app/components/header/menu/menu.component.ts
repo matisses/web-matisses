@@ -912,4 +912,12 @@ export class MenuComponent implements OnInit, AfterViewInit {
     );
   }
 
+  public irLogin(){
+    console.log('entra por funcion');
+    localStorage.removeItem('decorator_register');
+    localStorage.removeItem('wedding_register');
+    this._router.navigate(['/login']);
+
+  }
+
 }
