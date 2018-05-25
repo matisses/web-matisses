@@ -111,12 +111,9 @@
   }
 }
 
-@media screen and (max-width: 767px) {
-  .medellin {
-
-  }
-  .mapa {
-
+@media screen and (max-width: 768px) {
+  .title h3 {
+    margin-top: 60px;
   }
 }
 
