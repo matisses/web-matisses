@@ -32,6 +32,7 @@ import { CabifyComponent } from './components/cabify/cabify.component';
 import { LandingDecoradoresComponent } from './components/mi-cuenta/landing-decoradores/landing-decoradores.component';
 import { LandingPlannerComponent } from './components/mi-cuenta/landing-planner/landing-planner.component';
 import { CondicionesComplementosAlfComponent } from './components/condiciones-complementos/condiciones-complementos.component';
+import { BlogComponent } from './components/blog/blog.component';
 
 // Lista de Regalos
 import { ListaRegalosComponent } from './components/lista-de-regalos/lista-regalos.component';
@@ -132,7 +133,7 @@ const appRoutes: Routes = [
   { path: 'confirm-user/:nuser', component: ConfirmarUsuarioComponent },
 
   // { path: '92-consola', redirectTo: 'categoria?group=002' },
-  { path: 'blog', redirectTo: '/', pathMatch: 'full' },
+  { path: 'blog/estilo-clasico', component: BlogComponent },
 
   // { path: 'categoria', component: CategoryComponent, pathMatch: 'full' },
   { path: 'quienes', component: QuienesComponent },

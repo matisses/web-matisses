@@ -68,6 +68,9 @@ import { HotSaleComponent } from './components/hot-sale/hot-sale.component';
 import { InfoBogotaComponent } from './components/info-bogota/info-bogota.component';
 import { CabifyComponent } from './components/cabify/cabify.component';
 
+//Blog
+import { BlogComponent } from './components/blog/blog.component';
+
 // SECCIONES
 import { Seccion1Component } from './components/secciones/seccion-1/seccion-1.component';
 import { Seccion2Component } from './components/secciones/seccion-2/seccion-2.component';
@@ -207,6 +210,7 @@ import { CondicionesComplementosAlfComponent } from './components/condiciones-co
     Seccion3Component,
     Seccion4Component,
     CondicionesComplementosAlfComponent,
+    BlogComponent,
     //Lista de Regalos
     ListaRegalosComponent,
     MenuListaComponent,
