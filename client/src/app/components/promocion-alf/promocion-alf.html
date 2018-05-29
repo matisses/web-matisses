@@ -29,10 +29,10 @@
                 alt="{{items[0].itemname}}">
             </a>
             <p class="precio">
-              <del>$ {{items[0].priceaftervat | number}}</del>
+              <del>$ {{formatNumber(items[0].priceaftervat)}}</del>
             </p>
             <p class="descount">
-              <b>$ {{items[0].priceaftervat * 0.4 | number}}</b>
+              <b>$ {{formatNumber(items[0].priceaftervat * 0.4)}}</b>
             </p>
           </div>
         </div>
@@ -47,10 +47,10 @@
                 alt="{{items[1].itemname}}">
             </a>
             <p class="precio">
-              <del>$ {{items[1].priceaftervat | number}}</del>
+              <del>$ {{formatNumber(items[1].priceaftervat)}}</del>
             </p>
             <p class="descount">
-              <b>$ {{items[1].priceaftervat * 0.4 | number}}</b>
+              <b>$ {{formatNumber(items[1].priceaftervat * 0.4)}}</b>
             </p>
           </div>
         </div>

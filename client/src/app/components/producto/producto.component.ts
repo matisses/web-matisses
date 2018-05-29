@@ -41,6 +41,7 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   public quantityOptions: Array<number>;
   public images: Array<string>;
   public itemsRelacionados: Array<any>;
+  public cuotaMCOFormat: string = "0";
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _itemService: ItemService, private _stockService: StockService,
     private _http: Http, private readonly meta: MetaService, private _descuentosService: DescuentosService, private _cotizacionService: CotizacionService) {
@@ -84,6 +85,11 @@ export class ProductoComponent implements OnInit, AfterViewInit {
     this._itemService.toggleWishList(item);
   }
 
+  public formatNumber(num:number) {
+
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}
+
   private cargarInfoItem() {
     this.selectedQuantity = 1;
     this.quantityOptions = new Array<number>();
@@ -92,7 +98,15 @@ export class ProductoComponent implements OnInit, AfterViewInit {
       this._itemService.find(itemCode).subscribe(
         response => {
           this.item = response.result[0];
-
+          if(this.item.priceaftervat){
+            this.item.priceaftervatFormat=this.formatNumber(this.item.priceaftervat);
+          }
+          if(this.item.priceafterdiscount){
+              this.item.priceafterdiscountFormat=this.formatNumber(this.item.priceafterdiscount);
+          }
+          if(this.item.priceBeforeVAT){
+          this.item.priceBeforeVATFormat=this.formatNumber(this.item.priceBeforeVAT);
+          }
           let urlImage: string = 'https://img.matisses.co/' + this.item.itemcode + '/images/' + this.item.itemcode + '_01.jpg';
           //this.meta.setTitle(`Matisses - Producto {{this.item.shortitemcode}}`);
           this.meta.setTag('og:image', urlImage);
@@ -106,7 +120,9 @@ export class ProductoComponent implements OnInit, AfterViewInit {
           this.obtenerRelacionados();
 
           this.cuotaMCO = Math.round(this.item.priceaftervat / 12);
-
+          if(this.cuotaMCO){
+            this.cuotaMCOFormat=this.formatNumber(this.cuotaMCO);
+          }
           //validar si el ítem tiene descuentos
           this._descuentosService.findDiscount(this.item.itemcode).subscribe(
             response => {

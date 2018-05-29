@@ -53,6 +53,11 @@ export class ResultadoTransacciComponent implements OnInit {
     }, 500); // Modal Vacaiones
   }
 
+  public formatNumber(num:number) {
+
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}
+
   consultarEstadoPlaceToPay() {
     this.errorMessage = '';
     this._route.params.forEach((params: Params) => {

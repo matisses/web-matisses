@@ -46,11 +46,12 @@
                       <div class="col-xs-3 padding-right-0">
                         <p>Precio</p>
                         <div class="price-full" *ngIf="!item.priceafterdiscount || item.priceafterdiscount === 0 || item.priceafterdiscount === item.pricebeforediscount || !carrito.validarItem(item.itemcode)">
-                          <p><b>$ {{item.priceaftervat | number}}</b></p>
+                          <p><b>$ {{item.priceaftervatFormat}}</b></p>
                         </div>
                         <div class="price-discount" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0 && carrito.validarItem(item.itemcode)">
-                          <p class="old-price"><b>$ {{item.priceaftervat | number}}</b></p>
-                          <p class="new-price"><b> $ {{item.priceafterdiscount | number}}</b></p>
+                          <p class="old-price"><b>$ {{item.priceaftervatFormat}}</b></p>
+                          <!-- <p class="new-price"><b> $ {{item.priceafterdiscount | number}}</b></p> -->
+                          <p class="new-price"><b> $ {{item.priceafterdiscountFormat}}</b></p>
                         </div>
                       </div>
                       <div class="col-xs-3">
@@ -62,11 +63,11 @@
                       <div class="col-xs-3 padding-right-0">
                         <p>Total</p>
                         <div class="price-full" *ngIf="!item.priceafterdiscount || item.priceafterdiscount === 0 || item.priceafterdiscount === item.pricebeforediscount || !carrito.validarItem(item.itemcode)">
-                          <p><b>$ {{item.priceaftervat | number}}</b></p>
+                          <p><b>$ {{item.priceaftervatFormat}}</b></p>
                         </div>
                         <div class="price-discount" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0 && carrito.validarItem(item.itemcode)">
-                          <p class="old-price"><b>$ {{(item.priceaftervat * item.selectedQuantity) | number}}</b></p>
-                          <p class="new-price"><b> $ {{(item.priceafterdiscount * item.selectedQuantity) | number}}</b></p>
+                          <p class="old-price"><b>$ {{formatNumber(item.priceaftervat * item.selectedQuantity)}}</b></p>
+                          <p class="new-price"><b> $ {{formatNumber(item.priceafterdiscount * item.selectedQuantity)}}</b></p>
                         </div>
                         <!-- <p><b>$ {{(item.priceaftervat * item.selectedQuantity) | number}}</b></p>
                         <p *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0"><b>$ {{(item.priceafterdiscount * item.selectedQuantity) | number}}</b></p> -->
@@ -104,7 +105,7 @@
                 <h4>Subtotal</h4>
               </div>
               <div class="col-xs-6">
-                <h4><b>${{carrito.totalCarrito - carrito.totalImpuestos | number}}</b></h4>
+                <h4><b>${{carrito.difTotalDescuentosFormat}}</b></h4>
               </div>
             </div>
             <div class="row">
@@ -112,7 +113,7 @@
                 <h5>Impuestos</h5>
               </div>
               <div class="col-xs-6">
-                <h4>${{carrito.totalImpuestos | number}}</h4>
+                <h4>${{carrito.totalImpuestosFormat}}</h4>
               </div>
             </div>
             <hr/>
@@ -121,7 +122,7 @@
                 <h5>Descuentos</h5>
               </div>
               <div class="col-xs-6">
-                <h4>${{carrito.totalDescuentos | number}}</h4>
+                <h4>${{carrito.totalDescuentosFormat}}</h4>
               </div>
             </div>
             <div class="total">
@@ -130,7 +131,7 @@
                   <h5>Total</h5>
                 </div>
                 <div class="col-xs-6">
-                  <h4>${{(carrito.totalCarrito - carrito.totalDescuentos) | number}}</h4>
+                  <h4>${{carrito.difTotalDescuentosFormat}}</h4>
                 </div>
               </div>
             </div>

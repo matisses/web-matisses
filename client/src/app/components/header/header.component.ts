@@ -44,9 +44,22 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  public formatNumber(num:number) {
+
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}
+
   public cargarInfoModal() {
     this.carrito.cargarCarrito();
     this.lastAddedItem = JSON.parse(localStorage.getItem('matisses.lastAddedItem'));
+    this.lastAddedItem.priceaftervatFormat=this.formatNumber(this.lastAddedItem.priceaftervat);
+    if(this.lastAddedItem.priceBeforeVAT){
+      this.lastAddedItem.priceBeforeVATFormat=this.formatNumber(this.lastAddedItem.priceBeforeVAT);
+    }
+    if(this.lastAddedItem.priceafterdiscount){
+      this.lastAddedItem.priceafterdiscountFormat=this.formatNumber(this.lastAddedItem.priceafterdiscount);
+    }
+
     this.validarSaldoDisponible(this.lastAddedItem.shortitemcode);
     localStorage.removeItem('matisses.lastAddedItem');
   }
@@ -60,6 +73,9 @@ export class HeaderComponent implements OnInit {
         response => {
           if (response.result[0].availablestock < items[i].selectedQuantity) {
             response.result[0].selectedQuantity = items[i].selectedQuantity;
+            response.result[0].priceaftervatFormat=this.formatNumber(response.result[0].priceaftervat);
+            response.result[0].priceBeforeVATFormat=this.formatNumber(response.result[0].priceBeforeVAT);
+            response.result[0].priceafterdiscountFormat=this.formatNumber(response.result[0].priceafterdiscount);
             this.itemsSinSaldo.push(response.result[0]);
           }
           if (i === items.length - 1) {

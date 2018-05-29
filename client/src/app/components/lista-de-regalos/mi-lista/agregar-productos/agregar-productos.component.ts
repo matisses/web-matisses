@@ -486,7 +486,6 @@ export class AgregarProductosComponent implements OnInit {
   }
 
   public toggleSelection(tipoFiltro: string, codigo: string) {
-    console.log('entra en toggleSelection');
     if (tipoFiltro.endsWith('Price')) {
       if (!codigo || codigo == null || codigo.length === 0) {
         if (this.queryParams.has(tipoFiltro)) {

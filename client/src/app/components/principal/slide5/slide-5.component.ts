@@ -42,4 +42,9 @@ export class Slide5Component implements OnInit {
       }, error => { console.error(); }
     );
   }
+
+  public formatNumber(num:number) {
+
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}
 }

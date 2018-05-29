@@ -128,7 +128,7 @@
                     <label for="metodo_{{metodo.code}}" class="cursor-pointer">{{metodo.name}}
                       <span *ngIf="metodo.code !== 3">{{metodo.description}}</span>
                       <span *ngIf="metodo.code == 3">
-                        <b>$ {{costoEnvio | number}}</b>
+                        <b>$ {{costoEnvioFormat}}</b>
                       </span>
                     </label>
                   </div>
@@ -172,22 +172,22 @@
                         <b>{{carrito.totalItems}}</b> PRODUCTOS</h4>
                       <p>Total de los productos:
                         <span class="pull-right">
-                          <b>$ {{carrito.totalCarrito - carrito.totalImpuestos | number}}</b>
+                          <b>$ {{carrito.difTotalImpuestosFormat}}</b>
                         </span>
                       </p>
                       <p>Total impuestos:
                         <span class="pull-right">
-                          <b>$ {{carrito.totalImpuestos | number}}</b>
+                          <b>$ {{carrito.totalImpuestosFormat}}</b>
                         </span>
                       </p>
                       <p>Total descuentos:
                         <span class="pull-right">
-                          <b>$ {{carrito.totalDescuentos | number}}</b>
+                          <b>$ {{carrito.totalDescuentosFormat}}</b>
                         </span>
                       </p>
                       <p>Envío estándar:
                         <span class="pull-right">
-                          <b>$ {{totalEnvio | number}}</b>
+                          <b>$ {{totalEnvioFormat}}</b>
                         </span>
                       </p>
                     </div>
@@ -196,7 +196,7 @@
                     <div class="col-sm-10 col-sm-offset-1">
                       <p>Total:
                         <span class="pull-right">
-                          <b>$ {{((carrito.totalCarrito + totalEnvio) - carrito.totalDescuentos) | number}}</b>
+                          <b>$ {{totalEnvioFinalFormat}}</b>
                         </span>
                       </p>
                     </div>

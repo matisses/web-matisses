@@ -22,7 +22,6 @@ export class ResumenMiCuentaComponent implements OnInit {
 
   ngOnInit() {
     if(localStorage.getItem('matisses.session-token')==null){
-      console.log('no hay session');
       this._router.navigate(['/login']);
     }
     if(localStorage.getItem('usuario-planificador')=='true'){
@@ -35,7 +34,6 @@ export class ResumenMiCuentaComponent implements OnInit {
 
   ngAfterViewInit() {
     if(localStorage.getItem('matisses.session-token')==null){
-      console.log('no hay session');
       this._router.navigate(['/login']);
     }
     $(document).ready(function () {
@@ -79,7 +77,7 @@ export class ResumenMiCuentaComponent implements OnInit {
   }
 
   public cerrarSession(){
-  
+
     localStorage.removeItem('matisses.session-token');
     localStorage.removeItem('username');
     localStorage.removeItem('usuario-id');

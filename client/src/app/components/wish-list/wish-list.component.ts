@@ -66,4 +66,9 @@ export class WishListComponent implements OnInit {
       this.orderByStr = 'Precio: más bajos primero';
     }
   }
+
+  public formatNumber(num:number) {
+
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}
 }

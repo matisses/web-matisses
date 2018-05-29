@@ -572,7 +572,6 @@ export class DireccionesComponent implements OnInit {
               response => {
                 if (response.estado == '0') {
                   this.messageError = '';
-                  console.log('update -->' + response.mensaje);
                   this.successMessage = 'tu dirección fue actualizada correctamente';
                   this.buscarCliente();
                 }

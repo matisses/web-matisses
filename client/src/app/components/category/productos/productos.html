@@ -61,7 +61,8 @@
   <div class="col-sm-4 col-xs-6" *ngFor="let item of items">
     <div class="producto">
       <div class="porcentaje" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0 && item.itemcode != '24400000000000000121'">
-        <p>-{{item.descuento | number}}%</p>
+        <!-- <p>-{{item.descuento | number}}%</p> -->
+          <p>-{{formatNumber(item.descuento)}}%</p>
       </div>
       <div class="row">
         <div class="col-xs-12 cursor-pointer">
@@ -72,11 +73,14 @@
         <div class="col-xs-12 text-center">
           <p class="medium nombre-producto">{{item.itemname}}</p>
           <div class="precio-full" *ngIf="!item.priceafterdiscount || item.priceafterdiscount === 0 || item.priceafterdiscount === item.pricebeforediscount || (!carrito.validarItem(item.itemcode) && item.itemcode === '24400000000000000121')">
-            <h4>$ {{item.priceaftervat | number:0}}</h4>
+            <!-- <h4>$ {{item.priceaftervat | number:0}}</h4> -->
+            <h4>$ {{item.priceaftervatFormat}}</h4>
           </div>
           <div class="precio-discount" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0 && item.itemcode != '24400000000000000121'">
-            <h5>$ {{item.priceaftervat | number:0}}</h5>
-            <h4>$ {{item.priceafterdiscount | number:0}}</h4>
+            <!-- <h5>$ {{item.priceaftervat | number:0}}</h5>
+            <h4>$ {{item.priceafterdiscount | number:0}}</h4> -->
+            <h5>$ {{item.priceaftervatFormat}}</h5>
+            <h4>$ {{item.priceafterdiscountFormat}}</h4>
           </div>
         </div>
         <div class="botones">

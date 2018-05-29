@@ -20,6 +20,8 @@ export class Item {
   public weight: number;
   public priceaftervat: number;
   public priceBeforeVAT: number;
+  public priceaftervatFormat: string;
+  public priceBeforeVATFormat: string;
   public department: {
     code: string,
     name: string
@@ -38,6 +40,7 @@ export class Item {
   public sinSaldo: number;
   public descuento: number;
   public priceafterdiscount: number;
+  public priceafterdiscountFormat: string;
   public taxpercent: number;
   public precioVisible: boolean;
   public agregadoLista:boolean;
@@ -54,6 +57,7 @@ export class Item {
     this.itemcode = itemcode;
     this.shortitemcode = this.itemcode.substring(0, 3) + this.itemcode.substring(16);
     this.priceaftervat = price;
+    this.priceafterdiscountFormat=this.formatNumber(price);
     return this;
   }
 
@@ -62,7 +66,12 @@ export class Item {
     this.itemcode = itemcode;
     this.shortitemcode = this.itemcode.substring(0, 3) + this.itemcode.substring(16);
     this.priceaftervat = price;
+    this.priceafterdiscountFormat=this.formatNumber(price);
     this.selectedQuantity = quantity;
     return this;
   }
+
+  public formatNumber(num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}
 }

@@ -154,9 +154,8 @@ export class ListaRegalosComponent implements OnInit {
           else{
             this._listaRegalosService.consultarListasActivas().subscribe(
               response => {
-                console.log('listas activas '+response.length);
+
                 if (response.length > 0) {
-                  console.log('nombre usuario '+this.nombreUsuario);
                   sessionStorage.setItem('resultados', JSON.stringify(response));
                   localStorage.setItem('username-admin',this.nombreUsuario);
 

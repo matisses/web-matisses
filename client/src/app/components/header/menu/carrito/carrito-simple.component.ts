@@ -21,9 +21,16 @@ export class CarritoSimpleComponent {
   public totalCarrito: number = 0;
   public totalImpuestos: number = 0;
   public totalDescuentos: number = 0;
+  public totalCarritoFormat: string = "0";
+  public totalImpuestosFormat: string = "0";
+  public totalDescuentosFormat: string = "0";
   public mostrar: boolean = true;
   public shoppingCart: any;
   public item: Item;
+  public difTotalDescuentos:number=0;
+  public difTotalDescuentosFormat:string="0";
+  public difTotalImpuestos:number=0;
+  public difTotalImpuestosFormat:string="0";
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _descuentosService: DescuentosService, private _itemService: ItemService) {
     this.inicializarShoppingCart();
@@ -160,6 +167,10 @@ export class CarritoSimpleComponent {
     return true;
   }
 
+  public formatNumber(num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}
+
   private procesarCarrito() {
     this.totalItems = 0;
     this.totalCarrito = 0;
@@ -181,10 +192,21 @@ export class CarritoSimpleComponent {
         let valorIVA = this.shoppingCart.items[i].priceafterdiscount * this.shoppingCart.items[i].taxpercent / 100;
         totalSinIVA += ((this.shoppingCart.items[i].priceafterdiscount - valorIVA) * selectedQuantity);
         this.totalDescuentos += ((this.shoppingCart.items[i].priceaftervat / 100) * this.shoppingCart.items[i].descuento) * selectedQuantity;
+        this.shoppingCart.items[i].priceaftervatFormat=this.formatNumber(this.shoppingCart.items[i].priceaftervat);
+        this.shoppingCart.items[i].priceafterdiscountFormat=this.formatNumber(this.shoppingCart.items[i].priceafterdiscount);
       } else {
         totalSinIVA += (this.shoppingCart.items[i].pricebeforevat ? this.shoppingCart.items[i].pricebeforevat : 0) * selectedQuantity;
       }
+      //this.shoppingCart.items[i].priceafterdiscountFormat=this.formatNumber(this.shoppingCart.items[i].priceafterdiscount);
     }
+    this.totalCarritoFormat=this.formatNumber(this.totalCarrito);
+
     this.totalImpuestos = (this.totalCarrito - this.totalDescuentos - totalSinIVA) | 0;
+    this.totalImpuestosFormat=this.formatNumber(this.totalImpuestos);
+    this.totalDescuentosFormat=this.formatNumber(this.totalDescuentos);
+    this.difTotalDescuentos=this.totalCarrito - this.totalDescuentos;
+    this.difTotalImpuestos=this.totalCarrito-this.totalImpuestos;
+    this.difTotalImpuestosFormat=this.formatNumber(this.difTotalImpuestos);
+    this.difTotalDescuentosFormat=this.formatNumber(this.difTotalDescuentos);
   }
 }

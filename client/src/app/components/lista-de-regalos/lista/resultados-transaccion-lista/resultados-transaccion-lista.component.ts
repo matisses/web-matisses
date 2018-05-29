@@ -85,7 +85,6 @@ export class ResultadoTransaccionListaComponent implements OnInit {
             );
           }
           else{
-            console.log('entro por el else a validar transaccion');
             this._placetopayService.consultarBono(datosCompraWeb).subscribe(
               response => {
                 if (response.codigo && response.codigo == -1) {

@@ -390,12 +390,12 @@ export class LoginComponent implements OnInit {
       $('#messageUser').modal('show');
       return;
     }
-      console.log('antes de la validacion');
+    
     if (this.registroDecorador != null || this.registroPlanificador != null) {
       if (this.fileUploadRut == null || this.fileUploadRut.length <= 0
         || this.fileUploadCc == null || this.fileUploadCc.length <= 0
         || this.fileUploadCert == null || this.fileUploadCert.length <= 0) {
-        console.log('campos vacios ');
+
         this.messageError = 'Debes adjuntar los documentos solicitados.';
         this.valid = false;
         $('#messageUser').modal('show');

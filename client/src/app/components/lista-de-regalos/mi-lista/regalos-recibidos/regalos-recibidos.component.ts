@@ -287,7 +287,6 @@ export class RegalosRecibidosComponent implements OnInit, AfterViewInit {
           this._listaService.consultarTotalComprado(this.codigoLista).subscribe(
             response => {
             this.totalBonos=response;
-            console.log(this.totalBonos)
             },
             error => { console.error(error); });
 

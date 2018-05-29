@@ -297,7 +297,7 @@ export class ListaInvitadoComponent implements OnInit {
   }
 
   public cargarItems(availableFields, items, queryParams, records) {
-    console.log('cargar Items');
+
     let paramConsulta = {
       idLista: localStorage.getItem('id-lista')
     };
@@ -346,7 +346,7 @@ export class ListaInvitadoComponent implements OnInit {
     this.availableFields = availableFields;
     this.queryParams = queryParams;
     this.totalItems = this.itemsSinPaginar.length;
-    console.log('totalItems '+this.totalItems);
+
     this.pages = new Array<number>();
     if (this.queryParams.has('pageSize')) {
       if (this.queryParams.get('pageSize') === '10000') {
@@ -398,11 +398,11 @@ export class ListaInvitadoComponent implements OnInit {
   }
 
   private cargarItems0() {
-    console.log('cargar Items0');
+
     this.items = new Array<Item>();
     //this.inicializarParamsConsulta();
     this._route.queryParams.forEach((params: Params) => {
-      console.log('cargar Items forEach');
+    
       this.inicializarMapa(params);
       if (this.queryParams.has('pageSize')) {
         this.paramsConsulta.registrosPagina = this.queryParams.get('pageSize');

@@ -22,11 +22,11 @@
               <p class="nombre"><b>{{item.itemname}}</b></p>
             </div>
             <div class="col-xs-5 text-right precio" *ngIf="!item.priceafterdiscount || item.priceafterdiscount === 0 || item.priceafterdiscount === item.pricebeforediscount">
-              <p>$ {{item.priceaftervat | number}}</p>
+              <p>$ {{formatNumber(item.priceaftervat)}}</p>
             </div>
             <div class="precio-discount" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0">
-              <h5>$ {{item.priceaftervat | number:0}}</h5>
-              <h4>$ {{item.priceafterdiscount | number:0}}</h4>
+              <h5>$ {{formatNumber(item.priceaftervat)}}</h5>
+              <h4>$ {{formatNumber(item.priceafterdiscount)}}</h4>
             </div>
           </div>
           <div class="row">
@@ -44,7 +44,7 @@
     <div class="row">
       <div class="col-xs-12 text-right">
         <hr/>
-        <p class="subtotal">Subtotal <b>$ {{(carrito.totalCarrito - carrito.totalDescuentos) | number}}</b></p>
+        <p class="subtotal">Subtotal <b>$ {{formatNumber(carrito.totalCarrito - carrito.totalDescuentos)}}</b></p>
       </div>
     </div>
     <div class="row">

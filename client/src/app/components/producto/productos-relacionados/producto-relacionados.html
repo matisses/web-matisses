@@ -20,7 +20,7 @@
       <div class="section">
         <div class="article" *ngFor="let item of items">
           <div class="porcentaje" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0">
-            <p>-{{item.descuento | number}}%</p>
+            <p>-{{formatNumber(item.descuento)}}%</p>
           </div>
           <div class="row" *ngIf="item != null">
             <div class="col-xs-10 col-xs-offset-1">
@@ -33,11 +33,11 @@
             <div class="col-xs-12 text-center">
               <p class="medium nombre-producto">{{item.itemname}}</p>
               <div class="precio-full" *ngIf="!item.priceafterdiscount || item.priceafterdiscount === 0 || item.priceafterdiscount === item.pricebeforediscount">
-                <h4>$ {{item.priceaftervat | number:0}}</h4>
+                <h4>$ {{formatNumber(item.priceaftervat)}}</h4>
               </div>
               <div class="precio-discount" *ngIf="item.priceafterdiscount && item.priceafterdiscount > 0">
-                <h5>$ {{item.priceaftervat | number:0}}</h5>
-                <h4>$ {{item.priceafterdiscount | number:0}}</h4>
+                <h5>$ {{formatNumber(item.priceaftervat)}}</h5>
+                <h4>$ {{formatNumber(item.priceafterdiscount)}}</h4>
               </div>
             </div>
             <div class="botones">

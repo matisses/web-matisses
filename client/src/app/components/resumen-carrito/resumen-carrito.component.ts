@@ -41,7 +41,7 @@ export class ResumenCarritoComponent implements OnInit {
         $('#modalVacaiones').modal('show')
       });
     }, 500); // Modal Vacaiones
-    
+
   }
 
   public openResumen() {
@@ -83,4 +83,9 @@ export class ResumenCarritoComponent implements OnInit {
       this.messajeError = 'No se encntraron ítems para continuar';
     }
   }
+
+  public formatNumber(num:number) {
+
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}
 }

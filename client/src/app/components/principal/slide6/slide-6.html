@@ -25,7 +25,7 @@
     </div>
   </div>
   <br/>
-  
+
   <div class="container">
     <div class="row" *ngIf="items && items.length > 0">
       <div class="col-sm-3 col-xs-6 text-center">
@@ -35,7 +35,7 @@
             <img src="https://img.matisses.co/{{items[0].itemcode}}/parrilla/{{items[0].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[0].itemname}}">
           </a>
           <p class="precio">
-            <b>$ {{items[0].priceaftervat | number}}</b>
+            <b>$ {{formatNumber(items[0].priceaftervat)}}</b>
           </p>
           <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[0].shortitemcode]">Ir a comprar</button>
         </div>
@@ -47,15 +47,15 @@
             <img src="https://img.matisses.co/{{items[1].itemcode}}/parrilla/{{items[1].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[1].itemname}}">
           </a>
           <p class="precio">
-              <b>$ {{items[1].priceaftervat | number}}</b>
+              <b>$ {{formatNumber(items[1].priceaftervat)}}</b>
           </p>
           <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[1].shortitemcode]">Ir a comprar</button>
         </div>
       </div>
-  
+
       <div class="col-sm-6 col-xs-12" *ngIf="items && items.length >= 3">
         <div class="sub-banner text-center">
-          <a href="javascript:void(0)" [routerLink]="['/producto', items[2].shortitemcode]">            
+          <a href="javascript:void(0)" [routerLink]="['/producto', items[2].shortitemcode]">
             <img src="assets/images/banner/slide-6/banner-03.jpg" class="img-responsive" alt="">
           </a>
         </div>
@@ -63,7 +63,7 @@
           <a href="javascript:void(0)" [routerLink]="['/producto', items[2].shortitemcode]">
             <div class="col-xs-12">
               <div class="sub-banner-footer">
-                <p><b>SARTÉN PROFI</b> $ {{items[2].priceaftervat | number}}</p>
+                <p><b>SARTÉN PROFI</b> $ {{formatNumber(items[2].priceaftervat)}}</p>
                 <button type="submit" class="ir-comprar" name="comprar-ya">ir a comprar</button>
               </div>
             </div>
@@ -72,4 +72,3 @@
       </div>
     </div>
   </div>
-  

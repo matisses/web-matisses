@@ -94,4 +94,8 @@ export class ProductoRelacionadosComponent implements OnInit {
     item.selectedQuantity = 1;
     this.carrito.procesarItem(item);
   }
+
+  public formatNumber(num:number) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}
 }

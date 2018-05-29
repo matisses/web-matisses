@@ -46,7 +46,7 @@
         <a href="javascript:void(0)" [routerLink]="['/producto', items[0].shortitemcode]">
           <img src="https://img.matisses.co/{{items[0].itemcode}}/parrilla/{{items[0].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[0].itemname}}">
         </a>
-        <p class="precio"><b>$ {{items[0].priceaftervat | number}}</b></p>
+        <p class="precio"><b>$ {{formatNumber(items[0].priceaftervat)}}</b></p>
         <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[0].shortitemcode]">Ir a comprar</button>
       </div>
     </div>
@@ -56,7 +56,7 @@
         <a href="javascript:void(0)" [routerLink]="['/producto', items[1].shortitemcode]">
           <img src="https://img.matisses.co/{{items[1].itemcode}}/parrilla/{{items[1].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[1].itemname}}">
         </a>
-        <p class="precio"><b>$ {{items[1].priceaftervat | number}}</b></p>
+        <p class="precio"><b>$ {{formatNumber(items[1].priceaftervat)}}</b></p>
         <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[1].shortitemcode]">Ir a comprar</button>
       </div>
     </div>
@@ -71,7 +71,7 @@
         <a href="javascript:void(0)" [routerLink]="['/producto', items[2].shortitemcode]">
           <div class="col-xs-12">
             <div class="sub-banner-footer">
-              <p><b>MESA DE CENTRO KOBE $ {{items[2].priceaftervat | number}}</b></p>
+              <p><b>MESA DE CENTRO KOBE $ {{formatNumber(items[2].priceaftervat)}}</b></p>
               <button type="submit" class="ir-comprar" name="comprar-ya">Ir a comprar</button>
             </div>
           </div>

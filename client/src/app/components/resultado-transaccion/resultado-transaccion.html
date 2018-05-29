@@ -127,7 +127,7 @@
                   Valor Total
                 </th>
                 <td>
-                  {{transaccion.valorTotal | number}}
+                  {{formatNumber(transaccion.valorTotal)}}
                 </td>
               </tr>
               <tr *ngIf="transaccion.impuestos">
@@ -135,7 +135,7 @@
                   IVA
                 </th>
                 <td>
-                  {{transaccion.impuestos | number}}
+                  {{formatNumber(transaccion.impuestos)}}
                 </td>
               </tr>
             </table>

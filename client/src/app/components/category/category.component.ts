@@ -57,6 +57,11 @@ export class CategoryComponent implements OnInit {
     } else {  }
   }
 
+  public formatNumber(num) {
+
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}
+
   private cargarItems() {
     this.items = new Array<Item>();
     this._route.queryParams.forEach((params: Params) => {
@@ -66,12 +71,17 @@ export class CategoryComponent implements OnInit {
           this.items = response.result;
           for (let i = 0; i < this.items.length; i++) {
             //validar si el ítem tiene descuentos
+
             this._descuentosService.findDiscount(this.items[i].itemcode).subscribe(
               response => {
                 if (this.items[i].priceaftervat === response.precio) {
                   if (response.descuentos && response.descuentos.length > 0) {
                     this.items[i].descuento = response.descuentos[0].porcentaje;
                     this.items[i].priceafterdiscount = this.items[i].priceaftervat - ((this.items[i].priceaftervat / 100) * this.items[i].descuento);
+                    if(this.items[i].priceafterdiscount){
+                        this.items[i].priceafterdiscountFormat=this.formatNumber(this.items[i].priceafterdiscount);
+                    }
+
                   }
                 }
               },
@@ -79,6 +89,10 @@ export class CategoryComponent implements OnInit {
                 console.error(error);
               }
             );
+            if(this.items[i].priceaftervat){
+              this.items[i].priceaftervatFormat=this.formatNumber(this.items[i].priceaftervat);
+            }
+
           }
           this.productosComponent.cargarItems(this.availableFields, this.items, this.queryParams, response.records);
           this.filtrosComponent.inicializarFiltros(this.availableFields, this.queryParams, this.queryString, response.records);

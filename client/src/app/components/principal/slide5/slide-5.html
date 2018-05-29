@@ -24,7 +24,7 @@
     </div>
   </div>
   <br/>
-  
+
   <div class="container">
     <div class="row" *ngIf="items && items.length > 0">
       <div class="col-sm-3 col-xs-6 text-center">
@@ -34,8 +34,8 @@
             <img src="https://img.matisses.co/{{items[0].itemcode}}/parrilla/{{items[0].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[0].itemname}}">
           </a>
           <p class="precio">
-            <del>$ {{items[0].priceaftervat | number}}</del>
-            <b>$ {{items[0].priceaftervat * 0.60  | number}}</b>
+            <del>$ {{formatNumber(items[0].priceaftervat)}}</del>
+            <b>$ {{formatNumber(items[0].priceaftervat * 0.60)}}</b>
           </p>
           <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[0].shortitemcode]">Ir a comprar</button>
         </div>
@@ -47,13 +47,13 @@
             <img src="https://img.matisses.co/{{items[1].itemcode}}/parrilla/{{items[1].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[1].itemname}}">
           </a>
           <p class="precio">
-              <del>$ {{items[1].priceaftervat | number}}</del>
-              <b>$ {{items[1].priceaftervat * 0.60  | number}}</b>
+              <del>$ {{formatNumber(items[1].priceaftervat)}}</del>
+              <b>$ {{formatNumber(items[1].priceaftervat * 0.60)}}</b>
           </p>
           <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[1].shortitemcode]">Ir a comprar</button>
         </div>
       </div>
-  
+
       <div class="col-sm-6 col-xs-12" *ngIf="items && items.length >= 3">
         <div class="sub-banner text-center">
           <a href="javascript:void(0)">
@@ -65,7 +65,7 @@
           <a href="javascript:void(0)" [routerLink]="['/producto', items[2].shortitemcode ]">
             <div class="col-xs-12">
               <div class="sub-banner-footer">
-                <p><b>Silla en ecopiel CARAMEL</b> $ {{items[2].priceaftervat * 0.60 | number}}</p>
+                <p><b>Silla en ecopiel CARAMEL</b> $ {{formatNumber(items[2].priceaftervat * 0.60)}}</p>
                 <button type="submit" class="ir-comprar" name="comprar-ya">Ir a comprar</button>
               </div>
             </div>
@@ -74,4 +74,3 @@
       </div>
     </div>
   </div>
-  

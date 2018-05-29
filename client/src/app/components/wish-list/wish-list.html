@@ -55,7 +55,7 @@
                 </div>
                 <div class="col-xs-8">
                   <p class="name">{{item.itemname}}</p>
-                  <p id="price"><b>$ {{item.priceaftervat | number:0}}</b></p>
+                  <p id="price"><b>$ {{formatNumber(item.priceaftervat)}}</b></p>
                 </div>
               </div>
               <div class="row" *ngIf="item != null">

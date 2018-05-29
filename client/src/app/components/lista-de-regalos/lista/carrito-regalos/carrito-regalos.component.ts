@@ -109,6 +109,11 @@ export class CarritoRegalosComponent implements OnInit, AfterViewInit {
     return this.url && !this.url.includes('pago') && !this.url.includes('carrito');
   }
 
+  public formatNumber(num:number) {
+
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}
+
   public cambiarBtn() {
     $("#bolsa").on("click", function() {
       $('#cerrar').show();

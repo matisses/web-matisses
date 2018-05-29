@@ -16,7 +16,7 @@
         <div class="col-xs-12 text-center">
           <div class="info">
             <p class="nombre-producto">{{item.nombre}}</p>
-            <h4>$ {{item.precio | number:0}}</h4>
+            <h4>$ {{formatNumber(item.precio)}}</h4>
             <p class="agregar-carrito light"><span class="icon-shopping-cart carrito"> </span> <em>AGREGAR AL CARRITO</em></p>
           </div>
         </div>

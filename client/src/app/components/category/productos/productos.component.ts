@@ -136,4 +136,9 @@ export class ProductosComponent {
   public getCSSClassName(item: Item) {
     return this._itemService.getCSSClassName(item);
   }
+
+  public formatNumber(num:number) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}
+
 }

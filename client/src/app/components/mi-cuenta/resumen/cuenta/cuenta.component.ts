@@ -74,7 +74,6 @@ export class CuentaComponent implements OnInit {
     this._userService.editarCliente(this.customer).subscribe(
       response => {
         if(response.estado=="0"){
-          console.log('entra aca');
           this.cambiosGuardados = true;
           this.messageError = response.mensaje;
         }
@@ -471,7 +470,6 @@ public inicializarCliente(){
   }
 
   public actualizarClave(){
-    console.log('entra en cambiar cable');
     let usuarioDTO = {
       nombreUsuario: this.nombreUsuario,
       password: this.claveNueva,
