@@ -12,25 +12,6 @@
       </a>
       <a href="javascript:void(0)" [routerLink]="['/sin-intereses']">
         <div class="principal-01">
-          <div class="container">
-            <div class="row">
-              <div class="col-xs-12">
-                <div class="text-01">
-                  <h1>compra a crédito</h1>
-                  <p>los productos que<br>siempre quisiste para tu hogar</p>
-                  <img src="assets/images/sin-interes.png" class="logo" alt="">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-2 col-sm-3 col-xs-10">
-                <p class="conoce-mas">CONOCE MÁS AQUÍ</p>
-              </div>
-              <div class="col-md-4 col-sm-5 col-xs-10">
-                <p class="link">WWW.MATISSES.CO/SIN-INTERESES</p>
-              </div>
-            </div>
-          </div>
         </div>
       </a>
     </div>
@@ -42,7 +23,7 @@
   <div class="row" *ngIf="items && items.length > 0">
     <div class="col-sm-3 col-xs-6 text-center">
       <div class="recomendaciones">
-        <p class="name">COMEDOR AVALON<br><b>TOMASELLA</b></p>
+        <p class="name">SOFÁ TESLA<br><b>NICOLETTI</b></p>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[0].shortitemcode]">
           <img src="https://img.matisses.co/{{items[0].itemcode}}/parrilla/{{items[0].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[0].itemname}}">
         </a>
@@ -52,7 +33,7 @@
     </div>
     <div class="col-sm-3 col-xs-6 text-center" *ngIf="items && items.length >= 2">
       <div class="recomendaciones">
-        <p class="name">SOFÁ 3 PUESTOS<br><b>BELLE EPOQUE</b></p>
+        <p class="name">CAMA EXTRADOBLE<br><b>ROYAL</b></p>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[1].shortitemcode]">
           <img src="https://img.matisses.co/{{items[1].itemcode}}/parrilla/{{items[1].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[1].itemname}}">
         </a>

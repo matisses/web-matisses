@@ -152,7 +152,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('nombre-usuario', this.nombreUsuario);
         localStorage.setItem('usuario-decorador', this.decorador.toString());
         localStorage.setItem('usuario-planificador', this.planificador.toString());
-
+        console.log(localStorage.getItem('usuario-decorador'));
+        
         this._router.navigate(['/mi-cuenta']);
       },
       error => {
