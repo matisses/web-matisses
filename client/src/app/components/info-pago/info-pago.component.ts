@@ -246,6 +246,7 @@ export class InfoPagoComponent implements OnInit {
       "Girardota05308",
       "Sabaneta05631",
       "Barbosa (Antioquia)05079",
+      
       //Bogotá DC: area metropolitana
       "Bogotá11001",
       "Soacha25754",
