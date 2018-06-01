@@ -8,14 +8,14 @@ import { Item } from '../../../models/item';
 declare var $: any;
 
 @Component({
-  selector: 'seccion-2',
-  templateUrl: 'seccion-2.html',
-  styleUrls: ['seccion-2.component.css'],
+  selector: 'seccion-5',
+  templateUrl: 'seccion-5.html',
+  styleUrls: ['seccion-5.component.css'],
   providers: [ItemService],
 
 })
 
-export class Seccion2Component implements OnInit {
+export class Seccion5Component implements OnInit {
   public itemswmf: Array<Item>;
   public itemsCarousel: Array<Item>;
 
