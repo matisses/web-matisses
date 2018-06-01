@@ -5,7 +5,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 declare var $: any;
 
 @Component({
-  selector: 'seccion-seccion-3',
+  selector: 'seccion-3',
   templateUrl: 'seccion-3.html',
   styleUrls: ['seccion-3.component.css'],
 
