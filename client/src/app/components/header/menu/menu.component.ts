@@ -82,6 +82,8 @@ export class MenuComponent implements OnInit, AfterViewInit {
   public nombreSession: string;
   public idUsuario: string;
   public documentCustomer:string;
+  public decorador: boolean = false;
+  public planificador: boolean = false;
 
 
   constructor(private _jwt: JWTService, private _menuService: MenuItemService, private _route: ActivatedRoute, private _router: Router,private _userService: SessionUsuarioService) {
@@ -882,6 +884,16 @@ export class MenuComponent implements OnInit, AfterViewInit {
         this.nombreSession = response.nombre;
         this.documentCustomer=response.documento;
 
+        if (response.esDecorador != null) {
+          console.log('entra en el if de decorador '+response.esDecorador);
+          this.decorador = response.esDecorador;
+        }
+
+        if (response.esPlanificador != null) {
+          console.log('entra en el if de planificador '+response.esPlanificador);
+          this.planificador = response.esPlanificador;
+        }
+
         this._jwt.validateToken(this.token).subscribe(
           response => {
               this.tieneSesion = true;
@@ -896,6 +908,8 @@ export class MenuComponent implements OnInit, AfterViewInit {
             localStorage.removeItem('usuario-id');
             localStorage.removeItem('doc-customer');
             localStorage.removeItem('nombre-usuario');
+            localStorage.removeItem('usuario-decorador');
+            localStorage.removeItem('usuario-planificador');
           }
         );
         localStorage.setItem('matisses.session-token', this.token);
@@ -903,6 +917,8 @@ export class MenuComponent implements OnInit, AfterViewInit {
         localStorage.setItem('usuario-id', this.idUsuario);
         localStorage.setItem('doc-customer', this.documentCustomer);
         localStorage.setItem('nombre-usuario', this.nombreUsuario);
+        localStorage.setItem('usuario-decorador', this.decorador.toString());
+        localStorage.setItem('usuario-planificador', this.planificador.toString());
         this._router.navigate(['/']);
       },
       error => {

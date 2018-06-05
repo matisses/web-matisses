@@ -126,10 +126,12 @@ export class LoginComponent implements OnInit {
         this.nombreUsuario = response.nombreUsuario;
 
         if (response.esDecorador != null) {
+          console.log('entra en el if de decorador');
           this.decorador = response.esDecorador;
         }
 
         if (response.esPlanificador != null) {
+          console.log('entra en el if de planificador');
           this.planificador = response.esPlanificador;
         }
 
@@ -390,7 +392,7 @@ export class LoginComponent implements OnInit {
       $('#messageUser').modal('show');
       return;
     }
-    
+
     if (this.registroDecorador != null || this.registroPlanificador != null) {
       if (this.fileUploadRut == null || this.fileUploadRut.length <= 0
         || this.fileUploadCc == null || this.fileUploadCc.length <= 0
