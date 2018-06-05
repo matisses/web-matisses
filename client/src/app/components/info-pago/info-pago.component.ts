@@ -22,7 +22,7 @@ import { DigitoVerificacionService } from '../../services/digitoVerificacion.ser
 
 import { CarritoSimpleComponent } from '../header/menu/carrito/carrito-simple.component';
 import { CarritoComponent } from '../header/menu/carrito/carrito.component';
-import { CompileAnimationStateDeclarationMetadata } from '@angular/compiler';
+//import { CompileAnimationStateDeclarationMetadata } from '@angular/compiler';
 
 declare var $: any;
 
