@@ -133,7 +133,7 @@ const appRoutes: Routes = [
   { path: 'confirm-user/:nuser', component: ConfirmarUsuarioComponent },
 
   // { path: '92-consola', redirectTo: 'categoria?group=002' },
-  { path: 'blog/estilo-clasico', component: BlogComponent },
+  { path: 'blog', component: BlogComponent },
 
   // { path: 'categoria', component: CategoryComponent, pathMatch: 'full' },
   { path: 'quienes', component: QuienesComponent },

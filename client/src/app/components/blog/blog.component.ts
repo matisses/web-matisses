@@ -10,6 +10,7 @@ declare var $: any;
 
 export class BlogComponent implements OnInit {
     public title: string;
+    public blogNumber: number = 2;
 
     constructor(private _route: ActivatedRoute, private _router: Router) {
     }
@@ -22,6 +23,11 @@ export class BlogComponent implements OnInit {
       $(document).ready(function() {
         $("html, body").animate({scrollTop: 0}, 1000);
       });
+      
+    }
+  
+    public seleccionarBlog(id) {
+      this.blogNumber = id;
     }
 
 }
