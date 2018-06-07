@@ -14,20 +14,7 @@ export class PromocionComponent implements OnInit {
   }
 
   ngOnInit() {
-    $(document).ready(function() {
-      $('#countdown_dashboard').countDown({
-        targetDate: {
-          'day': 17,
-          'month': 11,
-          'year': 2017,
-          'hour': 0,
-          'min': 0,
-          'sec': 0
-        }
-      });
-    });
-
-    $(window).scroll(function() {
+    $(window).scroll(function () {
       var scroll = $(window).scrollTop();
       if (scroll >= 5) {
         $(".promocion").addClass("none");

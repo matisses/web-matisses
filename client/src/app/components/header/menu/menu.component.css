@@ -105,7 +105,7 @@
 }
 
 .top-204 {
-  top: 204px !important;
+  top: 234px !important;
 }
 
 .height-190 {
@@ -295,7 +295,7 @@ a {
   padding: 10px 0px;
   position: absolute;
   width: 100%;
-  top: 151px;
+  top: 181px;
   z-index: 10;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -479,7 +479,7 @@ a {
   width: 0;
   position: fixed;
   z-index: 6;
-  top: 50px;
+  top: 80px;
   left: 0;
   background-color: rgb(0, 0, 0);
   background-color: rgba(245, 245, 245, 1);
