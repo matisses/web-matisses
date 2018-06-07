@@ -487,6 +487,10 @@ a {
   transition: 0.5s;
 }
 
+.top-50 {
+  top: 50px !important;
+}
+
 .menu-content {
   position: relative;
   width: 100%;
