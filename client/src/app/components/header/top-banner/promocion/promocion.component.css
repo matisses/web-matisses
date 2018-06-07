@@ -10,8 +10,9 @@
   display: inline-block;
 }
 
-img {
-  margin: 0 30px;
+.jpg-responsive {
+  width: 100%;
+  height: 100%;
 }
 
 .tres {
@@ -53,6 +54,9 @@ img {
   .none {
     top: -500px;
     position: absolute;
+  }
+  .promocion {
+    padding-top: 3px;
   }
 }
 
