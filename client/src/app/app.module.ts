@@ -72,6 +72,7 @@ import { CabifyComponent } from './components/cabify/cabify.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { BlogLujoComponent } from './components/blog/lujo/lujo.component';
 import { BlogSofasComponent } from './components/blog/sofas/sofas.component';
+import { BlogVintageComponent } from './components/blog/vintage/vintage.component';
 
 // SECCIONES
 import { Seccion1Component } from './components/secciones/seccion-1/seccion-1.component';
@@ -218,6 +219,7 @@ import { CondicionesComplementosAlfComponent } from './components/condiciones-co
     BlogComponent,
     BlogLujoComponent,
     BlogSofasComponent,
+    BlogVintageComponent,
     //Lista de Regalos
     ListaRegalosComponent,
     MenuListaComponent,
