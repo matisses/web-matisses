@@ -62,11 +62,13 @@
                 </p>
             </div>
         </div>
-        <new-products></new-products>
         <div class="row">
             <div class="col-xs-12 text-center">
-                <button class="btn btn-default">VER MÁS</button>
+                <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{ page: '1', pageSize: '10000', collection: 'Vintage' }">
+                    <button class="btn btn-default">VER PRODUCTOS</button>
+                </a>
             </div>
         </div>
+        <new-products></new-products>
     </div>
 </div>
