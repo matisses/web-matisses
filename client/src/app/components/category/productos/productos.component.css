@@ -28,7 +28,7 @@
 
 .precio-discount h4, .precio-discount h5 {
   display: inline-block;
-  margin: 6px 2px;
+  margin: 0px 2px;
   margin-bottom: 10px;
 }
 
@@ -49,7 +49,6 @@
   font-size: 20px;
   padding: 4px 5px;
 }
-
 
 .btn-carrito {
   border: 1px solid rgb(230, 230, 230);
@@ -78,7 +77,6 @@
   .precio-discount h4, .precio-discount h5 {
     font-size: 12px
   }
-
   .precio-discount h5 {
     font-size: 8px;
   }
@@ -93,7 +91,6 @@
     overflow: hidden;
   }
 }
-
 
 /* paginador */
 
@@ -118,7 +115,6 @@
   border-radius: 0;
 }
 
-
 /* mostrar por */
 
 .mostrar:before {
@@ -128,7 +124,6 @@
   border-right: 1px solid #626262;
   padding: 0 10px;
 }
-
 
 /* Order por */
 
@@ -150,5 +145,11 @@
 @media screen and (max-width: 991px) {
   .ordenar {
     margin: 10px;
+  }
+}
+
+@media screen and (max-width: 435px) {
+  .precio-discount h4, .precio-discount h5 {
+    margin: 6px 2px;
   }
 }
