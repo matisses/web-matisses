@@ -16,7 +16,7 @@ declare var $: any;
   selector: 'matisses-menu',
   templateUrl: 'menu.html',
   styleUrls: ['menu.component.css'],
-  providers: [MenuItemService, JWTService,SessionUsuarioService],
+  providers: [MenuItemService, JWTService, SessionUsuarioService],
   animations: [
     trigger('menuAnimation', [
       state('shown', style({
@@ -81,17 +81,19 @@ export class MenuComponent implements OnInit, AfterViewInit {
   public token: string;
   public nombreSession: string;
   public idUsuario: string;
-  public documentCustomer:string;
+  public documentCustomer: string;
+  public decorador: boolean = false;
+  public planificador: boolean = false;
 
 
-  constructor(private _jwt: JWTService, private _menuService: MenuItemService, private _route: ActivatedRoute, private _router: Router,private _userService: SessionUsuarioService) {
+  constructor(private _jwt: JWTService, private _menuService: MenuItemService, private _route: ActivatedRoute, private _router: Router, private _userService: SessionUsuarioService) {
     this.padreSeleccionado = new MenuItem();
-    this.messageError='';
+    this.messageError = '';
 
   }
 
   ngOnInit() {
-    this.messageError='';
+    this.messageError = '';
     this.inicializarMenu();
     document.getElementById("myNav").style.width = "0%";
     this.cargarDatosMenu();
@@ -104,11 +106,11 @@ export class MenuComponent implements OnInit, AfterViewInit {
     $(function () {
       $('[data-toggle="tooltip"]').tooltip()
     });
-    if(localStorage.getItem('matisses.session-token')!=null){
-    this.tieneSesion = true;
-    this.mostrarPopOverSignIn = false;
-    this.mostrarPopOverMenuSesion = true;
-    this.nombreSession=localStorage.getItem('username');
+    if (localStorage.getItem('matisses.session-token') != null) {
+      this.tieneSesion = true;
+      this.mostrarPopOverSignIn = false;
+      this.mostrarPopOverMenuSesion = true;
+      this.nombreSession = localStorage.getItem('username');
 
     }
 
@@ -116,15 +118,25 @@ export class MenuComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
 
-    if(localStorage.getItem('matisses.session-token')!=null){
-    this.tieneSesion = true;
-    this.mostrarPopOverSignIn = false;
-    this.mostrarPopOverMenuSesion = false;
+    if (localStorage.getItem('matisses.session-token') != null) {
+      this.tieneSesion = true;
+      this.mostrarPopOverSignIn = false;
+      this.mostrarPopOverMenuSesion = false;
     }
     this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 
     this.urlMenu = window.location.pathname;
     this.sinMenu();
+
+    $(window).scroll(function () {
+      var scroll = $(window).scrollTop();
+      if (scroll >= 5) {
+        $(".fondo-menu").addClass("top-50");
+      } else {
+        $(".fondo-menu").removeClass("top-50")
+      }
+    });
+
   }
 
   public conSesion() {
@@ -135,7 +147,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
     this.tieneSesion = false;
   }
 
-  public cerrarSession(){
+  public cerrarSession() {
     this.tieneSesion = false;
     this.mostrarPopOverMenuSesion = false;
     localStorage.removeItem('matisses.session-token');
@@ -880,13 +892,23 @@ export class MenuComponent implements OnInit, AfterViewInit {
         this.token = response.token;
         this.idUsuario = response.usuarioId;
         this.nombreSession = response.nombre;
-        this.documentCustomer=response.documento;
+        this.documentCustomer = response.documento;
+
+        if (response.esDecorador != null) {
+          console.log('entra en el if de decorador ' + response.esDecorador);
+          this.decorador = response.esDecorador;
+        }
+
+        if (response.esPlanificador != null) {
+          console.log('entra en el if de planificador ' + response.esPlanificador);
+          this.planificador = response.esPlanificador;
+        }
 
         this._jwt.validateToken(this.token).subscribe(
           response => {
-              this.tieneSesion = true;
-              this.mostrarPopOverSignIn = false;
-              this.mostrarPopOverMenuSesion = true;
+            this.tieneSesion = true;
+            this.mostrarPopOverSignIn = false;
+            this.mostrarPopOverMenuSesion = true;
           }, error => {
             console.error(error);
             this.tieneSesion = false;
@@ -896,6 +918,8 @@ export class MenuComponent implements OnInit, AfterViewInit {
             localStorage.removeItem('usuario-id');
             localStorage.removeItem('doc-customer');
             localStorage.removeItem('nombre-usuario');
+            localStorage.removeItem('usuario-decorador');
+            localStorage.removeItem('usuario-planificador');
           }
         );
         localStorage.setItem('matisses.session-token', this.token);
@@ -903,6 +927,8 @@ export class MenuComponent implements OnInit, AfterViewInit {
         localStorage.setItem('usuario-id', this.idUsuario);
         localStorage.setItem('doc-customer', this.documentCustomer);
         localStorage.setItem('nombre-usuario', this.nombreUsuario);
+        localStorage.setItem('usuario-decorador', this.decorador.toString());
+        localStorage.setItem('usuario-planificador', this.planificador.toString());
         this._router.navigate(['/']);
       },
       error => {
@@ -912,7 +938,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
     );
   }
 
-  public irLogin(){
+  public irLogin() {
     console.log('entra por funcion');
     localStorage.removeItem('decorator_register');
     localStorage.removeItem('wedding_register');

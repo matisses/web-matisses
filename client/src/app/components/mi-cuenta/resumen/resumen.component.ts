@@ -21,15 +21,19 @@ export class ResumenMiCuentaComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log("en el init "+localStorage.getItem('usuario-planificador'));
+    console.log("en el init "+localStorage.getItem('usuario-decorador'));
     if(localStorage.getItem('matisses.session-token')==null){
       this._router.navigate(['/login']);
     }
     if(localStorage.getItem('usuario-planificador')=='true'){
+      console.log('trae el local de planificador');
       this.planner=true;
     }
     console.log(localStorage.getItem('usuario-decorador'));
     
     if(localStorage.getItem('usuario-decorador')=='true'){
+      console.log('trae el local de decorador');
       this.decorador=true;
     }
   }

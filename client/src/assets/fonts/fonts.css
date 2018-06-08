@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?d2ac7e');
-  src:  url('fonts/icomoon.eot?d2ac7e#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?d2ac7e') format('truetype'),
-    url('fonts/icomoon.woff?d2ac7e') format('woff'),
-    url('fonts/icomoon.svg?d2ac7e#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?qokl7n');
+  src:  url('fonts/icomoon.eot?qokl7n#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?qokl7n') format('truetype'),
+    url('fonts/icomoon.woff?qokl7n') format('woff'),
+    url('fonts/icomoon.svg?qokl7n#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,11 +24,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-settings:before {
-  content: "\e94a";
+.icon-vector-izq:before {
+  content: "\e94c";
 }
-.icon-mail2:before {
-  content: "\e94b";
+.icon-vector-der:before {
+  content: "\e94d";
 }
 .icon-valentines:before {
   content: "\e948";
@@ -245,6 +245,12 @@
 }
 .icon-truck:before {
   content: "\e909";
+}
+.icon-settings:before {
+  content: "\e94a";
+}
+.icon-mail2:before {
+  content: "\e94b";
 }
 .icon-pencil:before {
   content: "\e93e";
