@@ -48,8 +48,8 @@
                 </div>
                 <div class="col-md-6">
                   <label for="docu">Documento*</label>
-                  <input id="docu" type="text" [maxlength]="maxlength" class="form-control" [class.required-field]="!valid"
-                    name="fiscalID" [(ngModel)]="customer.fiscalID" (change)="buscarCliente()" required>
+                  <input id="docu" type="text" [maxlength]="maxlength" class="form-control" [class.required-field]="!valid" name="fiscalID"
+                    [(ngModel)]="customer.fiscalID" (change)="buscarCliente()" required>
                 </div>
               </div>
               <div class="row" *ngIf="customer.fiscalIdType == '31'">
@@ -199,6 +199,17 @@
                           <b>$ {{totalEnvioFinalFormat}}</b>
                         </span>
                       </p>
+                    </div>
+                  </div>
+                  <div *ngIf="saldoFavor != 0" class="row">
+                    <div class="col-sm-10 col-sm-offset-1 link-slf">
+                      <a href="" target="_blank">
+                        <p>Saldo a favor:
+                          <span class="pull-right">
+                            <b>$ {{saldoFavor}}</b>
+                          </span>
+                        </p>
+                      </a>
                     </div>
                   </div>
                 </div>

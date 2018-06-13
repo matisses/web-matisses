@@ -41,7 +41,7 @@ export class InfoPagoComponent implements OnInit {
   public carrito1: CarritoComponent;
 
   public costoEnvio: number = 0;
-  public costoEnvioFormat:string;
+  public costoEnvioFormat: string;
   public totalEnvio: number = 0;
   public messageError: string;
   public messageCambio: string;
@@ -60,9 +60,10 @@ export class InfoPagoComponent implements OnInit {
   public resumenMobileVisible: boolean = false;
   public resumenDesktopVisible: boolean = false;
   public maxlength: number;
-  public totalEnvioFormat: string="0";
-  public totalEnvioFinal:number=0;
-  public totalEnvioFinalFormat:string="0";
+  public totalEnvioFormat: string = "0";
+  public totalEnvioFinal: number = 0;
+  public totalEnvioFinalFormat: string = "0";
+  public saldoFavor: number = 0;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService, private _cityService: CityService,
     private _shippingMethodService: ShippingMethodService, private _placetopayService: PlacetoPayService, private _shoppingCartService: ShoppingCartService,
@@ -80,8 +81,8 @@ export class InfoPagoComponent implements OnInit {
     this.carrito.cargarCarrito();
     this.obtenerMetodosEnvio();
     this.obtenerCiudades();
-    this.totalEnvioFinal=(this.carrito.totalCarrito+this.totalEnvio) - this.carrito.totalDescuentos;
-    this.totalEnvioFinalFormat=this.formatNumber(this.totalEnvioFinal);
+    this.totalEnvioFinal = (this.carrito.totalCarrito + this.totalEnvio) - this.carrito.totalDescuentos;
+    this.totalEnvioFinalFormat = this.formatNumber(this.totalEnvioFinal);
   }
 
   ngAfterViewInit() {
@@ -176,6 +177,7 @@ export class InfoPagoComponent implements OnInit {
           this.customer = response;
           this.disabled = true;
           this.consultarCostoEnvio();
+          this.consultarSaldoFavor(this.customer.cardCode);
         },
         error => {
           if (this.customer.fiscalIdType === '31') {
@@ -207,6 +209,16 @@ export class InfoPagoComponent implements OnInit {
     } else { this.limpiar(); }
   }
 
+  public consultarSaldoFavor(id: string) {
+    this._customerService.getSaldoFavor(id).subscribe(
+      response => {
+        console.log(response);
+        this.saldoFavor = response.mensaje;
+      },
+      error => { console.error(error) }
+    );
+  }
+
   public consultarCostoEnvio() {
     let datosCompra = {
       ciudadDestino: this.customer.addresses[0].cityCode,
@@ -216,13 +228,14 @@ export class InfoPagoComponent implements OnInit {
     for (let j = 0; j < this.carrito.shoppingCart.items.length; j++) {
       datosCompra.items.push(this.carrito.shoppingCart.items[j]);
     }
-
+    
     this._coordinadoraService.crearCotizacionEnvio(datosCompra).subscribe(
       response => {
         for (let i = 0; i < this.metodosEnvio.length; i++) {
           if (this.metodosEnvio[i].code === 3) {
             this.costoEnvio = response.valor;
-            this.costoEnvioFormat=this.formatNumber(this.costoEnvio);
+            console.log(this.costoEnvio);
+            this.costoEnvioFormat = this.formatNumber(this.costoEnvio);
             break;
           }
         }
@@ -246,7 +259,7 @@ export class InfoPagoComponent implements OnInit {
       "Girardota05308",
       "Sabaneta05631",
       "Barbosa (Antioquia)05079",
-      
+
       //Bogotá DC: area metropolitana
       "Bogotá11001",
       "Soacha25754",
@@ -651,13 +664,13 @@ export class InfoPagoComponent implements OnInit {
     this.metodoEnvioSeleccionado = metodo;
     if (metodo.code === 2) {
       this.totalEnvio = 0;
-      this.totalEnvioFormat='0';
+      this.totalEnvioFormat = '0';
     } else {
       this.totalEnvio = this.costoEnvio;
-      this.totalEnvioFormat=this.formatNumber(this.totalEnvio);
+      this.totalEnvioFormat = this.formatNumber(this.totalEnvio);
     }
-    this.totalEnvioFinal=(this.carrito.totalCarrito+this.totalEnvio) - this.carrito.totalDescuentos;
-    this.totalEnvioFinalFormat=this.formatNumber(this.totalEnvioFinal);
+    this.totalEnvioFinal = (this.carrito.totalCarrito + this.totalEnvio) - this.carrito.totalDescuentos;
+    this.totalEnvioFinalFormat = this.formatNumber(this.totalEnvioFinal);
   }
 
   private obtenerNombreCiudad() {
@@ -777,7 +790,7 @@ export class InfoPagoComponent implements OnInit {
     }
   }
 
-  public formatNumber(num:number) {
+  public formatNumber(num: number) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-}
+  }
 }

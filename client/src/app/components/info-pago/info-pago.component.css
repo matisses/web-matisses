@@ -34,6 +34,19 @@ label {
   font-size: 12px;
 }
 
+.link-slf {
+  margin-top: 12px;
+}
+
+.link-slf a {
+  color: #425E63;
+  font-weight: bold;
+}
+
+.link-slf:hover {
+  color: #6D9791;
+}
+
 .btn-continuar {
   background-color: #6D9791;
   padding: 10px 0px;
