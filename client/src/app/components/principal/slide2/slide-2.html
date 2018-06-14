@@ -10,7 +10,7 @@
         <span class="glyphicon glyphicon-menu-right"></span>
         <span class="sr-only">Next</span>
       </a>
-      <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{ page: '1', pageSize: '10000', collection: 'Vintage' }">
+      <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{ page: '1', pageSize: '36', group: '024', brand: '0009', collection: 'A%20La%20Maison' }">
         <div class="principal-01">
           <div class="container">
             <div class="row">
@@ -27,36 +27,36 @@
   <div class="row" *ngIf="items && items.length > 0">
     <div class="col-sm-3 col-xs-6 text-center">
       <div class="recomendaciones">
-        <p class="name">PUFF EN MADERA Y PIEL<br><b>VINTAGE</b></p>
+        <p class="name">BOWL GRIS OSCURO<br><b>A LA MAISON</b></p>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[0].shortitemcode]">
           <img src="https://img.matisses.co/{{items[0].itemcode}}/parrilla/{{items[0].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[0].itemname}}">
         </a>
-        <p class="precio"><b>$ {{formatNumber(items[0].priceaftervat)}}</b></p>
+        <p class="precio"><b>$ {{formatNumber(items[0].priceaftervat * 0.6)}}</b></p>
         <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[0].shortitemcode]">Ir a comprar</button>
       </div>
     </div>
     <div class="col-sm-3 col-xs-6 text-center" *ngIf="items && items.length >= 2">
       <div class="recomendaciones">
-        <p class="name">SOFÁ WINDSOR<br><b>NICOLETTI</b></p>
+        <p class="name">PLATO PARA PASTA<br><b>A LA PLAGE</b></p>
         <a href="javascript:void(0)" [routerLink]="['/producto', items[1].shortitemcode]">
           <img src="https://img.matisses.co/{{items[1].itemcode}}/parrilla/{{items[1].itemcode}}_01.jpg" class="img-responsive cursor-pointer" alt="{{items[1].itemname}}">
         </a>
-        <p class="precio"><b>$ {{formatNumber(items[1].priceaftervat)}}</b></p>
+        <p class="precio"><b>$ {{formatNumber(items[1].priceaftervat * 0.6)}}</b></p>
         <button type="submit" class="ir-comprar pull-bottom" name="comprar-ya" [routerLink]="['/producto', items[1].shortitemcode]">Ir a comprar</button>
       </div>
     </div>
 
     <div class="col-sm-6 col-xs-12" *ngIf="items && items.length >= 3">
-      <div class="sub-banner text-center" [routerLink]="['/categoria']" [queryParams]="{ page: '1', pageSize: '10000', collection: 'Vintage', group: '005' }">
+      <div class="sub-banner text-center" [routerLink]="['/categoria']" [queryParams]="{ page: '1', pageSize: '36', group: '024', brand: '0009', collection: 'A%20La%20Plage' }">
         <a href="javascript:void(0)">
           <img src="assets/images/banner/slide-2/banner-02.jpg" class="img-responsive" alt="">
         </a>
       </div>
       <div class="row">
-        <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{ page: '1', pageSize: '10000', collection: 'Vintage', group: '005' }">
+        <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{ page: '1', pageSize: '36', group: '024', brand: '0009', collection: 'A%20La%20Plage' }">
           <div class="col-xs-12">
             <div class="sub-banner-footer">
-              <p><b>SOFÁS VINTAGE DESDE </b>$ {{formatNumber(items[2].priceaftervat)}}</p>
+              <p><b>DESDE </b>$ 11,400</p>
               <button type="submit" class="ir-comprar" name="comprar-ya">Ir a comprar</button>
             </div>
           </div>
