@@ -73,6 +73,7 @@ import { BlogComponent } from './components/blog/blog.component';
 import { BlogLujoComponent } from './components/blog/lujo/lujo.component';
 import { BlogSofasComponent } from './components/blog/sofas/sofas.component';
 import { BlogVintageComponent } from './components/blog/vintage/vintage.component';
+import { BlogOcasionalesComponent } from './components/blog/ocasionales/ocasionales.component';
 
 // SECCIONES
 import { Seccion1Component } from './components/secciones/seccion-1/seccion-1.component';
@@ -220,6 +221,7 @@ import { CondicionesComplementosAlfComponent } from './components/condiciones-co
     BlogLujoComponent,
     BlogSofasComponent,
     BlogVintageComponent,
+    BlogOcasionalesComponent,
     //Lista de Regalos
     ListaRegalosComponent,
     MenuListaComponent,
