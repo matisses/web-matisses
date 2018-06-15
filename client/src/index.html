@@ -74,8 +74,13 @@
       var y = n.split(' ');
       if (y[0] == 'Chrome') {
         if (y[1] < 50) {
-          window.location = "http://www.matisses.co/ie";
+          window.location = "http://www.matisses.co/chrome";
         }
+      }
+      if (y[0] == 'Opera') {
+
+          window.location = "http://www.matisses.co/op";
+
       }
 
       return M.join(' ');
