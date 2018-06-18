@@ -18,10 +18,24 @@
         <lujo-clasico *ngIf="blogNumber === 1"></lujo-clasico>
         <blog-sofas *ngIf="blogNumber === 2"></blog-sofas>
         <blog-vintage *ngIf="blogNumber === 3"></blog-vintage>
+        <blog-ocasionales *ngIf="blogNumber === 4"></blog-ocasionales>
       </div>
       <div class="col-sm-4">
         <h3>Blogs recientes</h3>
         <hr>
+        <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(4)">
+          <div class="row">
+            <div class="col-xs-4">
+              <img src="../../../assets/images/blog/ocasionales-01.jpg" class="jpg-responsive" alt="">
+            </div>
+            <div class="col-xs-8">
+              <p>
+                <b>COMO COMPLETAR CADA ESPACIO DE TU SALA</b>
+              </p>
+              <span class="icon-clock"> 15/jun/2018</span>
+            </div>
+          </div>
+        </div>
         <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(3)">
           <div class="row">
             <div class="col-xs-4">
@@ -89,6 +103,15 @@
             <li>Lifestyle</li>
           </ul>
         </div>
+        <div class="categorias-blog" *ngIf="blogNumber === 4">
+          <ul>
+            <li>Sillas ocasionales</li>
+            <li>Mobiliario y accesorios</li>
+            <li>Tendencias</li>
+            <li>Espacios</li>
+            <li>Lifestyle</li>
+          </ul>
+        </div>
         <h3>Tags</h3>
         <hr>
         <div class="tags-filtros" *ngIf="blogNumber === 1">
@@ -128,6 +151,20 @@
             Diseño Vintage
           </span>
 
+          <span class="active-filter">
+            Mobiliario
+          </span>
+          <span class="active-filter">
+            Diseño de interiores
+          </span>
+        </div>
+        <div class="tags-filtros" *ngIf="blogNumber === 4">
+          <span class="active-filter">
+            Decoración
+          </span>
+          <span class="active-filter">
+            Diseño Clásico
+          </span>
           <span class="active-filter">
             Mobiliario
           </span>
