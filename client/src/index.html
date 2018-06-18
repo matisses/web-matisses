@@ -72,6 +72,7 @@
       if ((tem = ua.match(/version\/(\d+)/i)) != null) M.splice(1, 1, tem[1]);
       var n = M.join(' ');
       var y = n.split(' ');
+      console.log('navegador '+y[0]+ 'version '+y[1]);
       if (y[0] == 'Chrome') {
         if (y[1] < 50) {
           window.location = "http://www.matisses.co/chrome";
@@ -89,11 +90,12 @@
     var result = getBrowserInfo();
 
 
-    var esIE = navigator.userAgent.indexOf('Trident') >= 0 || navigator.userAgent.indexOf('Edge') >= 0;
-    if (esIE) {
-      //This user uses Internet Explorer
-      window.location = "http://www.matisses.co/ie";
-    }
+    // var esIE = navigator.userAgent.indexOf('Trident') >= 0 || navigator.userAgent.indexOf('Edge') >= 0;
+    // if (esIE) {
+    //   //This user uses Internet Explorer
+    //   console.log(esIE);
+    //   window.location = "http://www.matisses.co/ie";
+    // }
   </script>
   <!-- Analitycs -->
   <!-- <script>
