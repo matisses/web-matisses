@@ -47,13 +47,13 @@
     </div>
 
     <div class="col-sm-6 col-xs-12" *ngIf="items && items.length >= 3">
-      <div class="sub-banner text-center" [routerLink]="['/producto', items[2].shortitemcode']">
+      <div class="sub-banner text-center" [routerLink]="['/producto', items[2].shortitemcode]">
         <a href="javascript:void(0)">
           <img src="assets/images/banner/slide-2/banner-02.jpg" class="img-responsive" alt="">
         </a>
       </div>
       <div class="row">
-        <a href="javascript:void(0)" [routerLink]="['/producto', items[2].shortitemcode']">
+        <a href="javascript:void(0)" [routerLink]="['/producto', items[2].shortitemcode]">
           <div class="col-xs-12">
             <div class="sub-banner-footer">
               <p><b>SILLA DE CINE EN PIEL </b>$ {{formatNumber(items[2].priceaftervat)}}</p>
