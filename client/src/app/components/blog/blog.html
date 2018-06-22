@@ -19,10 +19,24 @@
         <blog-sofas *ngIf="blogNumber === 2"></blog-sofas>
         <blog-vintage *ngIf="blogNumber === 3"></blog-vintage>
         <blog-ocasionales *ngIf="blogNumber === 4"></blog-ocasionales>
+        <experiencias *ngIf="blogNumber === 5"></experiencias>
       </div>
       <div class="col-sm-4">
         <h3>Blogs recientes</h3>
         <hr>
+        <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(5)">
+          <div class="row">
+            <div class="col-xs-4">
+              <img src="../../../assets/images/blog/experiencias.jpg" class="jpg-responsive" alt="">
+            </div>
+            <div class="col-xs-8">
+              <p>
+                <b>EL ESTILO MATISSES</b>
+              </p>
+              <span class="icon-clock"> 22/jun/2018</span>
+            </div>
+          </div>
+        </div>
         <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(4)">
           <div class="row">
             <div class="col-xs-4">
@@ -112,6 +126,15 @@
             <li>Lifestyle</li>
           </ul>
         </div>
+        <div class="categorias-blog" *ngIf="blogNumber === 5">
+          <ul>
+            <li>Decoración de interiores</li>
+            <li>Mobiliario y accesorios</li>
+            <li>Tendencias</li>
+            <li>Espacios Matisses</li>
+            <li>Lifestyle</li>
+          </ul>
+        </div>
         <h3>Tags</h3>
         <hr>
         <div class="tags-filtros" *ngIf="blogNumber === 1">
@@ -170,6 +193,20 @@
           </span>
           <span class="active-filter">
             Diseño de interiores
+          </span>
+        </div>
+        <div class="tags-filtros" *ngIf="blogNumber === 5">
+          <span class="active-filter">
+            Decoración de interiores
+          </span>
+          <span class="active-filter">
+            Diseño Matisses
+          </span>
+          <span class="active-filter">
+            Mobiliario
+          </span>
+          <span class="active-filter">
+            Espacios
           </span>
         </div>
       </div>
