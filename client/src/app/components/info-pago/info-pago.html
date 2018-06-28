@@ -145,11 +145,20 @@
               <div class="row" *ngIf="metodoEnvioSeleccionado && metodoEnvioSeleccionado.code == 4">
                 <div class="col-xs-12">
                   <p class="info_recoger_item">
-                    Free shipping por compras mayores a $ {{montoEnvioMinimo}}.
-                    <br/>Aplica términos y condiciones.
+                    Te recordamos que para tener envío gratis la compra debe ser igual o superior a:
+                    <br/><b> $ {{montoEnvioMinimo}}.</b>
+                    <br/>
+                    <!-- <br/>Aplica términos y condiciones. -->
                     <br/>
                     <b>Nota:</b> Nos pondremos en contacto de 1 a 3 días para acordar la entrega del producto. Espera la llamada
                     de nuestro equipo de servicio al cliente.</p>
+                </div>
+              </div>
+              <div class="row" *ngIf="metodoEnvioSeleccionado && metodoEnvioSeleccionado.code == 1">
+                <div class="col-xs-12">
+                  <p class="info_recoger_item">
+                    <b>Nota:</b> Nos pondremos en contacto de 1 a 3 días para acordar la entrega del producto.
+                    <br> Espera la llamada de nuestro equipo de servicio al cliente.</p>
                 </div>
               </div>
               <div *ngIf="metodoEnvioSeleccionado && metodoEnvioSeleccionado.code == 2">
@@ -230,7 +239,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="this.mostrarInfoEnvio">
+      <!-- <div *ngIf="this.mostrarInfoEnvio">
         <div class="row">
           <div class="col-xs-12">
             <p class="info_recoger_item">
@@ -238,7 +247,7 @@
             </p>
           </div>
         </div>
-      </div>
+      </div> -->
     </form>
     <div class="row" *ngIf="carrito.totalItems == null || carrito.totalItems == 0">
       <div class="col-xs-12 center">
