@@ -48,8 +48,8 @@
                 </div>
                 <div class="col-md-6">
                   <label for="docu">Documento*</label>
-                  <input id="docu" type="text" [maxlength]="maxlength" class="form-control" [class.required-field]="!valid"
-                    name="fiscalID" [(ngModel)]="customer.fiscalID" (change)="buscarCliente()" required>
+                  <input id="docu" type="text" [maxlength]="maxlength" class="form-control" [class.required-field]="!valid" name="fiscalID"
+                    [(ngModel)]="customer.fiscalID" (change)="buscarCliente()" required>
                 </div>
               </div>
               <div class="row" *ngIf="customer.fiscalIdType == '31'">
@@ -142,6 +142,14 @@
                     Espera la llamada de nuestro equipo de servicio al cliente.</p>
                 </div>
               </div>
+              <div class="row" *ngIf="metodoEnvioSeleccionado && metodoEnvioSeleccionado.code == 4">
+                <div class="col-xs-12">
+                  <p class="info_recoger_item">
+                    Free shipping por compras mayores a $ {{montoEnvioMinimo}}
+                    <b>Nota:</b> Nos pondremos en contacto de 1 a 3 días para acordar la entrega del producto. Espera la llamada
+                    de nuestro equipo de servicio al cliente.</p>
+                </div>
+              </div>
               <div *ngIf="metodoEnvioSeleccionado && metodoEnvioSeleccionado.code == 2">
                 <div class="row">
                   <div class="col-xs-12">
@@ -217,6 +225,15 @@
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="this.mostrarInfoEnvio">
+        <div class="row">
+          <div class="col-xs-12">
+            <p class="info_recoger_item">
+              Free shipping por compras mayores a $ {{montoEnvioMinimo}}. Aplica términos y condiciones.
+            </p>
           </div>
         </div>
       </div>

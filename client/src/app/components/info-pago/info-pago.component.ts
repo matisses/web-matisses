@@ -41,7 +41,7 @@ export class InfoPagoComponent implements OnInit {
   public carrito1: CarritoComponent;
 
   public costoEnvio: number = 0;
-  public costoEnvioFormat:string;
+  public costoEnvioFormat: string;
   public totalEnvio: number = 0;
   public messageError: string;
   public messageCambio: string;
@@ -60,9 +60,11 @@ export class InfoPagoComponent implements OnInit {
   public resumenMobileVisible: boolean = false;
   public resumenDesktopVisible: boolean = false;
   public maxlength: number;
-  public totalEnvioFormat: string="0";
-  public totalEnvioFinal:number=0;
-  public totalEnvioFinalFormat:string="0";
+  public totalEnvioFormat: string = "0";
+  public totalEnvioFinal: number = 0;
+  public totalEnvioFinalFormat: string = "0";
+  public montoEnvioMinimo: string = "0";
+  public mostrarInfoEnvio: boolean = false;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService, private _cityService: CityService,
     private _shippingMethodService: ShippingMethodService, private _placetopayService: PlacetoPayService, private _shoppingCartService: ShoppingCartService,
@@ -80,8 +82,8 @@ export class InfoPagoComponent implements OnInit {
     this.carrito.cargarCarrito();
     this.obtenerMetodosEnvio();
     this.obtenerCiudades();
-    this.totalEnvioFinal=(this.carrito.totalCarrito+this.totalEnvio) - this.carrito.totalDescuentos;
-    this.totalEnvioFinalFormat=this.formatNumber(this.totalEnvioFinal);
+    this.totalEnvioFinal = (this.carrito.totalCarrito + this.totalEnvio) - this.carrito.totalDescuentos;
+    this.totalEnvioFinalFormat = this.formatNumber(this.totalEnvioFinal);
   }
 
   ngAfterViewInit() {
@@ -108,21 +110,62 @@ export class InfoPagoComponent implements OnInit {
   }
 
   public obtenerMetodosEnvio() {
-    let base = 150000;//TODO: monto base para envios gratis.
     this.metodosEnvio = new Array<ShippingMethod>();
+    let baseComplementos = 150000;//TODO: monto base envios gratis para complementos y no mobiliario.
+    let baseMobiliario = 7000000;//TODO: monto base envios gratis para mobiliario. categoriaMobiliario = ["002", "003", "005", "006", "009"]
+    let baseMobiliarioCiudad = 2000000; //TODO: monto base envios gratis para mobiliario en el area metropolitana y valle del aburra.
+
     this._shippingMethodService.listShippingMethods().subscribe(
       response => {
         this.metodosEnvio = new Array<ShippingMethod>();
-        for (let i = 0; i < response.length; i++) {
-          // if(response[i].code === 3){
-          //   //TODO: se debe quitar esta condición si el medio es Coordinadora
-          // } else
-          if (this.validarEnvioGratis()) {
-            this.metodosEnvio.push(response[i]);
-          } else if (((this.carrito.totalCarrito) - this.carrito.totalDescuentos) >= base && response[i].code === 1) {
-            this.metodosEnvio.push(response[i]);
-          } else if (((this.carrito.totalCarrito) - this.carrito.totalDescuentos) < base && response[i].code !== 1) {
-            this.metodosEnvio.push(response[i]);
+        //for (let i = 0; i < response.length; i++) {
+        // if(response[i].code === 3){
+        //   //TODO: se debe quitar esta condición si el medio es Coordinadora
+        // } else
+        /*if (this.validarEnvioGratisCiudades()) {
+          this.metodosEnvio.push(response[i]);
+        } else if (((this.carrito.totalCarrito) - this.carrito.totalDescuentos) >= baseComplementos && response[i].code === 1) {
+          this.metodosEnvio.push(response[i]);
+        } else if (((this.carrito.totalCarrito) - this.carrito.totalDescuentos) < baseComplementos && response[i].code !== 1) {
+          this.metodosEnvio.push(response[i]);
+        } else if (((this.carrito.totalCarrito) - this.carrito.totalDescuentos) < baseMobiliario && response[i].code === 4) {
+          this.metodosEnvio.push(response[i])
+        } else if (((this.carrito.totalCarrito) - this.carrito.totalDescuentos) >= baseMobiliario && response[i].code === 1) {
+          this.metodosEnvio.push(response[i])
+        }*/
+        //}
+
+        //Es item de mobiliario
+        if (this.validarEnvioGratisMobiliario()) {
+          if (this.validarEnvioGratisCiudades()) {
+            if (((this.carrito.totalCarrito) - this.carrito.totalDescuentos) < baseMobiliarioCiudad) {
+              this.metodosEnvio.push(response[3]);//Acordar
+              this.montoEnvioMinimo = '2,000,000';
+              this.mostrarInfoEnvio = true;
+            } else if (((this.carrito.totalCarrito) - this.carrito.totalDescuentos) >= baseMobiliarioCiudad) {
+              this.metodosEnvio.push(response[0]);//Gratis
+              this.metodosEnvio.push(response[1]);//Recoger en tienda
+              this.mostrarInfoEnvio = false;
+            }
+          } else if (((this.carrito.totalCarrito) - this.carrito.totalDescuentos) < baseMobiliario) {
+            this.metodosEnvio.push(response[3]);//Acordar
+            this.montoEnvioMinimo = '7,000,000';
+            this.mostrarInfoEnvio = true;
+          } else if (((this.carrito.totalCarrito) - this.carrito.totalDescuentos) >= baseMobiliario) {
+            this.metodosEnvio.push(response[0]);//Gratis
+            this.metodosEnvio.push(response[1]);//Recoger en tienda
+            this.mostrarInfoEnvio = false;
+          }
+        } else { /*Es item no es mobiliario*/
+          if (((this.carrito.totalCarrito) - this.carrito.totalDescuentos) < baseComplementos) {
+            this.metodosEnvio.push(response[1]);//Recoger en tienda
+            this.metodosEnvio.push(response[2]);//coordinadora
+            this.mostrarInfoEnvio = true;
+            this.montoEnvioMinimo = '150,000';
+          } else if (((this.carrito.totalCarrito) - this.carrito.totalDescuentos) >= baseComplementos) {
+            this.metodosEnvio.push(response[0]);//Gratis
+            this.metodosEnvio.push(response[1]);//Recoger en tienda
+            this.mostrarInfoEnvio = false;
           }
         }
       },
@@ -222,7 +265,7 @@ export class InfoPagoComponent implements OnInit {
         for (let i = 0; i < this.metodosEnvio.length; i++) {
           if (this.metodosEnvio[i].code === 3) {
             this.costoEnvio = response.valor;
-            this.costoEnvioFormat=this.formatNumber(this.costoEnvio);
+            this.costoEnvioFormat = this.formatNumber(this.costoEnvio);
             break;
           }
         }
@@ -232,44 +275,61 @@ export class InfoPagoComponent implements OnInit {
     );
   }
 
-  private validarEnvioGratis() {
+  private validarEnvioGratisMobiliario() {
+    let categoriaMobiliario = ["002", "003", "005", "006", "009"];
+    let cont = 0;
+    for (let j = 0; j < this.carrito.shoppingCart.items.length; j++) {
+      for (let i = 0; i < categoriaMobiliario.length; i++) {
+        if (categoriaMobiliario[i] == this.carrito.shoppingCart.items[j].group.code) {
+          cont += 1;
+        }
+      }
+    }
+    if (cont >= 1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  private validarEnvioGratisCiudades() {
     //TODO: parametrizacion de ciudades para envios gratis.
     let ciudadesEnvioGratis = [
       //Antioquia: valle de Aburra
-      "Medellín05001",
-      "Bello05088",
-      "Itagui05360",
-      "Eenvigado05266",
-      "Caldas (Antioquia)05129",
-      "Copacabana05212",
-      "La Estrella05380",
-      "Girardota05308",
-      "Sabaneta05631",
-      "Barbosa (Antioquia)05079",
-      
+      "MEDELLÍN05001",
+      "BELLO05088",
+      "ITAGUI05360",
+      "ENVIGADO05266",
+      "CALDAS (Antioquia)05129",
+      "COPACABANA05212",
+      "LA ESTRELLA05380",
+      "GIRARDOTA05308",
+      "SABANETA05631",
+      "BARBOSA (Antioquia)05079",
+
       //Bogotá DC: area metropolitana
-      "Bogotá11001",
-      "Soacha25754",
-      "Chía25175",
-      "Zipaquirá25899",
-      "Madrid25430",
-      "Funza25286",
-      "Cajicá25126",
-      "Sibaté25740",
-      "Tocancipá25817",
-      "Tabio25785",
-      "La Calera25377",
-      "Sopó25758",
-      "Cota25214",
-      "Tenjo25799",
-      "Mosquera (Cundinamarca)25473",
-      "Gachancipá25295",
-      "Bojacá25099",
-      "El Rosal25260"
+      "BOGOTÁ11001",
+      "SOACHA25754",
+      "CHÍA25175",
+      "ZIPAQUIRÁ25899",
+      "MADRID25430",
+      "FUNZA25286",
+      "CAJICÁ25126",
+      "SIBATÉ25740",
+      "TOCANCIPÁ25817",
+      "TABIO25785",
+      "LA CALERA25377",
+      "SOPÓ25758",
+      "COTA25214",
+      "TENJO25799",
+      "MOSQUERA (Cundinamarca)25473",
+      "GACHANCIPÁ25295",
+      "BOJACÁ25099",
+      "EL ROSAL25260"
     ];
 
     for (let k = 0; k < ciudadesEnvioGratis.length; k++) {
-      if (ciudadesEnvioGratis[k] == (this.customer.addresses[0].cityName + this.customer.addresses[0].cityCode)) {
+      if (ciudadesEnvioGratis[k] == (this.customer.addresses[0].cityName.toUpperCase() + this.customer.addresses[0].cityCode)) {
         return true;
       } else {
         return false;
@@ -651,32 +711,32 @@ export class InfoPagoComponent implements OnInit {
     this.metodoEnvioSeleccionado = metodo;
     if (metodo.code === 2) {
       this.totalEnvio = 0;
-      this.totalEnvioFormat='0';
+      this.totalEnvioFormat = '0';
     } else {
       this.totalEnvio = this.costoEnvio;
-      this.totalEnvioFormat=this.formatNumber(this.totalEnvio);
+      this.totalEnvioFormat = this.formatNumber(this.totalEnvio);
     }
-    this.totalEnvioFinal=(this.carrito.totalCarrito+this.totalEnvio) - this.carrito.totalDescuentos;
-    this.totalEnvioFinalFormat=this.formatNumber(this.totalEnvioFinal);
+    this.totalEnvioFinal = (this.carrito.totalCarrito + this.totalEnvio) - this.carrito.totalDescuentos;
+    this.totalEnvioFinalFormat = this.formatNumber(this.totalEnvioFinal);
   }
 
   private obtenerNombreCiudad() {
-    if (this.customer.addresses[0].cityName == null || this.customer.addresses[0].cityName.length <= 0) {
-      for (let i = 0; i < this.ciudadesPrincipales.length; i++) {
-        if (this.ciudadesPrincipales[i].code === this.customer.addresses[0].cityCode.toString()) {
-          this.customer.addresses[0].cityName = this.ciudadesPrincipales[i].name;
-          break;
-        }
-      }
-      if (this.customer.addresses[0].cityName == null || this.customer.addresses[0].cityName.length <= 0) {
-        for (let i = 0; i < this.otrasCiudades.length; i++) {
-          if (this.otrasCiudades[i].code === this.customer.addresses[0].cityCode.toString()) {
-            this.customer.addresses[0].cityName = this.otrasCiudades[i].name;
-            break;
-          }
-        }
+    //if (this.customer.addresses[0].cityName == null || this.customer.addresses[0].cityName.length <= 0) {
+    for (let i = 0; i < this.ciudadesPrincipales.length; i++) {
+      if (this.ciudadesPrincipales[i].code === this.customer.addresses[0].cityCode.toString()) {
+        this.customer.addresses[0].cityName = this.ciudadesPrincipales[i].name;
+        break;
       }
     }
+    //if (this.customer.addresses[0].cityName == null || this.customer.addresses[0].cityName.length <= 0) {
+    for (let i = 0; i < this.otrasCiudades.length; i++) {
+      if (this.otrasCiudades[i].code === this.customer.addresses[0].cityCode.toString()) {
+        this.customer.addresses[0].cityName = this.otrasCiudades[i].name;
+        break;
+      }
+    }
+    //}
+    //}
   }
 
   public cambiarCiudad() {
@@ -777,7 +837,7 @@ export class InfoPagoComponent implements OnInit {
     }
   }
 
-  public formatNumber(num:number) {
+  public formatNumber(num: number) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-}
+  }
 }
