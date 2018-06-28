@@ -740,6 +740,7 @@ export class InfoPagoComponent implements OnInit {
   }
 
   public cambiarCiudad() {
+    this.metodoEnvioSeleccionado = new ShippingMethod();
     if (this.customer.addresses[0].cityCode != null || this.customer.addresses[0].cityCode != 0) {
       this.obtenerNombreCiudad();
       this.consultarCostoEnvio();
