@@ -20,10 +20,24 @@
         <blog-vintage *ngIf="blogNumber === 3"></blog-vintage>
         <blog-ocasionales *ngIf="blogNumber === 4"></blog-ocasionales>
         <experiencias *ngIf="blogNumber === 5"></experiencias>
+        <espejos *ngIf="blogNumber === 6"></espejos>
       </div>
       <div class="col-sm-4">
         <h3>Blogs recientes</h3>
         <hr>
+        <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(6)">
+          <div class="row">
+            <div class="col-xs-4">
+              <img src="../../../assets/images/blog/espejos-01.jpg" class="jpg-responsive" alt="">
+            </div>
+            <div class="col-xs-8">
+              <p>
+                <b>TRADICIÓN Y ELEGANCIA ITALIANA... ESPEJOS ÚNICOS</b>
+              </p>
+              <span class="icon-clock"> 29/jun/2018</span>
+            </div>
+          </div>
+        </div>
         <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(5)">
           <div class="row">
             <div class="col-xs-4">
@@ -135,6 +149,15 @@
             <li>Lifestyle</li>
           </ul>
         </div>
+        <div class="categorias-blog" *ngIf="blogNumber === 6">
+          <ul>
+            <li>Tradición y elegancia</li>
+            <li>Espejos y accesorios</li>
+            <li>Tendencias</li>
+            <li>Espacios Matisses</li>
+            <li>Lifestyle</li>
+          </ul>
+        </div>
         <h3>Tags</h3>
         <hr>
         <div class="tags-filtros" *ngIf="blogNumber === 1">
@@ -196,6 +219,20 @@
           </span>
         </div>
         <div class="tags-filtros" *ngIf="blogNumber === 5">
+          <span class="active-filter">
+            Decoración de interiores
+          </span>
+          <span class="active-filter">
+            Diseño Matisses
+          </span>
+          <span class="active-filter">
+            Mobiliario
+          </span>
+          <span class="active-filter">
+            Espacios
+          </span>
+        </div>
+        <div class="tags-filtros" *ngIf="blogNumber === 6">
           <span class="active-filter">
             Decoración de interiores
           </span>

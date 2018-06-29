@@ -75,6 +75,7 @@ import { BlogSofasComponent } from './components/blog/sofas/sofas.component';
 import { BlogVintageComponent } from './components/blog/vintage/vintage.component';
 import { BlogOcasionalesComponent } from './components/blog/ocasionales/ocasionales.component';
 import { BlogExperienciasComponent } from './components/blog/Experiencias/experiencias.component';
+import { BlogEspejosComponent } from './components/blog/espejos/espejos.component';
 
 // SECCIONES
 import { Seccion1Component } from './components/secciones/seccion-1/seccion-1.component';
@@ -224,6 +225,7 @@ import { CondicionesComplementosAlfComponent } from './components/condiciones-co
     BlogVintageComponent,
     BlogOcasionalesComponent,
     BlogExperienciasComponent,
+    BlogEspejosComponent,
     //Lista de Regalos
     ListaRegalosComponent,
     MenuListaComponent,
