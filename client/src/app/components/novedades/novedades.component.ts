@@ -23,6 +23,10 @@ export class NovedadesComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    $(document).ready(function() {
+      $("html, body").animate({scrollTop: 0}, 1000);
+    });
+    
     $(".slide-container").slick({
       slidesToShow: 1,
       slidesToScroll: 1,

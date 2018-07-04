@@ -9,34 +9,92 @@
   overflow: hidden;
 }
 
-.bg-novedades {
-  background-color: #5b5b5b;
-  padding: 15px 0;
-}
-
 .jpg-responsive {
   width: 100%;
   height: 100%;
-  margin-bottom: 15px;
 }
 
-.title {
-  position: absolute;
-  z-index: 2;
-  bottom: 6px;
-  background-color: rgba(0, 0, 0, 0.5);
-  width: 92%;
-  color: #FFF;
-  padding: 10px;
-  text-transform: capitalize;
+.bg-logo {
+  background-color: #5B5B5B
+}
+
+.logo {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+}
+
+.contenido {
+  font-size: 15px;
+  text-align: justify;
+}
+
+.border {
+  border: 1px solid #5B5B5B
+}
+
+.color {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+.color::before {
+  content: " ";
+  display: block;
+  border-radius: 100%;
+  border: 1px solid #C3C3C3;
+  left: -3px;
+  position: relative;
+  top: -3px;
+  z-index: -1;
+  width: 31px;
+  height: 31px;
+}
+
+.morado {
+  background-color: #805586;
+}
+
+.cafe {
+  background-color: #48240A;
+}
+
+.azul {
+  background-color: #00004E;
+}
+
+.gris {
+  background-color: #D0D0D0;
+}
+
+.blanco {
+  background-color: #FAFAFA;
+}
+
+.beige {
+  background-color: #F5ECCE;
+}
+
+.bg-black {
+  background-color: #272727;
+}
+
+.black-text {
+  padding: 20px;
+  margin-top: 25%;
+}
+
+.white {
+  color: #FAFAFA;
 }
 
 @media screen and (max-width: 1020px) {
   .stuck-body {
     margin-top: 0px;
-  }
-  .title {
-    width: 90%;
   }
 }
 
@@ -44,40 +102,26 @@
   .stuck-body {
     margin-top: 0px;
   }
-  .title {
-    width: 90%;
-  }
 }
 
 @media screen and (max-width: 769px) {
-  .title {
-    width: 88%;
+  .bg-logo {
+    margin-top: 50px;
+  }
+  .logo {
+    width: 100px;
+    height: 100px;
   }
 }
 
 @media screen and (max-width: 425px) {
-  .bg-novedades {
-    padding-top: 60px;
-  }
-  .title {
-    width: 85%;
+  .black-text {    
+    margin-top: 0%;
   }
 }
 
-@media screen and (max-width: 414px) {
-  .title {
-    width: 81%;
-  }
-}
+@media screen and (max-width: 414px) {}
 
-@media screen and (max-width: 375px) {
-  .title {
-    width: 84%;
-  }
-}
+@media screen and (max-width: 375px) {}
 
-@media screen and (max-width: 320px) {
-  .title {
-    width: 81%;
-  }
-}
+@media screen and (max-width: 320px) {}
