@@ -23,12 +23,21 @@ export class CustomerService {
       .map(res => res.json());
   }
 
-  createCustomer(customer){
+  createCustomer(customer) {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
 
     return this._http.post(this.urlBCS + 'businesspartner/create/web', JSON.stringify(customer), { headers: headers })
+      .map(res => res.json());
+  }
+
+  getSaldoFavor(cardCode) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'businesspartner/saldofavor/' + cardCode, { headers: headers })
       .map(res => res.json());
   }
 }

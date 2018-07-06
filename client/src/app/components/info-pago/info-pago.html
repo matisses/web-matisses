@@ -17,6 +17,25 @@
   </div>
 </div>
 
+<!--Modal Saldo a Favor-->
+<div id="saldoFavorModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Saldo a favor del cliente</h4>
+      </div>
+      <div class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Aplicar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div sticky-body>
   <div class="container padding-top">
     <div class="row" *ngIf="messageError != null && messageError.length > 0">
@@ -146,7 +165,8 @@
                 <div class="col-xs-12">
                   <p class="info_recoger_item">
                     Te recordamos que para tener envío gratis la compra debe ser igual o superior a:
-                    <br/><b> $ {{montoEnvioMinimo}}.</b>
+                    <br/>
+                    <b> $ {{montoEnvioMinimo}}.</b>
                     <br/>
                     <!-- <br/>Aplica términos y condiciones. -->
                     <br/>
@@ -218,6 +238,17 @@
                           <b>$ {{totalEnvioFinalFormat}}</b>
                         </span>
                       </p>
+                    </div>
+                  </div>
+                  <div *ngIf="saldoFavor != 0" class="row">
+                    <div class="col-sm-10 col-sm-offset-1 link-slf">
+                      <a href="" data-toggle="modal" data-target="#saldoFavorModal">
+                        <p>Saldo a favor:
+                          <span class="pull-right">
+                            <b>$ {{saldoFavor}}</b>
+                          </span>
+                        </p>
+                      </a>
                     </div>
                   </div>
                 </div>

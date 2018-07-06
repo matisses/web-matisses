@@ -65,6 +65,7 @@ export class InfoPagoComponent implements OnInit {
   public totalEnvioFinalFormat: string = "0";
   public montoEnvioMinimo: string = "0";
   public mostrarInfoEnvio: boolean = false;
+  public saldoFavor: number = 0;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService, private _cityService: CityService,
     private _shippingMethodService: ShippingMethodService, private _placetopayService: PlacetoPayService, private _shoppingCartService: ShoppingCartService,
@@ -219,6 +220,7 @@ export class InfoPagoComponent implements OnInit {
           this.customer = response;
           this.disabled = true;
           this.consultarCostoEnvio();
+          this.consultarSaldoFavor(this.customer.cardCode);
         },
         error => {
           if (this.customer.fiscalIdType === '31') {
@@ -272,6 +274,16 @@ export class InfoPagoComponent implements OnInit {
         this.obtenerMetodosEnvio();
       },
       error => { console.error(error); }
+    );
+  }
+
+  public consultarSaldoFavor(id: string) {
+    this._customerService.getSaldoFavor(id).subscribe(
+      response => {
+        console.log(response);
+        this.saldoFavor = response.mensaje;
+      },
+      error => { console.error(error) }
     );
   }
 
