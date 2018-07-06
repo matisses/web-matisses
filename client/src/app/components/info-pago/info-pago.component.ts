@@ -60,12 +60,14 @@ export class InfoPagoComponent implements OnInit {
   public resumenMobileVisible: boolean = false;
   public resumenDesktopVisible: boolean = false;
   public maxlength: number;
-  public totalEnvioFormat: string = "0";
+  public totalEnvioFormat: string = '0';
   public totalEnvioFinal: number = 0;
-  public totalEnvioFinalFormat: string = "0";
-  public montoEnvioMinimo: string = "0";
+  public totalEnvioFinalFormat: string = '0';
+  public montoEnvioMinimo: string = '0';
   public mostrarInfoEnvio: boolean = false;
   public saldoFavor: number = 0;
+  public selectMonto: string = 'SI';
+  public disabledMonto: boolean = false;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService, private _cityService: CityService,
     private _shippingMethodService: ShippingMethodService, private _placetopayService: PlacetoPayService, private _shoppingCartService: ShoppingCartService,
@@ -91,6 +93,14 @@ export class InfoPagoComponent implements OnInit {
     $(document).ready(function () {
       $("html, body").animate({ scrollTop: 0 }, 1000);
     });
+  }
+
+  public validarUsoSaldo() {
+    if (this.selectMonto == 'NO') {
+      this.disabledMonto = true;
+    } else {
+      this.disabledMonto = false;
+    }
   }
 
   public obtenerCiudades() {

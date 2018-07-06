@@ -25,8 +25,29 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Saldo a favor del cliente</h4>
       </div>
-      <div class="modal-body">
-
+      <div class="col-xs-12 text-center">
+        <div class="row">
+          <label for="saldoFavor">
+            <b>Saldo a favor:</b> $ {{saldoFavor}}
+          </label>
+        </div>
+        <div class="row">
+          <div class="radio">
+            <label for="usarMonto">¿Usar monto total?</label>
+            <br>
+            <label>
+              <input type="radio" name="usarSaldo" value="SI" [(ngModel)]="selectMonto" (change)="validarUsoSaldo()">
+              <b>Si</b>
+            </label>
+            <label>
+              <input type="radio" name="usarSaldo" value="NO" [(ngModel)]="selectMonto" (change)="validarUsoSaldo()">
+              <b>No</b>
+            </label>
+          </div>
+        </div>
+        <div class="row" *ngIf="disabledMonto">
+          <input type="text" name="montoSaldoFavor" placeholder="$ {{saldoFavor}}" [(ngModel)]="montoSaldoFavor">
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -242,7 +263,7 @@
                   </div>
                   <div *ngIf="saldoFavor != 0" class="row">
                     <div class="col-sm-10 col-sm-offset-1 link-slf">
-                      <a href="" data-toggle="modal" data-target="#saldoFavorModal">
+                      <a data-toggle="modal" data-target="#saldoFavorModal">
                         <p>Saldo a favor:
                           <span class="pull-right">
                             <b>$ {{saldoFavor}}</b>
