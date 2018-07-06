@@ -21,10 +21,24 @@
         <blog-ocasionales *ngIf="blogNumber === 4"></blog-ocasionales>
         <experiencias *ngIf="blogNumber === 5"></experiencias>
         <espejos *ngIf="blogNumber === 6"></espejos>
+        <coming-soon *ngIf="blogNumber === 7"></coming-soon>
       </div>
       <div class="col-sm-4">
         <h3>Blogs recientes</h3>
         <hr>
+        <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(7)">
+          <div class="row">
+            <div class="col-xs-4">
+              <img src="../../../assets/images/blog/calia-soon-01.jpg" class="jpg-responsive" alt="">
+            </div>
+            <div class="col-xs-8">
+              <p>
+                <b>MOBILIARIO ITALIANO, TODO UN DISEÑO EXQUISITO</b>
+              </p>
+              <span class="icon-clock"> 06/jul/2018</span>
+            </div>
+          </div>
+        </div>
         <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(6)">
           <div class="row">
             <div class="col-xs-4">
@@ -158,6 +172,15 @@
             <li>Lifestyle</li>
           </ul>
         </div>
+        <div class="categorias-blog" *ngIf="blogNumber === 7">
+          <ul>
+            <li>Mobiliario italiano</li>
+            <li>Piel top grain</li>
+            <li>Capitoneado </li>
+            <li>Espacios Matisses</li>
+            <li>Lifestyle</li>
+          </ul>
+        </div>
         <h3>Tags</h3>
         <hr>
         <div class="tags-filtros" *ngIf="blogNumber === 1">
@@ -235,6 +258,20 @@
         <div class="tags-filtros" *ngIf="blogNumber === 6">
           <span class="active-filter">
             Decoración de interiores
+          </span>
+          <span class="active-filter">
+            Diseño Matisses
+          </span>
+          <span class="active-filter">
+            Mobiliario
+          </span>
+          <span class="active-filter">
+            Espacios
+          </span>
+        </div>
+        <div class="tags-filtros" *ngIf="blogNumber === 7">
+          <span class="active-filter">
+            Sofás italianos
           </span>
           <span class="active-filter">
             Diseño Matisses
