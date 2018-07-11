@@ -155,7 +155,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('usuario-decorador', this.decorador.toString());
         localStorage.setItem('usuario-planificador', this.planificador.toString());
         console.log(localStorage.getItem('usuario-decorador'));
-        
+
         this._router.navigate(['/mi-cuenta']);
       },
       error => {
@@ -483,13 +483,17 @@ export class LoginComponent implements OnInit {
 
       let esDecorador = false;
       let esPlanificador = false;
+      let pendienteDecorador=false;
+      let pendientePlanificador=false;
 
       if (this.registroDecorador != null) {
         esDecorador = true;
+        pendienteDecorador=true;
       }
 
       if (this.registroPlanificador != null) {
         esPlanificador = true;
+        pendientePlanificador=true;
       }
 
       let usuarioDTO = {
@@ -503,8 +507,9 @@ export class LoginComponent implements OnInit {
 
         esDecorador: esDecorador,
         esPlanificador: esPlanificador,
-        pendienteAprobacionDecorador: esDecorador,
-        pendienteAprobacionPlanificador: esPlanificador
+        pendienteAprobacionDecorador: pendienteDecorador,
+        pendienteAprobacionPlanificador: pendientePlanificador
+
 
       }
 
