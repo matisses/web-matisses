@@ -32,8 +32,8 @@ export class NewsletterComponent implements OnInit {
     console.log(this.urlNewsletter);
     
     
-    // if (this.urlNewsletter === 'https://www.matisses.co/') {
-    if (this.urlNewsletter === 'http://192.168.5.189:4200/') {
+    if (this.urlNewsletter === 'https://www.matisses.co/') {
+    // if (this.urlNewsletter === 'http://192.168.5.189:4200/') {
       setTimeout(function () {
         $('#modalSuscripcion').modal('show');
       }, 5000);
