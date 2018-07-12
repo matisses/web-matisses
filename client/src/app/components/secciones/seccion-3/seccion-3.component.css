@@ -15,19 +15,21 @@
 }
 
 .name-coleccion {
-  display: none;
-}
-
-.overflow-h:hover>.name-coleccion {
-  display: block;
+  opacity: 0;
   position: absolute;
   text-align: center;
-  background-color: #0000005e;
+  background-color: #00000094;
   color: #FFF;
-  font-size: 25px;
-  width: 92%;
+  font-size: 20px;
+  font-weight: bold;
+  width: 91%;
   height: 100%;
   padding-top: 40%;
+  z-index: 5;
+}
+
+.name-coleccion:hover {
+  opacity: 1;
 }
 
 .back-01 {
