@@ -30,15 +30,13 @@ export class NewsletterComponent implements OnInit {
   ngAfterViewInit() {
     this.urlNewsletter = window.location.href;
     console.log(this.urlNewsletter);
-    
-    
+
+
     if (this.urlNewsletter === 'https://www.matisses.co/') {
-    // if (this.urlNewsletter === 'http://192.168.5.189:4200/') {
       setTimeout(function () {
         $('#modalSuscripcion').modal('show');
       }, 5000);
     } else { }
-
   }
 
   public abrirModal() {
@@ -86,11 +84,13 @@ export class NewsletterComponent implements OnInit {
   }
 
   public limpiar() {
-    this.name = '';
-    this.lastname = '';
-    this.email = '';
-    this.errorMessage = '';
-    this.successMessage = '';
-    this.valid = true;
+    $("#modalSuscripcion").on('hidden.bs.modal', function () {
+      this.name = '';
+      this.lastname = '';
+      this.email = '';
+      this.errorMessage = '';
+      this.successMessage = '';
+      this.valid = true;
+    });
   }
 }

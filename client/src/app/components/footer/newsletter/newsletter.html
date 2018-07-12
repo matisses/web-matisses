@@ -2,6 +2,9 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-body">
+        <div class="close">
+          <span data-dismiss="modal" (click)=limpiar() class="icon-cerrar"></span>
+        </div>
         <div class="mail-icon text-center">
           <span class="icon-mail2"></span>
         </div>
@@ -30,6 +33,7 @@
             <input id="mail" type="email" class="input-newsletter" autocomplete="off" placeholder="Correo" [class.required-field]="!valid"
               name="email" [email]="true" [(ngModel)]="email" required>
             <button type="button" class="btn btn-newsletter" (click)="suscribir(SubscribeForm)" *ngIf="successMessage == null || successMessage.length <= 0">Suscribirse</button>
+            <!-- <button type="button" class="btn btn-default" data-dismiss="modal" (click)=limpiar()>Cerrar</button> -->
           </div>
         </form>
       </div>
