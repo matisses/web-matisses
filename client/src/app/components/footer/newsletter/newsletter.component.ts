@@ -84,13 +84,11 @@ export class NewsletterComponent implements OnInit {
   }
 
   public limpiar() {
-    $("#modalSuscripcion").on('hidden.bs.modal', function () {
-      this.name = '';
-      this.lastname = '';
-      this.email = '';
-      this.errorMessage = '';
-      this.successMessage = '';
-      this.valid = true;
-    });
+    this.name = '';
+    this.lastname = '';
+    this.email = '';
+    this.errorMessage = '';
+    this.successMessage = '';
+    this.valid = true;
   }
 }
