@@ -19,11 +19,26 @@ export class NewsletterComponent implements OnInit {
   public errorMessage: string;
   public successMessage: string;
   public valid: boolean = true;
+  public urlNewsletter: any;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _mailchimpService: MailChimpService) {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    this.urlNewsletter = window.location.href;
+    console.log(this.urlNewsletter);
+    
+    
+    // if (this.urlNewsletter === 'https://www.matisses.co/') {
+    if (this.urlNewsletter === 'http://192.168.5.189:4200/') {
+      setTimeout(function () {
+        $('#modalSuscripcion').modal('show');
+      }, 5000);
+    } else { }
+
   }
 
   public abrirModal() {

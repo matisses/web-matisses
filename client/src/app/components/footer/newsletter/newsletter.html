@@ -1,8 +1,40 @@
 <div class="modal fade" id="modalSuscripcion" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title text-center">¡Gracias por suscribirte a nuestra lista de correos!</h4>
+      <div class="modal-body">
+        <div class="mail-icon text-center">
+          <span class="icon-mail2"></span>
+        </div>
+        <div class="text-center">
+          <p class="title-newsletter">
+            <b>¡Suscríbete!</b>
+          </p>
+          <p class="text-newsletter">y recibe las ultimas novedades en mobiliario y decoración</p>
+        </div>
+        <form #SubscribeForm="ngForm">
+          <div *ngIf="errorMessage != null && errorMessage.length > 0">
+            <div class="alert alert-danger" role="alert">
+              <p>{{errorMessage}}</p>
+            </div>
+          </div>
+          <div *ngIf="successMessage != null && successMessage.length > 0">
+            <div class="alert alert-info" role="alert">
+              <p>{{successMessage}}</p>
+            </div>
+          </div>
+          <div *ngIf="successMessage == null || successMessage.length <= 0">
+            <input id="name" type="text" class="input-newsletter" autocomplete="off" placeholder="Nombre" [class.required-field]="!valid"
+              name="name" [(ngModel)]="name" required>
+            <input id="lastname" type="text" class="input-newsletter" autocomplete="off" placeholder="Apelido" [class.required-field]="!valid"
+              name="lastname" [(ngModel)]="lastname" required>
+            <input id="mail" type="email" class="input-newsletter" autocomplete="off" placeholder="Correo" [class.required-field]="!valid"
+              name="email" [email]="true" [(ngModel)]="email" required>
+            <button type="button" class="btn btn-newsletter" (click)="suscribir(SubscribeForm)" *ngIf="successMessage == null || successMessage.length <= 0">Suscribirse</button>
+          </div>
+        </form>
+      </div>
+      <!-- <div class="modal-header">
+        <h4 class="modal-title text-center">¡<b>Suscríbete</b> y recibe las ultimas novedades en mobiliario y decoración!</h4>
       </div>
       <form #SubscribeForm="ngForm">
         <div class="modal-body">
@@ -48,7 +80,7 @@
           <button type="button" class="btn btn-default" data-dismiss="modal" (click)=limpiar()>Cerrar</button>
           <button type="button" class="btn btn-newsletter" (click)="suscribir(SubscribeForm)" *ngIf="successMessage == null || successMessage.length <= 0">Guardar</button>
         </div>
-      </form>
+      </form> -->
     </div>
   </div>
 </div>
@@ -57,13 +89,15 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 col-md-offset-0 col-xs-10 col-xs-offset-1 text-center">
-        <h2 class="light">Sé el primero en conocer <b>nuestras novedades</b></h2>
+        <h2 class="light">Sé el primero en conocer
+          <b>nuestras novedades</b>
+        </h2>
       </div>
       <div class="col-md-6 col-md-offset-0 col-xs-10 col-xs-offset-1 text-center">
         <div [ngClass]="{'search-group-error' : !valid}" class="search-group">
           <div class="input-group">
             <span class="input-group-btn">
-                <span class="icon-mail"></span>
+              <span class="icon-mail"></span>
             </span>
             <form>
               <input type="mail" class="e-mail" placeholder="Tu E-mail" [(ngModel)]="email" name="email">

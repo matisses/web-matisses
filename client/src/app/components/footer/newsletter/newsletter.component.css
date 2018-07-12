@@ -1,11 +1,60 @@
-.modal-header {
-  background-color: #6D9791;
-  color: #FFF;
+.modal-dialog {
+  margin-top: 110px;
+}
+
+.modal-content {
+  border-radius: 0;
+}
+
+.title-newsletter {
+  font-size: 24px;
+  margin: 0;
+}
+
+.text-newsletter {
+  font-size: 15px;
+}
+
+.mail-icon {
+  font-size: 80px;
+  color: #6D9791;
+}
+
+.input-newsletter, .btn-newsletter {
+  display: block;
+  width: 60%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+.input-newsletter {
+  border: 1px solid #BBB;
+  color: #555;
+  background-color: #fff;
 }
 
 .btn-newsletter {
-  background-color: #6D9791;
+  border: 1px solid #6D9791;
   color: #FFF;
+  background-color: #6D9791;
+  margin-bottom: 20px;
+}
+
+.btn-newsletter:hover {
+  background-color: #425E63;
 }
 
 .barra-fondo {
