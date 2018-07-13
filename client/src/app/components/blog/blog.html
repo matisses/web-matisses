@@ -22,10 +22,24 @@
         <experiencias *ngIf="blogNumber === 5"></experiencias>
         <espejos *ngIf="blogNumber === 6"></espejos>
         <coming-soon *ngIf="blogNumber === 7"></coming-soon>
+        <aparadores *ngIf="blogNumber === 8"></aparadores>
       </div>
       <div class="col-sm-4">
         <h3>Blogs recientes</h3>
         <hr>
+        <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(8)">
+          <div class="row">
+            <div class="col-xs-4">
+              <img src="../../../assets/images/blog/aparadores.jpg" class="jpg-responsive" alt="">
+            </div>
+            <div class="col-xs-8">
+              <p>
+                <b>MUEBLES CON ALMACENAMIENTO</b>
+              </p>
+              <span class="icon-clock"> 13/jul/2018</span>
+            </div>
+          </div>
+        </div>
         <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(7)">
           <div class="row">
             <div class="col-xs-4">
@@ -181,6 +195,14 @@
             <li>Lifestyle</li>
           </ul>
         </div>
+        <div class="categorias-blog" *ngIf="blogNumber === 8">
+          <ul>
+            <li>Modulares</li>
+            <li>Organizadores</li>
+            <li>Muebles con almacenamiento</li>
+            <li>Estanterias</li>
+          </ul>
+        </div>
         <h3>Tags</h3>
         <hr>
         <div class="tags-filtros" *ngIf="blogNumber === 1">
@@ -281,6 +303,20 @@
           </span>
           <span class="active-filter">
             Espacios
+          </span>
+        </div>
+        <div class="tags-filtros" *ngIf="blogNumber === 8">
+          <span class="active-filter">
+            Muebles con almacenamiento
+          </span>
+          <span class="active-filter">
+            Buffets
+          </span>
+          <span class="active-filter">
+            Modulares
+          </span>
+          <span class="active-filter">
+            Ahorrador de espacio
           </span>
         </div>
       </div>

@@ -10,7 +10,7 @@ declare var $: any;
 
 export class BlogComponent implements OnInit {
     public title: string;
-    public blogNumber: number = 7;
+    public blogNumber: number = 8;
 
     constructor(private _route: ActivatedRoute, private _router: Router) {
     }
