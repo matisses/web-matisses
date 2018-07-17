@@ -33,6 +33,7 @@ import { LandingDecoradoresComponent } from './components/mi-cuenta/landing-deco
 import { LandingPlannerComponent } from './components/mi-cuenta/landing-planner/landing-planner.component';
 import { CondicionesComplementosAlfComponent } from './components/condiciones-complementos/condiciones-complementos.component';
 import { BlogComponent } from './components/blog/blog.component';
+import { ConfirmDecoComponent } from './components/confirmacion-decorador/confirmacion-decorador.component';
 
 // Lista de Regalos
 import { ListaRegalosComponent } from './components/lista-de-regalos/lista-regalos.component';
@@ -153,6 +154,7 @@ const appRoutes: Routes = [
   { path: 'resumen-carrito', component: ResumenCarritoComponent },
   //{ path: 'producto/:item', component: ProductoComponent },
   { path: 'redirect/:previous', component: RedirectComponent },
+  { path: 'confirmacion-decorador', component: ConfirmDecoComponent },
   { path: 'ingresar', component: IngresarComponent },
   { path: 'info-pago', component: InfoPagoComponent },
   { path: 'resultado-transaccion/:idCarrito', component: ResultadoTransacciComponent },

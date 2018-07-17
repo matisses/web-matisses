@@ -67,6 +67,7 @@ import { RecomendadosComponent } from './components/sin-interes/recomendados/rec
 import { HotSaleComponent } from './components/hot-sale/hot-sale.component';
 import { InfoBogotaComponent } from './components/info-bogota/info-bogota.component';
 import { CabifyComponent } from './components/cabify/cabify.component';
+import { ConfirmDecoComponent } from './components/confirmacion-decorador/confirmacion-decorador.component';
 
 //Blog
 import { BlogComponent } from './components/blog/blog.component';
@@ -220,6 +221,7 @@ import { CondicionesComplementosAlfComponent } from './components/condiciones-co
     Seccion4Component,
     Seccion5Component,
     CondicionesComplementosAlfComponent,
+    ConfirmDecoComponent,
     //Blog
     BlogComponent,
     BlogLujoComponent,
