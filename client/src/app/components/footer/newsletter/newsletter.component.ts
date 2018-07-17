@@ -35,7 +35,7 @@ export class NewsletterComponent implements OnInit {
     if (this.urlNewsletter === 'https://www.matisses.co/') {
       setTimeout(function () {
         $('#modalSuscripcion').modal('show');
-      }, 5000);
+      }, 2000);
     } else { }
   }
 

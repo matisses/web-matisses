@@ -37,36 +37,6 @@
   </div>
 </div>
 
-<div class="modal fade" id="messageUser" tabindex="-1" role="dialog" aria-labelledby="messageUserLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title text-center" id="forgotPasswordLabel">Hola</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row" *ngIf="messageError != null && messageError.length > 0">
-          <div class="col-xs-12">
-            <div class="alert alert-danger" role="alert">
-              <p>{{messageError}}</p>
-            </div>
-          </div>
-        </div>
-        <div class="row" *ngIf="successMessage != null && successMessage.length > 0">
-          <div class="col-xs-12">
-            <div class="alert alert-info" role="alert">
-              <p>{{successMessage}}</p>
-            </div>
-          </div>
-        </div>
-        <br>
-      </div>
-    </div>
-  </div>
-</div>
-
 <matisses-header></matisses-header>
 <div sticky-body>
   <div class="container">
@@ -78,7 +48,7 @@
             <p>Nuevos clientes</p>
           </div>
           <div class="bienvenida">
-            <p>Bienvenido a Matisses. Registrate y conoce lo último en diseño.</p>
+            <p>Bienvenido a Matisses. Regístrate y conoce lo último en diseño.</p>
           </div>
           <div class="campos">
             <form id="form_registrar" #infoPago="ngForm">
@@ -241,9 +211,28 @@
               </div>
 
               <!-- </div> -->
+              <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                  <div class="row" *ngIf="RegistermessageError != null && RegistermessageError.length > 0">
+                    <div class="col-xs-12">
+                      <div class="alert alert-danger" role="alert">
+                        <p>{{RegistermessageError}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="RegistersuccessMessage != null && RegistersuccessMessage.length > 0">
+                    <div class="col-xs-12">
+                      <div class="alert alert-info" role="alert">
+                        <p>{{RegistersuccessMessage}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <br>
               <div class="row">
                 <div class="col-md-5 col-xs-10 col-xs-offset-1">
+                  <p>(*) Campos obligatorios</p>
                   <button type="submit" class="btn btn-enviar-matisses" (click)="registrar()">Enviar</button>
                 </div>
               </div>
@@ -312,13 +301,28 @@
                 </div>
               </div>
               <div class="row">
-                <!-- <div class="col-md-5 col-xs-10 col-xs-offset-1">
-                <button type="submit" class="btn btn-enviar-facebook">
-                  <span class="icon-facebook"></span> Ingresar con Facebook</button>
-              </div> -->
-                <div class="col-md-5 col-xs-10 col-xs-offset-1 col-md-offset-0">
-                  <!-- <button type="submit" class="btn btn-enviar-ingresar" [routerLink]="['/mi-cuenta']">Ingresar</button> -->
+                <div class="col-xs-8 col-xs-offset-2">
                   <button type="submit" class="btn btn-enviar-ingresar" (click)="login()">Ingresar</button>
+                </div>
+                <!-- <button type="submit" class="btn btn-enviar-facebook"><span class="icon-facebook"></span> Ingresar con Facebook</button></div> -->
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                  <div class="row" *ngIf="messageError != null && messageError.length > 0">
+                    <div class="col-xs-12">
+                      <div class="alert alert-danger" role="alert">
+                        <p>{{messageError}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="successMessage != null && successMessage.length > 0">
+                    <div class="col-xs-12">
+                      <div class="alert alert-info" role="alert">
+                        <p>{{successMessage}}</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
