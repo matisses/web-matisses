@@ -20,6 +20,17 @@
   margin-bottom: 20px;
 }
 
+.form-control {
+  border-radius: 0;
+  margin-bottom: 10px;
+}
+
+.input-saldoFavor {
+  height: 40px;
+  width: 50%;
+  margin-left: 25%;
+}
+
 .titulo p {
   margin: 0;
   font-weight: 700;

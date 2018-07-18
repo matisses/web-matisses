@@ -49,6 +49,7 @@ export class InfoPagoComponent implements OnInit {
   public urlReturn: string;
   public procesandoP2P: boolean = false;
   public valid: boolean = true;
+  public validMontoSaldoFavor: boolean = true;
   public disabled: boolean = false;
   public customer: Customer;
   public metodoEnvioSeleccionado: ShippingMethod = null;
@@ -67,7 +68,8 @@ export class InfoPagoComponent implements OnInit {
   public mostrarInfoEnvio: boolean = false;
   public saldoFavor: number = 0;
   public selectMonto: string = 'SI';
-  public disabledMonto: boolean = false;
+  public disabledMonto: boolean = true;
+  public montoSaldoFavor: number;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _customerService: CustomerService, private _cityService: CityService,
     private _shippingMethodService: ShippingMethodService, private _placetopayService: PlacetoPayService, private _shoppingCartService: ShoppingCartService,
@@ -97,9 +99,105 @@ export class InfoPagoComponent implements OnInit {
 
   public validarUsoSaldo() {
     if (this.selectMonto == 'NO') {
-      this.disabledMonto = true;
-    } else {
       this.disabledMonto = false;
+    } else {
+      this.disabledMonto = true;
+    }
+  }
+
+  public aplicarSaldoFavor() {
+    if (!this.disabledMonto) {
+      this.validMontoSaldoFavor = false;
+      if (this.montoSaldoFavor < 0) {
+        /*TODO: poner logica con multiple pago falta*/
+        console.log(this.montoSaldoFavor);
+      }
+    } else {
+      $('#saldoFavorModal').modal('hide');
+      this.valid = true;
+      this.messageError = '';
+      if (this.metodoEnvioSeleccionado == null || this.metodoEnvioSeleccionado.code == 0) {
+        this.messageError = 'Debes seleccionar un medio de envió.';
+        return;
+      }
+      if (this.metodoEnvioSeleccionado.code == 2 && (this.tiendaSeleccionada == null || this.tiendaSeleccionada.length <= 0)) {
+        this.messageError = 'Debes seleccionar la tienda en la que deseas recoger los artículos.';
+        return;
+      } else if (this.metodoEnvioSeleccionado.code != 2) {
+        this.tiendaSeleccionada = null;
+      }
+      if (this.customer.fiscalID == null || this.customer.fiscalID.length <= 0
+        || this.customer.firstName == null || this.customer.firstName.length <= 0
+        || this.customer.lastName1 == null || this.customer.lastName1.length <= 0
+        || this.customer.fiscalIdType == null || this.customer.fiscalIdType.length <= 0
+        || this.customer.addresses[0].address == null || this.customer.addresses[0].address.length <= 0
+        || this.customer.addresses[0].cellphone == null || this.customer.addresses[0].cellphone.length <= 0
+        || this.customer.addresses[0].cityCode == null || this.customer.addresses[0].cityCode == 0
+        || this.customer.addresses[0].email == null || this.customer.addresses[0].email.length <= 0) {
+        this.messageError = 'Debes llenar todos los campos obligatorios para poder proceder con el pago.';
+        this.valid = false;
+        return;
+      }
+      //this.procesandoP2P = true;
+
+      this._itemService.validarItems(this.carrito.shoppingCart.items).subscribe(
+        response => {
+          let itemsSinSaldo = false;
+          let items: Array<Item> = response;
+
+          for (let i = 0; i < items.length; i++) {
+            for (let j = 0; j < this.carrito.shoppingCart.items.length; j++) {
+              if (items[i].itemcode === this.carrito.shoppingCart.items[j].itemcode && items[i].sinSaldo) {
+                this.carrito.shoppingCart.items[j].sinSaldo = true;
+                itemsSinSaldo = true;
+                break;
+              }
+            }
+          }
+
+          if (itemsSinSaldo) {
+            //Devolver a la vista de carrito para notificarle al usuario que los items no tienen saldo
+            localStorage.setItem('matisses.shoppingCart', JSON.stringify(this.carrito.shoppingCart));
+            this._router.navigate(['/resumen-carrito']);
+          } else {
+            //Se mapean los datos para guardar el carrito en mongo DB
+            let shoppingCart = {
+              metodoEnvio: this.metodoEnvioSeleccionado.code,
+              tiendaRecoge: this.tiendaSeleccionada,
+              fechacreacion: null,
+              precioNuevo: false,
+              items: this.carrito.shoppingCart.items
+            }
+
+            for (let i = 0; i < shoppingCart.items.length; i++) {
+              if (shoppingCart.items[i].itemcode == '24400000000000000121') {
+                if (this.carrito.validarItem(shoppingCart.items[i].itemcode)) {
+                  shoppingCart.precioNuevo = true;
+                }
+              }
+              if (!shoppingCart.items[i].descuento || shoppingCart.items[i].descuento > 0) {
+                shoppingCart.items[i].nuevoPrecio = shoppingCart.items[i].priceafterdiscount;
+              } else {
+                shoppingCart.items[i].nuevoPrecio = shoppingCart.items[i].priceaftervat;
+              }
+            }
+            this._shoppingCartService.saveShoppingCart(shoppingCart).subscribe(
+              response => {
+                //Se guarda en el localStorage el carrito
+                this.carrito.shoppingCart._id = response.shoppingCart._id;
+                localStorage.setItem('matisses.shoppingCart', JSON.stringify(this.carrito.shoppingCart));
+                this.validarCliente(this.carrito.shoppingCart._id);
+                this.saldoFavor = 0;
+              },
+              error => { console.error(error); }
+            );
+          }
+        },
+        error => {
+          console.error(error);
+          //this.procesandoP2P = false;
+        }
+      );
     }
   }
 
@@ -239,7 +337,7 @@ export class InfoPagoComponent implements OnInit {
                 if (response != null || response.length > 0) {
                   this.customer.fiscalID = this.customer.fiscalID + '-' + response;
                 } else {
-                  this.messageError = "Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.";
+                  this.messageError = 'Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.';
                 }
               },
               error => { console.error(error); }
@@ -551,7 +649,7 @@ export class InfoPagoComponent implements OnInit {
             if (response.estado == 0) {
               this.enviarPlaceToPay(_idCarrito);
             } else {
-              this.messageError = "Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.";
+              this.messageError = 'Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.';
             }
           },
           error => { console.error(error); }
@@ -615,7 +713,7 @@ export class InfoPagoComponent implements OnInit {
                 return;
               }
               localStorage.removeItem('matisses.shoppingCart');
-              window.location.href = response.respuestaPlaceToPay.processUrl;
+              this._router.navigate(['/resultado-transaccion/' + _id]);
             },
             error => { console.error(error); }
           );

@@ -45,13 +45,13 @@
             </label>
           </div>
         </div>
-        <div class="row" *ngIf="disabledMonto">
-          <input type="text" name="montoSaldoFavor" placeholder="$ {{saldoFavor}}" [(ngModel)]="montoSaldoFavor">
+        <div class="row" *ngIf="!disabledMonto">
+          <input type="number" name="montoSaldoFavor" class="form-control input-saldoFavor" maxlength="30" [(ngModel)]="montoSaldoFavor"
+            [class.required-field]="!validMontoSaldoFavor" placeholder="$ {{saldoFavor}}" required>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Aplicar</button>
+        <button type="button" class="btn-continuar" (click)="aplicarSaldoFavor()">Usar Saldo a Favor</button>
       </div>
     </div>
   </div>
