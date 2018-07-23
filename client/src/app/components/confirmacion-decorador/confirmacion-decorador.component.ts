@@ -43,7 +43,7 @@ export class ConfirmDecoComponent implements OnInit {
       }
     );
 
-    this._sessionUsuarioService.actualizarAceptoClausulaDecorador(id, agree).subscribe(
+    this._sessionUsuarioService.actualizarAceptoClausulaDecorador(this.id, this.agree).subscribe(
       response => {
         console.log(response);
       },
