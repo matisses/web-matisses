@@ -964,13 +964,17 @@ export class LoginComponent implements OnInit {
             formData.append('planificador', 'planificador');
             formData.append('decorador', '');
           }
-
+          if (this.customer.fiscalID == null || this.customer.fiscalID == '' || this.customer.fiscalID == 'undefined') {
           this._userService.subirImagen(formData).subscribe(
             response => {
               let respuesta = JSON.parse(JSON.stringify(response));
             },
             error => { console.error(error); }
           );
+          }
+          else{
+            this.messageError = 'Debe adjuntar el documento de identidad';
+          }
         }
 
         // if (fileSize <= 10485760) {
