@@ -15,7 +15,7 @@
     <br>
     <div class="row">
       <div class="col-sm-8">
-        <lujo-clasico *ngIf="blogNumber === 1"></lujo-clasico>
+        <!-- <lujo-clasico *ngIf="blogNumber === 1"></lujo-clasico> -->
         <blog-sofas *ngIf="blogNumber === 2"></blog-sofas>
         <blog-vintage *ngIf="blogNumber === 3"></blog-vintage>
         <blog-ocasionales *ngIf="blogNumber === 4"></blog-ocasionales>
@@ -23,10 +23,23 @@
         <espejos *ngIf="blogNumber === 6"></espejos>
         <coming-soon *ngIf="blogNumber === 7"></coming-soon>
         <aparadores *ngIf="blogNumber === 8"></aparadores>
+        <cuero *ngIf="blogNumber === 9"></cuero>
       </div>
       <div class="col-sm-4">
         <h3>Blogs recientes</h3>
-        <hr>
+        <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(9)">
+          <div class="row">
+            <div class="col-xs-4">
+              <img src="../../../assets/images/blog/muebles-cuero.jpg" class="jpg-responsive" alt="">
+            </div>
+            <div class="col-xs-8">
+              <p>
+                <b>TENDENCIAS EN CUERO</b>
+              </p>
+              <span class="icon-clock"> 19/jul/2018</span>
+            </div>
+          </div>
+        </div>
         <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(8)">
           <div class="row">
             <div class="col-xs-4">
@@ -118,7 +131,7 @@
             </div>
           </div>
         </div>
-        <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(1)">
+        <!-- <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(1)">
           <div class="row">
             <div class="col-xs-4">
               <img src="../../../assets/images/blog/lujo_clasico.jpg" class="jpg-responsive" alt="">
@@ -130,7 +143,7 @@
               <span class="icon-clock"> 25/may/2018</span>
             </div>
           </div>
-        </div>
+        </div> -->
         <br>
         <h3>Categorías</h3>
         <hr>
@@ -201,6 +214,15 @@
             <li>Organizadores</li>
             <li>Muebles con almacenamiento</li>
             <li>Estanterias</li>
+          </ul>
+        </div>
+        <div class="categorias-blog" *ngIf="blogNumber === 9">
+          <ul>
+            <li>Mobiliario en cuero</li>
+            <li>Piel top grain</li>
+            <li>Capitoneado</li>
+            <li>Espacios Matisses</li>
+            <li>Lifestyle</li>
           </ul>
         </div>
         <h3>Tags</h3>
@@ -317,6 +339,20 @@
           </span>
           <span class="active-filter">
             Ahorrador de espacio
+          </span>
+        </div>
+        <div class="tags-filtros" *ngIf="blogNumber === 9">
+          <span class="active-filter">
+            Sofás italianos
+          </span>
+          <span class="active-filter">
+            Diseño Matisses
+          </span>
+          <span class="active-filter">
+            Mobiliario
+          </span>
+          <span class="active-filter">
+            Espacios
           </span>
         </div>
       </div>
