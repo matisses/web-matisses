@@ -16,7 +16,7 @@ export class ConfirmDecoComponent implements OnInit {
   public id: string;
   public agree: boolean;
 
-  constructor(private _route: ActivatedRoute, private _router: Router, private _sessionUsuarioService: SessionUsuarioService) { 
+  constructor(private _route: ActivatedRoute, private _router: Router, private _sessionUsuarioService: SessionUsuarioService) {
   }
 
   ngOnInit() {
@@ -34,10 +34,16 @@ export class ConfirmDecoComponent implements OnInit {
       params => {
         this.id = params['id'];
         this.agree = params['agree'];
+
+        if (params['agree'] == 'false') {
+          this.title = 'No aceptaste los siguientes beneficios y cláusulas.';
+        } else {
+          this.title = 'Has aceptado los siguientes beneficios y cláusulas.';
+        }
       }
     );
 
-    this._sessionUsuarioService.actualizarAceptoClausulaDecorador(this.id, this.agree).subscribe(
+    this._sessionUsuarioService.actualizarAceptoClausulaDecorador(id, agree).subscribe(
       response => {
         console.log(response);
       },
