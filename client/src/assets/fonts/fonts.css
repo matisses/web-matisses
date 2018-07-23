@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?qokl7n');
-  src:  url('fonts/icomoon.eot?qokl7n#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?qokl7n') format('truetype'),
-    url('fonts/icomoon.woff?qokl7n') format('woff'),
-    url('fonts/icomoon.svg?qokl7n#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?vs3f6t');
+  src:  url('fonts/icomoon.eot?vs3f6t#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?vs3f6t') format('truetype'),
+    url('fonts/icomoon.woff?vs3f6t') format('woff'),
+    url('fonts/icomoon.svg?vs3f6t#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,11 +24,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-vector-izq:before {
+.icon-phone-01:before {
   content: "\e94c";
 }
-.icon-vector-der:before {
-  content: "\e94d";
+.icon-ok:before {
+  content: "\e94e";
 }
 .icon-valentines:before {
   content: "\e948";

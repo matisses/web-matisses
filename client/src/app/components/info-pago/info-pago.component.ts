@@ -276,7 +276,7 @@ export class InfoPagoComponent implements OnInit {
   }
 
   private validarEnvioGratisMobiliario() {
-    let categoriaMobiliario = ["002", "003", "005", "006", "009"];
+    let categoriaMobiliario = ["002", "003", "005", "006", "009", "013", "014"];
     let cont = 0;
     for (let j = 0; j < this.carrito.shoppingCart.items.length; j++) {
       for (let i = 0; i < categoriaMobiliario.length; i++) {

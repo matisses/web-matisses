@@ -1,0 +1,38 @@
+.logo {
+  font-size: 50px;
+  color: #5B5B5B;
+  border-bottom: 1px solid #EDEDED;
+}
+
+.header {
+  background-color: #5B5B5B;
+  color: #EDEDED;
+  text-align: center;
+  font-size: 20px;
+  padding: 20px;
+  margin-top: 10px;
+}
+
+.header .icon-ok {
+  color: #78B6AD;
+  display: inline-block;
+}
+
+.header p {
+  display: inline-block;
+}
+
+.text-title {
+  margin-top: 10px;
+  border-top: 1px solid #EDEDED;
+  border-bottom: 1px solid #EDEDED;
+  padding: 10px 0;
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.bg-grey {
+  background-color: #EDEDED;
+  padding-top: 10px;
+}

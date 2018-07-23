@@ -67,6 +67,7 @@ import { RecomendadosComponent } from './components/sin-interes/recomendados/rec
 import { HotSaleComponent } from './components/hot-sale/hot-sale.component';
 import { InfoBogotaComponent } from './components/info-bogota/info-bogota.component';
 import { CabifyComponent } from './components/cabify/cabify.component';
+import { ConfirmDecoComponent } from './components/confirmacion-decorador/confirmacion-decorador.component';
 
 //Blog
 import { BlogComponent } from './components/blog/blog.component';
@@ -78,6 +79,7 @@ import { BlogExperienciasComponent } from './components/blog/Experiencias/experi
 import { BlogEspejosComponent } from './components/blog/espejos/espejos.component';
 import { BlogComingSoonComponent } from './components/blog/coming soon/coming-soon.component';
 import { BlogAparadoresComponent } from './components/blog/aparadores/aparadores.component';
+import { BlogCueroComponent } from './components/blog/cuero/cuero.component';
 
 // SECCIONES
 import { Seccion1Component } from './components/secciones/seccion-1/seccion-1.component';
@@ -220,6 +222,7 @@ import { CondicionesComplementosAlfComponent } from './components/condiciones-co
     Seccion4Component,
     Seccion5Component,
     CondicionesComplementosAlfComponent,
+    ConfirmDecoComponent,
     //Blog
     BlogComponent,
     BlogLujoComponent,
@@ -230,6 +233,7 @@ import { CondicionesComplementosAlfComponent } from './components/condiciones-co
     BlogEspejosComponent,
     BlogComingSoonComponent,
     BlogAparadoresComponent,
+    BlogCueroComponent,
     //Lista de Regalos
     ListaRegalosComponent,
     MenuListaComponent,

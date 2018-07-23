@@ -96,7 +96,8 @@ export class SessionUsuarioService {
       .map(res => res.json());
   }
 
-  misNovios(documentoUsuario){                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           const headers = new Headers({
+  misNovios(documentoUsuario) {
+    const headers = new Headers({
       'Content-Type': 'application/json'
     });
 
@@ -131,7 +132,8 @@ export class SessionUsuarioService {
       .map(res => res.json());
   }
 
-  totalAcumuladoWP(documentoUsuario){                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           const headers = new Headers({
+  totalAcumuladoWP(documentoUsuario) {
+    const headers = new Headers({
       'Content-Type': 'application/json'
     });
 
@@ -139,7 +141,8 @@ export class SessionUsuarioService {
       .map(res => res.json());
   }
 
-  materialPorItem(itemcode){                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           const headers = new Headers({
+  materialPorItem(itemcode) {
+    const headers = new Headers({
       'Content-Type': 'application/json'
     });
 
@@ -147,7 +150,8 @@ export class SessionUsuarioService {
       .map(res => res.json());
   }
 
-  averiasPorMaterial(materialcode){                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           const headers = new Headers({
+  averiasPorMaterial(materialcode) {
+    const headers = new Headers({
       'Content-Type': 'application/json'
     });
 
@@ -169,7 +173,7 @@ export class SessionUsuarioService {
       'Content-Type': 'application/json'
     });
 
-    return this._http.get(this.urlBCS + 'sessionusuario/activarusuario/' + nombreUsuario , { headers: headers })
+    return this._http.get(this.urlBCS + 'sessionusuario/activarusuario/' + nombreUsuario, { headers: headers })
       .map(res => res.json());
   }
 
@@ -190,7 +194,8 @@ export class SessionUsuarioService {
     return this._http.post(this.urlBCS + 'sessionusuario/subirredencion/', formData)
       .map(res => res);
   }
-  misClientes(documento){                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           const headers = new Headers({
+  misClientes(documento) {
+    const headers = new Headers({
       'Content-Type': 'application/json'
     });
 
@@ -199,12 +204,21 @@ export class SessionUsuarioService {
   }
 
 
-  facturasClienteDecorador(documentoDecorador,documentoCliente){                                                                                                                                                                                                                                                                                                                                                                                                                                                           const headers = new Headers({
-    'Content-Type': 'application/json'
-  });
+  facturasClienteDecorador(documentoDecorador, documentoCliente) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
 
-  return this._http.get(this.urlBCS + 'sessionusuario/cargar-facturas-clientes-decorador/' + documentoDecorador + '/' + documentoCliente, { headers: headers })
-    .map(res => res.json());
-}
+    return this._http.get(this.urlBCS + 'sessionusuario/cargar-facturas-clientes-decorador/' + documentoDecorador + '/' + documentoCliente, { headers: headers })
+      .map(res => res.json());
+  }
 
+  actualizarAceptoClausulaDecorador(documentoDecorador, acepto) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this._http.get(this.urlBCS + 'sessionusuario/updateaceptacionclausula/' + documentoDecorador + '/' + acepto, { headers: headers })
+      .map(res => res.json());
+  }
 }
