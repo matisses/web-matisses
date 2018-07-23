@@ -487,6 +487,7 @@ export class LoginComponent implements OnInit {
       let pendientePlanificador=false;
 
       if (this.registroDecorador != null) {
+        console.log("entro en registro decorador");
         esDecorador = true;
         pendienteDecorador=true;
       }
@@ -512,7 +513,7 @@ export class LoginComponent implements OnInit {
 
 
       }
-
+      console.log('pendiente decorador '+pendienteDecorador);
       this._userService.createUser(usuarioDTO).subscribe(
         response => {
           if (response.estado == '0') {
