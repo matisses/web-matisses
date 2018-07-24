@@ -32,11 +32,11 @@ export class NewsletterComponent implements OnInit {
     console.log(this.urlNewsletter);
 
 
-    if (this.urlNewsletter === 'https://www.matisses.co/') {
-      setTimeout(function () {
-        $('#modalSuscripcion').modal('show');
-      }, 2000);
-    } else { }
+    // if (this.urlNewsletter === 'https://www.matisses.co/') {
+    //   setTimeout(function () {
+    //     $('#modalSuscripcion').modal('show');
+    //   }, 2000);
+    // } else { }
   }
 
   public abrirModal() {
