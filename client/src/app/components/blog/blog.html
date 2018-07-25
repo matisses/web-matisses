@@ -239,6 +239,13 @@
             <li>Lifestyle</li>
           </ul>
         </div>
+        <div class="categorias-blog" *ngIf="blogNumber === 10">
+          <ul>
+            <li>Velas</li>
+            <li>Fragancias</li>
+            <li>Velas Aromáticas</li>
+          </ul>
+        </div>
         <h3>Tags</h3>
         <hr>
         <div class="tags-filtros" *ngIf="blogNumber === 1">
@@ -367,6 +374,20 @@
           </span>
           <span class="active-filter">
             Espacios
+          </span>
+        </div>
+        <div class="tags-filtros" *ngIf="blogNumber === 10">
+          <span class="active-filter">
+            Aromas
+          </span>
+          <span class="active-filter">
+            Diseño
+          </span>
+          <span class="active-filter">
+            Velas
+          </span>
+          <span class="active-filter">
+            Cosmopolitan
           </span>
         </div>
       </div>
