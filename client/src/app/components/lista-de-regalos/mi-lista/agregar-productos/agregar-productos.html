@@ -1,218 +1,222 @@
 <!-- Modal compartir -->
 <div class="modal fade" id="modalCompartir" tabindex="-1" role="dialog" aria-labelledby="modalCompartirLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-sm-5 col-sm-offset-0 col-xs-6 col-xs-offset-3 text-center">
-              <img src="{{this.urlQr}}{{codigoLista}}.png" class="jpg-responsive" alt="codigoQR">
-              <br/>
-              <a href="{{this.urlQr}}{{codigoLista}}.png" download="output.png" class="btn btn-qr">Descargar QR</a>
-            </div>
-            <div class="col-sm-7 col-sm-offset-0 col-xs-12 text-center">
-              <p class="text-justify">
-                Envía este código a todos tus invitados y así pueden acceder a tu lista para hacer las compras en línea.
-              </p>
-              <h1 class="codigo-lista">{{codigoLista}}</h1>
-            </div>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-5 col-sm-offset-0 col-xs-6 col-xs-offset-3 text-center">
+            <img src="{{this.urlQr}}{{codigoLista}}.png" class="jpg-responsive" alt="codigoQR">
+            <br/>
+            <a href="{{this.urlQr}}{{codigoLista}}.png" download="output.png" class="btn btn-qr">Descargar QR</a>
+          </div>
+          <div class="col-sm-7 col-sm-offset-0 col-xs-12 text-center">
+            <p class="text-justify">
+              Envía este código a todos tus invitados y así pueden acceder a tu lista para hacer las compras en línea.
+            </p>
+            <h1 class="codigo-lista">{{codigoLista}}</h1>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
 <menu-lista></menu-lista>
 
 <div class="container">
   <div class="contenedor">
-<!--modal-->
-<div class="modal fade" id="modalAgregar" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title text-center">{{formAgregar.name}}</h4>
-      </div>
-      <form #AgregarForm="ngForm" >
-        <div class="modal-body">
-          <!-- mensaje de error -->
-          <div class="row" *ngIf="messageError != null && messageError.length > 0">
-            <div class="col-xs-12">
-              <div class="alert alert-danger" role="alert">
-                <p>{{messageError}}</p>
-              </div>
-            </div>
+    <!--modal-->
+    <div class="modal fade" id="modalAgregar" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title text-center">{{formAgregar.name}}</h4>
           </div>
-          <!-- mensaje sucess -->
-          <div class="row" *ngIf="successMessage != null && successMessage.length > 0">
-            <div class="col-xs-12">
-              <div class="alert alert-info" role="alert">
-                <p>{{successMessage}}</p>
-              </div>
-            </div>
-          </div>
-          <!-- info producto -->
-          <div class="row">
-            <div class="col-sm-6">
-              <img src="https://img.matisses.co/{{formAgregar.itemcode}}/images/{{formAgregar.itemcode}}_01.jpg" class="jpg-responsive" alt="{{formAgregar.itemcode}}">
-            </div>
-            <div class="col-sm-6">
-              <!-- Descripcion -->
-              <br>
-              <br>
-              <p class="text-justify" [innerHTML]="formAgregar.description"></p>
-              <!-- btn cantidad -->
-              <br>
-              <div class="row">
-
-                <div class="col-xs-8 col-xs-offset-2">
-
-                  <div class="cantidad">
-                    <form>
-                      <div class="input-group">
-                        <span class="input-group-addon span-cantidad" (click)="reducirCantidad()">
-                          <button type="button" class="icon-minus btn-cantidad" name="button"></button>
-                        </span>
-                        <input class="input-cantidad form-control" type="tel" name="formAgregar.cantidad" min="1" max="" [(ngModel)]="formAgregar.cantidad" readonly="readonly" />
-                        <span class="input-group-addon span-cantidad" (click)="aumentarCantidad()">
-                          <button type="button" class="icon-plus btn-cantidad" name="button"></button>
-                        </span>
-                      </div>
-                    </form>
+          <form #AgregarForm="ngForm">
+            <div class="modal-body">
+              <!-- mensaje de error -->
+              <div class="row" *ngIf="messageError != null && messageError.length > 0">
+                <div class="col-xs-12">
+                  <div class="alert alert-danger" role="alert">
+                    <p>{{messageError}}</p>
                   </div>
                 </div>
               </div>
-              <!-- boton de agregar -->
-              <div class="row">
-                <div class="col-xs-12 text-center">
-                  <button type="button" class="btn btn-agregar" (click)="agregarProducto(AgregarForm)" *ngIf="successMessage == null || successMessage.length <= 0">Agregar</button>
+              <!-- mensaje sucess -->
+              <div class="row" *ngIf="successMessage != null && successMessage.length > 0">
+                <div class="col-xs-12">
+                  <div class="alert alert-info" role="alert">
+                    <p>{{successMessage}}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <!-- <div class="row">
+              <!-- info producto -->
+              <div class="row">
+                <div class="col-sm-6">
+                  <img src="https://img.matisses.co/{{formAgregar.itemcode}}/images/{{formAgregar.itemcode}}_01.jpg" class="jpg-responsive"
+                    alt="{{formAgregar.itemcode}}">
+                </div>
+                <div class="col-sm-6">
+                  <!-- Descripcion -->
+                  <br>
+                  <br>
+                  <p class="text-justify" [innerHTML]="formAgregar.description"></p>
+                  <!-- btn cantidad -->
+                  <br>
+                  <div class="row">
+
+                    <div class="col-xs-8 col-xs-offset-2">
+
+                      <div class="cantidad">
+                        <form>
+                          <div class="input-group">
+                            <span class="input-group-addon span-cantidad" (click)="reducirCantidad()">
+                              <button type="button" class="icon-minus btn-cantidad" name="button"></button>
+                            </span>
+                            <input class="input-cantidad form-control" type="tel" name="formAgregar.cantidad" min="1" max="" [(ngModel)]="formAgregar.cantidad"
+                              readonly="readonly" />
+                            <span class="input-group-addon span-cantidad" (click)="aumentarCantidad()">
+                              <button type="button" class="icon-plus btn-cantidad" name="button"></button>
+                            </span>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- boton de agregar -->
+                  <div class="row">
+                    <div class="col-xs-12 text-center">
+                      <button type="button" class="btn btn-agregar" (click)="agregarProducto(AgregarForm)" *ngIf="successMessage == null || successMessage.length <= 0">Agregar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="row">
             <div class="col-xs-12">
               <label for="name">Mensaje de Agradecimiento</label>
               <textarea id="mensaje" rows="5" cols="1" class="form-control" [class.required-field]="!valid" name="formAgregar.msjagradecimiento" [(ngModel)]="formAgregar.msjagradecimiento" required></textarea>
             </div>
           </div> -->
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<!--modal-->
-
-<div class="row">
-    <div class="col-xs-12 text-right">
-      <p class="cursor-pointer" (click)="cerrarSession()">(Cerrar sesión)</p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-      <div class="row">
-        <div class="col-sm-3 col-sm-offset-1">
-          <!-- imagen de perfil -->
-          <div class="row">
-            <div class="col-xs-12 text-center">
-              <div class="perfil-imagen text-center">
-              </div>
             </div>
-          </div>
-          <div class="row" *ngIf="messageError != null && messageError.length > 0">
-            <div class="col-sm-4 col-sm-offset-4">
-              <br/>
-              <div class="alert alert-danger" role="alert">
-                <p>{{messageError}}</p>
-              </div>
-            </div>
-          </div>
+          </form>
         </div>
-        <div class="col-sm-7">
-          <div class="info-lista">
-            <p style="margin-bottom: 0">BIENVENIDOS</p>
-            <h1 class="title-mi-lista" [innerHTML]="novios"></h1>
-            <p>Código de novios: {{codigoLista}}</p>
+      </div>
+    </div>
+
+    <!--modal-->
+
+    <div class="row">
+      <div class="col-xs-12 text-right">
+        <p class="cursor-pointer" (click)="cerrarSession()">(Cerrar sesión)</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="row">
+          <div class="col-sm-3 col-sm-offset-1">
+            <!-- imagen de perfil -->
             <div class="row">
-              <div class="col-sm-12">
-                <div class="info-fechas">
-                  <p data-toggle="tooltip" data-placement="bottom" title="Monto acumulado">
-                    <span class="icon-coin icon-menu"></span>
-                    <b>$ {{totalAcumulado | number}}</b>
-                  </p>
-                  <p data-toggle="tooltip" data-placement="bottom" title="Fecha del evento">
-                    <span class="icon-valentines icon-menu"></span>
-                    <b>{{fechaEvento}}</b>
-                  </p>
-                  <p data-toggle="tooltip" data-placement="bottom" title="Fecha de entrega">
-                    <span class="icon-agenda-entrega icon-menu"></span>
-                    <b>{{fechaEntrega}}</b>
+              <div class="col-xs-12 text-center">
+                <div class="perfil-imagen text-center">
+                </div>
+              </div>
+            </div>
+            <div class="row" *ngIf="messageError != null && messageError.length > 0">
+              <div class="col-sm-4 col-sm-offset-4">
+                <br/>
+                <div class="alert alert-danger" role="alert">
+                  <p>{{messageError}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-7">
+            <div class="info-lista">
+              <p style="margin-bottom: 0">BIENVENIDOS</p>
+              <h1 class="title-mi-lista" [innerHTML]="novios"></h1>
+              <p>Código de novios: {{codigoLista}}</p>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="info-fechas">
+                    <p data-toggle="tooltip" data-placement="bottom" title="Monto acumulado">
+                      <span class="icon-coin icon-menu"></span>
+                      <b>$ {{totalAcumulado | number}}</b>
+                    </p>
+                    <p data-toggle="tooltip" data-placement="bottom" title="Fecha del evento">
+                      <span class="icon-valentines icon-menu"></span>
+                      <b>{{fechaEvento}}</b>
+                    </p>
+                    <p data-toggle="tooltip" data-placement="bottom" title="Fecha de entrega">
+                      <span class="icon-agenda-entrega icon-menu"></span>
+                      <b>{{fechaEntrega}}</b>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 text-right">
+                  <p>
+                    <a href="javascript:void(0);" class="no-selector cursor-pointer" data-toggle="modal" data-target="#modalCompartir">
+                      <span class="icon-compartir"></span>
+                      <span class="text-adicional">Compartir lista</span>
+                    </a>
+                    <a href="javascript:void(0)" class="cursor-pointer" [routerLink]="['/mi-lista/lista-invitados']">
+                      <span class="icon-invitados"></span>
+                      <span class="text-adicional">Lista de invitados</span>
+                    </a>
                   </p>
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-xs-12 text-right">
-                <p>
-                  <a href="javascript:void(0);" class="no-selector cursor-pointer" data-toggle="modal" data-target="#modalCompartir">
-                    <span class="icon-compartir"></span>
-                    <span class="text-adicional">Compartir lista</span>
-                  </a>
-                  <a href="javascript:void(0)" class="cursor-pointer" [routerLink]="['/mi-lista/lista-invitados']">
-                    <span class="icon-invitados"></span>
-                    <span class="text-adicional">Lista de invitados</span>
-                  </a>
-                </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <!-- segundo menu -->
+        <div class="row text-center">
+          <div class="segundo-menu">
+            <div class="col-sm-3 text-center item-segundo-menu" [routerLink]="['/mi-lista']">
+              <span>{{totalLista}}</span>
+              <p>Regalos por recibir</p>
+              <div class="border-menu">
               </div>
+            </div>
+            <!-- boton compartir -->
+            <div class="col-sm-3 text-center item-segundo-menu" [routerLink]="['/mi-lista/regalos-recibidos']">
+              <span>{{totalComprado}}</span>
+              <p>Regalos recibidos</p>
+              <div class="border-menu">
+              </div>
+            </div>
+            <!-- boton agregar -->
+            <div class="col-sm-3 item-segundo-menu seleccionado">
+              <span class="icon-agregar-regalo"></span>
+              <p>Agregar regalos</p>
+            </div>
+            <!-- boton buscar -->
+            <div class="col-sm-3">
+              <form (submit)="search()">
+                <div class="input-group">
+                  <input id="searchField" [(ngModel)]="keywords" name="keywords" type="text" class="form-control" placeholder="Busca productos en tu lista">
+                  <span class="input-group-addon icon-lupa" id="basic-addon1"></span>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12">
-      <!-- segundo menu -->
-      <div class="row text-center">
-        <div class="segundo-menu">
-          <div class="col-sm-3 text-center item-segundo-menu" [routerLink]="['/mi-lista']">
-            <span>{{totalLista}}</span>
-            <p>Regalos por recibir</p>
-            <div class="border-menu">
-            </div>
-          </div>
-          <!-- boton compartir -->
-          <div class="col-sm-3 text-center item-segundo-menu" [routerLink]="['/mi-lista/regalos-recibidos']">
-            <span>{{totalComprado}}</span>
-            <p>Regalos recibidos</p>
-            <div class="border-menu">
-            </div>
-          </div>
-          <!-- boton agregar -->
-          <div class="col-sm-3 item-segundo-menu seleccionado">
-            <span class="icon-agregar-regalo"></span>
-            <p>Agregar regalos</p>
-          </div>
-          <!-- boton buscar -->
-          <div class="col-sm-3">
-            <form (submit)="search()">
-              <div class="input-group">
-                <input id="searchField" [(ngModel)]="keywords" name="keywords" type="text" class="form-control" placeholder="Busca productos en tu lista">
-                <span class="input-group-addon icon-lupa" id="basic-addon1"></span>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <hr class="rosa" />
+    <hr class="rosa" />
 
     <!-- <div class="row">
       <div class="col-xs-12 text-right">
@@ -297,156 +301,181 @@
     </div>
     <!-- parrilla y filtros -->
     <div class="row">
-      <div class="col-md-3">
-        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-          <div class="panel panel-default">
-            <!-- boton abrir filtros -->
-            <a data-parent="#accordion" (click)="showFiltros()">
-              <div class="panel-heading visible-sm visible-xs" role="tab" id="headingOne">
-                <h4 class="panel-title text-center" *ngIf="!mostrarFiltro">
+      <div class="filtros-productos">
+        <div class="col-md-3">
+          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+              <!-- boton abrir filtros -->
+              <a data-parent="#accordion" (click)="showFiltros()">
+                <div class="panel-heading visible-sm visible-xs" role="tab" id="headingOne">
+                  <h4 class="panel-title text-center" *ngIf="!mostrarFiltro">
                     Ocultar filtros
                   </h4>
-                <h4 class="panel-title text-center" *ngIf="mostrarFiltro">
+                  <h4 class="panel-title text-center" *ngIf="mostrarFiltro">
                     Mostrar filtros
-                </h4>
-              </div>
-            </a>
-            <!-- body filtros -->
-            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" [ngClass]="{'in' : !mostrarFiltro}">
-              <div class="panel-body">
-                <div *ngIf="filtrosAplicados && filtrosAplicados.length > 0">
-                  <div class="row">
-                    <div class="col-xs-12">
-                      <div class="title">
-                        <p>Filtros seleccionados</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-xs-12">
-                      <div class="tags-filtros">
-                        <span class="active-filter" *ngFor="let filtro of filtrosAplicados" (click)="toggleSelection(filtro[2], filtro[3])">
-                          {{filtro[1]}}
-                          <span class="active-filter-delete icon-close"></span>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+                  </h4>
                 </div>
-                <div class="filtros">
-                  <!-- categorias -->
-                  <div class="row" *ngIf="filtrosDisponibles['groups'] && filtrosDisponibles['groups'].length > 1 && queryParams && !(queryParams.has('group') || queryParams.has('subgroup'))">
-                    <div class="col-xs-12">
-                      <div class="filter-collapse" (click)="toggleClass('#group')" data-toggle="collapse" href="#collapseGroups" aria-expanded="false" aria-controls="collapseGroups">
-                        <p>Categorías <span id="group" class="icon-plus pull-right"></span></p>
-                      </div>
-                      <div class="collapse" [ngClass]="{'in' : mostrarCategoria}" id="collapseGroups">
-                        <ul>
-                          <div *ngFor="let menuItem of filtrosDisponibles['groups']">
-                            <li class="filter-option" *ngIf="showCategoryOption(menuItem)" (click)="toggleSelection('group',menuItem.code); scrollAfterFiter()">
-                              <span>{{menuItem.name}}</span>
-                            </li>
-                          </div>
-                        </ul>
+              </a>
+              <!-- body filtros -->
+              <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" [ngClass]="{'in' : !mostrarFiltro}">
+                <div class="panel-body">
+                  <div *ngIf="filtrosAplicados && filtrosAplicados.length > 0">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <div class="title">
+                          <p>Filtros seleccionados</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <!-- subcategorias -->
-                  <div class="row" *ngIf="viewHasLoaded && (queryParams.has('group') || queryParams.has('subgroup')) && filtrosDisponibles['subgroups'].length > 1">
-                    <div class="col-xs-12">
-                      <div class="filter-collapse" (click)="toggleClass('#subgroup')" data-toggle="collapse" href="#collapseSubgroups" aria-expanded="false" aria-controls="collapseSubgroups">
-                        <p>subcategorías <span id="subgroup" class="icon-plus pull-right"></span></p>
-                      </div>
-                      <div class="collapse" [ngClass]="{'in' : queryParams.has('discount','group')}" id="collapseSubgroups">
-                        <ul>
-                          <li class="filter-option" *ngFor="let menuItem of filtrosDisponibles['subgroups']" (click)="toggleSelection('subgroup',menuItem.code); scrollAfterFiter()">
-                            <span>{{menuItem.name}}</span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- marca -->
-                  <div class="row" *ngIf="filtrosDisponibles['brands'] && filtrosDisponibles['brands'].length > 1">
-                    <div class="col-xs-12">
-                      <div class="filter-collapse" (click)="toggleClass('#marca')" data-toggle="collapse" href="#collapseMarca" aria-expanded="false" aria-controls="collapseMarca">
-                        <p>Marca <span id="marca" class="icon-plus pull-right"></span></p>
-                      </div>
-                      <div class="collapse" id="collapseMarca">
-                        <ul>
-                          <li class="filter-option" *ngFor="let marcaItem of filtrosDisponibles['brands'], let i = index" (click)="toggleSelection('brand',marcaItem.code); scrollAfterFiter()">
-                            <span>{{marcaItem.name}}</span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Precio -->
-                  <div class="row">
-                    <div class="col-xs-12">
-                      <div class="filter-collapse" (click)="toggleClass('#precio')" data-toggle="collapse" href="#collapsePrecio" aria-expanded="false" aria-controls="collapsePrecio">
-                        <p>Precio <span id="precio" class="icon-plus pull-right"></span></p>
-                      </div>
-                      <div class="collapse" id="collapsePrecio">
-                        <div class="filtro-precio">
-                          <div class="row">
-                            <form *ngIf="filtrosDisponibles && filtrosDisponibles['prices']">
-                              <div class="col-xs-6">
-                                <p>Desde</p>
-                                <input type="tel" class="desde" [placeholder]="filtrosDisponibles['prices']['minPrice']" name="minPrice" (blur)="toggleSelection('minPrice', minPrice)" (keyup.enter)="toggleSelection('minPrice', minPrice)" [(ngModel)]="minPrice">
-                              </div>
-                              <div class="col-xs-6">
-                                <p>Hasta</p>
-                                <input type="tel" class="hasta" [placeholder]="filtrosDisponibles['prices']['maxPrice']" name="maxPrice" (blur)="toggleSelection('maxPrice', maxPrice)" (keyup.enter)="toggleSelection('maxPrice', maxPrice)" [(ngModel)]="maxPrice">
-                              </div>
-                            </form>
-                          </div>
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <div class="tags-filtros">
+                          <span class="active-filter" *ngFor="let filtro of filtrosAplicados" (click)="toggleSelection(filtro[2], filtro[3])">
+                            {{filtro[1]}}
+                            <span class="active-filter-delete icon-close"></span>
+                          </span>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <!-- colores -->
-                  <div class="row" *ngIf="filtrosDisponibles['colors'] && filtrosDisponibles['colors'].length > 1">
-                    <div class="col-xs-12">
-                      <div class="filter-collapse" (click)="toggleClass('#colores')" data-toggle="collapse" href="#collapseColor" aria-expanded="false" aria-controls="collapseColor">
-                        <p>Colores <span id="colores" class="icon-plus pull-right"></span></p>
-                      </div>
-                      <div class="collapse" id="collapseColor">
-                        <ul>
-                          <li class="filter-option filtro-color" *ngFor="let colorItem of filtrosDisponibles['colors'], let i = index" (click)="toggleSelection('color',colorItem.code); scrollAfterFiter()">
-                            <span>{{colorItem.name}}</span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- materiales -->
-                  <div class="row" *ngIf="queryParams && !queryParams.has('material')">
-                    <div class="col-xs-12">
-                      <div class="filter-collapse" (click)="toggleClass('#materiales')" data-toggle="collapse" href="#collapseMateriales" aria-expanded="false" aria-controls="collapseMateriales">
-                        <p>Materiales <span id="materiales" class="icon-plus pull-right"></span></p>
-                      </div>
-                      <div class="collapse" id="collapseMateriales">
-                        <ul>
-                          <li class="filter-option" *ngFor="let materialesItem of filtrosDisponibles['materials']" (click)="toggleSelection('material',materialesItem.code); scrollAfterFiter()">
-                            <span>{{materialesItem.name}}</span>
-                          </li>
-                        </ul>
+                  <div class="filtros">
+                    <!-- categorias -->
+                    <div class="row" *ngIf="filtrosDisponibles['groups'] && filtrosDisponibles['groups'].length > 1 && queryParams && !(queryParams.has('group') || queryParams.has('subgroup'))">
+                      <div class="col-xs-12">
+                        <div class="filter-collapse" (click)="toggleClass('#group')" data-toggle="collapse" href="#collapseGroups" aria-expanded="false"
+                          aria-controls="collapseGroups">
+                          <p>Categorías
+                            <span id="group" class="icon-plus pull-right"></span>
+                          </p>
+                        </div>
+                        <div class="collapse" [ngClass]="{'in' : mostrarCategoria}" id="collapseGroups">
+                          <ul>
+                            <div *ngFor="let menuItem of filtrosDisponibles['groups']">
+                              <li class="filter-option" *ngIf="showCategoryOption(menuItem)" (click)="toggleSelection('group',menuItem.code); scrollAfterFiter()">
+                                <span>{{menuItem.name}}</span>
+                              </li>
+                            </div>
+                          </ul>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <!-- colecciones -->
-                  <div class="row" *ngIf="queryParams && !queryParams.has('collection') && filtrosDisponibles['collection'] && filtrosDisponibles['collection'].length > 1">
-                    <div class="col-xs-12">
-                      <div class="filter-collapse" (click)="toggleClass('#colecciones')" data-toggle="collapse" href="#collapseColecciones" aria-expanded="false" aria-controls="collapseColecciones">
-                        <p>Colecciones <span id="colecciones" class="icon-plus pull-right"></span></p>
+                    <!-- subcategorias -->
+                    <div class="row" *ngIf="viewHasLoaded && (queryParams.has('group') || queryParams.has('subgroup')) && filtrosDisponibles['subgroups'].length > 1">
+                      <div class="col-xs-12">
+                        <div class="filter-collapse" (click)="toggleClass('#subgroup')" data-toggle="collapse" href="#collapseSubgroups" aria-expanded="false"
+                          aria-controls="collapseSubgroups">
+                          <p>subcategorías
+                            <span id="subgroup" class="icon-plus pull-right"></span>
+                          </p>
+                        </div>
+                        <div class="collapse" [ngClass]="{'in' : queryParams.has('discount','group')}" id="collapseSubgroups">
+                          <ul>
+                            <li class="filter-option" *ngFor="let menuItem of filtrosDisponibles['subgroups']" (click)="toggleSelection('subgroup',menuItem.code); scrollAfterFiter()">
+                              <span>{{menuItem.name}}</span>
+                            </li>
+                          </ul>
+                        </div>
                       </div>
-                      <div class="collapse" id="collapseColecciones">
-                        <ul>
-                          <li class="filter-option" *ngFor="let coleccion of filtrosDisponibles['collection']" (click)="toggleSelection('collection',coleccion); scrollAfterFiter()">
-                            <span>{{coleccion}}</span>
-                          </li>
-                        </ul>
+                    </div>
+                    <!-- marca -->
+                    <div class="row" *ngIf="filtrosDisponibles['brands'] && filtrosDisponibles['brands'].length > 1">
+                      <div class="col-xs-12">
+                        <div class="filter-collapse" (click)="toggleClass('#marca')" data-toggle="collapse" href="#collapseMarca" aria-expanded="false"
+                          aria-controls="collapseMarca">
+                          <p>Marca
+                            <span id="marca" class="icon-plus pull-right"></span>
+                          </p>
+                        </div>
+                        <div class="collapse" id="collapseMarca">
+                          <ul>
+                            <li class="filter-option" *ngFor="let marcaItem of filtrosDisponibles['brands'], let i = index" (click)="toggleSelection('brand',marcaItem.code); scrollAfterFiter()">
+                              <span>{{marcaItem.name}}</span>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Precio -->
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <div class="filter-collapse" (click)="toggleClass('#precio')" data-toggle="collapse" href="#collapsePrecio" aria-expanded="false"
+                          aria-controls="collapsePrecio">
+                          <p>Precio
+                            <span id="precio" class="icon-plus pull-right"></span>
+                          </p>
+                        </div>
+                        <div class="collapse" id="collapsePrecio">
+                          <div class="filtro-precio">
+                            <div class="row">
+                              <form *ngIf="filtrosDisponibles && filtrosDisponibles['prices']">
+                                <div class="col-xs-6">
+                                  <p>Desde</p>
+                                  <input type="tel" class="desde" [placeholder]="filtrosDisponibles['prices']['minPrice']" name="minPrice" (blur)="toggleSelection('minPrice', minPrice)"
+                                    (keyup.enter)="toggleSelection('minPrice', minPrice)" [(ngModel)]="minPrice">
+                                </div>
+                                <div class="col-xs-6">
+                                  <p>Hasta</p>
+                                  <input type="tel" class="hasta" [placeholder]="filtrosDisponibles['prices']['maxPrice']" name="maxPrice" (blur)="toggleSelection('maxPrice', maxPrice)"
+                                    (keyup.enter)="toggleSelection('maxPrice', maxPrice)" [(ngModel)]="maxPrice">
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- colores -->
+                    <div class="row" *ngIf="filtrosDisponibles['colors'] && filtrosDisponibles['colors'].length > 1">
+                      <div class="col-xs-12">
+                        <div class="filter-collapse" (click)="toggleClass('#colores')" data-toggle="collapse" href="#collapseColor" aria-expanded="false"
+                          aria-controls="collapseColor">
+                          <p>Colores
+                            <span id="colores" class="icon-plus pull-right"></span>
+                          </p>
+                        </div>
+                        <div class="collapse" id="collapseColor">
+                          <ul>
+                            <li class="filter-option filtro-color" *ngFor="let colorItem of filtrosDisponibles['colors'], let i = index" (click)="toggleSelection('color',colorItem.code); scrollAfterFiter()">
+                              <span>{{colorItem.name}}</span>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- materiales -->
+                    <div class="row" *ngIf="queryParams && !queryParams.has('material')">
+                      <div class="col-xs-12">
+                        <div class="filter-collapse" (click)="toggleClass('#materiales')" data-toggle="collapse" href="#collapseMateriales" aria-expanded="false"
+                          aria-controls="collapseMateriales">
+                          <p>Materiales
+                            <span id="materiales" class="icon-plus pull-right"></span>
+                          </p>
+                        </div>
+                        <div class="collapse" id="collapseMateriales">
+                          <ul>
+                            <li class="filter-option" *ngFor="let materialesItem of filtrosDisponibles['materials']" (click)="toggleSelection('material',materialesItem.code); scrollAfterFiter()">
+                              <span>{{materialesItem.name}}</span>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- colecciones -->
+                    <div class="row" *ngIf="queryParams && !queryParams.has('collection') && filtrosDisponibles['collection'] && filtrosDisponibles['collection'].length > 1">
+                      <div class="col-xs-12">
+                        <div class="filter-collapse" (click)="toggleClass('#colecciones')" data-toggle="collapse" href="#collapseColecciones" aria-expanded="false"
+                          aria-controls="collapseColecciones">
+                          <p>Colecciones
+                            <span id="colecciones" class="icon-plus pull-right"></span>
+                          </p>
+                        </div>
+                        <div class="collapse" id="collapseColecciones">
+                          <ul>
+                            <li class="filter-option" *ngFor="let coleccion of filtrosDisponibles['collection']" (click)="toggleSelection('collection',coleccion); scrollAfterFiter()">
+                              <span>{{coleccion}}</span>
+                            </li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -463,13 +492,22 @@
             <div class="mostrar">
               <div class="btn-group">
                 <button type="button" class="btn btn-matisses dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{itemsXPag}} <span class="caret"></span>
+                  {{itemsXPag}}
+                  <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                  <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(12)">12 x pag</a></li>
-                  <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(24)">24 x pag</a></li>
-                  <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(36)">36 x pag</a></li>
-                  <li *ngIf="totalItems < 100"><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
+                  <li>
+                    <a href="javascript:void(0);" (click)="cambiarTamanoPagina(12)">12 x pag</a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);" (click)="cambiarTamanoPagina(24)">24 x pag</a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);" (click)="cambiarTamanoPagina(36)">36 x pag</a>
+                  </li>
+                  <li *ngIf="totalItems < 100">
+                    <a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -478,16 +516,27 @@
             <div class="ordenar">
               <div class="btn-group">
                 <button type="button" class="btn btn-matisses dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span [innerHTML]="orderByStr">
-                        </span><span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="ordenar">
-                      <li><a href="javascript:void(0);" (click)="changeOrder('price')">Precio: más bajos primero</a></li>
-                      <li><a href="javascript:void(0);" (click)="changeOrder('-price')">Precio: más altos primero</a></li>
-                      <li><a href="javascript:void(0);" (click)="changeOrder('itemname')">Nombre: de A a Z</a></li>
-                      <li><a href="javascript:void(0);" (click)="changeOrder('-itemname')">Nombre: de Z a A</a></li>
-                      <li><a href="javascript:void(0);" (click)="changeOrder('model')">Similares</a></li>
-                    </ul>
+                  <span [innerHTML]="orderByStr">
+                  </span>
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="ordenar">
+                  <li>
+                    <a href="javascript:void(0);" (click)="changeOrder('price')">Precio: más bajos primero</a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);" (click)="changeOrder('-price')">Precio: más altos primero</a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);" (click)="changeOrder('itemname')">Nombre: de A a Z</a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);" (click)="changeOrder('-itemname')">Nombre: de Z a A</a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);" (click)="changeOrder('model')">Similares</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -495,14 +544,16 @@
             <ul class="pagination">
               <li (click)="irAPagina(activePage - 1)">
                 <a href="javascript:void(0)" aria-label="Previous">
-                    <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
-                  </a>
+                  <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
+                </a>
               </li>
-              <li><a href="javascript:void(0)" *ngFor="let page of pages" (click)="irAPagina(page)" [class.active]="page == activePage">{{page}}</a></li>
+              <li>
+                <a href="javascript:void(0)" *ngFor="let page of pages" (click)="irAPagina(page)" [class.active]="page == activePage">{{page}}</a>
+              </li>
               <li (click)="irAPagina(activePage + 1)">
                 <a href="javascript:void(0)" aria-label="Next">
-                    <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
-                  </a>
+                  <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
+                </a>
               </li>
             </ul>
           </div>
@@ -516,7 +567,9 @@
             </div>
             <img src="https://img.matisses.co/{{items[i].itemcode}}/parrilla/{{items[i].itemcode}}_01.jpg" class="jpg-responsive" alt="{{items[i].itemname}}">
             <p class="nombre">{{items[i].itemname}}</p>
-            <p class="precio"><b>$ {{items[i].priceaftervat | number}}</b></p>
+            <p class="precio">
+              <b>$ {{items[i].priceaftervat | number}}</b>
+            </p>
             <div class="botones">
               <div class="col-xs-12 text-center">
                 <div class="btn-group" role="group" [ngClass]="{'hide-this' : items[i].agregadoLista}">
@@ -536,13 +589,22 @@
             <div class="mostrar">
               <div class="btn-group dropup">
                 <button type="button" class="btn btn-matisses dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{itemsXPag}} <span class="caret"></span>
+                  {{itemsXPag}}
+                  <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                  <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(12)">12 x pag</a></li>
-                  <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(24)">24 x pag</a></li>
-                  <li><a href="javascript:void(0);" (click)="cambiarTamanoPagina(36)">36 x pag</a></li>
-                  <li *ngIf="totalItems < 100"><a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a></li>
+                  <li>
+                    <a href="javascript:void(0);" (click)="cambiarTamanoPagina(12)">12 x pag</a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);" (click)="cambiarTamanoPagina(24)">24 x pag</a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);" (click)="cambiarTamanoPagina(36)">36 x pag</a>
+                  </li>
+                  <li *ngIf="totalItems < 100">
+                    <a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -551,16 +613,27 @@
             <div class="ordenar">
               <div class="btn-group dropup">
                 <button type="button" class="btn btn-matisses dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span [innerHTML]="orderByStr">
-                        </span><span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="ordenar">
-                      <li><a href="javascript:void(0);" (click)="changeOrder('price')">Precio: más bajos primero</a></li>
-                      <li><a href="javascript:void(0);" (click)="changeOrder('-price')">Precio: más altos primero</a></li>
-                      <li><a href="javascript:void(0);" (click)="changeOrder('itemname')">Nombre: de A a Z</a></li>
-                      <li><a href="javascript:void(0);" (click)="changeOrder('-itemname')">Nombre: de Z a A</a></li>
-                      <li><a href="javascript:void(0);" (click)="changeOrder('model')">Similares</a></li>
-                    </ul>
+                  <span [innerHTML]="orderByStr">
+                  </span>
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="ordenar">
+                  <li>
+                    <a href="javascript:void(0);" (click)="changeOrder('price')">Precio: más bajos primero</a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);" (click)="changeOrder('-price')">Precio: más altos primero</a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);" (click)="changeOrder('itemname')">Nombre: de A a Z</a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);" (click)="changeOrder('-itemname')">Nombre: de Z a A</a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);" (click)="changeOrder('model')">Similares</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -568,14 +641,16 @@
             <ul class="pagination">
               <li (click)="irAPagina(activePage - 1)">
                 <a href="javascript:void(0)" aria-label="Previous">
-                    <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
-                  </a>
+                  <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
+                </a>
               </li>
-              <li><a href="javascript:void(0)" *ngFor="let page of pages" (click)="irAPagina(page)" [class.active]="page == activePage">{{page}}</a></li>
+              <li>
+                <a href="javascript:void(0)" *ngFor="let page of pages" (click)="irAPagina(page)" [class.active]="page == activePage">{{page}}</a>
+              </li>
               <li (click)="irAPagina(activePage + 1)">
                 <a href="javascript:void(0)" aria-label="Next">
-                    <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
-                  </a>
+                  <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
+                </a>
               </li>
             </ul>
           </div>

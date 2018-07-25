@@ -421,4 +421,7 @@
   .seleccionado {
     color: #D77D7D;
   }
+  .filtros-productos {
+    margin-top: 150px;
+  }
 }

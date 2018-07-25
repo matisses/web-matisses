@@ -24,9 +24,23 @@
         <coming-soon *ngIf="blogNumber === 7"></coming-soon>
         <aparadores *ngIf="blogNumber === 8"></aparadores>
         <cuero *ngIf="blogNumber === 9"></cuero>
+        <aromas *ngIf="blogNumber === 10"></aromas>
       </div>
       <div class="col-sm-4">
         <h3>Blogs recientes</h3>
+        <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(10)">
+          <div class="row">
+            <div class="col-xs-4">
+              <img src="../../../assets/images/blog/aromas-que-transportan.jpg" class="jpg-responsive" alt="">
+            </div>
+            <div class="col-xs-8">
+              <p>
+                <b>AROMAS QUE TRANSPORTAN</b>
+              </p>
+              <span class="icon-clock">25/jul/2018</span>
+            </div>
+          </div>
+        </div>
         <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(9)">
           <div class="row">
             <div class="col-xs-4">

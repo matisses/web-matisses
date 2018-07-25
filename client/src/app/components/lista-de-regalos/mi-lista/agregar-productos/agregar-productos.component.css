@@ -609,4 +609,7 @@ li.filter-option:hover {
     color: #D77D7D;
     font-size: 0px;
   }
+  .filtros-productos {
+    margin-top: 150px;
+  }
 }

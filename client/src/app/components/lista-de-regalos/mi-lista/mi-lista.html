@@ -54,7 +54,8 @@
             </div>
             <div class="col-sm-4">
               <label class="label-lista">Día</label>
-              <select id="diasEntrega" name="diaEntrega" class="form-control height-40" [class.required-field]="!validEntrega" [(ngModel)]="diaEntrega" required>
+              <select id="diasEntrega" name="diaEntrega" class="form-control height-40" [class.required-field]="!validEntrega" [(ngModel)]="diaEntrega"
+                required>
                 <option style="display:none" disabled selected value>Día</option>
                 <option [selected]="diaEntrega == day" *ngFor="let day of diasEntrega" [ngValue]="day">{{day}}</option>
               </select>
@@ -243,8 +244,8 @@
   <div class="contenedor">
     <div class="row">
       <div class="col-xs-12 text-right">
-        <p class="cursor-pointer"  *ngIf="usuarioAdmin != null && usuarioAdmin.length > 0" (click)="regresar()">|Regresar|</p>
-          <p class="cursor-pointer"  (click)="cerrarSession()">|Cerrar sesión|</p>
+        <p class="cursor-pointer" *ngIf="usuarioAdmin != null && usuarioAdmin.length > 0" (click)="regresar()">|Regresar|</p>
+        <p class="cursor-pointer" (click)="cerrarSession()">|Cerrar sesión|</p>
       </div>
     </div>
     <div class="row">
@@ -282,7 +283,7 @@
                   <div class="info-fechas">
                     <p data-toggle="tooltip" data-placement="bottom" title="Monto acumulado">
                       <span class="icon-coin icon-menu"></span>
-                     <b>{{totalBonos | number}}</b>
+                      <b>{{totalBonos | number}}</b>
                       <!-- <b>{{totalAcumulado | number}}</b> -->
                     </p>
                     <p data-toggle="tooltip" data-placement="bottom" title="Fecha del evento">
@@ -369,89 +370,91 @@
       </div>
     </div>
     <!-- botones como mostrar los productos -->
-    <div class="row" *ngIf="itemsListaBcs.length > 0">
-      <div class="col-md-4 text-center">
-        <div class="mostrar">
-          <div class="btn-group">
-            <button type="button" class="btn btn-matisses dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              {{itemsXPag}}
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" *ngIf="aceptaBono">
-              <li>
-                <a href="javascript:void(0);" (click)="cambiarTamanoPagina(11)">11 x pag</a>
-              </li>
-              <li>
-                <a href="javascript:void(0);" (click)="cambiarTamanoPagina(23)">23 x pag</a>
-              </li>
-              <li>
-                <a href="javascript:void(0);" (click)="cambiarTamanoPagina(35)">35 x pag</a>
-              </li>
-              <li *ngIf="totalItems < 100">
-                <a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a>
-              </li>
-            </ul>
-            <ul class="dropdown-menu" *ngIf="!aceptaBono">
-              <li>
-                <a href="javascript:void(0);" (click)="cambiarTamanoPagina(12)">12 x pag</a>
-              </li>
-              <li>
-                <a href="javascript:void(0);" (click)="cambiarTamanoPagina(24)">24 x pag</a>
-              </li>
-              <li>
-                <a href="javascript:void(0);" (click)="cambiarTamanoPagina(36)">36 x pag</a>
-              </li>
-              <li *ngIf="totalItems < 100">
-                <a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a>
-              </li>
-            </ul>
+    <div class="filtros-productos">
+      <div class="row" *ngIf="itemsListaBcs.length > 0">
+        <div class="col-md-4 text-center">
+          <div class="mostrar">
+            <div class="btn-group">
+              <button type="button" class="btn btn-matisses dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{itemsXPag}}
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" *ngIf="aceptaBono">
+                <li>
+                  <a href="javascript:void(0);" (click)="cambiarTamanoPagina(11)">11 x pag</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);" (click)="cambiarTamanoPagina(23)">23 x pag</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);" (click)="cambiarTamanoPagina(35)">35 x pag</a>
+                </li>
+                <li *ngIf="totalItems < 100">
+                  <a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a>
+                </li>
+              </ul>
+              <ul class="dropdown-menu" *ngIf="!aceptaBono">
+                <li>
+                  <a href="javascript:void(0);" (click)="cambiarTamanoPagina(12)">12 x pag</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);" (click)="cambiarTamanoPagina(24)">24 x pag</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);" (click)="cambiarTamanoPagina(36)">36 x pag</a>
+                </li>
+                <li *ngIf="totalItems < 100">
+                  <a href="javascript:void(0);" (click)="cambiarTamanoPagina(10000)">Todos</a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-4 text-center">
-        <div class="ordenar">
-          <div class="btn-group">
-            <button type="button" class="btn btn-matisses dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span [innerHTML]="orderByStr">
-              </span>
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="ordenar">
-              <li>
-                <a href="javascript:void(0);" (click)="changeOrder('price')">Precio: más bajos primero</a>
-              </li>
-              <li>
-                <a href="javascript:void(0);" (click)="changeOrder('-price')">Precio: más altos primero</a>
-              </li>
-              <li>
-                <a href="javascript:void(0);" (click)="changeOrder('itemname')">Nombre: de A a Z</a>
-              </li>
-              <li>
-                <a href="javascript:void(0);" (click)="changeOrder('-itemname')">Nombre: de Z a A</a>
-              </li>
-              <li>
-                <a href="javascript:void(0);" (click)="changeOrder('model')">Similares</a>
-              </li>
-            </ul>
+        <div class="col-md-4 text-center">
+          <div class="ordenar">
+            <div class="btn-group">
+              <button type="button" class="btn btn-matisses dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span [innerHTML]="orderByStr">
+                </span>
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="ordenar">
+                <li>
+                  <a href="javascript:void(0);" (click)="changeOrder('price')">Precio: más bajos primero</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);" (click)="changeOrder('-price')">Precio: más altos primero</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);" (click)="changeOrder('itemname')">Nombre: de A a Z</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);" (click)="changeOrder('-itemname')">Nombre: de Z a A</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);" (click)="changeOrder('model')">Similares</a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-4 text-center" *ngIf="pages.length > 1">
-        <ul class="pagination">
-          <li (click)="irAPagina(activePage - 1)">
-            <a href="javascript:void(0)" aria-label="Previous">
-              <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)" *ngFor="let page of pages" (click)="irAPagina(page)" [class.active]="page == activePage">{{page}}</a>
-          </li>
-          <li (click)="irAPagina(activePage + 1)">
-            <a href="javascript:void(0)" aria-label="Next">
-              <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
-            </a>
-          </li>
-        </ul>
+        <div class="col-md-4 text-center" *ngIf="pages.length > 1">
+          <ul class="pagination">
+            <li (click)="irAPagina(activePage - 1)">
+              <a href="javascript:void(0)" aria-label="Previous">
+                <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" *ngFor="let page of pages" (click)="irAPagina(page)" [class.active]="page == activePage">{{page}}</a>
+            </li>
+            <li (click)="irAPagina(activePage + 1)">
+              <a href="javascript:void(0)" aria-label="Next">
+                <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
     <br>

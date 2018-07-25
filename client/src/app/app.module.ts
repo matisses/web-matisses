@@ -80,6 +80,7 @@ import { BlogEspejosComponent } from './components/blog/espejos/espejos.componen
 import { BlogComingSoonComponent } from './components/blog/coming soon/coming-soon.component';
 import { BlogAparadoresComponent } from './components/blog/aparadores/aparadores.component';
 import { BlogCueroComponent } from './components/blog/cuero/cuero.component';
+import { BlogAromasComponent } from './components/blog/aromas/aromas.component';
 
 // SECCIONES
 import { Seccion1Component } from './components/secciones/seccion-1/seccion-1.component';
@@ -234,6 +235,7 @@ import { CondicionesComplementosAlfComponent } from './components/condiciones-co
     BlogComingSoonComponent,
     BlogAparadoresComponent,
     BlogCueroComponent,
+    BlogAromasComponent,
     //Lista de Regalos
     ListaRegalosComponent,
     MenuListaComponent,
