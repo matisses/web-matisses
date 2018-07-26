@@ -66,6 +66,7 @@ export class InfoPagoComponent implements OnInit {
   public totalEnvioFinalFormat: string = '0';
   public montoEnvioMinimo: string = '0';
   public mostrarInfoEnvio: boolean = false;
+  public saldoFavorFormat: number = 0;
   public saldoFavor: number = 0;
   public selectMonto: string = 'SI';
   public disabledMonto: boolean = true;
@@ -109,8 +110,7 @@ export class InfoPagoComponent implements OnInit {
     if (!this.disabledMonto) {
       this.validMontoSaldoFavor = false;
       if (this.montoSaldoFavor < 0) {
-        /*TODO: poner logica con multiple pago falta*/
-        console.log(this.montoSaldoFavor);
+        //TODO: poner logica con multiple pago falta
       }
     } else {
       $('#saldoFavorModal').modal('hide');
@@ -186,7 +186,8 @@ export class InfoPagoComponent implements OnInit {
                 //Se guarda en el localStorage el carrito
                 this.carrito.shoppingCart._id = response.shoppingCart._id;
                 localStorage.setItem('matisses.shoppingCart', JSON.stringify(this.carrito.shoppingCart));
-                this.validarCliente(this.carrito.shoppingCart._id);
+                this.validarCliente(this.carrito.shoppingCart._id, this.saldoFavor);
+                this.saldoFavorFormat = 0;
                 this.saldoFavor = 0;
               },
               error => { console.error(error); }
@@ -388,8 +389,8 @@ export class InfoPagoComponent implements OnInit {
   public consultarSaldoFavor(id: string) {
     this._customerService.getSaldoFavor(id).subscribe(
       response => {
-        console.log(response);
-        this.saldoFavor = response.mensaje;
+        this.saldoFavorFormat = response.content;
+        this.saldoFavor = response.resultado;
       },
       error => { console.error(error) }
     );
@@ -532,7 +533,7 @@ export class InfoPagoComponent implements OnInit {
               //Se guarda en el localStorage el carrito
               this.carrito.shoppingCart._id = response.shoppingCart._id;
               localStorage.setItem('matisses.shoppingCart', JSON.stringify(this.carrito.shoppingCart));
-              this.validarCliente(this.carrito.shoppingCart._id);
+              this.validarCliente(this.carrito.shoppingCart._id, 0);
             },
             error => { console.error(error); }
           );
@@ -545,13 +546,13 @@ export class InfoPagoComponent implements OnInit {
     );
   }
 
-  private validarCliente(_idCarrito) {
+  private validarCliente(_idCarrito, monto) {
     this.obtenerNombreCiudad();
 
     this._customerService.getCustomerData(this.customer.cardCode).subscribe(
       response => {
         //Mandar directo a placetopay
-        this.enviarPlaceToPay(_idCarrito);
+        this.enviarPlaceToPay(_idCarrito, monto);
       },
       error => {
         //Se debe mandar a crear el cliente en SAP
@@ -647,7 +648,7 @@ export class InfoPagoComponent implements OnInit {
         this._customerService.createCustomer(businesspartner).subscribe(
           response => {
             if (response.estado == 0) {
-              this.enviarPlaceToPay(_idCarrito);
+              this.enviarPlaceToPay(_idCarrito, monto);
             } else {
               this.messageError = 'Lo sentimos. Se produjo un error inesperado, inténtelo mas tarde.';
             }
@@ -658,7 +659,7 @@ export class InfoPagoComponent implements OnInit {
     );
   }
 
-  private enviarPlaceToPay(_id) {
+  private enviarPlaceToPay(_id, monto) {
     //Se valida el estado de los items como primera medida
     let datosCompraWeb = {
       idCarrito: '00000000000000000',
@@ -697,6 +698,8 @@ export class InfoPagoComponent implements OnInit {
             amount: {
               currency: 'COP',
               total: ((this.carrito.totalCarrito + (this.metodoEnvioSeleccionado.code === 2 ? 0 : this.costoEnvio)) - this.carrito.totalDescuentos),
+              montoP2P: 0,
+              montoSaldoFavor: monto,
               taxes: {
                 kind: 'valueAddedTax',
                 amount: this.carrito.totalImpuestos
@@ -713,7 +716,9 @@ export class InfoPagoComponent implements OnInit {
                 return;
               }
               localStorage.removeItem('matisses.shoppingCart');
-              this._router.navigate(['/resultado-transaccion/' + _id]);
+              if (monto > 0) {
+                this._router.navigate(['/resultado-transaccion/' + _id]);
+              }
             },
             error => { console.error(error); }
           );
@@ -723,7 +728,6 @@ export class InfoPagoComponent implements OnInit {
         }
       }, error => { console.error(error) }
     );
-
     //
     //
     //
