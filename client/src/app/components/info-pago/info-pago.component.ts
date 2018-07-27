@@ -718,6 +718,8 @@ export class InfoPagoComponent implements OnInit {
               localStorage.removeItem('matisses.shoppingCart');
               if (monto > 0) {
                 this._router.navigate(['/resultado-transaccion/' + _id]);
+              } else {
+                window.location.href = response.respuestaPlaceToPay.processUrl;
               }
             },
             error => { console.error(error); }
