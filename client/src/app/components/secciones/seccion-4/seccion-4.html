@@ -1,38 +1,22 @@
 <div class="container-fluid padding-0">
-    <div class="back-01">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="container">
-            <div class="row">
-              <div class="col-xs-12">
-                <div class="row">
-                  <div class="col-sm-4 overflow-h">
-                    <br>
-                    <br>
-                    <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{ page: '1', pageSize: '10000', group: '024', brand: '0009', keywords: 'Plage,Maison' }">
-                      <img src="../../../../assets/images/secciones/4/miniatura1.jpg" class="jpg-responsive" alt="">
-                    </a>
-                    <br class="visible-xs">
-                    <br class="visible-xs">
-                  </div>
-                  <div class="col-sm-4 overflow-h">
-                    <br>
-                    <br>
-                    <!-- <p class="name-coleccion" [routerLink]="['/producto/2260074']">TAZAS ROCCO</p> -->
-                    <!-- <a href="javascript:void(0)"></a> -->
+  <div class="back-01">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="row">
+                <div class="col-sm-6">
+                  <br>
+                  <a href="javascript:void(0)" [routerLink]="['/blog']">
+                    <img src="../../../../assets/images/secciones/4/miniatura1.jpg" class="jpg-responsive" alt="">
+                  </a>
+                </div>
+                <div class="col-sm-6">
+                  <br>
+                  <a href="javascript:void(0)" [routerLink]="['/categoria']" [queryParams]="{ pageSize: '10000', group: '015', subgroup: '056', brand: '0009' }">
                     <img src="../../../../assets/images/secciones/4/miniatura2.jpg" class="jpg-responsive" alt="">
-                    <br class="visible-xs">
-                    <br class="visible-xs">
-                  </div>
-                  <div class="col-sm-4 overflow-h">
-                    <br>
-                    <br>
-                    <!-- <p class="name-coleccion" [routerLink]="['/categoria']" [queryParams]="{ keywords: 'argent' }">COLECCIÓN ARGENT</p> -->
-                    <!-- <a href="javascript:void(0)"></a> -->
-                    <img src="../../../../assets/images/secciones/4/miniatura3.jpg" class="jpg-responsive" alt="">
-                    <br class="visible-xs">
-                    <br class="visible-xs">
-                  </div>
+                  </a>
                 </div>
               </div>
             </div>
@@ -41,15 +25,4 @@
       </div>
     </div>
   </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-6 cursor-pointer" [routerLink]="['/categoria']" [queryParams]="{ page: '1', pageSize: '36', group: '024', brand: '0009', collection: 'A%20La%20Plage' }">
-        <br>
-        <img src="../../../../assets/images/secciones/4/miniaturas4.jpg" class="jpg-responsive" alt="">
-      </div>
-      <div class="col-sm-6 cursor-pointer" [routerLink]="['/categoria']" [queryParams]="{ page: '1', pageSize: '36', group: '024', brand: '0009', collection: 'A%20La%20Maison', color: '4' }">
-        <br>
-        <img src="../../../../assets/images/secciones/4/miniaturas5.jpg" class="jpg-responsive" alt="">
-      </div>
-    </div>
-  </div>
+</div>
