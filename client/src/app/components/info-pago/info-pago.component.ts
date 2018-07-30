@@ -697,7 +697,7 @@ export class InfoPagoComponent implements OnInit {
             reference: _id,
             amount: {
               currency: 'COP',
-              total: ((this.carrito.totalCarrito + (this.metodoEnvioSeleccionado.code === 2 ? 0 : this.costoEnvio)) - this.carrito.totalDescuentos),
+              total: ((this.carrito.totalCarrito + (this.metodoEnvioSeleccionado.code === 2 ? 0 : this.costoEnvio)) - this.carrito.totalDescuentos) - monto,
               montoP2P: 0,
               montoSaldoFavor: monto,
               taxes: {
@@ -716,10 +716,15 @@ export class InfoPagoComponent implements OnInit {
                 return;
               }
               localStorage.removeItem('matisses.shoppingCart');
-              if (monto > 0) {
-                this._router.navigate(['/resultado-transaccion/' + _id]);
+
+              if (monto != 0 && monto >= payment.amount.total) {
+                //this._router.navigate(['/resultado-transaccion/' + _id]);
+                console.log('entro al if');
+                
               } else {
                 window.location.href = response.respuestaPlaceToPay.processUrl;
+                console.log('entro al else');
+                
               }
             },
             error => { console.error(error); }
