@@ -697,7 +697,7 @@ export class InfoPagoComponent implements OnInit {
             reference: _id,
             amount: {
               currency: 'COP',
-              total: ((this.carrito.totalCarrito + (this.metodoEnvioSeleccionado.code === 2 ? 0 : this.costoEnvio)) - this.carrito.totalDescuentos) - monto,
+              total: ((this.carrito.totalCarrito + (this.metodoEnvioSeleccionado.code === 2 ? 0 : this.costoEnvio)) - this.carrito.totalDescuentos),
               montoP2P: 0,
               montoSaldoFavor: monto,
               taxes: {
@@ -705,6 +705,10 @@ export class InfoPagoComponent implements OnInit {
                 amount: this.carrito.totalImpuestos
               }
             }
+          }
+
+          if (monto < ((this.carrito.totalCarrito + (this.metodoEnvioSeleccionado.code === 2 ? 0 : this.costoEnvio)) - this.carrito.totalDescuentos)) {
+            payment.amount.total -= monto;
           }
 
           this.datosPago = new DatosPagoPlaceToPay().newDatosPagoPlaceToPay(buyer, null, navigator.userAgent, payment, null, null, this.urlReturn + _id, '');
@@ -717,7 +721,7 @@ export class InfoPagoComponent implements OnInit {
               }
               localStorage.removeItem('matisses.shoppingCart');
 
-              if (monto != 0 && monto >= payment.amount.total) {
+              if (monto != 0 && monto >= ((this.carrito.totalCarrito + (this.metodoEnvioSeleccionado.code === 2 ? 0 : this.costoEnvio)) - this.carrito.totalDescuentos)) {
                 this._router.navigate(['/resultado-transaccion/' + _id]);
               } else {
                 window.location.href = response.respuestaPlaceToPay.processUrl;

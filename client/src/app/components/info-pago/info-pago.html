@@ -31,8 +31,14 @@
             <b>Saldo a favor:</b> $ {{saldoFavorFormat}}
           </label>
         </div>
-
         <!--<div class="row">
+          <div class="col-sm-10 col-sm-offset-1 text-center">
+            <p class="text-left">El proceso de pago te redireccionará a un sitio seguro, para pagar lo faltante. {{montoFaltante}}</p>
+            <img src="assets/images/logo-p2p.png" class="text-center" alt="">
+          </div>
+        </div>
+
+        <div class="row">
           <div class="radio">
             <label for="usarMonto">¿Usar monto total?</label>
             <br>
@@ -46,7 +52,7 @@
             </label>
           </div>
         </div>-->
-        <br>
+
         <div class="row" *ngIf="!disabledMonto">
           <input type="number" name="montoSaldoFavor" class="form-control input-saldoFavor" maxlength="30" [(ngModel)]="montoSaldoFavor"
             [class.required-field]="!validMontoSaldoFavor" placeholder="$ {{saldoFavorFormat}}" required>
@@ -54,7 +60,7 @@
       </div>
       <br>
       <br>
-      <div class="modal-footer">
+      <div class="modal-footer" style="border: 0px;">
         <button type="button" class="btn-continuar" (click)="aplicarSaldoFavor()">Usar Saldo a Favor</button>
       </div>
     </div>
