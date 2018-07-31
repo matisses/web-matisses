@@ -697,8 +697,10 @@ export class InfoPagoComponent implements OnInit {
             reference: _id,
             amount: {
               currency: 'COP',
-              total: ((this.carrito.totalCarrito + (this.metodoEnvioSeleccionado.code === 2 ? 0 : this.costoEnvio)) - this.carrito.totalDescuentos),
+              total: ((this.carrito.totalCarrito + (this.metodoEnvioSeleccionado.code === 3 ? this.costoEnvio : 0)) - this.carrito.totalDescuentos),
               montoSaldoFavor: monto,
+              montoTotal: this.totalEnvioFinal,
+              costoEnvio: (this.metodoEnvioSeleccionado.code === 3 ? this.costoEnvio : 0),
               taxes: {
                 kind: 'valueAddedTax',
                 amount: this.carrito.totalImpuestos
@@ -706,7 +708,7 @@ export class InfoPagoComponent implements OnInit {
             }
           }
 
-          if (monto < ((this.carrito.totalCarrito + (this.metodoEnvioSeleccionado.code === 2 ? 0 : this.costoEnvio)) - this.carrito.totalDescuentos)) {
+          if (monto < ((this.carrito.totalCarrito + (this.metodoEnvioSeleccionado.code === 3 ? this.costoEnvio : 0)) - this.carrito.totalDescuentos)) {
             payment.amount.total -= monto;
           }
 
@@ -720,7 +722,7 @@ export class InfoPagoComponent implements OnInit {
               }
               localStorage.removeItem('matisses.shoppingCart');
 
-              if (monto != 0 && monto >= ((this.carrito.totalCarrito + (this.metodoEnvioSeleccionado.code === 2 ? 0 : this.costoEnvio)) - this.carrito.totalDescuentos)) {
+              if (monto != 0 && monto >= ((this.carrito.totalCarrito + (this.metodoEnvioSeleccionado.code === 3 ? this.costoEnvio : 0)) - this.carrito.totalDescuentos)) {
                 this._router.navigate(['/resultado-transaccion/' + _id]);
               } else {
                 window.location.href = response.respuestaPlaceToPay.processUrl;
@@ -734,60 +736,6 @@ export class InfoPagoComponent implements OnInit {
         }
       }, error => { console.error(error) }
     );
-    //
-    //
-    //
-    //
-    // //Se mapean los datos que se le enviaran a PlacetoPay
-    // let apellidos = '';
-    // apellidos += this.customer.lastName1;
-    // if (this.customer.lastName2 != null && this.customer.lastName2.length > 0) {
-    //   apellidos += ' ' + this.customer.lastName2;
-    // }
-    //
-    // let buyer = {
-    //   document: this.customer.fiscalID,
-    //   name: this.customer.firstName,
-    //   surname: apellidos,
-    //   documentType: this.customer.fiscalIdType,
-    //   email: this.customer.addresses[0].email,
-    //   mobile: this.customer.addresses[0].cellphone,
-    //   address: {
-    //     street: this.customer.addresses[0].address,
-    //     city: this.customer.addresses[0].cityName,
-    //     country: this.customer.addresses[0].country
-    //   }
-    // };
-    //
-    // let payment = {
-    //   allowPartial: 'false',
-    //   description: 'Compra matisses.co',
-    //   reference: _id,
-    //   amount: {
-    //     currency: 'COP',
-    //     total: ((this.carrito.totalCarrito + (this.metodoEnvioSeleccionado.code === 2 ? 0 : this.costoEnvio)) - this.carrito.totalDescuentos),
-    //     taxes: {
-    //       kind: 'valueAddedTax',
-    //       amount: this.carrito.totalImpuestos
-    //     }
-    //   }
-    // }
-    //
-    // this.datosPago = new DatosPagoPlaceToPay().newDatosPagoPlaceToPay(buyer, null, navigator.userAgent, payment, null, null, this.urlReturn + _id, '');
-    //
-    // this._placetopayService.redirect(this.datosPago).subscribe(
-    //   response => {
-    //     if (response.codigo === -1) {
-    //       this.procesandoP2P = false;
-    //       return;
-    //     }
-    //     localStorage.removeItem('matisses.shoppingCart');
-    //     window.location.href = response.respuestaPlaceToPay.processUrl;
-    //   },
-    //   error => {
-    //     console.error(error);
-    //   }
-    // );
   }
 
   public refrescarValoresCarrito() {
