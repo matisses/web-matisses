@@ -698,7 +698,6 @@ export class InfoPagoComponent implements OnInit {
             amount: {
               currency: 'COP',
               total: ((this.carrito.totalCarrito + (this.metodoEnvioSeleccionado.code === 2 ? 0 : this.costoEnvio)) - this.carrito.totalDescuentos),
-              montoP2P: 0,
               montoSaldoFavor: monto,
               taxes: {
                 kind: 'valueAddedTax',
