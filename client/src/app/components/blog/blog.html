@@ -26,9 +26,23 @@
         <cuero *ngIf="blogNumber === 9"></cuero>
         <aromas *ngIf="blogNumber === 10"></aromas>
         <blog-plantas *ngIf="blogNumber === 11"></blog-plantas>
+        <blog-floreros *ngIf="blogNumber === 12"></blog-floreros>
       </div>
       <div class="col-sm-4">
         <h3>Blogs recientes</h3>
+        <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(12)">
+          <div class="row">
+            <div class="col-xs-4">
+              <img src="../../../assets/images/blog/floreros-deco.jpg" class="jpg-responsive" alt="">
+            </div>
+            <div class="col-xs-8">
+              <p>
+                <b>DISEÑOS DE FLOREROS DIFERENTES PARA DARLE VIDA A TUS ESPACIOS</b>
+              </p>
+              <span class="icon-clock">03/ago/2018</span>
+            </div>
+          </div>
+        </div>
         <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(11)">
           <div class="row">
             <div class="col-xs-4">
@@ -133,7 +147,7 @@
             </div>
           </div>
         </div>
-        <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(3)">
+        <!-- <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(3)">
           <div class="row">
             <div class="col-xs-4">
               <img src="../../../assets/images/blog/vintage.jpg" class="jpg-responsive" alt="">
@@ -145,8 +159,8 @@
               <span class="icon-clock"> 08/jun/2018</span>
             </div>
           </div>
-        </div>
-        <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(2)">
+        </div> -->
+        <!-- <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(2)">
           <div class="row">
             <div class="col-xs-4">
               <img src="../../../assets/images/blog/tu_sofa.jpg" class="jpg-responsive" alt="">
@@ -158,7 +172,7 @@
               <span class="icon-clock"> 01/jun/2018</span>
             </div>
           </div>
-        </div>
+        </div> -->
         <!-- <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(1)">
           <div class="row">
             <div class="col-xs-4">
@@ -175,7 +189,7 @@
         <br>
         <h3>Categorías</h3>
         <hr>
-        <div class="categorias-blog" *ngIf="blogNumber === 1">
+        <!-- <div class="categorias-blog" *ngIf="blogNumber === 1">
           <ul>
             <li>Mobiliario y accesorios</li>
             <li>Tendencias</li>
@@ -199,7 +213,7 @@
             <li>Espacios</li>
             <li>Lifestyle</li>
           </ul>
-        </div>
+        </div> -->
         <div class="categorias-blog" *ngIf="blogNumber === 4">
           <ul>
             <li>Sillas ocasionales</li>
@@ -267,9 +281,17 @@
             <li>Espacios</li>
           </ul>
         </div>
+        <div class="categorias-blog" *ngIf="blogNumber === 12">
+          <ul>
+            <li>floreros</li>
+            <li>Decoración</li>
+            <li>Espacios</li>
+            <li>Diseño interior</li>
+          </ul>
+        </div>
         <h3>Tags</h3>
         <hr>
-        <div class="tags-filtros" *ngIf="blogNumber === 1">
+        <!-- <div class="tags-filtros" *ngIf="blogNumber === 1">
           <span class="active-filter">
             Decoración
           </span>
@@ -312,7 +334,7 @@
           <span class="active-filter">
             Diseño de interiores
           </span>
-        </div>
+        </div> -->
         <div class="tags-filtros" *ngIf="blogNumber === 4">
           <span class="active-filter">
             Decoración
@@ -425,6 +447,20 @@
             Plantas artificiales
           </span>
         </div>
+        <div class="tags-filtros" *ngIf="blogNumber === 12">
+            <span class="active-filter">
+              Floreros
+            </span>
+            <span class="active-filter">
+              Espacios
+            </span>
+            <span class="active-filter">
+              Espacios verdes
+            </span>
+            <span class="active-filter">
+              Diseño de interiores
+            </span>
+          </div>
       </div>
     </div>
   </div>

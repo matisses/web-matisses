@@ -15,21 +15,19 @@
 }
 
 .name-coleccion {
-  opacity: 0;
-  position: absolute;
-  text-align: center;
-  background-color: #00000094;
-  color: #FFF;
-  font-size: 20px;
-  font-weight: bold;
-  width: 91%;
-  height: 100%;
-  padding-top: 40%;
-  z-index: 5;
+  display: none;
 }
 
-.name-coleccion:hover {
-  opacity: 1;
+.overflow-h:hover>.name-coleccion {
+  display: block;
+  position: absolute;
+  text-align: center;
+  background-color: #0000005e;
+  color: #FFF;
+  font-size: 25px;
+  width: 92%;
+  height: 100%;
+  padding-top: 40%;
 }
 
 .back-01 {
@@ -39,7 +37,7 @@
 }
 
 .title {
-  height: 200px;
+  height: 170px;
 }
 
 .title-seccion {
@@ -60,10 +58,8 @@
 }
 
 .sub-title-seccion {
-  position: relative;
-  top: 65px;
-  font-weight: bold;
-  font-size: 15px;
+  margin-top: 15px;
+  font-size: 20px;
 }
 
 .recomendaciones {
@@ -116,7 +112,15 @@
   color: #5B5B5B;
   padding: 5px 20px;
   border: 1px solid #7C7C7C;
-  background-color: #FFF;  
+  background-color: #FFF;
+}
+
+.btn-todos {
+  background-color: transparent;
+  border: 1px solid #5B5B5B;
+  border-radius: 0;
+  margin-top: 30px;
+  color: #5B5B5B;
 }
 
 /* Estilos carousel */

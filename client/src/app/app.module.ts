@@ -82,13 +82,12 @@ import { BlogAparadoresComponent } from './components/blog/aparadores/aparadores
 import { BlogCueroComponent } from './components/blog/cuero/cuero.component';
 import { BlogAromasComponent } from './components/blog/aromas/aromas.component';
 import { BlogPlantasComponent } from './components/blog/plantas/plantas.component';
+import { BlogFlorerosComponent } from './components/blog/floreros/floreros.component';
 
 // SECCIONES
 import { Seccion1Component } from './components/secciones/seccion-1/seccion-1.component';
 import { Seccion2Component } from './components/secciones/seccion-2/seccion-2.component';
 import { Seccion3Component } from './components/secciones/seccion-3/seccion-3.component';
-import { Seccion4Component } from './components/secciones/seccion-4/seccion-4.component';
-import { Seccion5Component } from './components/secciones/seccion-5/seccion-5.component';
 
 //Componenete pagina de error
 import { ErrorComponent } from './components/error/error.component';
@@ -218,11 +217,10 @@ import { CondicionesComplementosAlfComponent } from './components/condiciones-co
     HotSaleComponent,
     NovedadesComponent,
     CabifyComponent,
+    //Secciones
     Seccion1Component,
     Seccion2Component,
     Seccion3Component,
-    Seccion4Component,
-    Seccion5Component,
     CondicionesComplementosAlfComponent,
     ConfirmDecoComponent,
     //Blog
@@ -238,6 +236,7 @@ import { CondicionesComplementosAlfComponent } from './components/condiciones-co
     BlogCueroComponent,
     BlogAromasComponent,
     BlogPlantasComponent,
+    BlogFlorerosComponent,
     //Lista de Regalos
     ListaRegalosComponent,
     MenuListaComponent,
