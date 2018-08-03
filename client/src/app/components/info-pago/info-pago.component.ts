@@ -308,7 +308,7 @@ export class InfoPagoComponent implements OnInit {
       "BARBOSA (Antioquia)05079",
 
       //Bogotá DC: area metropolitana
-      "BOGOTÁ11001",
+      /*"BOGOTÁ11001",
       "SOACHA25754",
       "CHÍA25175",
       "ZIPAQUIRÁ25899",
@@ -325,7 +325,7 @@ export class InfoPagoComponent implements OnInit {
       "MOSQUERA (Cundinamarca)25473",
       "GACHANCIPÁ25295",
       "BOJACÁ25099",
-      "EL ROSAL25260"
+      "EL ROSAL25260"*/
     ];
 
     for (let k = 0; k < ciudadesEnvioGratis.length; k++) {
