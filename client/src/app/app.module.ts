@@ -83,6 +83,7 @@ import { BlogCueroComponent } from './components/blog/cuero/cuero.component';
 import { BlogAromasComponent } from './components/blog/aromas/aromas.component';
 import { BlogPlantasComponent } from './components/blog/plantas/plantas.component';
 import { BlogFlorerosComponent } from './components/blog/floreros/floreros.component';
+import { BlogCubiertosComponent } from './components/blog/cubiertos/cubiertos.component';
 
 // SECCIONES
 import { Seccion1Component } from './components/secciones/seccion-1/seccion-1.component';
@@ -237,6 +238,7 @@ import { CondicionesComplementosAlfComponent } from './components/condiciones-co
     BlogAromasComponent,
     BlogPlantasComponent,
     BlogFlorerosComponent,
+    BlogCubiertosComponent,
     //Lista de Regalos
     ListaRegalosComponent,
     MenuListaComponent,

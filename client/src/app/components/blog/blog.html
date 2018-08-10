@@ -16,7 +16,7 @@
     <div class="row">
       <div class="col-sm-8">
         <!-- <lujo-clasico *ngIf="blogNumber === 1"></lujo-clasico> -->
-        <blog-sofas *ngIf="blogNumber === 2"></blog-sofas>
+        <!-- <blog-sofas *ngIf="blogNumber === 2"></blog-sofas> -->
         <blog-vintage *ngIf="blogNumber === 3"></blog-vintage>
         <blog-ocasionales *ngIf="blogNumber === 4"></blog-ocasionales>
         <experiencias *ngIf="blogNumber === 5"></experiencias>
@@ -27,9 +27,23 @@
         <aromas *ngIf="blogNumber === 10"></aromas>
         <blog-plantas *ngIf="blogNumber === 11"></blog-plantas>
         <blog-floreros *ngIf="blogNumber === 12"></blog-floreros>
+        <blog-cubiertos *ngIf="blogNumber === 13"></blog-cubiertos>
       </div>
       <div class="col-sm-4">
         <h3>Blogs recientes</h3>
+        <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(13)">
+          <div class="row">
+            <div class="col-xs-4">
+              <img src="../../../assets/images/blog/butterfly.jpg" class="jpg-responsive" alt="">
+            </div>
+            <div class="col-xs-8">
+              <p>
+                <b>TÚ MESA PERFECTA CON LOS ELEMENTOS ADECUADOS.</b>
+              </p>
+              <span class="icon-clock">09/ago/2018</span>
+            </div>
+          </div>
+        </div>
         <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(12)">
           <div class="row">
             <div class="col-xs-4">
@@ -134,7 +148,7 @@
             </div>
           </div>
         </div>
-        <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(4)">
+        <!-- <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(4)">
           <div class="row">
             <div class="col-xs-4">
               <img src="../../../assets/images/blog/ocasionales-01.jpg" class="jpg-responsive" alt="">
@@ -146,7 +160,7 @@
               <span class="icon-clock"> 15/jun/2018</span>
             </div>
           </div>
-        </div>
+        </div> -->
         <!-- <div class="blogs-recientes cursor-pointer" (click)="seleccionarBlog(3)">
           <div class="row">
             <div class="col-xs-4">
@@ -214,7 +228,7 @@
             <li>Lifestyle</li>
           </ul>
         </div> -->
-        <div class="categorias-blog" *ngIf="blogNumber === 4">
+        <!-- <div class="categorias-blog" *ngIf="blogNumber === 4">
           <ul>
             <li>Sillas ocasionales</li>
             <li>Mobiliario y accesorios</li>
@@ -222,7 +236,7 @@
             <li>Espacios</li>
             <li>Lifestyle</li>
           </ul>
-        </div>
+        </div> -->
         <div class="categorias-blog" *ngIf="blogNumber === 5">
           <ul>
             <li>Decoración de interiores</li>
@@ -289,6 +303,14 @@
             <li>Diseño interior</li>
           </ul>
         </div>
+        <div class="categorias-blog" *ngIf="blogNumber === 13">
+          <ul>
+            <li>Vajillas</li>
+            <li>Cubiertos</li>
+            <li>Tendencias</li>
+            <li>Mesa</li>
+          </ul>
+        </div>
         <h3>Tags</h3>
         <hr>
         <!-- <div class="tags-filtros" *ngIf="blogNumber === 1">
@@ -335,7 +357,7 @@
             Diseño de interiores
           </span>
         </div> -->
-        <div class="tags-filtros" *ngIf="blogNumber === 4">
+        <!-- <div class="tags-filtros" *ngIf="blogNumber === 4">
           <span class="active-filter">
             Decoración
           </span>
@@ -348,7 +370,7 @@
           <span class="active-filter">
             Diseño de interiores
           </span>
-        </div>
+        </div> -->
         <div class="tags-filtros" *ngIf="blogNumber === 5">
           <span class="active-filter">
             Decoración de interiores
@@ -448,19 +470,33 @@
           </span>
         </div>
         <div class="tags-filtros" *ngIf="blogNumber === 12">
-            <span class="active-filter">
-              Floreros
-            </span>
-            <span class="active-filter">
-              Espacios
-            </span>
-            <span class="active-filter">
-              Espacios verdes
-            </span>
-            <span class="active-filter">
-              Diseño de interiores
-            </span>
-          </div>
+          <span class="active-filter">
+            Floreros
+          </span>
+          <span class="active-filter">
+            Espacios
+          </span>
+          <span class="active-filter">
+            Espacios verdes
+          </span>
+          <span class="active-filter">
+            Diseño de interiores
+          </span>
+        </div>
+        <div class="tags-filtros" *ngIf="blogNumber === 13">
+          <span class="active-filter">
+            Tendencias en vajillas
+          </span>
+          <span class="active-filter">
+            Cubiertos
+          </span>
+          <span class="active-filter">
+            Vajillas
+          </span>
+          <span class="active-filter">
+            Servir la mesa
+          </span>
+        </div>
       </div>
     </div>
   </div>
