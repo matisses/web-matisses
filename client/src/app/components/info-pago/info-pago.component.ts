@@ -191,6 +191,7 @@ export class InfoPagoComponent implements OnInit {
   }
 
   public buscarCliente() {
+    this.metodoEnvioSeleccionado = null;
     this.disabled = false;
     this.customer.fiscalID = this.customer.fiscalID.trim();
     this.customer.cardCode = this.customer.fiscalID.trim();
@@ -740,7 +741,7 @@ export class InfoPagoComponent implements OnInit {
   }
 
   public cambiarCiudad() {
-    this.metodoEnvioSeleccionado = new ShippingMethod();
+    this.metodoEnvioSeleccionado = null;
     if (this.customer.addresses[0].cityCode != null || this.customer.addresses[0].cityCode != 0) {
       this.obtenerNombreCiudad();
       this.consultarCostoEnvio();
