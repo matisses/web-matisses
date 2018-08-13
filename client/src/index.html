@@ -169,10 +169,26 @@
   <!-- Mailchimp code -->
   <script id="mcjs">!function (c, h, i, m, p) { m = c.createElement(h), p = c.getElementsByTagName(h)[0], m.async = 1, m.src = i, p.parentNode.insertBefore(m, p) }(document, "script", "https://chimpstatic.com/mcjs-connected/js/users/9520ad5c06bbb18b9c5b4aca8/fae550bd1ed4e505eebbfb8ae.js");</script>
   <!-- Mailchimp code -->
-  
+
 </head>
 
 <body>
+
+  <!-- Load Facebook SDK for JavaScript -->
+  <div id="fb-root"></div>
+  <script>(function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/es_LA/sdk/xfbml.customerchat.js#xfbml=1&version=v2.12&autoLogAppEvents=1';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+  <!-- Your customer chat code -->
+  <div class="fb-customerchat" attribution=install_email page_id="95493159029" theme_color="#0084ff" logged_in_greeting="Hola ¿cómo podemos ayudarte?"
+    logged_out_greeting="Hola ¿cómo podemos ayudarte?">
+  </div>
+
 
   <!-- Google Tag Manager (noscript) -->
   <noscript>
