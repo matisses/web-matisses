@@ -119,9 +119,30 @@ function remove(req, res) {
   });
 }
 
+function edit(req, res) {
+var vajilla = req.body;
+
+  MenuItem.findByIdAndUpdate(req.params._id, vajilla, (err, updated) => {
+    if (err) {
+      res.status(500).send({
+        message: 'error al actualizar la vajilla'
+      });
+    } else if (!updated) {
+      res.status(404).send({
+        message: 'no se actualizó la vajilla'
+      });
+    } else {
+      return res.status(200).send({
+        menuItem: updated
+      });
+    }
+  });
+}
+
 module.exports = {
   save,
   list,
   listItems,
-  remove
+  remove,
+  edit
 };
