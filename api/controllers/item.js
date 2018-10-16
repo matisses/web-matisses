@@ -618,7 +618,8 @@ function obtenerRelacionados(req, res) {
 function listarMarcasVajillas(req, res) {
   Item.aggregate([{
       $match: {
-        "group.code": "024",
+        // "group.code": "024",
+        "group.code": {$in: [ "024", "012","002", "003", "005", "006", "009", "013", "014" ]},
         "availablestock": {
           $gt: 0
         }
@@ -659,11 +660,11 @@ function listarMarcasVajillas(req, res) {
     if (err) {
       console.error(err);
       res.status(500).send({
-        message: 'ocurrio un error al consultar las marcas de vajillas'
+        message: 'ocurrio un error al consultar las marcas de productos'
       });
     } else if (!result) {
       res.status(404).send({
-        message: 'no se encontraron marcas de vajillas'
+        message: 'no se encontraron marcas de productos'
       });
     } else {
       res.status(200).send(result);
