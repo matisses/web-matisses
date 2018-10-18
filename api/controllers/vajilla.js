@@ -24,11 +24,11 @@ function save(req, res) {
     if (err) {
       console.error(err);
       res.status(500).send({
-        message: 'error al crear la vajilla'
+        message: 'error al crear el set'
       });
     } else if (!saved) {
       res.status(404).send({
-        message: 'no se creó la vajilla'
+        message: 'no se creó el set'
       });
     } else {
       return res.status(200).send(saved);
@@ -41,11 +41,11 @@ function list(req, res) {
     if (err) {
       console.error(err);
       res.status(500).send({
-        message: 'error al listar las vajillas'
+        message: 'error al listar los sets'
       });
     } else if (!response) {
       res.status(404).send({
-        message: 'no se encontraron vajillas'
+        message: 'no se encontraron sets'
       });
     } else {
       return res.status(200).send(response);
@@ -86,11 +86,11 @@ function listItems(req, res) {
     if (error) {
       console.error(err);
       res.status(500).send({
-        message: 'error al listar los items de la vajilla'
+        message: 'error al listar los items del set'
       });
     } else if (!result) {
       res.status(404).send({
-        message: 'no se encontraron items para la vajilla'
+        message: 'no se encontraron items para el set'
       });
     } else {
       return res.status(200).send(result);
@@ -105,11 +105,11 @@ function remove(req, res) {
     if (err) {
       console.error(err);
       res.status(500).send({
-        message: 'error al eliminar la vajilla'
+        message: 'error al eliminar el set'
       });
     } else if (!deleted) {
       res.status(404).send({
-        message: 'no se encontró la vajilla'
+        message: 'no se encontró el set'
       });
     } else {
       res.status(200).send({
@@ -122,14 +122,14 @@ function remove(req, res) {
 function edit(req, res) {
 var vajilla = req.body;
 
-  MenuItem.findByIdAndUpdate(req.params._id, vajilla, (err, updated) => {
+  Vajilla.findByIdAndUpdate(req.params._id, vajilla, (err, updated) => {
     if (err) {
       res.status(500).send({
-        message: 'error al actualizar la vajilla'
+        message: 'error al actualizar el set'
       });
     } else if (!updated) {
       res.status(404).send({
-        message: 'no se actualizó la vajilla'
+        message: 'no se actualizó el set'
       });
     } else {
       return res.status(200).send({
